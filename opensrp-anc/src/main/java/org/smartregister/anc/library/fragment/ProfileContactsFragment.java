@@ -2,9 +2,6 @@ package org.smartregister.anc.library.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +10,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import org.apache.commons.lang3.StringUtils;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import org.jeasy.rules.api.Facts;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
@@ -105,7 +104,7 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
                 clientDetails =
                         (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
             }
-            buttonAlertStatus = Utils.getButtonAlertStatus(clientDetails, getActivity().getApplicationContext(), true);
+            buttonAlertStatus = Utils.getButtonAlertStatus(clientDetails, getActivity(), true);
         }
     }
 

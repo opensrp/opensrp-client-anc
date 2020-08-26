@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.ExpansionPanelValuesModel;
+import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
@@ -91,13 +92,25 @@ public class ContactTaskDisplayClickListener implements View.OnClickListener {
         if (context != null && task != null && taskValue != null) {
             JSONArray taskValues = getExpansionPanelValues(taskValue, task.getKey());
             Map<String, ExpansionPanelValuesModel> secondaryValuesMap = getSecondaryValues(taskValues);
-            JSONArray subFormFields = ANCFormUtils.addExpansionPanelFormValues(loadSubFormFields(taskValue, context), secondaryValuesMap);
+            Map<String, JSONArray> jsonArrayMap = loadSubFormFields(taskValue, context);
+            JSONArray subFormFields = ANCFormUtils.addExpansionPanelFormValues(jsonArrayMap.entrySet().iterator().next().getValue(), secondaryValuesMap);
             String formTitle = getFormTitle(taskValue);
             JSONObject form = ANCFormUtils.loadTasksForm(context);
             updateFormTitle(form, formTitle);
+            addMlsPropertyFile(form, jsonArrayMap.entrySet().iterator().next().getKey());
             ANCFormUtils.updateFormFields(form, subFormFields);
 
             profileTasksFragment.startTaskForm(form, task);
+        }
+    }
+
+    private void addMlsPropertyFile(JSONObject form, String mlsPropertyFile) {
+        try {
+            if (form != null && StringUtils.isNotBlank(mlsPropertyFile)) {
+                form.put(JsonFormConstants.MLS.PROPERTIES_FILE_NAME, mlsPropertyFile);
+            }
+        } catch (JSONException e) {
+            Timber.e(e, " --> add mls property file");
         }
     }
 
@@ -174,22 +187,31 @@ public class ContactTaskDisplayClickListener implements View.OnClickListener {
      * @param context   {@link Context}
      * @return fields  {@link JSONArray}
      */
-    private JSONArray loadSubFormFields(JSONObject taskValue, Context context) {
+    private Map<String, JSONArray> loadSubFormFields(JSONObject taskValue, Context context) {
+        String mlsPropertyFile = "";
         JSONArray fields = new JSONArray();
+        Map<String, JSONArray> stringJSONArrayMap = new HashMap<>();
         try {
             if (taskValue != null && taskValue.has(JsonFormConstants.CONTENT_FORM)) {
                 String subFormName = taskValue.getString(JsonFormConstants.CONTENT_FORM);
-                JSONObject subForm = ANCFormUtils.getSubFormJson(subFormName, "", context);
+                JSONObject subForm = FormUtils.getSubFormJson(subFormName, "", context);
                 if (subForm.has(JsonFormConstants.CONTENT_FORM)) {
                     fields = subForm.getJSONArray(JsonFormConstants.CONTENT_FORM);
                 }
+
+                if (subForm.has(JsonFormConstants.MLS.PROPERTIES_FILE_NAME)) {
+                    mlsPropertyFile = subForm.getString(JsonFormConstants.MLS.PROPERTIES_FILE_NAME);
+                }
+
+                stringJSONArrayMap.put(mlsPropertyFile, fields);
             }
+
         } catch (JSONException e) {
             Timber.e(e, " --> loadSubFormFields");
         } catch (Exception e) {
             Timber.e(e, " --> loadSubFormFields");
         }
-        return fields;
+        return stringJSONArrayMap;
     }
 
     /**

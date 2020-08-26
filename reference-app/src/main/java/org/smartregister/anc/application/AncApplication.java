@@ -1,13 +1,14 @@
 package org.smartregister.anc.application;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
 import com.flurry.android.FlurryAgent;
+import com.vijay.jsonwizard.NativeFormLibrary;
 
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
@@ -63,11 +64,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.DEFAULT_LOCATION_LEVEL);
         Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
 
-        try {
-            Utils.saveLanguage("en");
-        } catch (Exception e) {
-            Timber.e(e, " --> saveLanguage");
-        }
+        setDefaultLanguage();
 
         //init Job Manager
         JobManager.create(this).addJobCreator(new AncJobCreator());
@@ -81,7 +78,17 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
                     .withLogLevel(Log.VERBOSE)
                     .build(this, BuildConfig.FLURRY_API_KEY);
         }
+        NativeFormLibrary
+                .getInstance()
+                .setClientFormDao(CoreLibrary.getInstance().context().getClientFormRepository());
+    }
 
+    private void setDefaultLanguage() {
+        try {
+            Utils.saveLanguage("en");
+        } catch (Exception e) {
+            Timber.e(e, " --> saveLanguage");
+        }
     }
 
     public static CommonFtsObject createCommonFtsObject() {
@@ -121,10 +128,6 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         }
     }
 
-    public static synchronized AncApplication getInstance() {
-        return (AncApplication) DrishtiApplication.mInstance;
-    }
-
     @Override
     public void logoutCurrentUser() {
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
@@ -154,6 +157,10 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         return repository;
     }
 
+    public static synchronized AncApplication getInstance() {
+        return (AncApplication) DrishtiApplication.mInstance;
+    }
+
     public String getPassword() {
         if (password == null) {
             String username = getContext().userService().getAllSharedPreferences().fetchRegisteredANM();
@@ -166,10 +173,6 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     @Override
     public ClientProcessorForJava getClientProcessor() {
         return BaseAncClientProcessorForJava.getInstance(this);
-    }
-
-    public Context getContext() {
-        return context;
     }
 
     @Override
@@ -189,6 +192,10 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         }
     }
 
+    public Context getContext() {
+        return context;
+    }
+
     @Override
     public void onTimeChanged() {
         Utils.showToast(this, this.getString(org.smartregister.anc.library.R.string.device_time_changed));
@@ -203,6 +210,4 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 
         logoutCurrentUser();
     }
-
-
 }

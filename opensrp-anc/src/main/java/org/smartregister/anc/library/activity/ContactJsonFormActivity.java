@@ -3,13 +3,14 @@ package org.smartregister.anc.library.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
+
+import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.vijay.jsonwizard.activities.JsonFormActivity;
+import com.vijay.jsonwizard.activities.FormConfigurationJsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
@@ -35,11 +36,11 @@ import timber.log.Timber;
  * Created by ndegwamartin on 30/06/2018.
  */
 
-public class ContactJsonFormActivity extends JsonFormActivity {
+public class ContactJsonFormActivity extends FormConfigurationJsonFormActivity {
     protected AncRulesEngineFactory rulesEngineFactory = null;
     private ProgressDialog progressDialog;
     private String formName;
-    private ANCFormUtils ANCFormUtils = new ANCFormUtils();
+    private ANCFormUtils ancFormUtils = new ANCFormUtils();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
         super.onCreate(savedInstanceState);
     }
 
+    @Override
     public void init(String json) {
         try {
             setmJSONObject(new JSONObject(json));
@@ -272,7 +274,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
         intent.putExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME, getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME));
         intent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, contactNo);
         Contact contact = getContact();
-        contact.setJsonForm(ANCFormUtils.addFormDetails(currentJsonState()));
+        contact.setJsonForm(ancFormUtils.addFormDetails(currentJsonState()));
         contact.setContactNumber(contactNo);
         ANCFormUtils.persistPartial(baseEntityId, getContact());
         this.startActivity(intent);

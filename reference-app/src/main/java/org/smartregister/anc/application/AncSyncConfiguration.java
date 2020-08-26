@@ -4,14 +4,18 @@ import org.smartregister.SyncConfiguration;
 import org.smartregister.SyncFilter;
 import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.repository.AllSharedPreferences;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by samuelgithengi on 10/19/18.
  */
 public class AncSyncConfiguration extends SyncConfiguration {
+    private static final String POPULATION_CHARACTERISTICS = "population_characteristics";
+
     @Override
     public int getSyncMaxRetries() {
         return BuildConfig.MAX_SYNC_RETRIES;
@@ -20,6 +24,29 @@ public class AncSyncConfiguration extends SyncConfiguration {
     @Override
     public SyncFilter getSyncFilterParam() {
         return SyncFilter.TEAM_ID;
+    }
+
+    @Override
+    public SyncFilter getSettingsSyncFilterParam() {
+        return super.getSettingsSyncFilterParam();
+    }
+
+    @Override
+    public boolean resolveSettings() {
+        return BuildConfig.RESOLVE_SETTINGS;
+    }
+
+    @Override
+    public boolean hasExtraSettingsSync() {
+        return BuildConfig.HAS_EXTRA_SETTINGS_SYNC_FILTER;
+    }
+
+    @Override
+    public String getExtraSettingsParameters() {
+        AllSharedPreferences sharedPreferences = AncLibrary.getInstance().getContext().userService().getAllSharedPreferences();
+        String providerId = sharedPreferences.fetchRegisteredANM();
+
+        return ConstantsUtils.SettingsSyncParamsUtils.LOCATION_ID + "=" + sharedPreferences.fetchDefaultLocalityId(providerId) + "&" + ConstantsUtils.SettingsSyncParamsUtils.IDENTIFIER + "=" + POPULATION_CHARACTERISTICS;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package org.smartregister.anc.library.model;
 
-import android.support.v4.util.Pair;
+import androidx.core.util.Pair;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.json.JSONArray;
@@ -672,7 +672,6 @@ public class RegisterModelTest extends BaseUnitTest {
     public void testFormAsJson() throws Exception {
         FormUtils formUtils = Mockito.mock(FormUtils.class);
         RegisterModel registerModel = (RegisterModel) model;
-        registerModel.setFormUtils(formUtils);
 
         String formName = "anc_register";
         String entityId = "ENTITY_ID";

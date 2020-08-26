@@ -3,11 +3,13 @@ package org.smartregister.anc.library.fragment;
 import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
+
+import androidx.fragment.app.Fragment;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.library.AncLibrary;
@@ -29,6 +31,8 @@ import org.smartregister.cursoradapter.RecyclerViewFragment;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.domain.FetchStatus;
+import org.smartregister.job.DocumentConfigurationServiceJob;
+import org.smartregister.job.SyncSettingsServiceJob;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
@@ -65,7 +69,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
     public void setUniqueID(String qrCode) {
         BaseRegisterActivity baseRegisterActivity = (BaseRegisterActivity) getActivity();
         if (baseRegisterActivity != null) {
-            android.support.v4.app.Fragment currentFragment =
+            Fragment currentFragment =
                     baseRegisterActivity.findFragmentByPosition(BaseRegisterActivity.ADVANCED_SEARCH_POSITION);
             if (currentFragment instanceof AdvancedSearchFragment) {
                 ((AdvancedSearchFragment) currentFragment).getAncId().setText(qrCode);
@@ -78,7 +82,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
     public void setAdvancedSearchFormData(HashMap<String, String> formData) {
         BaseRegisterActivity baseRegisterActivity = (BaseRegisterActivity) getActivity();
         if (baseRegisterActivity != null) {
-            android.support.v4.app.Fragment currentFragment =
+            Fragment currentFragment =
                     baseRegisterActivity.findFragmentByPosition(BaseRegisterActivity.ADVANCED_SEARCH_POSITION);
             ((AdvancedSearchFragment) currentFragment).setSearchFormData(formData);
         }
@@ -108,6 +112,18 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
         View attentionFlag = view.findViewById(R.id.risk);
         if (attentionFlag != null) {
             attentionFlag.setOnClickListener(registerActionHandler);
+        }
+    }
+
+    @Override
+    protected void attachSyncButton(View view) {
+        //Sync
+        syncButton = view.findViewById(R.id.sync_refresh);
+        if (syncButton != null) {
+            syncButton.setOnClickListener(view1 -> {
+                SyncSettingsServiceJob.scheduleJobImmediately(SyncSettingsServiceJob.TAG);
+                DocumentConfigurationServiceJob.scheduleJobImmediately(DocumentConfigurationServiceJob.TAG);
+            });
         }
     }
 

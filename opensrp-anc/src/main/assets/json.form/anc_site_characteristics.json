@@ -53,17 +53,17 @@
     }
   },
   "step1": {
-    "title": "Site Characteristics",
+    "title": "{{anc_site_characteristics.step1.title}}",
     "fields": [
       {
         "key": "label_site_ipv_assess",
         "type": "label",
-        "text": "1. Are all of the following in place at your facility:",
+        "text": "{{anc_site_characteristics.step1.label_site_ipv_assess.text}}",
         "text_size": "22px",
         "text_color": "black",
         "v_required": {
           "value": true,
-          "err": "Please select where stock was issued"
+          "err": "{{anc_site_characteristics.step1.label_site_ipv_assess.v_required.err}}"
         }
       },
       {
@@ -72,22 +72,22 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
-        "label": "a. A protocol or standard operating procedure for Intimate Partner Violence (IPV)<br><br>b. A health worker trained on how to ask about IPV and how to provide the minimum response or beyond <br><br>c. A private setting<br> <br>d. A way to ensure confidentiality<br><br>e. Time to allow for appropriate disclosure<br> <br>f. A system for referral in place.",
+        "label": "{{anc_site_characteristics.step1.site_ipv_assess.label}}",
         "type": "native_radio",
         "options": [
           {
             "key": "1",
-            "text": "Yes"
+            "text": "{{anc_site_characteristics.step1.site_ipv_assess.options.1.text}}"
           },
           {
             "key": "0",
-            "text": "No"
+            "text": "{{anc_site_characteristics.step1.site_ipv_assess.options.0.text}}"
           }
         ],
         "value": "",
         "v_required": {
           "value": "false",
-          "err": "Please select where stock was issued"
+          "err": "{{anc_site_characteristics.step1.site_ipv_assess.v_required.err}}"
         }
       },
       {
@@ -96,22 +96,22 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
-        "label": "2. Is the HIV prevalence consistently greater than 1% in pregnant women attending antenatal clinics at your facility?",
+        "label": "{{anc_site_characteristics.step1.site_anc_hiv.label}}",
         "type": "native_radio",
         "options": [
           {
             "key": "1",
-            "text": "Yes"
+            "text": "{{anc_site_characteristics.step1.site_anc_hiv.options.1.text}}"
           },
           {
             "key": "0",
-            "text": "No"
+            "text": "{{anc_site_characteristics.step1.site_anc_hiv.options.0.text}}"
           }
         ],
         "value": "",
         "v_required": {
           "value": "true",
-          "err": "Please select where stock was issued"
+          "err": "{{anc_site_characteristics.step1.site_anc_hiv.v_required.err}}"
         }
       },
       {
@@ -121,21 +121,21 @@
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
         "type": "native_radio",
-        "label": "3. Is an ultrasound machine available and functional at your facility and a trained health worker available to use it?",
+        "label": "{{anc_site_characteristics.step1.site_ultrasound.label}}",
         "options": [
           {
             "key": "1",
-            "text": "Yes"
+            "text": "{{anc_site_characteristics.step1.site_ultrasound.options.1.text}}"
           },
           {
             "key": "0",
-            "text": "No"
+            "text": "{{anc_site_characteristics.step1.site_ultrasound.options.0.text}}"
           }
         ],
         "value": "",
         "v_required": {
           "value": "true",
-          "err": "Please select where stock was issued"
+          "err": "{{anc_site_characteristics.step1.site_ultrasound.v_required.err}}"
         }
       },
       {
@@ -145,23 +145,24 @@
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
         "type": "native_radio",
-        "label": "4. Does your facility use an automated blood pressure (BP) measurement tool?",
+        "label": "{{anc_site_characteristics.step1.site_bp_tool.label}}",
         "options": [
           {
             "key": "1",
-            "text": "Yes"
+            "text": "{{anc_site_characteristics.step1.site_bp_tool.options.1.text}}"
           },
           {
             "key": "0",
-            "text": "No"
+            "text": "{{anc_site_characteristics.step1.site_bp_tool.options.0.text}}"
           }
         ],
         "value": "",
         "v_required": {
           "value": "true",
-          "err": "Please select where stock was issued"
+          "err": "{{anc_site_characteristics.step1.site_bp_tool.v_required.err}}"
         }
       }
     ]
-  }
+  },
+  "properties_file_name": "anc_site_characteristics"
 }

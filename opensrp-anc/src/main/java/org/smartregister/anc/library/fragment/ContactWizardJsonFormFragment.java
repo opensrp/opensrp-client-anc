@@ -3,8 +3,6 @@ package org.smartregister.anc.library.fragment;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,7 +19,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.vijay.jsonwizard.activities.JsonFormActivity;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import com.vijay.jsonwizard.activities.FormConfigurationJsonFormActivity;
 import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 
@@ -29,6 +29,7 @@ import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.ContactJsonFormActivity;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.presenter.ContactWizardJsonFormFragmentPresenter;
+import org.smartregister.anc.library.task.ANCNextProgressDialogTask;
 import org.smartregister.anc.library.util.ANCFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
@@ -87,7 +88,7 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
     private void quickCheckClose() {
         AlertDialog dialog = new AlertDialog.Builder(getContext(), R.style.AppThemeAlertDialog)
                 .setTitle(getJsonApi().getConfirmCloseTitle()).setMessage(getJsonApi().getConfirmCloseMessage())
-                .setNegativeButton(R.string.yes, (dialog1, which) -> ((ContactJsonFormActivity) getActivity()).finishInitialQuickCheck()).setPositiveButton(R.string.no, (dialog12, which) -> Timber.d("No button on dialog in %s", JsonFormActivity.class.getCanonicalName())).create();
+                .setNegativeButton(R.string.yes, (dialog1, which) -> ((ContactJsonFormActivity) getActivity()).finishInitialQuickCheck()).setPositiveButton(R.string.no, (dialog12, which) -> Timber.d("No button on dialog in %s", FormConfigurationJsonFormActivity.class.getCanonicalName())).create();
 
         dialog.show();
     }
@@ -211,6 +212,15 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
 
     }
 
+    @Override
+    public ContactWizardJsonFormFragment getJsonFormFragment() {
+        return formFragment;
+    }
+
+    public void setJsonFormFragment(ContactWizardJsonFormFragment formFragment) {
+        this.formFragment = formFragment;
+    }
+
     private void displayReferralDialog() {
         if (getActivity() != null) {
             LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -329,15 +339,6 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
             proceedButton.setVisibility(View.GONE);
             referButton.setVisibility(View.GONE);
         }
-    }
-
-    public void setJsonFormFragment(ContactWizardJsonFormFragment formFragment) {
-        this.formFragment = formFragment;
-    }
-
-    @Override
-    public ContactWizardJsonFormFragment getJsonFormFragment() {
-        return formFragment;
     }
 
     private class BottomNavigationListener implements View.OnClickListener {

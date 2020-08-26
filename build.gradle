@@ -11,7 +11,7 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.3'
-        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.2'
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.3'
         classpath 'com.palantir:jacoco-coverage:0.4.0'
         classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.11.0"
         classpath 'com.google.gms:google-services:4.3.3'
@@ -51,6 +51,7 @@ allprojects {
         maven { url "https://repo.maven.apache.org/maven2" }
         maven { url "https://cloudant.github.io/cloudant-sync-eap/repository" }
         maven { url "https://s3.amazonaws.com/repo.commonsware.com" }
+        maven { url "https://dl.bintray.com/ibm-watson-health/ibm-fhir-server-releases"}
         google()
         jcenter()
     }
@@ -63,7 +64,7 @@ subprojects {
 
     ext.androidToolsBuildGradle = '29.0.2'
     ext.androidBuildToolsVersion = '29.0.2'
-    ext.androidMinSdkVersion = 18
+    ext.androidMinSdkVersion = 26
     ext.androidCompileSdkVersion = 29
     ext.androidTargetSdkVersion = 29
     ext.androidAnnotationsVersion = '3.0.1'

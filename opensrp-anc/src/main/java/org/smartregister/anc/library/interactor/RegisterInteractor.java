@@ -1,8 +1,9 @@
 package org.smartregister.anc.library.interactor;
 
 import android.content.ContentValues;
-import android.support.annotation.VisibleForTesting;
-import android.support.v4.util.Pair;
+
+import androidx.annotation.VisibleForTesting;
+import androidx.core.util.Pair;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;

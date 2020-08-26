@@ -1,6 +1,7 @@
 package org.smartregister.anc.presenter;
 
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.view.ViewTreeObserver;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -43,6 +44,7 @@ public class LoginPresenterTest extends BaseUnitTest {
 
     @Mock
     private BaseLoginContract.Model model;
+
     private BaseLoginContract.Presenter presenter;
 
     @Before
@@ -68,7 +70,6 @@ public class LoginPresenterTest extends BaseUnitTest {
 
     @Test
     public void testOnDestroyShouldCallInteractorOnDestroyWithCorrectParameter() {
-
         LoginPresenter presenter = new LoginPresenter(view);
         presenter.setLoginInteractor(interactor);//set mocked interactor
 
@@ -81,14 +82,16 @@ public class LoginPresenterTest extends BaseUnitTest {
 
     @Test
     public void testAttemptLoginShouldValidateCredentialsCorrectly() {
-
         LoginPresenter presenter = new LoginPresenter(view);
         presenter.setLoginModel(model);//set mocked model
         presenter.setLoginInteractor(interactor); //set mocked interactor
 
+        Mockito.doReturn(true).when(view).isAppVersionAllowed();
+
         Mockito.doReturn(false).when(model).isEmptyUsername(ArgumentMatchers.anyString());
         Mockito.doReturn(true).when(model).isPasswordValid(ArgumentMatchers.anyString());
         presenter.attemptLogin(DUMMY_USERNAME, DUMMY_PASSWORD);
+
         Mockito.verify(view).resetPaswordError();
         Mockito.verify(view).resetUsernameError();
         Mockito.verify(model).isEmptyUsername(DUMMY_USERNAME);
@@ -100,10 +103,11 @@ public class LoginPresenterTest extends BaseUnitTest {
 
     @Test
     public void testAttemptLoginShouldCallLoginMethodWithCorrectParametersWhenValidationPasses() {
-
         LoginPresenter presenter = new LoginPresenter(view);
         presenter.setLoginModel(model);//set mocked model
         presenter.setLoginInteractor(interactor); //set mocked interactor
+
+        Mockito.doReturn(true).when(view).isAppVersionAllowed();
 
         Mockito.doReturn(false).when(model).isEmptyUsername(ArgumentMatchers.anyString());
         Mockito.doReturn(true).when(model).isPasswordValid(ArgumentMatchers.anyString());
@@ -114,10 +118,12 @@ public class LoginPresenterTest extends BaseUnitTest {
     }
 
     @Test
-    public void testAttemptLoginShouldNotCallLoginMethodWithCorrectParametersWhenValidationFails() {
+    public void testAttemptLoginShouldNotCallLoginMethodWithCorrectParametersWhenValidationFails() throws PackageManager.NameNotFoundException {
         LoginPresenter presenter = new LoginPresenter(view);
         presenter.setLoginModel(new BaseLoginModel());//create real model
         presenter.setLoginInteractor(interactor); //set mocked interactor
+
+        Mockito.doReturn(true).when(view).isAppVersionAllowed();
 
         presenter.attemptLogin(null, DUMMY_PASSWORD);
         String NULL_USERNAME = null;
@@ -131,15 +137,14 @@ public class LoginPresenterTest extends BaseUnitTest {
 
     @Test
     public void testAttemptLoginShouldNotCallLoginMethodWhenValidationFails() {
-
         LoginPresenter presenter = new LoginPresenter(view);
         presenter.setLoginModel(model);//set mocked model
         presenter.setLoginInteractor(interactor); //set mocked interactor
-
         Mockito.doReturn(false).when(model).isPasswordValid(ArgumentMatchers.anyString());
 
-        presenter.attemptLogin(DUMMY_USERNAME, DUMMY_PASSWORD);
+        Mockito.doReturn(true).when(view).isAppVersionAllowed();
 
+        presenter.attemptLogin(DUMMY_USERNAME, DUMMY_PASSWORD);
         Mockito.verify(interactor, Mockito.times(0)).login(ArgumentMatchers.any(WeakReference.class), ArgumentMatchers.eq(DUMMY_USERNAME),
                 ArgumentMatchers.eq(DUMMY_PASSWORD));
 

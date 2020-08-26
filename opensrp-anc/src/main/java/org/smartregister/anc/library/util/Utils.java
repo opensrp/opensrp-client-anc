@@ -4,20 +4,18 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.os.Build;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
-import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
@@ -37,11 +35,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
+import org.smartregister.CoreLibrary;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.anc.library.activity.ContactJsonFormActivity;
 import org.smartregister.anc.library.activity.ContactSummaryFinishActivity;
+import org.smartregister.anc.library.activity.ProfileActivity;
+import org.smartregister.anc.library.constants.AncAppPropertyConstants;
 import org.smartregister.anc.library.domain.ButtonAlertStatus;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.event.BaseEvent;
@@ -68,7 +69,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import timber.log.Timber;
@@ -96,24 +96,6 @@ public class Utils extends org.smartregister.util.Utils {
 
     public static void saveLanguage(String language) {
         Utils.getAllSharedPreferences().saveLanguagePreference(language);
-        setLocale(new Locale(language));
-    }
-
-    public static void setLocale(Locale locale) {
-        Resources resources = AncLibrary.getInstance().getApplicationContext().getResources();
-        Configuration configuration = resources.getConfiguration();
-        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            configuration.setLocale(locale);
-            AncLibrary.getInstance().getApplicationContext().createConfigurationContext(configuration);
-        } else {
-            configuration.locale = locale;
-            resources.updateConfiguration(configuration, displayMetrics);
-        }
-    }
-
-    public static String getLanguage() {
-        return Utils.getAllSharedPreferences().fetchLanguagePreference();
     }
 
     public static void postEvent(BaseEvent event) {
@@ -242,6 +224,7 @@ public class Utils extends org.smartregister.util.Utils {
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, personObjectClient);
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME, partialContactRequest.getType());
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, partialContactRequest.getContactNo());
+                intent.putExtra(JsonFormConstants.PERFORM_FORM_TRANSLATION, true);
                 Activity activity = (Activity) context;
                 activity.startActivityForResult(intent, ANCJsonFormUtils.REQUEST_CODE_GET_JSON);
             } else {
@@ -251,6 +234,7 @@ public class Utils extends org.smartregister.util.Utils {
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME, partialContactRequest.getType());
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO,
                         Integer.valueOf(personObjectClient.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
+                intent.putExtra(JsonFormConstants.PERFORM_FORM_TRANSLATION, true);
                 context.startActivity(intent);
             }
 
@@ -424,7 +408,7 @@ public class Utils extends org.smartregister.util.Utils {
 
         //Set text first
         String nextContactRaw = details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT);
-        Integer nextContact = StringUtils.isNotBlank(nextContactRaw) ? Integer.valueOf(nextContactRaw) : 1;
+        Integer nextContact = StringUtils.isNotBlank(nextContactRaw) ? Integer.parseInt(nextContactRaw) : 1;
 
         nextContactDate =
                 StringUtils.isNotBlank(nextContactDate) ? Utils.reverseHyphenSeperatedValues(nextContactDate, "/") : null;
@@ -655,6 +639,10 @@ public class Utils extends org.smartregister.util.Utils {
         return false;
     }
 
+    public static Boolean enableLanguageSwitching() {
+        return AncLibrary.getInstance().getProperties().getPropertyBoolean(AncAppPropertyConstants.KeyUtils.LANGUAGE_SWITCHING_ENABLED);
+    }
+
     /**
      * Loads yaml files that contain rules for the profile displays
      *
@@ -869,5 +857,14 @@ public class Utils extends org.smartregister.util.Utils {
             event.addDetails(ConstantsUtils.DetailsKeyUtils.PREVIOUS_CONTACTS, currentContactState);
         }
         return event;
+    }
+
+    @Nullable
+    public String getManifestVersion(Context context) {
+        if (StringUtils.isNotBlank(CoreLibrary.getInstance().context().allSharedPreferences().fetchManifestVersion())) {
+            return context.getString(R.string.form_manifest_version, CoreLibrary.getInstance().context().allSharedPreferences().fetchManifestVersion());
+        } else {
+            return null;
+        }
     }
 }

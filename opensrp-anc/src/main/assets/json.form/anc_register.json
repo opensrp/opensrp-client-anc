@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "ANC Registration",
+    "title": "{{anc_register.step1.title}}",
     "fields": [
       {
         "key": "wom_image",
@@ -69,16 +69,16 @@
         "openmrs_entity_id": "ANC_ID",
         "type": "barcode",
         "barcode_type": "qrcode",
-        "hint": "ANC ID",
+        "hint": "{{anc_register.step1.anc_id.hint}}",
         "value": "0",
         "scanButtonText": "Scan QR Code",
         "v_numeric": {
           "value": "true",
-          "err": "Please enter a valid ANC ID"
+          "err": "{{anc_register.step1.anc_id.v_numeric.err}}"
         },
         "v_required": {
           "value": "true",
-          "err": "Please enter the Woman's ANC ID"
+          "err": "{{anc_register.step1.anc_id.v_required.err}}"
         }
       },
       {
@@ -87,15 +87,15 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "first_name",
         "type": "edit_text",
-        "hint": "First name",
+        "hint": "{{anc_register.step1.first_name.hint}}",
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Please enter the first name"
+          "err": "{{anc_register.step1.first_name.v_required.err}}"
         },
         "v_regex": {
           "value": "[A-Za-z\\s\\.\\-]*",
-          "err": "Please enter a valid name"
+          "err": "{{anc_register.step1.first_name.v_regex.err}}"
         }
       },
       {
@@ -104,15 +104,15 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "last_name",
         "type": "edit_text",
-        "hint": "Last name",
+        "hint": "{{anc_register.step1.last_name.hint}}",
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Please enter the last name"
+          "err": "{{anc_register.step1.last_name.v_required.err}}"
         },
         "v_regex": {
           "value": "[A-Za-z\\s\\.\\-]*",
-          "err": "Please enter a valid name"
+          "err": "{{anc_register.step1.last_name.v_regex.err}}"
         }
       },
       {
@@ -159,16 +159,16 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "date_picker",
-        "hint": "Date of birth (DOB)",
+        "hint": "{{anc_register.step1.dob_entered.hint}}",
         "expanded": false,
         "duration": {
-          "label": "Age"
+          "label": "{{anc_register.step1.dob_entered.duration.label}}"
         },
         "min_date": "today-49y",
         "max_date": "today-10y",
         "v_required": {
           "value": "true",
-          "err": "Please enter the date of birth"
+          "err": "{{anc_register.step1.dob_entered.v_required.err}}"
         },
         "relevance": {
           "step1:dob_unknown": {
@@ -191,7 +191,7 @@
         "options": [
           {
             "key": "dob_unknown",
-            "text": "DOB unknown?",
+            "text": "{{anc_register.step1.dob_unknown.options.dob_unknown.text}}",
             "text_size": "18px",
             "value": "false",
             "openmrs_entity_parent": "",
@@ -236,10 +236,10 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "age",
         "type": "edit_text",
-        "hint": "Age",
+        "hint": "{{anc_register.step1.age_entered.hint}}",
         "v_numeric": {
           "value": "true",
-          "err": "Age must be a number"
+          "err": "{{anc_register.step1.age_entered.v_numeric.err}}"
         },
         "v_min": {
           "value": "10",
@@ -262,7 +262,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please enter the woman's age"
+          "err": "{{anc_register.step1.age_entered.v_required.err}}"
         }
       },
       {
@@ -271,11 +271,11 @@
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "address2",
         "type": "edit_text",
-        "hint": "Home address",
+        "hint": "{{anc_register.step1.home_address.hint}}",
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Please enter the woman's home address"
+          "err": "{{anc_register.step1.home_address.v_required.err}}"
         }
       },
       {
@@ -284,14 +284,14 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "hint": "Mobile phone number",
+        "hint": "{{anc_register.step1.phone_number.hint}}",
         "v_numeric": {
           "value": "true",
-          "err": "Phone number must be numeric"
+          "err": "{{anc_register.step1.phone_number.v_numeric.err}}"
         },
         "v_required": {
           "value": "true",
-          "err": "Please specify the woman's phone number"
+          "err": "{{anc_register.step1.phone_number.v_required.err}}"
         }
       },
       {
@@ -300,27 +300,27 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163164AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
-        "label": "Woman wants to receive reminders during pregnancy",
-        "label_info_text": "Does she want to receive reminders for care and messages regarding her health throughout her pregnancy?",
+        "label": "{{anc_register.step1.reminders.label}}",
+        "label_info_text": "{{anc_register.step1.reminders.label_info_text}}",
         "label_text_style": "normal",
         "text_color": "#000000",
         "options": [
           {
             "key": "yes",
-            "text": "Yes",
+            "text": "{{anc_register.step1.reminders.options.yes.text}}",
             "openmrs_entity": "",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "no",
-            "text": "No",
+            "text": "{{anc_register.step1.reminders.options.no.text}}",
             "openmrs_entity": "",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
         "v_required": {
           "value": true,
-          "err": "Please select whether the woman has agreed to receiving reminder notifications"
+          "err": "{{anc_register.step1.reminders.v_required.err}}"
         }
       },
       {
@@ -329,13 +329,13 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163258AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "hint": "Alternate contact name",
+        "hint": "{{anc_register.step1.alt_name.hint}}",
         "edit_type": "name",
         "look_up": "true",
         "entity_id": "",
         "v_regex": {
           "value": "[A-Za-z\\s\\.\\-]*",
-          "err": "Please enter a valid VHT name"
+          "err": "{{anc_register.step1.alt_name.v_regex.err}}"
         }
       },
       {
@@ -344,10 +344,10 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "hint": "Alternate contact phone number",
+        "hint": "{{anc_register.step1.alt_phone_number.hint}}",
         "v_numeric": {
           "value": "true",
-          "err": "Phone number must be numeric"
+          "err": "{{anc_register.step1.alt_phone_number.v_numeric.err}}"
         }
       },
       {
@@ -415,5 +415,6 @@
         "value": ""
       }
     ]
-  }
+  },
+  "properties_file_name": "anc_register"
 }

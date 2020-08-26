@@ -1,12 +1,13 @@
 package org.smartregister.anc.library.fragment;
 
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.jeasy.rules.api.Facts;
 import org.smartregister.anc.library.AncLibrary;
@@ -63,7 +64,7 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
             HashMap<String, String> clientDetails =
                     (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
             if (clientDetails != null) {
-                buttonAlertStatus = Utils.getButtonAlertStatus(clientDetails, getActivity().getApplicationContext(), true);
+                buttonAlertStatus = Utils.getButtonAlertStatus(clientDetails, getActivity(), true);
                 contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
             }
             yamlConfigListGlobal = new ArrayList<>();

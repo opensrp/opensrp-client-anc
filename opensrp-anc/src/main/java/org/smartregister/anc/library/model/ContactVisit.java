@@ -18,9 +18,9 @@ import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.repository.PartialContactRepository;
 import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.repository.PreviousContactRepository;
+import org.smartregister.anc.library.util.ANCFormUtils;
 import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
-import org.smartregister.anc.library.util.ANCFormUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.FilePathUtils;
 import org.smartregister.clientandeventmodel.Event;
@@ -55,7 +55,7 @@ public class ContactVisit {
                     ConstantsUtils.JsonFormUtils.ANC_SYMPTOMS_FOLLOW_UP, ConstantsUtils.JsonFormUtils.ANC_PHYSICAL_EXAM,
                     ConstantsUtils.JsonFormUtils.ANC_TEST, ConstantsUtils.JsonFormUtils.ANC_COUNSELLING_TREATMENT);
     private Map<String, Long> currentClientTasks = new HashMap<>();
-    private ANCFormUtils ANCFormUtils = new ANCFormUtils();
+    private ANCFormUtils ancFormUtils = new ANCFormUtils();
 
     public ContactVisit(Map<String, String> details, String referral, String baseEntityId, int nextContact,
                         String nextContactVisitDate, PartialContactRepository partialContactRepository,
@@ -226,7 +226,7 @@ public class ContactVisit {
                                 !isCheckboxValueEmpty(fieldObject)) {
 
                             fieldObject.put(PreviousContactRepository.CONTACT_NO, contactNo);
-                            ANCFormUtils.savePreviousContactItem(baseEntityId, fieldObject);
+                            ancFormUtils.savePreviousContactItem(baseEntityId, fieldObject);
                         }
 
                         if (fieldObject.has(ConstantsUtils.KeyUtils.SECONDARY_VALUES) &&
@@ -235,7 +235,7 @@ public class ContactVisit {
                             for (int count = 0; count < secondaryValues.length(); count++) {
                                 JSONObject secondaryValuesJSONObject = secondaryValues.getJSONObject(count);
                                 secondaryValuesJSONObject.put(PreviousContactRepository.CONTACT_NO, contactNo);
-                                ANCFormUtils.savePreviousContactItem(baseEntityId, secondaryValuesJSONObject);
+                                ancFormUtils.savePreviousContactItem(baseEntityId, secondaryValuesJSONObject);
                             }
                         }
                     }
@@ -260,6 +260,44 @@ public class ContactVisit {
         } catch (JSONException e) {
             Timber.e(e, " --> processTasks");
         }
+    }
+
+    /***
+     * Method that persist previous invisible required fields
+     * @param baseEntityId unique Id for the woman
+     * @param contactNo the contact number
+     * @param object main form json object
+     * @throws JSONException exception thrown
+     */
+    private void persistRequiredInvisibleFields(String baseEntityId, String contactNo, JSONObject object) throws JSONException {
+        if (object.has(JsonFormConstants.INVISIBLE_REQUIRED_FIELDS)) {
+            String key = JsonFormConstants.INVISIBLE_REQUIRED_FIELDS + "_" + object.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE).toLowerCase().replace(" ", "_");
+            ancFormUtils.savePreviousContactItem(baseEntityId, new JSONObject().put(JsonFormConstants.KEY, key)
+                    .put(JsonFormConstants.VALUE, object.getString(JsonFormConstants.INVISIBLE_REQUIRED_FIELDS))
+                    .put(PreviousContactRepository.CONTACT_NO, contactNo));
+        }
+    }
+
+    private void saveExpansionPanelPreviousValues(String baseEntityId, JSONObject fieldObject, String contactNo) throws JSONException {
+        if (fieldObject != null) {
+            JSONArray value = fieldObject.optJSONArray(JsonFormConstants.VALUE);
+            if (value == null) {
+                return;
+            }
+            for (int j = 0; j < value.length(); j++) {
+                JSONObject valueItem = value.getJSONObject(j);
+                ancFormUtils.saveExpansionPanelValues(baseEntityId, contactNo, valueItem);
+            }
+        }
+    }
+
+    private boolean isCheckboxValueEmpty(JSONObject fieldObject) throws JSONException {
+        if (!fieldObject.has(JsonFormConstants.VALUE)) {
+            return true;
+        }
+        String currentValue = fieldObject.getString(JsonFormConstants.VALUE);
+        return TextUtils.equals(currentValue, "[]") || (currentValue.length() == 2
+                && currentValue.startsWith("[") && currentValue.endsWith("]"));
     }
 
     private void saveOrDeleteTasks(@NotNull JSONArray stepFields) throws JSONException {
@@ -288,44 +326,6 @@ public class ContactVisit {
                 }
             }
         }
-    }
-
-    /***
-     * Method that persist previous invisible required fields
-     * @param baseEntityId unique Id for the woman
-     * @param contactNo the contact number
-     * @param object main form json object
-     * @throws JSONException exception thrown
-     */
-    private void persistRequiredInvisibleFields(String baseEntityId, String contactNo, JSONObject object) throws JSONException {
-        if (object.has(JsonFormConstants.INVISIBLE_REQUIRED_FIELDS)) {
-            String key = JsonFormConstants.INVISIBLE_REQUIRED_FIELDS + "_" + object.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE).toLowerCase().replace(" ", "_");
-            ANCFormUtils.savePreviousContactItem(baseEntityId, new JSONObject().put(JsonFormConstants.KEY, key)
-                    .put(JsonFormConstants.VALUE, object.getString(JsonFormConstants.INVISIBLE_REQUIRED_FIELDS))
-                    .put(PreviousContactRepository.CONTACT_NO, contactNo));
-        }
-    }
-
-    private void saveExpansionPanelPreviousValues(String baseEntityId, JSONObject fieldObject, String contactNo) throws JSONException {
-        if (fieldObject != null) {
-            JSONArray value = fieldObject.optJSONArray(JsonFormConstants.VALUE);
-            if (value == null) {
-                return;
-            }
-            for (int j = 0; j < value.length(); j++) {
-                JSONObject valueItem = value.getJSONObject(j);
-                ANCFormUtils.saveExpansionPanelValues(baseEntityId, contactNo, valueItem);
-            }
-        }
-    }
-
-    private boolean isCheckboxValueEmpty(JSONObject fieldObject) throws JSONException {
-        if (!fieldObject.has(JsonFormConstants.VALUE)) {
-            return true;
-        }
-        String currentValue = fieldObject.getString(JsonFormConstants.VALUE);
-        return TextUtils.equals(currentValue, "[]") || (currentValue.length() == 2
-                && currentValue.startsWith("[") && currentValue.endsWith("]"));
     }
 
     public Map<String, Long> getCurrentClientTasks() {

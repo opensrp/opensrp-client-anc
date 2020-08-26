@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +11,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
@@ -27,8 +28,8 @@ import org.smartregister.anc.library.contract.ContactContract;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.model.PartialContact;
 import org.smartregister.anc.library.model.Task;
-import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ANCJsonFormUtils;
+import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.view.activity.SecuredActivity;
 
@@ -38,6 +39,8 @@ import java.util.List;
 import java.util.Map;
 
 import timber.log.Timber;
+
+//import androidx.recyclerview.widget.GridLayoutManager;
 
 public abstract class BaseContactActivity extends SecuredActivity {
     protected ContactAdapter contactAdapter;
@@ -100,6 +103,7 @@ public abstract class BaseContactActivity extends SecuredActivity {
             intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP));
             intent.putExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME, contact.getFormName());
             intent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, contactNo);
+            intent.putExtra(JsonFormConstants.PERFORM_FORM_TRANSLATION, true);
             startActivityForResult(intent, ANCJsonFormUtils.REQUEST_CODE_GET_JSON);
         } catch (JSONException e) {
             Timber.e(e, " --> formStartActions");

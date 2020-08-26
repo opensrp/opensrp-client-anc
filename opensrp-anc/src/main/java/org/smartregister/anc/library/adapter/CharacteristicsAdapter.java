@@ -1,11 +1,12 @@
 package org.smartregister.anc.library.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.smartregister.anc.library.R;
 import org.smartregister.domain.ServerSetting;
@@ -34,8 +35,8 @@ public class CharacteristicsAdapter extends RecyclerView.Adapter<Characteristics
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        ServerSetting characteristic = mData.get(position);
-        holder.labelTextView.setText(characteristic.getLabel());
+        ServerSetting characteristic = mData.get(position);String label = characteristic.getLabel() != null ? characteristic.getLabel() : "";
+        holder.labelTextView.setText(label);
         holder.valueTextView.setText(characteristic.getValue() ? "Yes" : "No");
         holder.info.setTag(characteristic.getKey());
         holder.info.setTag(R.id.CHARACTERISTIC_DESC, characteristic.getDescription());

@@ -17,8 +17,8 @@ import org.robolectric.RuntimeEnvironment;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.repository.ContactTasksRepository;
 import org.smartregister.anc.library.util.ConstantsUtils;
-import org.smartregister.domain.db.Client;
-import org.smartregister.domain.db.Event;
+import org.smartregister.domain.Client;
+import org.smartregister.domain.Event;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.repository.DetailsRepository;
 

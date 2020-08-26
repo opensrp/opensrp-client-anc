@@ -1,16 +1,17 @@
 package org.smartregister.anc.library.activity;
 
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.jeasy.rules.api.Facts;
 import org.json.JSONException;
@@ -41,6 +42,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+//import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class PreviousContactsDetailsActivity extends AppCompatActivity implements PreviousContactsDetails.View {
     private static final String TAG = PreviousContactsDetailsActivity.class.getCanonicalName();
