@@ -12,7 +12,6 @@ import org.json.JSONObject;
 import java.util.Map;
 
 public class AncRulesEngineFactory extends RulesEngineFactory {
-    private Map<String, String> globalValues;
     private AncRulesEngineHelper ancRulesEngineHelper;
     private String selectedRuleName;
     private Facts globalFacts;
@@ -22,8 +21,6 @@ public class AncRulesEngineFactory extends RulesEngineFactory {
         super(context, globalValues);
         this.ancRulesEngineHelper = new AncRulesEngineHelper(context);
         this.ancRulesEngineHelper.setJsonObject(mJSONObject);
-        this.globalValues = globalValues;
-
 
         if (globalValues != null) {
             globalFacts = new Facts();

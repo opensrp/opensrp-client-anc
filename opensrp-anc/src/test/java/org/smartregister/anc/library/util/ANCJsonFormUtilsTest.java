@@ -1,6 +1,7 @@
 package org.smartregister.anc.library.util;
 
 import android.graphics.Bitmap;
+import android.support.v4.util.Pair;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
@@ -545,14 +546,13 @@ public class ANCJsonFormUtilsTest {
         Mockito.when(allSharedPreferences.fetchDefaultTeam(providerId)).thenReturn("bukesa");
         Mockito.when(allSharedPreferences.fetchDefaultTeamId(providerId)).thenReturn("39305854-5db8-4538-a367-8d4b7118f9af");
 
-        Triple<Boolean, Event, Event> eventEventTriple = ANCJsonFormUtils.saveRemovedFromANCRegister(allSharedPreferences, closeAnc, providerId);
-        Assert.assertNotNull(eventEventTriple);
-        Assert.assertFalse(eventEventTriple.getLeft());
-        Assert.assertNotNull(eventEventTriple.getMiddle());
-        Assert.assertEquals("ANC Close", eventEventTriple.getMiddle().getEventType());
+        Pair<Event, Event> eventEventPair = ANCJsonFormUtils.saveRemovedFromANCRegister(allSharedPreferences, closeAnc, providerId);
+        Assert.assertNotNull(eventEventPair);
+        Assert.assertNotNull(eventEventPair.first);
+        Assert.assertEquals("ANC Close", eventEventPair.first.getEventType());
 
-        Assert.assertNotNull(eventEventTriple.getRight());
-        Assert.assertEquals("Update ANC Registration", eventEventTriple.getRight().getEventType());
+        Assert.assertNotNull(eventEventPair.second);
+        Assert.assertEquals("Update ANC Registration", eventEventPair.second.getEventType());
     }
 
     @Test
@@ -685,12 +685,13 @@ public class ANCJsonFormUtilsTest {
         fields.put(jsonObject);
 
         HashMap<String, String> groupItem = new LinkedHashMap<>();
-        groupItem.put("visit_date", "2020-04-04");
+        groupItem.put("visit_date", "04-04-2020");
         HashMap<String, HashMap<String, String>> groupMap = new HashMap<>();
         groupMap.put("324-w3424", groupItem);
 
         PowerMockito.when(Utils.class, "buildRepeatingGroupValues", Mockito.any(JSONArray.class), Mockito.anyString()).thenReturn(groupMap);
 
+        PowerMockito.when(Utils.class, "reverseHyphenSeperatedValues", Mockito.anyString(), Mockito.anyString()).thenCallRealMethod();
         String result = Whitebox.invokeMethod(ANCJsonFormUtils.class, "initializeFirstContactValues", fields);
         JSONObject nextContactJsonObject = ANCJsonFormUtils.getFieldJSONObject(fields, DBConstantsUtils.KeyUtils.NEXT_CONTACT);
         JSONObject nextContactDateJsonObject = ANCJsonFormUtils.getFieldJSONObject(fields, DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE);

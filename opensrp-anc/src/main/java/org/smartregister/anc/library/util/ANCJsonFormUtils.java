@@ -332,7 +332,10 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 }
 
                 JSONObject lastContactDateJSONObject = getFieldJSONObject(fields, DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE);
-                lastContactDateJSONObject.put(ANCJsonFormUtils.VALUE, Utils.reverseHyphenSeperatedValues(previousVisitsMapItem.get(ConstantsUtils.JsonFormKeyUtils.VISIT_DATE), "-"));
+
+                String visitDate = previousVisitsMapItem.get(ConstantsUtils.JsonFormKeyUtils.VISIT_DATE);
+                String reverseVisitDate = Utils.reverseHyphenSeperatedValues(visitDate, "-");
+                lastContactDateJSONObject.put(ANCJsonFormUtils.VALUE, reverseVisitDate);
             }
         }
         JSONObject nextContactJSONObject = getFieldJSONObject(fields, DBConstantsUtils.KeyUtils.NEXT_CONTACT);
@@ -629,7 +632,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     }
 
-    public static Pair< Event, Event> saveRemovedFromANCRegister(AllSharedPreferences allSharedPreferences, String jsonString, String providerId) {
+    public static Pair<Event, Event> saveRemovedFromANCRegister(AllSharedPreferences allSharedPreferences, String jsonString, String providerId) {
         try {
             Triple<Boolean, JSONObject, JSONArray> registrationFormParams = validateParameters(jsonString);
 

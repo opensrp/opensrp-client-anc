@@ -52,13 +52,14 @@ public class AncRulesEngineFactoryTest extends BaseUnitTest {
     }
 
     @Test
-    public void testInitializeFacts() {
+    public void testInitializeFacts() throws JSONException {
         globalValues.put("pallor", "yes");
         globalValues.put("select-rule", "step2_accordion_hiv");
-        Whitebox.setInternalState(ancRulesEngineFactory, "globalValues", globalValues);
         Whitebox.setInternalState(ancRulesEngineFactory, "selectedRuleName", "Test");
+
+        AncRulesEngineFactory ancRulesEngineFactory = new AncRulesEngineFactory(RuntimeEnvironment.application, globalValues, new JSONObject(DUMMY_JSON_OBJECT));
         Facts facts = ancRulesEngineFactory.initializeFacts(new Facts());
-        Assert.assertEquals(5, facts.asMap().size());
+        Assert.assertEquals(3, facts.asMap().size());
         Assert.assertTrue(facts.asMap().containsKey("global_pallor"));
         Assert.assertEquals("yes", facts.asMap().get("global_pallor"));
     }
