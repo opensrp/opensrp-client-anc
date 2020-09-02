@@ -44,7 +44,6 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-;
 
 /**
  * Created by ndegwamartin on 15/03/2018.
