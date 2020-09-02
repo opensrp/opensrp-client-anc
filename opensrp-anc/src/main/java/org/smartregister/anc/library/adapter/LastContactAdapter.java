@@ -99,8 +99,8 @@ public class LastContactAdapter extends RecyclerView.Adapter<LastContactAdapter.
                         LastContactDetailsWrapper firstLastContactDetailsWrapper = lastContactDetailsList.get(0);
                         Facts firstFacts = firstLastContactDetailsWrapper.getFacts();
                         String edd = Utils.reverseHyphenSeperatedValues(firstFacts.get(ConstantsUtils.EDD), "-");
-                        String contactDate = facts.get(ConstantsUtils.CONTACT_DATE);
                         if (firstFacts.get(ConstantsUtils.GEST_AGE_OPENMRS) == null) {
+                            String contactDate = facts.get(ConstantsUtils.CONTACT_DATE);
                             int diffWeeks = ConstantsUtils.DELIVERY_DATE_WEEKS - Math.abs(Weeks.weeksBetween(LocalDate.parse(edd), LocalDate.parse(contactDate)).getWeeks());
                             tempGestAge = String.valueOf(diffWeeks);
                         } else {
