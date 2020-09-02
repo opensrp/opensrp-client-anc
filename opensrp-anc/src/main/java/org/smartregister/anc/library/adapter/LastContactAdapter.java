@@ -25,6 +25,8 @@ import org.smartregister.anc.library.util.Utils;
 
 import java.util.List;
 
+import timber.log.Timber;
+
 public class LastContactAdapter extends RecyclerView.Adapter<LastContactAdapter.ViewHolder> {
     private List<LastContactDetailsWrapper> lastContactDetailsList;
     private LayoutInflater inflater;
@@ -85,23 +87,33 @@ public class LastContactAdapter extends RecyclerView.Adapter<LastContactAdapter.
     }
 
     private String updateGABasedOnDueStrategy(@Nullable String gestAge, @NonNull String contactNo, @NonNull LastContactDetailsWrapper lastContactDetails) {
+        String tempGestAge = gestAge;
         if (ConstantsUtils.DueCheckStrategy.CHECK_FOR_FIRST_CONTACT.equals(Utils.getDueCheckStrategy())) {
             Facts facts = lastContactDetails.getFacts();
 
-            if (StringUtils.isBlank(gestAge)) {
+            if (StringUtils.isBlank(tempGestAge)) {
                 if ("1".equals(contactNo.trim()))
-                    gestAge = "-";
+                    tempGestAge = "-";
                 else if (lastContactDetailsList.size() > 1) {
-                    LastContactDetailsWrapper firstLastContactDetailsWrapper = lastContactDetailsList.get(0);
-                    Facts firstFacts = firstLastContactDetailsWrapper.getFacts();
-                    String edd = Utils.reverseHyphenSeperatedValues(firstFacts.get(ConstantsUtils.EDD), "-");
-                    String contactDate = facts.get(ConstantsUtils.CONTACT_DATE);
-                    int diffWeeks = ConstantsUtils.DELIVERY_DATE_WEEKS - Math.abs(Weeks.weeksBetween(LocalDate.parse(edd), LocalDate.parse(contactDate)).getWeeks());
-                    gestAge = String.valueOf(diffWeeks);
+                    try {
+                        LastContactDetailsWrapper firstLastContactDetailsWrapper = lastContactDetailsList.get(0);
+                        Facts firstFacts = firstLastContactDetailsWrapper.getFacts();
+                        String edd = Utils.reverseHyphenSeperatedValues(firstFacts.get(ConstantsUtils.EDD), "-");
+                        String contactDate = facts.get(ConstantsUtils.CONTACT_DATE);
+                        if (firstFacts.get(ConstantsUtils.GEST_AGE_OPENMRS) == null) {
+                            int diffWeeks = ConstantsUtils.DELIVERY_DATE_WEEKS - Math.abs(Weeks.weeksBetween(LocalDate.parse(edd), LocalDate.parse(contactDate)).getWeeks());
+                            tempGestAge = String.valueOf(diffWeeks);
+                        } else {
+                            tempGestAge = firstFacts.get(ConstantsUtils.GEST_AGE_OPENMRS);
+                        }
+                    } catch (IllegalArgumentException e) {
+                        tempGestAge = "-";
+                        Timber.e(e);
+                    }
                 }
             }
         }
-        return gestAge;
+        return tempGestAge;
     }
 
     private void createContactDetailsView(List<YamlConfigWrapper> data, Facts facts, ViewHolder viewHolder) {

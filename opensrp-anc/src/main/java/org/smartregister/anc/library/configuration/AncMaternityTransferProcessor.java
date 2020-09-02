@@ -76,7 +76,7 @@ public class AncMaternityTransferProcessor implements ClientTransferProcessor {
     protected Event createAncMaternityTransferEvent(@NonNull JSONObject closeForm) {
         JSONObject jsonFormObject = populateTransferForm(closeForm);
         FormTag formTag = ANCJsonFormUtils.getFormTag(Utils.getAllSharedPreferences());
-        Event event = ANCJsonFormUtils.createEvent(com.vijay.jsonwizard.utils.FormUtils.getMultiStepFormFields(jsonFormObject),
+        Event event = ANCJsonFormUtils.createEvent(FormUtils.getMultiStepFormFields(jsonFormObject),
                 jsonFormObject.optJSONObject(METADATA), formTag, getBaseEntityId(), jsonFormObject.optString(JsonFormConstants.ENCOUNTER_TYPE), "");
         ANCJsonFormUtils.tagSyncMetadata(Utils.getAllSharedPreferences(), event);
         return event;
@@ -84,7 +84,7 @@ public class AncMaternityTransferProcessor implements ClientTransferProcessor {
 
     protected Event createAncCloseEvent(@NonNull JSONObject closeFormObject) {
         FormTag formTag = ANCJsonFormUtils.getFormTag(Utils.getAllSharedPreferences());
-        Event event = ANCJsonFormUtils.createEvent(com.vijay.jsonwizard.utils.FormUtils.getMultiStepFormFields(closeFormObject),
+        Event event = ANCJsonFormUtils.createEvent(FormUtils.getMultiStepFormFields(closeFormObject),
                 closeFormObject.optJSONObject(METADATA), formTag, closeFormObject.optString(ENTITY_ID), closeFormObject.optString(JsonFormConstants.ENCOUNTER_TYPE), "");
         ANCJsonFormUtils.tagSyncMetadata(Utils.getAllSharedPreferences(), event);
         return event;
@@ -146,7 +146,7 @@ public class AncMaternityTransferProcessor implements ClientTransferProcessor {
                         }
                     }
 
-                    JSONArray closeFormFields = com.vijay.jsonwizard.utils.FormUtils.getMultiStepFormFields(closeForm);
+                    JSONArray closeFormFields = FormUtils.getMultiStepFormFields(closeForm);
                     List<String> closeFormFieldsList = getCloseFormFieldsList();
                     for (int i = 0; i < closeFormFields.length() && !closeFormFieldsList.isEmpty(); i++) {
                         JSONObject object = closeFormFields.optJSONObject(i);

@@ -66,6 +66,7 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
+                includeCompileClasspath = true
                 arguments = [eventBusIndex: 'org.smartregister.anc.library.ANCEventBusIndex']
             }
         }
@@ -95,31 +96,8 @@ android {
     }
 
     packagingOptions {
-        exclude 'META-INF/DEPENDENCIES.txt'
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/NOTICE.txt'
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/DEPENDENCIES'
-        exclude 'META-INF/notice.txt'
-        exclude 'META-INF/license.txt'
-        exclude 'META-INF/dependencies.txt'
-        exclude 'META-INF/LGPL2.1'
-        exclude 'LICENSE.txt'
-
-    }
-    packagingOptions {
-        exclude 'META-INF/DEPENDENCIES.txt'
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/NOTICE.txt'
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/DEPENDENCIES'
-        exclude 'META-INF/notice.txt'
-        exclude 'META-INF/license.txt'
-        exclude 'META-INF/dependencies.txt'
-        exclude 'META-INF/LGPL2.1'
-        exclude 'LICENSE.txt'
+        exclude 'META-INF/LICENSE.md'
+        exclude 'META-INF/NOTICE.md'
     }
 
     testOptions {
@@ -154,7 +132,7 @@ dependencies {
         exclude group: 'org.yaml', module: 'snakeyaml'
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
-    implementation('org.smartregister:opensrp-client-core:1.9.4-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.12.0-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'
