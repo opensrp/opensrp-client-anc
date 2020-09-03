@@ -12,6 +12,7 @@ import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -525,4 +526,8 @@ public class UtilsTest extends BaseUnitTest {
 
     }
 
+    @After
+    public void teardown() {
+        ReflectionHelpers.setStaticField(AncLibrary.class, "instance", null);
+    }
 }

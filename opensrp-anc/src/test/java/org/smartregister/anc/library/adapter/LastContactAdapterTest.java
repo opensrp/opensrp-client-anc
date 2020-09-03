@@ -4,6 +4,7 @@ package org.smartregister.anc.library.adapter;
 import android.widget.LinearLayout;
 
 import org.jeasy.rules.api.Facts;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -94,5 +95,10 @@ public class LastContactAdapterTest extends BaseUnitTest {
         String resultTwo = Whitebox.invokeMethod(lastContactAdapter, "updateGABasedOnDueStrategy",
                 "", "2", lastContactDetailsWrapper);
         Assert.assertEquals("32", resultTwo);
+    }
+
+    @After
+    public void teardown() {
+        ReflectionHelpers.setStaticField(AncLibrary.class, "instance", null);
     }
 }

@@ -9,6 +9,7 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -703,4 +704,8 @@ public class ANCJsonFormUtilsTest {
         Assert.assertNotNull(result);
     }
 
+    @After
+    public void teardown() {
+        ReflectionHelpers.setStaticField(AncLibrary.class, "instance", null);
+    }
 }
