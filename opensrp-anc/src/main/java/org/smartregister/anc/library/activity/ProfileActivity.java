@@ -36,9 +36,9 @@ import org.smartregister.anc.library.fragment.ProfileContactsFragment;
 import org.smartregister.anc.library.fragment.ProfileOverviewFragment;
 import org.smartregister.anc.library.fragment.ProfileTasksFragment;
 import org.smartregister.anc.library.presenter.ProfilePresenter;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
-import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.anc.library.view.CopyToClipboardDialog;
 import org.smartregister.repository.AllSharedPreferences;
@@ -148,6 +148,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
 
             if (StringUtils.isNotBlank(baseEntityId)) {
                 Utils.proceedToContact(baseEntityId, detailMap, getActivity());
+                finish();
             }
 
         } else {

@@ -1,21 +1,25 @@
 package org.smartregister.anc.library.interactor;
 
-import android.content.ContentValues;
+import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.v4.util.Pair;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.utils.FormUtils;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.RegisterContract;
 import org.smartregister.anc.library.event.PatientRemovedEvent;
 import org.smartregister.anc.library.helper.ECSyncHelper;
 import org.smartregister.anc.library.sync.BaseAncClientProcessorForJava;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.AppExecutors;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
-import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
@@ -23,10 +27,10 @@ import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.domain.UniqueId;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.repository.AllSharedPreferences;
-import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 
+import java.util.Collections;
 import java.util.Date;
 
 import timber.log.Timber;
@@ -79,8 +83,15 @@ public class RegisterInteractor implements RegisterContract.Interactor {
     public void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode,
                                  final RegisterContract.InteractorCallBack callBack) {
         Runnable runnable = () -> {
+
             saveRegistration(pair, jsonString, isEditMode);
+
             String baseEntityId = getBaseEntityId(pair);
+
+            if (!isEditMode && ConstantsUtils.DueCheckStrategy.CHECK_FOR_FIRST_CONTACT.equals(Utils.getDueCheckStrategy())) {
+                createPartialPreviousEvent(pair, baseEntityId);
+            }
+
             appExecutors.mainThread().execute(() -> {
                 callBack.setBaseEntityRegister(baseEntityId);
                 callBack.onRegistrationSaved(isEditMode);
@@ -90,60 +101,89 @@ public class RegisterInteractor implements RegisterContract.Interactor {
         appExecutors.diskIO().execute(runnable);
     }
 
+    /***
+     * creates partial previous visit events after creation of client
+     * @param pair {@link Pair}
+     * @param baseEntityId {@link String}
+     */
+    private void createPartialPreviousEvent(Pair<Client, Event> pair, String baseEntityId) {
+        appExecutors.diskIO().execute(() -> {
+            try {
+                if (pair.second != null && pair.second.getDetails() != null) {
+                    String strPreviousVisitsMap = pair.second.getDetails().get(ConstantsUtils.JsonFormKeyUtils.PREVIOUS_VISITS_MAP);
+                    if (StringUtils.isNotBlank(strPreviousVisitsMap)) {
+                        Utils.createPreviousVisitFromGroup(strPreviousVisitsMap, baseEntityId);
+                    }
+                }
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+        });
+    }
+
     @Override
     public void removeWomanFromANCRegister(final String closeFormJsonString, final String providerId) {
         Runnable runnable = () -> {
+            PatientRemovedEvent patientRemovedEvent = new PatientRemovedEvent();
             try {
-                Triple<Boolean, Event, Event> triple = ANCJsonFormUtils
-                        .saveRemovedFromANCRegister(getAllSharedPreferences(), closeFormJsonString, providerId);
+                JSONObject jsonCloseForm = new JSONObject(closeFormJsonString);
+                String closeReason = FormUtils.getFieldFromForm(jsonCloseForm, ConstantsUtils.JsonFormKeyUtils.ANC_CLOSE_REASON).optString(JsonFormConstants.VALUE);
+                boolean isDeath = "woman_died".equalsIgnoreCase(closeReason);
 
-                if (triple == null) {
-                    return;
-                }
-
-                boolean isDeath = triple.getLeft();
-                Event event = triple.getMiddle();
-                Event updateChildDetailsEvent = triple.getRight();
-
-                String baseEntityId = event.getBaseEntityId();
-
-                //Update client to deceased
-                JSONObject client = getSyncHelper().getClient(baseEntityId);
                 if (isDeath) {
-                    client.put(ConstantsUtils.JsonFormKeyUtils.DEATH_DATE, Utils.getTodaysDate());
+                    Pair<Event, Event> triple = ANCJsonFormUtils
+                            .saveRemovedFromANCRegister(getAllSharedPreferences(), closeFormJsonString, providerId);
+
+                    if (triple == null) {
+                        return;
+                    }
+
+                    Event updateChildDetailsEvent = triple.second;
+
+                    String baseEntityId = updateChildDetailsEvent.getBaseEntityId();
+
+                    //Update client to deceased
+                    String dateOfDeath = FormUtils.getFieldFromForm(jsonCloseForm, "date_of_death").optString(JsonFormConstants.VALUE);
+                    JSONObject client = getSyncHelper().getClient(baseEntityId);
+                    client.put(ConstantsUtils.JsonFormKeyUtils.DEATH_DATE, StringUtils.isNotBlank(dateOfDeath) ? Utils.reverseHyphenSeperatedValues(dateOfDeath, "-") : Utils.getTodaysDate());
                     client.put(ConstantsUtils.JsonFormKeyUtils.DEATH_DATE_APPROX, false);
+
+                    JSONObject attributes = client.getJSONObject(ConstantsUtils.JsonFormKeyUtils.ATTRIBUTES);
+                    attributes.put(DBConstantsUtils.KeyUtils.DATE_REMOVED, Utils.getTodaysDate());
+                    client.put(ConstantsUtils.JsonFormKeyUtils.ATTRIBUTES, attributes);
+                    getSyncHelper().addClient(baseEntityId, client);
+
+                    //Update Child Entity to include death date
+                    JSONObject eventJsonUpdateChildEvent =
+                            new JSONObject(ANCJsonFormUtils.gson.toJson(updateChildDetailsEvent));
+                    getSyncHelper().addEvent(baseEntityId, eventJsonUpdateChildEvent); //Add event to flag server update
                 }
-                JSONObject attributes = client.getJSONObject(ConstantsUtils.JsonFormKeyUtils.ATTRIBUTES);
-                attributes.put(DBConstantsUtils.KeyUtils.DATE_REMOVED, Utils.getTodaysDate());
-                client.put(ConstantsUtils.JsonFormKeyUtils.ATTRIBUTES, attributes);
-                getSyncHelper().addClient(baseEntityId, client);
 
-                //Add Remove Event for child to flag for Server delete
-                JSONObject eventJson = new JSONObject(ANCJsonFormUtils.gson.toJson(event));
-                getSyncHelper().addEvent(event.getBaseEntityId(), eventJson);
 
-                //Update Child Entity to include death date
-                JSONObject eventJsonUpdateChildEvent =
-                        new JSONObject(ANCJsonFormUtils.gson.toJson(updateChildDetailsEvent));
-                getSyncHelper().addEvent(baseEntityId, eventJsonUpdateChildEvent); //Add event to flag server update
-
-                //Update REGISTER and FTS Tables
-                if (getAllCommonsRepository() != null) {
-                    ContentValues values = new ContentValues();
-                    values.put(DBConstantsUtils.KeyUtils.DATE_REMOVED, Utils.getTodaysDate());
-                    getAllCommonsRepository().update(DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME, values, baseEntityId);
-                    getAllCommonsRepository().updateSearch(baseEntityId);
-
+                if (closeReason.equalsIgnoreCase("in_labour")) {
+                    patientRemovedEvent.setClosedNature(ConstantsUtils.ClosedNature.TRANSFERRED);
                 }
+
+
+                processTransfer(jsonCloseForm);
+
             } catch (Exception e) {
                 Timber.e(e, " --> removeWomanFromANCRegister");
             } finally {
-                Utils.postStickyEvent(new PatientRemovedEvent());
+                Utils.postStickyEvent(patientRemovedEvent);
             }
         };
 
         appExecutors.diskIO().execute(runnable);
     }
+
+    protected void processTransfer(@NonNull JSONObject closeForm) throws Exception {
+        AncLibrary.getInstance()
+                .getAncMetadata()
+                .getTransferProcessorByEventType(ConstantsUtils.EventTypeUtils.ANC_MATERNITY_TRANSFER)
+                .startTransferProcessing(closeForm);
+    }
+
 
     public AllCommonsRepository getAllCommonsRepository() {
         if (allCommonsRepository == null) {
@@ -205,10 +245,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
 
             long lastSyncTimeStamp = getAllSharedPreferences().fetchLastUpdatedAtDate(0);
             Date lastSyncDate = new Date(lastSyncTimeStamp);
-
-
-            // Todo: Use the event clients from above here
-            getClientProcessorForJava().processClient(getSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unprocessed));
+            getClientProcessorForJava().processClient(getSyncHelper().getEvents(Collections.singletonList(baseEvent.getFormSubmissionId())));
             getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
         } catch (Exception e) {
             Timber.e(e, " --> saveRegistration");

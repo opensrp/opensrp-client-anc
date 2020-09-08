@@ -21,9 +21,9 @@ import org.smartregister.anc.library.helper.ECSyncHelper;
 import org.smartregister.anc.library.model.PreviousContact;
 import org.smartregister.anc.library.model.Task;
 import org.smartregister.anc.library.repository.ContactTasksRepository;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
-import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.domain.db.Client;
 import org.smartregister.domain.db.Event;
@@ -43,6 +43,7 @@ import java.util.List;
 import java.util.Map;
 
 import timber.log.Timber;
+
 
 /**
  * Created by ndegwamartin on 15/03/2018.

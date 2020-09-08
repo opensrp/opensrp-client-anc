@@ -12,9 +12,9 @@ import org.smartregister.anc.library.contract.RegisterContract;
 import org.smartregister.anc.library.interactor.ContactInteractor;
 import org.smartregister.anc.library.interactor.ProfileInteractor;
 import org.smartregister.anc.library.interactor.RegisterInteractor;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
-import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
@@ -112,7 +112,6 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
     public void processFormDetailsSave(Intent data, AllSharedPreferences allSharedPreferences) {
         try {
             String jsonString = data.getStringExtra(ConstantsUtils.IntentKeyUtils.JSON);
-            Timber.d(jsonString);
             if (jsonString != null) {
                 JSONObject form = new JSONObject(jsonString);
                 getProfileView().showProgressDialog(

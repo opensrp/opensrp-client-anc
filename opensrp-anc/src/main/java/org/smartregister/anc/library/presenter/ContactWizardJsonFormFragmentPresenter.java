@@ -8,11 +8,13 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 import com.vijay.jsonwizard.presenters.JsonWizardFormFragmentPresenter;
+import com.vijay.jsonwizard.views.JsonFormFragmentView;
 import com.vijay.jsonwizard.widgets.NativeRadioButtonFactory;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.library.fragment.ContactWizardJsonFormFragment;
-import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ANCFormUtils;
+import org.smartregister.anc.library.util.ConstantsUtils;
 
 /**
  * Created by keyman on 04/08/18.
@@ -33,10 +35,14 @@ public class ContactWizardJsonFormFragmentPresenter extends JsonWizardFormFragme
 
     @Override
     protected boolean moveToNextWizardStep() {
-        if (!"".equals(mStepDetails.optString(JsonFormConstants.NEXT))) {
-            JsonFormFragment next = ContactWizardJsonFormFragment.getFormFragment(mStepDetails.optString(ConstantsUtils.NEXT));
-            getView().hideKeyBoard();
-            getView().transactThis(next);
+        String nextStep = getFormFragment().getJsonApi().nextStep();
+        if (StringUtils.isNotBlank(nextStep)) {
+            JsonFormFragment next = ContactWizardJsonFormFragment.getFormFragment(nextStep);
+            JsonFormFragmentView jsonFormFragmentView = getView();
+            if (jsonFormFragmentView != null) {
+                jsonFormFragmentView.hideKeyBoard();
+                jsonFormFragmentView.transactThis(next);
+            }
             return true;
         }
         return false;
@@ -61,7 +67,6 @@ public class ContactWizardJsonFormFragmentPresenter extends JsonWizardFormFragme
                 break;
         }
     }
-
 
     @Override
     protected void nativeRadioButtonClickActions(View view) {

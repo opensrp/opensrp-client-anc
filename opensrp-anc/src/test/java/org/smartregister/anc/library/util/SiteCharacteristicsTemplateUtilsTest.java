@@ -3,6 +3,7 @@ package org.smartregister.anc.library.util;
 import android.content.Context;
 
 import org.json.JSONObject;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -61,8 +62,12 @@ public class SiteCharacteristicsTemplateUtilsTest extends BaseUnitTest {
         PowerMockito.when(TemplateUtils.getTemplateAsJson(contextAndroid, ConstantsUtils.PrefKeyUtils.SITE_CHARACTERISTICS)).thenReturn(new JSONObject());
         String expected = "{\"locationId\":\"locations\",\"providerId\":\"Some Provider\",\"teamId\":\"teamId\",\"team\":\"team\"}";
         Assert.assertEquals(expected, SiteCharacteristicsFormUtils.structureFormForRequest(contextAndroid).toString());
-        ReflectionHelpers.setStaticField(AncLibrary.class, "instance", null);
-
     }
+
+    @After
+    public void teardown() {
+        ReflectionHelpers.setStaticField(AncLibrary.class, "instance", null);
+    }
+
 
 }

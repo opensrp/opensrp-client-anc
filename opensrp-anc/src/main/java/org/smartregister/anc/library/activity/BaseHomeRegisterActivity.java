@@ -38,9 +38,9 @@ import org.smartregister.anc.library.fragment.MeFragment;
 import org.smartregister.anc.library.fragment.SortFilterFragment;
 import org.smartregister.anc.library.presenter.RegisterPresenter;
 import org.smartregister.anc.library.repository.PatientRepository;
+import org.smartregister.anc.library.util.ANCFormUtils;
 import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
-import org.smartregister.anc.library.util.ANCFormUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -227,7 +227,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
         if (requestCode == ANCJsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK) {
             try {
                 String jsonString = data.getStringExtra(ConstantsUtils.JsonFormExtraUtils.JSON);
-                Timber.d(jsonString);
+                //Timber.d(jsonString);
                 if (StringUtils.isNotBlank(jsonString)) {
                     JSONObject form = new JSONObject(jsonString);
                     switch (form.getString(ANCJsonFormUtils.ENCOUNTER_TYPE)) {

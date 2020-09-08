@@ -11,18 +11,19 @@ import org.smartregister.anc.library.contract.ProfileContract;
 import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.util.ConstantsUtils;
 
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 
 import timber.log.Timber;
 
 public class FinalizeContactTask extends AsyncTask<Void, Void, Void> {
     private HashMap<String, String> newWomanProfileDetails;
-    private Context context;
+    private WeakReference<Context> contextWeakReference;
     private ProfileContract.Presenter mProfilePresenter;
     private Intent intent;
 
     public FinalizeContactTask(Context context, ProfileContract.Presenter mProfilePresenter, Intent intent) {
-        this.context = context;
+        this.contextWeakReference = new WeakReference<>(context);
         this.mProfilePresenter = mProfilePresenter;
         this.intent = intent;
     }
@@ -36,7 +37,7 @@ public class FinalizeContactTask extends AsyncTask<Void, Void, Void> {
             if (contactNo < 0) {
                 womanProfileDetails.put(ConstantsUtils.REFERRAL, String.valueOf(contactNo));
             }
-            newWomanProfileDetails = mProfilePresenter.saveFinishForm(womanProfileDetails, context);
+            newWomanProfileDetails = mProfilePresenter.saveFinishForm(womanProfileDetails, contextWeakReference.get());
         } catch (Exception e) {
             Timber.e(e);
         }
@@ -47,22 +48,23 @@ public class FinalizeContactTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPreExecute() {
-        ((ContactSummaryFinishActivity) context).showProgressDialog(R.string.please_wait_message);
-        ((ContactSummaryFinishActivity) context).getProgressDialog().setMessage(
-                String.format(context.getString(R.string.finalizing_contact),
+        ((ContactSummaryFinishActivity) contextWeakReference.get()).showProgressDialog(R.string.please_wait_message);
+        ((ContactSummaryFinishActivity) contextWeakReference.get()).getProgressDialog().setMessage(
+                String.format(contextWeakReference.get().getString(R.string.finalizing_contact),
                         intent.getExtras().getInt(ConstantsUtils.IntentKeyUtils.CONTACT_NO)) + " data");
-        ((ContactSummaryFinishActivity) context).getProgressDialog().show();
+        ((ContactSummaryFinishActivity) contextWeakReference.get()).getProgressDialog().show();
     }
 
     @Override
     protected void onPostExecute(Void result) {
-        ((ContactSummaryFinishActivity) context).hideProgressDialog();
+        ((ContactSummaryFinishActivity) contextWeakReference.get()).hideProgressDialog();
         Intent contactSummaryIntent =
-                new Intent(context, ContactSummarySendActivity.class);
+                new Intent(contextWeakReference.get(), ContactSummarySendActivity.class);
         contactSummaryIntent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID,
                 intent.getExtras().getString(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
         contactSummaryIntent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, newWomanProfileDetails);
+        contextWeakReference.get().startActivity(contactSummaryIntent);
 
-        context.startActivity(contactSummaryIntent);
+        ((ContactSummaryFinishActivity) contextWeakReference.get()).finish();
     }
 }

@@ -1,9 +1,11 @@
 package org.smartregister.anc.library.util;
 
 import org.smartregister.anc.library.BuildConfig;
+import org.smartregister.anc.library.interactor.ClientTransferProcessor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -14,6 +16,7 @@ public class AncMetadata {
     private ArrayList<String> locationLevels;
     private ArrayList<String> healthFacilityLevels;
     private Set<String> fieldsWithLocationHierarchy;
+    private HashMap<String, ClientTransferProcessor> transferProcessorHashMap = new HashMap<>();
 
     public AncMetadata() {
         locationLevels = new ArrayList<>(Arrays.asList(BuildConfig.LOCATION_LEVELS));
@@ -57,5 +60,17 @@ public class AncMetadata {
 
     public void setFieldsWithLocationHierarchy(Set<String> fieldsWithLocationHierarchy) {
         this.fieldsWithLocationHierarchy = fieldsWithLocationHierarchy;
+    }
+
+    public ClientTransferProcessor getTransferProcessorByEventType(String eventType) {
+        return transferProcessorHashMap.get(eventType);
+    }
+
+    public void addTransferProcessorToHashMap(String evenType, ClientTransferProcessor clientTransferProcessor) {
+        this.transferProcessorHashMap.put(evenType, clientTransferProcessor);
+    }
+
+    public HashMap<String, ClientTransferProcessor> getTransferProcessorHashMap() {
+        return transferProcessorHashMap;
     }
 }
