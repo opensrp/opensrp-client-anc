@@ -141,11 +141,10 @@ public class PreviousContactRepository extends BaseRepository {
             if (StringUtils.isNotBlank(baseEntityId)) {
                 if (keysArr != null) {
                     selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE + " AND " + KEY + " IN ( '" + StringUtils.join(keysArr, "','") + "') ";
-                    selectionArgs = new String[]{baseEntityId};
                 } else {
                     selection = BASE_ENTITY_ID + " = ? " + BaseRepository.COLLATE_NOCASE;
-                    selectionArgs = new String[]{baseEntityId};
                 }
+                selectionArgs = new String[]{baseEntityId};
             }
 
             mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
