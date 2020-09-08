@@ -1,7 +1,7 @@
 package org.smartregister.anc.job;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.configurableviews.service.PullConfigurableViewsIntentService;

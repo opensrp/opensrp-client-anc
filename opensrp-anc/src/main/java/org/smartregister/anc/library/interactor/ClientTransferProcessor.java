@@ -1,6 +1,6 @@
 package org.smartregister.anc.library.interactor;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import org.json.JSONObject;
 

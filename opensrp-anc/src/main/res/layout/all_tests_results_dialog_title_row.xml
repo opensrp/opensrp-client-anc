@@ -17,13 +17,13 @@
         android:textSize="@dimen/referral_dialog_title_text_size"
         android:textStyle="bold" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/all_tests_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/all_tests_content_title"
         android:layout_marginLeft="@dimen/all_test_margin"
         android:layout_marginRight="@dimen/all_test_margin" >
-    </android.support.v7.widget.RecyclerView>
+    </androidx.recyclerview.widget.RecyclerView>
 
 </RelativeLayout>

@@ -1,7 +1,7 @@
 package org.smartregister.anc.library.util;
 
 import android.graphics.Bitmap;
-import android.support.v4.util.Pair;
+import androidx.core.util.Pair;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
