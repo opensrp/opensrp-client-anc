@@ -4,13 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.util.Pair;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.util.Pair;
 
 import com.google.common.reflect.TypeToken;
 import com.vijay.jsonwizard.activities.JsonFormActivity;
@@ -934,12 +935,27 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
             LocalDate lmpDate = localDate.minusWeeks(ConstantsUtils.DELIVERY_DATE_WEEKS);
 
             for (String contactWeeks : contactSchedule) {
-                contactDates.add(new ContactSummaryModel(String.format(
-                        AncLibrary.getInstance().getContext().getStringResource(R.string.contact_number),
-                        contactSequence++),
-                        Utils.convertDateFormat(lmpDate.plusWeeks(Integer.valueOf(contactWeeks)).toDate(),
-                                Utils.CONTACT_SUMMARY_DF), lmpDate.plusWeeks(Integer.valueOf(contactWeeks)).toDate(),
-                        contactWeeks));
+                if (StringUtils.isNotBlank(contactWeeks)) {
+                    try {
+                        int weeks = Integer.parseInt(contactWeeks);
+                        if (weeks < 41) {
+                            contactDates.add(new ContactSummaryModel(String.format(
+                                    AncLibrary.getInstance().getContext().getStringResource(R.string.contact_number),
+                                    contactSequence++),
+                                    Utils.convertDateFormat(lmpDate.plusWeeks(Integer.valueOf(contactWeeks)).toDate(),
+                                            Utils.CONTACT_SUMMARY_DF), lmpDate.plusWeeks(Integer.valueOf(contactWeeks)).toDate(),
+                                    contactWeeks));
+                        }
+                    } catch (IllegalArgumentException e) {
+                        contactDates.add(new ContactSummaryModel(String.format(
+                                AncLibrary.getInstance().getContext().getStringResource(R.string.contact_number),
+                                contactSequence++),
+                                Utils.convertDateFormat(lmpDate.plusWeeks(Integer.valueOf(contactWeeks)).toDate(),
+                                        Utils.CONTACT_SUMMARY_DF), lmpDate.plusWeeks(Integer.valueOf(contactWeeks)).toDate(),
+                                contactWeeks));
+                        Timber.e(e);
+                    }
+                }
             }
         }
         return contactDates;
@@ -956,7 +972,8 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
      * @return constraintLayout
      */
     @NonNull
-    public ConstraintLayout createListViewItems(List<YamlConfigWrapper> data, Facts facts, int position, Context context) {
+    public ConstraintLayout createListViewItems(List<YamlConfigWrapper> data, Facts facts,
+                                                int position, Context context) {
         YamlConfigItem yamlConfigItem = data.get(position).getYamlConfigItem();
 
         ANCJsonFormUtils.Template template = getTemplate(yamlConfigItem.getTemplate());
