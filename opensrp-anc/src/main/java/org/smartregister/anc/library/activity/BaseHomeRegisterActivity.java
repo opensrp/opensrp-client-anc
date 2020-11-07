@@ -58,6 +58,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import timber.log.Timber;
 
@@ -180,6 +181,11 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
     }
 
     @Override
+    public void startFormActivity(String s, String s1, Map<String, String> map) {
+
+    }
+
+    @Override
     public void startFormActivity(String formName, String entityId, String metaData) {
         try {
             if (mBaseFragment instanceof HomeRegisterFragment) {
@@ -203,7 +209,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //super.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == AllConstants.BARCODE.BARCODE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             if (data != null) {
                 Barcode barcode = data.getParcelableExtra(AllConstants.BARCODE.BARCODE_KEY);
@@ -473,7 +479,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
 
     @Override
     public void startRegistration() {
-        startFormActivity(ConstantsUtils.JsonFormUtils.ANC_REGISTER, null, null);
+        startFormActivity(ConstantsUtils.JsonFormUtils.ANC_REGISTER, null, "");
     }
 
     public void showRecordBirthPopUp(CommonPersonObjectClient client) {

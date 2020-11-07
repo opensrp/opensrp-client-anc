@@ -1,8 +1,9 @@
 package org.smartregister.anc.application;
 
 import android.content.Intent;
-import androidx.annotation.NonNull;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
@@ -161,14 +162,6 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         return (AncApplication) DrishtiApplication.mInstance;
     }
 
-    public String getPassword() {
-        if (password == null) {
-            String username = getContext().userService().getAllSharedPreferences().fetchRegisteredANM();
-            password = getContext().userService().getGroupId(username);
-        }
-        return password;
-    }
-
     @NonNull
     @Override
     public ClientProcessorForJava getClientProcessor() {
@@ -199,15 +192,14 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     @Override
     public void onTimeChanged() {
         Utils.showToast(this, this.getString(org.smartregister.anc.library.R.string.device_time_changed));
-        context.userService().forceRemoteLogin();
+        context.userService().forceRemoteLogin(context.allSharedPreferences().fetchRegisteredANM());
         logoutCurrentUser();
     }
 
     @Override
     public void onTimeZoneChanged() {
         Utils.showToast(this, this.getString(org.smartregister.anc.library.R.string.device_timezone_changed));
-        context.userService().forceRemoteLogin();
-
+        context.userService().forceRemoteLogin(context.allSharedPreferences().fetchRegisteredANM());
         logoutCurrentUser();
     }
 }
