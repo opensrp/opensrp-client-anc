@@ -3,9 +3,11 @@ package org.smartregister.anc.application;
 import org.smartregister.SyncConfiguration;
 import org.smartregister.SyncFilter;
 import org.smartregister.anc.BuildConfig;
+import org.smartregister.anc.activity.LoginActivity;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.view.activity.BaseLoginActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,5 +99,20 @@ public class AncSyncConfiguration extends SyncConfiguration {
     @Override
     public String getTopAllowedLocationLevel() {
         return null;
+    }
+
+    @Override
+    public String getOauthClientId() {
+        return BuildConfig.OAUTH_CLIENT_ID;
+    }
+
+    @Override
+    public String getOauthClientSecret() {
+        return BuildConfig.OAUTH_CLIENT_SECRET;
+    }
+
+    @Override
+    public Class<? extends BaseLoginActivity> getAuthenticationActivity() {
+        return LoginActivity.class;
     }
 }

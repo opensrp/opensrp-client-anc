@@ -40,6 +40,7 @@ import org.smartregister.view.fragment.SecuredNativeSmartRegisterFragment;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -139,7 +140,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
 
     @Override
     protected void startRegistration() {
-        ((BaseHomeRegisterActivity) getActivity()).startFormActivity(ConstantsUtils.JsonFormUtils.ANC_REGISTER, null, null);
+        ((BaseHomeRegisterActivity) getActivity()).startFormActivity(ConstantsUtils.JsonFormUtils.ANC_REGISTER, null, "");
     }
 
     @Override
