@@ -3,6 +3,7 @@
 buildscript {
     repositories {
         google()
+        mavenCentral()
         jcenter()
         maven { url 'https://maven.fabric.io/public' }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
@@ -30,8 +31,8 @@ configure(allprojects) { project ->
     buildscript {
         repositories {
             google()
-            jcenter()
             mavenCentral()
+            jcenter()
             maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
             mavenLocal()
         }

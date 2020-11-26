@@ -316,6 +316,7 @@ dependencies {
     }
     testImplementation 'org.robolectric:robolectric:4.4'
     testImplementation 'org.robolectric:shadows-multidex:4.4'
+    testImplementation 'com.ibm.fhir:fhir-model:4.2.3'
     //testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
     testImplementation "org.powermock:powermock-module-junit4:$powerMockVersion"
     testImplementation "org.powermock:powermock-module-junit4-rule:$powerMockVersion"
