@@ -12,12 +12,12 @@ import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rule;
 import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.api.RulesEngine;
-import org.jeasy.rules.api.RulesEngineParameters;
 import org.jeasy.rules.core.DefaultRulesEngine;
 import org.jeasy.rules.core.InferenceRulesEngine;
+import org.jeasy.rules.core.RulesEngineParameters;
 import org.jeasy.rules.mvel.MVELRule;
 import org.jeasy.rules.mvel.MVELRuleFactory;
-import org.jeasy.rules.support.reader.YamlRuleDefinitionReader;
+import org.jeasy.rules.support.YamlRuleDefinitionReader;
 import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,13 +46,13 @@ import timber.log.Timber;
 
 public class AncRulesEngineHelper extends RulesEngineHelper {
     private final String RULE_FOLDER_PATH = "rule/";
-    private Context context;
-    private RulesEngine inferentialRulesEngine;
-    private RulesEngine defaultRulesEngine;
-    private Map<String, Rules> ruleMap;
+    private final Context context;
+    private final RulesEngine inferentialRulesEngine;
+    private final RulesEngine defaultRulesEngine;
+    private final Map<String, Rules> ruleMap;
     private JSONObject mJsonObject = new JSONObject();
-    private YamlRuleDefinitionReader yamlRuleDefinitionReader = new YamlRuleDefinitionReader();
-    private MVELRuleFactory mvelRuleFactory = new MVELRuleFactory(yamlRuleDefinitionReader);
+    private final YamlRuleDefinitionReader yamlRuleDefinitionReader = new YamlRuleDefinitionReader();
+    private final MVELRuleFactory mvelRuleFactory = new MVELRuleFactory(yamlRuleDefinitionReader);
 
     public AncRulesEngineHelper(Context context) {
         this.context = context;

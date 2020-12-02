@@ -32,6 +32,8 @@ import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
+import java.util.Locale;
+
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
@@ -86,7 +88,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 
     private void setDefaultLanguage() {
         try {
-            Utils.saveLanguage("en");
+            Utils.saveLanguage(Locale.ENGLISH.getLanguage());
         } catch (Exception e) {
             Timber.e(e, " --> saveLanguage");
         }

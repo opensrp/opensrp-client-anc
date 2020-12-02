@@ -192,7 +192,7 @@
     <string name="visual_disturbance">Alteração visual</string>
     <string name="complaint_other_specify">Outro</string>
 
-    <string name="danger_signs"><font fgcolor=\"black\">Sinais de alerta<font fgcolor=\"red\">*</font></string>
+    <string name="danger_signs"><font fgcolor="black">Sinais de alerta</font><font fgcolor="red">*</font></string>
 
     <string name="danger_none">Nenhum</string>
     <string name="danger_bleeding">Sangramento vaginal</string>
