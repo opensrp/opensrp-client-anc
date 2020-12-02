@@ -165,8 +165,8 @@ dependencies {
     def powerMockVersion = '2.0.4'
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation('org.smartregister:opensrp-client-native-form:1.13.5-SNAPSHOT@aar') {
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation('org.smartregister:opensrp-client-native-form:2.0.2000-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -177,7 +177,7 @@ dependencies {
         exclude group: 'org.yaml', module: 'snakeyaml'
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
-    implementation('org.smartregister:opensrp-client-core:3.0.1000-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:4.0.2000-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'
@@ -228,9 +228,9 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
     implementation group: 'org.yaml', name: 'snakeyaml', version: '1.27'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
-    implementation 'org.jeasy:easy-rules-core:4.0.0'
-    implementation 'org.jeasy:easy-rules-mvel:4.0.0'
-    implementation 'org.smartregister:opensrp-plan-evaluator:0.1.3-SNAPSHOT'
+    implementation 'org.jeasy:easy-rules-core:3.3.0'
+    implementation 'org.jeasy:easy-rules-mvel:3.3.0'
+    implementation 'org.smartregister:opensrp-plan-evaluator:1.0.0-SNAPSHOT'
 
     testImplementation 'junit:junit:4.13.1'
     testImplementation 'org.apache.maven:maven-ant-tasks:2.1.3'

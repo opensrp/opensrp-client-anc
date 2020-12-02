@@ -128,7 +128,7 @@ public class MeFragment extends org.smartregister.view.fragment.MeFragment imple
         if (MeFragment.this.getActivity() != null && StringUtils.isNotBlank(selectedLanguage)) {
             Locale selectedLanguageLocale = locales.get(selectedLanguage);
             if (selectedLanguageLocale != null) {
-                LangUtils.saveLanguage(MeFragment.this.getActivity().getApplication(), selectedLanguageLocale.getLanguage());
+                LangUtils.saveLanguage(MeFragment.this.getActivity().getApplication(), getFullLanguage(selectedLanguageLocale));
             } else {
                 Timber.i("Language could not be set");
             }
@@ -154,17 +154,21 @@ public class MeFragment extends org.smartregister.view.fragment.MeFragment imple
                 languages[x] = language.getKey(); //Update the languages strings array with the languages to be displayed on the alert dialog
                 x++;
 
-                if (current.getLanguage().equals(language.getValue().getLanguage())) {
+                if (getFullLanguage(current).equals(getFullLanguage(language.getValue()).toLowerCase())) {
                     languageSwitcherText.setText(String.format(getActivity().getResources().getString(R.string.default_language_string), language.getKey()));
                 }
             }
         }
     }
 
+    private String getFullLanguage(Locale locale) {
+        return StringUtils.isNotEmpty(locale.getCountry()) ? locale.getLanguage() + "_" + locale.getCountry() : locale.getLanguage();
+    }
+
     private void addLanguages() {
         locales.put(getString(R.string.english_language), Locale.ENGLISH);
-        locales.put("French", Locale.FRENCH);
-        locales.put("")
+        locales.put(getString(R.string.french_language), Locale.FRENCH);
+        locales.put(getString(R.string.portuguese_brazil_language), new Locale("pt"));
     }
 
 }
