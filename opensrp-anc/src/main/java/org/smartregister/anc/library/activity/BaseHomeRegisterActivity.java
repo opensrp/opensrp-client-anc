@@ -24,6 +24,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
 import org.smartregister.anc.library.AncLibrary;
@@ -76,6 +78,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
     private boolean isLibrary = false;
     private String advancedSearchQrText = "";
     private HashMap<String, String> advancedSearchFormData = new HashMap<>();
+    private String globalAncId = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -242,7 +245,11 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
                     JSONObject form = new JSONObject(jsonString);
                     switch (form.getString(ANCJsonFormUtils.ENCOUNTER_TYPE)) {
                         case ConstantsUtils.EventTypeUtils.REGISTRATION:
-                            ((RegisterContract.Presenter) presenter).saveRegistrationForm(jsonString, false);
+                            String ancId = getAncId(jsonString);
+                            if (StringUtils.isAllEmpty(globalAncId) || !ancId.equalsIgnoreCase(globalAncId)) {
+                                ((RegisterContract.Presenter) presenter).saveRegistrationForm(jsonString, false);
+                                globalAncId = ancId;
+                            }
                             break;
                         case ConstantsUtils.EventTypeUtils.CLOSE:
                             ((RegisterContract.Presenter) presenter).closeAncRecord(jsonString);
@@ -265,6 +272,18 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
             }
 
         }
+    }
+
+    private String getAncId(String jsonString) {
+        String ancId = null;
+        try {
+            JSONArray array = ANCJsonFormUtils.getSingleStepFormfields(new JSONObject(jsonString));
+            JSONObject jsonObject = ANCJsonFormUtils.getFieldJSONObject(array, "anc_id");
+            ancId = jsonObject.optString("value");
+        } catch (JSONException jsonException) {
+            Timber.e(jsonException);
+        }
+        return ancId;
     }
 
     @Override
