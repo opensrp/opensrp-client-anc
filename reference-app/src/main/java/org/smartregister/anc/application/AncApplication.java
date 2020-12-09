@@ -60,14 +60,13 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         CoreLibrary.init(context, new AncSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);
         AncLibrary.init(context, BuildConfig.DATABASE_VERSION, new ANCEventBusIndex());
         ConfigurableViewsLibrary.init(context);
+        setDefaultLanguage();
 
         SyncStatusBroadcastReceiver.init(this);
         TimeChangedBroadcastReceiver.init(this);
         TimeChangedBroadcastReceiver.getInstance().addOnTimeChangedListener(this);
         LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.DEFAULT_LOCATION_LEVEL);
         Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
-
-        setDefaultLanguage();
 
         //init Job Manager
         JobManager.create(this).addJobCreator(new AncJobCreator());
@@ -88,7 +87,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 
     private void setDefaultLanguage() {
         try {
-            Utils.saveLanguage(new Locale("pt").getLanguage());
+            Utils.saveLanguage("en");
         } catch (Exception e) {
             Timber.e(e, " --> saveLanguage");
         }
