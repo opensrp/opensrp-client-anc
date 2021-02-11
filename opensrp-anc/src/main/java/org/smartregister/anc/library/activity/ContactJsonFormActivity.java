@@ -40,7 +40,7 @@ public class ContactJsonFormActivity extends FormConfigurationJsonFormActivity {
     protected AncRulesEngineFactory rulesEngineFactory = null;
     private ProgressDialog progressDialog;
     private String formName;
-    private ANCFormUtils ancFormUtils = new ANCFormUtils();
+    private final ANCFormUtils ancFormUtils = new ANCFormUtils();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

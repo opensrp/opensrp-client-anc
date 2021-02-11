@@ -99,6 +99,23 @@
         }
       },
       {
+        "key": "middle_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "middle_name",
+        "type": "edit_text",
+        "hint": "{{anc_register.step1.middle_name.hint}}",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_register.step1.first_name.v_required.err}}"
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\s\\.\\-]*",
+          "err": "{{anc_register.step1.first_name.v_regex.err}}"
+        }
+      },
+      {
         "key": "last_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
@@ -279,6 +296,19 @@
         }
       },
       {
+        "key": "village_address",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_address",
+        "openmrs_entity_id": "address2",
+        "type": "edit_text",
+        "hint": "{{anc_register.step1.village_address.hint}}",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_register.step1.home_address.v_required.err}}"
+        }
+      },
+      {
         "key": "phone_number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -349,6 +379,73 @@
           "value": "true",
           "err": "{{anc_register.step1.alt_phone_number.v_numeric.err}}"
         }
+      },
+      {
+        "key": "cohabitants",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "label": "{{anc_register.step1.cohabitants.text}}",
+        "type": "check_box",
+        "exclusive": [
+          "no_one"
+        ],
+        "options": [
+          {
+            "key": "parents",
+            "text": "{{anc_register.step1.cohabitants.options.parents.text}}",
+            "text_size": "18px",
+            "value": "false",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "siblings",
+            "text": "{{anc_register.step1.dob_unknown.options.dob_unknown.text}}",
+            "text_size": "18px",
+            "value": "false",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "dob_unknown",
+            "text": "{{anc_register.step1.dob_unknown.options.dob_unknown.text}}",
+            "text_size": "18px",
+            "value": "false",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "dob_unknown",
+            "text": "{{anc_register.step1.dob_unknown.options.dob_unknown.text}}",
+            "text_size": "18px",
+            "value": "false",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "dob_unknown",
+            "text": "{{anc_register.step1.dob_unknown.options.dob_unknown.text}}",
+            "text_size": "18px",
+            "value": "false",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "no_one",
+            "text": "{{anc_register.step1.cohabitants.options.no_one.text}}",
+            "text_size": "18px",
+            "value": "false",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
       },
       {
         "key": "next_contact",
