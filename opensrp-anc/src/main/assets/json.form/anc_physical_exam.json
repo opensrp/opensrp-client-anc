@@ -1963,6 +1963,314 @@
             "ex": "equalTo(., \"yes\")"
           }
         }
+      },
+      {
+        "key": "ipv_physical_signs_symptoms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "{{anc_physical_exam.step3.ipv_physical_signs_symptoms.label}}",
+        "label_info_text": "{{anc_physical_exam.step3.ipv_physical_signs_symptoms.label_info_text}}",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "none",
+            "text": "{{anc_physical_exam.step3.ipv_physical_signs_symptoms.options.none.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "abdomen_injury",
+            "text": "{{anc_physical_exam.step3.ipv_physical_signs_symptoms.options.abdomen_injury.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "other_injury",
+            "text": "{{anc_physical_exam.step3.ipv_physical_signs_symptoms.options.other_injury.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "other",
+            "text": "{{anc_physical_exam.step3.ipv_physical_signs_symptoms.options.other.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          }
+        ]
+      },
+      {
+        "key": "ipv_physical_signs_symptoms_injury_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "{{anc_physical_exam.step3.ipv_physical_signs_symptoms_injury_other.hint}}",
+        "edit_type": "name",
+        "relevance": {
+          "step3:ipv_physical_signs_symptoms": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other_injury"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "ipv_physical_signs_symptoms_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "{{anc_physical_exam.step3.ipv_physical_signs_symptoms_other.hint}}",
+        "edit_type": "name",
+        "relevance": {
+          "step3:ipv_physical_signs_symptoms": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "toaster31",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_physical_exam.step3.toaster31.text}}",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "ipv_clinical_enquiry",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{anc_physical_exam.step3.ipv_clinical_enquiry.label}}",
+        "label_info_text": "{{anc_physical_exam.step3.ipv_clinical_enquiry.label_info_text}}",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "yes",
+            "text": "{{anc_physical_exam.step3.ipv_clinical_enquiry.options.yes.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "no",
+            "text": "{{anc_physical_exam.step3.ipv_clinical_enquiry.options.no.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "ipv_clinical_enquiry_not_done_reason",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{anc_physical_exam.step3.ipv_clinical_enquiry_not_done_reason.label}}",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "referred",
+            "text": "{{anc_physical_exam.step3.ipv_clinical_enquiry_not_done_reason.options.referred.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "provider_unavailable",
+            "text": "{{anc_physical_exam.step3.ipv_clinical_enquiry_not_done_reason.options.provider_unavailable.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "space_unavailable",
+            "text": "{{anc_physical_exam.step3.ipv_clinical_enquiry_not_done_reason.options.space_unavailable.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "confidentiality",
+            "text": "{{anc_physical_exam.step3.ipv_clinical_enquiry_not_done_reason.options.confidentiality.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "other",
+            "text": "{{anc_physical_exam.step3.ipv_clinical_enquiry_not_done_reason.options.other.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "ipv_clinical_enquiry_not_done_reason_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "{{anc_physical_exam.step3.ipv_clinical_enquiry_not_done_reason_other.hint}}",
+        "edit_type": "name",
+        "relevance": {
+          "step3:ipv_clinical_enquiry_not_done_reason": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "ipv_subject",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{anc_physical_exam.step3.ipv_subject.label}}",
+        "label_info_text": "{{anc_physical_exam.step3.ipv_subject.label_info_text}}",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "yes",
+            "text": "{{anc_physical_exam.step3.ipv_subject.options.yes.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "no",
+            "text": "{{anc_physical_exam.step3.ipv_subject.options.no.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_physical_exam.step3.ipv_subject.v_required.err}}"
+        }
+      },
+      {
+        "key": "ipv_subject_violence_types",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "{{anc_physical_exam.step3.ipv_subject_violence_types.label}}",
+        "label_info_text": "{{anc_physical_exam.step3.ipv_subject_violence_types.label_info_text}}",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "phys_violence",
+            "text": "{{anc_physical_exam.step3.ipv_subject_violence_types.options.phys_violence.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "sexual_violence",
+            "text": "{{anc_physical_exam.step3.ipv_subject_violence_types.options.sexual_violence.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "emotional_abuse",
+            "text": "{{anc_physical_exam.step3.ipv_subject_violence_types.options.emotional_abuse.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "family_member_violence",
+            "text": "{{anc_physical_exam.step3.ipv_subject_violence_types.options.family_member_violence.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          }
+        ]
       }
     ]
   },
@@ -2118,7 +2426,7 @@
         },
         "v_numeric_integer": {
           "value": "true",
-          "err": "Enter a valid sfh"
+          "err": "Enter a valid number"
         },
         "relevance": {
           "step4:fetal_heartbeat": {

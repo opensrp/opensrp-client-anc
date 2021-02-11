@@ -32,8 +32,6 @@ import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
-import java.util.Locale;
-
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
@@ -193,14 +191,14 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     @Override
     public void onTimeChanged() {
         Utils.showToast(this, this.getString(org.smartregister.anc.library.R.string.device_time_changed));
-        context.userService().forceRemoteLogin(context.allSharedPreferences().fetchRegisteredANM());
+        context.userService().getAllSharedPreferences().saveForceRemoteLogin(true, context.allSharedPreferences().fetchRegisteredANM());
         logoutCurrentUser();
     }
 
     @Override
     public void onTimeZoneChanged() {
         Utils.showToast(this, this.getString(org.smartregister.anc.library.R.string.device_timezone_changed));
-        context.userService().forceRemoteLogin(context.allSharedPreferences().fetchRegisteredANM());
+        context.userService().getAllSharedPreferences().saveForceRemoteLogin(true, context.allSharedPreferences().fetchRegisteredANM());
         logoutCurrentUser();
     }
 }

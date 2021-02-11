@@ -18,11 +18,6 @@
     "tt3_date",
     "tt1_date_done",
     "tt2_date_done",
-    "hepb1_date",
-    "hepb2_date",
-    "hepb3_date",
-    "hepb1_date_done",
-    "hepb2_date_done",
     "deworm",
     "flu_date",
     "hepb_positive"
@@ -3495,60 +3490,130 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "oral_contraceptive",
-            "text": "{{anc_counselling_treatment.step7.family_planning_type.options.oral_contraceptive.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "780AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "injectable",
-            "text": "{{anc_counselling_treatment.step7.family_planning_type.options.injectable.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "5279AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "implant",
-            "text": "{{anc_counselling_treatment.step7.family_planning_type.options.implant.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "159589AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "iud",
-            "text": "{{anc_counselling_treatment.step7.family_planning_type.options.iud.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "5275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "vaginal_ring",
-            "text": "{{anc_counselling_treatment.step7.family_planning_type.options.vaginal_ring.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "162473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "tubal_ligation",
-            "text": "{{anc_counselling_treatment.step7.family_planning_type.options.tubal_ligation.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1472AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "sterilization",
-            "text": "{{anc_counselling_treatment.step7.family_planning_type.options.sterilization.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
             "key": "none",
             "text": "{{anc_counselling_treatment.step7.family_planning_type.options.none.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "cu_iud",
+            "text": "{{anc_counselling_treatment.step7.family_planning_type.options.cu_iud.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "lng_iud",
+            "text": "{{anc_counselling_treatment.step7.family_planning_type.options.lng_iud.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "etg_implant",
+            "text": "{{anc_counselling_treatment.step7.family_planning_type.options.etg_implant.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "lng_implant",
+            "text": "{{anc_counselling_treatment.step7.family_planning_type.options.lng_implant.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "dmpa_im",
+            "text": "{{anc_counselling_treatment.step7.family_planning_type.options.dmpa_im.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "dmpa_sc",
+            "text": "{{anc_counselling_treatment.step7.family_planning_type.options.dmpa_sc.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "net_en",
+            "text": "{{anc_counselling_treatment.step7.family_planning_type.options.net_en.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "pop",
+            "text": "{{anc_counselling_treatment.step7.family_planning_type.options.pop.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "coc",
+            "text": "{{anc_counselling_treatment.step7.family_planning_type.options.coc.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "combined_patch",
+            "text": "{{anc_counselling_treatment.step7.family_planning_type.options.combined_patch.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "combined_ring",
+            "text": "{{anc_counselling_treatment.step7.family_planning_type.options.combined_ring.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "pvr",
+            "text": "{{anc_counselling_treatment.step7.family_planning_type.options.pvr.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "lam",
+            "text": "{{anc_counselling_treatment.step7.family_planning_type.options.lam.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "male_condoms",
+            "text": "{{anc_counselling_treatment.step7.family_planning_type.options.male_condoms.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "female_condoms",
+            "text": "{{anc_counselling_treatment.step7.family_planning_type.options.female_condoms.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "male_sterilization",
+            "text": "{{anc_counselling_treatment.step7.family_planning_type.options.male_sterilization.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "female_sterilization",
+            "text": "{{anc_counselling_treatment.step7.family_planning_type.options.female_sterilization.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
           }
         ],
         "relevance": {
@@ -3599,157 +3664,387 @@
     "next": "step9",
     "fields": [
       {
-        "key": "ipv_enquiry",
+        "key": "ipv_support",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "165352AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{anc_counselling_treatment.step8.ipv_enquiry.label}}",
+        "label": "{{anc_counselling_treatment.step8.ipv_support.label}}",
+        "label_info_text": "{{anc_counselling_treatment.step8.ipv_support.label_info_text}}",
+        "label_info_title": "{{anc_counselling_treatment.step8.ipv_support.label_info_title}}",
         "label_text_style": "bold",
         "options": [
           {
-            "key": "done",
-            "text": "{{anc_counselling_treatment.step8.ipv_enquiry.options.done.text}}",
+            "key": "yes",
+            "text": "{{anc_counselling_treatment.step8.ipv_support.options.yes.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": ""
           },
           {
-            "key": "not_done",
-            "text": "{{anc_counselling_treatment.step8.ipv_enquiry.options.not_done.text}}",
+            "key": "no",
+            "text": "{{anc_counselling_treatment.step8.ipv_support.options.no.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": ""
           }
         ],
         "v_required": {
           "value": true,
-          "err": "{{anc_counselling_treatment.step8.ipv_enquiry.v_required.err}}"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
-            }
-          }
+          "err": "{{anc_counselling_treatment.step8.ipv_support.v_required.err}}"
         }
       },
       {
-        "key": "ipv_enquiry_notdone",
+        "key": "ipv_support_notdone",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "165353AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "",
+        "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "{{anc_counselling_treatment.step8.ipv_enquiry_notdone.label}}",
-        "hint": "{{anc_counselling_treatment.step8.ipv_enquiry_notdone.hint}}",
+        "label": "{{anc_counselling_treatment.step8.ipv_support_notdone.label}}",
         "label_text_style": "bold",
         "options": [
           {
-            "key": "referred_instead",
-            "text": "{{anc_counselling_treatment.step8.ipv_enquiry_notdone.options.referred_instead.text}}",
+            "key": "referred",
+            "text": "{{anc_counselling_treatment.step8.ipv_support_notdone.options.referred.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "provider_unavailable",
+            "text": "{{anc_counselling_treatment.step8.ipv_support_notdone.options.provider_unavailable.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "space_unavailable",
+            "text": "{{anc_counselling_treatment.step8.ipv_support_notdone.options.space_unavailable.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "confidentiality",
+            "text": "{{anc_counselling_treatment.step8.ipv_support_notdone.options.confidentiality.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
           },
           {
             "key": "other",
-            "text": "{{anc_counselling_treatment.step8.ipv_enquiry_notdone.options.other.text}}",
+            "text": "{{anc_counselling_treatment.step8.ipv_support_notdone.options.other.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": ""
           }
-        ],
-        "relevance": {
-          "step8:ipv_enquiry": {
-            "type": "string",
-            "ex": "equalTo(., \"not_done\")"
-          }
-        },
-        "v_required": {
-          "value": true,
-          "err": "{{anc_counselling_treatment.step8.ipv_enquiry_notdone.v_required.err}}"
-        }
+        ]
       },
       {
-        "key": "ipv_enquiry_notdone_other",
-        "openmrs_entity_parent": "165353AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
-        "hint": "{{anc_counselling_treatment.step8.ipv_enquiry_notdone_other.hint}}",
-        "edit_type": "name",
-        "relevance": {
-          "step8:ipv_enquiry_notdone": {
-            "type": "string",
-            "ex": "equalTo(., \"other\")"
-          }
-        }
-      },
-      {
-        "key": "ipv_enquiry_results",
+        "key": "ipv_support_notdone_other",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "165354AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "native_radio",
-        "label": "{{anc_counselling_treatment.step8.ipv_enquiry_results.label}}",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "{{anc_counselling_treatment.step8.ipv_support_notdone_other.hint}}",
+        "edit_type": "name",
+        "relevance": {
+          "step8:ipv_support_notdone": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "ipv_care",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "",
+        "type": "check_box",
+        "label": "{{anc_counselling_treatment.step8.ipv_care.label}}",
         "label_text_style": "bold",
+        "exclusive": [
+          "no_action"
+        ],
         "options": [
           {
-            "key": "treated",
-            "text": "{{anc_counselling_treatment.step8.ipv_enquiry_results.options.treated.text}}",
+            "key": "no_action",
+            "text": "{{anc_counselling_treatment.step8.ipv_care.options.no_action.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1185AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "safety_assessment",
+            "text": "{{anc_counselling_treatment.step8.ipv_care.options.safety_assessment.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "mental_health_care",
+            "text": "{{anc_counselling_treatment.step8.ipv_care.options.mental_health_care.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "care_other_symptoms",
+            "text": "{{anc_counselling_treatment.step8.ipv_care.options.care_other_symptoms.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
           },
           {
             "key": "referred",
-            "text": "{{anc_counselling_treatment.step8.ipv_enquiry_results.options.referred.text}}",
+            "text": "{{anc_counselling_treatment.step8.ipv_care.options.referred.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "phys_violence_worse",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{anc_counselling_treatment.step8.phys_violence_worse.label}}",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "yes",
+            "text": "{{anc_counselling_treatment.step8.phys_violence_worse.options.yes.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
           },
           {
-            "key": "no_action",
-            "text": "{{anc_counselling_treatment.step8.ipv_enquiry_results.options.no_action.text}}",
+            "key": "no",
+            "text": "{{anc_counselling_treatment.step8.phys_violence_worse.options.no.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "used_weapon",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{anc_counselling_treatment.step8.used_weapon.label}}",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "yes",
+            "text": "{{anc_counselling_treatment.step8.used_weapon.options.yes.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "no",
+            "text": "{{anc_counselling_treatment.step8.used_weapon.options.no.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "strangle",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{anc_counselling_treatment.step8.strangle.label}}",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "yes",
+            "text": "{{anc_counselling_treatment.step8.strangle.options.yes.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "no",
+            "text": "{{anc_counselling_treatment.step8.strangle.options.no.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "beaten",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{anc_counselling_treatment.step8.beaten.label}}",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "yes",
+            "text": "{{anc_counselling_treatment.step8.beaten.options.yes.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "no",
+            "text": "{{anc_counselling_treatment.step8.beaten.options.no.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "jealous",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{anc_counselling_treatment.step8.jealous.label}}",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "yes",
+            "text": "{{anc_counselling_treatment.step8.jealous.options.yes.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "no",
+            "text": "{{anc_counselling_treatment.step8.jealous.options.no.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "believe_kill",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "{{anc_counselling_treatment.step8.believe_kill.label}}",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "yes",
+            "text": "{{anc_counselling_treatment.step8.believe_kill.options.yes.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "no",
+            "text": "{{anc_counselling_treatment.step8.believe_kill.options.no.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "ipv_referrals",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "",
+        "type": "check_box",
+        "label": "{{anc_counselling_treatment.step8.ipv_referrals.label}}",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "care_health_facility",
+            "text": "{{anc_counselling_treatment.step8.ipv_referrals.options.care_health_facility.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "crisis_intervention",
+            "text": "{{anc_counselling_treatment.step8.ipv_referrals.options.crisis_intervention.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "police",
+            "text": "{{anc_counselling_treatment.step8.ipv_referrals.options.police.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "shelter",
+            "text": "{{anc_counselling_treatment.step8.ipv_referrals.options.shelter.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "legal_aid",
+            "text": "{{anc_counselling_treatment.step8.ipv_referrals.options.legal_aid.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "child_protection",
+            "text": "{{anc_counselling_treatment.step8.ipv_referrals.options.child_protection.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "livelihood_support",
+            "text": "{{anc_counselling_treatment.step8.ipv_referrals.options.livelihood_support.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
           },
           {
             "key": "other",
-            "text": "{{anc_counselling_treatment.step8.ipv_enquiry_results.options.other.text}}",
+            "text": "{{anc_counselling_treatment.step8.ipv_referrals.options.other.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": ""
           }
-        ],
-        "v_required": {
-          "value": true,
-          "err": "{{anc_counselling_treatment.step8.ipv_enquiry_results.v_required.err}}"
-        },
-        "relevance": {
-          "step8:ipv_enquiry": {
-            "type": "string",
-            "ex": "equalTo(., \"done\")"
-          }
-        }
+        ]
       },
       {
-        "key": "ipv_refer_toaster",
+        "key": "ipv_referrals_other",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "{{anc_counselling_treatment.step8.ipv_refer_toaster.text}}",
-        "toaster_info_text": "{{anc_counselling_treatment.step8.ipv_refer_toaster.toaster_info_text}}",
-        "toaster_info_title": "{{anc_counselling_treatment.step8.ipv_refer_toaster.toaster_info_title}}",
-        "toaster_type": "info",
+        "type": "edit_text",
+        "hint": "{{anc_counselling_treatment.step8.ipv_referrals_other.hint}}",
+        "edit_type": "name",
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
-            }
+          "step8:ipv_referrals": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
           }
         }
       }
@@ -4927,102 +5222,6 @@
         }
       },
       {
-        "key": "tt3_date",
-        "openmrs_entity_parent": "84879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "164464AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "native_radio",
-        "label": "{{anc_counselling_treatment.step11.tt3_date.label}}",
-        "label_info_text": "{{anc_counselling_treatment.step11.tt3_date.label_info_text}}",
-        "label_info_title": "{{anc_counselling_treatment.step11.tt3_date.label_info_title}}",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "done_today",
-            "text": "{{anc_counselling_treatment.step11.tt3_date.options.done_today.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "done_earlier",
-            "text": "{{anc_counselling_treatment.step11.tt3_date.options.done_earlier.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "160699AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "not_done",
-            "text": "{{anc_counselling_treatment.step11.tt3_date.options.not_done.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ],
-        "v_required": {
-          "value": true,
-          "err": "{{anc_counselling_treatment.step11.tt3_date.v_required.err}}"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "tt3_dose_number",
-        "openmrs_entity_parent": "84879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "hidden",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ct_calculation_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "tt3_date_done_date_today_hidden",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden",
-        "label_text_style": "bold",
-        "text_color": "#000000",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ct_calculation_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "tt3_date_done",
-        "openmrs_entity_parent": "84879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "date_picker",
-        "hint": "{{anc_counselling_treatment.step11.tt3_date_done.hint}}",
-        "expanded": "false",
-        "max_date": "today",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
-            }
-          }
-        },
-        "v_required": {
-          "value": true,
-          "err": "{{anc_counselling_treatment.step11.tt3_date_done.v_required.err}}"
-        }
-      },
-      {
         "key": "tt_dose_notdone",
         "openmrs_entity_parent": "84879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "concept",
@@ -5091,426 +5290,6 @@
           "step11:tt_dose_notdone": {
             "type": "string",
             "ex": "equalTo(., \"other\")"
-          }
-        }
-      },
-      {
-        "key": "woman_immunised_toaster",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "{{anc_counselling_treatment.step11.woman_immunised_toaster.text}}",
-        "toaster_type": "positive",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "hepb_negative_note",
-        "openmrs_entity_parent": "165363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "native_radio",
-        "label": "{{anc_counselling_treatment.step11.hepb_negative_note.label}}",
-        "label_info_text": "{{anc_counselling_treatment.step11.hepb_negative_note.label_info_text}}",
-        "label_info_title": "{{anc_counselling_treatment.step11.hepb_negative_note.label_info_title}}",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "done",
-            "text": "{{anc_counselling_treatment.step11.hepb_negative_note.options.done.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "not_done",
-            "text": "{{anc_counselling_treatment.step11.hepb_negative_note.options.not_done.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "hepb1_date",
-        "openmrs_entity_parent": "782AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "164464AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "native_radio",
-        "label": "{{anc_counselling_treatment.step11.hepb1_date.label}}",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "done_today",
-            "text": "{{anc_counselling_treatment.step11.hepb1_date.options.done_today.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "done_earlier",
-            "text": "{{anc_counselling_treatment.step11.hepb1_date.options.done_earlier.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "160699AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "not_done",
-            "text": "{{anc_counselling_treatment.step11.hepb1_date.options.not_done.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ],
-        "v_required": {
-          "value": true,
-          "err": "{{anc_counselling_treatment.step11.hepb1_date.v_required.err}}"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "hepb1_dose_number",
-        "openmrs_entity_parent": "782AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "hidden",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ct_calculation_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "hepb1_date_done_date_today_hidden",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden",
-        "label_text_style": "bold",
-        "text_color": "#000000",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ct_calculation_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "hepb1_date_done",
-        "openmrs_entity_parent": "782AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "date_picker",
-        "hint": "{{anc_counselling_treatment.step11.hepb1_date_done.hint}}",
-        "expanded": "false",
-        "max_date": "today",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
-            }
-          }
-        },
-        "v_required": {
-          "value": true,
-          "err": "{{anc_counselling_treatment.step11.hepb1_date_done.v_required.err}}"
-        }
-      },
-      {
-        "key": "hepb2_date",
-        "openmrs_entity_parent": "782AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "164464AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "native_radio",
-        "label": "{{anc_counselling_treatment.step11.hepb2_date.label}}",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "done_today",
-            "text": "{{anc_counselling_treatment.step11.hepb2_date.options.done_today.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "done_earlier",
-            "text": "{{anc_counselling_treatment.step11.hepb2_date.options.done_earlier.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "160699AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "not_done",
-            "text": "{{anc_counselling_treatment.step11.hepb2_date.options.not_done.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ],
-        "v_required": {
-          "value": true,
-          "err": "{{anc_counselling_treatment.step11.hepb2_date.v_required.err}}"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "hepb2_dose_number",
-        "openmrs_entity_parent": "782AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "hidden",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ct_calculation_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "hepb2_date_done_date_today_hidden",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden",
-        "label_text_style": "bold",
-        "text_color": "#000000",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ct_calculation_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "hepb2_date_done",
-        "openmrs_entity_parent": "782AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "date_picker",
-        "hint": "{{anc_counselling_treatment.step11.hepb2_date_done.hint}}",
-        "expanded": "false",
-        "max_date": "today",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
-            }
-          }
-        },
-        "v_required": {
-          "value": true,
-          "err": "{{anc_counselling_treatment.step11.hepb2_date_done.v_required.err}}"
-        }
-      },
-      {
-        "key": "hepb3_date",
-        "openmrs_entity_parent": "782AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "164464AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "native_radio",
-        "label": "{{anc_counselling_treatment.step11.hepb3_date.label}}",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "done_today",
-            "text": "{{anc_counselling_treatment.step11.hepb3_date.options.done_today.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "done_earlier",
-            "text": "{{anc_counselling_treatment.step11.hepb3_date.options.done_earlier.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "160699AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "not_done",
-            "text": "{{anc_counselling_treatment.step11.hepb3_date.options.not_done.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ],
-        "v_required": {
-          "value": true,
-          "err": "{{anc_counselling_treatment.step11.hepb3_date.v_required.err}}"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "hepb3_dose_number",
-        "openmrs_entity_parent": "782AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "hidden",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ct_calculation_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "hepb3_date_done_date_today_hidden",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden",
-        "label_text_style": "bold",
-        "text_color": "#000000",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ct_calculation_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "hepb3_date_done",
-        "openmrs_entity_parent": "782AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "date_picker",
-        "hint": "{{anc_counselling_treatment.step11.hepb3_date_done.hint}}",
-        "expanded": "false",
-        "max_date": "today",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
-            }
-          }
-        },
-        "v_required": {
-          "value": true,
-          "err": "{{anc_counselling_treatment.step11.hepb3_date_done.v_required.err}}"
-        }
-      },
-      {
-        "key": "hepb_dose_notdone",
-        "openmrs_entity_parent": "782AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "native_radio",
-        "label": "{{anc_counselling_treatment.step11.hepb_dose_notdone.label}}",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "vaccine_available",
-            "text": "{{anc_counselling_treatment.step11.hepb_dose_notdone.options.vaccine_available.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1754AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "woman_is_ill",
-            "text": "{{anc_counselling_treatment.step11.hepb_dose_notdone.options.woman_is_ill.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "160585AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "woman_refused",
-            "text": "{{anc_counselling_treatment.step11.hepb_dose_notdone.options.woman_refused.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "127750AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "allergies",
-            "text": "{{anc_counselling_treatment.step11.hepb_dose_notdone.options.allergies.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "141760AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "other",
-            "text": "{{anc_counselling_treatment.step11.hepb_dose_notdone.options.other.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
-            }
-          }
-        },
-        "v_required": {
-          "value": true,
-          "err": "{{anc_counselling_treatment.step11.hepb_dose_notdone.v_required.err}}"
-        }
-      },
-      {
-        "key": "hepb_dose_notdone_other",
-        "openmrs_entity_parent": "782AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165440AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
-        "hint": "{{anc_counselling_treatment.step11.hepb_dose_notdone_other.hint}}",
-        "edit_type": "name",
-        "relevance": {
-          "step11:hepb_dose_notdone": {
-            "type": "string",
-            "ex": "equalTo(., \"other\")"
-          }
-        }
-      },
-      {
-        "key": "woman_immunised_hep_b_toaster",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "{{anc_counselling_treatment.step11.woman_immunised_hep_b_toaster.text}}",
-        "toaster_type": "positive",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
-            }
           }
         }
       },
