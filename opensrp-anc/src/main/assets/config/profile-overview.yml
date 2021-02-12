@@ -193,6 +193,106 @@ fields:
   relevance: "fetal_heart_rate_repeat < 100 || fetal_heart_rate_repeat > 180"
 
 ---
+group: risks_and_diagnoses
+fields:
+- template: "High daily consumption of caffeine: {caffeine_intake}"
+  relevance: "caffeine_intake != '' && caffeine_intake != 'none'"
+  isRedFont: "true"
+
+- template: "Tobacco user or recently quit: {tobacco_user}"
+  relevance: "tobacco_user != '' && tobacco_user != 'no'"
+  isRedFont: "true"
+
+- template: "Second-hand exposure to tobacco smoke: {shs_exposure}"
+  relevance: "shs_exposure == 'yes'"
+  isRedFont: "true"
+
+- template: "Woman and her partner(s) do not use condoms: {condom_use}"
+  relevance: "condom_use == 'no'"
+  isRedFont: "true"
+
+- template: "Alcohol / substances currently using: {alcohol_substance_use} {other_substance_use}"
+  relevance: "!other_substance_use.isEmpty() || (!alcohol_substance_use.isEmpty() && !alcohol_substance_use.contains('none))"
+  isRedFont: "true"
+
+- template: "Reduced or no fetal movement perceived by woman: {mat_percept_fetal_move}"
+  relevance: "mat_percept_fetal_move != '' && mat_percept_fetal_move != 'normal_fetal_move'"
+  isRedFont: "true"
+
+- template: "Pre-eclampsia risk: {preeclampsia_risk}"
+  relevance: "preeclampsia_risk == 1"
+  isRedFont: "true"
+
+- template: "HIV risk: {date}"
+  relevance: "hiv_risk == 1"
+  isRedFont: "true"
+
+- template: "Diabetes risk: {date} "
+  relevance: "diabetes_risk == 1"
+  isRedFont: "true"
+
+- template: "Hypertension: {date}"
+  relevance: "hypertension_risk == 1"
+  isRedFont: "true"
+
+- template: "Severe hypertension: {date}: {date}"
+  relevance: "severe_hypertension_risk == 1"
+  isRedFont: "true"
+
+- template: "Pre-eclampsia: {date}"
+  relevance: "pre_eclampsia == 1"
+  isRedFont: "true"
+
+- template: "Severe pre-eclampsia: {date}"
+  relevance: "severe_pre_eclampsia == 1"
+  isRedFont: "true"
+
+- template: "Rh factor negative: {date}: {date}"
+  relevance: "rh_factor_negative == 1"
+  isRedFont: "true"
+
+- template: "HIV positive: {date}"
+  relevance: "hiv_positive == 1"
+  isRedFont: "true"
+
+- template: "Hepatitis B positive: {date}"
+  relevance: "hepatitis_b_positive == 1"
+  isRedFont: "true"
+
+- template: "Hepatitis C positive: {date}"
+  relevance: "hepatitis_c_positive == 1"
+  isRedFont: "true"
+
+- template: "Syphilis positive: {date}"
+  relevance: "syphilis_positive == 1"
+  isRedFont: "true"
+
+- template: "Asymptomatic bacteriuria (ASB) infection: {date}"
+  relevance: "asb_positive == 1"
+  isRedFont: "true"
+
+- template: "Positive for Group B Streptococcus (GBS): {date}"
+  relevance: "urine_culture = 'Positive - Group B Streptococcus (GBS)'"
+  isRedFont: "true"
+
+- template: "Gestational Diabetes Mellitus (GDM): {date}"
+  relevance: "gdm = 1"
+  isRedFont: "true"
+
+- template: "Diabetes Mellitus (DM) in pregnancy: {date}"
+  relevance: "dm_in_preg = 1"
+  isRedFont: "true"
+
+- template: "Anaemia diagnosis: {date}"
+  relevance: "anaemic = 1"
+  isRedFont: "true"
+
+- template: "TB screening positive: {date}"
+  relevance: "tb_screening_result = 'Positive'"
+  isRedFont: "true"
+
+
+---
 group: physiological_symptoms
 fields:
 - template: "{{profile_overview.physiological_symptoms.physiological_symptoms}}: {phys_symptoms}"
