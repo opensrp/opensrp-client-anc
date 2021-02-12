@@ -101,7 +101,7 @@
         },
         "v_numeric": {
           "value": "true",
-          "err": "{{anc_physical_exam.step1.height.v_numeric.err}}"
+          "err": ""
         },
         "v_min": {
           "value": "100",
@@ -163,7 +163,7 @@
         },
         "v_numeric": {
           "value": "true",
-          "err": "{{anc_physical_exam.step1.pregest_weight.v_numeric.err}}"
+          "err": ""
         },
         "v_min": {
           "value": "30",
@@ -223,7 +223,7 @@
         "edit_type": "number",
         "v_numeric": {
           "value": "true",
-          "err": "{{anc_physical_exam.step1.current_weight.v_numeric.err}}"
+          "err": ""
         },
         "v_min": {
           "value": "30",
@@ -489,7 +489,7 @@
         "edit_type": "number",
         "v_numeric": {
           "value": "true",
-          "err": "{{anc_physical_exam.step2.bp_systolic.v_numeric.err}}"
+          "err": ""
         },
         "v_min": {
           "value": "20",
@@ -565,7 +565,7 @@
         "edit_type": "number",
         "v_numeric": {
           "value": "true",
-          "err": "{{anc_physical_exam.step2.bp_diastolic.v_numeric.err}}"
+          "err": ""
         },
         "v_min": {
           "value": "20",
@@ -716,7 +716,7 @@
         "edit_type": "number",
         "v_numeric": {
           "value": "true",
-          "err": "{{anc_physical_exam.step2.bp_systolic_repeat.v_numeric.err}}"
+          "err": ""
         },
         "v_min": {
           "value": "20",
@@ -773,7 +773,7 @@
         "edit_type": "number",
         "v_numeric": {
           "value": "true",
-          "err": "{{anc_physical_exam.step2.bp_diastolic_repeat.v_numeric.err}}"
+          "err": ""
         },
         "v_min": {
           "value": "20",
@@ -1134,7 +1134,7 @@
         },
         "v_numeric": {
           "value": "true",
-          "err": "{{anc_physical_exam.step3.body_temp.v_numeric.err}}"
+          "err": ""
         },
         "v_min": {
           "value": "35",
@@ -1206,7 +1206,7 @@
         },
         "v_numeric": {
           "value": "true",
-          "err": "{{anc_physical_exam.step3.body_temp_repeat.v_numeric.err}}"
+          "err": ""
         },
         "v_min": {
           "value": "35",
@@ -1266,7 +1266,7 @@
         },
         "v_numeric": {
           "value": "true",
-          "err": "{{anc_physical_exam.step3.pulse_rate.v_numeric.err}}"
+          "err": ""
         },
         "v_min": {
           "value": "20",
@@ -1330,7 +1330,7 @@
         "edit_type": "number",
         "v_numeric": {
           "value": "true",
-          "err": "{{anc_physical_exam.step3.pulse_rate_repeat.v_numeric.err}}"
+          "err": ""
         },
         "v_min": {
           "value": "20",

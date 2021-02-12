@@ -259,6 +259,14 @@
             "openmrs_entity_parent": ""
           },
           {
+            "key": "prep_hiv",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.prep_hiv.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
             "key": "antitussive",
             "text": "{{anc_symptoms_follow_up.step1.medications.options.antitussive.text}}",
             "value": false,
@@ -660,7 +668,7 @@
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165249AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "label_info_text": "High caffeine intake means consuming more than 300 mg of caffeine per day. Each of the following represents 300 mg of caffeine:\n - 2 cups (200ml) of filtered or commercially brewed coffee\n - 2 small cups (50 ml) of espresso\n - 3 cups (300ml) of instant coffee\n - 48 pieces (squares) of chocolate\n\nPlease indicate if the woman consumes more than these amounts per day.",
+            "label_info_text": "High caffeine intake means consuming more than 300 mg of caffeine per day. Each of the following represents 300 mg of caffeine:\n - More than 2 cups of coffee (brewed, filtered, instant or espresso)\n - More than 4 cups of tea\n - More than 12 bars (50 g) of chocolate\n - More than one can of soda or energy drink\n\nPlease indicate if the woman consumes more than these amounts per day.",
             "label_info_title": "High caffeine intake",
             "openmrs_entity_parent": ""
           },
@@ -1328,14 +1336,6 @@
             "openmrs_entity_parent": ""
           },
           {
-            "key": "vaginal_discharge",
-            "text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.vaginal_discharge.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "123396AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
             "key": "visual_disturbance",
             "text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.visual_disturbance.text}}",
             "value": false,
@@ -1837,14 +1837,6 @@
             "openmrs_entity_parent": ""
           },
           {
-            "key": "vaginal_discharge",
-            "text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.vaginal_discharge.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "123396AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
             "key": "visual_disturbance",
             "text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.visual_disturbance.text}}",
             "value": false,
@@ -1888,6 +1880,264 @@
             ]
           }
         }
+      },
+      {
+        "key": "ipv_signs_symptoms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.label}}",
+        "label_info_text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.label_info_text}}",
+        "label_info_title": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.label_info_title}}",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "none",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.none.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "stress",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.stress.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "anxiety",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.anxiety.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "depression",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.depression.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "emotional_health_issues",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.emotional_health_issues.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "alcohol_misuse",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.alcohol_misuse.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "drugs_misuse",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.drugs_misuse.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "harmful_behaviour",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.harmful_behaviour.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "suicide_thoughts",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.suicide_thoughts.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "suicide_plans",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.suicide_plans.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "suicide_acts",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.suicide_acts.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "repeat_stis",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.repeat_stis.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "unwanted_pregnancies",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.unwanted_pregnancies.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "chronic_pain",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.chronic_pain.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "gastro_symptoms",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.gastro_symptoms.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "genitourinary_symptoms",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.genitourinary_symptoms.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "adverse_repro_outcomes",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.adverse_repro_outcomes.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "unexplained_repro_symptoms",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.unexplained_repro_symptoms.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "repeat_vaginal_bleeding",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.repeat_vaginal_bleeding.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "injury_abdomen",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.injury_abdomen.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "injury_other",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.injury_other.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "problems_cns",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.problems_cns.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "repeat_health_consultations",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.repeat_health_consultations.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "intrusive_partner",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.intrusive_partner.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "misses_appointments",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.misses_appointments.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "children_emotional_problems",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.children_emotional_problems.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          }
+        ]
+      },
+      {
+        "key": "ipv_signs_symptoms_injury_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms_injury_other.hint}}",
+        "v_regex": {
+          "value": "[A-Za-z\\s\\.\\-]*",
+          "err": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms_injury_other.v_regex.err}}"
+        },
+        "relevance": {
+          "step4:ipv_signs_symptoms": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "injury_other"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "toaster23",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_symptoms_follow_up.step4.toaster23.text}}",
+        "text_color": "#D56900",
+        "toaster_type": "warning"
       },
       {
         "key": "mat_percept_fetal_move",
