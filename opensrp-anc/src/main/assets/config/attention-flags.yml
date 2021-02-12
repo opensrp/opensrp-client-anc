@@ -13,7 +13,7 @@ fields:
     relevance: "parity >= 5"
 
   - template: "{{attention_flags.yellow.past_pregnancy_problems}}: {prev_preg_comps_value}"
-    relevance: "!prev_preg_comps.isEmpty() && !prev_preg_comps.contains('none')"
+    relevance: "!prev_preg_comps.isEmpty() && !prev_preg_comps.contains('none') && !prev_preg_comps.contains('dont_know')"
 
   - template: "{{attention_flags.yellow.past_alcohol_substances_used}}: {substances_used_value}"
     relevance: "!substances_used.isEmpty() && !substances_used.contains('none')"
@@ -28,7 +28,7 @@ fields:
     relevance: "!surgeries.isEmpty() && !surgeries.contains('none')"
 
   - template: "{{attention_flags.yellow.chronic_health_conditions}}: {health_conditions_value}"
-    relevance: "!health_conditions.isEmpty() && !health_conditions.contains('none')"
+    relevance: "!health_conditions.isEmpty() && !health_conditions.contains('none') && !health_conditions.contains('dont_know')"
 
   - template: "{{attention_flags.yellow.high_daily_consumption_of_caffeine}}"
     relevance: "!caffeine_intake.isEmpty() && !caffeine_intake.contains('none')"
@@ -130,7 +130,7 @@ fields:
     relevance: "fetal_heartbeat == 'no'"
 
   - template: "{{attention_flags.red.abnormal_fetal_heart_rate}}: {fetal_heart_rate_repeat}bpm"
-    relevance: "fetal_heart_rate_repeat < 110 || fetal_heart_rate_repeat > 160"
+    relevance: "fetal_heart_rate_repeat < 100 || fetal_heart_rate_repeat > 180"
 
   - template: "{{attention_flags.red.no_of_fetuses}}: {no_of_fetuses}"
     relevance: "no_of_fetuses > 1"
@@ -172,7 +172,7 @@ fields:
     relevance: "dm_in_preg == 1"
 
   - template: "{{attention_flags.red.hematocrit_ht}}: {ht}"
-    relevance: "ht < 10.5"
+    relevance: "ht < 20"
 
   - template: "{{attention_flags.red.white_blood_cell_wbc_count}}: {wbc}"
     relevance: "wbc > 16000"
