@@ -99,23 +99,6 @@
         }
       },
       {
-        "key": "middle_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "middle_name",
-        "type": "edit_text",
-        "hint": "{{anc_register.step1.middle_name.hint}}",
-        "edit_type": "name",
-        "v_required": {
-          "value": "true",
-          "err": "{{anc_register.step1.first_name.v_required.err}}"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
-          "err": "{{anc_register.step1.first_name.v_regex.err}}"
-        }
-      },
-      {
         "key": "last_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
@@ -296,19 +279,6 @@
         }
       },
       {
-        "key": "village_address",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_address",
-        "openmrs_entity_id": "address2",
-        "type": "edit_text",
-        "hint": "{{anc_register.step1.village_address.hint}}",
-        "edit_type": "name",
-        "v_required": {
-          "value": "true",
-          "err": "{{anc_register.step1.home_address.v_required.err}}"
-        }
-      },
-      {
         "key": "phone_number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -385,7 +355,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "label": "{{anc_register.step1.cohabitants.text}}",
+        "label":"{{anc_register.step1.cohabitants.label}}",
+        "label_info_text": "{{anc_register.step1.cohabitants.label_info_text}}",
         "type": "check_box",
         "exclusive": [
           "no_one"
@@ -402,7 +373,7 @@
           },
           {
             "key": "siblings",
-            "text": "{{anc_register.step1.dob_unknown.options.dob_unknown.text}}",
+            "text": "{{anc_register.step1.cohabitants.options.siblings.text}}",
             "text_size": "18px",
             "value": "false",
             "openmrs_entity_parent": "",
@@ -410,8 +381,8 @@
             "openmrs_entity_id": ""
           },
           {
-            "key": "dob_unknown",
-            "text": "{{anc_register.step1.dob_unknown.options.dob_unknown.text}}",
+            "key": "extended_family",
+            "text": "{{anc_register.step1.cohabitants.options.extended_family.text}}",
             "text_size": "18px",
             "value": "false",
             "openmrs_entity_parent": "",
@@ -419,8 +390,8 @@
             "openmrs_entity_id": ""
           },
           {
-            "key": "dob_unknown",
-            "text": "{{anc_register.step1.dob_unknown.options.dob_unknown.text}}",
+            "key": "partner",
+            "text": "{{anc_register.step1.cohabitants.options.partner.text}}",
             "text_size": "18px",
             "value": "false",
             "openmrs_entity_parent": "",
@@ -428,8 +399,8 @@
             "openmrs_entity_id": ""
           },
           {
-            "key": "dob_unknown",
-            "text": "{{anc_register.step1.dob_unknown.options.dob_unknown.text}}",
+            "key": "friends",
+            "text": "{{anc_register.step1.cohabitants.options.friends.text}}",
             "text_size": "18px",
             "value": "false",
             "openmrs_entity_parent": "",
