@@ -152,26 +152,8 @@ fields:
 - template: "{{contact_summary.immunisation_status.tt_dose_2}}: {tt2_date_done}"
   relevance: "tt2_date == 'done_today' || tt2_date == 'done_earlier'"
 
-- template: "{{contact_summary.immunisation_status.tt_dose_3}}: {tt3_date_done}"
-  relevance: "tt3_date == 'done_today' || tt3_date == 'done_earlier'"
-
 - template: "{{contact_summary.immunisation_status.tt_dose_not_given}}: {tt_dose_notdone_value}"
-  relevance: "tt1_date == 'not_done' || tt2_date == 'not_done' || tt3_date == 'not_done'"
-
-- template: "{{contact_summary.immunisation_status.hep_b_immunisation_status}}: {hepb_immun_status}"
-  relevance: "hepb_immun_status_value != ''"
-
-- template: "{{contact_summary.immunisation_status.hep_b_dose_1}}: {hepb1_date_done}"
-  relevance: "hepb1_date == 'done_today' || hepb1_date == 'done_earlier'"
-
-- template: "{{contact_summary.immunisation_status.hep_b_dose_2}}: {hepb2_date_done}"
-  relevance: "hepb2_date == 'done_today' || hepb2_date == 'done_earlier'"
-
-- template: "{{contact_summary.immunisation_status.hep_b_dose_3}}: {hepb3_date_done}"
-  relevance: "hepb3_date == 'done_today' || hepb3_date == 'done_earlier'"
-
-- template: "{{contact_summary.immunisation_status.hep_b_dose_not_given}}: {hepb_dose_notdone_value}"
-  relevance: "hepb1_date == 'not_done' || hepb2_date == 'not_done' || hepb3_date == 'not_done'"
+  relevance: "tt1_date == 'not_done' || tt2_date == 'not_done'"
 
 - template: "{{contact_summary.immunisation_status.flu_immunisation_status}}: {flu_immun_status}"
   relevance: "flu_immun_status_value != ''"
@@ -911,18 +893,6 @@ fields:
 
 - template: "{{contact_summary.breastfeeding_counseling.breastfeeding_counseling_not_done}}"
   relevance: "breastfeed_counsel == 'not_done'"
----
-group: ipv_assessment
-fields:
-
-- template: "{{contact_summary.ipv_assessment.clinical_enquiry_for_IPV_done}}"
-  relevance: "ipv_enquiry == 'done'"
-
-- template: "{{contact_summary.ipv_assessment.ipv_enquiry_results}}: {ipv_enquiry_results}"
-  relevance: "ipv_enquiry_results != ''"
-
-- template: "{{contact_summary.ipv_assessment.clinical_enquiry_for_IPV_not_done}}: {ipv_enquiry_notdone_value}"
-  relevance: "ipv_enquiry == 'not_done'"
 ---
 group: anaemia_prevention
 fields:
