@@ -761,7 +761,6 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "160697AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
-        "label": "{{anc_profile.step2.lmp_gest_age_selection.label}}",
         "options": [
           {
             "key": "lmp",
@@ -797,7 +796,6 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "160697AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
-        "label": "{{anc_profile.step2.ultrasound_gest_age_selection.label}}",
         "options": [
           {
             "key": "ultrasound",
@@ -833,7 +831,6 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "160697AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
-        "label": "{{anc_profile.step2.sfh_gest_age_selection.label}}",
         "options": [
           {
             "key": "sfh",
@@ -869,7 +866,6 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "160697AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
-        "label": "{{anc_profile.step2.lmp_ultrasound_gest_age_selection.label}}",
         "options": [
           {
             "key": "lmp",
@@ -913,7 +909,6 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "160697AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
-        "label": "{{anc_profile.step2.sfh_ultrasound_gest_age_selection.label}}",
         "options": [
           {
             "key": "ultrasound",
@@ -3345,40 +3340,5 @@
       }
     ]
   },
-  "properties_file_name": "anc_profile",
-  "is_new": true,
-  "client_form_id": 33,
-  "global": {
-    "site_ipv_assess": false,
-    "site_ultrasound": true,
-    "site_bp_tool": false,
-    "site_anc_hiv": true,
-    "pop_hepc": false,
-    "pop_anaemia_20": true,
-    "pop_malaria": true,
-    "pop_syphilis": false,
-    "pop_hiv_incidence": false,
-    "pop_low_calcium": false,
-    "pop_helminth": false,
-    "pop_vita": true,
-    "pop_undernourish": true,
-    "pop_hepb_screening": true,
-    "pop_anaemia_40": false,
-    "pop_hepb": false,
-    "pop_tb": false,
-    "pop_hiv_prevalence": false,
-    "gest_age_openmrs": "4",
-    "urine_glucose": "",
-    "previous_contact_no": "0",
-    "hiv_positive": "",
-    "hiv_test_result": "",
-    "gdm": "",
-    "last_contact_date": "",
-    "hiv_test_partner_result": "",
-    "contact_no": "1",
-    "no_of_fetuses": "",
-    "dm_in_preg": "",
-    "age": "25",
-    "bmi": ""
-  }
+  "properties_file_name": "anc_profile"
 }
