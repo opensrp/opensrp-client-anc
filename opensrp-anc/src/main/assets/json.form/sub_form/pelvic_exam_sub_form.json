@@ -71,8 +71,8 @@
           "text": "{{pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.femoral_lymphadenopathy.text}}",
           "value": false,
           "openmrs_entity": "concept",
-          "openmrs_entity_id": "165287AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "openmrs_entity_parent": "165373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "openmrs_entity_id": "",
+          "openmrs_entity_parent": ""
         },
         {
           "key": "cervical_friability",
@@ -88,14 +88,6 @@
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165371AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "openmrs_entity_parent": "165373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        {
-          "key": "unilateral_lymphadenopathy",
-          "text": "{{pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.unilateral_lymphadenopathy.text}}",
-          "value": false,
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "165289AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "openmrs_entity_parent": "165373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {

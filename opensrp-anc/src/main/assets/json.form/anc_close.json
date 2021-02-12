@@ -342,32 +342,116 @@
             "openmrs_entity_id": ""
           },
           {
-            "key": "forceps_or_vacuum",
-            "text": "{{anc_close.step1.ppfp_method.options.forceps_or_vacuum.text}}",
+            "key": "cu_iud",
+            "text": "{{anc_close.step1.ppfp_method.options.cu_iud.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": ""
           },
           {
-            "key": "ocp",
-            "text": "{{anc_close.step1.ppfp_method.options.ocp.text}}",
+            "key": "lng_iud",
+            "text": "{{anc_close.step1.ppfp_method.options.lng_iud.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "780AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": ""
           },
           {
-            "key": "condom",
-            "text": "{{anc_close.step1.ppfp_method.options.condom.text}}",
+            "key": "etg_implant",
+            "text": "{{anc_close.step1.ppfp_method.options.etg_implant.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "190AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": ""
           },
           {
-            "key": "female_sterilization",
-            "text": "{{anc_close.step1.ppfp_method.options.female_sterilization.text}}",
+            "key": "lng_implant",
+            "text": "{{anc_close.step1.ppfp_method.options.lng_implant.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "5276AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "dmpa_im",
+            "text": "{{anc_close.step1.ppfp_method.options.dmpa_im.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "normal",
+            "text": "{{anc_close.step1.ppfp_method.options.normal.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "dmpa_sc",
+            "text": "{{anc_close.step1.ppfp_method.options.dmpa_sc.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "net_en",
+            "text": "{{anc_close.step1.ppfp_method.options.net_en.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "pop",
+            "text": "{{anc_close.step1.ppfp_method.options.pop.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "cop",
+            "text": "{{anc_close.step1.ppfp_method.options.coc.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "combined_patch",
+            "text": "{{anc_close.step1.ppfp_method.options.combined_patch.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "cvr",
+            "text": "{{anc_close.step1.ppfp_method.options.cvr.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "pvr",
+            "text": "{{anc_close.step1.ppfp_method.options.pvr.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "lam",
+            "text": "{{anc_close.step1.ppfp_method.options.lam.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "male_condoms",
+            "text": "{{anc_close.step1.ppfp_method.options.male_condoms.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "female_condoms",
+            "text": "{{anc_close.step1.ppfp_method.options.female_condoms.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
           },
           {
             "key": "male_sterilization",
@@ -377,26 +461,12 @@
             "openmrs_entity_id": "1489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "iud",
-            "text": "{{anc_close.step1.ppfp_method.options.iud.text}}",
+            "key": "female_sterilization",
+            "text": "{{anc_close.step1.ppfp_method.options.female_sterilization.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "136452AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "5276AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
-          {
-            "key": "abstinence",
-            "text": "{{anc_close.step1.ppfp_method.options.abstinence.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "159524AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "other",
-            "text": "{{anc_close.step1.ppfp_method.options.other.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          }
         ],
         "v_required": {
           "value": "false"

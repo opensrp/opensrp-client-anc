@@ -251,48 +251,6 @@ condition: "step11_tt3_date != '' && step11_tt3_date != 'not_done'"
 actions:
   - "calculation = 3"
 ---
-name: step11_hepb1_date_done_date_today_hidden
-description: hepb1_date_done_today
-priority: 1
-condition: "step11_hepb1_date != '' && step11_hepb1_date == 'done_today'"
-actions:
-  - "calculation = helper.getDateToday()"
----
-name: step11_hepb2_date_done_date_today_hidden
-description: hepb2_date_done_today
-priority: 1
-condition: "step11_hepb2_date != '' && step11_hepb2_date == 'done_today'"
-actions:
-  - "calculation = helper.getDateToday()"
----
-name: step11_hepb3_date_done_date_today_hidden
-description: hepb3_date_done_today
-priority: 1
-condition: "step11_hepb3_date != '' && step11_hepb3_date == 'done_today'"
-actions:
-  - "calculation = helper.getDateToday()"
----
-name: step11_hepb1_dose_number
-description: hepb1_dose_number
-priority: 1
-condition: "step11_hepb1_date != '' && step11_hepb1_date != 'not_done'"
-actions:
-  - "calculation = 1"
----
-name: step11_hepb2_dose_number
-description: hepb2_dose_number
-priority: 1
-condition: "step11_hepb2_date != '' && step11_hepb2_date != 'not_done'"
-actions:
-  - "calculation = 2"
----
-name: step11_hepb3_dose_number
-description: hepb3_dose_number
-priority: 1
-condition: "step11_hepb3_date != '' && step11_hepb3_date != 'not_done'"
-actions:
-  - "calculation = 3"
----
 name: step11_flu_date_done_date_today_hidden
 description: Date flu dose was given
 priority: 1
