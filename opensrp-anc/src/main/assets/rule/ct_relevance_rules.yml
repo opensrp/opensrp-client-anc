@@ -537,3 +537,73 @@ priority: 1
 condition: "step11_flu_date != '' && step11_flu_date == 'done_earlier'"
 actions:
   - "isRelevant = true"
+---
+name: step8_ipv_support
+description: ipv_support
+priority: 1
+condition: "global_ipv_subject == 'yes' "
+actions:
+  - "isRelevant = true"
+---
+name: step8_ipv_support_notdone
+description: ipv_support_notdone
+priority: 1
+condition: "step8_ipv_support == 'no' "
+actions:
+  - "isRelevant = true"
+---
+name: step8_ipv_care
+description: ipv_care
+priority: 1
+condition: "global_ipv_subject == 'yes' "
+actions:
+  - "isRelevant = true"
+---
+name: step8_phys_violence_worse
+description: ipv_care
+priority: 1
+condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care == 'safety_assessment' "
+actions:
+  - "isRelevant = true"
+---
+name: step8_used_weapon
+description: ipv_care
+priority: 1
+condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care == 'safety_assessment' "
+actions:
+- "isRelevant = true"
+---
+name: step8_strangle
+description: ipv_care
+priority: 1
+condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care == 'safety_assessment' "
+actions:
+- "isRelevant = true"
+---
+name: step8_beaten
+description: ipv_care
+priority: 1
+condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care == 'safety_assessment' "
+actions:
+- "isRelevant = true"
+---
+name: step8_jealous
+description: ipv_care
+priority: 1
+condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care == 'safety_assessment' "
+actions:
+- "isRelevant = true"
+---
+name: step8_believe_kill
+description: ipv_care
+priority: 1
+condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care == 'safety_assessment' "
+actions:
+- "isRelevant = true"
+---
+name: step8_ipv_referrals
+description: ipv_care
+priority: 1
+condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care == 'referred' "
+actions:
+  - "isRelevant = true"

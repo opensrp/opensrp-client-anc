@@ -20,7 +20,8 @@
     "tt2_date_done",
     "deworm",
     "flu_date",
-    "hepb_positive"
+    "hepb_positive",
+    "ipv_subject"
   ],
   "metadata": {
     "start": {
@@ -3692,6 +3693,13 @@
         "v_required": {
           "value": true,
           "err": "{{anc_counselling_treatment.step8.ipv_support.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
         }
       },
       {
@@ -3738,7 +3746,14 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           }
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "ipv_support_notdone_other",
@@ -3808,7 +3823,14 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           }
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "phys_violence_worse",
@@ -3833,7 +3855,14 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           }
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "used_weapon",
@@ -3858,7 +3887,14 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           }
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "strangle",
@@ -3883,7 +3919,14 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           }
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "beaten",
@@ -3908,7 +3951,14 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           }
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "jealous",
@@ -3933,7 +3983,14 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           }
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "believe_kill",
@@ -3958,7 +4015,14 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           }
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "ipv_referrals",
@@ -4026,7 +4090,14 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           }
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "ipv_referrals_other",
