@@ -91,30 +91,6 @@
         }
       },
       {
-        "key": "site_anc_hiv",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "openmrs_data_type": "select one",
-        "label": "{{anc_site_characteristics.step1.site_anc_hiv.label}}",
-        "type": "native_radio",
-        "options": [
-          {
-            "key": "1",
-            "text": "{{anc_site_characteristics.step1.site_anc_hiv.options.1.text}}"
-          },
-          {
-            "key": "0",
-            "text": "{{anc_site_characteristics.step1.site_anc_hiv.options.0.text}}"
-          }
-        ],
-        "value": "",
-        "v_required": {
-          "value": "true",
-          "err": "{{anc_site_characteristics.step1.site_anc_hiv.v_required.err}}"
-        }
-      },
-      {
         "key": "site_ultrasound",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -136,30 +112,6 @@
         "v_required": {
           "value": "true",
           "err": "{{anc_site_characteristics.step1.site_ultrasound.v_required.err}}"
-        }
-      },
-      {
-        "key": "site_bp_tool",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "openmrs_data_type": "select one",
-        "type": "native_radio",
-        "label": "{{anc_site_characteristics.step1.site_bp_tool.label}}",
-        "options": [
-          {
-            "key": "1",
-            "text": "{{anc_site_characteristics.step1.site_bp_tool.options.1.text}}"
-          },
-          {
-            "key": "0",
-            "text": "{{anc_site_characteristics.step1.site_bp_tool.options.0.text}}"
-          }
-        ],
-        "value": "",
-        "v_required": {
-          "value": "true",
-          "err": "{{anc_site_characteristics.step1.site_bp_tool.v_required.err}}"
         }
       }
     ]
