@@ -7,7 +7,7 @@
       "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "label": "{{tests_hiv_sub_form.step1.hiv_test_status.label}}",
       "label_text_style": "bold",
-      "label_info_text": "An HIV test is required for all pregnant women at the first contact in pregnancy and again at the first contact of the 3rd trimester (28 weeks), if the HIV prevalence in the pregnant woman population is 5% or higher. A test isn\u0027t required if the woman is already confirmed HIV+.",
+      "label_info_text": "An HIV test is required for all pregnant women at the first contact in pregnancy and again at the first contact of the 3rd trimester (29 weeks), if the HIV prevalence is consistently > 1% in pregnant women attending antenatal clinics or if HIV prevalence is consistently over 5% in at least one defined key population (e.g. men who have sex with men, people in prison or other closed settings, people who inject drugs, sex workers and transgender people). A test is not required if the woman is already confirmed HIV+.",
       "text_color": "#000000",
       "type": "extended_radio_button",
       "options": [

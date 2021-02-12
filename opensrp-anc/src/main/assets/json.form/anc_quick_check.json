@@ -102,10 +102,6 @@
         "label": "{{anc_quick_check.step1.specific_complaint.label}}",
         "label_text_style": "bold",
         "text_color": "#000000",
-        "exclusive": [
-          "dont_know",
-          "none"
-        ],
         "options": [
           {
             "key": "abnormal_discharge",
@@ -116,20 +112,20 @@
             "openmrs_entity_id": "123395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "altered_skin_color",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.altered_skin_color.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
             "key": "changes_in_bp",
             "text": "{{anc_quick_check.step1.specific_complaint.options.changes_in_bp.text}}",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "155052AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": ""
+          },
+	  {
+            "key": "changes_in_bp_down",
+            "text": "{{anc_quick_check.step1.specific_complaint.options.changes_in_bp_down.text}}",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
           },
           {
             "key": "constipation",
@@ -155,21 +151,13 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "143264AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
-          {
-            "key": "depression",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.depression.text}}",
+	  {
+            "key": "diarrhea",
+            "text": "{{anc_quick_check.step1.specific_complaint.options.diarrhea.text}}",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "119537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "anxiety",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.anxiety.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "121543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": ""
           },
           {
             "key": "dizziness",
@@ -180,20 +168,20 @@
             "openmrs_entity_id": "156046AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "domestic_violence",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.domestic_violence.text}}",
+            "key": "no_fetal_movement",
+            "text": "{{anc_quick_check.step1.specific_complaint.options.no_fetal_movement.text}}",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "141814AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "1452AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "extreme_pelvic_pain",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.extreme_pelvic_pain.text}}",
+            "key": "reduced_fetal_movement",
+            "text": "{{anc_quick_check.step1.specific_complaint.options.reduced_fetal_movement.text}}",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "165270AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "113377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "fever",
@@ -202,14 +190,6 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "full_abdominal_pain",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.full_abdominal_pain.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "139547AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "flu_symptoms",
@@ -244,20 +224,36 @@
             "openmrs_entity_id": "139059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
+            "key": "trauma",
+            "text": "{{anc_quick_check.step1.specific_complaint.options.trauma.text}}",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "124193AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "domestic_violence",
+            "text": "{{anc_quick_check.step1.specific_complaint.options.domestic_violence.text}}",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "141814AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "altered_skin_color",
+            "text": "{{anc_quick_check.step1.specific_complaint.options.altered_skin_color.text}}",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
             "key": "leg_cramps",
             "text": "{{anc_quick_check.step1.specific_complaint.options.leg_cramps.text}}",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "135969AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "leg_pain",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.leg_pain.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "114395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "leg_redness",
@@ -268,20 +264,28 @@
             "openmrs_entity_id": "165215AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "low_back_pain",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.low_back_pain.text}}",
+            "key": "anxiety",
+            "text": "{{anc_quick_check.step1.specific_complaint.options.anxiety.text}}",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "116225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "121543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "pelvic_pain",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.pelvic_pain.text}}",
+            "key": "depression",
+            "text": "{{anc_quick_check.step1.specific_complaint.options.depression.text}}",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "131034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "119537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "other_psychological_symptoms",
+            "text": "{{anc_quick_check.step1.specific_complaint.options.other_psychological_symptoms.text}}",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "160198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "nausea_vomiting_diarrhea",
@@ -290,14 +294,6 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "157892AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "no_fetal_movement",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.no_fetal_movement.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1452AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "oedema",
@@ -316,22 +312,6 @@
             "openmrs_entity_id": "147241AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "other_pain",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.other_pain.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "114403AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "other_psychological_symptoms",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.other_psychological_symptoms.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "160198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
             "key": "other_skin_disorder",
             "text": "{{anc_quick_check.step1.specific_complaint.options.other_skin_disorder.text}}",
             "value": false,
@@ -348,6 +328,14 @@
             "openmrs_entity_id": "158358AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
+            "key": "full_abdominal_pain",
+            "text": "{{anc_quick_check.step1.specific_complaint.options.full_abdominal_pain.text}}",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "139547AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
             "key": "dysuria",
             "text": "{{anc_quick_check.step1.specific_complaint.options.dysuria.text}}",
             "value": false,
@@ -356,20 +344,52 @@
             "openmrs_entity_id": "118771AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
+            "key": "extreme_pelvic_pain",
+            "text": "{{anc_quick_check.step1.specific_complaint.options.extreme_pelvic_pain.text}}",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165270AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "leg_pain",
+            "text": "{{anc_quick_check.step1.specific_complaint.options.leg_pain.text}}",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "114395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "low_back_pain",
+            "text": "{{anc_quick_check.step1.specific_complaint.options.low_back_pain.text}}",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "116225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "other_pain",
+            "text": "{{anc_quick_check.step1.specific_complaint.options.other_pain.text}}",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "114403AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "pelvic_pain",
+            "text": "{{anc_quick_check.step1.specific_complaint.options.pelvic_pain.text}}",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "131034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
             "key": "pruritus",
             "text": "{{anc_quick_check.step1.specific_complaint.options.pruritus.text}}",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "reduced_fetal_movement",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.reduced_fetal_movement.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "113377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "shortness_of_breath",
@@ -388,14 +408,6 @@
             "openmrs_entity_id": "124628AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "trauma",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.trauma.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "124193AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
             "key": "bleeding",
             "text": "{{anc_quick_check.step1.specific_complaint.options.bleeding.text}}",
             "value": false,
@@ -410,6 +422,14 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "123074AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+	  {
+            "key": "vomiting",
+            "text": "{{anc_quick_check.step1.specific_complaint.options.vomiting.text}}",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
           },
           {
             "key": "other_specify",
