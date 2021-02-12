@@ -228,27 +228,27 @@ fields:
   isRedFont: "true"
 
 - template: "Diabetes risk: {date} "
-  relevance: "diabetes_risk == 1"
+  relevance: "gdm_risk == 1"
   isRedFont: "true"
 
 - template: "Hypertension: {date}"
-  relevance: "hypertension_risk == 1"
+  relevance: "hypertension == 1"
   isRedFont: "true"
 
 - template: "Severe hypertension: {date}: {date}"
-  relevance: "severe_hypertension_risk == 1"
+  relevance: "severe_hypertension == 1"
   isRedFont: "true"
 
 - template: "Pre-eclampsia: {date}"
-  relevance: "pre_eclampsia == 1"
+  relevance: "preeclampsia == 1"
   isRedFont: "true"
 
 - template: "Severe pre-eclampsia: {date}"
-  relevance: "severe_pre_eclampsia == 1"
+  relevance: "severe_preeclampsia == 1"
   isRedFont: "true"
 
 - template: "Rh factor negative: {date}: {date}"
-  relevance: "rh_factor_negative == 1"
+  relevance: "rh_factor == 'negative'"
   isRedFont: "true"
 
 - template: "HIV positive: {date}"
@@ -256,11 +256,11 @@ fields:
   isRedFont: "true"
 
 - template: "Hepatitis B positive: {date}"
-  relevance: "hepatitis_b_positive == 1"
+  relevance: "hepb_positive == 1"
   isRedFont: "true"
 
 - template: "Hepatitis C positive: {date}"
-  relevance: "hepatitis_c_positive == 1"
+  relevance: "hepc_positive == 1"
   isRedFont: "true"
 
 - template: "Syphilis positive: {date}"
@@ -272,7 +272,7 @@ fields:
   isRedFont: "true"
 
 - template: "Positive for Group B Streptococcus (GBS): {date}"
-  relevance: "urine_culture = 'Positive - Group B Streptococcus (GBS)'"
+  relevance: "urine_culture == 'positive - group b streptococcus (gbs)'"
   isRedFont: "true"
 
 - template: "Gestational Diabetes Mellitus (GDM): {date}"
@@ -288,7 +288,7 @@ fields:
   isRedFont: "true"
 
 - template: "TB screening positive: {date}"
-  relevance: "tb_screening_result = 'Positive'"
+  relevance: "tb_screening_result == 'positive'"
   isRedFont: "true"
 
 
