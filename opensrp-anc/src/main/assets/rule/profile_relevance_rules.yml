@@ -180,4 +180,3 @@ priority: 1
 condition: "(global_age > 19)"
 actions:
   - "isRelevant = true"
----
