@@ -51,7 +51,7 @@ fields:
   relevance: "fetal_heartbeat == 'no'"
 
 - template: "{{contact_summary.hospital_referral.abnormal_fetal_heart_rate}}: {fetal_heart_rate_repeat}bpm"
-  relevance: "fetal_heart_rate_repeat < 110 || fetal_heart_rate_repeat > 160"
+  relevance: "fetal_heart_rate_repeat < 100 || fetal_heart_rate_repeat > 180"
 
 ---
 group: reason_for_visit
@@ -59,7 +59,7 @@ fields:
 - template: "{{contact_summary.reason_for_visit.reason_for_coming_to_facility}}: {contact_reason_value}"
   relevance: "contact_reason_value != ''"
 
-- template: "{{contact_summary.reason_for_visit.specific_complaint }}: {specific_complaint_value}"
+- template: "{{contact_summary.reason_for_visit.health_complaint }}: {specific_complaint_value}"
   relevance: "specific_complaint_value != ''"
 
 ---
@@ -152,26 +152,8 @@ fields:
 - template: "{{contact_summary.immunisation_status.tt_dose_2}}: {tt2_date_done}"
   relevance: "tt2_date == 'done_today' || tt2_date == 'done_earlier'"
 
-- template: "{{contact_summary.immunisation_status.tt_dose_3}}: {tt3_date_done}"
-  relevance: "tt3_date == 'done_today' || tt3_date == 'done_earlier'"
-
 - template: "{{contact_summary.immunisation_status.tt_dose_not_given}}: {tt_dose_notdone_value}"
-  relevance: "tt1_date == 'not_done' || tt2_date == 'not_done' || tt3_date == 'not_done'"
-
-- template: "{{contact_summary.immunisation_status.hep_b_immunisation_status}}: {hepb_immun_status}"
-  relevance: "hepb_immun_status_value != ''"
-
-- template: "{{contact_summary.immunisation_status.hep_b_dose_1}}: {hepb1_date_done}"
-  relevance: "hepb1_date == 'done_today' || hepb1_date == 'done_earlier'"
-
-- template: "{{contact_summary.immunisation_status.hep_b_dose_2}}: {hepb2_date_done}"
-  relevance: "hepb2_date == 'done_today' || hepb2_date == 'done_earlier'"
-
-- template: "{{contact_summary.immunisation_status.hep_b_dose_3}}: {hepb3_date_done}"
-  relevance: "hepb3_date == 'done_today' || hepb3_date == 'done_earlier'"
-
-- template: "{{contact_summary.immunisation_status.hep_b_dose_not_given}}: {hepb_dose_notdone_value}"
-  relevance: "hepb1_date == 'not_done' || hepb2_date == 'not_done' || hepb3_date == 'not_done'"
+  relevance: "tt1_date == 'not_done' || tt2_date == 'not_done'"
 
 - template: "{{contact_summary.immunisation_status.flu_immunisation_status}}: {flu_immun_status}"
   relevance: "flu_immun_status_value != ''"
@@ -911,18 +893,6 @@ fields:
 
 - template: "{{contact_summary.breastfeeding_counseling.breastfeeding_counseling_not_done}}"
   relevance: "breastfeed_counsel == 'not_done'"
----
-group: ipv_assessment
-fields:
-
-- template: "{{contact_summary.ipv_assessment.clinical_enquiry_for_IPV_done}}"
-  relevance: "ipv_enquiry == 'done'"
-
-- template: "{{contact_summary.ipv_assessment.ipv_enquiry_results}}: {ipv_enquiry_results}"
-  relevance: "ipv_enquiry_results != ''"
-
-- template: "{{contact_summary.ipv_assessment.clinical_enquiry_for_IPV_not_done}}: {ipv_enquiry_notdone_value}"
-  relevance: "ipv_enquiry == 'not_done'"
 ---
 group: anaemia_prevention
 fields:

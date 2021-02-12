@@ -351,8 +351,6 @@
       "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "{{tests_hepatitis_b_sub_form.step1.hepatitis_b_info_toaster.text}}",
-      "toaster_info_text": "{{tests_hepatitis_b_sub_form.step1.hepatitis_b_info_toaster.toaster_info_text}}",
-      "toaster_info_title": "{{tests_hepatitis_b_sub_form.step1.hepatitis_b_info_toaster.toaster_info_title}}",
       "toaster_type": "info",
       "relevance": {
         "rules-engine": {
