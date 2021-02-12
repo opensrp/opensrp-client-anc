@@ -219,14 +219,14 @@ actions:
 name: step1_hepatitis_b_info_toaster
 description: Hep B vaccination required
 priority: 1
-condition: "step1_hepb_positive == 0 && (global_gest_age_openmrs != '' && global_gest_age_openmrs >= 12)"
+condition: "step1_hepb_positive == 0"
 actions:
 - "isRelevant = true"
 ---
 name: step2_hepatitis_b_info_toaster
 description: Hep B vaccination required
 priority: 1
-condition: "step2_hepb_positive == 0 && (global_gest_age_openmrs != '' && global_gest_age_openmrs >= 12)"
+condition: "step2_hepb_positive == 0"
 actions:
 - "isRelevant = true"
 ---
@@ -863,14 +863,14 @@ actions:
 name: step1_hematocrit_danger_toaster
 description: hematocrit_danger_toaster
 priority: 1
-condition: "step1_ht > 0 && step1_ht < 10.5"
+condition: "step1_ht > 0 && step1_ht < 20"
 actions:
 - "isRelevant = true"
 ---
 name: step2_hematocrit_danger_toaster
 description: hematocrit_danger_toaster
 priority: 1
-condition: "step2_ht > 0 && step2_ht < 10.5"
+condition: "step2_ht > 0 && step2_ht < 20"
 actions:
 - "isRelevant = true"
 ---
