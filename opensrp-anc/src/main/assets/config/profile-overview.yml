@@ -4,7 +4,8 @@ group: overview_of_pregnancy
 sub_group: demographic_info
 fields:
 - template: "{{profile_overview.overview_of_pregnancy.demographic_info.occupation}}: {occupation}"
-  relevance: "occupation != ''"
+  relevance: "occupation == 'informal_employment_sex_worker'"
+  isRedFont: "true"
 
 ---
 sub_group: current_pregnancy
@@ -81,7 +82,7 @@ fields:
   relevance: "surgeries != ''"
 
 - template: "{{profile_overview.overview_of_pregnancy.medical_history.chronic_health_conditions}}: {health_conditions}"
-  relevance: "!health_conditions.isEmpty()"
+  relevance: "!health_conditions.isEmpty() && !health_conditions.contains('none') && !health_conditions.contains('dont_know')"
 
 - template: "{{profile_overview.overview_of_pregnancy.medical_history.past_hiv_diagnosis_date}}: {hiv_diagnosis_date}"
   relevance: "hiv_diagnosis_date != ''"
@@ -150,7 +151,7 @@ fields:
   relevance: "severe_hypertension == 1 && global_contact_no == 1"
 
 - template: "{{profile_overview.hospital_referral_reasons.hypertension_and_symptom_of_severe_pre_eclampsia}}: {symp_sev_preeclampsia}"
-  relevance: "hypertension == 1 && symp_sev_preeclampsia!=''"
+  relevance: "hypertension == 1 && symp_sev_preeclampsia != '' && symp_sev_preeclampsia != 'none'"
 
 - template: "{{profile_overview.hospital_referral_reasons.pre_eclampsia_diagnosis}}"
   relevance: "preeclampsia == 1 && global_contact_no == 1"
@@ -189,7 +190,7 @@ fields:
   isRedFont: "true"
 
 - template: "{{profile_overview.hospital_referral_reasons.abnormal_fetal_heart_rate}}: {fetal_heart_rate_repeat} bpm"
-  relevance: "fetal_heart_rate_repeat < 110 || fetal_heart_rate_repeat > 160"
+  relevance: "fetal_heart_rate_repeat < 100 || fetal_heart_rate_repeat > 180"
 
 ---
 group: physiological_symptoms
@@ -226,7 +227,7 @@ group: immunisation_status
 fields:
 - template: "{{profile_overview.immunisation_status.tt_immunisation_status}}: {tt_immun_status}"
   relevance: "tt_immun_status != ''"
-  isRedFont: "tt_immun_status == 'TTCV not received' || tt_immun_status == 'Unknown'"
+  isRedFont: "tt_immun_status == 'ttcv_not_received' || tt_immun_status == 'unknown'"
 
 - template: "{{profile_overview.immunisation_status.tt_dose_1}}: {tt1_date}"
   relevance: "tt1_date == 'Done today' || tt1_date == 'Done earlier'"
@@ -234,25 +235,9 @@ fields:
 - template: "{{profile_overview.immunisation_status.tt_dose_2}}: {tt2_date}"
   relevance: "tt2_date == 'Done today' || tt2_date == 'Done earlier'"
 
-- template: "{{profile_overview.immunisation_status.tt_dose_3}}: {tt3_date}"
-  relevance: "tt3_date == 'Done today' || tt3_date == 'Done earlier'"
-
-- template: "{{profile_overview.immunisation_status.hep_b_immunisation_status}}: {hepb_immun_status}"
-  relevance: "hepb_immun_status != ''"
-  isRedFont: "hepb_immun_status == 'TTCV not received' || hepb_immun_status == 'Unknown' ||  hepb_immun_status == 'Incomplete'"
-
-- template: "{{profile_overview.immunisation_status.hep_b_dose_1}}: {hepb1_date}"
-  relevance: "hepb1_date == 'Done today' || hepb1_date == 'Done earlier'"
-
-- template: "{{profile_overview.immunisation_status.hep_b_dose_2}}: {hepb2_date}"
-  relevance: "hepb2_date == 'Done today' || hepb2_date == 'Done earlier'"
-
-- template: "{{profile_overview.immunisation_status.hep_b_dose_3}}: {hepb3_date}"
-  relevance: "hepb3_date == 'Done today' || hepb3_date == 'Done earlier'"
-
 - template: "{{profile_overview.immunisation_status.flu_immunisation_status}}: {flu_immun_status}"
   relevance: "flu_immun_status != ''"
-  isRedFont: "flu_immun_status == 'Seasonal flu dose missing' || flu_immun_status == 'Unknown'"
+  isRedFont: "flu_immun_status == 'seasonal_flu_dose_missing' || flu_immun_status == 'unknown'"
 
 - template: "{{profile_overview.immunisation_status.flu_dose}}: {flu_date}"
   relevance: "flu_date == 'Done today' || flu_date == 'Done earlier'"
