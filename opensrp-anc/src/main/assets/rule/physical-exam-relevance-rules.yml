@@ -100,7 +100,7 @@ actions:
 name: step4_toaster28
 description: Fetal heart beat rate
 priority: 1
-condition: "(step4_fetal_heart_rate > 0 && (step4_fetal_heart_rate < 110 || step4_fetal_heart_rate > 160))"
+condition: "(step4_fetal_heart_rate > 0 && (step4_fetal_heart_rate < 100 || step4_fetal_heart_rate > 180))"
 actions:
   - "isRelevant = true"
 ---
@@ -114,7 +114,7 @@ actions:
 name: step4_fetal_heart_rate_repeat_label
 description: Fetal heart beat rate
 priority: 1
-condition: "(step4_fetal_heart_rate > 0 && (step4_fetal_heart_rate < 110 || step4_fetal_heart_rate > 160))"
+condition: "(step4_fetal_heart_rate > 0 && (step4_fetal_heart_rate < 100 || step4_fetal_heart_rate > 180))"
 actions:
   - "isRelevant = true"
 ---
@@ -135,7 +135,7 @@ actions:
 name: step4_toaster29
 description: Fetal heart beat rate repeat toaster
 priority: 1
-condition: "(step4_fetal_heart_rate_repeat > 0 && (step4_fetal_heart_rate_repeat < 110 || step4_fetal_heart_rate_repeat > 160))"
+condition: "(step4_fetal_heart_rate_repeat > 0 && (step4_fetal_heart_rate_repeat < 100 || step4_fetal_heart_rate_repeat > 180))"
 actions:
   - "isRelevant = true"
 ---
@@ -248,5 +248,47 @@ name: step3_evaluate_labour_toaster
 description: evaluate_labour_toaster
 priority: 1
 condition: "!step3_pelvic_exam_abnormal.isEmpty() && step3_pelvic_exam_abnormal.contains('amniotic_fluid_evidence')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_ipv_physical_signs_symptoms
+description: ipv_physical_signs_symptoms
+priority: 1
+condition: "global_site_ipv_assess == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step3_toaster31
+description: toaster31
+priority: 1
+condition: "step3_ipv_suspect == 1 "
+actions:
+  - "isRelevant = true"
+---
+name: step3_ipv_clinical_enquiry
+description: ipv_clinical_enquiry
+priority: 1
+condition: "step3_ipv_suspect == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step3_ipv_clinical_enquiry_not_done_reason
+description: ipv_clinical_enquiry_not_done_reason
+priority: 1
+condition: "step3_ipv_clinical_enquiry == no"
+actions:
+  - "isRelevant = true"
+---
+name: step3_ipv_subject
+description: ipv_subject
+priority: 1
+condition: "step3_ipv_clinical_enquiry == yes"
+actions:
+  - "isRelevant = true"
+---
+name: step3_ipv_subject
+description: ipv_subject
+priority: 1
+condition: "step3_ipv_subject == yes"
 actions:
   - "isRelevant = true"

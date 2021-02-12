@@ -86,7 +86,7 @@ actions:
 name: step2_severe_preeclampsia
 description: Severe preeclampsia
 priority: 1
-condition: "((step2_bp_systolic_repeat >= 160 || step2_bp_diastolic_repeat >= 110) && (step2_urine_protein == '+++' || step2_urine_protein == '++++'))  || ((step2_urine_protein == '++' || step2_urine_protein == '+++' || step2_urine_protein == '++++') && (!step2_symp_sev_preeclampsia.isEmpty() && !step2_symp_sev_preeclampsia.contains('none')))"
+condition: "((step2_bp_systolic_repeat >= 160 || step2_bp_diastolic_repeat >= 110) && (step2_urine_protein == '++' || step2_urine_protein == '+++' || step2_urine_protein == '++++'))  || ((step2_urine_protein == '++' || step2_urine_protein == '+++' || step2_urine_protein == '++++') && (!step2_symp_sev_preeclampsia.isEmpty() && !step2_symp_sev_preeclampsia.contains('none')))"
 actions:
   - "calculation = 1"
 ---
@@ -107,7 +107,7 @@ actions:
 name: step4_preeclampsia_risk
 description: Preeclampsia_risk
 priority: 1
-condition: "((global_prev_preg_comps != null && !global_prev_preg_comps.isEmpty() && (global_prev_preg_comps.contains('convulsions') || global_prev_preg_comps.contains('pre_eclampsia'))) || (global_health_conditions != null && !global_health_conditions.isEmpty() && (global_health_conditions.contains('autoimmune_disease') || global_health_conditions.contains('diabetes') || global_health_conditions.contains('Hypertension') || global_health_conditions.contains('kidney_disease'))) || (step4_no_of_fetuses != null && step4_no_of_fetuses != '' && step4_no_of_fetuses >= 2))"
+condition: "((global_prev_preg_comps != null && !global_prev_preg_comps.isEmpty() && (global_prev_preg_comps.contains('convulsions') || global_prev_preg_comps.contains('pre_eclampsia'))) || (global_health_conditions != null && !global_health_conditions.isEmpty() && (global_health_conditions.contains('autoimmune_disease') || global_health_conditions.contains('diabetes') || global_health_conditions.contains('gest_diabetes') || global_health_conditions.contains('diabetes_other') || global_health_conditions.contains('diabetes_type2') || global_health_conditions.contains('Hypertension') || global_health_conditions.contains('kidney_disease'))) || (step4_no_of_fetuses != null && step4_no_of_fetuses != '' && step4_no_of_fetuses >= 2))"
 actions:
   - "calculation = 1"
 ---
@@ -117,3 +117,10 @@ priority: 1
 condition: "step3_dilation_cm > 2"
 actions:
   - 'calculation = step3_dilation_cm'
+---
+name: step3_ipv_suspect
+description: ipv_suspect
+priority: 1
+condition: "(!global_ipv_signs_symptoms.isEmpty() && !global_ipv_signs_symptoms.contains('none')) || (step3_ipv_physical_signs_symptoms != null && !step3_ipv_physical_signs_symptoms.isEmpty() && !step3_ipv_physical_signs_symptoms.contains('none'))"
+actions:
+  - 'calculation = 1'
