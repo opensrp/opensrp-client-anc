@@ -156,7 +156,14 @@
         "toaster_info_text": "{{anc_profile.step1.headss_toaster.toaster_info_text}}",
         "toaster_info_title": "{{anc_profile.step1.headss_toaster.toaster_info_title}}",
         "toaster_type": "info",
-      },      
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
+        }
+      },
       {
         "key": "educ_level",
         "openmrs_entity_parent": "",
@@ -1545,7 +1552,7 @@
             "openmrs_entity_id": "",
             "key": "vacuum",
             "text": "{{anc_profile.step3.prev_preg_comps.options.vacuum.text}}"
-          },          
+          },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
@@ -2130,7 +2137,7 @@
             "openmrs_entity_id": "119481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "diabetes",
             "text": "{{anc_profile.step4.health_conditions.options.diabetes.text}}"
-          },       
+          },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
