@@ -36,7 +36,8 @@
     "ifa_high_prev",
     "ifa_low_prev",
     "ifa_weekly",
-    "ifa_anaemia"
+    "ifa_anaemia",
+    "ipv_physical_signs_symptoms"
   ],
   "metadata": {
     "start": {
@@ -2130,6 +2131,21 @@
         }
       },
       {
+        "key": "ipv_suspect",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "value": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_calculation_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "toaster23",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -2137,7 +2153,14 @@
         "type": "toaster_notes",
         "text": "{{anc_symptoms_follow_up.step4.toaster23.text}}",
         "text_color": "#D56900",
-        "toaster_type": "warning"
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "mat_percept_fetal_move",
