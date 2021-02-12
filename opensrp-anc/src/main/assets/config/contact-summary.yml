@@ -51,7 +51,7 @@ fields:
   relevance: "fetal_heartbeat == 'no'"
 
 - template: "{{contact_summary.hospital_referral.abnormal_fetal_heart_rate}}: {fetal_heart_rate_repeat}bpm"
-  relevance: "fetal_heart_rate_repeat < 110 || fetal_heart_rate_repeat > 160"
+  relevance: "fetal_heart_rate_repeat < 100 || fetal_heart_rate_repeat > 180"
 
 ---
 group: reason_for_visit
