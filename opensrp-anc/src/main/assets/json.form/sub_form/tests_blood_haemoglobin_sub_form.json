@@ -399,6 +399,7 @@
       "openmrs_entity_id": "678AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
       "hint": "{{tests_blood_haemoglobin_sub_form.step1.wbc.hint}}",
+      "label_info_text": "{{tests_blood_haemoglobin_sub_form.step1.wbc.label_info_text}}",
       "edit_type": "number",
       "v_numeric": {
         "value": "true",
@@ -441,6 +442,7 @@
       "openmrs_entity_id": "729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
       "hint": "{{tests_blood_haemoglobin_sub_form.step1.platelets.hint}}",
+      "label_info_text": "{{tests_blood_haemoglobin_sub_form.step1.platelets.label_info_text}}",
       "edit_type": "number",
       "v_numeric": {
         "value": "true",

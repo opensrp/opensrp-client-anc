@@ -2206,7 +2206,7 @@
             "ex-checkbox": [
               {
                 "or": [
-                  "other"
+                  "cancer_other"
                 ]
               }
             ]
