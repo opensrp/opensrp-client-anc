@@ -12,7 +12,8 @@
     "pregest_weight_unknown",
     "first_weight",
     "no_of_fetuses_unknown",
-    "no_of_fetuses"
+    "no_of_fetuses",
+    "ipv_physical_signs_symptoms"
   ],
   "global_previous": [
     "current_weight"

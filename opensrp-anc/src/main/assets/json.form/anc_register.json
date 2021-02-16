@@ -355,7 +355,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "label":"{{anc_register.step1.cohabitants.text}}",
+        "label":"{{anc_register.step1.cohabitants.label}}",
         "label_info_text": "{{anc_register.step1.cohabitants.label_info_text}}",
         "type": "check_box",
         "exclusive": [

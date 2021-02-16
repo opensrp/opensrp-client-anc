@@ -2,7 +2,7 @@
 name: step1_hiv_risk
 description: HIV Risk
 priority: 1
-condition: "(step4_hiv_positive != 1 && (global_site_anc_hiv == true || step8_partner_hiv_positive == 1 || step7_alcohol_substance_use.contains('injectable_drugs') || step1_occupation.contains('informal_employment_sex_worker')))"
+condition: "(step4_hiv_positive != 1 && (step8_partner_hiv_positive == 1 || step7_alcohol_substance_use.contains('injectable_drugs') || step1_occupation.contains('informal_employment_sex_worker')))"
 actions:
   - "calculation = 1"
 ---

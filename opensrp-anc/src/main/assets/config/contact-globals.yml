@@ -138,6 +138,7 @@ fields:
   - "gest_age"
   - "gest_age_openmrs"
   - "last_contact_date"
+  - "ipv_physical_signs_symptoms"
 ---
 form: anc_symptoms_follow_up
 fields:
@@ -160,6 +161,7 @@ fields:
   - "alcohol_substance_use"
   - "health_conditions"
   - "hypertension"
+  - "ipv_physical_signs_symptoms"
 ---
 form: anc_test
 fields:
