@@ -18,7 +18,8 @@
     "phys_symptoms_persist",
     "other_sym_lbpp",
     "other_sym_vvo",
-    "other_symptoms_persist"
+    "other_symptoms_persist",
+    "ipv_physical_signs_symptoms"
   ],
   "global_previous": [
     "caffeine_intake",
@@ -2105,7 +2106,14 @@
             "openmrs_entity_id": "",
             "openmrs_entity_parent": ""
           }
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "ipv_signs_symptoms_injury_other",
