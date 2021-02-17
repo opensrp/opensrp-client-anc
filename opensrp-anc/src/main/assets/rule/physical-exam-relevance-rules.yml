@@ -275,20 +275,20 @@ actions:
 name: step3_ipv_clinical_enquiry_not_done_reason
 description: ipv_clinical_enquiry_not_done_reason
 priority: 1
-condition: "step3_ipv_clinical_enquiry == no"
+condition: "step3_ipv_clinical_enquiry == 'no'"
 actions:
   - "isRelevant = true"
 ---
 name: step3_ipv_subject
 description: ipv_subject
 priority: 1
-condition: "step3_ipv_clinical_enquiry == yes"
+condition: "step3_ipv_clinical_enquiry == 'yes'"
 actions:
   - "isRelevant = true"
 ---
-name: step3_ipv_subject
+name: step3_ipv_subject_violence_types
 description: ipv_subject
 priority: 1
-condition: "step3_ipv_subject == yes"
+condition: "step3_ipv_subject == 'yes'"
 actions:
   - "isRelevant = true"
