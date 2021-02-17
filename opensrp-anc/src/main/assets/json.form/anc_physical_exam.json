@@ -2110,7 +2110,6 @@
           {
             "key": "yes",
             "text": "{{anc_physical_exam.step3.ipv_clinical_enquiry.options.yes.text}}",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -2118,7 +2117,6 @@
           {
             "key": "no",
             "text": "{{anc_physical_exam.step3.ipv_clinical_enquiry.options.no.text}}",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -2145,7 +2143,6 @@
           {
             "key": "referred",
             "text": "{{anc_physical_exam.step3.ipv_clinical_enquiry_not_done_reason.options.referred.text}}",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "",
             "openmrs_entity_parent": ""
@@ -2153,7 +2150,6 @@
           {
             "key": "provider_unavailable",
             "text": "{{anc_physical_exam.step3.ipv_clinical_enquiry_not_done_reason.options.provider_unavailable.text}}",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "",
             "openmrs_entity_parent": ""
@@ -2161,7 +2157,6 @@
           {
             "key": "space_unavailable",
             "text": "{{anc_physical_exam.step3.ipv_clinical_enquiry_not_done_reason.options.space_unavailable.text}}",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "",
             "openmrs_entity_parent": ""
@@ -2169,7 +2164,6 @@
           {
             "key": "confidentiality",
             "text": "{{anc_physical_exam.step3.ipv_clinical_enquiry_not_done_reason.options.confidentiality.text}}",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "",
             "openmrs_entity_parent": ""
@@ -2177,7 +2171,6 @@
           {
             "key": "other",
             "text": "{{anc_physical_exam.step3.ipv_clinical_enquiry_not_done_reason.options.other.text}}",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "",
             "openmrs_entity_parent": ""
@@ -2297,7 +2290,14 @@
             "openmrs_entity_id": "",
             "openmrs_entity_parent": ""
           }
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
       }
     ]
   },
