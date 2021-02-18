@@ -54,13 +54,13 @@
         {
           "description": "Is the HIV prevalence consistently > 1% in pregnant women attending antenatal clinics?",
           "label": "Generalized HIV epidemic",
-          "value": "false",
+          "value": "true",
           "key": "pop_hiv_generalized"
         },
         {
           "description": "HIV is spread rapidly in key populations (men who have sex with men, people in prison or other closed settings, people who inject drugs, sex workers and transgender people), i.e. HIV prevalence is consistently over 5% in at least one defined key population.",
           "label": "Concentrated HIV epidemic",
-          "value": "false",
+          "value": "true",
           "key": "pop_hiv_concentrated"
         },
         {
