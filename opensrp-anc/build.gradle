@@ -4,11 +4,10 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.3'
+        classpath 'com.android.tools.build:gradle:4.1.2'
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.3'
         classpath 'com.google.gms:google-services:4.3.4'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.3.0'
-        classpath 'org.smartregister:gradle-jarjar-plugin:1.0.0-SNAPSHOT'
     }
 }
 
@@ -57,8 +56,9 @@ android {
     defaultConfig {
         minSdkVersion androidMinSdkVersion
         targetSdkVersion androidTargetSdkVersion
-        versionCode 1
-        versionName "1.5.0"
+        versionCode Integer.parseInt(project.VERSION_CODE)
+        versionName project.VERSION_NAME
+        buildConfigField "int", "VERSION_CODE", "'" + Integer.parseInt(project.VERSION_CODE) + "'"
         multiDexEnabled true
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
@@ -222,7 +222,7 @@ dependencies {
     }
     testImplementation 'org.robolectric:robolectric:4.4'
     testImplementation 'org.robolectric:shadows-multidex:4.4'
-    //testImplementation 'com.ibm.fhir:fhir-model:4.2.3'
+    testImplementation 'com.ibm.fhir:fhir-model:4.2.3'
     //testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
     testImplementation "org.powermock:powermock-module-junit4:2.0.7"
     testImplementation "org.powermock:powermock-module-junit4-rule:2.0.7"
@@ -251,11 +251,11 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'crea
     def debugTree = fileTree(dir: "$project.buildDir/intermediates/javac/debug/classes/", excludes: fileFilter)
     def mainSrc = "$project.projectDir/src/main/java"
 
-    sourceDirectories = files([mainSrc])
+/*    sourceDirectories = files([mainSrc])
     classDirectories = files([debugTree])
     executionData = fileTree(dir: project.buildDir, includes: [
             'jacoco/testDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec'
-    ])
+    ])*/
 }
 
 task printTasks {
