@@ -101,10 +101,10 @@ fields:
 ---
 group: obstetric_history
 fields:
-- template: "{{contact_summary.obstetric_history.gravida}} = {gravida} {{contact_summary.obstetric_history.parity}} = {parity}"
+- template: "{{contact_summary.obstetric_history.gravida}} = {gravida}, {{contact_summary.obstetric_history.parity}} = {parity}"
   relevance: "gravida !='' || parity != ''"
 
-- template: "{{contact_summary.obstetric_history.no_of_pregnancies_lost_ended=}}: {miscarriages_abortions}"
+- template: "{{contact_summary.obstetric_history.no_of_pregnancies_lost_ended}}: {miscarriages_abortions}"
   relevance: "miscarriages_abortions > 0"
 
 - template: "{{contact_summary.obstetric_history.no_of_live_births}}: {live_births}"
@@ -125,7 +125,7 @@ fields:
 ---
 group: medical_history
 fields:
-- template: "{{contact_summary.medical_history.allergies}}: {allergies_value}, {}"
+- template: "{{contact_summary.medical_history.allergies}}: {allergies_value}"
   relevance: "!allergies.isEmpty()"
 
 - template: "{{contact_summary.medical_history.surgeries}}: {surgeries_value}"
@@ -237,7 +237,7 @@ fields:
 - template: "{{contact_summary.woman_behaviour.condom_counseling_not_done}}: {condom_counsel_notdone_value}"
   relevance: "condom_counsel == 'not_done'"
 
-- template: "{{contact_summary.woman_behaviour.alcohol_substance_enquiry }}: {alcohol_substance_enquiry_value}"
+- template: "{{contact_summary.woman_behaviour.alcohol_substance_enquiry}}: {alcohol_substance_enquiry_value}"
   relevance: "alcohol_substance_enquiry != ''"
 
 - template: "{{contact_summary.woman_behaviour.alcohol_substances_used}}: {alcohol_substance_use_value}, {other_substance_use}"
@@ -423,7 +423,7 @@ fields:
 - template: "{{contact_summary.maternal_exam.pulse_rate}}: {pulse_rate} bpm"
   relevance: "pulse_rate != ''"
 
-- template: "{contact_summary.maternal_exam.second_pulse_rate}: {pulse_rate_repeat} bpm"
+- template: "{{contact_summary.maternal_exam.second_pulse_rate}}: {pulse_rate_repeat} bpm"
   relevance: "pulse_rate_repeat != ''"
 
 - template: "{{contact_summary.maternal_exam.pallor_present}}: {pallor_value}"
@@ -435,7 +435,7 @@ fields:
 - template: "{{contact_summary.maternal_exam.abnormal_specify}}: {respiratory_exam_abnormal_value}"
   relevance: "!respiratory_exam_abnormal.contains('none') && !respiratory_exam_abnormal.isEmpty()"
 
-- template: "{contact_summary.maternal_exam.oximetry}: {oximetry}%"
+- template: "{{contact_summary.maternal_exam.oximetry}}: {oximetry}%"
   relevance: "oximetry != ''"
 
 - template: "{{contact_summary.maternal_exam.cardiac_exam}}: {cardiac_exam_value}"
@@ -480,7 +480,7 @@ fields:
 group: fetal_assessment
 fields:
 
-- template: "{{contact_summary.maternal_exam.sfh }}: {sfh} cm"
+- template: "{{contact_summary.maternal_exam.sfh}}: {sfh} cm"
   relevance: "sfh != ''"
 
 - template: "{{contact_summary.maternal_exam.fetal_movement_felt}}: {fetal_movement}"
@@ -555,7 +555,7 @@ fields:
 - template: "{{contact_summary.partner_hiv_test.partner_hiv_test_status}}: {partner_hiv_status_value}"
   relevance: "partner_hiv_status != ''"
 
-- template: "contact_summary.partner_hiv_test.partner_hiv_test_date: {hiv_test_partner_date}"
+- template: "{{contact_summary.partner_hiv_test.partner_hiv_test_date}}: {hiv_test_partner_date}"
   relevance: "hiv_test_partner_date != ''"
 
 - template: "{{contact_summary.partner_hiv_test.partner_hiv_test_result}}: {hiv_test_partner_result_value}"
@@ -747,7 +747,7 @@ fields:
 - template: "{{contact_summary.blood_haemoglobin_test.rhb_test_result_haemoglobinometer_g_dl}}: {hb_gmeter} g/dl"
   relevance: "hb_gmeter != ''"
 
-- template: "{{contact_summary.blood_haemoglobin_test.hb_test_result_haemoglobin_colour_scale_g_dl }}: {hb_colour} g/dl"
+- template: "{{contact_summary.blood_haemoglobin_test.hb_test_result_haemoglobin_colour_scale_g_dl}}: {hb_colour} g/dl"
   relevance: "hb_colour != ''"
 
 - template: "{{contact_summary.blood_haemoglobin_test.hematocrit_ht}}: {ht}"
@@ -900,7 +900,7 @@ fields:
 - template: "{{contact_summary.anaemia_prevention.daily_folic_acid_prescribed}}"
   relevance: "ifa_high_prev == 'done'"
 
-- template: "{{contact_summary.anaemia_prevention.daily_folic_acid_not_prescribed }}: {ifa_high_prev_notdone_value}"
+- template: "{{contact_summary.anaemia_prevention.daily_folic_acid_not_prescribed}}: {ifa_high_prev_notdone_value}"
   relevance: "ifa_high_prev == 'not_done'"
 
 - template: "{{contact_summary.anaemia_prevention.daily_30_60_folic_acid_prescribed}}"
