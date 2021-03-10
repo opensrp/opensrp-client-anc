@@ -288,9 +288,7 @@ public class AncLibrary {
             if (settingObject != null) {
                 JSONArray settingArray = settingObject.getJSONArray(AllConstants.SETTINGS);
                 if (settingArray != null) {
-
                     for (int i = 0; i < settingArray.length(); i++) {
-
                         JSONObject jsonObject = settingArray.getJSONObject(i);
                         Boolean value = jsonObject.optBoolean(JsonFormConstants.VALUE);
                         JSONObject nullObject = null;

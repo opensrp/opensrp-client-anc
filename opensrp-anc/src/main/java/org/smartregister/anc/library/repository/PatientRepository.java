@@ -7,8 +7,13 @@ import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.domain.WomanDetail;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
+import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.repository.BaseRepository;
@@ -131,6 +136,31 @@ public class PatientRepository extends BaseRepository {
         updatePatient(patientDetail.getBaseEntityId(), contentValues, getRegisterQueryProvider().getDetailsTable());
 
         updateLastInteractedWith(patientDetail.getBaseEntityId());
+    }
+
+    /**
+     * This is a bad hack. Needs to be changed later
+     *
+     * @param form
+     * @param baseEntityId
+     */
+    public static void updateCohabitants(String form, String baseEntityId) {
+        try {
+            JSONObject jsonObject = new JSONObject(form);
+            JSONArray fields = ANCJsonFormUtils.getSingleStepFormfields(jsonObject);
+            JSONObject cohabitants = ANCJsonFormUtils.getFieldJSONObject(fields, DBConstantsUtils.KeyUtils.COHABITANTS);
+
+            String value = cohabitants.optString(ConstantsUtils.KeyUtils.VALUE, "[]");
+
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(DBConstantsUtils.KeyUtils.COHABITANTS, value);
+
+            updatePatient(baseEntityId, contentValues, getRegisterQueryProvider().getDetailsTable());
+
+            updateLastInteractedWith(baseEntityId);
+        } catch (JSONException e) {
+            Timber.e(e);
+        }
     }
 
     public static void updateEDDDate(String baseEntityId, String edd) {

@@ -167,12 +167,12 @@ public abstract class ConstantsUtils {
     public static final class KeyUtils {
         public static final String KEY = "key";
         public static final String VALUE = "value";
+        public static final String TYPE = "type";
         public static final String TREE = "tree";
         public static final String DEFAULT = "default";
         public static final String PHOTO = "photo";
         public static final String AGE_ENTERED = "age_entered";
         public static final String STEP = "step";
-        public static final String TYPE = "type";
         public static final String FORM = "form";
         public static final String CONTACT_NO = "contact_no";
         public static final String LAST_CONTACT_DATE = "last_contact_date";

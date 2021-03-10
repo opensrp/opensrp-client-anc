@@ -111,6 +111,7 @@ fields:
   - "hepb2_date_done"
   - "deworm"
   - "flu_date"
+  - "ipv_subject"
 ---
 form: anc_profile
 fields:

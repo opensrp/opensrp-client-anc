@@ -121,6 +121,6 @@ actions:
 name: step3_ipv_suspect
 description: ipv_suspect
 priority: 1
-condition: "(!global_ipv_signs_symptoms.isEmpty() && !global_ipv_signs_symptoms.contains('none')) || (step3_ipv_physical_signs_symptoms != null && !step3_ipv_physical_signs_symptoms.isEmpty() && !step3_ipv_physical_signs_symptoms.contains('none'))"
+condition: "(global_ipv_signs_symptoms != null && global_ipv_signs_symptoms != '' && !global_ipv_signs_symptoms.contains('none')) || (step3_ipv_physical_signs_symptoms != null && step3_ipv_physical_signs_symptoms != '' && !step3_ipv_physical_signs_symptoms.contains('none'))"
 actions:
-  - 'calculation = 1'
+  - "calculation = 1"

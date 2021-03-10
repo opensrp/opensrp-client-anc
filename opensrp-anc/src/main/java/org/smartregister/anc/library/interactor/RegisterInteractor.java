@@ -13,6 +13,7 @@ import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.RegisterContract;
 import org.smartregister.anc.library.event.PatientRemovedEvent;
 import org.smartregister.anc.library.helper.ECSyncHelper;
+import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.sync.BaseAncClientProcessorForJava;
 import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.AppExecutors;
@@ -90,12 +91,12 @@ public class RegisterInteractor implements RegisterContract.Interactor {
                 createPartialPreviousEvent(pair, baseEntityId);
             }
 
+            PatientRepository.updateCohabitants(jsonString, baseEntityId);
             appExecutors.mainThread().execute(() -> {
                 callBack.setBaseEntityRegister(baseEntityId);
                 callBack.onRegistrationSaved(isEditMode);
             });
         };
-
         appExecutors.diskIO().execute(runnable);
     }
 

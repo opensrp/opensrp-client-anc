@@ -93,7 +93,6 @@ public abstract class BaseActivity extends AppCompatActivity implements SiteChar
 
     @Override
     public void launchSiteCharacteristicsSettingsFormForEdit(Map<String, String> characteristics) {
-
         String formMetadata = ANCJsonFormUtils.getAutoPopulatedSiteCharacteristicsEditFormString(this, characteristics);
         try {
             ANCJsonFormUtils.startFormForEdit(this, ANCJsonFormUtils.REQUEST_CODE_GET_JSON, formMetadata);
