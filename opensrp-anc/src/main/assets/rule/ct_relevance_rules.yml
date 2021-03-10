@@ -562,48 +562,48 @@ actions:
 name: step8_phys_violence_worse
 description: ipv_care
 priority: 1
-condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care == 'safety_assessment' "
+condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care.contains('safety_assessment')"
 actions:
   - "isRelevant = true"
 ---
 name: step8_used_weapon
 description: ipv_care
 priority: 1
-condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care == 'safety_assessment' "
+condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care.contains('safety_assessment')"
 actions:
-- "isRelevant = true"
+  - "isRelevant = true"
 ---
 name: step8_strangle
 description: ipv_care
 priority: 1
-condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care == 'safety_assessment' "
+condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care.contains('safety_assessment')"
 actions:
-- "isRelevant = true"
+  - "isRelevant = true"
 ---
 name: step8_beaten
 description: ipv_care
 priority: 1
-condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care == 'safety_assessment' "
+condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care.contains('safety_assessment')"
 actions:
-- "isRelevant = true"
+  - "isRelevant = true"
 ---
 name: step8_jealous
 description: ipv_care
 priority: 1
-condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care == 'safety_assessment' "
+condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care.contains('safety_assessment')"
 actions:
-- "isRelevant = true"
+  - "isRelevant = true"
 ---
 name: step8_believe_kill
 description: ipv_care
 priority: 1
-condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care == 'safety_assessment' "
+condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care.contains('safety_assessment')"
 actions:
-- "isRelevant = true"
+  - "isRelevant = true"
 ---
 name: step8_ipv_referrals
 description: ipv_care
 priority: 1
-condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care == 'referred' "
+condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care.contains('referred')"
 actions:
   - "isRelevant = true"

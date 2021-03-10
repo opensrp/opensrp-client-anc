@@ -31,3 +31,4 @@ opensrp-anc/jacoco.exec
 jacoco.exec
 ~                 
 /build/
+/google-services.json

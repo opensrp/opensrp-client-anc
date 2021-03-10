@@ -558,8 +558,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
         } else if (jsonObject.getString(ANCJsonFormUtils.KEY).equalsIgnoreCase(ConstantsUtils.JsonFormKeyUtils.ANC_ID)) {
             jsonObject.put(ANCJsonFormUtils.VALUE, womanClient.get(DBConstantsUtils.KeyUtils.ANC_ID).replace("-", ""));
-
-        } else if (womanClient.containsKey(jsonObject.getString(ANCJsonFormUtils.KEY))) {
+        }  else if (womanClient.containsKey(jsonObject.getString(ANCJsonFormUtils.KEY))) {
             jsonObject.put(ANCJsonFormUtils.READ_ONLY, false);
             jsonObject.put(ANCJsonFormUtils.VALUE, womanClient.get(jsonObject.getString(ANCJsonFormUtils.KEY)));
         } else {
@@ -628,7 +627,6 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
         intent.putExtra(JsonFormConstants.PERFORM_FORM_TRANSLATION, true);
         Timber.d("form is %s", metaData);
         context.startActivityForResult(intent, jsonFormActivityRequestCode);
-
     }
 
     public static Triple<Boolean, Event, Event> saveRemovedFromANCRegister(AllSharedPreferences allSharedPreferences, String jsonString, String providerId) {
