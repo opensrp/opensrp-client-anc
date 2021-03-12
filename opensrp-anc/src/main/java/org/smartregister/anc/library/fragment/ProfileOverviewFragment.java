@@ -14,10 +14,13 @@ import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.ProfileActivity;
 import org.smartregister.anc.library.adapter.ProfileOverviewAdapter;
+import org.smartregister.anc.library.contract.ProfileFragmentContract;
 import org.smartregister.anc.library.domain.ButtonAlertStatus;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.domain.YamlConfigWrapper;
+import org.smartregister.anc.library.model.Task;
+import org.smartregister.anc.library.presenter.ProfileFragmentPresenter;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.FilePathUtils;
@@ -33,7 +36,7 @@ import timber.log.Timber;
 /**
  * Created by ndegwamartin on 12/07/2018.
  */
-public class ProfileOverviewFragment extends BaseProfileFragment {
+public class ProfileOverviewFragment extends BaseProfileFragment implements ProfileFragmentContract.View {
     private List<YamlConfigWrapper> yamlConfigListGlobal;
     private Button dueButton;
     private ButtonAlertStatus buttonAlertStatus;
@@ -41,7 +44,9 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
     private String contactNo;
     private View noHealthRecordLayout;
     private RecyclerView profileOverviewRecycler;
-    private Utils utils = new Utils();
+    private ProfileFragmentContract.Presenter presenter;
+    private final Utils utils = new Utils();
+    private HashMap<String, String> clientDetails = new HashMap<>();
 
     public static ProfileOverviewFragment newInstance(Bundle bundle) {
         Bundle bundles = bundle;
@@ -56,13 +61,20 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initializePresenter();
+    }
+
+    protected void initializePresenter() {
+        if (getActivity() == null || getActivity().getIntent() == null) {
+            return;
+        }
+        presenter = new ProfileFragmentPresenter(this);
     }
 
     @Override
     protected void onCreation() {
         if (getActivity() != null && getActivity().getIntent() != null) {
-            HashMap<String, String> clientDetails =
-                    (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
+            clientDetails = (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
             if (clientDetails != null) {
                 buttonAlertStatus = Utils.getButtonAlertStatus(clientDetails, getActivity(), true);
                 contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
@@ -78,7 +90,7 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
     protected void onResumption() {
         try {
             yamlConfigListGlobal = new ArrayList<>(); //This makes sure no data duplication happens
-            Facts facts = AncLibrary.getInstance().getPreviousContactRepository().getPreviousContactFacts(baseEntityId, contactNo, false);
+            Facts facts = presenter.getImmediatePreviousContact(clientDetails, baseEntityId, contactNo);
             Iterable<Object> ruleObjects = utils.loadRulesFiles(FilePathUtils.FileUtils.PROFILE_OVERVIEW);
 
             for (Object ruleObject : ruleObjects) {
@@ -144,5 +156,20 @@ public class ProfileOverviewFragment extends BaseProfileFragment {
         }
 
         return fragmentView;
+    }
+
+    @Override
+    public void setContactTasks(List<Task> contactTasks) {
+        // Implement here
+    }
+
+    @Override
+    public void updateTask(Task task) {
+        // Implement here
+    }
+
+    @Override
+    public void refreshTasksList(boolean refresh) {
+        // Implement here
     }
 }

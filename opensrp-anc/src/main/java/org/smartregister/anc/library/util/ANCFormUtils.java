@@ -475,9 +475,7 @@ public class ANCFormUtils extends FormUtils {
     }
 
     public static String getSecondaryKey(JSONObject jsonObject) throws JSONException {
-
         return getObjectKey(jsonObject) + ConstantsUtils.SuffixUtils.VALUE;
-
     }
 
     /**

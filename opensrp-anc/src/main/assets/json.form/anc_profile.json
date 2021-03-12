@@ -265,7 +265,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "select one",
+        "openmrs_data_type": "select multiple",
         "type": "check_box",
         "label": "{{anc_profile.step1.occupation.label}}",
         "hint": "{{anc_profile.step1.occupation.hint}}",
