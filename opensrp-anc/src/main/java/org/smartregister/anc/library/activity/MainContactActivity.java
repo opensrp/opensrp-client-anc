@@ -45,19 +45,19 @@ import timber.log.Timber;
 
 public class MainContactActivity extends BaseContactActivity implements ContactContract.View {
     private TextView patientNameView;
-    private Map<String, Integer> requiredFieldsMap = new HashMap<>();
-    private Map<String, String> eventToFileMap = new HashMap<>();
-    private Yaml yaml = new Yaml();
-    private Map<String, List<String>> formGlobalKeys = new HashMap<>();
-    private Map<String, String> formGlobalValues = new HashMap<>();
-    private Set<String> globalKeys = new HashSet<>();
-    private Set<String> defaultValueFields = new HashSet<>();
+    private final Map<String, Integer> requiredFieldsMap = new HashMap<>();
+    private final Map<String, String> eventToFileMap = new HashMap<>();
+    private final Yaml yaml = new Yaml();
+    private final Map<String, List<String>> formGlobalKeys = new HashMap<>();
+    private final Map<String, String> formGlobalValues = new HashMap<>();
+    private final Set<String> globalKeys = new HashSet<>();
+    private final Set<String> defaultValueFields = new HashSet<>();
     private List<String> globalValueFields = new ArrayList<>();
     private List<String> editableFields = new ArrayList<>();
     private String baseEntityId;
     private String womanAge = "";
-    private List<String> invisibleRequiredFields = new ArrayList<>();
-    private String[] contactForms = new String[]{ConstantsUtils.JsonFormUtils.ANC_QUICK_CHECK, ConstantsUtils.JsonFormUtils.ANC_PROFILE,
+    private final List<String> invisibleRequiredFields = new ArrayList<>();
+    private final String[] contactForms = new String[]{ConstantsUtils.JsonFormUtils.ANC_QUICK_CHECK, ConstantsUtils.JsonFormUtils.ANC_PROFILE,
             ConstantsUtils.JsonFormUtils.ANC_SYMPTOMS_FOLLOW_UP, ConstantsUtils.JsonFormUtils.ANC_PHYSICAL_EXAM,
             ConstantsUtils.JsonFormUtils.ANC_TEST, ConstantsUtils.JsonFormUtils.ANC_COUNSELLING_TREATMENT, ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS};
     private String formInvalidFields = null;

@@ -1017,7 +1017,7 @@
             "openmrs_entity_id": "139084"
           },
           {
-            "key": "blurred_vision",
+            "key": "visual_disturbance",
             "text": "Blurred vision",
             "value": false,
             "openmrs_entity": "Blurred vision",

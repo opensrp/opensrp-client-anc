@@ -851,8 +851,8 @@
             "openmrs_entity_parent": ""
           },
           {
-            "key": "blurred_vision",
-            "text": "{{anc_physical_exam.step2.symp_sev_preeclampsia.options.blurred_vision.text}}",
+            "key": "visual_disturbance",
+            "text": "{{anc_physical_exam.step2.symp_sev_preeclampsia.options.visual_disturbance.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "147104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
