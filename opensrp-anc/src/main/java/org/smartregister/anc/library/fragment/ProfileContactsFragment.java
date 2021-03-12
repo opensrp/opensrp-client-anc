@@ -58,8 +58,8 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
     private LinearLayout lastContactLayout;
     private LinearLayout testLayout;
     private LinearLayout testsDisplayLayout;
-    private ProfileContactsActionHandler profileContactsActionHandler = new ProfileContactsActionHandler();
-    private ANCJsonFormUtils formUtils = new ANCJsonFormUtils();
+    private final ProfileContactsActionHandler profileContactsActionHandler = new ProfileContactsActionHandler();
+    private final ANCJsonFormUtils formUtils = new ANCJsonFormUtils();
     private ProfileFragmentContract.Presenter presenter;
     private String baseEntityId;
     private String contactNo;
@@ -68,7 +68,7 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
     private HashMap<String, String> clientDetails;
     private View noHealthRecordLayout;
     private ScrollView profileContactsLayout;
-    private Utils utils = new Utils();
+    private final Utils utils = new Utils();
 
     public static ProfileContactsFragment newInstance(Bundle bundle) {
         Bundle args = bundle;
