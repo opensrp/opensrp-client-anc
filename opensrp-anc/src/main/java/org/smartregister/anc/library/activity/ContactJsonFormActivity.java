@@ -259,7 +259,7 @@ public class ContactJsonFormActivity extends FormConfigurationJsonFormActivity {
     }
 
     /**
-     * Partially saves the Quick Check forms details then proceeds to the main contact page
+     * Partially saves the contact forms details then proceeds to the main contact page
      *
      * @author dubdabasoduba
      */

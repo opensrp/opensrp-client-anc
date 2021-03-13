@@ -7,7 +7,6 @@
       "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "label": "{{tests_hepatitis_b_sub_form.step1.hepb_test_status.label}}",
       "label_text_style": "bold",
-      "label_info_text": "{{tests_hepatitis_b_sub_form.step1.hepb_test_status.label_info_text}}",
       "text_color": "#000000",
       "type": "extended_radio_button",
       "options": [

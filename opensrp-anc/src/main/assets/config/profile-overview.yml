@@ -61,10 +61,6 @@ fields:
     relevance: "!prev_preg_comps.isEmpty() && (!prev_preg_comps.contains('dont_know') || !prev_preg_comps.contains('none'))"
     isRedFont: "true"
 
-  - template: "{{profile_overview.overview_of_pregnancy.obstetric_history.past_alcohol_used}}: {alcohol_substance_use_value},{other_substance_use}"
-    relevance: "(!alcohol_substance_use.contains('none') && !alcohol_substance_use.isEmpty())"
-    isRedFont: "true"
-
   - template: "{{profile_overview.overview_of_pregnancy.obstetric_history.past_substances_used}}: {substances_used_value},{substances_used_other}"
     relevance: "(!substances_used.contains('none') && !substances_used.isEmpty())"
     isRedFont: "true"
@@ -211,8 +207,8 @@ fields:
     relevance: "condom_use == 'no'"
     isRedFont: "true"
 
-  - template: "Alcohol / substances currently using: {alcohol_substance_use_value} {other_substance_use}"
-    relevance: "!other_substance_use.isEmpty() || (!alcohol_substance_use.isEmpty() && !alcohol_substance_use.contains('none'))"
+  - template: "Alcohol / substances currently using: {alcohol_substance_use_value}, {other_substance_use_value}"
+    relevance: "!alcohol_substance_use.isEmpty() && !alcohol_substance_use.contains('none')"
     isRedFont: "true"
 
   - template: "Reduced or no fetal movement perceived by woman: {mat_percept_fetal_move}"
