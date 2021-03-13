@@ -3765,13 +3765,8 @@
         "edit_type": "name",
         "relevance": {
           "step8:ipv_support_notdone": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "other"
-                ]
-              }
-            ]
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
           }
         }
       },

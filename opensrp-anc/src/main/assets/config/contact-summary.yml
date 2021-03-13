@@ -143,19 +143,19 @@ fields:
 group: immunisation_status
 fields:
 
-- template: "{{contact_summary.immunisation_status.tt_immunisation_status}}: {tt_immun_status}"
+- template: "{{contact_summary.immunisation_status.tt_immunisation_status}}: {tt_immun_status_value}"
   relevance: "tt_immun_status_value != ''"
 
-- template: "{{contact_summary.immunisation_status.tt_dose_1}}: {tt1_date_done}"
+- template: "{{contact_summary.immunisation_status.tt_dose_1}}: {tt1_date_done_date_today_hidden} {tt1_date_done}"
   relevance: "tt1_date == 'done_today' || tt1_date == 'done_earlier'"
 
-- template: "{{contact_summary.immunisation_status.tt_dose_2}}: {tt2_date_done}"
+- template: "{{contact_summary.immunisation_status.tt_dose_2}}:{tt2_date_done_date_today_hidden} {tt2_date_done}"
   relevance: "tt2_date == 'done_today' || tt2_date == 'done_earlier'"
 
 - template: "{{contact_summary.immunisation_status.tt_dose_not_given}}: {tt_dose_notdone_value}"
   relevance: "tt1_date == 'not_done' || tt2_date == 'not_done'"
 
-- template: "{{contact_summary.immunisation_status.flu_immunisation_status}}: {flu_immun_status}"
+- template: "{{contact_summary.immunisation_status.flu_immunisation_status}}: {flu_immun_status_value}"
   relevance: "flu_immun_status_value != ''"
 
 - template: "{{contact_summary.immunisation_status.flu_dose}}: {flu_date_done}"

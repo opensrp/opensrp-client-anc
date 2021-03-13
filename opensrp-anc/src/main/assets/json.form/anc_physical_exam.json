@@ -2194,13 +2194,8 @@
         "edit_type": "name",
         "relevance": {
           "step3:ipv_clinical_enquiry_not_done_reason": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "other"
-                ]
-              }
-            ]
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
           }
         }
       },
