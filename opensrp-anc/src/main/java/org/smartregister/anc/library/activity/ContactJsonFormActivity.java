@@ -23,7 +23,6 @@ import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.fragment.ContactWizardJsonFormFragment;
 import org.smartregister.anc.library.helper.AncRulesEngineFactory;
-import org.smartregister.anc.library.task.BackPressedPersistPartialTask;
 import org.smartregister.anc.library.util.ANCFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
 
@@ -151,7 +150,9 @@ public class ContactJsonFormActivity extends FormConfigurationJsonFormActivity {
                     getmJSONObject().optString(JsonFormConstants.ENCOUNTER_TYPE) + ":" + contactWizardJsonFormFragment.getPresenter().getInvalidFields().size());
             setResult(RESULT_OK, intent);
         }
-        new BackPressedPersistPartialTask(getContact(), this, getIntent(), currentJsonState()).execute();
+
+        proceedToMainContactPage();
+        // new BackPressedPersistPartialTask(getContact(), this, getIntent(), currentJsonState()).execute();
     }
 
     public Contact getContact() {
