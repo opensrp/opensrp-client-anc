@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.google.gson.reflect.TypeToken;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
+import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
@@ -55,6 +56,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     private List<String> globalValueFields = new ArrayList<>();
     private List<String> editableFields = new ArrayList<>();
     private String baseEntityId;
+    private String womanOpenSRPId;
     private String womanAge = "";
     private final List<String> invisibleRequiredFields = new ArrayList<>();
     private final String[] contactForms = new String[]{ConstantsUtils.JsonFormUtils.ANC_QUICK_CHECK, ConstantsUtils.JsonFormUtils.ANC_PROFILE,
@@ -72,6 +74,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 (Map<String, String>) getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
         if (womanDetails != null && womanDetails.size() > 0) {
             womanAge = String.valueOf(Utils.getAgeFromDate(womanDetails.get(DBConstantsUtils.KeyUtils.DOB)));
+            womanOpenSRPId = womanDetails.get(DBConstantsUtils.KeyUtils.ANC_ID);
         }
         if (!presenter.baseEntityIdExists()) {
             presenter.setBaseEntityId(baseEntityId);
@@ -656,6 +659,14 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                     }
                 }
             }
+        }
+
+        if (fieldObject.getString(JsonFormConstants.KEY).equals("record_bp_using_optibp_button")) {
+            if (fieldObject.has(JsonFormConstants.OptibpConstants.OPTIBP_KEY_DATA)) {
+                fieldObject.remove(JsonFormConstants.OptibpConstants.OPTIBP_KEY_DATA);
+            }
+            JSONObject optiBPData = FormUtils.createOptiBPDataObject(baseEntityId, womanOpenSRPId);
+            fieldObject.put(JsonFormConstants.OptibpConstants.OPTIBP_KEY_DATA, optiBPData);
         }
     }
 

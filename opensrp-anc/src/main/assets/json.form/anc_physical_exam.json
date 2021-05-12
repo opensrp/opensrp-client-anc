@@ -460,6 +460,42 @@
     "next": "step3",
     "fields": [
       {
+        "key": "bp_measurement_method",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "Which BP measurement method are you using?",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "exclusive": [
+          "optibp",
+          "manually"
+        ],
+        "options": [
+          {
+            "key": "optibp",
+            "text": "OptiBP",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "manually",
+            "text": "Manually",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select measurement method"
+        }
+      },
+      {
         "key": "bp_systolic_label",
         "type": "label",
         "label_text_style": "bold",
@@ -469,14 +505,10 @@
           "value": true
         },
         "relevance": {
-          "step2:cant_record_bp": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "cant_record_bp"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
           }
         }
       },
@@ -505,14 +537,10 @@
           "err": "{{anc_physical_exam.step2.bp_systolic.v_required.err}}"
         },
         "relevance": {
-          "step2:cant_record_bp": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "cant_record_bp"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
           }
         }
       },
@@ -524,14 +552,10 @@
         "type": "spacer",
         "spacer_height": "10sp",
         "relevance": {
-          "step2:cant_record_bp": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "cant_record_bp"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
           }
         }
       },
@@ -545,14 +569,10 @@
           "value": true
         },
         "relevance": {
-          "step2:cant_record_bp": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "cant_record_bp"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
           }
         }
       },
@@ -581,14 +601,10 @@
           "err": "{{anc_physical_exam.step2.bp_diastolic.v_required.err}}"
         },
         "relevance": {
-          "step2:cant_record_bp": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "cant_record_bp"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
           }
         }
       },
@@ -607,7 +623,14 @@
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           }
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "cant_record_bp_reason",
@@ -646,14 +669,54 @@
           "err": "{{anc_physical_exam.step2.cant_record_bp_reason.v_required.err}}"
         },
         "relevance": {
-          "step2:cant_record_bp": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "cant_record_bp"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "cant_record_bp_reason_opt",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165428AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "label": "Reason blood pressure not taken",
+        "type": "check_box",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "optibp_didnt_load",
+            "text": "OptiBP didn't load/respond",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165386AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "optibp_returned_error",
+            "text": "OptiBP returned an error/message",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165179AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "other",
+            "text": "{{anc_physical_exam.step2.cant_record_bp_reason.options.other.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_physical_exam.step2.cant_record_bp_reason.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
           }
         }
       },
@@ -664,6 +727,32 @@
         "openmrs_entity_id": "spacer",
         "type": "spacer",
         "spacer_height": "10sp"
+      },
+      {
+        "key": "record_bp_using_optibp_button",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "optibp",
+        "label": "Measure woman blood pressure using OptiBP",
+        "optibp_button_bg_color": "#d32f2f",
+        "optibp_button_text_color": "#FFFFFF",
+        "read_only": false,
+        "optibp_data": {
+          "clientId": "",
+          "clientOpenSRPId": ""
+        },
+        "fields_to_use_value": [
+          "bp_systolic",
+          "bp_diastolic"
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "toaster7",

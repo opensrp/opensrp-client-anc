@@ -1,4 +1,64 @@
 ---
+name: step2_bp_systolic_label
+description: BP Systolic Label
+priority: 1
+condition: "(step2_bp_measurement_method.contains('manually') || step2_bp_measurement_method.contains('optibp'))
+      && !step2_cant_record_bp.contains('cant_record_bp')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_bp_systolic
+description: BP Systolic Value
+priority: 1
+condition: "(step2_bp_measurement_method.contains('manually') || step2_bp_measurement_method.contains('optibp'))
+      && !step2_cant_record_bp.contains('cant_record_bp')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_bp_diastolic_label
+description: BP Diastolic Label
+priority: 1
+condition: "(step2_bp_measurement_method.contains('manually') || step2_bp_measurement_method.contains('optibp'))
+      && !step2_cant_record_bp.contains('cant_record_bp')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_bp_diastolic
+description: BP Diastolic Value
+priority: 1
+condition: "(step2_bp_measurement_method.contains('manually') || step2_bp_measurement_method.contains('optibp'))
+      && !step2_cant_record_bp.contains('cant_record_bp')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_cant_record_bp
+description: BP Diastolic Value
+priority: 1
+condition: "step2_bp_measurement_method.contains('manually') || step2_bp_measurement_method.contains('optibp')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_record_bp_using_optibp_button
+description: BP Measurement Widget
+priority: 1
+condition: "step2_bp_measurement_method.contains('optibp') && !step2_cant_record_bp.contains('cant_record_bp')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_cant_record_bp_reason
+description: Cant record BP reason
+priority: 1
+condition: "step2_bp_measurement_method.contains('manually') && step2_cant_record_bp.contains('cant_record_bp')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_cant_record_bp_reason_opt
+description: Cant record BP reason via OptiBP
+priority: 1
+condition: "step2_bp_measurement_method.contains('optibp') && step2_cant_record_bp.contains('cant_record_bp')"
+actions:
+  - "isRelevant = true"
+---
 name: step2_toaster7
 description: BP measurement warning toaster
 priority: 1
