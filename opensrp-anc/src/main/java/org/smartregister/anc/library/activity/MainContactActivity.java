@@ -303,7 +303,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 requiredFieldsMap.put(object.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE), 0);
             }
             if (contactNo > 1 && ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE.equals(encounterType)
-            && !PatientRepository.isFirstVisit(baseEntityId)) {
+                    && !PatientRepository.isFirstVisit(baseEntityId)) {
                 requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE, 0);
             }
 
@@ -661,7 +661,8 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             }
         }
 
-        if (fieldObject.getString(JsonFormConstants.KEY).equals("record_bp_using_optibp_button")) {
+        if (fieldObject.getString(JsonFormConstants.KEY).equals("record_bp_using_optibp_button")
+                || fieldObject.getString(JsonFormConstants.KEY).equals("record_bp_using_optibp_2nd_reading_button")) {
             if (fieldObject.has(JsonFormConstants.OptibpConstants.OPTIBP_KEY_DATA)) {
                 fieldObject.remove(JsonFormConstants.OptibpConstants.OPTIBP_KEY_DATA);
             }

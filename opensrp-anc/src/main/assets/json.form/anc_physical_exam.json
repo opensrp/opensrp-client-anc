@@ -734,7 +734,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "optibp",
-        "label": "Measure woman blood pressure using OptiBP",
+        "label": "Measure woman blood pressure using OptiBP main",
         "optibp_button_bg_color": "#d32f2f",
         "optibp_button_text_color": "#FFFFFF",
         "read_only": false,
@@ -877,6 +877,32 @@
           "value": "true",
           "err": "{{anc_physical_exam.step2.bp_diastolic_repeat.v_required.err}}"
         },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "record_bp_using_optibp_2nd_reading_button",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "optibp",
+        "label": "Measure woman blood pressure using OptiBP",
+        "optibp_button_bg_color": "#d32f2f",
+        "optibp_button_text_color": "#FFFFFF",
+        "read_only": false,
+        "optibp_data": {
+          "clientId": "",
+          "clientOpenSRPId": ""
+        },
+        "fields_to_use_value": [
+          "bp_systolic_repeat",
+          "bp_diastolic_repeat"
+        ],
         "relevance": {
           "rules-engine": {
             "ex-rules": {
