@@ -734,7 +734,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "optibp",
-        "label": "Measure woman blood pressure using OptiBP main",
+        "label": "Measure woman blood pressure using OptiBP",
         "optibp_button_bg_color": "#d32f2f",
         "optibp_button_text_color": "#FFFFFF",
         "read_only": false,

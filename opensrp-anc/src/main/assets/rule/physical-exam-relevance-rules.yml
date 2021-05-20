@@ -109,7 +109,7 @@ actions:
 name: step2_toaster8
 description: BP measurement warning toaster8
 priority: 1
-condition: "(step2_bp_systolic >= 140 || step2_bp_diastolic >= 90)
+condition: "(step2_bp_systolic_repeat >= 140 || step2_bp_diastolic_repeat >= 90)
          && (step2_bp_measurement_method.contains('optibp') || step2_bp_measurement_method.contains('manually'))"
 actions:
   - "isRelevant = true"
@@ -117,7 +117,7 @@ actions:
 name: step2_symp_sev_preeclampsia
 description: Check if the woman has any of the following symptoms of severe pre-eclampsia.
 priority: 1
-condition: "(step2_bp_systolic >= 140 || step2_bp_diastolic >= 90)
+condition: "(step2_bp_systolic_repeat >= 140 || step2_bp_diastolic_repeat >= 90)
          && (step2_bp_measurement_method.contains('optibp') || step2_bp_measurement_method.contains('manually'))"
 actions:
   - "isRelevant = true"
@@ -125,7 +125,7 @@ actions:
 name: step2_urine_protein
 description: Enter the result for the dipstick test - protein.
 priority: 1
-condition: "(step2_bp_systolic >= 140 || step2_bp_diastolic >= 90)
+condition: "(step2_bp_systolic_repeat >= 140 || step2_bp_diastolic_repeat >= 90)
          && (step2_bp_measurement_method.contains('optibp') || step2_bp_measurement_method.contains('manually'))"
 actions:
   - "isRelevant = true"
