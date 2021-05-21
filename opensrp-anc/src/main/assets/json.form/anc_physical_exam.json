@@ -106,11 +106,11 @@
         },
         "v_min": {
           "value": "100",
-          "err": "Height must be equal or greater than 100"
+          "err": "{{anc_physical_exam.step1.height.v_min.err}}"
         },
         "v_max": {
           "value": "200",
-          "err": "Height must be equal or less than 200"
+          "err": "{{anc_physical_exam.step1.height.v_max.err}}"
         }
       },
       {
@@ -168,11 +168,11 @@
         },
         "v_min": {
           "value": "30",
-          "err": "Weight must be equal or greater than 30"
+          "err": "{{anc_physical_exam.step1.pregest_weight.v_min.err}}"
         },
         "v_max": {
           "value": "180",
-          "err": "Weight must be equal or less than 180"
+          "err": "{{anc_physical_exam.step1.pregest_weight.v_max.err}}"
         },
         "v_required": {
           "value": "true",
@@ -228,11 +228,11 @@
         },
         "v_min": {
           "value": "30",
-          "err": "Weight must be equal or greater than 30"
+          "err": "{{anc_physical_exam.step1.current_weight.v_min.err}}"
         },
         "v_max": {
           "value": "180",
-          "err": "Weight must be equal or less than 180"
+          "err": "{{anc_physical_exam.step1.current_weight.v_max.err}}"
         },
         "v_required": {
           "value": "true",
@@ -465,7 +465,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "check_box",
-        "label": "Which BP measurement method are you using?",
+        "label": "{{anc_physical_exam.step2.bp_measurement_method.label}}",
         "label_text_style": "bold",
         "text_color": "#000000",
         "exclusive": [
@@ -475,7 +475,7 @@
         "options": [
           {
             "key": "optibp",
-            "text": "OptiBP",
+            "text": "{{anc_physical_exam.step2.bp_measurement_method.options.optibp.text}}",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -483,7 +483,7 @@
           },
           {
             "key": "manually",
-            "text": "Manually",
+            "text": "{{anc_physical_exam.step2.bp_measurement_method.options.manually.text}}",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -492,7 +492,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select measurement method"
+          "err": "{{anc_physical_exam.step2.bp_measurement_method.v_required.err}}"
         }
       },
       {
@@ -526,11 +526,11 @@
         },
         "v_min": {
           "value": "20",
-          "err": "SBP must be equal or greater than 20"
+          "err": "{{anc_physical_exam.step2.bp_systolic.v_min.err}}"
         },
         "v_max": {
           "value": "260",
-          "err": "SBP must be equal or less than 260"
+          "err": "{{anc_physical_exam.step2.bp_systolic.v_max.err}}"
         },
         "v_required": {
           "value": "true",
@@ -590,11 +590,11 @@
         },
         "v_min": {
           "value": "20",
-          "err": "DBP must be equal to or greater than 20"
+          "err": "{{anc_physical_exam.step2.bp_diastolic.v_min.err}}"
         },
         "v_max": {
           "value": "260",
-          "err": "DBP must be equal to or less than 260"
+          "err": "{{anc_physical_exam.step2.bp_diastolic.v_max.err}}"
         },
         "v_required": {
           "value": "true",
@@ -681,21 +681,21 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165428AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "label": "Reason blood pressure not taken",
+        "label": "{{anc_physical_exam.step2.cant_record_bp_reason_opt.label}}",
         "type": "check_box",
         "label_text_style": "bold",
         "text_color": "#000000",
         "options": [
           {
             "key": "optibp_didnt_load",
-            "text": "OptiBP didn't load/respond",
+            "text": "{{anc_physical_exam.step2.cant_record_bp_reason_opt.options.optibp_didnt_load.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165386AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "optibp_returned_error",
-            "text": "OptiBP returned an error/message",
+            "text": "{{anc_physical_exam.step2.cant_record_bp_reason_opt.options.optibp_returned_error.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165179AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -734,8 +734,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "optibp",
-        "label": "Measure woman blood pressure using OptiBP",
-        "optibp_button_bg_color": "#d32f2f",
+        "label": "{{anc_physical_exam.step2.record_bp_using_optibp_button.label}}",
+        "optibp_button_bg_color": "#EB5281",
         "optibp_button_text_color": "#FFFFFF",
         "read_only": false,
         "optibp_data": {
@@ -810,11 +810,11 @@
         },
         "v_min": {
           "value": "20",
-          "err": "SBP must be equal or greater than 20"
+          "err": "{{anc_physical_exam.step2.bp_systolic_repeat.v_min.err}}"
         },
         "v_max": {
           "value": "260",
-          "err": "SBP must be equal or less than 260"
+          "err": "{{anc_physical_exam.step2.bp_systolic_repeat.v_max.err}}"
         },
         "v_required": {
           "value": "true",
@@ -867,11 +867,11 @@
         },
         "v_min": {
           "value": "20",
-          "err": "DBP must be equal or greater than 20"
+          "err": "{{anc_physical_exam.step2.bp_diastolic_repeat.v_min.err}}"
         },
         "v_max": {
           "value": "260",
-          "err": "DBP must be equal or less than 260"
+          "err": "{{anc_physical_exam.step2.bp_diastolic_repeat.v_max.err}}"
         },
         "v_required": {
           "value": "true",
@@ -891,8 +891,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "optibp",
-        "label": "Measure woman blood pressure using OptiBP",
-        "optibp_button_bg_color": "#d32f2f",
+        "label": "{{anc_physical_exam.step2.record_bp_using_optibp_2nd_reading_button.label}}",
+        "optibp_button_bg_color": "#EB5281",
         "optibp_button_text_color": "#FFFFFF",
         "read_only": false,
         "optibp_data": {
@@ -1254,11 +1254,11 @@
         },
         "v_min": {
           "value": "35",
-          "err": "Temperature must be equal to or greater than 35"
+          "err": "{{anc_physical_exam.step3.body_temp.v_min.err}}"
         },
         "v_max": {
           "value": "42",
-          "err": "Temperature must be equal to or less than 42"
+          "err": "{{anc_physical_exam.step3.body_temp.v_max.err}}"
         }
       },
       {
@@ -1326,11 +1326,11 @@
         },
         "v_min": {
           "value": "35",
-          "err": "Temperature must be equal to or greater than 35"
+          "err": "{{anc_physical_exam.step3.body_temp_repeat.v_min.err}}"
         },
         "v_max": {
           "value": "42",
-          "err": "Temperature must be equal to or less than 42"
+          "err": "{{anc_physical_exam.step3.body_temp_repeat.v_max.err}}"
         }
       },
       {
@@ -1386,11 +1386,11 @@
         },
         "v_min": {
           "value": "20",
-          "err": "Pulse rate must be equal to or greater than 20"
+          "err": "{{anc_physical_exam.step3.pulse_rate.v_min.err}}"
         },
         "v_max": {
           "value": "200",
-          "err": "Pulse rate must be equal to or less than 200"
+          "err": "{{anc_physical_exam.step3.pulse_rate.v_max.err}}"
         }
       },
       {
@@ -1450,11 +1450,11 @@
         },
         "v_min": {
           "value": "20",
-          "err": "Pulse rate must be equal to or greater than 20"
+          "err": "{{anc_physical_exam.step3.pulse_rate_repeat.v_min.err}}"
         },
         "v_max": {
           "value": "200",
-          "err": "Pulse rate must be equal to or less than 200"
+          "err": "{{anc_physical_exam.step3.pulse_rate_repeat.v_max.err}}"
         },
         "v_required": {
           "value": "true",
@@ -2434,15 +2434,15 @@
         "edit_type": "number",
         "v_min": {
           "value": "0.1",
-          "err": "SFH must be greater than 0"
+          "err": "{{anc_physical_exam.step4.sfh.v_min.err}}"
         },
         "v_max": {
           "value": "44",
-          "err": "SFH must be less than or equal to 44"
+          "err": "{{anc_physical_exam.step4.sfh.v_max.err}}"
         },
         "v_numeric_integer": {
           "value": "true",
-          "err": "Enter a valid sfh"
+          "err": "{{anc_physical_exam.step4.sfh.v_numeric_integer.err}}"
         },
         "v_required": {
           "value": "false",
@@ -2555,15 +2555,15 @@
         "edit_type": "number",
         "v_min": {
           "value": "80",
-          "err": "Fetal heartbeat must be equal or greater than 80"
+          "err": "{{anc_physical_exam.step4.fetal_heart_rate.v_min.err}}"
         },
         "v_max": {
           "value": "200",
-          "err": "Fetal heartbeat must be less than or equal to 200"
+          "err": "{{anc_physical_exam.step4.fetal_heart_rate.v_max.err}}"
         },
         "v_numeric_integer": {
           "value": "true",
-          "err": "Enter a valid number"
+          "err": "{{anc_physical_exam.step4.fetal_heart_rate.v_numeric_integer.err}}"
         },
         "relevance": {
           "step4:fetal_heartbeat": {
