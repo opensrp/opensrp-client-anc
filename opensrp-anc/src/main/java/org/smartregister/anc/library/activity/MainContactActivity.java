@@ -17,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
+import org.smartregister.anc.library.constants.ANCJsonFormConstants;
 import org.smartregister.anc.library.contract.ContactContract;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.model.PartialContact;
@@ -661,8 +662,8 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             }
         }
 
-        if (fieldObject.getString(JsonFormConstants.KEY).equals("record_bp_using_optibp_button")
-                || fieldObject.getString(JsonFormConstants.KEY).equals("record_bp_using_optibp_2nd_reading_button")) {
+        if (fieldObject.getString(JsonFormConstants.KEY).equals(ANCJsonFormConstants.KeyConstants.OPTIBP_BUTTON)
+                || fieldObject.getString(JsonFormConstants.KEY).equals(ANCJsonFormConstants.KeyConstants.OPTIBP_BUTTON_SECOND)) {
             if (fieldObject.has(JsonFormConstants.OptibpConstants.OPTIBP_KEY_DATA)) {
                 fieldObject.remove(JsonFormConstants.OptibpConstants.OPTIBP_KEY_DATA);
             }
