@@ -2,11 +2,12 @@ package org.smartregister.anc.library.util;
 
 import android.content.ContentValues;
 import android.graphics.Bitmap;
+
 import androidx.core.util.Pair;
 
-import net.sqlcipher.database.SQLiteDatabase;
-
 import com.vijay.jsonwizard.constants.JsonFormConstants;
+
+import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.jetbrains.annotations.NotNull;

@@ -466,7 +466,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "5276AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
+          }
         ],
         "v_required": {
           "value": "false"

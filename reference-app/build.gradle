@@ -314,6 +314,8 @@ dependencies {
     testImplementation('com.squareup:fest-android:1.0.8') {
         exclude module: 'support-v4'
     }
+    // https://mvnrepository.com/artifact/org.hamcrest/hamcrest
+    testImplementation group: 'org.hamcrest', name: 'hamcrest', version: '2.2'
     testImplementation 'org.robolectric:robolectric:4.4'
     testImplementation 'org.robolectric:shadows-multidex:4.4'
     testImplementation 'com.ibm.fhir:fhir-model:4.8.3'

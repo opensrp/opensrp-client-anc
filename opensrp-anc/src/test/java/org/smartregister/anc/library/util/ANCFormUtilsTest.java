@@ -1,5 +1,9 @@
 package org.smartregister.anc.library.util;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.json.JSONArray;
@@ -20,10 +24,6 @@ import org.smartregister.anc.library.repository.PartialContactRepository;
 import java.util.List;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 public class ANCFormUtilsTest extends BaseUnitTest {
 
