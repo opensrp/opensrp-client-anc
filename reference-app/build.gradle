@@ -1,7 +1,7 @@
 buildscript {
     repositories {
+        mavenCentral()
         google()
-        jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.2'
@@ -239,7 +239,7 @@ dependencies {
         exclude group: 'org.yaml', module: 'snakeyaml'
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
-    implementation('org.smartregister:opensrp-client-core:4.3.3002-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:4.3.16000-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'
@@ -253,7 +253,7 @@ dependencies {
         exclude group: 'com.rengwuxian.materialedittext', module: 'library'
         exclude group: 'com.ibm.fhir', module: 'fhir-model'
     }
-    jarJar 'com.ibm.fhir:fhir-model:4.2.3'
+    jarJar 'com.ibm.fhir:fhir-model:4.8.3'
     implementation fileTree(dir: "./build/libs", include: ['*.jar'])
     implementation('org.smartregister:opensrp-client-configurable-views:1.1.5-SNAPSHOT@aar') {
         transitive = true
@@ -275,8 +275,8 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.20'
     implementation 'com.evernote:android-job:1.4.2'
-    implementation 'com.github.lecho:hellocharts-android:v1.5.8'
-    implementation 'id.zelory:compressor:2.1.0'
+    implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'
+    implementation 'id.zelory:compressor:2.1.1'
     implementation('com.google.android.material:material:1.2.1') {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'cardview-v7'
@@ -316,7 +316,7 @@ dependencies {
     }
     testImplementation 'org.robolectric:robolectric:4.4'
     testImplementation 'org.robolectric:shadows-multidex:4.4'
-    testImplementation 'com.ibm.fhir:fhir-model:4.2.3'
+    testImplementation 'com.ibm.fhir:fhir-model:4.8.3'
     //testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
     testImplementation "org.powermock:powermock-module-junit4:$powerMockVersion"
     testImplementation "org.powermock:powermock-module-junit4-rule:$powerMockVersion"
@@ -350,5 +350,5 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'crea
 
 jarJar {
     // Dependencies and related JarJar rules
-    remove = ['fhir-model-4.2.3.jar': 'com.ibm.fhir.model.visitor.CopyingVisitor*']
+    remove = ['fhir-model-4.8.3.jar': 'com.ibm.fhir.model.visitor.CopyingVisitor*']
 }
