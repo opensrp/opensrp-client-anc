@@ -43,7 +43,6 @@ import static org.smartregister.util.Log.logInfo;
  */
 public class AncApplication extends DrishtiApplication implements TimeChangedBroadcastReceiver.OnTimeChangedListener {
     private static CommonFtsObject commonFtsObject;
-    private String password;
 
     @Override
     public void onCreate() {
