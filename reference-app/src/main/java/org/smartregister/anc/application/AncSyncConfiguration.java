@@ -9,7 +9,6 @@ import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.view.activity.BaseLoginActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
