@@ -484,7 +484,6 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 lpv.init();
             }
 
-            ANCJsonFormUtils.addWomanRegisterHierarchyQuestions(form);
             Timber.d("Form is %s", form.toString());
 
             if (form != null) {
@@ -534,15 +533,18 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
         if (jsonObject.getString(ANCJsonFormUtils.KEY).equalsIgnoreCase(ConstantsUtils.JsonFormKeyUtils.DOB_ENTERED)) {
             getDobUsingEdd(womanClient, jsonObject, DBConstantsUtils.KeyUtils.DOB);
+
         } else if (jsonObject.getString(ANCJsonFormUtils.KEY).equalsIgnoreCase(DBConstantsUtils.KeyUtils.HOME_ADDRESS)) {
             String homeAddress = womanClient.get(DBConstantsUtils.KeyUtils.HOME_ADDRESS);
             jsonObject.put(ANCJsonFormUtils.VALUE, homeAddress);
+
         } else if (jsonObject.getString(ANCJsonFormUtils.KEY).equalsIgnoreCase(ConstantsUtils.WOM_IMAGE)) {
             getPhotoFieldValue(womanClient, jsonObject);
         } else if (jsonObject.getString(ANCJsonFormUtils.KEY).equalsIgnoreCase(DBConstantsUtils.KeyUtils.DOB_UNKNOWN)) {
             jsonObject.put(ANCJsonFormUtils.READ_ONLY, false);
             JSONObject optionsObject = jsonObject.getJSONArray(ConstantsUtils.JsonFormKeyUtils.OPTIONS).getJSONObject(0);
             optionsObject.put(ANCJsonFormUtils.VALUE, womanClient.get(DBConstantsUtils.KeyUtils.DOB_UNKNOWN));
+
         } else if (jsonObject.getString(ANCJsonFormUtils.KEY).equalsIgnoreCase(ConstantsUtils.KeyUtils.AGE_ENTERED)) {
             jsonObject.put(ANCJsonFormUtils.READ_ONLY, false);
             if (StringUtils.isNotBlank(womanClient.get(DBConstantsUtils.KeyUtils.DOB))) {
@@ -553,9 +555,10 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
             reverseLocationTree(jsonObject, womanClient.get(jsonObject.optString(ANCJsonFormUtils.KEY)));
         } else if (jsonObject.getString(ANCJsonFormUtils.KEY).equalsIgnoreCase(DBConstantsUtils.KeyUtils.EDD)) {
             formatEdd(womanClient, jsonObject, DBConstantsUtils.KeyUtils.EDD);
+
         } else if (jsonObject.getString(ANCJsonFormUtils.KEY).equalsIgnoreCase(ConstantsUtils.JsonFormKeyUtils.ANC_ID)) {
             jsonObject.put(ANCJsonFormUtils.VALUE, womanClient.get(DBConstantsUtils.KeyUtils.ANC_ID).replace("-", ""));
-        } else if (womanClient.containsKey(jsonObject.getString(ANCJsonFormUtils.KEY))) {
+        }  else if (womanClient.containsKey(jsonObject.getString(ANCJsonFormUtils.KEY))) {
             jsonObject.put(ANCJsonFormUtils.READ_ONLY, false);
             jsonObject.put(ANCJsonFormUtils.VALUE, womanClient.get(jsonObject.getString(ANCJsonFormUtils.KEY)));
         } else {
@@ -808,22 +811,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
         try {
             String baseEntityId = womanDetails.get(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID);
 
-
             Event contactVisitEvent = Utils.createContactVisitEvent(formSubmissionIDs, womanDetails, String.valueOf(getOpenTasks(baseEntityId)));
-
-            String currentContactNo;
-            if (womanDetails.get(ConstantsUtils.REFERRAL) == null) {
-                currentContactNo = ConstantsUtils.CONTACT + " " + contactNo;
-            } else {
-                currentContactNo = ConstantsUtils.CONTACT + " " + womanDetails.get(ConstantsUtils.REFERRAL);
-            }
-            contactVisitEvent.addDetails(ConstantsUtils.CONTACT, currentContactNo);
-            contactVisitEvent.addDetails(ConstantsUtils.FORM_SUBMISSION_IDS, formSubmissionIDs.toString());
-            contactVisitEvent.addDetails(ConstantsUtils.OPEN_TEST_TASKS, String.valueOf(getOpenTasks(baseEntityId)));
-
-            tagSyncMetadata(AncLibrary.getInstance().getContext().userService().getAllSharedPreferences(), contactVisitEvent);
-
-            PatientRepository.updateContactVisitStartDate(baseEntityId, null);//reset contact visit date
 
             //Update client
             EventClientRepository db = AncLibrary.getInstance().getEventClientRepository();

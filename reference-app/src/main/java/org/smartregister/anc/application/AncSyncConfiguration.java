@@ -43,14 +43,11 @@ public class AncSyncConfiguration extends SyncConfiguration {
     }
 
     @Override
-    public List<String> getExtraSettingsParameters() {
+    public String getExtraSettingsParameters() {
         AllSharedPreferences sharedPreferences = AncLibrary.getInstance().getContext().userService().getAllSharedPreferences();
         String providerId = sharedPreferences.fetchRegisteredANM();
 
-        List<String> params = new ArrayList<>();
-        params.add(ConstantsUtils.SettingsSyncParamsUtils.LOCATION_ID + "=" + sharedPreferences.fetchDefaultLocalityId(providerId));
-        params.add(ConstantsUtils.SettingsSyncParamsUtils.IDENTIFIER + "=" + POPULATION_CHARACTERISTICS);
-        return params;
+        return ConstantsUtils.SettingsSyncParamsUtils.LOCATION_ID + "=" + sharedPreferences.fetchDefaultLocalityId(providerId) + "&" + ConstantsUtils.SettingsSyncParamsUtils.IDENTIFIER + "=" + POPULATION_CHARACTERISTICS;
     }
 
     @Override

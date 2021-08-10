@@ -1,7 +1,8 @@
 package org.smartregister.anc.library.repository;
 
 import android.content.ContentValues;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;

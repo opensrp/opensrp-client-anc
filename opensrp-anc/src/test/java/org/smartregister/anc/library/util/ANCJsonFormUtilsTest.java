@@ -587,6 +587,112 @@ public class ANCJsonFormUtilsTest {
     }
 
     @Test
+    @PrepareForTest({AncLibrary.class, LocationHelper.class, DrishtiApplication.class})
+    public void testCreateContactVisitEvent() throws JSONException {
+        String providerId = "demo";
+        JSONObject patient = new JSONObject("{\n" +
+                "    \"addresses\": [\n" +
+                "        {\n" +
+                "            \"addressFields\": {\n" +
+                "                \"address2\": \"Home\"\n" +
+                "            },\n" +
+                "            \"addressType\": \"\"\n" +
+                "        }\n" +
+                "    ],\n" +
+                "    \"attributes\": {\n" +
+                "        \"age\": \"19\",\n" +
+                "        \"date_removed\": \"2019-12-12\",\n" +
+                "        \"next_contact\": \"1\",\n" +
+                "        \"next_contact_date\": \"2019-12-11\"\n" +
+                "    },\n" +
+                "    \"baseEntityId\": \"cde284a4-06e4-4d26-8be1-c224479f1905\",\n" +
+                "    \"birthdate\": \"2009-12-11T00:00:00.000Z\",\n" +
+                "    \"birthdateApprox\": false,\n" +
+                "    \"clientApplicationVersion\": 1,\n" +
+                "    \"clientDatabaseVersion\": 2,\n" +
+                "    \"dateCreated\": \"2019-12-11T14:36:00.151Z\",\n" +
+                "    \"dateEdited\": \"2019-12-13T08:34:18.796Z\",\n" +
+                "    \"deathdateApprox\": false,\n" +
+                "    \"firstName\": \"Diana\",\n" +
+                "    \"gender\": \"F\",\n" +
+                "    \"id\": \"f09efb0c-3c18-4ebf-a567-8a71f3930068\",\n" +
+                "    \"identifiers\": {\n" +
+                "        \"ANC_ID\": \"14936017\",\n" +
+                "        \"OPENMRS_UUID\": \"2da87e22-0200-4be2-a0a0-7e77b88594bb\"\n" +
+                "    },\n" +
+                "    \"lastName\": \"Princeness\",\n" +
+                "    \"relationships\": {},\n" +
+                "    \"revision\": \"v6\",\n" +
+                "    \"serverVersion\": 1576225866661,\n" +
+                "    \"type\": \"Client\"\n" +
+                "}");
+
+        Map<String, String> details = getWomanDetails();
+        details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, "4");
+        details.put(DBConstantsUtils.KeyUtils.VISIT_START_DATE, "2020-03-05");
+
+
+        List<String> formSubmissionIds = new ArrayList<>();
+        formSubmissionIds.add("f71f74e7-8a5e-41a5-aadf-0900034ba974");
+        formSubmissionIds.add("bb5d2ca2-d0ea-4a8d-97c8-b3ac2ef6d7d3");
+        formSubmissionIds.add("2a3f8ed5-03f6-443d-96bb-209679c18512");
+
+        List<Task> taskList = new ArrayList<>();
+        taskList.add(getTask());
+
+        PowerMockito.mockStatic(AncLibrary.class);
+        PowerMockito.when(AncLibrary.getInstance()).thenReturn(ancLibrary);
+        PowerMockito.when(ancLibrary.getDatabaseVersion()).thenReturn(2);
+
+        PowerMockito.mockStatic(LocationHelper.class);
+        PowerMockito.when(LocationHelper.getInstance()).thenReturn(locationHelper);
+        PowerMockito.when(locationHelper.getOpenMrsLocationId("locality")).thenReturn("821a7e48-2592-46be-99d6-d29bc4e58839");
+
+        PowerMockito.when(ancLibrary.getContactTasksRepository()).thenReturn(contactTasksRepository);
+        PowerMockito.when(contactTasksRepository.getOpenTasks(ArgumentMatchers.anyString())).thenReturn(taskList);
+
+        PowerMockito.when(ancLibrary.getContext()).thenReturn(context);
+        PowerMockito.when(context.userService()).thenReturn(userService);
+        PowerMockito.when(userService.getAllSharedPreferences()).thenReturn(allSharedPreferences);
+
+        Mockito.when(allSharedPreferences.fetchCurrentLocality()).thenReturn("locality");
+        Mockito.when(allSharedPreferences.fetchRegisteredANM()).thenReturn(providerId);
+        Mockito.when(allSharedPreferences.fetchDefaultLocalityId(providerId)).thenReturn("4fca717e-6072-472e-82f6-bfe3907def66");
+        Mockito.when(allSharedPreferences.fetchDefaultTeam(providerId)).thenReturn("bukesa");
+        Mockito.when(allSharedPreferences.fetchDefaultTeamId(providerId)).thenReturn("39305854-5db8-4538-a367-8d4b7118f9af");
+
+        PowerMockito.mockStatic(DrishtiApplication.class);
+        PowerMockito.when(DrishtiApplication.getInstance()).thenReturn(drishtiApplication);
+        PowerMockito.when(drishtiApplication.getRepository()).thenReturn(repository);
+        PowerMockito.when(repository.getWritableDatabase()).thenReturn(sqLiteDatabase);
+        PowerMockito.when(sqLiteDatabase.update(ArgumentMatchers.anyString(),ArgumentMatchers.eq(new ContentValues()),ArgumentMatchers.anyString(),ArgumentMatchers.eq(new String[]{}))).thenReturn(2);
+
+        PowerMockito.when(ancLibrary.getRegisterQueryProvider()).thenReturn(registerQueryProvider);
+        PowerMockito.when(registerQueryProvider.getDetailsTable()).thenReturn(DBConstantsUtils.RegisterTable.DETAILS);
+
+        PowerMockito.when(ancLibrary.getEventClientRepository()).thenReturn(eventClientRepository);
+        PowerMockito.when(eventClientRepository.getClientByBaseEntityId(ArgumentMatchers.anyString())).thenReturn(patient);
+
+        PowerMockito.when(ancLibrary.getContext()).thenReturn(context);
+        PowerMockito.when(context.allSharedPreferences()).thenReturn(allSharedPreferences);
+        Mockito.when(allSharedPreferences.fetchRegisteredANM()).thenReturn(providerId);
+
+        Pair<Event, Event> eventPair = ANCJsonFormUtils.createVisitAndUpdateEvent(formSubmissionIds, details);
+        Assert.assertNotNull(eventPair);
+        Assert.assertNotNull(eventPair.first);
+        Assert.assertEquals("Contact Visit", eventPair.first.getEventType());
+
+        Assert.assertNotNull(eventPair.second);
+        Assert.assertEquals("Update ANC Registration", eventPair.second.getEventType());
+    }
+
+    private Task getTask() {
+        Task task = new Task(DUMMY_BASE_ENTITY_ID, "myTask", String.valueOf(new JSONObject()), true, true);
+        task.setId(Long.valueOf(1));
+        return task;
+    }
+
+    @Test
     public void testProcessLocationFieldsShouldUpdateValueWithOpenmrsId() throws JSONException {
         PowerMockito.mockStatic(LocationHelper.class);
         Mockito.when(LocationHelper.getInstance()).thenReturn(locationHelper);
@@ -733,109 +839,4 @@ public class ANCJsonFormUtilsTest {
         Assert.assertNotNull(result);
     }
 
-
-    @PrepareForTest({AncLibrary.class, LocationHelper.class, DrishtiApplication.class})
-    public void testCreateContactVisitEvent() throws JSONException {
-        String providerId = "demo";
-        JSONObject patient = new JSONObject("{\n" +
-                "    \"addresses\": [\n" +
-                "        {\n" +
-                "            \"addressFields\": {\n" +
-                "                \"address2\": \"Home\"\n" +
-                "            },\n" +
-                "            \"addressType\": \"\"\n" +
-                "        }\n" +
-                "    ],\n" +
-                "    \"attributes\": {\n" +
-                "        \"age\": \"19\",\n" +
-                "        \"date_removed\": \"2019-12-12\",\n" +
-                "        \"next_contact\": \"1\",\n" +
-                "        \"next_contact_date\": \"2019-12-11\"\n" +
-                "    },\n" +
-                "    \"baseEntityId\": \"cde284a4-06e4-4d26-8be1-c224479f1905\",\n" +
-                "    \"birthdate\": \"2009-12-11T00:00:00.000Z\",\n" +
-                "    \"birthdateApprox\": false,\n" +
-                "    \"clientApplicationVersion\": 1,\n" +
-                "    \"clientDatabaseVersion\": 2,\n" +
-                "    \"dateCreated\": \"2019-12-11T14:36:00.151Z\",\n" +
-                "    \"dateEdited\": \"2019-12-13T08:34:18.796Z\",\n" +
-                "    \"deathdateApprox\": false,\n" +
-                "    \"firstName\": \"Diana\",\n" +
-                "    \"gender\": \"F\",\n" +
-                "    \"id\": \"f09efb0c-3c18-4ebf-a567-8a71f3930068\",\n" +
-                "    \"identifiers\": {\n" +
-                "        \"ANC_ID\": \"14936017\",\n" +
-                "        \"OPENMRS_UUID\": \"2da87e22-0200-4be2-a0a0-7e77b88594bb\"\n" +
-                "    },\n" +
-                "    \"lastName\": \"Princeness\",\n" +
-                "    \"relationships\": {},\n" +
-                "    \"revision\": \"v6\",\n" +
-                "    \"serverVersion\": 1576225866661,\n" +
-                "    \"type\": \"Client\"\n" +
-                "}");
-
-        Map<String, String> details = getWomanDetails();
-        details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, "4");
-        details.put(DBConstantsUtils.KeyUtils.VISIT_START_DATE, "2020-03-05");
-
-
-        List<String> formSubmissionIds = new ArrayList<>();
-        formSubmissionIds.add("f71f74e7-8a5e-41a5-aadf-0900034ba974");
-        formSubmissionIds.add("bb5d2ca2-d0ea-4a8d-97c8-b3ac2ef6d7d3");
-        formSubmissionIds.add("2a3f8ed5-03f6-443d-96bb-209679c18512");
-
-        List<Task> taskList = new ArrayList<>();
-        taskList.add(getTask());
-
-        PowerMockito.mockStatic(AncLibrary.class);
-        PowerMockito.when(AncLibrary.getInstance()).thenReturn(ancLibrary);
-        PowerMockito.when(ancLibrary.getDatabaseVersion()).thenReturn(2);
-
-        PowerMockito.mockStatic(LocationHelper.class);
-        PowerMockito.when(LocationHelper.getInstance()).thenReturn(locationHelper);
-        PowerMockito.when(locationHelper.getOpenMrsLocationId("locality")).thenReturn("821a7e48-2592-46be-99d6-d29bc4e58839");
-
-        PowerMockito.when(ancLibrary.getContactTasksRepository()).thenReturn(contactTasksRepository);
-        PowerMockito.when(contactTasksRepository.getOpenTasks(ArgumentMatchers.anyString())).thenReturn(taskList);
-
-        PowerMockito.when(ancLibrary.getContext()).thenReturn(context);
-        PowerMockito.when(context.userService()).thenReturn(userService);
-        PowerMockito.when(userService.getAllSharedPreferences()).thenReturn(allSharedPreferences);
-
-        Mockito.when(allSharedPreferences.fetchCurrentLocality()).thenReturn("locality");
-        Mockito.when(allSharedPreferences.fetchRegisteredANM()).thenReturn(providerId);
-        Mockito.when(allSharedPreferences.fetchDefaultLocalityId(providerId)).thenReturn("4fca717e-6072-472e-82f6-bfe3907def66");
-        Mockito.when(allSharedPreferences.fetchDefaultTeam(providerId)).thenReturn("bukesa");
-        Mockito.when(allSharedPreferences.fetchDefaultTeamId(providerId)).thenReturn("39305854-5db8-4538-a367-8d4b7118f9af");
-
-        PowerMockito.mockStatic(DrishtiApplication.class);
-        PowerMockito.when(DrishtiApplication.getInstance()).thenReturn(drishtiApplication);
-        PowerMockito.when(drishtiApplication.getRepository()).thenReturn(repository);
-        PowerMockito.when(repository.getWritableDatabase()).thenReturn(sqLiteDatabase);
-        PowerMockito.when(sqLiteDatabase.update(ArgumentMatchers.anyString(),ArgumentMatchers.eq(new ContentValues()),ArgumentMatchers.anyString(),ArgumentMatchers.eq(new String[]{}))).thenReturn(2);
-
-        PowerMockito.when(ancLibrary.getRegisterQueryProvider()).thenReturn(registerQueryProvider);
-        PowerMockito.when(registerQueryProvider.getDetailsTable()).thenReturn(DBConstantsUtils.RegisterTable.DETAILS);
-
-        PowerMockito.when(ancLibrary.getEventClientRepository()).thenReturn(eventClientRepository);
-        PowerMockito.when(eventClientRepository.getClientByBaseEntityId(ArgumentMatchers.anyString())).thenReturn(patient);
-
-        PowerMockito.when(ancLibrary.getContext()).thenReturn(context);
-        PowerMockito.when(context.allSharedPreferences()).thenReturn(allSharedPreferences);
-        Mockito.when(allSharedPreferences.fetchRegisteredANM()).thenReturn(providerId);
-
-        Pair<Event, Event> eventPair = ANCJsonFormUtils.createContactVisitEvent(formSubmissionIds, details);
-        Assert.assertNotNull(eventPair);
-        Assert.assertNotNull(eventPair.first);
-        Assert.assertEquals("Contact Visit", eventPair.first.getEventType());
-
-        Assert.assertNotNull(eventPair.second);
-        Assert.assertEquals("Update ANC Registration", eventPair.second.getEventType());
-    }
-
-    private Task getTask() {
-        Task task = new Task(DUMMY_BASE_ENTITY_ID, "myTask", String.valueOf(new JSONObject()), true, true);
-        task.setId(Long.valueOf(1));
-        return task;
-    }
 }

@@ -63,11 +63,11 @@ project.ext.preDexLibs = !project.hasProperty('disablePreDex')
 subprojects {
     group = 'org.smartregister'
 
-    ext.androidToolsBuildGradle = '29.0.3'
-    ext.androidBuildToolsVersion = '29.0.3'
+    ext.androidToolsBuildGradle = '30.0.3'
+    ext.androidBuildToolsVersion = '30.0.3'
     ext.androidMinSdkVersion = 18
-    ext.androidCompileSdkVersion = 29
-    ext.androidTargetSdkVersion = 29
+    ext.androidCompileSdkVersion = 30
+    ext.androidTargetSdkVersion = 30
     ext.androidAnnotationsVersion = '3.0.1'
     ext.androidAnnotationsAPIVersion = '3.0.1'
     ext.jacocoVersion = "0.8.5"
