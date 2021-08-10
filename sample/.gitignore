@@ -1,4 +1,4 @@
 /build
 /build/
 /release/
-!/google-services.json
+/google-services.json
