@@ -219,7 +219,7 @@ public class BaseHomeRegisterActivityTest extends BaseActivityUnitTest {
         Whitebox.setInternalState(baseHomeRegisterActivitySpy, "mBaseFragment", homeRegisterFragment);
         Whitebox.setInternalState(baseHomeRegisterActivitySpy, "presenter", registerPresenter);
         baseHomeRegisterActivitySpy.startRegistration();
-        Mockito.verify(registerPresenter).startForm("anc_register", null, null, (String) null);
+        Mockito.verify(registerPresenter).startForm("anc_register", null, "", (String) null);
     }
 
     @Test()

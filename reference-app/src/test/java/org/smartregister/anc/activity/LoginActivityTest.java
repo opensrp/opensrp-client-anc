@@ -241,7 +241,7 @@ public class LoginActivityTest extends BaseActivityUnitTest {
         LoginActivity spyActivity = Mockito.spy(loginActivity);
         Whitebox.setInternalState(spyActivity, "mLoginPresenter", presenter);
         spyActivity.onEditorAction(textView, 99292, keyEvent);
-        Mockito.verify(presenter, Mockito.times(0)).attemptLogin(DUMMY_USERNAME, DUMMY_PASSWORD);
+        Mockito.verify(presenter, Mockito.times(0)).attemptLogin(DUMMY_USERNAME, DUMMY_PASSWORD.toCharArray());
 
         EditText userNameEditText = Mockito.spy(new EditText(RuntimeEnvironment.application));
         userNameEditText.setText(DUMMY_USERNAME);
@@ -253,7 +253,7 @@ public class LoginActivityTest extends BaseActivityUnitTest {
         Whitebox.setInternalState(spyActivity, "passwordEditText", passwordEditText);
 
         spyActivity.onEditorAction(textView, EditorInfo.IME_NULL, keyEvent);//Enter key
-        Mockito.verify(presenter, Mockito.times(1)).attemptLogin(DUMMY_USERNAME, DUMMY_PASSWORD);
+        Mockito.verify(presenter, Mockito.times(1)).attemptLogin(DUMMY_USERNAME, DUMMY_PASSWORD.toCharArray());
     }
 
     @Test
@@ -272,7 +272,7 @@ public class LoginActivityTest extends BaseActivityUnitTest {
         Button loginButton = spyActivity.findViewById(R.id.login_login_btn);
         spyActivity.onClick(loginButton);
 
-        Mockito.verify(presenter, Mockito.times(1)).attemptLogin(DUMMY_USERNAME, DUMMY_PASSWORD);
+        Mockito.verify(presenter, Mockito.times(1)).attemptLogin(DUMMY_USERNAME, DUMMY_PASSWORD.toCharArray());
     }
 
     @Test

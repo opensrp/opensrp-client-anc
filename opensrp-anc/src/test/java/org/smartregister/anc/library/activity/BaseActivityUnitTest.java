@@ -20,6 +20,8 @@ import org.smartregister.repository.FormDataRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.view.activity.DrishtiApplication;
 
+import java.nio.charset.StandardCharsets;
+
 /**
  * Created by ndegwamartin on 24/07/2018.
  */
@@ -59,8 +61,8 @@ public abstract class BaseActivityUnitTest extends BaseUnitTest {
         //Auto login by default
         String password = "pwd";
         context.session().start(context.session().lengthInMilliseconds());
-        context.configuration().getDrishtiApplication().setPassword(password);
-        context.session().setPassword(password);
+        context.configuration().getDrishtiApplication().setPassword(password.getBytes(StandardCharsets.UTF_8));
+        context.session().setPassword(password.getBytes(StandardCharsets.UTF_8));
 
         ReflectionHelpers.setStaticField(ConfigurableViewsLibrary.class, "instance", configurableViewsLibrary);
         ConfigurableViewsHelper configurableViewsHelper = Mockito.mock(ConfigurableViewsHelper.class);
