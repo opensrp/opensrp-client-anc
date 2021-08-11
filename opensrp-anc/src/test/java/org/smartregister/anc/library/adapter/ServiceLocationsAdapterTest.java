@@ -12,6 +12,7 @@ import org.smartregister.adapter.ServiceLocationsAdapter;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ServiceLocationsAdapterTest extends BaseUnitTest {
     private ServiceLocationsAdapter serviceLocationsAdapter;
@@ -39,7 +40,7 @@ public class ServiceLocationsAdapterTest extends BaseUnitTest {
         locationNames.addAll(ArgumentMatchers.anyList());
         Assert.assertNotNull(locationNames);
 
-        ArrayList<String> arrayList = serviceLocationsAdapter.getLocationNames();
+        List<String> arrayList = serviceLocationsAdapter.getLocationNames();
         Assert.assertNotNull(arrayList);
     }
 

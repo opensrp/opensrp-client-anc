@@ -2,7 +2,7 @@
 name: step1_hiv_risk
 description: HIV Risk
 priority: 1
-condition: "(step4_hiv_positive != 1 && (global_site_anc_hiv == true || step8_partner_hiv_positive == 1 || step7_alcohol_substance_use.contains('injectable_drugs') || step1_occupation.contains('informal_employment_sex_worker')))"
+condition: "(step4_hiv_positive != 1 && (step8_partner_hiv_positive == 1 || step7_alcohol_substance_use.contains('injectable_drugs') || step1_occupation.contains('informal_employment_sex_worker')))"
 actions:
   - "calculation = 1"
 ---
@@ -156,7 +156,7 @@ actions:
 name: step3_preeclampsia_risk
 description: preeclampsia_risk
 priority: 1
-condition: "((global_no_of_fetuses != null && global_no_of_fetuses != '' && global_no_of_fetuses >= 2) || (!step3_prev_preg_comps.isEmpty() && (step3_prev_preg_comps.contains('pre_eclampsia') || step3_prev_preg_comps.contains('eclampsia') || step3_prev_preg_comps.contains('convulsions'))) || (!step4_health_conditions.isEmpty() && (step4_health_conditions.contains('autoimmune_disease') || step4_health_conditions.contains('diabetes') || step4_health_conditions.contains('hypertension') || step4_health_conditions.contains('kidney_disease'))))"
+condition: "((global_no_of_fetuses != null && global_no_of_fetuses != '' && global_no_of_fetuses >= 2) || (!step3_prev_preg_comps.isEmpty() && (step3_prev_preg_comps.contains('pre_eclampsia') || step3_prev_preg_comps.contains('eclampsia') || step3_prev_preg_comps.contains('convulsions'))) || (!step4_health_conditions.isEmpty() && (step4_health_conditions.contains('autoimmune_disease') || step4_health_conditions.contains('diabetes') || step4_health_conditions.contains('gest_diabetes') || step4_health_conditions.contains('diabetes_other') || step4_health_conditions.contains('diabetes_type2') || step4_health_conditions.contains('hypertension') || step4_health_conditions.contains('kidney_disease'))))"
 actions:
   - "calculation = 1"
 ---
@@ -170,7 +170,7 @@ actions:
 name: step4_preeclampsia_risk
 description: preeclampsia_risk
 priority: 1
-condition: "((global_no_of_fetuses != null && global_no_of_fetuses != '' && global_no_of_fetuses >= 2) || (!step3_prev_preg_comps.isEmpty() && (step3_prev_preg_comps.contains('pre_eclampsia') || step3_prev_preg_comps.contains('eclampsia') || step3_prev_preg_comps.contains('convulsions'))) || (!step4_health_conditions.isEmpty() && (step4_health_conditions.contains('autoimmune_disease') || step4_health_conditions.contains('diabetes') || step4_health_conditions.contains('hypertension') || step4_health_conditions.contains('kidney_disease'))))"
+condition: "((global_no_of_fetuses != null && global_no_of_fetuses != '' && global_no_of_fetuses >= 2) || (!step3_prev_preg_comps.isEmpty() && (step3_prev_preg_comps.contains('pre_eclampsia') || step3_prev_preg_comps.contains('eclampsia') || step3_prev_preg_comps.contains('convulsions'))) || (!step4_health_conditions.isEmpty() && (step4_health_conditions.contains('autoimmune_disease') || step4_health_conditions.contains('diabetes') || step4_health_conditions.contains('gest_diabetes') || step4_health_conditions.contains('diabetes_other') || step4_health_conditions.contains('diabetes_type2') || step4_health_conditions.contains('hypertension') || step4_health_conditions.contains('kidney_disease'))))"
 actions:
   - "calculation = 1"
 ---

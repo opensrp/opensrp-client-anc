@@ -59,5 +59,6 @@
     "title": "Due",
     "fields": [
     ]
-  }
+  },
+  "properties_file_name": "anc_test"
 }

@@ -125,3 +125,17 @@ priority: 1
 condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 20)"
 actions:
   - "isRelevant = true"
+---
+name: step4_ipv_signs_symptoms
+description: Intimate Partner Violence(IPV)
+priority: 1
+condition: "global_site_ipv_assess == true"
+actions:
+- "isRelevant = true"
+---
+name: step4_toaster23
+description: Intimate Partner Violence(IPV) Toaster
+priority: 1
+condition: "step4_ipv_suspect == 1"
+actions:
+  - "isRelevant = true"

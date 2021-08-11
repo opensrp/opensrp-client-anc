@@ -1,10 +1,13 @@
 package org.smartregister.anc.library.fragment;
 
+import static org.robolectric.shadows.ShadowInstrumentation.getInstrumentation;
+
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -22,8 +25,6 @@ import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 
 import java.util.HashMap;
-
-import static org.robolectric.shadows.ShadowInstrumentation.getInstrumentation;
 
 public class ProfileOverviewFragmentTest extends BaseActivityUnitTest {
     private ProfileActivity profileActivity;

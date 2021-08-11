@@ -1,5 +1,9 @@
 package org.smartregister.anc.library.helper;
 
+import static org.smartregister.configurableviews.util.Constants.CONFIGURATION.LOGIN;
+import static org.smartregister.configurableviews.util.Constants.LAST_VIEWS_SYNC_TIMESTAMP;
+import static org.smartregister.configurableviews.util.Constants.VIEW_CONFIGURATION_PREFIX;
+
 import android.content.Context;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -7,10 +11,6 @@ import android.util.Log;
 import org.smartregister.CoreLibrary;
 import org.smartregister.configurableviews.helper.PrefsHelper;
 import org.smartregister.repository.EventClientRepository;
-
-import static org.smartregister.configurableviews.util.Constants.CONFIGURATION.LOGIN;
-import static org.smartregister.configurableviews.util.Constants.LAST_VIEWS_SYNC_TIMESTAMP;
-import static org.smartregister.configurableviews.util.Constants.VIEW_CONFIGURATION_PREFIX;
 
 /**
  * Created by ndegwamartin on 15/03/2018.

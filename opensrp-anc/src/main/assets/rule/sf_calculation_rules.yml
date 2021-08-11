@@ -1,0 +1,7 @@
+---
+name: step4_ipv_suspect
+description: IPV Suspected
+priority: 1
+condition: "(step4_ipv_signs_symptoms != null && !step4_ipv_signs_symptoms.isEmpty() && !step4_ipv_signs_symptoms.contains('none')) || (global_ipv_physical_signs_symptoms != null && !global_ipv_physical_signs_symptoms.isEmpty() && !global_ipv_physical_signs_symptoms.contains('none'))"
+actions:
+  - "calculation = 1"

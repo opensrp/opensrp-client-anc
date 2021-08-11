@@ -1,9 +1,6 @@
 package org.smartregister.anc.library.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,13 +8,17 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.RecyclerView;
+
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.domain.LastContactDetailsWrapper;
 import org.smartregister.anc.library.domain.YamlConfigWrapper;
-import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ANCJsonFormUtils;
+import org.smartregister.anc.library.util.ConstantsUtils;
 
 import java.util.List;
 

@@ -21,19 +21,29 @@ public class RegisterQueryProvider {
                 "join " + getDetailsTable() + " on " + getDemographicTable() + "." + CommonFtsObject.idColumn + " =  " + getDetailsTable() + "." + "id " + strMainCondition + strFilters;
     }
 
-    public String getFilter(String filters) {
+    private String getMainCondition(String mainCondition) {
+        if (StringUtils.isNotBlank(mainCondition)) {
+            return " where " + mainCondition;
+        }
+        return "";
+    }
+
+    private String getFilter(String filters) {
+
         if (StringUtils.isNotBlank(filters)) {
             return String.format(" AND " + getDemographicTable() + "." + CommonFtsObject.phraseColumn + " MATCH '*%s*'", filters);
         }
         return "";
     }
 
-    public String getMainCondition(String mainCondition) {
-        if (StringUtils.isNotBlank(mainCondition)) {
-            return " where " + mainCondition;
-        }
-        return "";
+    public String getDemographicTable() {
+        return DBConstantsUtils.RegisterTable.DEMOGRAPHIC;
     }
+
+    public String getDetailsTable() {
+        return DBConstantsUtils.RegisterTable.DETAILS;
+    }
+
 
     public String getCountExecuteQuery(String mainCondition, String filters) {
 
@@ -49,6 +59,14 @@ public class RegisterQueryProvider {
                 "join " + getDetailsTable() + " on " + getDemographicTable() + "." + CommonFtsObject.idColumn + " =  " + getDetailsTable() + "." + "id " + strMainCondition + strFilters;
     }
 
+    public String mainRegisterQuery() {
+        SmartRegisterQueryBuilder queryBuilder = new SmartRegisterQueryBuilder();
+        queryBuilder.selectInitiateMainTable(getDemographicTable(), mainColumns());
+        queryBuilder.customJoin(" join " + getDetailsTable()
+                + " on " + getDemographicTable() + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + "= " + getDetailsTable() + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " ");
+        return queryBuilder.getSelectquery();
+    }
+
     public String[] mainColumns() {
         return new String[]{DBConstantsUtils.KeyUtils.FIRST_NAME, DBConstantsUtils.KeyUtils.LAST_NAME, DBConstantsUtils.KeyUtils.DOB,
                 DBConstantsUtils.KeyUtils.DOB_UNKNOWN, getDetailsTable() + "." + DBConstantsUtils.KeyUtils.PHONE_NUMBER, getDetailsTable() + "." + DBConstantsUtils.KeyUtils.ALT_NAME,
@@ -59,22 +77,6 @@ public class RegisterQueryProvider {
                 getDetailsTable() + "." + DBConstantsUtils.KeyUtils.NEXT_CONTACT, getDetailsTable() + "." + DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE,
                 getDetailsTable() + "." + DBConstantsUtils.KeyUtils.VISIT_START_DATE, getDetailsTable() + "." + DBConstantsUtils.KeyUtils.RED_FLAG_COUNT,
                 getDetailsTable() + "." + DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT, getDetailsTable() + "." + DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE,
-                getDemographicTable() + "." + DBConstantsUtils.KeyUtils.RELATIONAL_ID};
-    }
-
-    public String mainRegisterQuery() {
-        SmartRegisterQueryBuilder queryBuilder = new SmartRegisterQueryBuilder();
-        queryBuilder.SelectInitiateMainTable(getDemographicTable(), mainColumns());
-        queryBuilder.customJoin(" join " + getDetailsTable()
-                + " on " + getDemographicTable() + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + "= " + getDetailsTable() + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " ");
-        return queryBuilder.getSelectquery();
-    }
-
-    public String getDetailsTable() {
-        return DBConstantsUtils.RegisterTable.DETAILS;
-    }
-
-    public String getDemographicTable() {
-        return DBConstantsUtils.RegisterTable.DEMOGRAPHIC;
+                getDetailsTable() + "." + DBConstantsUtils.KeyUtils.COHABITANTS, getDemographicTable() + "." + DBConstantsUtils.KeyUtils.RELATIONAL_ID};
     }
 }

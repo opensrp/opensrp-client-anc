@@ -1,0 +1,28 @@
+{
+  "settingConfigurations": [
+    {
+      "identifier": "site_characteristics",
+      "settings": [
+        {
+          "description": "\"Are all of the following in place at your facility: \r\n1. A protocol or standard operating procedure for Intimate Partner Violence (IPV); \r\n2. A health worker trained on how to ask about IPV and how to provide the minimum response or beyond;\r\n3. A private setting; \r\n4. A way to ensure confidentiality; \r\n5. Time to allow for appropriate disclosure; and\r\n6. A system for referral in place. \"",
+          "label": "Minimum requirements for IPV assessment",
+          "type": "SettingConfiguration",
+          "value": "true",
+          "key": "site_ipv_assess"
+        },
+        {
+          "description": "Is an ultrasound machine available and functional at your facility and a trained health worker available to use it?",
+          "label": "Ultrasound available",
+          "type": "SettingConfiguration",
+          "value": "false",
+          "key": "site_ultrasound"
+        }
+      ],
+      "providerId": "demo",
+      "locationId": "44de66fb-e6c6-4bae-92bb-386dfe626eba",
+      "teamId": "6c8d2b9b-2246-47c2-949b-4fe29e888cc8",
+      "team": "Bukesa",
+      "type": "SettingConfiguration"
+    }
+  ]
+}

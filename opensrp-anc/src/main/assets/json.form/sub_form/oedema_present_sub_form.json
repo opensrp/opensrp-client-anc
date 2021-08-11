@@ -6,13 +6,13 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165292AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "check_box",
-      "label": "Oedema type",
+      "label": "{{oedema_present_sub_form.step1.oedema_type.label}}",
       "label_text_style": "bold",
       "text_color": "#000000",
       "options": [
         {
           "key": "ankle_oedema",
-          "text": "Pitting ankle oedema",
+          "text": "{{oedema_present_sub_form.step1.oedema_type.options.ankle_oedema.text}}",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "155113AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -20,7 +20,7 @@
         },
         {
           "key": "hands_feet_oedema",
-          "text": "Oedema of the hands and feet",
+          "text": "{{oedema_present_sub_form.step1.oedema_type.options.hands_feet_oedema.text}}",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165375AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -28,7 +28,7 @@
         },
         {
           "key": "lower_back_oedema",
-          "text": "Pitting lower back oedema",
+          "text": "{{oedema_present_sub_form.step1.oedema_type.options.lower_back_oedema.text}}",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165291AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -36,7 +36,7 @@
         },
         {
           "key": "leg_swelling",
-          "text": "Leg swelling",
+          "text": "{{oedema_present_sub_form.step1.oedema_type.options.leg_swelling.text}}",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "141478AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -44,5 +44,7 @@
         }
       ]
     }
-  ]
+  ],
+  "count": 1,
+  "properties_file_name": "oedema_present_sub_form"
 }

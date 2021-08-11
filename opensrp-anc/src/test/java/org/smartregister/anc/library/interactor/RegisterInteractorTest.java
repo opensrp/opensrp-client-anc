@@ -1,7 +1,11 @@
 package org.smartregister.anc.library.interactor;
 
 
-import android.support.v4.util.Pair;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.timeout;
+import static org.mockito.Mockito.verify;
+
+import androidx.core.util.Pair;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
@@ -12,17 +16,21 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Captor;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
+import org.robolectric.util.ReflectionHelpers;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.contract.RegisterContract;
 import org.smartregister.anc.library.helper.ECSyncHelper;
 import org.smartregister.anc.library.sync.BaseAncClientProcessorForJava;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.AppExecutors;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
-import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.UniqueId;
@@ -32,15 +40,12 @@ import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.UniqueIdRepository;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executors;
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.timeout;
-import static org.mockito.Mockito.verify;
 
 public class RegisterInteractorTest extends BaseUnitTest {
 
@@ -62,8 +67,12 @@ public class RegisterInteractorTest extends BaseUnitTest {
     @Captor
     private ArgumentCaptor<Long> longArgumentCaptor;
 
+    @Mock
+    private AncLibrary ancLibrary;
+
     @Before
     public void setUp() {
+        MockitoAnnotations.initMocks(this);
         interactor = new RegisterInteractor(new AppExecutors(Executors.newSingleThreadExecutor(), Executors.newSingleThreadExecutor(), Executors.newSingleThreadExecutor()));
     }
 
@@ -136,6 +145,7 @@ public class RegisterInteractorTest extends BaseUnitTest {
 
         String baseEntityId = "112123";
         String ancId = "1324354";
+        String formSubmissionId = "132vb-sdsd-we";
 
         Client client = new Client(baseEntityId);
         Map<String, String> identifiers = new HashMap<>();
@@ -144,6 +154,7 @@ public class RegisterInteractorTest extends BaseUnitTest {
 
         Event event = new Event();
         event.setBaseEntityId(baseEntityId);
+        event.setFormSubmissionId(formSubmissionId);
 
         Pair<Client, Event> pair = Pair.create(client, event);
 
@@ -155,12 +166,14 @@ public class RegisterInteractorTest extends BaseUnitTest {
         long timestamp = new Date().getTime();
 
         List<EventClient> eventClients = new ArrayList<>();
-        EventClient eventClient = new EventClient(ANCJsonFormUtils.gson.fromJson(eventObject.toString(), org.smartregister.domain.db.Event.class),
-                ANCJsonFormUtils.gson.fromJson(clientObject.toString(), org.smartregister.domain.db.Client.class));
+        EventClient eventClient = new EventClient(ANCJsonFormUtils.gson.fromJson(eventObject.toString(), org.smartregister.domain.Event.class),
+                ANCJsonFormUtils.gson.fromJson(clientObject.toString(), org.smartregister.domain.Client.class));
         eventClients.add(eventClient);
 
         Mockito.doReturn(timestamp).when(allSharedPreferences).fetchLastUpdatedAtDate(0);
-        Mockito.doReturn(eventClients).when(syncHelper).getEvents(new Date(timestamp), BaseRepository.TYPE_Unprocessed);
+        Mockito.doReturn(eventClients).when(syncHelper).getEvents(Arrays.asList(formSubmissionId));
+
+        ReflectionHelpers.setStaticField(AncLibrary.class, "instance", ancLibrary);
 
         registerInteractor.saveRegistration(pair, jsonString, false, callBack);
 
@@ -230,8 +243,8 @@ public class RegisterInteractorTest extends BaseUnitTest {
         long timestamp = new Date().getTime();
 
         List<EventClient> eventClients = new ArrayList<>();
-        EventClient eventClient = new EventClient(ANCJsonFormUtils.gson.fromJson(eventObject.toString(), org.smartregister.domain.db.Event.class),
-                ANCJsonFormUtils.gson.fromJson(clientObject.toString(), org.smartregister.domain.db.Client.class));
+        EventClient eventClient = new EventClient(ANCJsonFormUtils.gson.fromJson(eventObject.toString(), org.smartregister.domain.Event.class),
+                ANCJsonFormUtils.gson.fromJson(clientObject.toString(), org.smartregister.domain.Client.class));
         eventClients.add(eventClient);
 
         JSONObject orginalClientObject = clientObject;

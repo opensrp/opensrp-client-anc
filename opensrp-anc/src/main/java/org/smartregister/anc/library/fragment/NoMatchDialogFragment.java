@@ -1,16 +1,17 @@
 package org.smartregister.anc.library.fragment;
 
 import android.annotation.SuppressLint;
-import android.app.DialogFragment;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
@@ -31,8 +32,8 @@ public class NoMatchDialogFragment extends DialogFragment {
     public static NoMatchDialogFragment launchDialog(BaseRegisterActivity activity, String dialogTag, String whoAncId) {
         NoMatchDialogFragment noMatchDialogFragment = new NoMatchDialogFragment(activity, whoAncId);
         if (activity != null) {
-            FragmentTransaction fragmentTransaction = activity.getFragmentManager().beginTransaction();
-            Fragment prev = activity.getFragmentManager().findFragmentByTag(dialogTag);
+            FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
+            Fragment prev = activity.getSupportFragmentManager().findFragmentByTag(dialogTag);
             if (prev != null) {
                 fragmentTransaction.remove(prev);
             }
@@ -92,7 +93,7 @@ public class NoMatchDialogFragment extends DialogFragment {
 
         private void goToAdvancedSearch(String whoAncId) {
             ((BaseHomeRegisterActivity) baseRegisterActivity).startAdvancedSearch();
-            android.support.v4.app.Fragment currentFragment =
+            Fragment currentFragment =
                     baseRegisterActivity.findFragmentByPosition(BaseRegisterActivity.ADVANCED_SEARCH_POSITION);
             ((AdvancedSearchFragment) currentFragment).getAncId().setText(whoAncId);
         }

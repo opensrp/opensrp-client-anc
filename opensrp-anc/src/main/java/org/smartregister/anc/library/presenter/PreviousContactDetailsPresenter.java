@@ -9,8 +9,8 @@ import org.smartregister.anc.library.interactor.PreviousContactsDetailsInteracto
 import org.smartregister.anc.library.model.ContactSummaryModel;
 import org.smartregister.anc.library.model.PreviousContactsSummaryModel;
 import org.smartregister.anc.library.repository.PreviousContactRepository;
-import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ANCJsonFormUtils;
+import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
 
 import java.io.IOException;

@@ -5,7 +5,7 @@
       "openmrs_entity_parent": "161474AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-      "label": "Hepatitis C test",
+      "label": "{{tests_hepatitis_c_sub_form.step1.hepc_test_status.label}}",
       "label_text_style": "bold",
       "text_color": "#000000",
       "type": "extended_radio_button",
@@ -61,26 +61,26 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "check_box",
-      "label": "Reason",
+      "label": "{{tests_hepatitis_c_sub_form.step1.hepc_test_notdone.label}}",
       "label_text_style": "bold",
       "options": [
         {
           "key": "stock_out",
-          "text": "Stock out",
+          "text": "{{tests_hepatitis_c_sub_form.step1.hepc_test_notdone.options.stock_out.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165183AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "expired_stock",
-          "text": "Expired stock",
+          "text": "{{tests_hepatitis_c_sub_form.step1.hepc_test_notdone.options.expired_stock.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "other",
-          "text": "Other (specify)",
+          "text": "{{tests_hepatitis_c_sub_form.step1.hepc_test_notdone.options.other.text}}",
           "openmrs_entity_parent": "161474AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -103,7 +103,7 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
-      "hint": "Specify",
+      "hint": "{{tests_hepatitis_c_sub_form.step1.hepc_test_notdone_other.hint}}",
       "edit_type": "name",
       "relevance": {
         "rules-engine": {
@@ -135,7 +135,7 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "date_picker",
-      "hint": "Hep C test date",
+      "hint": "{{tests_hepatitis_c_sub_form.step1.hepc_test_date.hint}}",
       "expanded": "false",
       "max_date": "today",
       "relevance": {
@@ -154,7 +154,7 @@
       },
       "v_required": {
         "value": true,
-        "err": "Select the date of the Hepatitis C test."
+        "err": "{{tests_hepatitis_c_sub_form.step1.hepc_test_date.v_required.err}}"
       }
     },
     {
@@ -163,28 +163,28 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165437AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
-      "label": "Hep C test type",
-      "label_info_text": "Anti-HCV laboratory-based immunoassay is the preferred method for testing for Hep C infection in pregnancy. If immunoassay is not available, Anti-HCV rapid diagnostic test (RDT) is recommended over Dried Blood Spot (DBS) Anti-HCV testing.",
-      "label_info_title": "Hep C test type",
+      "label": "{{tests_hepatitis_c_sub_form.step1.hepc_test_type.label}}",
+      "label_info_text": "{{tests_hepatitis_c_sub_form.step1.hepc_test_type.label_info_text}}",
+      "label_info_title": "{{tests_hepatitis_c_sub_form.step1.hepc_test_type.label_info_title}}",
       "label_text_style": "bold",
       "options": [
         {
           "key": "anti_hcv_lab_based",
-          "text": "Anti-HCV laboratory-based immunoassay (recommended)",
+          "text": "{{tests_hepatitis_c_sub_form.step1.hepc_test_type.options.anti_hcv_lab_based.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1325AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "anti_hcv_rdt",
-          "text": "Anti-HCV rapid diagnostic test (RDT)",
+          "text": "{{tests_hepatitis_c_sub_form.step1.hepc_test_type.options.anti_hcv_rdt.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165302AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "anti_hcv_dbs",
-          "text": "Dried Blood Spot (DBS) anti-HCV test",
+          "text": "{{tests_hepatitis_c_sub_form.step1.hepc_test_type.options.anti_hcv_dbs.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "161471AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -207,19 +207,19 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "1325AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
-      "label": "Anti-HCV laboratory-based immunoassay (recommended)",
+      "label": "{{tests_hepatitis_c_sub_form.step1.hcv_lab_ima.label}}",
       "label_text_style": "bold",
       "options": [
         {
           "key": "positive",
-          "text": "Positive",
+          "text": "{{tests_hepatitis_c_sub_form.step1.hcv_lab_ima.options.positive.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "negative",
-          "text": "Negative",
+          "text": "{{tests_hepatitis_c_sub_form.step1.hcv_lab_ima.options.negative.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -242,19 +242,19 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165302AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
-      "label": "Anti-HCV rapid diagnostic test (RDT)",
+      "label": "{{tests_hepatitis_c_sub_form.step1.hcv_rdt.label}}",
       "label_text_style": "bold",
       "options": [
         {
           "key": "positive",
-          "text": "Positive",
+          "text": "{{tests_hepatitis_c_sub_form.step1.hcv_rdt.options.positive.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "negative",
-          "text": "Negative",
+          "text": "{{tests_hepatitis_c_sub_form.step1.hcv_rdt.options.negative.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -277,19 +277,19 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "161471AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
-      "label": "Dried Blood Spot (DBS) anti-HCV test",
+      "label": "{{tests_hepatitis_c_sub_form.step1.hcv_dbs.label}}",
       "label_text_style": "bold",
       "options": [
         {
           "key": "positive",
-          "text": "Positive",
+          "text": "{{tests_hepatitis_c_sub_form.step1.hcv_dbs.options.positive.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "negative",
-          "text": "Negative",
+          "text": "{{tests_hepatitis_c_sub_form.step1.hcv_dbs.options.negative.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -328,9 +328,9 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "toaster_notes",
-      "text": "Hep C positive diagnosis!",
-      "toaster_info_text": "Counselling and referral required.",
-      "toaster_info_title": "Hep C positive diagnosis!",
+      "text": "{{tests_hepatitis_c_sub_form.step1.hepatitis_c_danger_toaster.text}}",
+      "toaster_info_text": "{{tests_hepatitis_c_sub_form.step1.hepatitis_c_danger_toaster.toaster_info_text}}",
+      "toaster_info_title": "{{tests_hepatitis_c_sub_form.step1.hepatitis_c_danger_toaster.toaster_info_title}}",
       "toaster_type": "problem",
       "relevance": {
         "rules-engine": {
@@ -340,5 +340,7 @@
         }
       }
     }
-  ]
+  ],
+  "count": 1,
+  "properties_file_name": "tests_hepatitis_c_sub_form"
 }

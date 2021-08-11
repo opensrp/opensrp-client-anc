@@ -10,7 +10,7 @@
     android:paddingStart="@dimen/main_register_padding_start"
     android:paddingEnd="@dimen/main_register_padding_end">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/patient_column"
         android:layout_width="0dp"
         android:layout_height="@dimen/register_list_item_height"
@@ -126,7 +126,7 @@
                 android:textColor="@color/dark_grey_text"
                 android:textSize="16sp" />
         </RelativeLayout>
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:id="@+id/due_button_wrapper"

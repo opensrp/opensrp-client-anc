@@ -18,7 +18,8 @@
     "phys_symptoms_persist",
     "other_sym_lbpp",
     "other_sym_vvo",
-    "other_symptoms_persist"
+    "other_symptoms_persist",
+    "ipv_physical_signs_symptoms"
   ],
   "global_previous": [
     "caffeine_intake",
@@ -36,7 +37,8 @@
     "ifa_high_prev",
     "ifa_low_prev",
     "ifa_weekly",
-    "ifa_anaemia"
+    "ifa_anaemia",
+    "ipv_physical_signs_symptoms"
   ],
   "metadata": {
     "start": {
@@ -87,7 +89,7 @@
     }
   },
   "step1": {
-    "title": "Medication Follow-up",
+    "title": "{{anc_symptoms_follow_up.step1.title}}",
     "next": "step2",
     "fields": [
       {
@@ -96,7 +98,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
-        "label": "What medications (including supplements and vitamins) is she still taking?",
+        "label": "{{anc_symptoms_follow_up.step1.medications.label}}",
         "label_info_text": "The woman reported taking these medications in the previous contact. Un-select the medications that she has stopped taking. If still taking, leave them selected.",
         "label_info_title": "Medication follow-up",
         "label_text_style": "bold",
@@ -108,7 +110,7 @@
         "options": [
           {
             "key": "none",
-            "text": "None",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.none.text}}",
             "value": false,
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
@@ -116,7 +118,7 @@
           },
           {
             "key": "dont_know",
-            "text": "Don't know",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.dont_know.text}}",
             "value": false,
             "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
@@ -124,7 +126,7 @@
           },
           {
             "key": "antacids",
-            "text": "Antacids",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.antacids.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "944AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -132,7 +134,7 @@
           },
           {
             "key": "aspirin",
-            "text": "Aspirin",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.aspirin.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "71617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -140,7 +142,7 @@
           },
           {
             "key": "calcium",
-            "text": "Calcium",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.calcium.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "72650AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -148,7 +150,7 @@
           },
           {
             "key": "doxylamine",
-            "text": "Doxylamine",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.doxylamine.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "75229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -156,7 +158,7 @@
           },
           {
             "key": "folic_acid",
-            "text": "Folic Acid",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.folic_acid.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "76613AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -164,7 +166,7 @@
           },
           {
             "key": "iron",
-            "text": "Iron",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.iron.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "78218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -172,7 +174,7 @@
           },
           {
             "key": "magnesium",
-            "text": "Magnesium",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.magnesium.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "79224AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -180,7 +182,7 @@
           },
           {
             "key": "metoclopramide",
-            "text": "Metoclopramide",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.metoclopramide.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "79755AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -188,7 +190,7 @@
           },
           {
             "key": "vitamina",
-            "text": "Vitamin A",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.vitamina.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "86339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -196,7 +198,7 @@
           },
           {
             "key": "analgesic",
-            "text": "Analgesic",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.analgesic.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165231AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -204,7 +206,7 @@
           },
           {
             "key": "anti_convulsive",
-            "text": "Anti-convulsive",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.anti_convulsive.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165230AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -212,7 +214,7 @@
           },
           {
             "key": "anti_diabetic",
-            "text": "Anti-diabetic",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.anti_diabetic.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -220,7 +222,7 @@
           },
           {
             "key": "anthelmintic",
-            "text": "Anthelmintic",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.anthelmintic.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -228,7 +230,7 @@
           },
           {
             "key": "anti_hypertensive",
-            "text": "Anti-hypertensive",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.anti_hypertensive.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165237AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -236,7 +238,7 @@
           },
           {
             "key": "anti_malarials",
-            "text": "Anti-malarials",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.anti_malarials.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "5839AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -244,7 +246,7 @@
           },
           {
             "key": "antivirals",
-            "text": "Antivirals",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.antivirals.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165236AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -252,15 +254,23 @@
           },
           {
             "key": "arvs",
-            "text": "Antiretrovirals (ARVs)",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.arvs.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
+            "key": "prep_hiv",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.prep_hiv.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
             "key": "antitussive",
-            "text": "Antitussive",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.antitussive.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165235AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -268,7 +278,7 @@
           },
           {
             "key": "asthma",
-            "text": "Asthma",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.asthma.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165234AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -276,7 +286,7 @@
           },
           {
             "key": "cotrimoxazole",
-            "text": "Cotrimoxazole",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.cotrimoxazole.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "105281AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -284,7 +294,7 @@
           },
           {
             "key": "antibiotics",
-            "text": "Other antibiotics",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.antibiotics.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1195AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -292,7 +302,7 @@
           },
           {
             "key": "hematinic",
-            "text": "Hematinic",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.hematinic.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165233AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -300,7 +310,7 @@
           },
           {
             "key": "hemorrhoidal",
-            "text": "Hemorrhoidal medication",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.hemorrhoidal.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165255AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -308,7 +318,7 @@
           },
           {
             "key": "multivitamin",
-            "text": "Multivitamin",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.multivitamin.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "461AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -316,7 +326,7 @@
           },
           {
             "key": "thyroid",
-            "text": "Thyroid medication",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.thyroid.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165232AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -324,7 +334,7 @@
           },
           {
             "key": "other",
-            "text": "Other (specify)",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.other.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -333,7 +343,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please specify the medication(s) that the woman is still taking"
+          "err": "{{anc_symptoms_follow_up.step1.medications.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -349,10 +359,10 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "hint": "Specify",
+        "hint": "{{anc_symptoms_follow_up.step1.medications_other.hint}}",
         "v_regex": {
           "value": "[A-Za-z\\s\\.\\-]*",
-          "err": "Please enter valid content"
+          "err": "{{anc_symptoms_follow_up.step1.medications_other.v_regex.err}}"
         },
         "relevance": {
           "step1:medications": {
@@ -372,20 +382,20 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
-        "label": "Is she taking her calcium supplements?",
+        "label": "{{anc_symptoms_follow_up.step1.calcium_comply.label}}",
         "label_text_style": "bold",
         "text_color": "#000000",
         "options": [
           {
             "key": "yes",
-            "text": "Yes",
+            "text": "{{anc_symptoms_follow_up.step1.calcium_comply.options.yes.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "no",
-            "text": "No",
+            "text": "{{anc_symptoms_follow_up.step1.calcium_comply.options.no.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -405,20 +415,20 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165273AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
-        "label": "Any calcium supplement side effects?",
+        "label": "{{anc_symptoms_follow_up.step1.calcium_effects.label}}",
         "label_text_style": "bold",
         "text_color": "#000000",
         "options": [
           {
             "key": "yes",
-            "text": "Yes",
+            "text": "{{anc_symptoms_follow_up.step1.calcium_effects.options.yes.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "no",
-            "text": "No",
+            "text": "{{anc_symptoms_follow_up.step1.calcium_effects.options.no.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -438,20 +448,20 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
-        "label": "Is she taking her IFA tablets?",
+        "label": "{{anc_symptoms_follow_up.step1.ifa_comply.label}}",
         "label_text_style": "bold",
         "text_color": "#000000",
         "options": [
           {
             "key": "yes",
-            "text": "Yes",
+            "text": "{{anc_symptoms_follow_up.step1.ifa_comply.options.yes.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "no",
-            "text": "No",
+            "text": "{{anc_symptoms_follow_up.step1.ifa_comply.options.no.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -471,20 +481,20 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165273AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
-        "label": "Any IFA side effects?",
+        "label": "{{anc_symptoms_follow_up.step1.ifa_effects.label}}",
         "label_text_style": "bold",
         "text_color": "#000000",
         "options": [
           {
             "key": "yes",
-            "text": "Yes",
+            "text": "{{anc_symptoms_follow_up.step1.ifa_effects.options.yes.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "no",
-            "text": "No",
+            "text": "{{anc_symptoms_follow_up.step1.ifa_effects.options.no.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -504,20 +514,20 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
-        "label": "Is she taking her aspirin tablets?",
+        "label": "{{anc_symptoms_follow_up.step1.aspirin_comply.label}}",
         "label_text_style": "bold",
         "text_color": "#000000",
         "options": [
           {
             "key": "yes",
-            "text": "Yes",
+            "text": "{{anc_symptoms_follow_up.step1.aspirin_comply.options.yes.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "no",
-            "text": "No",
+            "text": "{{anc_symptoms_follow_up.step1.aspirin_comply.options.no.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -537,20 +547,20 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
-        "label": "Is she taking her Vitamin A supplements?",
+        "label": "{{anc_symptoms_follow_up.step1.vita_comply.label}}",
         "label_text_style": "bold",
         "text_color": "#000000",
         "options": [
           {
             "key": "yes",
-            "text": "Yes",
+            "text": "{{anc_symptoms_follow_up.step1.vita_comply.options.yes.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "no",
-            "text": "No",
+            "text": "{{anc_symptoms_follow_up.step1.vita_comply.options.no.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -570,22 +580,22 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
-        "label": "Is she taking her penicillin treatment for syphilis?",
+        "label": "{{anc_symptoms_follow_up.step1.penicillin_comply.label}}",
         "label_text_style": "bold",
         "text_color": "#000000",
-        "label_info_text": "A maximum of up to 3 weekly doses may be required.",
-        "label_info_title": "Syphilis Compliance",
+        "label_info_text": "{{anc_symptoms_follow_up.step1.penicillin_comply.label_info_text}}",
+        "label_info_title": "{{anc_symptoms_follow_up.step1.penicillin_comply.label_info_title}}",
         "options": [
           {
             "key": "yes",
-            "text": "Yes",
+            "text": "{{anc_symptoms_follow_up.step1.penicillin_comply.options.yes.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "no",
-            "text": "No",
+            "text": "{{anc_symptoms_follow_up.step1.penicillin_comply.options.no.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -602,7 +612,7 @@
     ]
   },
   "step2": {
-    "title": "Previous Behaviour",
+    "title": "{{anc_symptoms_follow_up.step2.title}}",
     "next": "step3",
     "fields": [
       {
@@ -611,7 +621,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165251AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
-        "label": "Which of the following behaviours persist?",
+        "label": "{{anc_symptoms_follow_up.step2.behaviour_persist.label}}",
         "label_info_text": "These behaviours were reported in the previous contact. Select the ones that are still occurring or select \"None\".",
         "label_info_title": "Previous behaviours",
         "label_text_style": "bold",
@@ -648,7 +658,7 @@
         "options": [
           {
             "key": "none",
-            "text": "None",
+            "text": "{{anc_symptoms_follow_up.step2.behaviour_persist.options.none.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -656,17 +666,17 @@
           },
           {
             "key": "caffeine_intake",
-            "text": "High caffeine intake",
+            "text": "{{anc_symptoms_follow_up.step2.behaviour_persist.options.caffeine_intake.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165249AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "label_info_text": "High caffeine intake means consuming more than 300 mg of caffeine per day. Each of the following represents 300 mg of caffeine:\n - 2 cups (200ml) of filtered or commercially brewed coffee\n - 2 small cups (50 ml) of espresso\n - 3 cups (300ml) of instant coffee\n - 48 pieces (squares) of chocolate\n\nPlease indicate if the woman consumes more than these amounts per day.",
+            "label_info_text": "High caffeine intake means consuming more than 300 mg of caffeine per day. Each of the following represents 300 mg of caffeine:\n - More than 2 cups of coffee (brewed, filtered, instant or espresso)\n - More than 4 cups of tea\n - More than 12 bars (50 g) of chocolate\n - More than one can of soda or energy drink\n\nPlease indicate if the woman consumes more than these amounts per day.",
             "label_info_title": "High caffeine intake",
             "openmrs_entity_parent": ""
           },
           {
             "key": "tobacco_user",
-            "text": "Current tobacco use or recently quit",
+            "text": "{{anc_symptoms_follow_up.step2.behaviour_persist.options.tobacco_user.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "152722AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -674,7 +684,7 @@
           },
           {
             "key": "shs_exposure",
-            "text": "Exposure to second-hand smoke in the home",
+            "text": "{{anc_symptoms_follow_up.step2.behaviour_persist.options.shs_exposure.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "152721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -682,7 +692,7 @@
           },
           {
             "key": "condom_use",
-            "text": "No condom use during sex",
+            "text": "{{anc_symptoms_follow_up.step2.behaviour_persist.options.condom_use.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165250AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -690,7 +700,7 @@
           },
           {
             "key": "alcohol_use",
-            "text": "Alcohol use",
+            "text": "{{anc_symptoms_follow_up.step2.behaviour_persist.options.alcohol_use.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "143098AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -698,7 +708,7 @@
           },
           {
             "key": "substance_use",
-            "text": "Substance use",
+            "text": "{{anc_symptoms_follow_up.step2.behaviour_persist.options.substance_use.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "160246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -707,7 +717,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Previous persisting behaviour is required"
+          "err": "{{anc_symptoms_follow_up.step2.behaviour_persist.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -723,9 +733,9 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Caffeine reduction counseling",
-        "toaster_info_text": "Lowering daily caffeine intake during pregnancy is recommended to reduce the risk of pregnancy loss and low-birth-weight neonates.\n\nThis includes any product, beverage or food containing caffeine (e.g. brewed coffee, tea, cola-type soft drinks, caffeinated energy drinks, chocolate, caffeine tablets). Caffeine-containing teas (black tea and green tea) and soft drinks (colas and iced tea) usually contain less than 50 mg per 250 mL serving.",
-        "toaster_info_title": "Caffeine intake folder",
+        "text": "{{anc_symptoms_follow_up.step2.toaster0.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step2.toaster0.toaster_info_text}}",
+        "toaster_info_title": "{{anc_symptoms_follow_up.step2.toaster0.toaster_info_title}}",
         "text_color": "#D56900",
         "toaster_type": "warning",
         "relevance": {
@@ -746,8 +756,8 @@
         "openmrs_entity": "TOBACCO USE COUNSELLING",
         "openmrs_entity_id": "1455",
         "type": "toaster_notes",
-        "text": "Tobacco cessation counseling",
-        "toaster_info_text": "Healthcare providers should routinely offer advice and psycho-social interventions for tobacco cessation to all pregnant women who are either current tobacco users or recent tobacco quitters.",
+        "text": "{{anc_symptoms_follow_up.step2.toaster1.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step2.toaster1.toaster_info_text}}",
         "text_color": "#E20000",
         "toaster_type": "problem",
         "relevance": {
@@ -768,8 +778,8 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Second-hand smoke counseling",
-        "toaster_info_text": "Provide pregnant women, their partners and other household members with advice and information about the risks of second-hand smoke (SHS) exposure from all forms of smoked tobacco, as well as strategies to reduce SHS in the home.",
+        "text": "{{anc_symptoms_follow_up.step2.toaster2.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step2.toaster2.toaster_info_text}}",
         "text_color": "#D56900",
         "toaster_type": "warning",
         "relevance": {
@@ -790,8 +800,8 @@
         "openmrs_entity": "Counseling regarding condom",
         "openmrs_entity_id": "161594",
         "type": "toaster_notes",
-        "text": "Condom counseling",
-        "toaster_info_text": "Advise to use condoms to prevent Zika, HIV and other STIs. If necessary, re-assure it is ok to continue to have sex during pregnancy.",
+        "text": "{{anc_symptoms_follow_up.step2.toaster3.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step2.toaster3.toaster_info_text}}",
         "text_color": "#E20000",
         "toaster_type": "problem",
         "relevance": {
@@ -812,8 +822,8 @@
         "openmrs_entity": "ALCOHOL COUNSELING",
         "openmrs_entity_id": "1288",
         "type": "toaster_notes",
-        "text": "Alcohol / substance use counseling",
-        "toaster_info_text": "Healthcare providers should at the earliest opportunity advise pregnant women dependent on alcohol or drugs to cease their alcohol or drug use and offer, or refer them to, detoxification services under medical supervision, where necessary and applicable.",
+        "text": "{{anc_symptoms_follow_up.step2.toaster4.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step2.toaster4.toaster_info_text}}",
         "text_color": "#E20000",
         "toaster_type": "problem",
         "relevance": {
@@ -832,7 +842,7 @@
     ]
   },
   "step3": {
-    "title": "Previous Symptoms",
+    "title": "{{anc_symptoms_follow_up.step3.title}}",
     "next": "step4",
     "fields": [
       {
@@ -841,7 +851,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "check_box",
-        "label": "Which of the following physiological symptoms persist?",
+        "label": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.label}}",
         "label_info_text": "These symptoms were reported in the previous contact. Select the ones that are still occurring or select \"None\".",
         "label_info_title": "Previous Symptoms",
         "label_text_style": "bold",
@@ -853,7 +863,7 @@
         "options": [
           {
             "key": "none",
-            "text": "None",
+            "text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.none.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -861,7 +871,7 @@
           },
           {
             "key": "nausea_vomiting",
-            "text": "Nausea and vomiting",
+            "text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.nausea_vomiting.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "133473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -869,7 +879,7 @@
           },
           {
             "key": "heartburn",
-            "text": "Heartburn",
+            "text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.heartburn.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "139059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -877,7 +887,7 @@
           },
           {
             "key": "leg_cramps",
-            "text": "Leg cramps",
+            "text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.leg_cramps.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "135969AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -885,7 +895,7 @@
           },
           {
             "key": "constipation",
-            "text": "Constipation",
+            "text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.constipation.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "996AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -893,7 +903,7 @@
           },
           {
             "key": "low_back_pain",
-            "text": "Low back pain",
+            "text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.low_back_pain.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "116225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -901,7 +911,7 @@
           },
           {
             "key": "pelvic_pain",
-            "text": "Pelvic pain",
+            "text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.pelvic_pain.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "131034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -909,7 +919,7 @@
           },
           {
             "key": "varicose_veins",
-            "text": "Varicose veins",
+            "text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.varicose_veins.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "156666AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -917,7 +927,7 @@
           },
           {
             "key": "oedema",
-            "text": "Oedema",
+            "text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.oedema.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -926,7 +936,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Previous persisting physiological symptoms is required"
+          "err": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -942,7 +952,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "check_box",
-        "label": "Any other symptoms related to low back and pelvic pain?",
+        "label": "{{anc_symptoms_follow_up.step3.other_sym_lbpp.label}}",
         "label_text_style": "bold",
         "text_color": "#000000",
         "exclusive": [
@@ -951,7 +961,7 @@
         "options": [
           {
             "key": "none",
-            "text": "None",
+            "text": "{{anc_symptoms_follow_up.step3.other_sym_lbpp.options.none.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -959,7 +969,7 @@
           },
           {
             "key": "contractions",
-            "text": "Contractions",
+            "text": "{{anc_symptoms_follow_up.step3.other_sym_lbpp.options.contractions.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "163750AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -967,7 +977,7 @@
           },
           {
             "key": "dysuria",
-            "text": "Pain during urination (dysuria)",
+            "text": "{{anc_symptoms_follow_up.step3.other_sym_lbpp.options.dysuria.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "118771AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -975,7 +985,7 @@
           },
           {
             "key": "pelvic_pains",
-            "text": "Extreme pelvic pain, can't walk (symphysis pubis dysfunction)",
+            "text": "{{anc_symptoms_follow_up.step3.other_sym_lbpp.options.pelvic_pains.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165270AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -984,7 +994,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please specify any other symptoms related to low back pain or select none"
+          "err": "{{anc_symptoms_follow_up.step3.other_sym_lbpp.v_required.err}}"
         },
         "relevance": {
           "step3:phys_symptoms_persist": {
@@ -1005,7 +1015,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "check_box",
-        "label": "Any other symptoms related to varicose veins or oedema?",
+        "label": "{{anc_symptoms_follow_up.step3.other_sym_vvo.label}}",
         "label_text_style": "bold",
         "text_color": "#000000",
         "exclusive": [
@@ -1014,7 +1024,7 @@
         "options": [
           {
             "key": "none",
-            "text": "None",
+            "text": "{{anc_symptoms_follow_up.step3.other_sym_vvo.options.none.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1022,7 +1032,7 @@
           },
           {
             "key": "leg_pain",
-            "text": "Leg pain",
+            "text": "{{anc_symptoms_follow_up.step3.other_sym_vvo.options.leg_pain.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "114395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1030,7 +1040,7 @@
           },
           {
             "key": "leg_redness",
-            "text": "Leg redness",
+            "text": "{{anc_symptoms_follow_up.step3.other_sym_vvo.options.leg_redness.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165215AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1039,7 +1049,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please specify any other symptoms related varicose vein/oedema or select none"
+          "err": "{{anc_symptoms_follow_up.step3.other_sym_vvo.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -1055,8 +1065,8 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Pharmacological treatments for nausea and vomiting counseling",
-        "toaster_info_text": "Pharmacological treatments for nausea and vomiting, such as doxylamine and metoclopramide, should be reserved for those pregnant women experiencing distressing symptoms that are not relieved by non-pharmacological options, under the supervision of a medical doctor.",
+        "text": "{{anc_symptoms_follow_up.step3.toaster5.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step3.toaster5.toaster_info_text}}",
         "text_color": "#4855B3",
         "toaster_type": "info",
         "relevance": {
@@ -1077,8 +1087,8 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Antacid preparations to relieve heartburn counseling",
-        "toaster_info_text": "Antacid preparations can be offered to women with troublesome symptoms that are not relieved by lifestyle modification. Magnesium carbonate and aluminium hydroxide preparations are probably unlikely to cause harm in recommended dosages.",
+        "text": "{{anc_symptoms_follow_up.step3.toaster6.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step3.toaster6.toaster_info_text}}",
         "text_color": "#4855B3",
         "toaster_type": "info",
         "relevance": {
@@ -1099,8 +1109,8 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Magnesium and calcium to relieve leg cramps counseling",
-        "toaster_info_text": "If leg cramps are not relieved with non-pharma measures, then give 300–360 mg magnesium per day in two or three divided doses; give calcium 1 g twice daily for two weeks.",
+        "text": "{{anc_symptoms_follow_up.step3.toaster7.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step3.toaster7.toaster_info_text}}",
         "text_color": "#4855B3",
         "toaster_type": "info",
         "relevance": {
@@ -1121,8 +1131,8 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Wheat bran or other fiber supplements to relieve constipation counseling",
-        "toaster_info_text": "Wheat bran or other fiber supplements can be used to relieve constipation, if dietary modifications are not enough, and if they are available and appropriate.",
+        "text": "{{anc_symptoms_follow_up.step3.toaster8.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step3.toaster8.toaster_info_text}}",
         "text_color": "#4855B3",
         "toaster_type": "info",
         "relevance": {
@@ -1143,8 +1153,8 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Regular exercise, physiotherapy, support belts and acupuncture to relieve low back and pelvic pain counseling",
-        "toaster_info_text": "Regular exercise throughout pregnancy is recommended to prevent low back and pelvic pain. There are a number of different treatment options that can be used, such as physiotherapy, support belts and acupuncture, based on a woman’s preferences and available options.",
+        "text": "{{anc_symptoms_follow_up.step3.toaster9.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step3.toaster9.toaster_info_text}}",
         "text_color": "#4855B3",
         "toaster_type": "info",
         "relevance": {
@@ -1161,7 +1171,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Please investigate any possible complications or onset of labour, related to low back and pelvic pain",
+        "text": "{{anc_symptoms_follow_up.step3.toaster10.text}}",
         "text_color": "#D56900",
         "toaster_type": "warning",
         "relevance": {
@@ -1183,8 +1193,8 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Urine test required",
-        "toaster_info_text": "Woman has dysuria. Please investigate urinary tract infection and treat if positive.",
+        "text": "{{anc_symptoms_follow_up.step3.toaster11.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step3.toaster11.toaster_info_text}}",
         "text_color": "#D56900",
         "toaster_type": "warning",
         "relevance": {
@@ -1205,8 +1215,8 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Non-pharmacological options for varicose veins and oedema counseling",
-        "toaster_info_text": "Non-pharmacological options, such as compression stockings, leg elevation and water immersion, can be used for the management of varicose veins and oedema in pregnancy, based on a woman’s preferences and available options.",
+        "text": "{{anc_symptoms_follow_up.step3.toaster12.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step3.toaster12.toaster_info_text}}",
         "text_color": "#4855B3",
         "toaster_type": "info",
         "relevance": {
@@ -1223,7 +1233,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Please investigate any possible complications, including thrombosis, related to varicose veins and oedema",
+        "text": "{{anc_symptoms_follow_up.step3.toaster13.text}}",
         "text_color": "#D56900",
         "toaster_type": "warning",
         "relevance": {
@@ -1245,7 +1255,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "check_box",
-        "label": "Which of the following other symptoms persist?",
+        "label": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.label}}",
         "label_text_style": "bold",
         "label_info_text": "These symptoms were reported in the previous contact. Select the ones that are still occurring or select \"None\".",
         "label_info_title": "Previous Symptoms",
@@ -1257,7 +1267,7 @@
         "options": [
           {
             "key": "none",
-            "text": "None",
+            "text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.none.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1265,7 +1275,7 @@
           },
           {
             "key": "abnormal_vaginal_discharge",
-            "text": "Abnormal vaginal discharge",
+            "text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.abnormal_vaginal_discharge.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "123395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1273,7 +1283,7 @@
           },
           {
             "key": "breathing_difficulty",
-            "text": "Breathing difficulty",
+            "text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.breathing_difficulty.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1281,7 +1291,7 @@
           },
           {
             "key": "breathless",
-            "text": "Breathless during routine activities",
+            "text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.breathless.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "110265AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1289,7 +1299,7 @@
           },
           {
             "key": "cough",
-            "text": "Cough lasting more than 3 weeks",
+            "text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.cough.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1487AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1297,7 +1307,7 @@
           },
           {
             "key": "fever",
-            "text": "Fever",
+            "text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.fever.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1305,7 +1315,7 @@
           },
           {
             "key": "easily_tired",
-            "text": "Gets tired easily",
+            "text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.easily_tired.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "140501AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1313,7 +1323,7 @@
           },
           {
             "key": "headache",
-            "text": "Headache",
+            "text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.headache.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "139084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1321,23 +1331,15 @@
           },
           {
             "key": "vaginal_bleeding",
-            "text": "Vaginal bleeding",
+            "text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.vaginal_bleeding.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "147232AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
-            "key": "vaginal_discharge",
-            "text": "Vaginal discharge",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "123396AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
             "key": "visual_disturbance",
-            "text": "Visual disturbance",
+            "text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.visual_disturbance.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "123074AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1355,7 +1357,7 @@
     ]
   },
   "step4": {
-    "title": "Physiological Symptoms",
+    "title": "{{anc_symptoms_follow_up.step4.title}}",
     "fields": [
       {
         "key": "phys_symptoms",
@@ -1363,7 +1365,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "check_box",
-        "label": "Any physiological symptoms?",
+        "label": "{{anc_symptoms_follow_up.step4.phys_symptoms.label}}",
         "label_text_style": "bold",
         "text_color": "#000000",
         "exclusive": [
@@ -1372,7 +1374,7 @@
         "options": [
           {
             "key": "none",
-            "text": "None",
+            "text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.none.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1380,7 +1382,7 @@
           },
           {
             "key": "nausea_vomiting",
-            "text": "Nausea and vomiting",
+            "text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.nausea_vomiting.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "133473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1388,7 +1390,7 @@
           },
           {
             "key": "heartburn",
-            "text": "Heartburn",
+            "text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.heartburn.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "139059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1396,7 +1398,7 @@
           },
           {
             "key": "leg_cramps",
-            "text": "Leg cramps",
+            "text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.leg_cramps.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "135969AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1404,7 +1406,7 @@
           },
           {
             "key": "constipation",
-            "text": "Constipation",
+            "text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.constipation.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "996AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1412,7 +1414,7 @@
           },
           {
             "key": "low_back_pain",
-            "text": "Low back pain",
+            "text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.low_back_pain.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "116225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1420,7 +1422,7 @@
           },
           {
             "key": "pelvic_pain",
-            "text": "Pelvic pain",
+            "text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.pelvic_pain.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "131034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1428,7 +1430,7 @@
           },
           {
             "key": "varicose_veins",
-            "text": "Varicose veins",
+            "text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.varicose_veins.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "156666AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1436,7 +1438,7 @@
           },
           {
             "key": "oedema",
-            "text": "Oedema",
+            "text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.oedema.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1445,7 +1447,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please specify any other physiological symptoms or select none"
+          "err": "{{anc_symptoms_follow_up.step4.phys_symptoms.v_required.err}}"
         }
       },
       {
@@ -1454,7 +1456,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "check_box",
-        "label": "Any other symptoms related to low back and pelvic pain?",
+        "label": "{{anc_symptoms_follow_up.step4.other_sym_lbpp.label}}",
         "label_text_style": "bold",
         "text_color": "#000000",
         "exclusive": [
@@ -1463,7 +1465,7 @@
         "options": [
           {
             "key": "none",
-            "text": "None",
+            "text": "{{anc_symptoms_follow_up.step4.other_sym_lbpp.options.none.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1471,7 +1473,7 @@
           },
           {
             "key": "contractions",
-            "text": "Contractions",
+            "text": "{{anc_symptoms_follow_up.step4.other_sym_lbpp.options.contractions.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "163750AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1479,7 +1481,7 @@
           },
           {
             "key": "dysuria",
-            "text": "Pain during urination (dysuria)",
+            "text": "{{anc_symptoms_follow_up.step4.other_sym_lbpp.options.dysuria.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "118771AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1487,7 +1489,7 @@
           },
           {
             "key": "pelvic_pains",
-            "text": "Extreme pelvic pain, can't walk (symphysis pubis dysfunction)",
+            "text": "{{anc_symptoms_follow_up.step4.other_sym_lbpp.options.pelvic_pains.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165270AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1496,7 +1498,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please specify any other symptoms related low back and pelvic pain or select none"
+          "err": "{{anc_symptoms_follow_up.step4.other_sym_lbpp.v_required.err}}"
         },
         "relevance": {
           "step4:phys_symptoms": {
@@ -1517,7 +1519,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "check_box",
-        "label": "Any other symptoms related to varicose veins or oedema?",
+        "label": "{{anc_symptoms_follow_up.step4.other_sym_vvo.label}}",
         "label_text_style": "bold",
         "text_color": "#000000",
         "exclusive": [
@@ -1526,7 +1528,7 @@
         "options": [
           {
             "key": "none",
-            "text": "None",
+            "text": "{{anc_symptoms_follow_up.step4.other_sym_vvo.options.none.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1534,7 +1536,7 @@
           },
           {
             "key": "leg_pain",
-            "text": "Leg pain",
+            "text": "{{anc_symptoms_follow_up.step4.other_sym_vvo.options.leg_pain.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "114395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1542,7 +1544,7 @@
           },
           {
             "key": "leg_redness",
-            "text": "Leg redness",
+            "text": "{{anc_symptoms_follow_up.step4.other_sym_vvo.options.leg_redness.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165215AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1551,7 +1553,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please specify any other symptoms related varicose vein/oedema or select none"
+          "err": "{{anc_symptoms_follow_up.step4.other_sym_vvo.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -1567,8 +1569,8 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Non-pharma measures to relieve nausea and vomiting counseling",
-        "toaster_info_text": "Ginger, chamomile, vitamin B6 and/or acupuncture are recommended for the relief of nausea in early pregnancy, based on a woman’s preferences and available options. Women should be informed that symptoms of nausea and vomiting usually resolve in the second half of pregnancy.",
+        "text": "{{anc_symptoms_follow_up.step4.toaster14.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step4.toaster14.toaster_info_text}}",
         "text_color": "#4855B3",
         "toaster_type": "info",
         "relevance": {
@@ -1589,8 +1591,8 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Diet and lifestyle changes to prevent and relieve heartburn counseling",
-        "toaster_info_text": "Advice on diet and lifestyle is recommended to prevent and relieve heartburn in pregnancy. Antacid preparations can be offered to women with troublesome symptoms that are not relieved by lifestyle modification.",
+        "text": "{{anc_symptoms_follow_up.step4.toaster15.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step4.toaster15.toaster_info_text}}",
         "text_color": "#4855B3",
         "toaster_type": "info",
         "relevance": {
@@ -1611,8 +1613,8 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Non-pharmacological treatment for the relief of leg cramps counseling",
-        "toaster_info_text": "Non-pharmacological therapies, including muscle stretching, relaxation, heat therapy, dorsiflexion of the foot, and massage can be used for the relief of leg cramps in pregnancy.",
+        "text": "{{anc_symptoms_follow_up.step4.toaster16.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step4.toaster16.toaster_info_text}}",
         "text_color": "#4855B3",
         "toaster_type": "info",
         "relevance": {
@@ -1633,8 +1635,8 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Dietary modifications to relieve constipation counseling",
-        "toaster_info_text": "Dietary modifications to relieve constipation include promoting adequate intake of water and dietary fibre (found in vegetables, nuts, fruits and whole grains).",
+        "text": "{{anc_symptoms_follow_up.step4.toaster17.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step4.toaster17.toaster_info_text}}",
         "text_color": "#4855B3",
         "toaster_type": "info",
         "relevance": {
@@ -1655,8 +1657,8 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Regular exercise, physiotherapy, support belts and acupuncture to relieve low back and pelvic pain counseling",
-        "toaster_info_text": "Regular exercise throughout pregnancy is recommended to prevent low back and pelvic pain. There are a number of different treatment options that can be used, such as physiotherapy, support belts and acupuncture, based on a woman’s preferences and available options.",
+        "text": "{{anc_symptoms_follow_up.step4.toaster18.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step4.toaster18.toaster_info_text}}",
         "text_color": "#4855B3",
         "toaster_type": "info",
         "relevance": {
@@ -1673,7 +1675,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Please investigate any possible complications or onset of labour, related to low back and pelvic pain",
+        "text": "{{anc_symptoms_follow_up.step4.toaster19.text}}",
         "text_color": "#D56900",
         "toaster_type": "warning",
         "relevance": {
@@ -1695,8 +1697,8 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Urine test required",
-        "toaster_info_text": "Woman has dysuria. Please investigate urinary tract infection and treat if positive.",
+        "text": "{{anc_symptoms_follow_up.step4.toaster20.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step4.toaster20.toaster_info_text}}",
         "text_color": "#D56900",
         "toaster_type": "warning",
         "relevance": {
@@ -1717,8 +1719,8 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Non-pharmacological options for varicose veins and oedema counseling",
-        "toaster_info_text": "Non-pharmacological options, such as compression stockings, leg elevation and water immersion, can be used for the management of varicose veins and oedema in pregnancy, based on a woman’s preferences and available options.",
+        "text": "{{anc_symptoms_follow_up.step4.toaster21.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step4.toaster21.toaster_info_text}}",
         "text_color": "#4855B3",
         "toaster_type": "info",
         "relevance": {
@@ -1735,7 +1737,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Please investigate any possible complications, including thrombosis, related to varicose veins and oedema",
+        "text": "{{anc_symptoms_follow_up.step4.toaster22.text}}",
         "text_color": "#D56900",
         "toaster_type": "warning",
         "relevance": {
@@ -1757,7 +1759,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "check_box",
-        "label": "Any other symptoms?",
+        "label": "{{anc_symptoms_follow_up.step4.other_symptoms.label}}",
         "label_text_style": "bold",
         "text_color": "#000000",
         "exclusive": [
@@ -1766,7 +1768,7 @@
         "options": [
           {
             "key": "none",
-            "text": "None",
+            "text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.none.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1774,7 +1776,7 @@
           },
           {
             "key": "abnormal_vaginal_discharge",
-            "text": "Abnormal vaginal discharge",
+            "text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.abnormal_vaginal_discharge.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "123395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1782,7 +1784,7 @@
           },
           {
             "key": "breathing_difficulty",
-            "text": "Breathing difficulty",
+            "text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.breathing_difficulty.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1790,7 +1792,7 @@
           },
           {
             "key": "breathless",
-            "text": "Breathless during routine activities",
+            "text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.breathless.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "110265AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1798,7 +1800,7 @@
           },
           {
             "key": "cough",
-            "text": "Cough lasting more than 3 weeks",
+            "text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.cough.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1487AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1806,7 +1808,7 @@
           },
           {
             "key": "fever",
-            "text": "Fever",
+            "text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.fever.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1814,7 +1816,7 @@
           },
           {
             "key": "easily_tired",
-            "text": "Gets tired easily",
+            "text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.easily_tired.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "140501AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1822,7 +1824,7 @@
           },
           {
             "key": "headache",
-            "text": "Headache",
+            "text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.headache.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "139084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1830,23 +1832,15 @@
           },
           {
             "key": "vaginal_bleeding",
-            "text": "Vaginal bleeding",
+            "text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.vaginal_bleeding.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "147232AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
-            "key": "vaginal_discharge",
-            "text": "Vaginal discharge",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "123396AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
             "key": "visual_disturbance",
-            "text": "Visual disturbance",
+            "text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.visual_disturbance.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "123074AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1854,7 +1848,7 @@
           },
           {
             "key": "other",
-            "text": "Other (specify)",
+            "text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.other.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1863,7 +1857,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please specify any other symptoms or select none"
+          "err": "{{anc_symptoms_follow_up.step4.other_symptoms.v_required.err}}"
         }
       },
       {
@@ -1872,10 +1866,10 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "hint": "Specify",
+        "hint": "{{anc_symptoms_follow_up.step4.other_symptoms_other.hint}}",
         "v_regex": {
           "value": "[A-Za-z\\s\\.\\-]*",
-          "err": "Please enter valid content"
+          "err": "{{anc_symptoms_follow_up.step4.other_symptoms_other.v_regex.err}}"
         },
         "relevance": {
           "step4:other_symptoms": {
@@ -1890,18 +1884,305 @@
         }
       },
       {
+        "key": "ipv_signs_symptoms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.label}}",
+        "label_info_text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.label_info_text}}",
+        "label_info_title": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.label_info_title}}",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "none",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.none.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "stress",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.stress.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "anxiety",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.anxiety.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "depression",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.depression.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "emotional_health_issues",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.emotional_health_issues.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "alcohol_misuse",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.alcohol_misuse.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "drugs_misuse",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.drugs_misuse.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "harmful_behaviour",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.harmful_behaviour.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "suicide_thoughts",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.suicide_thoughts.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "suicide_plans",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.suicide_plans.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "suicide_acts",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.suicide_acts.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "repeat_stis",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.repeat_stis.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "unwanted_pregnancies",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.unwanted_pregnancies.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "chronic_pain",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.chronic_pain.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "gastro_symptoms",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.gastro_symptoms.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "genitourinary_symptoms",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.genitourinary_symptoms.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "adverse_repro_outcomes",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.adverse_repro_outcomes.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "unexplained_repro_symptoms",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.unexplained_repro_symptoms.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "repeat_vaginal_bleeding",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.repeat_vaginal_bleeding.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "injury_abdomen",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.injury_abdomen.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "injury_other",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.injury_other.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "problems_cns",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.problems_cns.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "repeat_health_consultations",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.repeat_health_consultations.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "intrusive_partner",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.intrusive_partner.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "misses_appointments",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.misses_appointments.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "children_emotional_problems",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.children_emotional_problems.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "ipv_signs_symptoms_injury_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms_injury_other.hint}}",
+        "v_regex": {
+          "value": "[A-Za-z\\s\\.\\-]*",
+          "err": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms_injury_other.v_regex.err}}"
+        },
+        "relevance": {
+          "step4:ipv_signs_symptoms": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "injury_other"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "ipv_suspect",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "value": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_calculation_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toaster23",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_symptoms_follow_up.step4.toaster23.text}}",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "mat_percept_fetal_move",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "162107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
-        "label": "Has the woman felt the baby move?",
+        "label": "{{anc_symptoms_follow_up.step4.mat_percept_fetal_move.label}}",
         "label_text_style": "bold",
         "text_color": "#000000",
         "options": [
           {
             "key": "normal_fetal_move",
-            "text": "Normal fetal movement",
+            "text": "{{anc_symptoms_follow_up.step4.mat_percept_fetal_move.options.normal_fetal_move.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "162108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1909,7 +2190,7 @@
           },
           {
             "key": "reduced_fetal_move",
-            "text": "Reduced or poor fetal movement",
+            "text": "{{anc_symptoms_follow_up.step4.mat_percept_fetal_move.options.reduced_fetal_move.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "113377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1917,7 +2198,7 @@
           },
           {
             "key": "no_fetal_move",
-            "text": "No fetal movement",
+            "text": "{{anc_symptoms_follow_up.step4.mat_percept_fetal_move.options.no_fetal_move.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1452AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1933,9 +2214,10 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Field has the woman felt the baby move is required"
+          "err": "{{anc_symptoms_follow_up.step4.mat_percept_fetal_move.v_required.err}}"
         }
       }
     ]
-  }
+  },
+  "properties_file_name": "anc_symptoms_follow_up"
 }

@@ -3,9 +3,11 @@ package org.smartregister.anc.library.task;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.ContactSummaryFinishActivity;
@@ -15,6 +17,8 @@ import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
+
+import java.util.HashMap;
 
 import timber.log.Timber;
 
@@ -55,7 +59,13 @@ public class LoadContactSummaryDataTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void result) {
-        String edd = facts.get(DBConstantsUtils.KeyUtils.EDD);
+        HashMap<String, String> clientDetails;
+        try {
+            clientDetails = (HashMap<String, String>) intent.getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
+        } catch (NullPointerException e) {
+            clientDetails = new HashMap<>();
+        }
+        String edd = StringUtils.isNotBlank(facts.get(DBConstantsUtils.KeyUtils.EDD)) ? facts.get(DBConstantsUtils.KeyUtils.EDD) : clientDetails != null ? Utils.reverseHyphenSeperatedValues(clientDetails.get(ConstantsUtils.EDD), "-") : "";
         String contactNo = String.valueOf(intent.getExtras().getInt(ConstantsUtils.IntentKeyUtils.CONTACT_NO));
 
         if (edd != null && ((ContactSummaryFinishActivity) context).saveFinishMenuItem != null) {

@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.ExpansionPanelValuesModel;
+import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
@@ -179,7 +180,7 @@ public class ContactTaskDisplayClickListener implements View.OnClickListener {
         try {
             if (taskValue != null && taskValue.has(JsonFormConstants.CONTENT_FORM)) {
                 String subFormName = taskValue.getString(JsonFormConstants.CONTENT_FORM);
-                JSONObject subForm = ANCFormUtils.getSubFormJson(subFormName, "", context);
+                JSONObject subForm = FormUtils.getSubFormJson(subFormName, "", context);
                 if (subForm.has(JsonFormConstants.CONTENT_FORM)) {
                     fields = subForm.getJSONArray(JsonFormConstants.CONTENT_FORM);
                 }
