@@ -67,9 +67,16 @@ public abstract class ConstantsUtils {
     public static final String DUE = "Due";
     public static final String OPEN_TEST_TASKS = "open_test_tasks";
     public static final String ANDROID_SWITCHER = "android:switcher:";
+    public static final String IS_FIRST_CONTACT = "is_first_contact";
 
     public interface Properties {
         String CAN_SAVE_SITE_INITIAL_SETTING = "CAN_SAVE_INITIAL_SITE_SETTING";
+        String MAX_CONTACT_SCHEDULE_DISPLAYED = "MAX_CONTACT_SCHEDULE_DISPLAYED";
+        String DUE_CHECK_STRATEGY = "DUE_CHECK_STRATEGY";
+    }
+
+    public interface DueCheckStrategy {
+        String CHECK_FOR_FIRST_CONTACT = "check_for_first_contact";
     }
 
     public interface TemplateUtils {
@@ -140,6 +147,10 @@ public abstract class ConstantsUtils {
         public static final String ANC_ID = "anc_id";
         public static final String STEP1 = "step1";
         public static final String FIELDS = "fields";
+        public static final String VILLAGE = "village";
+        public static final String PREVIOUS_VISITS = "previous_visits";
+        public static final String VISIT_DATE = "visit_date";
+        public static final String PREVIOUS_VISITS_MAP = "previous_visits_map";
     }
 
     public static class JsonFormExtraUtils {
@@ -156,12 +167,12 @@ public abstract class ConstantsUtils {
     public static final class KeyUtils {
         public static final String KEY = "key";
         public static final String VALUE = "value";
+        public static final String TYPE = "type";
         public static final String TREE = "tree";
         public static final String DEFAULT = "default";
         public static final String PHOTO = "photo";
         public static final String AGE_ENTERED = "age_entered";
         public static final String STEP = "step";
-        public static final String TYPE = "type";
         public static final String FORM = "form";
         public static final String CONTACT_NO = "contact_no";
         public static final String LAST_CONTACT_DATE = "last_contact_date";
@@ -238,5 +249,10 @@ public abstract class ConstantsUtils {
 
     public static class ClientUtils {
         public static final String ANC_ID = "ANC_ID";
+    }
+
+    public static class SettingsSyncParamsUtils {
+        public static final String LOCATION_ID = "locationId";
+        public static final String IDENTIFIER = "identifier";
     }
 }

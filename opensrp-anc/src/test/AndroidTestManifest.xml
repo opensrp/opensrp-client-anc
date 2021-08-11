@@ -16,7 +16,7 @@
         android:theme="@style/AncAppTheme">
         
         <activity
-            android:name="com.vijay.jsonwizard.activities.JsonFormActivity"
+            android:name="com.vijay.jsonwizard.activities.FormConfigurationJsonFormActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AncAppTheme.NoActionBar"
@@ -102,7 +102,7 @@
             android:screenOrientation="portrait" />
 
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">

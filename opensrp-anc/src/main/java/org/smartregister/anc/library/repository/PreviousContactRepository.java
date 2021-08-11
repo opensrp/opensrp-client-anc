@@ -11,8 +11,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
 import org.smartregister.anc.library.model.PreviousContact;
 import org.smartregister.anc.library.model.PreviousContactsSummaryModel;
-import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ANCFormUtils;
+import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.repository.BaseRepository;
 
@@ -310,7 +310,7 @@ public class PreviousContactRepository extends BaseRepository {
         String[] selectionArgs = null;
         Facts previousContactFacts = new Facts();
         try {
-            SQLiteDatabase db = getWritableDatabase();
+            SQLiteDatabase db = getReadableDatabase();
 
             if (StringUtils.isNotBlank(baseEntityId) && StringUtils.isNotBlank(contactNo)) {
                 selection = BASE_ENTITY_ID + " = ? AND " + CONTACT_NO + " = ?";

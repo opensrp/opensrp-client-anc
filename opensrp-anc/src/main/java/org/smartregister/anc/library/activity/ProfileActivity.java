@@ -8,10 +8,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,6 +17,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
@@ -36,9 +37,9 @@ import org.smartregister.anc.library.fragment.ProfileContactsFragment;
 import org.smartregister.anc.library.fragment.ProfileOverviewFragment;
 import org.smartregister.anc.library.fragment.ProfileTasksFragment;
 import org.smartregister.anc.library.presenter.ProfilePresenter;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
-import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.anc.library.view.CopyToClipboardDialog;
 import org.smartregister.repository.AllSharedPreferences;
@@ -48,6 +49,9 @@ import org.smartregister.view.activity.BaseProfileActivity;
 import java.util.HashMap;
 
 import timber.log.Timber;
+
+//import androidx.fragment.app.Fragment;
+//import androidx.viewpager.widget.ViewPager;
 
 /**
  * Created by ndegwamartin on 10/07/2018.
@@ -235,25 +239,16 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         arrayAdapter.add(getString(R.string.close_anc_record));
 
         builderSingle.setAdapter(arrayAdapter, (dialog, which) -> {
-            String textClicked = arrayAdapter.getItem(which);
-            if (textClicked != null) {
-                switch (textClicked) {
-                    case ConstantsUtils.CALL:
-                        launchPhoneDialer(phoneNumber);
-                        break;
-                    case ConstantsUtils.START_CONTACT:
-                    case ConstantsUtils.CONTINUE_CONTACT:
-                        continueToContact();
-                        break;
-                    case CLOSE_ANC_RECORD:
-                        ANCJsonFormUtils.launchANCCloseForm(ProfileActivity.this);
-                        break;
-                    default:
-                        if (textClicked.startsWith(ConstantsUtils.CONTINUE)) {
-                            continueToContact();
-                        }
-                        break;
-                }
+            switch (which) {
+                case 0:
+                    launchPhoneDialer(phoneNumber);
+                    break;
+                case 2:
+                    ANCJsonFormUtils.launchANCCloseForm(ProfileActivity.this);
+                    break;
+                default:
+                    continueToContact();
+                    break;
             }
 
             dialog.dismiss();
@@ -286,6 +281,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //super.onActivityResult(requestCode, resultCode, data);
         AllSharedPreferences allSharedPreferences = AncLibrary.getInstance().getContext().allSharedPreferences();
         if (requestCode == ANCJsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == Activity.RESULT_OK) {
             ((ProfilePresenter) presenter).processFormDetailsSave(data, allSharedPreferences);
@@ -382,4 +378,3 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         return (ProfilePresenter) presenter;
     }
 }
-

@@ -7,7 +7,7 @@
 
     <include layout="@layout/toolbar_quick_check" />
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -27,7 +27,7 @@
                 android:textSize="@dimen/quick_check_text_size"
                 android:textStyle="bold" />
 
-            <android.support.v7.widget.RecyclerView
+             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/reason_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
                     android:textSize="@dimen/quick_check_text_size"
                     android:textStyle="bold" />
 
-                <android.support.v7.widget.RecyclerView
+                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/complaint_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
                     android:textSize="@dimen/quick_check_text_size"
                     android:textStyle="bold" />
 
-                <android.support.v7.widget.RecyclerView
+                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/danger_sign_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -101,7 +101,7 @@
             </LinearLayout>
 
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 
     <LinearLayout

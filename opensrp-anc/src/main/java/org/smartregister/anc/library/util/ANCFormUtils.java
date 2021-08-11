@@ -86,10 +86,7 @@ public class ANCFormUtils extends FormUtils {
         String formJsonString = isValidPartialForm(partialContact) ? getPartialContactForm(partialContact) : form.toString();
         JSONObject object = new JSONObject(formJsonString);
 
-        JSONObject globals = null;
-        if (form.has(JsonFormConstants.JSON_FORM_KEY.GLOBAL)) {
-            globals = form.getJSONObject(JsonFormConstants.JSON_FORM_KEY.GLOBAL);
-        }
+        JSONObject globals = form.optJSONObject(JsonFormConstants.JSON_FORM_KEY.GLOBAL);
 
         if (globals != null) {
             object.put(JsonFormConstants.JSON_FORM_KEY.GLOBAL, globals);
@@ -134,7 +131,7 @@ public class ANCFormUtils extends FormUtils {
                 if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) &&
                         !TextUtils.isEmpty(jsonObject.getString(JsonFormConstants.SECONDARY_VALUE))) {
 
-                    jsonObject.put(ConstantsUtils.KeyUtils.PARENT_SECONDARY_KEY, ANCFormUtils.getSecondaryKey(widget));
+                    jsonObject.put(ConstantsUtils.KeyUtils.PARENT_SECONDARY_KEY, getSecondaryKey(widget));
                     getRealSecondaryValue(jsonObject);
 
                     if (jsonObject.has(ConstantsUtils.KeyUtils.SECONDARY_VALUES)) {
@@ -150,7 +147,7 @@ public class ANCFormUtils extends FormUtils {
         }
 
         if (valueList.size() > 0) {
-            widget.put(ANCFormUtils.getSecondaryKey(widget), ANCFormUtils.getListValuesAsString(valueList));
+            widget.put(getSecondaryKey(widget), getListValuesAsString(valueList));
         }
     }
 
@@ -160,8 +157,8 @@ public class ANCFormUtils extends FormUtils {
         if (widget.has(JsonFormConstants.VALUE)) {
             widget.remove(JsonFormConstants.VALUE);
         }
-        if (widget.has(ANCFormUtils.getSecondaryKey(widget))) {
-            widget.remove(ANCFormUtils.getSecondaryKey(widget));
+        if (widget.has(getSecondaryKey(widget))) {
+            widget.remove(getSecondaryKey(widget));
         }
         JSONArray jsonArray = widget.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -179,7 +176,7 @@ public class ANCFormUtils extends FormUtils {
 
         if (keyList.size() > 0) {
             widget.put(JsonFormConstants.VALUE, keyList);
-            widget.put(ANCFormUtils.getSecondaryKey(widget), ANCFormUtils.getListValuesAsString(valueList));
+            widget.put(getSecondaryKey(widget), getListValuesAsString(valueList));
         }
     }
 
@@ -188,7 +185,7 @@ public class ANCFormUtils extends FormUtils {
         itemField.put(ConstantsUtils.KeyUtils.SECONDARY_VALUES, new JSONArray());
 
         String keystone = itemField.has(ConstantsUtils.KeyUtils.PARENT_SECONDARY_KEY) ?
-                itemField.getString(ConstantsUtils.KeyUtils.PARENT_SECONDARY_KEY) : ANCFormUtils.getSecondaryKey(itemField);
+                itemField.getString(ConstantsUtils.KeyUtils.PARENT_SECONDARY_KEY) : getSecondaryKey(itemField);
         itemField.getJSONArray(ConstantsUtils.KeyUtils.SECONDARY_VALUES).put(new JSONObject(ImmutableMap.of(JsonFormConstants.KEY, keystone, JsonFormConstants.VALUE, itemField.getString(JsonFormConstants.TEXT))));
 
         setSecondaryValues(itemField, secondaryValues);
@@ -217,8 +214,8 @@ public class ANCFormUtils extends FormUtils {
 
     private static void setItemSecondaryValues(JSONObject itemField, JSONObject secValue, List<String> keyList, List<String> valueList) throws JSONException {
         JSONObject secValueJsonObject = new JSONObject(ImmutableMap
-                .of(JsonFormConstants.KEY, ANCFormUtils.getSecondaryKey(secValue), JsonFormConstants.VALUE,
-                        ANCFormUtils.getListValuesAsString(valueList)));
+                .of(JsonFormConstants.KEY, getSecondaryKey(secValue), JsonFormConstants.VALUE,
+                        getListValuesAsString(valueList)));
         itemField.getJSONArray(ConstantsUtils.KeyUtils.SECONDARY_VALUES).put(secValueJsonObject);
 
         secValue.put(JsonFormConstants.VALUE, keyList.size() > 0 ? keyList : valueList);
@@ -304,7 +301,7 @@ public class ANCFormUtils extends FormUtils {
 
                     for (int i = 0; i < stepArray.length(); i++) {
                         JSONObject fieldObject = stepArray.getJSONObject(i);
-                        ANCFormUtils.processSpecialWidgets(fieldObject);
+                        processSpecialWidgets(fieldObject);
 
                         String fieldKey = getObjectKey(fieldObject);
                         //Do not add to facts values from expansion panels since they are processed separately
@@ -312,8 +309,8 @@ public class ANCFormUtils extends FormUtils {
                                 && !JsonFormConstants.EXPANSION_PANEL.equals(fieldObject.getString(JsonFormConstants.TYPE))) {
 
                             facts.put(fieldKey, fieldObject.getString(JsonFormConstants.VALUE));
-                            ANCFormUtils.processAbnormalValues(facts, fieldObject);
-                            String secKey = ANCFormUtils.getSecondaryKey(fieldObject);
+                            processAbnormalValues(facts, fieldObject);
+                            String secKey = getSecondaryKey(fieldObject);
 
                             if (fieldObject.has(secKey)) {
                                 facts.put(secKey, fieldObject.getString(secKey)); //Normal value secondary key
@@ -339,7 +336,7 @@ public class ANCFormUtils extends FormUtils {
                 fieldObject.getString(ConstantsUtils.KeyUtils.KEY).replace(ConstantsUtils.SuffixUtils.OTHER, ConstantsUtils.SuffixUtils.VALUE)) != null) {
 
             facts.put(getSecondaryKey(fieldObject), fieldObject.getString(JsonFormConstants.VALUE));
-            ANCFormUtils.processAbnormalValues(facts, fieldObject);
+            processAbnormalValues(facts, fieldObject);
             // in complex expression of other where more than one other option is defined e.g. surgeries for profile has 2 items
             //To specify other for: gynecology surgery and the normal other fields with edit text
         } else if (fieldObject.has(ConstantsUtils.OTHER_FOR) && !TextUtils.isEmpty(fieldObject.getString(ConstantsUtils.OTHER_FOR))) {
@@ -367,7 +364,7 @@ public class ANCFormUtils extends FormUtils {
 
             for (int j = 0; j < secondaryValues.length(); j++) {
                 JSONObject jsonObject = secondaryValues.getJSONObject(j);
-                ANCFormUtils.processAbnormalValues(facts, jsonObject);
+                processAbnormalValues(facts, jsonObject);
             }
         }
     }
@@ -469,7 +466,7 @@ public class ANCFormUtils extends FormUtils {
                     new ArrayList<>(Arrays.asList(facts.get(fieldKeySecondary).toString().split("\\s*,\\s*")));
             tempList.remove(tempList.size() - 1);
             tempList.add(StringUtils.capitalize(facts.get(fieldKeyOtherValue).toString()));
-            facts.put(fieldKeySecondary, ANCFormUtils.getListValuesAsString(tempList));
+            facts.put(fieldKeySecondary, getListValuesAsString(tempList));
 
         } else {
             facts.put(fieldKey, fieldValue);
@@ -478,9 +475,7 @@ public class ANCFormUtils extends FormUtils {
     }
 
     public static String getSecondaryKey(JSONObject jsonObject) throws JSONException {
-
         return getObjectKey(jsonObject) + ConstantsUtils.SuffixUtils.VALUE;
-
     }
 
     /**

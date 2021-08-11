@@ -2,7 +2,7 @@
 name: step1_accordion_hiv
 description: HIV test
 priority: 1
-condition: "(global_pop_hiv_prevalence == true && (global_health_conditions.isEmpty() || !global_health_conditions.contains('hiv'))) && (global_contact_no == 1 || (global_contact_no  > 1 && (global_gest_age_openmrs != '' && global_gest_age_openmrs == 29)) || ((global_previous_hiv_test_status == '' || global_previous_hiv_test_status == 'ordered' || global_previous_hiv_test_status == 'not_done') && global_contact_no  > 1 && (global_gest_age_openmrs != '' && global_gest_age_openmrs > 29)))"
+condition: "(global_pop_hiv_generalized == true || global_pop_hiv_generalized == true && (global_health_conditions.isEmpty() || !global_health_conditions.contains('hiv'))) && (global_contact_no == 1 || (global_contact_no  > 1 && (global_gest_age_openmrs != '' && global_gest_age_openmrs == 29)) || ((global_previous_hiv_test_status == '' || global_previous_hiv_test_status == 'ordered' || global_previous_hiv_test_status == 'not_done') && global_contact_no  > 1 && (global_gest_age_openmrs != '' && global_gest_age_openmrs > 29)))"
 actions:
   - "isRelevant = true"
 ---
@@ -16,7 +16,7 @@ actions:
 name: step1_accordion_hepatitis_b
 description: Hepatitis B test
 priority: 1
-condition: "(global_hepb_immun_status != '' && global_hepb_immun_status != '3_doses') && (global_contact_no == 1 || (global_contact_no > 1 && (global_previous_hepb_test_status == '' || global_previous_hepb_test_status == 'ordered' || global_previous_hepb_test_status == 'not_done')))"
+condition: "global_pop_hepb == true || global_pop_hepb_screening == true || (global_alcohol_substance_use != null && global_alcohol_substance_use.isEmpty() && global_alcohol_substance_use.contains('injectable_drugs')) || (global_occupation != null && global_occupation.isEmpty() && global_occupation.contains('informal_employment_sex_worker')) && (global_contact_no == 1 || (global_contact_no > 1 && (global_previous_hepb_test_status == '' || global_previous_hepb_test_status == 'ordered' || global_previous_hepb_test_status == 'not_done')))"
 actions:
   - "isRelevant = true"
 ---

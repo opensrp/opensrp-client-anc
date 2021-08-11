@@ -1,5 +1,8 @@
 package org.smartregister.anc.library.presenter;
 
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.verify;
+
 import android.text.TextUtils;
 
 import org.jeasy.rules.api.Facts;
@@ -31,9 +34,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-
-import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.verify;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({AncLibrary.class, TextUtils.class})

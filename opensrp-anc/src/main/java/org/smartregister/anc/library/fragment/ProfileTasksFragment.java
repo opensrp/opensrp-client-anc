@@ -2,15 +2,16 @@ package org.smartregister.anc.library.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.vijay.jsonwizard.activities.JsonFormActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.vijay.jsonwizard.activities.FormConfigurationJsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
@@ -26,10 +27,10 @@ import org.smartregister.anc.library.contract.ProfileFragmentContract;
 import org.smartregister.anc.library.domain.ButtonAlertStatus;
 import org.smartregister.anc.library.model.Task;
 import org.smartregister.anc.library.presenter.ProfileFragmentPresenter;
-import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ANCFormUtils;
-import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.ANCJsonFormUtils;
+import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.view.fragment.BaseProfileFragment;
 
@@ -85,7 +86,7 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
             clientDetails = (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
             if (clientDetails != null) {
                 contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
-                buttonAlertStatus = Utils.getButtonAlertStatus(clientDetails, getActivity().getApplicationContext(), true);
+                buttonAlertStatus = Utils.getButtonAlertStatus(clientDetails, getActivity(), true);
             }
         }
     }
@@ -165,7 +166,7 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
     public void startTaskForm(JSONObject jsonForm, Task task) {
         setCurrentTask(task);
 
-        Intent intent = new Intent(getActivity(), JsonFormActivity.class);
+        Intent intent = new Intent(getActivity(), FormConfigurationJsonFormActivity.class);
         intent.putExtra(ConstantsUtils.JsonFormExtraUtils.JSON, String.valueOf(jsonForm));
         intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, baseEntityId);
         intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, clientDetails);

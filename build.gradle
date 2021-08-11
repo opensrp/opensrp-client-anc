@@ -3,25 +3,26 @@
 buildscript {
     repositories {
         google()
+        mavenCentral()
         jcenter()
-        maven {
-            url 'https://maven.fabric.io/public'
-        }
+        maven { url 'https://maven.fabric.io/public' }
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
     }
-
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.3'
-        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.2'
+        classpath 'com.android.tools.build:gradle:4.1.2'
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.3'
         classpath 'com.palantir:jacoco-coverage:0.4.0'
         classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.11.0"
-        classpath 'com.google.gms:google-services:4.3.3'
+        classpath 'com.google.gms:google-services:4.3.5'
         classpath 'io.fabric.tools:gradle:1.31.2'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.5.0'
+        classpath 'com.google.firebase:perf-plugin:1.3.4'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
 
-apply plugin: 'com.palantir.jacoco-full-report'
+//apply plugin: 'com.palantir.jacoco-full-report'
 apply plugin: 'com.github.kt3k.coveralls'
 
 configure(allprojects) { project ->
@@ -31,8 +32,8 @@ configure(allprojects) { project ->
     buildscript {
         repositories {
             google()
-            jcenter()
             mavenCentral()
+            jcenter()
             maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
             mavenLocal()
         }
@@ -51,6 +52,7 @@ allprojects {
         maven { url "https://repo.maven.apache.org/maven2" }
         maven { url "https://cloudant.github.io/cloudant-sync-eap/repository" }
         maven { url "https://s3.amazonaws.com/repo.commonsware.com" }
+        //maven { url "https://dl.bintray.com/ibm-watson-health/ibm-fhir-server-releases" }
         google()
         jcenter()
     }
@@ -61,11 +63,11 @@ project.ext.preDexLibs = !project.hasProperty('disablePreDex')
 subprojects {
     group = 'org.smartregister'
 
-    ext.androidToolsBuildGradle = '29.0.2'
-    ext.androidBuildToolsVersion = '29.0.2'
+    ext.androidToolsBuildGradle = '30.0.3'
+    ext.androidBuildToolsVersion = '30.0.3'
     ext.androidMinSdkVersion = 18
-    ext.androidCompileSdkVersion = 29
-    ext.androidTargetSdkVersion = 29
+    ext.androidCompileSdkVersion = 30
+    ext.androidTargetSdkVersion = 30
     ext.androidAnnotationsVersion = '3.0.1'
     ext.androidAnnotationsAPIVersion = '3.0.1'
     ext.jacocoVersion = "0.8.5"
@@ -81,13 +83,13 @@ subprojects {
     }
 }
 
-task clean(type: Delete) {
+/*task clean(type: Delete) {
     delete rootProject.buildDir
-}
+}*/
 
-jacocoFull {
-    excludeProject ":sample", ":opensrp-client-anc"
-}
+//jacocoFull {
+//    excludeProject ":sample", ":opensrp-client-anc"
+//}
 
 coveralls {
     jacocoReportPath = "${buildDir}/reports/jacoco/jacocoFullReport/jacocoFullReport.xml"

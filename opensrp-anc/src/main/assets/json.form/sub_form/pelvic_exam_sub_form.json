@@ -6,13 +6,13 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165372AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "check_box",
-      "label": "Pelvic exam: abnormal",
+      "label": "{{pelvic_exam_sub_form.step1.pelvic_exam_abnormal.label}}",
       "label_text_style": "bold",
       "text_color": "#000000",
       "options": [
         {
           "key": "abnormal_vaginal_discharge",
-          "text": "Abnormal vaginal discharge",
+          "text": "{{pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.abnormal_vaginal_discharge.text}}",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "123395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -20,7 +20,7 @@
         },
         {
           "key": "amniotic_fluid_evidence",
-          "text": "Evidence of amniotic fluid",
+          "text": "{{pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.amniotic_fluid_evidence.text}}",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "148968AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -28,7 +28,7 @@
         },
         {
           "key": "smelling_vaginal_discharge",
-          "text": "Foul-smelling vaginal discharge",
+          "text": "{{pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.smelling_vaginal_discharge.text}}",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165162AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -36,7 +36,7 @@
         },
         {
           "key": "erythematous_papules",
-          "text": "Clusters of erythematous papules",
+          "text": "{{pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.erythematous_papules.text}}",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165286AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -44,7 +44,7 @@
         },
         {
           "key": "vesicles",
-          "text": "Vesicles",
+          "text": "{{pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.vesicles.text}}",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "133798AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -52,7 +52,7 @@
         },
         {
           "key": "genital_ulcer",
-          "text": "Genital ulcer",
+          "text": "{{pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.genital_ulcer.text}}",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "153872AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -60,7 +60,7 @@
         },
         {
           "key": "genital_pain",
-          "text": "Genital pain",
+          "text": "{{pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.genital_pain.text}}",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "123385AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -68,15 +68,15 @@
         },
         {
           "key": "femoral_lymphadenopathy",
-          "text": "Tender bilateral inguinal and femoral lymphadenopathy",
+          "text": "{{pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.femoral_lymphadenopathy.text}}",
           "value": false,
           "openmrs_entity": "concept",
-          "openmrs_entity_id": "165287AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "openmrs_entity_parent": "165373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "openmrs_entity_id": "",
+          "openmrs_entity_parent": ""
         },
         {
           "key": "cervical_friability",
-          "text": "Cervical friability",
+          "text": "{{pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.cervical_friability.text}}",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165288AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -84,23 +84,15 @@
         },
         {
           "key": "mucopurulent_ervicitis",
-          "text": "Mucopurulent cervicitis",
+          "text": "{{pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.mucopurulent_ervicitis.text}}",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165371AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "openmrs_entity_parent": "165373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
-          "key": "unilateral_lymphadenopathy",
-          "text": "Tender unilateral lymphadenopathy",
-          "value": false,
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "165289AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "openmrs_entity_parent": "165373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        {
           "key": "vaginal_discharge_curd_like",
-          "text": "Curd-like vaginal discharge",
+          "text": "{{pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.vaginal_discharge_curd_like.text}}",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165290AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -108,7 +100,7 @@
         },
         {
           "key": "other",
-          "text": "Other (specify)",
+          "text": "{{pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.other.text}}",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -122,7 +114,7 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "toaster_notes",
-      "text": "Evaluate labor. Urgent referral if GA is less than 37 weeks.",
+      "text": "{{pelvic_exam_sub_form.step1.evaluate_labour_toaster.text}}",
       "text_color": "#E20000",
       "toaster_type": "problem",
       "relevance": {
@@ -139,10 +131,10 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
-      "hint": "Specify",
+      "hint": "{{pelvic_exam_sub_form.step1.pelvic_exam_abnormal_other.hint}}",
       "v_regex": {
         "value": "[A-Za-z\\s\\.\\-]*",
-        "err": "Please enter valid content"
+        "err": "{{pelvic_exam_sub_form.step1.pelvic_exam_abnormal_other.v_regex.err}}"
       },
       "relevance": {
         "step3:pelvic_exam_abnormal": {
@@ -156,5 +148,7 @@
         }
       }
     }
-  ]
+  ],
+  "count": 1,
+  "properties_file_name": "pelvic_exam_sub_form"
 }

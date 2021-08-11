@@ -10,6 +10,8 @@ import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.login.model.BaseLoginModel;
 import org.smartregister.view.contract.BaseLoginContract;
 
+import java.nio.charset.StandardCharsets;
+
 /**
  * Created by ndegwamartin on 28/06/2018.
  */
@@ -42,15 +44,15 @@ public class LoginModelTest extends BaseUnitTest {
 
     @Test
     public void testIsPasswordValidShouldTrueWhenPasswordValidatesCorrectly() {
-        boolean result = model.isPasswordValid(DUMMY_PASSWORD);
+        boolean result = model.isPasswordValid(DUMMY_PASSWORD.toCharArray());
         Assert.assertTrue(result);
     }
 
     @Test
     public void testIsPasswordValidShouldFalseWhenPasswordValidationFails() {
-        boolean result = model.isPasswordValid("");
+        boolean result = model.isPasswordValid("".toCharArray());
         Assert.assertFalse(result);
-        result = model.isPasswordValid("A");
+        result = model.isPasswordValid("A".toCharArray());
         Assert.assertFalse(result);
     }
 

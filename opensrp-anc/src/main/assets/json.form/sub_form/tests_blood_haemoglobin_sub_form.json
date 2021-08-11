@@ -5,7 +5,7 @@
       "openmrs_entity_parent": "21AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-      "label": "Blood haemoglobin test",
+      "label": "{{tests_blood_haemoglobin_sub_form.step1.hb_test_status.label}}",
       "label_text_style": "bold",
       "text_color": "#000000",
       "type": "extended_radio_button",
@@ -61,26 +61,26 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "check_box",
-      "label": "Reason",
+      "label": "{{tests_blood_haemoglobin_sub_form.step1.hb_test_notdone.label}}",
       "label_text_style": "bold",
       "options": [
         {
           "key": "no_supplies",
-          "text": "No supplies",
+          "text": "{{tests_blood_haemoglobin_sub_form.step1.hb_test_notdone.options.no_supplies.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165183AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "expired",
-          "text": "Expired",
+          "text": "{{tests_blood_haemoglobin_sub_form.step1.hb_test_notdone.options.expired.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "other",
-          "text": "Other (specify)",
+          "text": "{{tests_blood_haemoglobin_sub_form.step1.hb_test_notdone.options.other.text}}",
           "openmrs_entity_parent": "21AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -88,7 +88,7 @@
       ],
       "v_required": {
         "value": true,
-        "err": "HB test not done reason is required"
+        "err": "{{tests_blood_haemoglobin_sub_form.step1.hb_test_notdone.v_required.err}}"
       },
       "relevance": {
         "rules-engine": {
@@ -104,11 +104,11 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
-      "hint": "Specify",
+      "hint": "{{tests_blood_haemoglobin_sub_form.step1.hb_test_notdone_other.hint}}",
       "edit_type": "name",
       "v_required": {
         "value": false,
-        "err": "Specify any other reason why the blood haemoglobin test"
+        "err": "{{tests_blood_haemoglobin_sub_form.step1.hb_test_notdone_other.v_required.err}}"
       },
       "relevance": {
         "rules-engine": {
@@ -140,7 +140,7 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "date_picker",
-      "hint": "Blood haemoglobin test date",
+      "hint": "{{tests_blood_haemoglobin_sub_form.step1.hb_test_date.hint}}",
       "expanded": "false",
       "max_date": "today",
       "relevance": {
@@ -159,7 +159,7 @@
       },
       "v_required": {
         "value": true,
-        "err": "Blood haemoglobin test date is required"
+        "err": "{{tests_blood_haemoglobin_sub_form.step1.hb_test_date.v_required.err}}"
       }
     },
     {
@@ -168,28 +168,28 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165397AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
-      "label": "Blood haemoglobin test type",
-      "label_info_text": "Complete blood count test is the preferred method for testing for anaemia in pregnancy. If complete blood count test is not available, haemoglobinometer is recommended over haemoglobin colour scale.",
-      "label_info_title": "Blood haemoglobin test type",
+      "label": "{{tests_blood_haemoglobin_sub_form.step1.hb_test_type.label}}",
+      "label_info_text": "{{tests_blood_haemoglobin_sub_form.step1.hb_test_type.label_info_text}}",
+      "label_info_title": "{{tests_blood_haemoglobin_sub_form.step1.hb_test_type.label_info_title}}",
       "label_text_style": "bold",
       "options": [
         {
           "key": "complete_blood_count",
-          "text": "Complete blood count test (recommended)",
+          "text": "{{tests_blood_haemoglobin_sub_form.step1.hb_test_type.options.complete_blood_count.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1019AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "hb_test_haemoglobinometer",
-          "text": "Hb test (haemoglobinometer)",
+          "text": "{{tests_blood_haemoglobin_sub_form.step1.hb_test_type.options.hb_test_haemoglobinometer.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "hb_test_colour_scale",
-          "text": "Hb test (haemoglobin colour scale)",
+          "text": "{{tests_blood_haemoglobin_sub_form.step1.hb_test_type.options.hb_test_colour_scale.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165396AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -197,7 +197,7 @@
       ],
       "v_required": {
         "value": true,
-        "err": "Hb test type is required"
+        "err": "{{tests_blood_haemoglobin_sub_form.step1.hb_test_type.v_required.err}}"
       },
       "relevance": {
         "rules-engine": {
@@ -213,7 +213,7 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "21AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
-      "hint": "Complete blood count test result (g/dl) (recommended)",
+      "hint": "{{tests_blood_haemoglobin_sub_form.step1.cbc.hint}}",
       "edit_type": "number",
       "v_min": {
         "value": "0",
@@ -225,11 +225,11 @@
       },
       "v_numeric": {
         "value": "true",
-        "err": "Enter a numeric value"
+        "err": "{{tests_blood_haemoglobin_sub_form.step1.cbc.v_numeric.err}}"
       },
       "v_required": {
         "value": true,
-        "err": "Complete blood count test result (g/dl)"
+        "err": "{{tests_blood_haemoglobin_sub_form.step1.cbc.v_required.err}}"
       },
       "relevance": {
         "rules-engine": {
@@ -245,7 +245,7 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
-      "hint": "Hb test result - haemoglobinometer (g/dl)",
+      "hint": "{{tests_blood_haemoglobin_sub_form.step1.hb_gmeter.hint}}",
       "edit_type": "number",
       "v_min": {
         "value": "0",
@@ -257,11 +257,11 @@
       },
       "v_numeric": {
         "value": "true",
-        "err": "Enter a numeric value"
+        "err": "{{tests_blood_haemoglobin_sub_form.step1.hb_gmeter.v_numeric.err}}"
       },
       "v_required": {
         "value": true,
-        "err": "Enter Hb test result - haemoglobinometer (g/dl)"
+        "err": "{{tests_blood_haemoglobin_sub_form.step1.hb_gmeter.v_required.err}}"
       },
       "relevance": {
         "rules-engine": {
@@ -277,7 +277,7 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165396AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
-      "hint": "Hb test result - haemoglobin colour scale (g/dl)",
+      "hint": "{{tests_blood_haemoglobin_sub_form.step1.hb_colour.hint}}",
       "edit_type": "number",
       "v_min": {
         "value": "0",
@@ -289,11 +289,11 @@
       },
       "v_numeric": {
         "value": "true",
-        "err": "Enter a numeric value"
+        "err": "{{tests_blood_haemoglobin_sub_form.step1.hb_colour.v_numeric.err}}"
       },
       "v_required": {
         "value": true,
-        "err": "Enter Hb test result - haemoglobin colour scale (g/dl)"
+        "err": "{{tests_blood_haemoglobin_sub_form.step1.hb_colour.v_required.err}}"
       },
       "relevance": {
         "rules-engine": {
@@ -338,9 +338,9 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "toaster_notes",
-      "text": "Anaemia diagnosis!",
-      "toaster_info_text": "Anaemia - Hb level of < 11 in first or third trimester or Hb level < 10.5 in second trimester.\n\nOR\n\nNo Hb test results recorded, but woman has pallor.",
-      "toaster_info_title": "Anaemia diagnosis!",
+      "text": "{{tests_blood_haemoglobin_sub_form.step1.anaemia_diagnosis_danger_toaster.text}}",
+      "toaster_info_text": "{{tests_blood_haemoglobin_sub_form.step1.anaemia_diagnosis_danger_toaster.toaster_info_text}}",
+      "toaster_info_title": "{{tests_blood_haemoglobin_sub_form.step1.anaemia_diagnosis_danger_toaster.toaster_info_title}}",
       "toaster_type": "problem",
       "relevance": {
         "rules-engine": {
@@ -356,15 +356,15 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "1015AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
-      "hint": "Hematocrit (Ht)",
+      "hint": "{{tests_blood_haemoglobin_sub_form.step1.ht.hint}}",
       "edit_type": "number",
       "v_numeric": {
         "value": false,
-        "err": "Enter a numeric value"
+        "err": "{{tests_blood_haemoglobin_sub_form.step1.ht.v_numeric.err}}"
       },
       "v_required": {
         "value": false,
-        "err": "Enter the Hematocrit value"
+        "err": "{{tests_blood_haemoglobin_sub_form.step1.ht.v_required.err}}"
       },
       "relevance": {
         "rules-engine": {
@@ -380,9 +380,9 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "toaster_notes",
-      "text": "Hematocrit levels too low!",
-      "toaster_info_text": "Hemotacrit levels less than 10.5.",
-      "toaster_info_title": "Hematocrit levels too low!",
+      "text": "{{tests_blood_haemoglobin_sub_form.step1.hematocrit_danger_toaster.text}}",
+      "toaster_info_text": "{{tests_blood_haemoglobin_sub_form.step1.hematocrit_danger_toaster.toaster_info_text}}",
+      "toaster_info_title": "{{tests_blood_haemoglobin_sub_form.step1.hematocrit_danger_toaster.toaster_info_title}}",
       "toaster_type": "problem",
       "relevance": {
         "rules-engine": {
@@ -398,15 +398,16 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "678AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
-      "hint": "White blood cell (WBC) count",
+      "hint": "{{tests_blood_haemoglobin_sub_form.step1.wbc.hint}}",
+      "label_info_text": "{{tests_blood_haemoglobin_sub_form.step1.wbc.label_info_text}}",
       "edit_type": "number",
       "v_numeric": {
         "value": "true",
-        "err": "Enter a numeric value"
+        "err": "{{tests_blood_haemoglobin_sub_form.step1.wbc.v_numeric.err}}"
       },
       "v_required": {
         "value": false,
-        "err": "Enter the White blood cell (WBC) count"
+        "err": "{{tests_blood_haemoglobin_sub_form.step1.wbc.v_required.err}}"
       },
       "relevance": {
         "rules-engine": {
@@ -422,9 +423,9 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "toaster_notes",
-      "text": "White blood cell count too high!",
-      "toaster_info_text": "White blood cell count above 16,000.",
-      "toaster_info_title": "White blood cell count too high!",
+      "text": "{{tests_blood_haemoglobin_sub_form.step1.wbc_danger_toaster.text}}",
+      "toaster_info_text": "{{tests_blood_haemoglobin_sub_form.step1.wbc_danger_toaster.toaster_info_text}}",
+      "toaster_info_title": "{{tests_blood_haemoglobin_sub_form.step1.wbc_danger_toaster.toaster_info_title}}",
       "toaster_type": "problem",
       "relevance": {
         "rules-engine": {
@@ -440,15 +441,16 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
-      "hint": "Platelet count",
+      "hint": "{{tests_blood_haemoglobin_sub_form.step1.platelets.hint}}",
+      "label_info_text": "{{tests_blood_haemoglobin_sub_form.step1.platelets.label_info_text}}",
       "edit_type": "number",
       "v_numeric": {
         "value": "true",
-        "err": "Enter a numeric value"
+        "err": "{{tests_blood_haemoglobin_sub_form.step1.platelets.v_numeric.err}}"
       },
       "v_required": {
         "value": false,
-        "err": "Enter the Platelet count value"
+        "err": "{{tests_blood_haemoglobin_sub_form.step1.platelets.v_required.err}}"
       },
       "relevance": {
         "rules-engine": {
@@ -464,9 +466,9 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "toaster_notes",
-      "text": "Platelet count too low! ",
-      "toaster_info_text": "Platelet count under 100,000.",
-      "toaster_info_title": "Platelet count too low!",
+      "text": "{{tests_blood_haemoglobin_sub_form.step1.paltelets_danger_toaster.text}}",
+      "toaster_info_text": "{{tests_blood_haemoglobin_sub_form.step1.paltelets_danger_toaster.toaster_info_text}}",
+      "toaster_info_title": "{{tests_blood_haemoglobin_sub_form.step1.paltelets_danger_toaster.toaster_info_title}}",
       "toaster_type": "problem",
       "relevance": {
         "rules-engine": {
@@ -476,5 +478,7 @@
         }
       }
     }
-  ]
+  ],
+  "count": 1,
+  "properties_file_name": "tests_blood_haemoglobin_sub_form"
 }
