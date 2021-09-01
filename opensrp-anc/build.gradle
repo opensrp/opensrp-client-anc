@@ -1,12 +1,13 @@
 buildscript {
     repositories {
+        mavenCentral()
         google()
-        jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.2'
+
+        classpath 'com.android.tools.build:gradle:4.1.3'
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.3'
-        classpath 'com.google.gms:google-services:4.3.5'
+        classpath 'com.google.gms:google-services:4.3.9'
     }
 }
 
@@ -147,11 +148,12 @@ android {
 
 tasks.withType(Test) {
     jacoco.includeNoLocationClasses = true
+    jacoco.excludes = ['jdk.internal.*']
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation('org.smartregister:opensrp-client-native-form:2.1.0-SNAPSHOT@aar') {
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation('org.smartregister:opensrp-client-native-form:2.1.3-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -162,7 +164,7 @@ dependencies {
         exclude group: 'org.yaml', module: 'snakeyaml'
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
-    implementation('org.smartregister:opensrp-client-core:4.3.3002-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:4.3.20-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'
@@ -199,16 +201,15 @@ dependencies {
     // explicitly depend on RxJava's latest version for bug fixes and new features.
     implementation 'io.reactivex.rxjava2:rxjava:2.2.20'
     implementation 'com.evernote:android-job:1.4.2'
-    implementation 'com.github.lecho:hellocharts-android:v1.5.8'
-    implementation 'id.zelory:compressor:2.1.0'
-    implementation('com.google.android.material:material:1.3.0') {
+    implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'
+    implementation 'id.zelory:compressor:2.1.1'
+    implementation('com.google.android.material:material:1.4.0') {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'cardview-v7'
     }
-
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
     implementation group: 'org.yaml', name: 'snakeyaml', version: '1.27'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'org.jeasy:easy-rules-core:3.3.0'
@@ -221,7 +222,9 @@ dependencies {
     }
     testImplementation 'org.robolectric:robolectric:4.4'
     testImplementation 'org.robolectric:shadows-multidex:4.4'
-    testImplementation 'com.ibm.fhir:fhir-model:4.2.3'
+    testImplementation 'com.ibm.fhir:fhir-model:4.8.3'
+    // https://mvnrepository.com/artifact/org.hamcrest/hamcrest
+    testImplementation group: 'org.hamcrest', name: 'hamcrest', version: '2.2'
     //testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
     testImplementation "org.powermock:powermock-module-junit4:2.0.7"
     testImplementation "org.powermock:powermock-module-junit4-rule:2.0.7"
@@ -231,8 +234,8 @@ dependencies {
     testImplementation 'org.apache.maven:maven-ant-tasks:2.1.3'
     testImplementation 'org.skyscreamer:jsonassert:1.5.0'
 
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation('androidx.test.espresso:espresso-core:3.3.0') {
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.4.0') {
         exclude group: 'com.google.code.findbugs'
     }
 }
@@ -253,6 +256,9 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'crea
 /*    sourceDirectories = files([mainSrc])
     classDirectories = files([debugTree])
     executionData = fileTree(dir: project.buildDir, includes: [
+    getSourceDirectories().setFrom([mainSrc])
+    getClassDirectories().setFrom([debugTree])
+    getExecutionData().setFrom(dir: project.buildDir, includes: [
             'jacoco/testDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec'
     ])*/
 }

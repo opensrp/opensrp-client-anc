@@ -1,5 +1,8 @@
 package org.smartregister.anc.library.presenter;
 
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.verify;
+
 import org.jeasy.rules.api.Facts;
 import org.junit.Before;
 import org.junit.Rule;
@@ -32,9 +35,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import edu.emory.mathcs.backport.java.util.Collections;
-
-import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.verify;
 
 /**
  * This allows integration of both powermock and robolectric

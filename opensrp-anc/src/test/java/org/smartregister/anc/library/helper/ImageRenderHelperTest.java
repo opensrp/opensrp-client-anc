@@ -4,8 +4,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
-import androidx.core.content.ContextCompat;
 import android.widget.ImageView;
+
+import androidx.core.content.ContextCompat;
 
 import org.junit.Assert;
 import org.junit.Before;

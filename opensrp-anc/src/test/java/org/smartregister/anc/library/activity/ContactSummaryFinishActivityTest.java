@@ -1,12 +1,15 @@
 package org.smartregister.anc.library.activity;
 
+import static org.robolectric.Shadows.shadowOf;
+
 import android.app.Activity;
 import android.content.Intent;
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -31,8 +34,6 @@ import org.smartregister.helper.ImageRenderHelper;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.robolectric.Shadows.shadowOf;
 
 public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
 

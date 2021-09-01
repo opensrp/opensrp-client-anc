@@ -304,7 +304,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 requiredFieldsMap.put(object.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE), 0);
             }
             if (contactNo > 1 && ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE.equals(encounterType)
-                    && !PatientRepository.isFirstVisit(baseEntityId)) {
+            && !PatientRepository.isFirstVisit(baseEntityId)) {
                 requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE, 0);
             }
 
@@ -723,6 +723,64 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     @Override
     public void loadGlobals(Contact contact) {
         //Update global for fields that are default for contact greater than 1
+        updateGlobalFieldsForContactAbove1();
+
+        List<String> contactGlobals = formGlobalKeys.get(contact.getFormName());
+
+        if (contactGlobals != null) {
+            Map<String, String> map = new HashMap<>();
+            addGlobalsToAMap(contactGlobals, map);
+
+            //Inject some form defaults from client details
+            map.put(ConstantsUtils.KeyUtils.CONTACT_NO, contactNo.toString());
+            map.put(ConstantsUtils.PREVIOUS_CONTACT_NO, contactNo > 1 ? String.valueOf(contactNo - 1) : "0");
+            map.put(ConstantsUtils.AGE, womanAge);
+            updateFirstContactFlag(map);
+            addGAWhenNotCalculated(map);
+            addLastContactDate(map);
+
+            contact.setGlobals(map);
+        }
+
+    }
+
+    private void addLastContactDate(Map<String, String> map) {
+        String lastContactDate =
+                ((HashMap<String, String>) getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP))
+                        .get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE);
+        map.put(ConstantsUtils.KeyUtils.LAST_CONTACT_DATE,
+                !TextUtils.isEmpty(lastContactDate) ? Utils.reverseHyphenSeperatedValues(lastContactDate, "-") : "");
+    }
+
+    private void addGAWhenNotCalculated(Map<String, String> map) {
+        //Inject gestational age when it has not been calculated from profile form
+        if (TextUtils.isEmpty(formGlobalValues.get(ConstantsUtils.GEST_AGE_OPENMRS))) {
+            map.put(ConstantsUtils.GEST_AGE_OPENMRS, String.valueOf(presenter.getGestationAge()));
+        }
+    }
+
+    private void updateFirstContactFlag(Map<String, String> map) {
+        if (ConstantsUtils.DueCheckStrategy.CHECK_FOR_FIRST_CONTACT.equals(Utils.getDueCheckStrategy())) {
+            map.put(ConstantsUtils.IS_FIRST_CONTACT, String.valueOf(PatientRepository.isFirstVisit(baseEntityId)));
+        }
+    }
+
+    private void addGlobalsToAMap(List<String> contactGlobals, Map<String, String> map) {
+        for (String contactGlobal : contactGlobals) {
+            if (formGlobalValues.containsKey(contactGlobal)) {
+                String some = map.get(contactGlobal);
+
+                if (some == null || !some.equals(formGlobalValues.get(contactGlobal))) {
+                    map.put(contactGlobal, formGlobalValues.get(contactGlobal));
+                }
+
+            } else {
+                map.put(contactGlobal, "");
+            }
+        }
+    }
+
+    private void updateGlobalFieldsForContactAbove1() {
         if (contactNo > 1) {
             for (String item : defaultValueFields) {
                 if (globalKeys.contains(item)) {
@@ -730,47 +788,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 }
             }
         }
-
-        List<String> contactGlobals = formGlobalKeys.get(contact.getFormName());
-
-        if (contactGlobals != null) {
-            Map<String, String> map = new HashMap<>();
-            for (String contactGlobal : contactGlobals) {
-                if (formGlobalValues.containsKey(contactGlobal)) {
-                    String some = map.get(contactGlobal);
-
-                    if (some == null || !some.equals(formGlobalValues.get(contactGlobal))) {
-                        map.put(contactGlobal, formGlobalValues.get(contactGlobal));
-                    }
-
-                } else {
-                    map.put(contactGlobal, "");
-                }
-            }
-
-            //Inject some form defaults from client details
-            map.put(ConstantsUtils.KeyUtils.CONTACT_NO, contactNo.toString());
-            map.put(ConstantsUtils.PREVIOUS_CONTACT_NO, contactNo > 1 ? String.valueOf(contactNo - 1) : "0");
-            map.put(ConstantsUtils.AGE, womanAge);
-
-            if (ConstantsUtils.DueCheckStrategy.CHECK_FOR_FIRST_CONTACT.equals(Utils.getDueCheckStrategy())) {
-                map.put(ConstantsUtils.IS_FIRST_CONTACT, String.valueOf(PatientRepository.isFirstVisit(baseEntityId)));
-            }
-
-            //Inject gestational age when it has not been calculated from profile form
-            if (TextUtils.isEmpty(formGlobalValues.get(ConstantsUtils.GEST_AGE_OPENMRS))) {
-                map.put(ConstantsUtils.GEST_AGE_OPENMRS, String.valueOf(presenter.getGestationAge()));
-            }
-
-            String lastContactDate =
-                    ((HashMap<String, String>) getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP))
-                            .get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE);
-            map.put(ConstantsUtils.KeyUtils.LAST_CONTACT_DATE,
-                    !TextUtils.isEmpty(lastContactDate) ? Utils.reverseHyphenSeperatedValues(lastContactDate, "-") : "");
-
-            contact.setGlobals(map);
-        }
-
     }
 
     @Override
@@ -791,6 +808,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && data != null) {
             formInvalidFields = data.getStringExtra("formInvalidFields");
         }

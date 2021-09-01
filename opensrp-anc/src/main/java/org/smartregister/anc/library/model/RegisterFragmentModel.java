@@ -1,5 +1,7 @@
 package org.smartregister.anc.library.model;
 
+import static org.smartregister.anc.library.util.ConstantsUtils.GLOBAL_IDENTIFIER;
+
 import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
@@ -29,8 +31,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import static org.smartregister.anc.library.util.ConstantsUtils.GLOBAL_IDENTIFIER;
 
 /**
  * Created by keyman on 12/07/2018.

@@ -6,12 +6,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import org.apache.commons.lang3.StringUtils;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.adapter.ContactSummaryAdapter;

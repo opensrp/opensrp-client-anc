@@ -41,6 +41,7 @@ import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.anc.library.activity.ContactJsonFormActivity;
 import org.smartregister.anc.library.activity.ContactSummaryFinishActivity;
+import org.smartregister.anc.library.activity.MainContactActivity;
 import org.smartregister.anc.library.activity.ProfileActivity;
 import org.smartregister.anc.library.constants.AncAppPropertyConstants;
 import org.smartregister.anc.library.domain.ButtonAlertStatus;
