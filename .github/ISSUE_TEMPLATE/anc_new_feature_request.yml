@@ -28,6 +28,5 @@ body:
     attributes:
       label: Relevant Information
       description: "Please share any other relevant information about the feature request or project."
-      placeholder: " "
     validations:
       required: false

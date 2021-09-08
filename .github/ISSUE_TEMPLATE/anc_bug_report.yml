@@ -12,7 +12,6 @@ body:
     attributes:
       label: How do we replicate the bug?
       description: "Please give detailed instructions no how to replicate the bug?"
-      placeholder: ""
     validations:
       required: true
   - type: textarea
@@ -28,6 +27,5 @@ body:
     attributes:
       label: Please Share other relevant information about the bug
       description: "Please share any other relevant information about the bug."
-      placeholder: " "
     validations:
       required: false
