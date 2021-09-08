@@ -1,10 +1,7 @@
----
 name: 'OpenSRP ANC module Bug Report.'
 description: 'Use this to Report a bug experienced on an OpenSRP WHO ANC Reference application.'
-title: '[Bug Report] '
-labels: 'Bug Report'
-assignees: '[]'
----
+title: '[Bug Report]: '
+labels: [Bug Report]
 body:
   - type: markdown
         attributes:
@@ -34,5 +31,3 @@ body:
         placeholder: " "
       validations:
         required: false
-
----

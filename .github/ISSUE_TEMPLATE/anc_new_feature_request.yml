@@ -1,10 +1,7 @@
----
 name: 'OpenSRP web new Feature request.'
 description: 'Use this to request for a new feature that is not available in the current application.'
-title: '[New Feature Request] '
-labels: 'New Feature Request'
-assignees: '[]'
----
+title: '[New Feature Request]: '
+labels: [New Feature Request]
 body:
   - type: markdown
       attributes:
@@ -34,5 +31,3 @@ body:
         placeholder: " "
       validations:
         required: false
-
----
