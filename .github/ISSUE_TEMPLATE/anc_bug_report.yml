@@ -19,7 +19,6 @@ body:
     attributes:
       label: How is this feature expected to work?
       description: "Please give a detailed explanation of how the feature is expected to work?"
-      placeholder: ""
     validations:
       required: true
   - type: textarea
