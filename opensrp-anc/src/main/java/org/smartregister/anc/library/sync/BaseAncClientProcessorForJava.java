@@ -118,56 +118,6 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
         return false;
     }
 
-    /*
-            private Integer parseInt(String string) {
-                try {
-                    return Integer.valueOf(string);
-                } catch (NumberFormatException e) {
-                    Log.e(TAG, e.toString(), e);
-                }
-                return null;
-            }
-
-            private ContentValues processCaseModel(EventClient eventClient, Table table) {
-                try {
-                    List<Column> columns = table.columns;
-                    ContentValues contentValues = new ContentValues();
-
-                    for (Column column : columns) {
-                        processCaseModel(eventClient.getEvent(), eventClient.getClient(), column, contentValues);
-                    }
-
-                    return contentValues;
-                } catch (Exception e) {
-                    Log.e(TAG, e.toString(), e);
-                }
-                return null;
-            }
-
-            private Date getDate(String eventDateStr) {
-                Date date = null;
-                if (StringUtils.isNotBlank(eventDateStr)) {
-                    try {
-                        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ");
-                        date = dateFormat.parse(eventDateStr);
-                    } catch (ParseException e) {
-                        try {
-                            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
-                            date = dateFormat.parse(eventDateStr);
-                        } catch (ParseException pe) {
-                            try {
-                                date = DateUtil.parseDate(eventDateStr);
-                            } catch (ParseException pee) {
-                                Log.e(TAG, pee.toString(), pee);
-                            }
-                        }
-                    }
-                }
-                return date;
-            }
-
-        */
-
     public DetailsRepository getDetailsRepository() {
         return AncLibrary.getInstance().getDetailsRepository();
     }
