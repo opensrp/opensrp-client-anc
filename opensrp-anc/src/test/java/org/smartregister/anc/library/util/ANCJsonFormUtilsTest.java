@@ -587,7 +587,7 @@ public class ANCJsonFormUtilsTest {
     }
 
     @Test
-    @PrepareForTest({AncLibrary.class, LocationHelper.class, DrishtiApplication.class})
+    @PrepareForTest({AncLibrary.class, LocationHelper.class, DrishtiApplication.class, org.smartregister.util.Utils.class})
     public void testCreateContactVisitEvent() throws JSONException {
         String providerId = "demo";
         JSONObject patient = new JSONObject("{\n" +
@@ -626,6 +626,9 @@ public class ANCJsonFormUtilsTest {
                 "    \"serverVersion\": 1576225866661,\n" +
                 "    \"type\": \"Client\"\n" +
                 "}");
+
+        PowerMockito.mockStatic(org.smartregister.util.Utils.class);
+        PowerMockito.when(org.smartregister.util.Utils.getAllSharedPreferences()).thenReturn(allSharedPreferences);
 
         Map<String, String> details = getWomanDetails();
         details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, "4");

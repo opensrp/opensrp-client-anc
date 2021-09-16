@@ -1,0 +1,30 @@
+name: 'OpenSRP ANC module Bug Report.'
+description: 'Use this to Report a bug experienced on an OpenSRP WHO ANC Reference application.'
+title: '[Bug Report]: '
+labels: [Bug Report]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: textarea
+    id: how_to_replicate
+    attributes:
+      label: How do we replicate the bug?
+      description: "Please give detailed instructions no how to replicate the bug?"
+    validations:
+      required: true
+  - type: textarea
+    id: expected_functionality
+    attributes:
+      label: How is this feature expected to work?
+      description: "Please give a detailed explanation of how the feature is expected to work?"
+    validations:
+      required: true
+  - type: textarea
+    id: bug_extra_info
+    attributes:
+      label: Please Share other relevant information about the bug
+      description: "Please share any other relevant information about the bug."
+    validations:
+      required: false
