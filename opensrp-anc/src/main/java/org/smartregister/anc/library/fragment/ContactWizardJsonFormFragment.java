@@ -297,19 +297,14 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
 
         Button finalReferButton = referButton;
         Button finalProceedButton = proceedButton;
-        getJsonApi().getAppExecutors().mainThread().execute(new Runnable() {
-            @Override
-            public void run() {
-                setQuickCheckButtonsVisible(none, other, buttonLayout, finalReferButton, finalProceedButton);
-                setQuickCheckButtonsInvisible(none, other, buttonLayout, finalReferButton, finalProceedButton);
+        getJsonApi().getAppExecutors().mainThread().execute(() -> {
+            setQuickCheckButtonsVisible(none, other, buttonLayout, finalReferButton, finalProceedButton);
+            setQuickCheckButtonsInvisible(none, other, buttonLayout, finalReferButton, finalProceedButton);
 
-                if ((none && !other) && buttonLayout != null) {
-                    finalReferButton.setVisibility(View.GONE);
-                }
+            if ((none && !other) && buttonLayout != null) {
+                finalReferButton.setVisibility(View.GONE);
             }
         });
-
-
     }
 
 

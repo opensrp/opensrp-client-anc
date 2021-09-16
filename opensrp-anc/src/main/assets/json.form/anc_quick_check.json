@@ -5,7 +5,7 @@
   "encounter_type": "Quick Check",
   "entity_id": "",
   "relational_id": "",
-  "form_version": "0.0.1",
+  "form_version": "0.0.6",
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -17,7 +17,7 @@
       "openmrs_entity_parent": "",
       "openmrs_entity": "concept",
       "openmrs_data_type": "end",
-      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
     },
     "today": {
       "openmrs_entity_parent": "",
@@ -119,7 +119,7 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           },
-	  {
+          {
             "key": "changes_in_bp_down",
             "text": "{{anc_quick_check.step1.specific_complaint.options.changes_in_bp_down.text}}",
             "value": false,
@@ -151,7 +151,7 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "143264AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
-	  {
+          {
             "key": "diarrhea",
             "text": "{{anc_quick_check.step1.specific_complaint.options.diarrhea.text}}",
             "value": false,
@@ -423,7 +423,7 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "123074AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
-	  {
+          {
             "key": "vomiting",
             "text": "{{anc_quick_check.step1.specific_complaint.options.vomiting.text}}",
             "value": false,
