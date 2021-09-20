@@ -18,7 +18,7 @@ body:
   - type: textarea
     id: use_case
     attributes:
-      label: Feature Use Case
+      label: What kind of support do you need?
       description: "Give a detailed explanation of the kind of support you need?"
       placeholder: "We need to add more indicators to the red & yellow flags"
     validations:
@@ -26,7 +26,7 @@ body:
   - type: textarea
     id: acceptance_criteria
     attributes:
-      label: Acceptance criteria
+      label: What is the acceptance criteria for your support request?
       description: "What is the acceptance criteria for this support request?"
       placeholder: "The extra indicators should be shown on the red & yellow flags."
     validations:
