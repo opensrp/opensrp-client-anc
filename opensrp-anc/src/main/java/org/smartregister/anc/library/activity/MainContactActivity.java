@@ -1,7 +1,11 @@
 package org.smartregister.anc.library.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Build;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -32,14 +36,7 @@ import org.yaml.snakeyaml.Yaml;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import timber.log.Timber;
 
@@ -103,6 +100,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
             Contact quickCheck = new Contact();
             quickCheck.setName(getString(R.string.quick_check));
+            quickCheck.setEncouterName(getLocaleStringResource(Locale.ENGLISH, R.string.quick_check));
             quickCheck.setContactNumber(contactNo);
             quickCheck.setActionBarBackground(R.color.quick_check_red);
             quickCheck.setBackground(R.drawable.quick_check_bg);
@@ -118,6 +116,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
             Contact profile = new Contact();
             profile.setName(getString(R.string.profile));
+            profile.setEncouterName(getLocaleStringResource(Locale.ENGLISH, R.string.profile));
             profile.setContactNumber(contactNo);
             profile.setBackground(R.drawable.profile_bg);
             profile.setActionBarBackground(R.color.contact_profile_actionbar);
@@ -128,6 +127,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
             Contact symptomsAndFollowUp = new Contact();
             symptomsAndFollowUp.setName(getString(R.string.symptoms_follow_up));
+            symptomsAndFollowUp.setEncouterName(getLocaleStringResource(Locale.ENGLISH, R.string.symptoms_follow_up));
             symptomsAndFollowUp.setContactNumber(contactNo);
             symptomsAndFollowUp.setBackground(R.drawable.symptoms_bg);
             symptomsAndFollowUp.setActionBarBackground(R.color.contact_symptoms_actionbar);
@@ -138,6 +138,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
             Contact physicalExam = new Contact();
             physicalExam.setName(getString(R.string.physical_exam));
+            physicalExam.setEncouterName(getLocaleStringResource(Locale.ENGLISH, R.string.physical_exam));
             physicalExam.setContactNumber(contactNo);
             physicalExam.setBackground(R.drawable.physical_exam_bg);
             physicalExam.setActionBarBackground(R.color.contact_exam_actionbar);
@@ -148,6 +149,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
             Contact tests = new Contact();
             tests.setName(getString(R.string.tests));
+            tests.setEncouterName(getLocaleStringResource(Locale.ENGLISH, R.string.tests));
             tests.setContactNumber(contactNo);
             tests.setBackground(R.drawable.tests_bg);
             tests.setActionBarBackground(R.color.contact_tests_actionbar);
@@ -158,6 +160,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
             Contact counsellingAndTreatment = new Contact();
             counsellingAndTreatment.setName(getString(R.string.counselling_treatment));
+            counsellingAndTreatment.setEncouterName(getLocaleStringResource(Locale.ENGLISH, R.string.counselling_treatment));
             counsellingAndTreatment.setContactNumber(contactNo);
             counsellingAndTreatment.setBackground(R.drawable.counselling_bg);
             counsellingAndTreatment.setActionBarBackground(R.color.contact_counselling_actionbar);
@@ -300,7 +303,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 requiredFieldsMap.put(object.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE), 0);
             }
             if (contactNo > 1 && ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE.equals(encounterType)
-            && !PatientRepository.isFirstVisit(baseEntityId)) {
+                    && !PatientRepository.isFirstVisit(baseEntityId)) {
                 requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE, 0);
             }
 
@@ -799,5 +802,27 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         if (resultCode == RESULT_OK && data != null) {
             formInvalidFields = data.getStringExtra("formInvalidFields");
         }
+    }
+
+    public String getLocaleStringResource(Locale requestedLocale, int resourceId) {
+        Context context = getApplicationContext();
+        String result;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) { // use latest api
+            Configuration config = new Configuration(context.getResources().getConfiguration());
+            config.setLocale(requestedLocale);
+            result = context.createConfigurationContext(config).getText(resourceId).toString();
+        } else { // support older android versions
+            Resources resources = context.getResources();
+            Configuration conf = resources.getConfiguration();
+            Locale savedLocale = conf.locale;
+            conf.locale = requestedLocale;
+            resources.updateConfiguration(conf, null);
+            // retrieve resources from desired locale
+            result = resources.getString(resourceId);
+            // restore original locale
+            conf.locale = savedLocale;
+            resources.updateConfiguration(conf, null);
+        }
+        return result;
     }
 }

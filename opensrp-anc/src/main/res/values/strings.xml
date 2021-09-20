@@ -424,4 +424,8 @@
     <string name="english_language">English</string>
     <string name="french_language">French</string>
     <string name="portuguese_brazil_language">Portuguese (Brazil)</string>
+
+    <string name="indonesian_language">Indonesia</string>
+    <string name="opensrp_url">https://sid.alcasha.com/opensrp/</string>
+    <string name="weeks_and_days_from_days">%.0f weeks %d days</string>
 </resources>

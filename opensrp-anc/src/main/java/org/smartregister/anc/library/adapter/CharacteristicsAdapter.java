@@ -37,7 +37,7 @@ public class CharacteristicsAdapter extends RecyclerView.Adapter<Characteristics
     public void onBindViewHolder(ViewHolder holder, int position) {
         ServerSetting characteristic = mData.get(position);String label = characteristic.getLabel() != null ? characteristic.getLabel() : "";
         holder.labelTextView.setText(label);
-        holder.valueTextView.setText(characteristic.getValue() ? "Yes" : "No");
+        holder.valueTextView.setText(characteristic.getValue() ? "Ya" : "Tidak");
         holder.info.setTag(characteristic.getKey());
         holder.info.setTag(R.id.CHARACTERISTIC_DESC, characteristic.getDescription());
     }

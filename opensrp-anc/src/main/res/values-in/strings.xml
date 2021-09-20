@@ -310,4 +310,13 @@
     <string name="no_tests_available">Tidak ada tes yang tersedia</string>
     <string name="hospital_referral">Rumah Sakit Rujukan</string>
     <string name="no_contact_schedule">Belum ada jadwal kontak yang dihasilkan</string>
+    <string name="form_manifest_version">Versi Rilis Formulir: v%1$s</string>
+    <string name="back">Kembali</string>
+    <string name="no_health_data_recorded">Tidak ada data rekam medis</string>
+    <string name="go_to_image">Lihat gambar</string>
+    <string name="attach_file">Lampirkan dokumen</string>
+    <string name="default_language_string">Bahasa: %1s</string>
+    <string name="choose_language">Pilih Bahasa</string>
+    <string name="weeks_and_days_from_days">%.0f minggu %d hari</string>
+    <string name="indonesian_language">Indonesia</string>
 </resources>

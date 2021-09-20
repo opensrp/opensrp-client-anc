@@ -17,6 +17,7 @@ public class Contact extends Form implements Serializable {
 
     private String jsonForm;
 
+    private String encouterName;
 
     private Map<String, String> globals;
 
@@ -66,5 +67,13 @@ public class Contact extends Form implements Serializable {
 
     public void setJsonForm(String jsonForm) {
         this.jsonForm = jsonForm;
+    }
+
+    public String getEncouterName() {
+        return encouterName;
+    }
+
+    public void setEncouterName(String encouterName) {
+        this.encouterName = encouterName;
     }
 }

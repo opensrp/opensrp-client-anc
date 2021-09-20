@@ -43,7 +43,10 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.sectionHeader.setText(processUnderscores(mData.get(position).getGroup()));
+        String title = processUnderscores(mData.get(position).getGroup());
+        if (mData.get(position).getTitle() != null)
+            title = mData.get(position).getTitle();
+        holder.sectionHeader.setText(title);
 
         List<YamlConfigItem> fields = mData.get(position).getFields();
         StringBuilder outputBuilder = new StringBuilder();

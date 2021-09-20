@@ -121,6 +121,14 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         yamlConfigList = new ArrayList<>();
         for (Object ruleObject : ruleObjects) {
             YamlConfig yamlConfig = (YamlConfig) ruleObject;
+            String group = yamlConfig.getGroup();
+            if (group.contains("'"))
+                group = group.replace("'", "");
+            if (group.contains("-"))
+                group.replace("-", "_");
+            String string = getResources().getString(getResources().getIdentifier(group, "string", getPackageName()));
+            if (string != null)
+                yamlConfig.setTitle(string);
             yamlConfigList.add(yamlConfig);
         }
     }

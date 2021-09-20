@@ -342,13 +342,13 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
 
     @Override
     public void setProfileAge(String age) {
-        ageView.setText("AGE " + age);
+        ageView.setText("Usia " + age);
 
     }
 
     @Override
     public void setProfileGestationAge(String gestationAge) {
-        gestationAgeView.setText(gestationAge != null ? "GA: " + gestationAge + " WEEKS" : "GA");
+        gestationAgeView.setText(gestationAge != null ? "Usia Kehamilan: " + gestationAge + " Minggu" : "Usia Kehamilan");
     }
 
     @Override

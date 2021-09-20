@@ -6,7 +6,7 @@ import java.util.List;
  * Created by ndegwamartin on 04/12/2018.
  */
 public class YamlConfig {
-
+    private String title;
     private String group;
     private String sub_group;
     private List<YamlConfigItem> fields;
@@ -69,6 +69,14 @@ public class YamlConfig {
 
     public void setPropertiesFileName(String properties_file_name) {
         this.properties_file_name = properties_file_name;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public static final class KeyUtils {
