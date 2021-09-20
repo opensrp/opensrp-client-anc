@@ -12,7 +12,7 @@
       "options": [
         {
           "key": "done_today",
-          "text": "Done today",
+          "text": "Dilakukan hari ini",
           "type": "done_today",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -20,7 +20,7 @@
         },
         {
           "key": "done_earlier",
-          "text": "Done earlier",
+          "text": "Pernah dilakukan",
           "type": "done_earlier",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -28,7 +28,7 @@
         },
         {
           "key": "ordered",
-          "text": "Ordered",
+          "text": "Sedang dalam proses",
           "type": "ordered",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -36,7 +36,7 @@
         },
         {
           "key": "not_done",
-          "text": "Not done",
+          "text": "Tidak dilakukan",
           "type": "not_done",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -151,11 +151,11 @@
       "edit_type": "number",
       "v_min": {
         "value": "30",
-        "err": "Fasting plasma glucose results must be greater than or equal to 30"
+        "err": "Hasil glukosa plasma puasa harus lebih besar atau sama dengan 30"
       },
       "v_max": {
         "value": "500",
-        "err": "Fasting plasma glucose results must be less than or equal to 500"
+        "err": "Hasil glukosa plasma puasa harus kurang dari atau sama dengan 500"
       },
       "v_numeric": {
         "value": "true",
@@ -183,11 +183,11 @@
       "edit_type": "number",
       "v_min": {
         "value": "30",
-        "err": "75g OGTT - fasting glucose results must be greater than or equal to 30"
+        "err": "75g OGTT - hasil glukosa puasa harus lebih besar dari atau sama dengan 30"
       },
       "v_max": {
         "value": "500",
-        "err": "75g OGTT - fasting glucose results must be less than or equal to 500"
+        "err": "75g OGTT - hasil glukosa puasa harus kurang dari atau sama dengan 500"
       },
       "v_numeric": {
         "value": "true",
@@ -215,11 +215,11 @@
       "edit_type": "number",
       "v_min": {
         "value": "30",
-        "err": "The result for the 75g OGTT - 1 hr must be greater than or equal to 30"
+        "err": "Hasil untuk OGTT 75g - 1 jam harus lebih besar atau sama dengan 30"
       },
       "v_max": {
         "value": "500",
-        "err": "The result for the 75g OGTT - 1 hr must be less than or equal to 500"
+        "err": "Hasil untuk OGTT 75g - 1 jam harus kurang dari atau sama dengan 500"
       },
       "v_numeric": {
         "value": "true",
@@ -247,11 +247,11 @@
       "edit_type": "number",
       "v_min": {
         "value": "30",
-        "err": "The result for the 75g OGTT - 2 hr must be greater than or equal to 30"
+        "err": "Hasil untuk OGTT 75g - 2 jam harus lebih besar atau sama dengan 30"
       },
       "v_max": {
         "value": "500",
-        "err": "The result for the 75g OGTT - 2 hr must be less than or equal to 500"
+        "err": "Hasil untuk OGTT 75g - 2 jam harus kurang dari atau sama dengan 500"
       },
       "v_numeric": {
         "value": "true",
@@ -279,11 +279,11 @@
       "edit_type": "number",
       "v_min": {
         "value": "30",
-        "err": "The result for the random plasma glucose test must be greater than or equal to 30"
+        "err": "Hasil untuk tes glukosa plasma acak harus lebih besar dari atau sama dengan 30"
       },
       "v_max": {
         "value": "500",
-        "err": "The result for the random plasma glucose test must be less than or equal to 500"
+        "err": "Hasil tes glukosa plasma acak harus kurang dari atau sama dengan 500"
       },
       "v_numeric": {
         "value": "true",

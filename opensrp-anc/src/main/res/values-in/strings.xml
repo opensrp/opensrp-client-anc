@@ -245,7 +245,7 @@
     <string name="counselling_treatment">Konseling dan Pengobatan</string>
 
     <string name="finalize">Selesai</string>
-    <string name="required_fields">%1$d bidang yang wajib diisi</string>
+    <string name="required_fields">%1$d field yang wajib diisi</string>
 
     <string name="view_anc_history">Lihat sejarah ANC</string>
 
@@ -310,13 +310,250 @@
     <string name="no_tests_available">Tidak ada tes yang tersedia</string>
     <string name="hospital_referral">Rumah Sakit Rujukan</string>
     <string name="no_contact_schedule">Belum ada jadwal kontak yang dihasilkan</string>
+    <string name="default_language_string">Bahasa yang Digunakan: %1s</string>
+    <string name="contact_tasks_form">Tugas Kontak</string>
     <string name="form_manifest_version">Versi Rilis Formulir: v%1$s</string>
-    <string name="back">Kembali</string>
+    <string name="contact_weeks_no_break">MULAI &#183; HUBUNGI %1$s &#183; %2$s</string>
+    <string name="contact_in_progress">HUBUNGI %1$s\n DALAM PROGRES</string>
+    <string name="contact_in_progress_no_break">HUBUNGI %1$s &#183; SEDANG BERLANGSUNG</string>
+    <string name="contact_number_due_no_break">HUBUNGI %1$d &#183; KARENA &#183; %2$s</string>
+    <string name="hospital_referral_title">Catatan rujukan Rumah Sakit</string>
+    <string name="who_will_help_while_she_is_away_to_care_for_her_home_and_other_children">Siapa yang akan membantu saat
+        dia pergi untuk merawat rumah dan anak-anaknya yang lain?
+    </string>
+    <string name="who_will_help_to_care_for_her_home_and_other_children">Siapa yang akan membantu merawat rumahnya dan
+        anak-anak lain?
+    </string>
+    <string name="who_will_go_with_her_for_support_during_labour_and_delivery">Siapa yang akan pergi bersamanya untuk
+        mendapatkan dukungan selama persalinan dan melahirkan?
+    </string>
+    <string name="who_will_be_the_companion_during_labour_and_delivery">Siapa yang akan menjadi pendamping selama
+        persalinan dan melahirkan?
+    </string>
+    <string name="who_will_be_close_by_for_at_least_24_hours_after_delivery">Siapa yang akan dekat setidaknya 24 jam
+        setelah melahirkan?
+    </string>
+    <string name="tests_tasks_header">Tes</string>
+    <string name="tap_button_below">Ketuk tombol di bawah untuk memulai/menyelesaikan kontak</string>
+    <string name="tab_button_image">Gambar tombol tab</string>
+    <string name="string_bullet" translatable="false">•</string>
+    <string name="source">Sumber</string>
+    <string name="review_the_following_with_her">Tinjau hal berikut bersamanya:</string>
+    <string name="review_the_arrangements_for_delivery">Tinjau pengaturan pengiriman:</string>
+    <string name="plastic_for_wrapping_the_placenta">Plastik untuk pembungkus plasenta.</string>
+    <string name="physical_exam_disclaimer">PENAFIAN: WHO tidak bertanggung jawab atas isi materi tambahan ini.</string>
+    <string name="physical_exam_content_one">Aktivitas fisik adalah setiap gerakan tubuh yang dihasilkan oleh otot
+        rangka yang menggunakan energi. Ini termasuk olahraga, olahraga, dan kegiatan lain seperti bermain, berjalan,
+        pekerjaan rumah tangga, berkebun, dan menari. Setiap aktivitas, baik untuk bekerja, berjalan kaki atau bersepeda
+        ke dan dari tempat, atau sebagai bagian dari waktu luang, memiliki manfaat kesehatan.
+    </string>
+    <string name="physical_activity_content_two">Latihan dapat berupa aktivitas apa pun yang membutuhkan upaya fisik,
+        dilakukan untuk mempertahankan atau meningkatkan kesehatan atau kebugaran, dan ini dapat dilakukan dengan
+        resep/tanpa pengawasan (misalnya berjalan kaki 30 menit setiap hari), diawasi (misalnya kelas latihan kelompok
+        yang diawasi setiap minggu) atau keduanya. Aktivitas fisik juga penting untuk keseimbangan energi dan
+        pengendalian berat badan.
+    </string>
+    <string name="physical_activity_content_three">Gaya hidup sehat mencakup aktivitas fisik aerobik dan latihan
+        pengkondisian kekuatan yang ditujukan untuk mempertahankan tingkat kebugaran yang baik selama kehamilan, tanpa
+        berusaha mencapai tingkat kebugaran puncak atau berlatih untuk kompetisi atletik. Wanita harus memilih aktivitas
+        dengan risiko minimal kehilangan keseimbangan dan trauma janin. Wanita hamil, pascamelahirkan dan orang dengan
+        penyakit jantung mungkin perlu mengambil tindakan pencegahan ekstra dan mencari nasihat medis sebelum berusaha
+        mencapai tingkat aktivitas fisik yang direkomendasikan.
+    </string>
+    <string name="physical_activity">Aktivitas fisik</string>
+    <string name="people_who_are_physically_active">Orang yang aktif secara fisik:</string>
     <string name="no_health_data_recorded">Tidak ada data rekam medis</string>
-    <string name="go_to_image">Lihat gambar</string>
-    <string name="attach_file">Lampirkan dokumen</string>
-    <string name="default_language_string">Bahasa: %1s</string>
-    <string name="choose_language">Pilih Bahasa</string>
-    <string name="weeks_and_days_from_days">%.0f minggu %d hari</string>
-    <string name="indonesian_language">Indonesia</string>
+    <string name="lower_diesease_rates">memiliki tingkat penyakit jantung koroner yang lebih rendah, tekanan darah
+        tinggi, stroke, diabetes, kanker (termasuk kanker usus besar dan payudara), dan depresi;
+    </string>
+    <string name="lots_of_supplies">Sebuah fasilitas memiliki staf, peralatan, persediaan dan obat-obatan yang tersedia
+        untuk memberikan perawatan terbaik jika diperlukan, dan sistem rujukan.
+    </string>
+    <string name="improve_their_muscular_and_cardio_respiratory_fitness">meningkatkan kebugaran otot dan
+        kardio-pernapasan mereka;
+    </string>
+    <string name="improve_their_bone_and_functional_health">meningkatkan kesehatan tulang dan fungsional mereka;
+    </string>
+    <string name="if_the_woman_lives_near_the_facility_she_should_go_at_the_first_signs_of_labour">Jika wanita tersebut
+        tinggal di dekat fasilitas, dia harus pergi pada tanda-tanda pertama persalinan.
+    </string>
+    <string name="if_living_far_from_the_facility_she_should_go_2_3_weeks_before_baby_due_date_and_stay_either_at_the_maternity_waiting_home_or_with_family_or_friends_near_the_facility">
+        Jika tinggal jauh dari fasilitas, dia harus pergi 2-3 minggu sebelum tanggal kelahiran bayi dan tinggal di rumah
+        tunggu bersalin atau bersama keluarga atau teman di dekat fasilitas.
+    </string>
+    <string name="if_hiv_infected_she_will_need_appropriate_arv_treatment_for_herself_and_her_baby_during_childbirth">
+        Jika terinfeksi HIV dia akan membutuhkan pengobatan ARV yang tepat untuk dirinya dan bayinya saat melahirkan.
+    </string>
+    <string name="how_will_she_get_there_will_she_have_to_pay_for_transport">Bagaimana dia akan sampai di sana? Apakah
+        dia harus membayar transportasi?
+    </string>
+    <string name="how_much_will_it_cost_to_deliver_at_the_facility_how_will_she_pay">Berapa biaya pengiriman di
+        fasilitas? Bagaimana dia akan membayar?
+    </string>
+    <string name="home_delivery_with_a_skilled_attendant">Pengiriman rumah dengan petugas terampil</string>
+    <string name="home_based_maternal_record">Catatan ibu berbasis rumah.</string>
+    <string name="have_a_lower_risk_of_falling_and_of_hip_or_vertebral_fractures_and">memiliki risiko jatuh dan patah
+        tulang pinggul atau tulang belakang yang lebih rendah; dan
+    </string>
+    <string name="go_to_image">Ke gambar</string>
+    <string name="for_more_information_please_access">Untuk informasi lebih lanjut silahkan akses:</string>
+    <string name="for_adults_a_healthy_diet_contains">Untuk orang dewasa, makanan sehat mengandung:</string>
+    <string name="food_and_water_for_woman_and_support_person">Makanan dan air untuk wanita dan orang pendukung.
+    </string>
+    <string name="facility_delivery_header">Pengiriman fasilitas</string>
+    <string name="explain_why_birth_in_a_facility_is_recommended">Jelaskan mengapa kelahiran di fasilitas dianjurkan
+    </string>
+    <string name="explain_supplies_needed_for_home_delivery">Jelaskan perlengkapan yang dibutuhkan untuk pengiriman ke
+        rumah
+    </string>
+    <string name="demographic_info">Info Demografis</string>
+    <string name="current_pregnancy">Kehamilan Sekarang</string>
+    <string name="obstetric_history">Riwayat Kebidanan</string>
+    <string name="medical_history">Riwayat kesehatan</string>
+    <string name="immunisation_status">Status Imunisasi</string>
+    <string name="medications">Obat-obatan</string>
+    <string name="womans_behaviour">Perilaku Wanita</string>
+    <string name="physiological_symptoms">Gejala Fisiologis</string>
+    <string name="height_and_weight">Tinggi dan berat</string>
+    <string name="blood_pressure">Tekanan darah</string>
+    <string name="maternal_exam">Pemeriksaan Ibu</string>
+    <string name="fetal_assessment">Penilaian Janin</string>
+    <string name="ultrasound_test">Tes USG</string>
+    <string name="blood_type_test">Tes Golongan Darah</string>
+    <string name="hiv_test">Tes HIV</string>
+    <string name="partner_hiv_test">Tes HIV Pasangan</string>
+    <string name="hepatitis_b_test">Tes Hepatitis B</string>
+    <string name="hepatitis_c_test">Tes Hepatitis C</string>
+    <string name="syphilis_test">Tes Sipilis</string>
+    <string name="urine_test">Tes urin</string>
+    <string name="blood_glucose_test">Tes Glukosa Darah</string>
+    <string name="blood_haemoglobin_test_and_ifa">Tes Hemoglobin Darah dan IFA</string>
+    <string name="tb_screening">Skrining TB</string>
+    <string name="other_tests">Tes lainnya</string>
+    <string name="pre_eclampsia_risk">Risiko Pra Eklampsia</string>
+    <string name="hiv_risk_and_prep">Risiko dan Persiapan HIV</string>
+    <string name="diabetes_risk">Risiko Diabetes</string>
+    <string name="danger_signs_counseling">Konseling Tanda Bahaya</string>
+    <string name="anc_contacts_counseling">Konseling Kontak ANC</string>
+    <string name="family_planning_counseling">Konseling Keluarga Berencana</string>
+    <string name="birth_plan_counseling">Konseling Rencana Kelahiran</string>
+    <string name="breastfeeding_counseling">Konseling Menyusui</string>
+    <string name="anaemia_prevention">Pencegahan Anemia</string>
+    <string name="deworming_and_malaria_prophylaxis">Pencegahan Cacingan dan Malaria</string>
+    <string name="calcium_supplementation">Suplementasi Kalsium</string>
+    <string name="vitamin_a_supplementation">Suplementasi Vitamin A</string>
+    <string name="back">Kembali</string>
+    <string name="attach_file">Lampirkan file</string>
+    <string name="birth_and_emergency_plan">Rencana Kelahiran dan Darurat</string>
+    <string name="balanced_nutrition">Nutrisi Seimbang</string>
+    <string name="balanced_nutrition_source">SUMBER: Organisasi Kesehatan Dunia. Manajemen Terpadu Kehamilan dan
+        Persalinan – Kehamilan, Melahirkan, Postpartum dan Perawatan Bayi Baru Lahir: Panduan untuk praktik penting.
+        2015. Jenewa.
+    </string>
+    <string name="birth_and_emergency">Kelahiran dan Darurat</string>
+    <string name="develop_a_birth_and_emergency_plan_header">Kembangkan rencana kelahiran dan darurat</string>
+    <string name="any_complication_can_develop_during_delivery_they_are_not_always_predictable">Komplikasi apa pun dapat
+        berkembang selama persalinan - tidak selalu dapat diprediksi.
+    </string>
+    <string name="complications_are_more_common_in_hiv_infected_women_and_their_newborns_hiv_infected_women_should_deliver_in_a_facility">
+        Komplikasi lebih sering terjadi pada wanita yang terinfeksi HIV dan bayi mereka yang baru lahir. Wanita yang
+        terinfeksi HIV harus melahirkan di fasilitas.
+    </string>
+    <string name="advise_how_to_prepare">Menyarankan bagaimana mempersiapkan</string>
+    <string name="can_she_start_saving_straight_away">Bisakah dia mulai menabung langsung?</string>
+    <string name="advise_when_to_go">Menyarankan kapan harus pergi</string>
+    <string name="advise_to_ask_for_help_from_the_community_if_needed">Sarankan untuk meminta bantuan dari masyarakat,
+        jika diperlukan.
+    </string>
+    <string name="advise_what_to_bring">Sarankan apa yang harus dibawa</string>
+    <string name="clean_cloths_for_washing_drying_and_wrapping_the_baby">Kain bersih untuk mencuci, mengeringkan dan
+        membungkus bayi.
+    </string>
+    <string name="additional_clean_cloths_to_use_as_sanitary_pads_after_birth">Kain bersih tambahan untuk digunakan
+        sebagai pembalut setelah melahirkan.
+    </string>
+    <string name="clothes_for_mother_and_baby">Pakaian ibu dan bayi.</string>
+    <string name="advise_to_call_the_skilled_attendant_at_the_first_signs_of_labour">Anjurkan untuk memanggil petugas
+        terampil pada tanda-tanda pertama persalinan.
+    </string>
+    <string name="advise_to_have_her_home_based_maternal_record_ready">Anjurkan untuk menyiapkan catatan ibu berbasis
+        rumah.
+    </string>
+    <string name="advise_asking_for_help_from_the_community_if_needed">Menyarankan meminta bantuan dari masyarakat, jika
+        diperlukan.
+    </string>
+    <string name="clean_cloths_of_different_sizes_for_the_bed_for_drying_and_wrapping_the_baby_for_cleaning_the_baby_s_eyes_for_the_birth_attendant_to_wash_and_dry_her_hands_for_use_as_sanitary_pads">
+        Pakaian bersih dengan berbagai ukuran: untuk tempat tidur, untuk menjemur dan membungkus bayi, untuk
+        membersihkan mata bayi, untuk dukun bayi untuk mencuci dan mengeringkan tangannya, untuk digunakan sebagai
+        pembalut.
+    </string>
+    <string name="blankets">Selimut.</string>
+    <string name="buckets_of_clean_water_and_some_way_to_heat_this_water">Ember air bersih dan beberapa cara untuk
+        memanaskan air ini.
+    </string>
+    <string name="soap">Sabun mandi.</string>
+    <string name="bowls_2_for_washing_and_1_for_the_placenta">Mangkuk: 2 untuk mencuci dan 1 untuk plasenta.</string>
+    <string name="are_more_likely_to_maintain_their_weight">lebih mungkin untuk mempertahankan berat badan mereka.
+    </string>
+    <string name="birth_plan_source_text">SUMBER: Organisasi Kesehatan Dunia. Manajemen Terpadu Kehamilan dan Persalinan
+        – Kehamilan, Melahirkan, Postpartum dan Perawatan Bayi Baru Lahir: Panduan untuk praktik penting. 2015. Jenewa.
+    </string>
+    <string name="balanced_diet_content_one">Menjaga nutrisi yang baik dan pola makan yang sehat selama kehamilan sangat
+        penting untuk kesehatan ibu dan bayi yang belum lahir. Saat memberikan pendidikan dan konseling gizi untuk
+        meningkatkan status gizi ibu selama kehamilan, harap fokus terutama pada:
+    </string>
+    <string name="balanced_diet_content_two">mempromosikan diet sehat dengan meningkatkan keragaman dan jumlah makanan
+        yang dikonsumsi
+    </string>
+    <string name="balanced_diet_content_three">mempromosikan penambahan berat badan yang memadai melalui asupan protein
+        dan energi yang cukup dan seimbang
+    </string>
+    <string name="balanced_diet_content_four">mempromosikan penggunaan suplemen mikronutrien, suplemen makanan, atau
+        makanan yang diperkaya secara konsisten dan berkelanjutan
+    </string>
+    <string name="balanced_diet_content_five">Adaptasi lokal serta budaya mungkin diperlukan untuk memenuhi kebutuhan
+        individu dan memastikan kepatuhan terhadap rekomendasi.
+    </string>
+    <string name="balanced_diet_content_six">Buah-buahan, sayuran, kacang-kacangan (misalnya lentil, kacang-kacangan),
+        kacang-kacangan dan biji-bijian (misalnya jagung yang belum diproses, millet, oat, gandum, beras merah).
+    </string>
+    <string name="balanced_diet_content_seven">Setidaknya 400 g (5 porsi) buah dan sayuran sehari. Kentang, ubi jalar,
+        singkong dan akar bertepung lainnya tidak diklasifikasikan sebagai buah atau sayuran.
+    </string>
+    <string name="balanced_diet_content_eight">Kurang dari 10% dari total asupan energi dari gula bebas yang setara
+        dengan 50 g (atau sekitar 12 sendok teh tingkat) untuk seseorang dengan berat badan sehat yang mengkonsumsi
+        sekitar 2000 kalori per hari, tetapi idealnya kurang dari 5% dari total asupan energi untuk tambahan Keuntungan
+        sehat. Sebagian besar gula bebas ditambahkan ke makanan atau minuman oleh produsen, juru masak atau konsumen,
+        dan juga dapat ditemukan dalam gula yang secara alami ada dalam madu, sirup, jus buah, dan konsentrat jus buah.
+    </string>
+    <string name="balanced_diet_content_nine">Kurang dari 30% dari total asupan energi dari lemak. Lemak tak jenuh
+        (misalnya ditemukan pada ikan, alpukat, kacang-kacangan, bunga matahari, canola dan minyak zaitun) lebih disukai
+        daripada lemak jenuh (misalnya ditemukan dalam daging berlemak, mentega, minyak kelapa sawit dan kelapa, krim,
+        keju, ghee dan lemak babi). Lemak trans industri (ditemukan dalam makanan olahan, makanan cepat saji, makanan
+        ringan, gorengan, pizza beku, pai, kue kering, margarin dan olesan) bukan bagian dari diet sehat.
+    </string>
+    <string name="balanced_diet_content_ten">Kurang dari 5 g garam (setara dengan kurang lebih 1 sendok teh) per hari
+        dan gunakan garam beryodium.
+    </string>
+    <string name="example_sources_of_protein">Contoh sumber protein:</string>
+    <string name="balanced_diet_content_eleven">Harap tambahkan ke daftar dan ubah ke standar lokal jika memungkinkan.
+    </string>
+    <string name="example_sources_of_calcium">Contoh sumber kalsium:</string>
+    <string name="example_sources_of_energy">Contoh sumber energi:</string>
+    <string name="balanced_diet_content_12_info">Harap tambahkan ke daftar dan ubah ke standar lokal jika
+        memungkinkan.
+    </string>
+    <string name="example_sources_of_iron">Contoh sumber zat besi:</string>
+    <string name="example_sources_of_vitamin_a">Example sources of Vitamin A:</string>
+    <string name="example_sources_of_vitamin_c">Contoh sumber Vitamin C:</string>
+    <string name="caffeine_intake">Asupan kafein</string>
+    <string name="balanced_diet_content_13">Dosis harian maksimum asupan kafein untuk ibu hamil adalah 300mg, setara
+        dengan:
+    </string>
+    <string name="choose_language">Pilih bahasa</string>
+    <string name="english_language">Bahasa Inggris</string>
+    <string name="french_language">Perancis</string>
+    <string name="portuguese_brazil_language">Portugis (Brasil)</string>
+    <string name="bahasa_indonesia">Bahasa Indonesia</string>
+    <string name="opensrp_url">https://sid.alcasha.com/opensrp/</string>
 </resources>

@@ -272,11 +272,11 @@
         },
         "v_min": {
           "value": "0.1",
-          "err": "Birth weight must be greater than 0"
+          "err": "Berat lahir harus lebih besar dari 0"
         },
         "v_max": {
           "value": "10",
-          "err": "Birth weight must be less than or equal to 10"
+          "err": "Berat lahir harus kurang dari atau sama dengan 10"
         },
         "v_numeric": {
           "value": "true",

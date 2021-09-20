@@ -89,5 +89,8 @@
                 android:textSize="@dimen/contact_detail_text_size" />
 
         </LinearLayout>
+
+
     </RelativeLayout>
+
 </org.smartregister.anc.library.view.SquareCardView>

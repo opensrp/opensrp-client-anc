@@ -84,7 +84,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 
     private void setDefaultLanguage() {
         try {
-            Utils.saveLanguage("en");
+            Utils.saveLanguage("ID");
         } catch (Exception e) {
             Timber.e(e, " --> saveLanguage");
         }

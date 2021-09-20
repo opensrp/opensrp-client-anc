@@ -28,7 +28,7 @@
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@id/info"
         android:padding="@dimen/characteristics_padding"
-        android:text="No"
+        android:text="Tidak"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/text_black" />
 

@@ -106,8 +106,8 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             quickCheck.setBackground(R.drawable.quick_check_bg);
             quickCheck.setWizard(false);
             quickCheck.setHideSaveLabel(true);
-            if (requiredFieldsMap.containsKey(quickCheck.getName())) {
-                Integer quickCheckFields = requiredFieldsMap.get(quickCheck.getName());
+            if (requiredFieldsMap.containsKey(quickCheck.getEncouterName())) {
+                Integer quickCheckFields = requiredFieldsMap.get(quickCheck.getEncouterName());
                 quickCheck.setRequiredFields(quickCheckFields != null ? quickCheckFields : 0);
             }
 
@@ -246,8 +246,8 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     }
 
     private void setRequiredFields(Contact contact) {
-        if (requiredFieldsMap != null && contact != null && requiredFieldsMap.containsKey(contact.getName())) {
-            contact.setRequiredFields(requiredFieldsMap.get(contact.getName()));
+        if (requiredFieldsMap != null && contact != null && requiredFieldsMap.containsKey(contact.getEncouterName())) {
+            contact.setRequiredFields(requiredFieldsMap.get(contact.getEncouterName()));
         }
     }
 

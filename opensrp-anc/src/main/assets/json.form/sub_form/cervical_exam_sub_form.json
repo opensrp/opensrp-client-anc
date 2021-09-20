@@ -23,15 +23,15 @@
       "edit_type": "number",
       "v_numeric_integer": {
         "value": "true",
-        "err": "Enter valid cervical dilation in cm"
+        "err": "Masukkan nilai pelebaran serviks yang benar dalam cm"
       },
       "v_min": {
         "value": "0",
-        "err": "Cervical dilation must be greater than or equal to 0"
+        "err": "Dilatasi serviks harus lebih besar atau sama dengan 0"
       },
       "v_max": {
         "value": "10",
-        "err": "Cervical dilation must be equal to or less than 10"
+        "err": "Dilatasi serviks harus sama dengan atau kurang dari 10"
       },
       "v_required": {
         "value": false,

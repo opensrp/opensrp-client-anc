@@ -251,7 +251,7 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
         double weeks = Math.round(Math.floor(days / 7));
         Integer dayz = days % 7;
 
-        return String.format(context.getString(R.string.weeks_and_days_from_days), weeks, dayz);
+        return String.format("%.0f minggu %d hari", weeks, dayz);
     }
 
     @Override

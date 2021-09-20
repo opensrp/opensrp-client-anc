@@ -5,7 +5,7 @@
   "encounter_type": "Profile",
   "entity_id": "",
   "relational_id": "",
-  "form_version": "0.0.15",
+  "form_version": "0.0.1",
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -48,7 +48,7 @@
       "openmrs_data_type": "phonenumber",
       "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
     },
-    "encounter_location": "44de66fb-e6c6-4bae-92bb-386dfe626eba",
+    "encounter_location": "",
     "look_up": {
       "entity_id": "",
       "value": ""
@@ -409,7 +409,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "specify_info": "specify date",
+            "specify_info": "tentukkan tanggal",
             "specify_widget": "date_picker",
             "max_date": "today-14d",
             "min_date": "today-280d"
@@ -491,7 +491,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "specify_info": "ultrasound date",
+            "specify_info": "tanggal USG",
             "specify_widget": "date_picker",
             "max_date": "today",
             "min_date": "today-9m"
@@ -575,15 +575,15 @@
         },
         "v_numeric_integer": {
           "value": true,
-          "err": "Enter a Valid GA from ultrasound - weeks value"
+          "err": "Masukkan nilai usia kehamilan dari USG - dalam hitungan minggu"
         },
         "v_min": {
           "value": "4",
-          "err": "GA from ultrasound - weeks should be equal to or greater than 4"
+          "err": "Usia kehamilan dari USG - dalam hitungan minggu dan harus sama dengan atau lebih besar dari 4"
         },
         "v_max": {
           "value": "40",
-          "err": "GA from ultrasound - weeks should be less than or equal to 40"
+          "err": "Usia kehamilan dari USG - dalam hitungan minggu dan harus kurang dari atau sama dengan 40"
         }
       },
       {
@@ -605,15 +605,15 @@
         },
         "v_numeric_integer": {
           "value": true,
-          "err": "Enter a Valid GA from ultrasound - days value"
+          "err": "Masukkan usia kehamilan yang valid dari USG - dalam hintungan hari"
         },
         "v_min": {
           "value": "1",
-          "err": "GA from ultrasound - days should be equal to or greater than 1"
+          "err": "Usia Kehamilan dari USG - dalam hitungan hari dan harus sama dengan atau lebih besar dari 1"
         },
         "v_max": {
           "value": "6",
-          "err": "GA from ultrasound - days should be less than or equal to 6"
+          "err": "Usia Kehamilan dari USG - dalam hitungan hari dan harus kurang dari atau sama dengan 6"
         }
       },
       {
@@ -692,8 +692,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "label_info_text": "If LMP is unknown and ultrasound wasn't done or it wasn't done early (before 24 weeks), then assess GA based on Symphysis Fundal Height (SFH) or abdominal palpation. Compare this GA against ultrasound GA (if done).",
-        "label_info_title": "GA from SFH or abdominal palpation - weeks",
+        "label_info_text": "Jika LMP tidak diketahui dan USG tidak dilakukan atau tidak dilakukan lebih awal (sebelum 24 minggu), maka nilai GA berdasarkan Symphysis Fundal Height (SFH) atau palpasi perut. Bandingkan GA ini dengan USG GA (jika dilakukan). ",
+        "label_info_title": "Usia kehamilan dari tinggi fundus atau palpasi perut - minggu",
         "hint": "{{anc_profile.step2.sfh_gest_age.hint}}",
         "v_required": {
           "value": true,
@@ -701,15 +701,15 @@
         },
         "v_numeric_integer": {
           "value": true,
-          "err": "Enter a Valid GA from SFH or abdominal palpation - weeks value"
+          "err": "Masukkan GA Valid dari SFH atau palpasi perut - mingguan"
         },
         "v_min": {
           "value": "4",
-          "err": "GA from SFH or abdominal palpation - weeks should 4 or greater"
+          "err": "Usia Kehamilan dari SFH atau palpasi perut - minggu harus 4 atau lebih"
         },
         "v_max": {
           "value": "40",
-          "err": "GA from SFH or abdominal palpation - weeks should be 40 or less"
+          "err": "Usia Kehamilan dari SFH atau palpasi perut - minggu harus 40 atau kurang"
         },
         "relevance": {
           "rules-engine": {
@@ -757,7 +757,7 @@
         "key": "select_gest_age_edd_label",
         "type": "label",
         "text": "{{anc_profile.step2.select_gest_age_edd_label.text}}",
-        "label_info_text": "If the difference between GA from LMP and early ultrasound is one week or less, then use GA from LMP. If the difference is more than 7 days, use the early ultrasound GA. If ultrasound was done late, use GA from LMP. Between late ultrasound and SFH or abdominal palpation, use your best judgment to select GA.",
+        "label_info_text": "Jika perbedaan antara GA dari LMP dan USG awal adalah satu minggu atau kurang, maka gunakan GA dari LMP. Jika perbedaannya lebih dari 7 hari, gunakan USG awal GA. Jika USG terlambat dilakukan, gunakan GA dari LMP. Antara USG terlambat dan SFH atau palpasi perut, gunakan penilaian terbaik Anda untuk memilih GA.",
         "label_text_style": "bold",
         "text_color": "#000000",
         "v_required": {
@@ -778,7 +778,7 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "text": "{{anc_profile.step2.lmp_gest_age_selection.options.lmp.text}}",
-            "extra_info": "GA: {lmp_gest_age}<br/>EDD: {lmp_edd}"
+            "extra_info": "GA: {lmp_gest_age}\u003cbr/\u003eEDD: {lmp_edd}"
           }
         ],
         "v_required": {
@@ -813,7 +813,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159618AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "extra_info": "GA: {ultrasound_gest_age} <br/> EDD: {ultrasound_edd}"
+            "extra_info": "GA: {ultrasound_gest_age} \u003cbr/\u003e EDD: {ultrasound_edd}"
           }
         ],
         "v_required": {
@@ -848,7 +848,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "extra_info": "GA: {sfh_gest_age} <br/> EDD: {sfh_edd}"
+            "extra_info": "GA: {sfh_gest_age} \u003cbr/\u003e EDD: {sfh_edd}"
           }
         ],
         "v_required": {
@@ -883,7 +883,7 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "text": "{{anc_profile.step2.lmp_ultrasound_gest_age_selection.options.lmp.text}}",
-            "extra_info": "GA: {lmp_gest_age}<br/>EDD: {lmp_edd}"
+            "extra_info": "GA: {lmp_gest_age}\u003cbr/\u003eEDD: {lmp_edd}"
           },
           {
             "key": "ultrasound",
@@ -891,7 +891,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159618AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "extra_info": "GA: {ultrasound_gest_age} <br/> EDD: {ultrasound_edd}"
+            "extra_info": "GA: {ultrasound_gest_age} \u003cbr/\u003e EDD: {ultrasound_edd}"
           }
         ],
         "v_required": {
@@ -926,7 +926,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159618AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "extra_info": "GA: {ultrasound_gest_age} <br/> EDD: {ultrasound_edd}"
+            "extra_info": "GA: {ultrasound_gest_age} \u003cbr/\u003e EDD: {ultrasound_edd}"
           },
           {
             "key": "sfh",
@@ -934,7 +934,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "extra_info": "GA: {sfh_gest_age} <br/> EDD: {sfh_edd}"
+            "extra_info": "GA: {sfh_gest_age} \u003cbr/\u003e EDD: {sfh_edd}"
           }
         ],
         "v_required": {

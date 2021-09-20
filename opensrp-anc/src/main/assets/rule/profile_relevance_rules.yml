@@ -175,7 +175,7 @@ actions:
   - "isRelevant = true"
 ---
 name: step1_headss_toaster
-description: HEADSS info
+description: Headss Toaster
 priority: 1
 condition: "(global_age < 19)"
 actions:

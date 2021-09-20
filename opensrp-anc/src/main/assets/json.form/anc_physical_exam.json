@@ -106,11 +106,11 @@
         },
         "v_min": {
           "value": "100",
-          "err": "Height must be equal or greater than 100"
+          "err": "Tinggi harus sama atau lebih besar dari 100"
         },
         "v_max": {
           "value": "200",
-          "err": "Height must be equal or less than 200"
+          "err": "Tinggi harus sama atau kurang dari 200"
         }
       },
       {
@@ -168,11 +168,11 @@
         },
         "v_min": {
           "value": "30",
-          "err": "Weight must be equal or greater than 30"
+          "err": "Berat harus sama atau lebih besar dari 30"
         },
         "v_max": {
           "value": "180",
-          "err": "Weight must be equal or less than 180"
+          "err": "Berat harus sama atau kurang dari 180"
         },
         "v_required": {
           "value": "true",
@@ -228,11 +228,11 @@
         },
         "v_min": {
           "value": "30",
-          "err": "Weight must be equal or greater than 30"
+          "err": "Berat harus sama atau lebih besar dari 30"
         },
         "v_max": {
           "value": "180",
-          "err": "Weight must be equal or less than 180"
+          "err": "Berat harus sama atau kurang dari 180"
         },
         "v_required": {
           "value": "true",
@@ -494,11 +494,11 @@
         },
         "v_min": {
           "value": "20",
-          "err": "SBP must be equal or greater than 20"
+          "err": "SBP harus sama atau lebih besar dari 20"
         },
         "v_max": {
           "value": "260",
-          "err": "SBP must be equal or less than 260"
+          "err": "SBP harus sama atau kurang dari 260"
         },
         "v_required": {
           "value": "true",
@@ -570,11 +570,11 @@
         },
         "v_min": {
           "value": "20",
-          "err": "DBP must be equal to or greater than 20"
+          "err": "DBP harus sama dengan atau lebih besar dari 20"
         },
         "v_max": {
           "value": "260",
-          "err": "DBP must be equal to or less than 260"
+          "err": "DBP harus sama dengan atau kurang dari 260"
         },
         "v_required": {
           "value": "true",
@@ -721,11 +721,11 @@
         },
         "v_min": {
           "value": "20",
-          "err": "SBP must be equal or greater than 20"
+          "err": "SBP harus sama atau lebih besar dari 20"
         },
         "v_max": {
           "value": "260",
-          "err": "SBP must be equal or less than 260"
+          "err": "SBP harus sama atau kurang dari 260"
         },
         "v_required": {
           "value": "true",
@@ -778,11 +778,11 @@
         },
         "v_min": {
           "value": "20",
-          "err": "DBP must be equal or greater than 20"
+          "err": "DBP harus sama atau lebih besar dari 20"
         },
         "v_max": {
           "value": "260",
-          "err": "DBP must be equal or less than 260"
+          "err": "DBP harus sama atau kurang dari 260"
         },
         "v_required": {
           "value": "true",
@@ -1139,11 +1139,11 @@
         },
         "v_min": {
           "value": "35",
-          "err": "Temperature must be equal to or greater than 35"
+          "err": "Suhu tubuh harus sama dengan atau lebih besar dari 35"
         },
         "v_max": {
           "value": "42",
-          "err": "Temperature must be equal to or less than 42"
+          "err": "Suhu harus sama dengan atau kurang dari 42"
         }
       },
       {
@@ -1176,7 +1176,7 @@
         "label_text_style": "bold",
         "text": "{{anc_physical_exam.step3.body_temp_repeat_label.text}}",
         "text_color": "#000000",
-        "label_info_text": "Retake the woman\u0027s temperature if the first reading was 38ºC or higher.",
+        "label_info_text": "Ulangi kembali suhu wanita jika pembacaan pertama adalah 38ºC atau lebih tinggi.",
         "v_required": {
           "value": true
         },
@@ -1211,11 +1211,11 @@
         },
         "v_min": {
           "value": "35",
-          "err": "Temperature must be equal to or greater than 35"
+          "err": "Suhu harus sama dengan atau lebih besar dari 35"
         },
         "v_max": {
           "value": "42",
-          "err": "Temperature must be equal to or less than 42"
+          "err": "Suhu harus sama dengan atau kurang dari 42"
         }
       },
       {
@@ -1271,11 +1271,11 @@
         },
         "v_min": {
           "value": "20",
-          "err": "Pulse rate must be equal to or greater than 20"
+          "err": "Denyut nadi harus sama dengan atau lebih besar dari 20"
         },
         "v_max": {
           "value": "200",
-          "err": "Pulse rate must be equal to or less than 200"
+          "err": "Denyut nadi harus sama dengan atau kurang dari 200"
         }
       },
       {
@@ -1308,7 +1308,7 @@
         "type": "label",
         "label_text_style": "bold",
         "text": "{{anc_physical_exam.step3.pulse_rate_repeat_label.text}}",
-        "label_info_text": "Retake the woman\u0027s pulse rate if the first reading was lower than 60 or higher than 100.",
+        "label_info_text": "Ambil kembali denyut nadi pasien jika pembacaan pertama lebih rendah dari 60 atau lebih tinggi dari 100.",
         "text_color": "#000000",
         "v_required": {
           "value": true
@@ -1335,11 +1335,11 @@
         },
         "v_min": {
           "value": "20",
-          "err": "Pulse rate must be equal to or greater than 20"
+          "err": "Denyut nadi harus sama dengan atau lebih besar dari 20"
         },
         "v_max": {
           "value": "200",
-          "err": "Pulse rate must be equal to or less than 200"
+          "err": "Denyut nadi harus sama dengan atau kurang dari 200"
         },
         "v_required": {
           "value": "true",
@@ -1466,7 +1466,7 @@
           {
             "key": "3",
             "text": "{{anc_physical_exam.step3.respiratory_exam.options.3.text}}",
-            "specify_info": "specify...",
+            "specify_info": "tentukan...",
             "specify_widget": "check_box",
             "specify_info_color": "#8C8C8C",
             "content_form": "respiratory_exam_sub_form",
@@ -1575,7 +1575,7 @@
           {
             "key": "3",
             "text": "{{anc_physical_exam.step3.cardiac_exam.options.3.text}}",
-            "specify_info": "specify...",
+            "specify_info": "tentukan...",
             "specify_widget": "check_box",
             "specify_info_color": "#8C8C8C",
             "content_form": "cardiac_exam_sub_form",
@@ -1639,7 +1639,7 @@
           {
             "key": "3",
             "text": "{{anc_physical_exam.step3.breast_exam.options.3.text}}",
-            "specify_info": "specify...",
+            "specify_info": "tentukan...",
             "specify_widget": "check_box",
             "specify_info_color": "#8C8C8C",
             "content_form": "breast_exam_sub_form",
@@ -1703,7 +1703,7 @@
           {
             "key": "3",
             "text": "{{anc_physical_exam.step3.abdominal_exam.options.3.text}}",
-            "specify_info": "specify...",
+            "specify_info": "tentukan...",
             "specify_widget": "check_box",
             "specify_info_color": "#8C8C8C",
             "content_form": "abdominal_exam_sub_form",
@@ -1767,7 +1767,7 @@
           {
             "key": "3",
             "text": "{{anc_physical_exam.step3.pelvic_exam.options.3.text}}",
-            "specify_info": "specify...",
+            "specify_info": "tentukan...",
             "specify_widget": "check_box",
             "specify_info_color": "#8C8C8C",
             "content_form": "pelvic_exam_sub_form",
@@ -1820,7 +1820,7 @@
             "openmrs_entity_parent": "165374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity": "",
             "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "specify_info": "specify cm cervix dilated...",
+            "specify_info": "tentukkan nilai dalam cm pembukaan serviks...",
             "specify_widget": "normal_edit_text",
             "specify_info_color": "#8C8C8C",
             "secondary_suffix": "cm",
@@ -1894,7 +1894,7 @@
           {
             "key": "yes",
             "text": "{{anc_physical_exam.step3.oedema.options.yes.text}}",
-            "specify_info": "specify type...",
+            "specify_info": "tentukkan tipe...",
             "specify_widget": "radio_button",
             "specify_info_color": "#8C8C8C",
             "content_form": "oedema_present_sub_form",
@@ -2319,15 +2319,15 @@
         "edit_type": "number",
         "v_min": {
           "value": "0.1",
-          "err": "SFH must be greater than 0"
+          "err": "Tinggi fundus harus lebih besar dari 0"
         },
         "v_max": {
           "value": "44",
-          "err": "SFH must be less than or equal to 44"
+          "err": "Tinggi fundus harus lebih kecil atau sama dengan 44"
         },
         "v_numeric_integer": {
           "value": "true",
-          "err": "Enter a valid sfh"
+          "err": "Masukkan nilai tinggi fundus"
         },
         "v_required": {
           "value": "false",
@@ -2440,15 +2440,15 @@
         "edit_type": "number",
         "v_min": {
           "value": "80",
-          "err": "Fetal heartbeat must be equal or greater than 80"
+          "err": "Detak jantung janin harus sama atau lebih besar dari 80"
         },
         "v_max": {
           "value": "200",
-          "err": "Fetal heartbeat must be less than or equal to 200"
+          "err": "Detak jantung janin harus kurang dari atau sama dengan 200"
         },
         "v_numeric_integer": {
           "value": "true",
-          "err": "Enter a valid number"
+          "err": "Masukkan nilai yang benar"
         },
         "relevance": {
           "step4:fetal_heartbeat": {

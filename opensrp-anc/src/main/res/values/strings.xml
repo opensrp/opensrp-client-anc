@@ -4,6 +4,7 @@
     <string name="action_language">Language</string>
 
     <!-- General -->
+    <string name="opensrp_url">https://sid.alcasha.com/opensrp/</string>
     <string name="app_name">WHO ANC</string>
     <string name="saving_dialog_title">Saving…</string>
     <string name="removing_dialog_title">Removing…</string>
@@ -316,6 +317,44 @@
     <string name="no_tests_available">No Tests Available</string>
     <string name="hospital_referral">Hospital referral</string>
     <string name="no_contact_schedule">No contact schedule generated yet</string>
+
+    <string name="demographic_info">Dempographic Info</string>
+    <string name="current_pregnancy">Current Pregnancy</string>
+    <string name="obstetric_history">Obstetric History</string>
+    <string name="medical_history">Medical History</string>
+    <string name="immunisation_status">Immunisation Status</string>
+    <string name="medications">Medications</string>
+    <string name="womans_behaviour">Woman\'s Behaviour</string>
+    <string name="physiological_symptoms">Physiological Symptoms</string>
+    <string name="height_and_weight">Height and Weight</string>
+    <string name="blood_pressure">Blood Pressure</string>
+    <string name="maternal_exam">Maternal Exam</string>
+    <string name="fetal_assessment">Fetal Assessment</string>
+    <string name="ultrasound_test">Ultrasound Test</string>
+    <string name="blood_type_test">Blood Type Test</string>
+    <string name="hiv_test">HIV Test</string>
+    <string name="partner_hiv_test">Partner HIV Test</string>
+    <string name="hepatitis_b_test">Hepatitis B Test</string>
+    <string name="hepatitis_c_test">Hepatitis C Test</string>
+    <string name="syphilis_test">Syphilis Test</string>
+    <string name="urine_test">Urine Test</string>
+    <string name="blood_glucose_test">Blood Glucose Test</string>
+    <string name="blood_haemoglobin_test_and_ifa">Blood Haemoglobin Test and IFA</string>
+    <string name="tb_screening">TB Screening</string>
+    <string name="other_tests">Other Tests</string>
+    <string name="pre_eclampsia_risk">Pre Eclampsia Risk</string>
+    <string name="hiv_risk_and_prep">HIV Risk and Prep</string>
+    <string name="diabetes_risk">Diabetes Risk</string>
+    <string name="danger_signs_counseling">Danger Signs Counseling</string>
+    <string name="anc_contacts_counseling">ANC Contacts Counseling</string>
+    <string name="family_planning_counseling">Family Planning Counseling</string>
+    <string name="birth_plan_counseling">Birth Plan Counseling</string>
+    <string name="breastfeeding_counseling">Breastfeeding Counseling</string>
+    <string name="anaemia_prevention">Anaemia Prevention</string>
+    <string name="deworming_and_malaria_prophylaxis">Deworming and Malaria Prophylaxis</string>
+    <string name="calcium_supplementation">Calcium Supplementation</string>
+    <string name="vitamin_a_supplementation">Vitamin A Supplementation</string>
+
     <string name="hospital_referral_title">Hospital referral recorded</string>
     <string name="back">Back</string>
     <string name="tab_button_image">Tab button image</string>
@@ -330,7 +369,7 @@
 
     <string name="balanced_nutrition_source">SOURCE: World Health Organization. Integrated Management of Pregnancy and Childbirth – Pregnancy, Childbirth, Postpartum and Newborn Care: A guide for essential practice. 2015. Geneva.</string>
     <string name="string_bullet">•</string>
-    <string name="birth_and_emergency"></string>
+    <string name="birth_and_emergency">Birth and Emergency</string>
     <string name="develop_a_birth_and_emergency_plan_header">Develop a birth and emergency plan</string>
     <string name="facility_delivery_header">Facility delivery</string>
     <string name="explain_why_birth_in_a_facility_is_recommended">Explain why birth in a facility is recommended</string>
@@ -424,8 +463,5 @@
     <string name="english_language">English</string>
     <string name="french_language">French</string>
     <string name="portuguese_brazil_language">Portuguese (Brazil)</string>
-
-    <string name="indonesian_language">Indonesia</string>
-    <string name="opensrp_url">https://sid.alcasha.com/opensrp/</string>
-    <string name="weeks_and_days_from_days">%.0f weeks %d days</string>
+    <string name="bahasa_indonesia">Bahasa Indonesia</string>
 </resources>
