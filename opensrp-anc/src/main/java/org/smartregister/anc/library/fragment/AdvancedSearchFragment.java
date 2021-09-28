@@ -392,6 +392,7 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
             switchViews(false);
         } else {
             ((BaseRegisterActivity) getActivity()).switchToBaseFragment();
+            ((BaseRegisterActivity) getActivity()).setSelectedBottomBarMenuItem(org.smartregister.R.id.action_clients);
         }
     }
 
