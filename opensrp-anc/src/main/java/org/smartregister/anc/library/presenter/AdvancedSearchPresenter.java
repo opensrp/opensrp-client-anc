@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.database.CursorJoiner;
 
 import org.apache.commons.lang3.StringUtils;
+import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.AdvancedSearchContract;
 import org.smartregister.anc.library.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.library.interactor.AdvancedSearchInteractor;
@@ -36,7 +37,13 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter
         if (StringUtils.isBlank(searchCriteria)) {
             return;
         }
-
+        searchCriteria = searchCriteria
+                .replace(AdvancedSearchModel.FIRST_NAME, getView().getContext().getString(R.string.search_string_first_name))
+                .replace(AdvancedSearchModel.LAST_NAME, getView().getContext().getString(R.string.search_string_last_name))
+                .replace(AdvancedSearchModel.EDD, getView().getContext().getString(R.string.search_string_edd))
+                .replace(AdvancedSearchModel.DOB, getView().getContext().getString(R.string.search_string_dob))
+                .replace(AdvancedSearchModel.MOBILE_PHONE_NUMBER, getView().getContext().getString(R.string.search_string_mobile_phone_number))
+                .replace(AdvancedSearchModel.ALTERNATE_CONTACT_NAME, getView().getContext().getString(R.string.search_string_alternate_contact_name));
         getView().updateSearchCriteria(searchCriteria);
 
         Map<String, String> editMap =

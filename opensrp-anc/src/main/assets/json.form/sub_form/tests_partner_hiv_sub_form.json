@@ -12,7 +12,7 @@
       "options": [
         {
           "key": "done_today",
-          "text": "Dilakukan hari ini",
+          "text": "{{tests_partner_hiv_sub_form.step1.hiv_test_partner_status.done_today.text}}",
           "type": "done_today",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -20,7 +20,7 @@
         },
         {
           "key": "done_earlier",
-          "text": "Pernah dilakukan",
+          "text": "{{tests_partner_hiv_sub_form.step1.hiv_test_partner_status.done_earlier.text}}",
           "type": "done_earlier",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -28,7 +28,7 @@
         },
         {
           "key": "ordered",
-          "text": "Sedang dalam proses",
+          "text": "{{tests_partner_hiv_sub_form.step1.hiv_test_partner_status.ordered.text}}",
           "type": "ordered",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -36,7 +36,7 @@
         },
         {
           "key": "not_done",
-          "text": "Tidak dilakukan",
+          "text": "{{tests_partner_hiv_sub_form.step1.hiv_test_partner_status.not_done.text}}",
           "type": "not_done",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",

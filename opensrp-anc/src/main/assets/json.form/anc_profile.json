@@ -148,7 +148,7 @@
     "title": "{{anc_profile.step1.title}}",
     "next": "step2",
     "fields": [
-     {
+      {
         "key": "headss_toaster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
@@ -575,15 +575,15 @@
         },
         "v_numeric_integer": {
           "value": true,
-          "err": "Masukkan nilai usia kehamilan dari USG - dalam hitungan minggu"
+          "err": "{{anc_profile.step2.ultrasound_gest_age_wks.v_numeric_integer.err}}"
         },
         "v_min": {
           "value": "4",
-          "err": "Usia kehamilan dari USG - dalam hitungan minggu dan harus sama dengan atau lebih besar dari 4"
+          "err": "{{anc_profile.step2.ultrasound_gest_age_wks.v_min.err}}"
         },
         "v_max": {
           "value": "40",
-          "err": "Usia kehamilan dari USG - dalam hitungan minggu dan harus kurang dari atau sama dengan 40"
+          "err": "{{anc_profile.step2.ultrasound_gest_age_wks.v_max.err}}"
         }
       },
       {
@@ -605,15 +605,15 @@
         },
         "v_numeric_integer": {
           "value": true,
-          "err": "Masukkan usia kehamilan yang valid dari USG - dalam hintungan hari"
+          "err": "{{anc_profile.step2.ultrasound_gest_age_days.v_numeric_integer.err}}"
         },
         "v_min": {
           "value": "1",
-          "err": "Usia Kehamilan dari USG - dalam hitungan hari dan harus sama dengan atau lebih besar dari 1"
+          "err": "{{anc_profile.step2.ultrasound_gest_age_days.v_min.err}}"
         },
         "v_max": {
           "value": "6",
-          "err": "Usia Kehamilan dari USG - dalam hitungan hari dan harus kurang dari atau sama dengan 6"
+          "err": "{{anc_profile.step2.ultrasound_gest_age_days.v_max.err}}"
         }
       },
       {
@@ -692,8 +692,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "label_info_text": "Jika HPHT tidak diketahui dan USG tidak dilakukan atau tidak dilakukan lebih awal (sebelum 24 minggu), maka nilai Usia Kehamilan berdasarkan Symphysis Fundal Height (TFU) atau palpasi perut. Bandingkan Usia Kehamilan ini dengan USG Usia Kehamilan (jika dilakukan). ",
-        "label_info_title": "Usia kehamilan dari tinggi fundus atau palpasi perut - minggu",
+        "label_info_text": "{{anc_profile.step2.sfh_gest_age.label_info_text}}",
+        "label_info_title": "{{anc_profile.step2.sfh_gest_age.label_info_title}}",
         "hint": "{{anc_profile.step2.sfh_gest_age.hint}}",
         "v_required": {
           "value": true,
@@ -701,15 +701,15 @@
         },
         "v_numeric_integer": {
           "value": true,
-          "err": "Masukkan Usia Kehamilan Valid dari TFU atau palpasi perut - mingguan"
+          "err": "{{anc_profile.step2.sfh_gest_age.v_numeric_integer.err}}"
         },
         "v_min": {
           "value": "4",
-          "err": "Usia Kehamilan dari TFU atau palpasi perut - minggu harus 4 atau lebih"
+          "err": "{{anc_profile.step2.sfh_gest_age.v_min.err}}"
         },
         "v_max": {
           "value": "40",
-          "err": "Usia Kehamilan dari TFU atau palpasi perut - minggu harus 40 atau kurang"
+          "err": "{{anc_profile.step2.sfh_gest_age.v_max.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -757,7 +757,7 @@
         "key": "select_gest_age_edd_label",
         "type": "label",
         "text": "{{anc_profile.step2.select_gest_age_edd_label.text}}",
-        "label_info_text": "Jika perbedaan antara Usia Kehamilan dari HPHT dan USG awal adalah satu minggu atau kurang, maka gunakan Usia Kehamilan dari HPHT. Jika perbedaannya lebih dari 7 hari, gunakan USG awal Usia Kehamilan. Jika USG terlambat dilakukan, gunakan Usia Kehamilan dari HPHT. Antara USG terlambat dan TFU atau palpasi perut, gunakan penilaian terbaik Anda untuk memilih Usia Kehamilan.",
+        "label_info_text": "{{anc_profile.step2.select_gest_age_edd_label.label_info_text}}",
         "label_text_style": "bold",
         "text_color": "#000000",
         "v_required": {
@@ -778,7 +778,7 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "text": "{{anc_profile.step2.lmp_gest_age_selection.options.lmp.text}}",
-            "extra_info": "Usia Kehamilan: {lmp_gest_age}\u003cbr/\u003eEDD: {lmp_edd}"
+            "extra_info": "Usia Kehamilan: {lmp_gest_age}<br/>EDD: {lmp_edd}"
           }
         ],
         "v_required": {
@@ -813,7 +813,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159618AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "extra_info": "Usia Kehamilan: {ultrasound_gest_age} \u003cbr/\u003e EDD: {ultrasound_edd}"
+            "extra_info": "Usia Kehamilan: {ultrasound_gest_age} <br/> EDD: {ultrasound_edd}"
           }
         ],
         "v_required": {
@@ -848,7 +848,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "extra_info": "Usia Kehamilan: {sfh_gest_age} \u003cbr/\u003e EDD: {sfh_edd}"
+            "extra_info": "Usia Kehamilan: {sfh_gest_age} <br/> EDD: {sfh_edd}"
           }
         ],
         "v_required": {
@@ -883,7 +883,7 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "text": "{{anc_profile.step2.lmp_ultrasound_gest_age_selection.options.lmp.text}}",
-            "extra_info": "Usia Kehamilan: {lmp_gest_age}\u003cbr/\u003eEDD: {lmp_edd}"
+            "extra_info": "Usia Kehamilan: {lmp_gest_age}<br/>EDD: {lmp_edd}"
           },
           {
             "key": "ultrasound",
@@ -891,7 +891,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159618AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "extra_info": "Usia Kehamilan: {ultrasound_gest_age} \u003cbr/\u003e EDD: {ultrasound_edd}"
+            "extra_info": "Usia Kehamilan: {ultrasound_gest_age} <br/> EDD: {ultrasound_edd}"
           }
         ],
         "v_required": {
@@ -926,7 +926,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159618AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "extra_info": "Usia Kehamilan: {ultrasound_gest_age} \u003cbr/\u003e EDD: {ultrasound_edd}"
+            "extra_info": "Usia Kehamilan: {ultrasound_gest_age} <br/> EDD: {ultrasound_edd}"
           },
           {
             "key": "sfh",
@@ -934,7 +934,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "extra_info": "Usia Kehamilan: {sfh_gest_age} \u003cbr/\u003e EDD: {sfh_edd}"
+            "extra_info": "Usia Kehamilan: {sfh_gest_age} <br/> EDD: {sfh_edd}"
           }
         ],
         "v_required": {

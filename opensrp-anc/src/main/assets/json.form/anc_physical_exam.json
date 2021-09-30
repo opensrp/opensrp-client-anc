@@ -102,15 +102,15 @@
         },
         "v_numeric": {
           "value": "true",
-          "err": ""
+          "err": "{{anc_physical_exam.step1.height.v_numeric.err}}"
         },
         "v_min": {
           "value": "100",
-          "err": "Tinggi badan harus sama atau lebih besar dari 100"
+          "err": "{{anc_physical_exam.step1.height.v_min.err}}"
         },
         "v_max": {
           "value": "200",
-          "err": "Tinggi badan harus sama atau kurang dari 200"
+          "err": "{{anc_physical_exam.step1.height.v_max.err}}"
         }
       },
       {
@@ -164,15 +164,15 @@
         },
         "v_numeric": {
           "value": "true",
-          "err": ""
+          "err": "{{anc_physical_exam.step1.pregest_weight.v_numeric.err}}"
         },
         "v_min": {
           "value": "30",
-          "err": "Berat badan harus sama atau lebih besar dari 30"
+          "err": "{{anc_physical_exam.step1.pregest_weight.v_min.err}}"
         },
         "v_max": {
           "value": "180",
-          "err": "Berat badan harus sama atau kurang dari 180"
+          "err": "{{anc_physical_exam.step1.pregest_weight.v_max.err}}"
         },
         "v_required": {
           "value": "true",
@@ -224,15 +224,15 @@
         "edit_type": "number",
         "v_numeric": {
           "value": "true",
-          "err": ""
+          "err": "{{anc_physical_exam.step1.current_weight.v_numeric.err}}"
         },
         "v_min": {
           "value": "30",
-          "err": "Berat badan harus sama atau lebih besar dari 30"
+          "err": "{{anc_physical_exam.step1.current_weight.v_min.err}}"
         },
         "v_max": {
           "value": "180",
-          "err": "Berat badan harus sama atau kurang dari 180"
+          "err": "{{anc_physical_exam.step1.current_weight.v_max.err}}"
         },
         "v_required": {
           "value": "true",
@@ -490,15 +490,15 @@
         "edit_type": "number",
         "v_numeric": {
           "value": "true",
-          "err": ""
+          "err": "{{anc_physical_exam.step2.bp_systolic.v_numeric.err}}"
         },
         "v_min": {
           "value": "20",
-          "err": "Tekanan Darah Sistolik harus sama atau lebih besar dari 20"
+          "err": "{{anc_physical_exam.step2.bp_systolic.v_min.err}}"
         },
         "v_max": {
           "value": "260",
-          "err": "Tekanan Darah Sistolik harus sama atau kurang dari 260"
+          "err": "{{anc_physical_exam.step2.bp_systolic.v_max.err}}"
         },
         "v_required": {
           "value": "true",
@@ -566,15 +566,15 @@
         "edit_type": "number",
         "v_numeric": {
           "value": "true",
-          "err": ""
+          "err": "{{anc_physical_exam.step2.bp_diastolic.v_numeric.err}}"
         },
         "v_min": {
           "value": "20",
-          "err": "Tekanan Darah Diastolik harus sama dengan atau lebih besar dari 20"
+          "err": "{{anc_physical_exam.step2.bp_diastolic.v_min.err}}"
         },
         "v_max": {
           "value": "260",
-          "err": "Tekanan Darah Diastolik harus sama dengan atau kurang dari 260"
+          "err": "{{anc_physical_exam.step2.bp_diastolic.v_max.err}}"
         },
         "v_required": {
           "value": "true",
@@ -717,15 +717,15 @@
         "edit_type": "number",
         "v_numeric": {
           "value": "true",
-          "err": ""
+          "err": "{{anc_physical_exam.step2.bp_systolic_repeat.v_numeric.err}}"
         },
         "v_min": {
           "value": "20",
-          "err": "Tekanan Darah Sistolik harus sama atau lebih besar dari 20"
+          "err": "{{anc_physical_exam.step2.bp_systolic_repeat.v_min.err}}"
         },
         "v_max": {
           "value": "260",
-          "err": "Tekanan Darah Sistolik harus sama atau kurang dari 260"
+          "err": "{{anc_physical_exam.step2.bp_systolic_repeat.v_max.err}}"
         },
         "v_required": {
           "value": "true",
@@ -774,15 +774,15 @@
         "edit_type": "number",
         "v_numeric": {
           "value": "true",
-          "err": ""
+          "err": "{{anc_physical_exam.step2.bp_diastolic_repeat.v_numeric.err}}"
         },
         "v_min": {
           "value": "20",
-          "err": "Tekanan Darah Diastolik harus sama dengan atau lebih besar dari 20"
+          "err": "{{anc_physical_exam.step2.bp_diastolic_repeat.v_min.err}}"
         },
         "v_max": {
           "value": "260",
-          "err": "Tekanan Darah Diastolik harus sama dengan atau kurang dari 260"
+          "err": "{{anc_physical_exam.step2.bp_diastolic_repeat.v_max.err}}"
         },
         "v_required": {
           "value": "true",
@@ -1135,15 +1135,15 @@
         },
         "v_numeric": {
           "value": "true",
-          "err": ""
+          "err": "{{anc_physical_exam.step3.body_temp.v_numeric.err}}"
         },
         "v_min": {
           "value": "35",
-          "err": "Suhu tubuh harus sama dengan atau lebih besar dari 35"
+          "err": "{{anc_physical_exam.step3.body_temp.v_min.err}}"
         },
         "v_max": {
           "value": "42",
-          "err": "Suhu harus sama dengan atau kurang dari 42"
+          "err": "{{anc_physical_exam.step3.body_temp.v_max.err}}"
         }
       },
       {
@@ -1176,7 +1176,7 @@
         "label_text_style": "bold",
         "text": "{{anc_physical_exam.step3.body_temp_repeat_label.text}}",
         "text_color": "#000000",
-        "label_info_text": "Ulangi kembali suhu wanita jika pembacaan pertama adalah 38ºC atau lebih tinggi.",
+        "label_info_text": "{{anc_physical_exam.step3.body_temp_repeat_label.label_info_text}}",
         "v_required": {
           "value": true
         },
@@ -1207,15 +1207,15 @@
         },
         "v_numeric": {
           "value": "true",
-          "err": ""
+          "err": "{{anc_physical_exam.step3.body_temp_repeat.v_numeric.err}}"
         },
         "v_min": {
           "value": "35",
-          "err": "Suhu harus sama dengan atau lebih besar dari 35"
+          "err": "{{anc_physical_exam.step3.body_temp_repeat.v_min.err}}"
         },
         "v_max": {
           "value": "42",
-          "err": "Suhu harus sama dengan atau kurang dari 42"
+          "err": "{{anc_physical_exam.step3.body_temp_repeat.v_max.err}}"
         }
       },
       {
@@ -1267,15 +1267,15 @@
         },
         "v_numeric": {
           "value": "true",
-          "err": ""
+          "err": "{{anc_physical_exam.step3.pulse_rate.v_numeric.err}}"
         },
         "v_min": {
           "value": "20",
-          "err": "Denyut nadi harus sama dengan atau lebih besar dari 20"
+          "err": "{{anc_physical_exam.step3.pulse_rate.v_min.err}}"
         },
         "v_max": {
           "value": "200",
-          "err": "Denyut nadi harus sama dengan atau kurang dari 200"
+          "err": "{{anc_physical_exam.step3.pulse_rate.v_max.err}}"
         }
       },
       {
@@ -1308,7 +1308,7 @@
         "type": "label",
         "label_text_style": "bold",
         "text": "{{anc_physical_exam.step3.pulse_rate_repeat_label.text}}",
-        "label_info_text": "Ambil kembali denyut nadi pasien jika pembacaan pertama lebih rendah dari 60 atau lebih tinggi dari 100.",
+        "label_info_text": "{{anc_physical_exam.step3.pulse_rate_repeat_label.label_info_text}}",
         "text_color": "#000000",
         "v_required": {
           "value": true
@@ -1331,15 +1331,15 @@
         "edit_type": "number",
         "v_numeric": {
           "value": "true",
-          "err": ""
+          "err": "{{anc_physical_exam.step3.pulse_rate_repeat.v_numeric.err}}"
         },
         "v_min": {
           "value": "20",
-          "err": "Denyut nadi harus sama dengan atau lebih besar dari 20"
+          "err": "{{anc_physical_exam.step3.pulse_rate_repeat.v_min.err}}"
         },
         "v_max": {
           "value": "200",
-          "err": "Denyut nadi harus sama dengan atau kurang dari 200"
+          "err": "{{anc_physical_exam.step3.pulse_rate_repeat.v_max.err}}"
         },
         "v_required": {
           "value": "true",
@@ -2319,15 +2319,15 @@
         "edit_type": "number",
         "v_min": {
           "value": "0.1",
-          "err": "Tinggi fundus uteri harus lebih besar dari 0"
+          "err": "{{anc_physical_exam.step4.sfh.v_min.err}}"
         },
         "v_max": {
           "value": "44",
-          "err": "Tinggi fundus uteri harus lebih kecil atau sama dengan 44"
+          "err": "{{anc_physical_exam.step4.sfh.v_max.err}}"
         },
         "v_numeric_integer": {
           "value": "true",
-          "err": "Masukkan nilai tinggi fundus uteri"
+          "err": "{{anc_physical_exam.step4.sfh.v_numeric_integer.err}}"
         },
         "v_required": {
           "value": "false",
@@ -2440,15 +2440,15 @@
         "edit_type": "number",
         "v_min": {
           "value": "80",
-          "err": "Detak jantung janin harus sama atau lebih besar dari 80"
+          "err": "{{anc_physical_exam.step4.fetal_heart_rate.v_min.err}}"
         },
         "v_max": {
           "value": "200",
-          "err": "Detak jantung janin harus kurang dari atau sama dengan 200"
+          "err": "{{anc_physical_exam.step4.fetal_heart_rate.v_max.err}}"
         },
         "v_numeric_integer": {
           "value": "true",
-          "err": "Masukkan nilai yang benar"
+          "err": "{{anc_physical_exam.step4.fetal_heart_rate.v_numeric_integer.err}}"
         },
         "relevance": {
           "step4:fetal_heartbeat": {

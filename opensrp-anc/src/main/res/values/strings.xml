@@ -11,7 +11,9 @@
     <string name="please_wait_message">Please wait</string>
     <string name="scan_qr_code">Scan QR code</string>
     <string name="select_language">Select Language</string>
-    <string name="no_openmrs_id">No unique ids found. Click on the sync button to get more and if this error persists contact the system admin.</string>
+    <string name="no_openmrs_id">No unique ids found. Click on the sync button to get more and if this error persists
+        contact the system admin.
+    </string>
     <string name="alphabetical_sort">Alphabetical (Name)</string>
     <string name="name">Name</string>
     <string name="dismiss">Cancel</string>
@@ -81,7 +83,7 @@
     <string name="first_name_z_to_a">First name (Z to A)</string>
     <string name="last_name_a_to_z">Last name (A to Z)</string>
     <string name="last_name_z_to_a">Last name (Z to A)</string>
-    <string name="no_location_picker">No location selected </string>
+    <string name="no_location_picker">No location selected</string>
 
     <!-- advanced search -->
     <string name="advanced_search">Advanced Search</string>
@@ -147,13 +149,19 @@
     <string name="clients_menu">Clients</string>
     <string name="_0_clients_sort_updated">0 Clients (Sort: updated)</string>
 
-    <string name="reason_for_coming_facility"><font fgcolor="black">Reason for coming to facility? </font><font fgcolor="red">*</font></string>
+    <string name="reason_for_coming_facility">
+        <font fgcolor="black">Reason for coming to facility?</font>
+        <font fgcolor="red">*</font>
+    </string>
 
     <string name="first_contact">First contact</string>
     <string name="scheduled_contact">Scheduled contact</string>
     <string name="specific_complaint">Specific complaint</string>
 
-    <string name="specific_complaints"><font fgcolor="black">Specific complaint(s) </font><font fgcolor="red">*</font></string>
+    <string name="specific_complaints">
+        <font fgcolor="black">Specific complaint(s)</font>
+        <font fgcolor="red">*</font>
+    </string>
 
     <string name="abnormal_discharge">Abnormal vaginal discharge</string>
     <string name="altered_skin_color">Altered skin colour</string>
@@ -193,7 +201,10 @@
     <string name="visual_disturbance">Visual disturbance</string>
     <string name="complaint_other_specify">Other</string>
 
-    <string name="danger_signs"><font fgcolor="black">Danger signs </font><font fgcolor="red">*</font></string>
+    <string name="danger_signs">
+        <font fgcolor="black">Danger signs</font>
+        <font fgcolor="red">*</font>
+    </string>
 
     <string name="danger_none">None</string>
     <string name="danger_bleeding">Bleeding vaginally</string>
@@ -220,10 +231,12 @@
     <string name="validation_no_valid_danger_sign">Please at least one danger sign other than None</string>
     <string name="validation_unable_to_save_quick_check">Unable to save quick check event</string>
 
-    <string name="cyanosis_info">Bluish discolouration around the mucous membranes in the mouth, lips and tongue</string>
+    <string name="cyanosis_info">Bluish discolouration around the mucous membranes in the mouth, lips and tongue
+    </string>
 
     <string name="any_treatment">Any treatment given\nbefore referral?</string>
-    <string name="welcome_site_characteristics">Welcome!\n\nTo get started, please set your site characteristics.</string>
+    <string name="welcome_site_characteristics">Welcome!\n\nTo get started, please set your site characteristics.
+    </string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="contact_dummy_text">CONTACT&#10;22/05/2018</string>
@@ -233,9 +246,11 @@
     <string name="continue_">continue</string>
     <string name="continue_to_your_client_list">CONTINUE TO YOUR CLIENT LIST</string>
     <string name="your_site_characteristics_for_facility_name">Your site characteristics for %1$s are all set.</string>
-    <string name="site_characteristics_are_shared_for_all">Site characteristics are shared by all OpenSRP users at the facility. You can update site characteristics at any time.</string>
+    <string name="site_characteristics_are_shared_for_all">Site characteristics are shared by all OpenSRP users at the
+        facility. You can update site characteristics at any time.
+    </string>
     <string name="go_back_to_site_characteristics">Go back to site characteristics</string>
-    <string name="edit"> edit </string>
+    <string name="edit">edit</string>
 
     <!-- contact -->
     <string name="quick_check">Quick Check</string>
@@ -258,7 +273,7 @@
     <string name="discard_contact">Ignore changes</string>
     <string name="close_without_saving">Close without saving\nLose updates you\'ve made in\nthis contact</string>
 
-    <string name="me_page_location_text">Location: </string>
+    <string name="me_page_location_text">Location:</string>
     <string name="right_arrow">Right Arrow</string>
     <string name="section_icon">Section Icon</string>
     <string name="settings">Settings</string>
@@ -281,7 +296,9 @@
     <string name="contact_in_progress">CONTACT %1$s\n IN PROGRESS</string>
     <string name="contact_in_progress_no_break">CONTACT %1$s &#183; IN PROGRESS</string>
     <string name="due_delivery">DUE\nDELIVERY</string>
-    <string name="record_birth_popup_message">GA: %1$d weeks\nEDD: %2$s (%3$s ago)\n\n%4$s should come in immediately for delivery.</string>
+    <string name="record_birth_popup_message">GA: %1$d weeks\nEDD: %2$s (%3$s ago)\n\n%4$s should come in immediately
+        for delivery.
+    </string>
     <string name="contact_number">Contact %1$d</string>
     <string name="contact_recorded">Contact %1$d recorded</string>
     <string name="info_icon_display">the more info icon display</string>
@@ -291,7 +308,7 @@
     <string name="save_and_finish">SAVE + FINISH</string>
     <string name="reason_for_visit">REASON FOR VISIT</string>
     <string name="contact_recorded_today">CONTACT %1$d\n DONE TODAY</string>
-    <string name="contact_recorded_today_no_break"> CONTACT %1$d &#183; DONE TODAY</string>
+    <string name="contact_recorded_today_no_break">CONTACT %1$d &#183; DONE TODAY</string>
     <string name="continue_contact">Continue Contact %1$d</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
@@ -307,7 +324,9 @@
     <string name="contact_details">%1$s Weeks &#183; Contact %2$s</string>
     <string name="referral_contact_details">Contact %1$s</string>
     <string name="undo_test_result">Undo the %1$s result?</string>
-    <string name="negative_contact_text">A negative contact means that the patient was referred so her contact schedule does not change and remains the same as before</string>
+    <string name="negative_contact_text">A negative contact means that the patient was referred so her contact schedule
+        does not change and remains the same as before
+    </string>
     <string name="previous_contacts_header">Previous Contacts</string>
     <string name="previous_contacts_tests_header">All Test Results</string>
     <string name="expected_date_of_delivery">Expected Date of Delivery</string>
@@ -367,96 +386,211 @@
     <string name="physical_activity">Physical Activity</string>
     <string name="balanced_nutrition">Balanced Nutrition</string>
 
-    <string name="balanced_nutrition_source">SOURCE: World Health Organization. Integrated Management of Pregnancy and Childbirth – Pregnancy, Childbirth, Postpartum and Newborn Care: A guide for essential practice. 2015. Geneva.</string>
+    <string name="balanced_nutrition_source">SOURCE: World Health Organization. Integrated Management of Pregnancy and
+        Childbirth – Pregnancy, Childbirth, Postpartum and Newborn Care: A guide for essential practice. 2015. Geneva.
+    </string>
     <string name="string_bullet">•</string>
     <string name="birth_and_emergency">Birth and Emergency</string>
     <string name="develop_a_birth_and_emergency_plan_header">Develop a birth and emergency plan</string>
     <string name="facility_delivery_header">Facility delivery</string>
-    <string name="explain_why_birth_in_a_facility_is_recommended">Explain why birth in a facility is recommended</string>
-    <string name="any_complication_can_develop_during_delivery_they_are_not_always_predictable">Any complication can develop during delivery - they are not always predictable.</string>
-    <string name="lots_of_supplies">A facility has staff, equipment, supplies and drugs available to provide best care if needed, and a referral system.</string>
-    <string name="if_hiv_infected_she_will_need_appropriate_arv_treatment_for_herself_and_her_baby_during_childbirth">If HIV-infected she will need appropriate ARV treatment for herself and her baby during childbirth.</string>
-    <string name="complications_are_more_common_in_hiv_infected_women_and_their_newborns_hiv_infected_women_should_deliver_in_a_facility">Complications are more common in HIV-infected women and their newborns. HIV-infected women should deliver in a facility.</string>
+    <string name="explain_why_birth_in_a_facility_is_recommended">Explain why birth in a facility is recommended
+    </string>
+    <string name="any_complication_can_develop_during_delivery_they_are_not_always_predictable">Any complication can
+        develop during delivery - they are not always predictable.
+    </string>
+    <string name="lots_of_supplies">A facility has staff, equipment, supplies and drugs available to provide best care
+        if needed, and a referral system.
+    </string>
+    <string name="if_hiv_infected_she_will_need_appropriate_arv_treatment_for_herself_and_her_baby_during_childbirth">If
+        HIV-infected she will need appropriate ARV treatment for herself and her baby during childbirth.
+    </string>
+    <string name="complications_are_more_common_in_hiv_infected_women_and_their_newborns_hiv_infected_women_should_deliver_in_a_facility">
+        Complications are more common in HIV-infected women and their newborns. HIV-infected women should deliver in a
+        facility.
+    </string>
     <string name="advise_how_to_prepare">Advise how to prepare</string>
     <string name="review_the_arrangements_for_delivery">Review the arrangements for delivery:</string>
-    <string name="how_will_she_get_there_will_she_have_to_pay_for_transport">How will she get there? Will she have to pay for transport?</string>
-    <string name="how_much_will_it_cost_to_deliver_at_the_facility_how_will_she_pay">How much will it cost to deliver at the facility? How will she pay?</string>
+    <string name="how_will_she_get_there_will_she_have_to_pay_for_transport">How will she get there? Will she have to
+        pay for transport?
+    </string>
+    <string name="how_much_will_it_cost_to_deliver_at_the_facility_how_will_she_pay">How much will it cost to deliver at
+        the facility? How will she pay?
+    </string>
     <string name="can_she_start_saving_straight_away">Can she start saving straight away?</string>
-    <string name="who_will_go_with_her_for_support_during_labour_and_delivery">Who will go with her for support during labour and delivery?</string>
-    <string name="who_will_help_while_she_is_away_to_care_for_her_home_and_other_children">Who will help while she is away to care for her home and other children?</string>
+    <string name="who_will_go_with_her_for_support_during_labour_and_delivery">Who will go with her for support during
+        labour and delivery?
+    </string>
+    <string name="who_will_help_while_she_is_away_to_care_for_her_home_and_other_children">Who will help while she is
+        away to care for her home and other children?
+    </string>
     <string name="advise_when_to_go">Advise when to go</string>
-    <string name="if_the_woman_lives_near_the_facility_she_should_go_at_the_first_signs_of_labour">If the woman lives near the facility, she should go at the first signs of labour.</string>
-    <string name="if_living_far_from_the_facility_she_should_go_2_3_weeks_before_baby_due_date_and_stay_either_at_the_maternity_waiting_home_or_with_family_or_friends_near_the_facility">If living far from the facility, she should go 2-3 weeks before baby due date and stay either at the maternity waiting home or with family or friends near the facility.</string>
-    <string name="advise_to_ask_for_help_from_the_community_if_needed">Advise to ask for help from the community, if needed.</string>
+    <string name="if_the_woman_lives_near_the_facility_she_should_go_at_the_first_signs_of_labour">If the woman lives
+        near the facility, she should go at the first signs of labour.
+    </string>
+    <string name="if_living_far_from_the_facility_she_should_go_2_3_weeks_before_baby_due_date_and_stay_either_at_the_maternity_waiting_home_or_with_family_or_friends_near_the_facility">
+        If living far from the facility, she should go 2-3 weeks before baby due date and stay either at the maternity
+        waiting home or with family or friends near the facility.
+    </string>
+    <string name="advise_to_ask_for_help_from_the_community_if_needed">Advise to ask for help from the community, if
+        needed.
+    </string>
     <string name="advise_what_to_bring">Advise what to bring</string>
     <string name="home_based_maternal_record">Home-based maternal record.</string>
-    <string name="clean_cloths_for_washing_drying_and_wrapping_the_baby">Clean cloths for washing, drying and wrapping the baby.</string>
-    <string name="additional_clean_cloths_to_use_as_sanitary_pads_after_birth">Additional clean cloths to use as sanitary pads after birth.</string>
+    <string name="clean_cloths_for_washing_drying_and_wrapping_the_baby">Clean cloths for washing, drying and wrapping
+        the baby.
+    </string>
+    <string name="additional_clean_cloths_to_use_as_sanitary_pads_after_birth">Additional clean cloths to use as
+        sanitary pads after birth.
+    </string>
     <string name="clothes_for_mother_and_baby">Clothes for mother and baby.</string>
     <string name="food_and_water_for_woman_and_support_person">Food and water for woman and support person.</string>
     <string name="home_delivery_with_a_skilled_attendant">Home delivery with a skilled attendant</string>
     <string name="review_the_following_with_her">Review the following with her:</string>
-    <string name="who_will_be_the_companion_during_labour_and_delivery">Who will be the companion during labour and delivery?</string>
-    <string name="who_will_be_close_by_for_at_least_24_hours_after_delivery">Who will be close by for at least 24 hours after delivery?</string>
-    <string name="who_will_help_to_care_for_her_home_and_other_children">Who will help to care for her home and other children?</string>
-    <string name="advise_to_call_the_skilled_attendant_at_the_first_signs_of_labour">Advise to call the skilled attendant at the first signs of labour.</string>
-    <string name="advise_to_have_her_home_based_maternal_record_ready">Advise to have her home-based maternal record ready.</string>
-    <string name="advise_asking_for_help_from_the_community_if_needed">Advise asking for help from the community, if needed.</string>
+    <string name="who_will_be_the_companion_during_labour_and_delivery">Who will be the companion during labour and
+        delivery?
+    </string>
+    <string name="who_will_be_close_by_for_at_least_24_hours_after_delivery">Who will be close by for at least 24 hours
+        after delivery?
+    </string>
+    <string name="who_will_help_to_care_for_her_home_and_other_children">Who will help to care for her home and other
+        children?
+    </string>
+    <string name="advise_to_call_the_skilled_attendant_at_the_first_signs_of_labour">Advise to call the skilled
+        attendant at the first signs of labour.
+    </string>
+    <string name="advise_to_have_her_home_based_maternal_record_ready">Advise to have her home-based maternal record
+        ready.
+    </string>
+    <string name="advise_asking_for_help_from_the_community_if_needed">Advise asking for help from the community, if
+        needed.
+    </string>
     <string name="explain_supplies_needed_for_home_delivery">Explain supplies needed for home delivery</string>
-    <string name="clean_cloths_of_different_sizes_for_the_bed_for_drying_and_wrapping_the_baby_for_cleaning_the_baby_s_eyes_for_the_birth_attendant_to_wash_and_dry_her_hands_for_use_as_sanitary_pads">Clean cloths of different sizes: for the bed, for drying and wrapping the baby, for cleaning the baby’s eyes, for the birth attendant to wash and dry her hands, for use as sanitary pads.</string>
+    <string name="clean_cloths_of_different_sizes_for_the_bed_for_drying_and_wrapping_the_baby_for_cleaning_the_baby_s_eyes_for_the_birth_attendant_to_wash_and_dry_her_hands_for_use_as_sanitary_pads">
+        Clean cloths of different sizes: for the bed, for drying and wrapping the baby, for cleaning the baby’s eyes,
+        for the birth attendant to wash and dry her hands, for use as sanitary pads.
+    </string>
     <string name="blankets">Blankets.</string>
-    <string name="buckets_of_clean_water_and_some_way_to_heat_this_water">Buckets of clean water and some way to heat this water.</string>
+    <string name="buckets_of_clean_water_and_some_way_to_heat_this_water">Buckets of clean water and some way to heat
+        this water.
+    </string>
     <string name="soap">Soap.</string>
     <string name="bowls_2_for_washing_and_1_for_the_placenta">Bowls: 2 for washing and 1 for the placenta.</string>
     <string name="plastic_for_wrapping_the_placenta">Plastic for wrapping the placenta.</string>
-    <string name="physical_exam_disclaimer">DISCLAIMER: WHO is not responsible for the content of these additional materials.</string>
-    <string name="physical_exam_content_one">Physical activity is any bodily movement produced by the skeletal muscles that uses energy. This includes sports, exercise, and other activities such as playing, walking, household chores, gardening, and dancing. Any activity, be it for work, to walk or cycle to and from places, or as part of leisure time, has a health benefit.</string>
+    <string name="physical_exam_disclaimer">DISCLAIMER: WHO is not responsible for the content of these additional
+        materials.
+    </string>
+    <string name="physical_exam_content_one">Physical activity is any bodily movement produced by the skeletal muscles
+        that uses energy. This includes sports, exercise, and other activities such as playing, walking, household
+        chores, gardening, and dancing. Any activity, be it for work, to walk or cycle to and from places, or as part of
+        leisure time, has a health benefit.
+    </string>
     <string name="people_who_are_physically_active">People who are physically active:</string>
-    <string name="improve_their_muscular_and_cardio_respiratory_fitness">improve their muscular and cardio-respiratory fitness;</string>
+    <string name="improve_their_muscular_and_cardio_respiratory_fitness">improve their muscular and cardio-respiratory
+        fitness;
+    </string>
     <string name="improve_their_bone_and_functional_health">improve their bone and functional health;</string>
-    <string name="lower_diesease_rates">have lower rates of coronary heart disease, high blood pressure, stroke, diabetes, cancer (including colon and breast cancer), and depression;</string>
-    <string name="have_a_lower_risk_of_falling_and_of_hip_or_vertebral_fractures_and">have a lower risk of falling and of hip or vertebral fractures; and</string>
+    <string name="lower_diesease_rates">have lower rates of coronary heart disease, high blood pressure, stroke,
+        diabetes, cancer (including colon and breast cancer), and depression;
+    </string>
+    <string name="have_a_lower_risk_of_falling_and_of_hip_or_vertebral_fractures_and">have a lower risk of falling and
+        of hip or vertebral fractures; and
+    </string>
     <string name="are_more_likely_to_maintain_their_weight">are more likely to maintain their weight.</string>
-    <string name="physical_activity_content_two">Exercise can be any activity requiring physical effort, carried out to sustain or improve health or fitness, and these can be either prescribed/unsupervised (e.g. 30 minutes of daily walking), supervised (e.g. a weekly supervised group exercise class) or both. Physical activity is also fundamental to energy balance and weight control.</string>
-    <string name="physical_activity_content_three">A healthy lifestyle includes aerobic physical activity and strength-conditioning exercise aimed at maintaining a good level of fitness throughout pregnancy, without trying to reach peak fitness level or train for athletic competition. Women should choose activities with minimal risk of loss of balance and fetal trauma. Pregnant, postpartum women and persons with cardiac events may need to take extra precautions and seek medical advice before striving to achieve the recommended levels of physical activity.</string>
+    <string name="physical_activity_content_two">Exercise can be any activity requiring physical effort, carried out to
+        sustain or improve health or fitness, and these can be either prescribed/unsupervised (e.g. 30 minutes of daily
+        walking), supervised (e.g. a weekly supervised group exercise class) or both. Physical activity is also
+        fundamental to energy balance and weight control.
+    </string>
+    <string name="physical_activity_content_three">A healthy lifestyle includes aerobic physical activity and
+        strength-conditioning exercise aimed at maintaining a good level of fitness throughout pregnancy, without trying
+        to reach peak fitness level or train for athletic competition. Women should choose activities with minimal risk
+        of loss of balance and fetal trauma. Pregnant, postpartum women and persons with cardiac events may need to take
+        extra precautions and seek medical advice before striving to achieve the recommended levels of physical
+        activity.
+    </string>
     <string name="for_more_information_please_access">For more information please access:</string>
-    <string name="physical_activity_url_one">https://apps.who.int/iris/bitstream/handle/10665/44399/9789241599979_eng.pdf?sequence=1</string>
+    <string name="physical_activity_url_one">
+        https://apps.who.int/iris/bitstream/handle/10665/44399/9789241599979_eng.pdf?sequence=1
+    </string>
     <string name="physical_activity_url_two">https://extranet.who.int/rhl/pt-br/node/151040</string>
-    <string name="birth_plan_source_text">SOURCE: World Health Organization. Integrated Management of Pregnancy and Childbirth – Pregnancy, Childbirth, Postpartum and Newborn Care: A guide for essential practice. 2015. Geneva.</string>
-    <string name="balanced_diet_content_one">Maintaining good nutrition and a healthy diet during pregnancy is critical for the health of the mother and unborn child. When providing nutrition education and counselling to improve the nutritional status of women during pregnancy, please focus primarily on:</string>
-    <string name="balanced_diet_content_two">promoting a healthy diet by increasing the diversity and amount of foods consumed</string>
-    <string name="balanced_diet_content_three">promoting adequate weight gain through sufficient and balanced protein and energy intake</string>
-    <string name="balanced_diet_content_four">promoting consistent and continued use of micronutrient supplements, food supplements or fortified foods</string>
-    <string name="balanced_diet_content_five">Local as well as cultural adaptations may be necessary to meet individual needs and ensure compliance with the recommendations.</string>
+    <string name="birth_plan_source_text">SOURCE: World Health Organization. Integrated Management of Pregnancy and
+        Childbirth – Pregnancy, Childbirth, Postpartum and Newborn Care: A guide for essential practice. 2015. Geneva.
+    </string>
+    <string name="balanced_diet_content_one">Maintaining good nutrition and a healthy diet during pregnancy is critical
+        for the health of the mother and unborn child. When providing nutrition education and counselling to improve the
+        nutritional status of women during pregnancy, please focus primarily on:
+    </string>
+    <string name="balanced_diet_content_two">promoting a healthy diet by increasing the diversity and amount of foods
+        consumed
+    </string>
+    <string name="balanced_diet_content_three">promoting adequate weight gain through sufficient and balanced protein
+        and energy intake
+    </string>
+    <string name="balanced_diet_content_four">promoting consistent and continued use of micronutrient supplements, food
+        supplements or fortified foods
+    </string>
+    <string name="balanced_diet_content_five">Local as well as cultural adaptations may be necessary to meet individual
+        needs and ensure compliance with the recommendations.
+    </string>
     <string name="for_adults_a_healthy_diet_contains">For adults a healthy diet contains:</string>
-    <string name="balanced_diet_content_six">Fruits, vegetables, legumes (e.g. lentils, beans), nuts and whole grains (e.g. unprocessed maize, millet, oats, wheat, brown rice).</string>
-    <string name="balanced_diet_content_seven">At least 400 g (5 portions) of fruits and vegetables a day. Potatoes, sweet potatoes, cassava and other starchy roots are not classified as fruits or vegetables.</string>
-    <string name="balanced_diet_content_eight">Less than 10% of total energy intake from free sugars which is equivalent to 50 g (or around 12 level teaspoons) for a person of healthy body weight consuming approximately 2000 calories per day, but ideally less than 5% of total energy intake for additional health benefits. Most free sugars are added to foods or drinks by the manufacturer, cook or consumer, and can also be found in sugars naturally present in honey, syrups, fruit juices and fruit juice concentrates.</string>
-    <string name="balanced_diet_content_nine">Less than 30% of total energy intake from fats. Unsaturated fats (e.g. found in fish, avocado, nuts, sunflower, canola and olive oils) are preferable to saturated fats (e.g. found in fatty meat, butter, palm and coconut oil, cream, cheese, ghee and lard). Industrial trans fats (found in processed food, fast food, snack food, fried food, frozen pizza, pies, cookies, margarines and spreads) are not part of a healthy diet.</string>
-    <string name="balanced_diet_content_ten">Less than 5 g of salt (equivalent to approximately 1 teaspoon) per day and use iodized salt.</string>
+    <string name="balanced_diet_content_six">Fruits, vegetables, legumes (e.g. lentils, beans), nuts and whole grains
+        (e.g. unprocessed maize, millet, oats, wheat, brown rice).
+    </string>
+    <string name="balanced_diet_content_seven">At least 400 g (5 portions) of fruits and vegetables a day. Potatoes,
+        sweet potatoes, cassava and other starchy roots are not classified as fruits or vegetables.
+    </string>
+    <string name="balanced_diet_content_eight">Less than 10% of total energy intake from free sugars which is equivalent
+        to 50 g (or around 12 level teaspoons) for a person of healthy body weight consuming approximately 2000 calories
+        per day, but ideally less than 5% of total energy intake for additional health benefits. Most free sugars are
+        added to foods or drinks by the manufacturer, cook or consumer, and can also be found in sugars naturally
+        present in honey, syrups, fruit juices and fruit juice concentrates.
+    </string>
+    <string name="balanced_diet_content_nine">Less than 30% of total energy intake from fats. Unsaturated fats (e.g.
+        found in fish, avocado, nuts, sunflower, canola and olive oils) are preferable to saturated fats (e.g. found in
+        fatty meat, butter, palm and coconut oil, cream, cheese, ghee and lard). Industrial trans fats (found in
+        processed food, fast food, snack food, fried food, frozen pizza, pies, cookies, margarines and spreads) are not
+        part of a healthy diet.
+    </string>
+    <string name="balanced_diet_content_ten">Less than 5 g of salt (equivalent to approximately 1 teaspoon) per day and
+        use iodized salt.
+    </string>
     <string name="balanced_diet_url_one">http://www.who.int/en/news-room/fact-sheets/detail/healthy-diet</string>
-    <string name="balanced_diet_url_two">https://mediumredpotion.wordpress.com/2011/12/14/that-old-healthy-food-pyramid/</string>
+    <string name="balanced_diet_url_two">
+        https://mediumredpotion.wordpress.com/2011/12/14/that-old-healthy-food-pyramid/
+    </string>
     <string name="source">Source</string>
     <string name="example_sources_of_protein">Example sources of protein:</string>
-    <string name="balanced_diet_content_eleven">Please add to list and modify to local standards where possible.</string>
-    <string name="balanced_diet_url_three">http://www.bendifulblog.com/your-guide-to-protein-what-you-should-know/</string>
+    <string name="balanced_diet_content_eleven">Please add to list and modify to local standards where possible.
+    </string>
+    <string name="balanced_diet_url_three">http://www.bendifulblog.com/your-guide-to-protein-what-you-should-know/
+    </string>
     <string name="balanced_diet_url_four">https://co.pinterest.com/pin/208291551498329651/</string>
     <string name="example_sources_of_calcium">Example sources of calcium:</string>
     <string name="example_sources_of_energy">Example sources of energy:</string>
-    <string name="balanced_diet_content_12_info">Please add to list and modify to local standards where possible.</string>
-    <string name="balanced_diet_url_4"><![CDATA[https://www.google.com/url?q=https://cyclonecup.com/blogs/news/13218465-12-healthy-foods-to-eat-for-high-energy&sa=D&ust=1580808439831000]]></string>
+    <string name="balanced_diet_content_12_info">Please add to list and modify to local standards where possible.
+    </string>
+    <string name="balanced_diet_url_4">
+        <![CDATA[https://www.google.com/url?q=https://cyclonecup.com/blogs/news/13218465-12-healthy-foods-to-eat-for-high-energy&sa=D&ust=1580808439831000]]></string>
     <string name="example_sources_of_iron">Example sources of iron:</string>
-    <string name="balanced_diet_url_5">https://www.wholesomebabyfoodguide.com/iron-and-iron-rich-baby-foods-what-iron-rich-foods-can-baby-eat/</string>
+    <string name="balanced_diet_url_5">
+        https://www.wholesomebabyfoodguide.com/iron-and-iron-rich-baby-foods-what-iron-rich-foods-can-baby-eat/
+    </string>
     <string name="balanced_diet_url_6">https://bit.ly/2RUH0VU</string>
-    <string name="balanced_diet_url_7">https://i.pinimg.com/originals/21/f2/e3/21f2e3fc203e6b475616e971f3c874f3.jpg</string>
+    <string name="balanced_diet_url_7">https://i.pinimg.com/originals/21/f2/e3/21f2e3fc203e6b475616e971f3c874f3.jpg
+    </string>
     <string name="example_sources_of_vitamin_a">Example sources of Vitamin A:</string>
     <string name="balanced_diet_url_8">https://www.myfooddata.com/articles/food-sources-of-vitamin-A.php</string>
-    <string name="balanced_diet_url_9">https://www.medindia.net/patients/lifestyleandwellness/vitamin-a-rich-foods.htm</string>
+    <string name="balanced_diet_url_9">https://www.medindia.net/patients/lifestyleandwellness/vitamin-a-rich-foods.htm
+    </string>
     <string name="example_sources_of_vitamin_c">Example sources of Vitamin C:</string>
     <string name="balanced_diet_url_10">https://www.myfooddata.com/articles/vitamin-c-foods.php#printable</string>
     <string name="caffeine_intake">Caffeine intake</string>
-    <string name="balanced_diet_content_13">The maximum daily dose of caffeine intake for a pregnant woman is 300mg, is equivalent to:</string>
-    <string name="balanced_diet_url_11">ftp://ftp.caism.unicamp.br/pub/astec/CARTILHA_DE_EXERCISIO_FISICO_NA_GRAVIDEZ_Publico.pdf</string>
+    <string name="balanced_diet_content_13">The maximum daily dose of caffeine intake for a pregnant woman is 300mg, is
+        equivalent to:
+    </string>
+    <string name="balanced_diet_url_11">
+        ftp://ftp.caism.unicamp.br/pub/astec/CARTILHA_DE_EXERCISIO_FISICO_NA_GRAVIDEZ_Publico.pdf
+    </string>
     <string name="default_language_string">Current language: %1s</string>
 
     <string name="choose_language">Choose language</string>
@@ -469,4 +603,16 @@
     <string name="hospital_referral_reasons">Hospital Referral Reasons</string>
     <string name="risks_and_diagnoses">Risks And Diagnoses</string>
     <string name="malaria_prophylaxis">Malaria Prophylaxis</string>
+    <string name="get_weeks_and_days_from_days">%.0f weeks %d days</string>
+    <string name="profile_age">Age %s</string>
+    <string name="profile_gestation_age">GA: %s WEEKS</string>
+    <string name="profile_gestation_age_empty">GA</string>
+    <string name="search_string_first_name">First name:</string>
+    <string name="search_string_last_name">Last name:</string>
+    <string name="search_string_edd">EDD:</string>
+    <string name="search_string_dob">DOB:</string>
+    <string name="search_string_mobile_phone_number">Mobile phone number:</string>
+    <string name="search_string_alternate_contact_name">Alternate contact name:</string>
+
+
 </resources>

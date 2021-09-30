@@ -561,4 +561,14 @@
     <string name="hospital_referral_reasons">Alasan Rujukan Ke Rumah Sakit</string>
     <string name="risks_and_diagnoses">Risiko Dan Diagnosis</string>
     <string name="malaria_prophylaxis">Profilaksis Malaria</string>
+    <string name="get_weeks_and_days_from_days">%.0f minggu %d hari</string>
+    <string name="profile_age">Usia %s</string>
+    <string name="profile_gestation_age">UK: %s MINGGU</string>
+    <string name="profile_gestation_age_empty">UK</string>
+    <string name="search_string_first_name">Nama Depan:</string>
+    <string name="search_string_last_name">Nama Belakang:</string>
+    <string name="search_string_edd">HPL:</string>
+    <string name="search_string_dob">TGL Lahir:</string>
+    <string name="search_string_mobile_phone_number">No tlp:</string>
+    <string name="search_string_alternate_contact_name">Nama alternatif:</string>
 </resources>

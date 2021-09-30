@@ -29,6 +29,7 @@ import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.Repository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.DrishtiSyncScheduler;
+import org.smartregister.util.LangUtils;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
@@ -84,7 +85,8 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 
     private void setDefaultLanguage() {
         try {
-            Utils.saveLanguage("ID");
+//            Utils.saveLanguage("ID");
+            LangUtils.saveLanguage(getApplicationContext(), "in");
         } catch (Exception e) {
             Timber.e(e, " --> saveLanguage");
         }

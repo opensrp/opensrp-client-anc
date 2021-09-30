@@ -12,7 +12,7 @@
       "options": [
         {
           "key": "done_today",
-          "text": "Dilakukan hari ini",
+          "text": "{{tests_other_tests_sub_form.step1.other_test.done_today.text}}",
           "type": "done_today",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -20,7 +20,7 @@
         },
         {
           "key": "done_earlier",
-          "text": "Pernah dilakukan",
+          "text": "{{tests_other_tests_sub_form.step1.other_test.done_earlier.text}}",
           "type": "done_earlier",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",

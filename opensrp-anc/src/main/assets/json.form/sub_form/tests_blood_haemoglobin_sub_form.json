@@ -12,7 +12,7 @@
       "options": [
         {
           "key": "done_today",
-          "text": "Dilakukan hari ini",
+          "text": "{{tests_blood_haemoglobin_sub_form.step1.hb_test_status.done_today.text}}",
           "type": "done_today",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -20,7 +20,7 @@
         },
         {
           "key": "done_earlier",
-          "text": "Pernah dilakukan",
+          "text": "{{tests_blood_haemoglobin_sub_form.step1.hb_test_status.done_earlier.text}}",
           "type": "done_earlier",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -28,7 +28,7 @@
         },
         {
           "key": "ordered",
-          "text": "Sedang dalam proses",
+          "text": "{{tests_blood_haemoglobin_sub_form.step1.hb_test_status.ordered.text}}",
           "type": "ordered",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -36,7 +36,7 @@
         },
         {
           "key": "not_done",
-          "text": "Tidak dilakukan",
+          "text": "{{tests_blood_haemoglobin_sub_form.step1.hb_test_status.not_done.text}}",
           "type": "not_done",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -217,11 +217,11 @@
       "edit_type": "number",
       "v_min": {
         "value": "0",
-        "err": "Tes hitung darah lengkap harus lebih besar dari atau sama dengan 0"
+        "err": "{{tests_blood_haemoglobin_sub_form.step1.cbc.v_min.err}}"
       },
       "v_max": {
         "value": "25",
-        "err": "Tes hitung darah lengkap harus kurang dari atau sama dengan 25"
+        "err": "{{tests_blood_haemoglobin_sub_form.step1.cbc.v_max.err}}"
       },
       "v_numeric": {
         "value": "true",
@@ -249,11 +249,11 @@
       "edit_type": "number",
       "v_min": {
         "value": "0",
-        "err": "Hasil tes Hb - hemoglobinometer (g/dl) harus lebih besar atau sama dengan 0"
+        "err": "{{tests_blood_haemoglobin_sub_form.step1.hb_gmeter.v_min.err}}"
       },
       "v_max": {
         "value": "25",
-        "err": "Hasil tes Hb - hemoglobinometer (g/dl) harus kurang dari atau sama dengan 25"
+        "err": "{{tests_blood_haemoglobin_sub_form.step1.hb_gmeter.v_max.err}}"
       },
       "v_numeric": {
         "value": "true",
@@ -281,11 +281,11 @@
       "edit_type": "number",
       "v_min": {
         "value": "0",
-        "err": "Hasil tes Hb - skala warna hemoglobin (g/dl) harus lebih besar atau sama dengan 0"
+        "err": "{{tests_blood_haemoglobin_sub_form.step1.hb_colour.v_min.err}}"
       },
       "v_max": {
         "value": "25",
-        "err": "Hasil tes Hb - skala warna hemoglobin (g/dl) harus kurang dari atau sama dengan 25"
+        "err": "{{tests_blood_haemoglobin_sub_form.step1.hb_colour.v_max.err}}"
       },
       "v_numeric": {
         "value": "true",
