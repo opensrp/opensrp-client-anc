@@ -464,4 +464,9 @@
     <string name="french_language">French</string>
     <string name="portuguese_brazil_language">Portuguese (Brazil)</string>
     <string name="bahasa_indonesia">Bahasa Indonesia</string>
+    <string name="overview_of_pregnancy">Overview of Pregnancy</string>
+    <string name="weight">Weight</string>
+    <string name="hospital_referral_reasons">Hospital Referral Reasons</string>
+    <string name="risks_and_diagnoses">Risks And Diagnoses</string>
+    <string name="malaria_prophylaxis">Malaria Prophylaxis</string>
 </resources>

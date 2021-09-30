@@ -24,15 +24,15 @@
       },
       "v_min": {
         "value": "80",
-        "err": "Detak jantung janin harus sama atau lebih besar dari 80"
+        "err": "{{fetal_heartbeat_sub_form.step1.fetal_heart_rate.v_min.err}}"
       },
       "v_max": {
         "value": "200",
-        "err": "Detak jantung janin harus kurang dari atau sama dengan 200"
+        "err": "{{fetal_heartbeat_sub_form.step1.fetal_heart_rate.v_max.err}}"
       },
       "v_numeric_integer": {
         "value": "true",
-        "err": "Masukkan nilai SFH yang benar"
+        "err": "{{fetal_heartbeat_sub_form.step1.fetal_heart_rate.v_numeric_integer.err}}"
       }
     }
   ],

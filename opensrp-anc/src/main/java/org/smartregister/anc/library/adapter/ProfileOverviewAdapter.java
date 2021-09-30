@@ -78,8 +78,10 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         if (!TextUtils.isEmpty(mData.get(position).getGroup())) {
-
-            holder.sectionHeader.setText(processUnderscores(mData.get(position).getGroup()));
+            String title = processUnderscores(mData.get(position).getGroup());
+            if (mData.get(position).getGroupTitle() != null)
+                title = mData.get(position).getGroupTitle();
+            holder.sectionHeader.setText(title);
             holder.sectionHeader.setVisibility(View.VISIBLE);
 
         } else {
@@ -88,7 +90,10 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
         }
 
         if (!TextUtils.isEmpty(mData.get(position).getSubGroup())) {
-            holder.subSectionHeader.setText(processUnderscores(mData.get(position).getSubGroup()));
+            String title = processUnderscores(mData.get(position).getSubGroup());
+            if (mData.get(position).getGroupTitle() != null)
+                title = mData.get(position).getGroupTitle();
+            holder.subSectionHeader.setText(processUnderscores(title));
             holder.subSectionHeader.setVisibility(View.VISIBLE);
         } else {
             holder.subSectionHeader.setVisibility(View.GONE);

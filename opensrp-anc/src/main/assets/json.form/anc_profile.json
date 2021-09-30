@@ -692,7 +692,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "label_info_text": "Jika LMP tidak diketahui dan USG tidak dilakukan atau tidak dilakukan lebih awal (sebelum 24 minggu), maka nilai GA berdasarkan Symphysis Fundal Height (SFH) atau palpasi perut. Bandingkan GA ini dengan USG GA (jika dilakukan). ",
+        "label_info_text": "Jika HPHT tidak diketahui dan USG tidak dilakukan atau tidak dilakukan lebih awal (sebelum 24 minggu), maka nilai Usia Kehamilan berdasarkan Symphysis Fundal Height (TFU) atau palpasi perut. Bandingkan Usia Kehamilan ini dengan USG Usia Kehamilan (jika dilakukan). ",
         "label_info_title": "Usia kehamilan dari tinggi fundus atau palpasi perut - minggu",
         "hint": "{{anc_profile.step2.sfh_gest_age.hint}}",
         "v_required": {
@@ -701,15 +701,15 @@
         },
         "v_numeric_integer": {
           "value": true,
-          "err": "Masukkan GA Valid dari SFH atau palpasi perut - mingguan"
+          "err": "Masukkan Usia Kehamilan Valid dari TFU atau palpasi perut - mingguan"
         },
         "v_min": {
           "value": "4",
-          "err": "Usia Kehamilan dari SFH atau palpasi perut - minggu harus 4 atau lebih"
+          "err": "Usia Kehamilan dari TFU atau palpasi perut - minggu harus 4 atau lebih"
         },
         "v_max": {
           "value": "40",
-          "err": "Usia Kehamilan dari SFH atau palpasi perut - minggu harus 40 atau kurang"
+          "err": "Usia Kehamilan dari TFU atau palpasi perut - minggu harus 40 atau kurang"
         },
         "relevance": {
           "rules-engine": {
@@ -757,7 +757,7 @@
         "key": "select_gest_age_edd_label",
         "type": "label",
         "text": "{{anc_profile.step2.select_gest_age_edd_label.text}}",
-        "label_info_text": "Jika perbedaan antara GA dari LMP dan USG awal adalah satu minggu atau kurang, maka gunakan GA dari LMP. Jika perbedaannya lebih dari 7 hari, gunakan USG awal GA. Jika USG terlambat dilakukan, gunakan GA dari LMP. Antara USG terlambat dan SFH atau palpasi perut, gunakan penilaian terbaik Anda untuk memilih GA.",
+        "label_info_text": "Jika perbedaan antara Usia Kehamilan dari HPHT dan USG awal adalah satu minggu atau kurang, maka gunakan Usia Kehamilan dari HPHT. Jika perbedaannya lebih dari 7 hari, gunakan USG awal Usia Kehamilan. Jika USG terlambat dilakukan, gunakan Usia Kehamilan dari HPHT. Antara USG terlambat dan TFU atau palpasi perut, gunakan penilaian terbaik Anda untuk memilih Usia Kehamilan.",
         "label_text_style": "bold",
         "text_color": "#000000",
         "v_required": {
@@ -778,7 +778,7 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "text": "{{anc_profile.step2.lmp_gest_age_selection.options.lmp.text}}",
-            "extra_info": "GA: {lmp_gest_age}\u003cbr/\u003eEDD: {lmp_edd}"
+            "extra_info": "Usia Kehamilan: {lmp_gest_age}\u003cbr/\u003eEDD: {lmp_edd}"
           }
         ],
         "v_required": {
@@ -813,7 +813,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159618AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "extra_info": "GA: {ultrasound_gest_age} \u003cbr/\u003e EDD: {ultrasound_edd}"
+            "extra_info": "Usia Kehamilan: {ultrasound_gest_age} \u003cbr/\u003e EDD: {ultrasound_edd}"
           }
         ],
         "v_required": {
@@ -848,7 +848,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "extra_info": "GA: {sfh_gest_age} \u003cbr/\u003e EDD: {sfh_edd}"
+            "extra_info": "Usia Kehamilan: {sfh_gest_age} \u003cbr/\u003e EDD: {sfh_edd}"
           }
         ],
         "v_required": {
@@ -883,7 +883,7 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "text": "{{anc_profile.step2.lmp_ultrasound_gest_age_selection.options.lmp.text}}",
-            "extra_info": "GA: {lmp_gest_age}\u003cbr/\u003eEDD: {lmp_edd}"
+            "extra_info": "Usia Kehamilan: {lmp_gest_age}\u003cbr/\u003eEDD: {lmp_edd}"
           },
           {
             "key": "ultrasound",
@@ -891,7 +891,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159618AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "extra_info": "GA: {ultrasound_gest_age} \u003cbr/\u003e EDD: {ultrasound_edd}"
+            "extra_info": "Usia Kehamilan: {ultrasound_gest_age} \u003cbr/\u003e EDD: {ultrasound_edd}"
           }
         ],
         "v_required": {
@@ -926,7 +926,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159618AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "extra_info": "GA: {ultrasound_gest_age} \u003cbr/\u003e EDD: {ultrasound_edd}"
+            "extra_info": "Usia Kehamilan: {ultrasound_gest_age} \u003cbr/\u003e EDD: {ultrasound_edd}"
           },
           {
             "key": "sfh",
@@ -934,7 +934,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "extra_info": "GA: {sfh_gest_age} \u003cbr/\u003e EDD: {sfh_edd}"
+            "extra_info": "Usia Kehamilan: {sfh_gest_age} \u003cbr/\u003e EDD: {sfh_edd}"
           }
         ],
         "v_required": {
@@ -2021,7 +2021,7 @@
         "edit_type": "edit_text",
         "other_for": {
           "parent_key": "surgeries",
-          "label": "Other gynecological procedures (specify)"
+          "label": "Prosedur ginekologi lainnya (sebutkan)"
         },
         "relevance": {
           "step4:surgeries": {

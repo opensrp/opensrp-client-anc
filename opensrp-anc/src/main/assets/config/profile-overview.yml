@@ -191,99 +191,99 @@ fields:
 ---
 group: risks_and_diagnoses
 fields:
-  - template: "High daily consumption of caffeine: {caffeine_intake_value}"
+  - template: "Konsumsi kafein harian yang tinggi: {caffeine_intake_value}"
     relevance: "caffeine_intake != '' && caffeine_intake != 'none'"
     isRedFont: "true"
 
-  - template: "Tobacco user or recently quit: {tobacco_user}"
+  - template: "Pengguna tembakau atau baru saja berhenti: Ya"
     relevance: "tobacco_user != '' && tobacco_user != 'no'"
     isRedFont: "true"
 
-  - template: "Second-hand exposure to tobacco smoke: {shs_exposure}"
+  - template: "Paparan orang kedua terhadap asap tembakau: Ya"
     relevance: "shs_exposure == 'yes'"
     isRedFont: "true"
 
-  - template: "Woman and her partner(s) do not use condoms: {condom_use}"
+  - template: "Wanita dan pasangannya tidak menggunakan kondom: Tidak"
     relevance: "condom_use == 'no'"
     isRedFont: "true"
 
-  - template: "Alcohol / substances currently using: {alcohol_substance_use_value}, {other_substance_use_value}"
+  - template: "Alkohol / zat adiktif lainnya yang sedang digunakan: {alcohol_substance_use_value}, {other_substance_use_value}"
     relevance: "!alcohol_substance_use.isEmpty() && !alcohol_substance_use.contains('none')"
     isRedFont: "true"
 
-  - template: "Reduced or no fetal movement perceived by woman: {mat_percept_fetal_move}"
+  - template: "Berkurang atau tidak ada gerakan janin yang dirasakan oleh wanita: {mat_percept_fetal_move}"
     relevance: "mat_percept_fetal_move != '' && mat_percept_fetal_move != 'normal_fetal_move'"
     isRedFont: "true"
 
-  - template: "Pre-eclampsia risk: {preeclampsia_risk}"
+  - template: "Risiko preeklamsia: {preeclampsia_risk}"
     relevance: "preeclampsia_risk == 1"
     isRedFont: "true"
 
-  - template: "HIV risk: {date}"
+  - template: "Resiko HIV: {date}"
     relevance: "hiv_risk == 1"
     isRedFont: "true"
 
-  - template: "Diabetes risk: {date} "
+  - template: "Resiko Diabetes: {date} "
     relevance: "gdm_risk == 1"
     isRedFont: "true"
 
-  - template: "Hypertension: {date}"
+  - template: "Hipertensi: {date}"
     relevance: "hypertension == 1"
     isRedFont: "true"
 
-  - template: "Severe hypertension: {date}: {date}"
+  - template: "Hipertensi berat: {date}: {date}"
     relevance: "severe_hypertension == 1"
     isRedFont: "true"
 
-  - template: "Pre-eclampsia: {date}"
+  - template: "Pre-eklampsia: {date}"
     relevance: "preeclampsia == 1"
     isRedFont: "true"
 
-  - template: "Severe pre-eclampsia: {date}"
+  - template: "Preeklamsia berat: {date}"
     relevance: "severe_preeclampsia == 1"
     isRedFont: "true"
 
-  - template: "Rh factor negative: {date}: {date}"
+  - template: "Faktor Rh negatif: {date}: {date}"
     relevance: "rh_factor == 'negative'"
     isRedFont: "true"
 
-  - template: "HIV positive: {date}"
+  - template: "Positif HIV: {date}"
     relevance: "hiv_positive == 1"
     isRedFont: "true"
 
-  - template: "Hepatitis B positive: {date}"
+  - template: "Positif Hepatitis B: {date}"
     relevance: "hepb_positive == 1"
     isRedFont: "true"
 
-  - template: "Hepatitis C positive: {date}"
+  - template: "Positif Hepatitis C: {date}"
     relevance: "hepc_positive == 1"
     isRedFont: "true"
 
-  - template: "Syphilis positive: {date}"
+  - template: "Positif Sifilis: {date}"
     relevance: "syphilis_positive == 1"
     isRedFont: "true"
 
-  - template: "Asymptomatic bacteriuria (ASB) infection: {date}"
+  - template: "Infeksi bakteriuria asimtomatik (ASB): {date}"
     relevance: "asb_positive == 1"
     isRedFont: "true"
 
-  - template: "Positive for Group B Streptococcus (GBS): {date}"
+  - template: "Positif untuk Grup B Streptococcus (GBS): {date}"
     relevance: "urine_culture == 'positive - group b streptococcus (gbs)'"
     isRedFont: "true"
 
-  - template: "Gestational Diabetes Mellitus (GDM): {date}"
+  - template: "Diabetes Mellitus Gestasional (GDM): {date}"
     relevance: "gdm = 1"
     isRedFont: "true"
 
-  - template: "Diabetes Mellitus (DM) in pregnancy: {date}"
+  - template: "Diabetes Mellitus (DM) pada kehamilan: {date}"
     relevance: "dm_in_preg = 1"
     isRedFont: "true"
 
-  - template: "Anaemia diagnosis: {date}"
+  - template: "Diagnosa anemia: {date}"
     relevance: "anaemic = 1"
     isRedFont: "true"
 
-  - template: "TB screening positive: {date}"
+  - template: "Skrining TB positif: {date}"
     relevance: "tb_screening_result == 'positive'"
     isRedFont: "true"
 

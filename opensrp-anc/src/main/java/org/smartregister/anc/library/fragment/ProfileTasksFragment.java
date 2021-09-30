@@ -37,6 +37,7 @@ import org.smartregister.view.fragment.BaseProfileFragment;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import timber.log.Timber;
 

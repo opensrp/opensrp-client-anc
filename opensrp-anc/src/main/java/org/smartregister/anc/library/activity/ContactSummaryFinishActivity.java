@@ -198,13 +198,13 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
     @Override
     public void setProfileAge(String age) {
-        ageView.setText("AGE " + age);
+        ageView.setText("Usia " + age);
 
     }
 
     @Override
     public void setProfileGestationAge(String gestationAge) {
-        gestationAgeView.setText(gestationAge != null ? "GA: " + gestationAge + " WEEKS" : "GA");
+        gestationAgeView.setText(gestationAge != null ? "UK: " + gestationAge + " MINGGU" : "Usia Kehamilan");
     }
 
     @Override

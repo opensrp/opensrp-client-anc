@@ -243,11 +243,11 @@
         },
         "v_min": {
           "value": "10",
-          "err": "Usia harus sama dengan atau lebih besar dari 10"
+          "err": "Umur harus sama dengan atau lebih besar dari 10"
         },
         "v_max": {
           "value": "49",
-          "err": "Usia harus sama atau kurang dari 49"
+          "err": "Umur harus sama atau kurang dari 49"
         },
         "relevance": {
           "step1:dob_unknown": {

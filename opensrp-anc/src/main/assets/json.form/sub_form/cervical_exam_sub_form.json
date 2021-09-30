@@ -23,15 +23,15 @@
       "edit_type": "number",
       "v_numeric_integer": {
         "value": "true",
-        "err": "Masukkan nilai pelebaran serviks yang benar dalam cm"
+        "err": "{{cervical_exam_sub_form.step1.dilation_cm.v_numeric_integer.err}}"
       },
       "v_min": {
         "value": "0",
-        "err": "Dilatasi serviks harus lebih besar atau sama dengan 0"
+        "err": "{{cervical_exam_sub_form.step1.dilation_cm.v_min.err}}"
       },
       "v_max": {
         "value": "10",
-        "err": "Dilatasi serviks harus sama dengan atau kurang dari 10"
+        "err": "{{cervical_exam_sub_form.step1.dilation_cm.v_max.err}}"
       },
       "v_required": {
         "value": false,

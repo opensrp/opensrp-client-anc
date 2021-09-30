@@ -1,0 +1,26 @@
+{
+  "identifier": "site_characteristics",
+  "settings": [
+    {
+      "description": "\"Apakah semua hal berikut ini tersedia di fasilitas Anda: \r\n1. Protokol atau prosedur operasi standar untuk Pengalaman Wanita Korban (PWK); \r\n2. Seorang petugas kesehatan dilatih tentang cara bertanya tentang PWK dan cara memberikan respons minimum atau lebih;\r\n3. Pengaturan pribadi; \r\n4. Cara untuk memastikan kerahasiaan; \r\n5. Waktu untuk memungkinkan pengungkapan yang tepat; dan\r\n6. Sebuah sistem untuk rujukan di tempat.\"",
+      "label": "Persyaratan minimum untuk penilaian PWK",
+      "key": "site_ipv_assess"
+    },
+    {
+      "description": "Apakah prevalensi HIV secara konsisten > 1% pada ibu hamil yang datang ke klinik antenatal di fasilitas Anda?",
+      "label": "Epidemi HIV umum",
+      "key": "site_anc_hiv"
+    },
+    {
+      "description": "Apakah USG tersedia dan berfungsi dengan baik di fasilitas anda dan petugas kesehatan terlatih untuk menggunakannya?",
+      "label": "USG tersedia",
+      "key": "site_ultrasound"
+    },
+    {
+      "description": "Apakah di fasilitas kesehatan anda menggunakan alat pengukur tekanan darah otomatis?",
+      "label": "Alat pengukuran BP otomatis",
+      "key": "site_bp_tool"
+    }
+  ],
+  "type": "SettingConfiguration"
+  }

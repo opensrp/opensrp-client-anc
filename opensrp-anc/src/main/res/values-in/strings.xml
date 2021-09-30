@@ -92,7 +92,7 @@
     <string name="anc_id">ID ANC</string>
     <string name="id_number">ID ANC</string>
     <string name="edd">Hari pertama haid terakhir</string>
-    <string name="exp_date_of_delivery">Tanggal pengiriman yang diharapkan</string>
+    <string name="exp_date_of_delivery">Tanggal perkiraan lahiran</string>
     <string name="dob">Tanggal lahir</string>
     <string name="date_of_birth">Tanggal lahir</string>
     <string name="mobile_phone_number">Nomor handphone</string>
@@ -109,7 +109,7 @@
     <string name="anc_clients">klien ANC</string>
     <string name="counseling_resources">Sumber daya konseling</string>
     <string name="site_characteristics">Karakteristik tempat</string>
-    <string name="contact_summary">Ringkasan kontak</string>
+    <string name="contact_summary">Ringkasan Kunjungan</string>
     <string name="sync_data">Sinkronkan data</string>
     <string name="navigation_drawer_close">Tutup panel menu </string>
     <string name="navigation_drawer_open">Buka panel menu</string>
@@ -120,14 +120,14 @@
     <string name="bullet">\u2022</string>
 
     <string name="overview">Tinjauan</string>
-    <string name="contacts">Kontak</string>
+    <string name="contacts">Kunjungan</string>
     <string name="tasks">Tugas</string>
 
     <string name="new_registration_saved">Registrasi baru disimpan</string>
     <string name="registration_info_updated">Info pendaftaran diperbarui</string>
 
-    <string name="call">Panggilan</string>
-    <string name="start_contact">Mulai kontak</string>
+    <string name="call">Telepon</string>
+    <string name="start_contact">Mulai kunjungan</string>
     <string name="close_anc_record">Tutup catatan ANC</string>
     <string name="copy_to_clipboard">Menyalin ke clipboard</string>
     <string name="no_matching_woman_found_on_this_device">Tidak ditemukan wanita yang cocok di perangkat ini</string>
@@ -148,8 +148,8 @@
 
     <string name="reason_for_coming_facility"><font fgcolor="black">Alasan datang ke fasilitas? </font><font fgcolor="red"></font></string>
 
-    <string name="first_contact">Pertemuan pertama</string>
-    <string name="scheduled_contact">Jadwal pertemuan</string>
+    <string name="first_contact">Kunjungan pertama</string>
+    <string name="scheduled_contact">Kunjungan terjadwal</string>
     <string name="specific_complaint">Keluhan spesifik</string>
 
     <string name="specific_complaints"><font fgcolor="black">Keluhan spesifik </font><font fgcolor="red">*</font></string>
@@ -211,7 +211,7 @@
     <string name="specify">Sebutkan</string>
 
     <string name="proceed_to_normal_contact">Lanjutkan ke kunjungan normal</string>
-    <string name="refer_and_close_contact">Rujuk dan tutup kontak</string>
+    <string name="refer_and_close_contact">Rujuk dan tutup kunjungan</string>
 
     <string name="validation_no_reason_selected">Silakan pilih alasan datang ke fasilititas</string>
     <string name="validation_no_specific_complaint">Silakan pilih setidaknya satu keluhan spesifik</string>
@@ -249,12 +249,12 @@
 
     <string name="view_anc_history">Lihat sejarah ANC</string>
 
-    <string name="exit_contact_with">Keluar dari kontak dengan %1$s</string>
-    <string name="exit_contact_title">Keluar dari kontak?</string>
-    <string name="save_changes">Simpan perubahan dan lanjutkan dengan kontak ini di lain waktu</string>
+    <string name="exit_contact_with">Keluar kunjungan %1$s</string>
+    <string name="exit_contact_title">Keluar dari form kunjungan?</string>
+    <string name="save_changes">Simpan perubahan dan lanjutkan dengan kunjungan ini di lain waktu</string>
     <string name="save_contact">Simpan perubahan</string>
     <string name="discard_contact">Abaikan perubahan</string>
-    <string name="close_without_saving">Tutup tanpa menyimpan \ nKehilangan pembaruan yang Anda buat dalam \ nkontak ini</string>
+    <string name="close_without_saving">Tutup tanpa menyimpan \nApakah anda yakin ingin menutup kunjungan ini?</string>
 
     <string name="me_page_location_text">Lokasi:</string>
     <string name="right_arrow">Panah kanan</string>
@@ -266,18 +266,18 @@
     <string name="qr_code_label">Kode QR</string>
     <string name="clients_facility">Fasilitas klien</string>
     <!-- Form container -->
-    <string name="upcoming_contact_dates">Tanggal pertemuan yang akan datang:</string>
+    <string name="upcoming_contact_dates">Tanggal kunjungan yang akan datang:</string>
     <string name="go_to_client_profile">PERGI KE PROFIL KLIEN</string>
     <string name="send_summary_to_client">KIRIM RINGKASAN KE KLIEN</string>
     <string name="loading_client_settings">Memuat pengaturan klien</string>
     <string name="allow_phone_call_management">Anda harus mengizinkan aplikasi WHO ANC untuk mengelola panggilan telepon untuk mengaktifkan panggilan </string>
     <string name="any_changes_you_make">Setiap perubahan yang Anda lakukan akan hilang</string>
     <string name="woman_name">Nama Wanita</string>
-    <string name="contact_weeks">Kontak %1$s \n %2$s</string>
+    <string name="contact_weeks">Kunjungan %1$s \n %2$s</string>
     <string name="due_delivery">Waktu persalinan</string>
     <string name="record_birth_popup_message">Usia kehamilan: %1$d Minggu / Hari Taksiran Persalinan: %2$s (%3$s lalu) %4$s harus segera datang untuk persalinan</string>
     <string name="contact_number">Kontak %1$d</string>
-    <string name="contact_recorded">Kontak %1$d dicatat</string>
+    <string name="contact_recorded">Kunjungan %1$d tercatat</string>
     <string name="info_icon_display">tampilan ikon info lebih lanjut</string>
     <string name="status_icon_display">tampilan ikon status</string>
     <string name="record">Catatan</string>
@@ -289,15 +289,15 @@
     <string name="continue_contact">Lanjutkan Pertemuan %1$d</string>
     <string name="username">Nama pengguna</string>
     <string name="password">Kata sandi</string>
-    <string name="finalizing_contact">Menyelesaikan kontak%1$d</string>
-    <string name="summarizing_contact_number">Meringkas kontak%1$d</string>
+    <string name="finalizing_contact">Menyelesaikan kunjungan%1$d</string>
+    <string name="summarizing_contact_number">Meringkas kunjungan%1$d</string>
     <string name="contact_number_due">Kontak%1$d; batas waktu %2$s</string>
-    <string name="last_contact">Kontak terakhir</string>
+    <string name="last_contact">Kunjungan terakhir</string>
     <string name="key_figure">Angka utama</string>
     <string name="recent_test">Tes terbaru: %1$s</string>
-    <string name="previous_contacts">Kontak sebelumnya</string>
+    <string name="previous_contacts">Kunjungan sebelumnya</string>
     <string name="all_tests_results">Semua Hasil Tes</string>
-    <string name="contact_details">%1$sMinggu &#183; Contact %2$s</string>
+    <string name="contact_details">%1$sMinggu &#183; Kunjungan %2$s</string>
     <string name="referral_contact_details">Kontak %1$s</string>
     <string name="undo_test_result">Batalkan %1$s hasilnya ?</string>
     <string name="negative_contact_text">Kontak negatif berarti bahwa pasien dirujuk sehingga jadwal kontaknya tidak berubah dan tetap sama seperti sebelumnya</string>
@@ -309,14 +309,14 @@
     <string name="all_results">Semua hasil</string>
     <string name="no_tests_available">Tidak ada tes yang tersedia</string>
     <string name="hospital_referral">Rumah Sakit Rujukan</string>
-    <string name="no_contact_schedule">Belum ada jadwal kontak yang dihasilkan</string>
+    <string name="no_contact_schedule">Belum ada jadwal kunjungan yang dihasilkan</string>
     <string name="default_language_string">Bahasa yang Digunakan: %1s</string>
     <string name="contact_tasks_form">Tugas Kontak</string>
     <string name="form_manifest_version">Versi Rilis Formulir: v%1$s</string>
-    <string name="contact_weeks_no_break">MULAI &#183; HUBUNGI %1$s &#183; %2$s</string>
-    <string name="contact_in_progress">HUBUNGI %1$s\n DALAM PROGRES</string>
-    <string name="contact_in_progress_no_break">HUBUNGI %1$s &#183; SEDANG BERLANGSUNG</string>
-    <string name="contact_number_due_no_break">HUBUNGI %1$d &#183; KARENA &#183; %2$s</string>
+    <string name="contact_weeks_no_break">MULAI &#183; KUNJUNGAN %1$s &#183; %2$s</string>
+    <string name="contact_in_progress">KUNJUNGAN %1$s\n SEDANG BERLANGSUNG</string>
+    <string name="contact_in_progress_no_break">KUNJUNGAN %1$s &#183; SEDANG BERLANGSUNG</string>
+    <string name="contact_number_due_no_break">KUNJUNGAN %1$d &#183; KARENA &#183; %2$s</string>
     <string name="hospital_referral_title">Catatan rujukan Rumah Sakit</string>
     <string name="who_will_help_while_she_is_away_to_care_for_her_home_and_other_children">Siapa yang akan membantu saat
         dia pergi untuk merawat rumah dan anak-anaknya yang lain?
@@ -330,11 +330,11 @@
     <string name="who_will_be_the_companion_during_labour_and_delivery">Siapa yang akan menjadi pendamping selama
         persalinan dan melahirkan?
     </string>
-    <string name="who_will_be_close_by_for_at_least_24_hours_after_delivery">Siapa yang akan dekat setidaknya 24 jam
+    <string name="who_will_be_close_by_for_at_least_24_hours_after_delivery">Siapa yang akan menemani setidaknya 24 jam
         setelah melahirkan?
     </string>
     <string name="tests_tasks_header">Tes</string>
-    <string name="tap_button_below">Ketuk tombol di bawah untuk memulai/menyelesaikan kontak</string>
+    <string name="tap_button_below">Ketuk tombol di bawah untuk memulai/menyelesaikan kunjungan</string>
     <string name="tab_button_image">Gambar tombol tab</string>
     <string name="string_bullet" translatable="false">•</string>
     <string name="source">Sumber</string>
@@ -434,7 +434,7 @@
     <string name="hiv_risk_and_prep">Risiko dan Persiapan HIV</string>
     <string name="diabetes_risk">Risiko Diabetes</string>
     <string name="danger_signs_counseling">Konseling Tanda Bahaya</string>
-    <string name="anc_contacts_counseling">Konseling Kontak ANC</string>
+    <string name="anc_contacts_counseling">Konseling Kunjungan ANC</string>
     <string name="family_planning_counseling">Konseling Keluarga Berencana</string>
     <string name="birth_plan_counseling">Konseling Rencana Kelahiran</string>
     <string name="breastfeeding_counseling">Konseling Menyusui</string>
@@ -512,7 +512,7 @@
         makanan yang diperkaya secara konsisten dan berkelanjutan
     </string>
     <string name="balanced_diet_content_five">Adaptasi lokal serta budaya mungkin diperlukan untuk memenuhi kebutuhan
-        individu dan memastikan kepatuhan terhadap rekomendasi.
+        individu dan memastikan pemenuhan terhadap rekomendasi.
     </string>
     <string name="balanced_diet_content_six">Buah-buahan, sayuran, kacang-kacangan (misalnya lentil, kacang-kacangan),
         kacang-kacangan dan biji-bijian (misalnya jagung yang belum diproses, millet, oat, gandum, beras merah).
@@ -555,5 +555,10 @@
     <string name="french_language">Perancis</string>
     <string name="portuguese_brazil_language">Portugis (Brasil)</string>
     <string name="bahasa_indonesia">Bahasa Indonesia</string>
-    <string name="opensrp_url">https://sid.alcasha.com/opensrp/</string>
+    <string name="opensrp_url">https://ancs.dev.sid-indonesia.org/opensrp/</string>
+    <string name="overview_of_pregnancy">Ikhtisar Kehamilan</string>
+    <string name="weight">Berat</string>
+    <string name="hospital_referral_reasons">Alasan Rujukan Ke Rumah Sakit</string>
+    <string name="risks_and_diagnoses">Risiko Dan Diagnosis</string>
+    <string name="malaria_prophylaxis">Profilaksis Malaria</string>
 </resources>

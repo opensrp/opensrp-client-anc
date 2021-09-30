@@ -183,11 +183,11 @@
       "edit_type": "number",
       "v_min": {
         "value": "30",
-        "err": "75g OGTT - hasil glukosa puasa harus lebih besar dari atau sama dengan 30"
+        "err": "75g TTGO - hasil glukosa puasa harus lebih besar dari atau sama dengan 30"
       },
       "v_max": {
         "value": "500",
-        "err": "75g OGTT - hasil glukosa puasa harus kurang dari atau sama dengan 500"
+        "err": "75g TTGO - hasil glukosa puasa harus kurang dari atau sama dengan 500"
       },
       "v_numeric": {
         "value": "true",
@@ -215,11 +215,11 @@
       "edit_type": "number",
       "v_min": {
         "value": "30",
-        "err": "Hasil untuk OGTT 75g - 1 jam harus lebih besar atau sama dengan 30"
+        "err": "Hasil untuk TTGO 75g - 1 jam harus lebih besar atau sama dengan 30"
       },
       "v_max": {
         "value": "500",
-        "err": "Hasil untuk OGTT 75g - 1 jam harus kurang dari atau sama dengan 500"
+        "err": "Hasil untuk TTGO 75g - 1 jam harus kurang dari atau sama dengan 500"
       },
       "v_numeric": {
         "value": "true",
@@ -247,11 +247,11 @@
       "edit_type": "number",
       "v_min": {
         "value": "30",
-        "err": "Hasil untuk OGTT 75g - 2 jam harus lebih besar atau sama dengan 30"
+        "err": "Hasil untuk TTGO 75g - 2 jam harus lebih besar atau sama dengan 30"
       },
       "v_max": {
         "value": "500",
-        "err": "Hasil untuk OGTT 75g - 2 jam harus kurang dari atau sama dengan 500"
+        "err": "Hasil untuk TTGO 75g - 2 jam harus kurang dari atau sama dengan 500"
       },
       "v_numeric": {
         "value": "true",
