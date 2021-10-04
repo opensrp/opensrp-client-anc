@@ -19,6 +19,7 @@ import java.util.List;
 
 /**
  * Created by ndegwamartin on 04/12/2018.
+ * Updated by alcasha (indra@alcasha.com) on 01/10/2021
  */
 public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSummaryFinishAdapter.ViewHolder> {
 
@@ -40,7 +41,12 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
         return new ViewHolder(view);
     }
 
-    // binds the data to the TextView in each row
+    /**
+     * binds the data to the TextView in each row
+     * We fix
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         String title = processUnderscores(mData.get(position).getGroup());

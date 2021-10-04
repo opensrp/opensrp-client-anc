@@ -93,7 +93,7 @@ fields:
 
   - template: "{{profile_overview.overview_of_pregnancy.weight.weight_category}}: {weight_cat}"
     relevance: "weight_cat !=''"
-    isRedFont: "weight_cat.contains('Underweight') || weight_cat.contains('Overweight') || weight_cat.contains('Obese')"
+    isRedFont: "weight_cat.contains(helper.weightIMT('Underweight')) || weight_cat.contains(helper.weightIMT('Overweight')) || weight_cat.contains(helper.weightIMT('Obese'))"
 
   - template: "{{profile_overview.overview_of_pregnancy.weight.expected_weight_gain_during_the_pregnancy}}: {exp_weight_gain} kg"
     relevance: "exp_weight_gain != ''"

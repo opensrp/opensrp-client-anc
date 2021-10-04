@@ -125,7 +125,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
             if (group.contains("'"))
                 group = group.replace("'", "");
             if (group.contains("-"))
-                group.replace("-", "_");
+                group = group.replace("-", "_");
             String string = getResources().getString(getResources().getIdentifier(group, "string", getPackageName()));
             if (string != null)
                 yamlConfig.setTitle(string);

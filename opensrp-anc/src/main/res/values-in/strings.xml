@@ -10,14 +10,16 @@
     <string name="please_wait_message">Silakan tunggu</string>
     <string name="scan_qr_code">Pindai kode QR</string>
     <string name="select_language">Pilih Bahasa</string>
-    <string name="no_openmrs_id">Tidak ada id unik yang ditemukan. Klik pada tombol sinkronisasi untuk mendapatkan lebih banyak dan jika kesalahan ini berlanjut hubungi admin sistem.</string>
+    <string name="no_openmrs_id">Tidak ada id unik yang ditemukan. Klik pada tombol sinkronisasi untuk mendapatkan lebih
+        banyak dan jika kesalahan ini berlanjut hubungi admin sistem.
+    </string>
     <string name="alphabetical_sort">Abjad (Nama)</string>
     <string name="name">Nama</string>
-    <string name="dismiss">Batalkan</string>
+    <string name="dismiss">Tutup</string>
     <string name="dose_d">Dosis (D)</string>
     <string name="id">ID</string>
     <string name="patient_location">Lokasi: %1$s</string>
-    <string name="dose_given_date">Dosis %1$s yang diberikan %2$s  </string>
+    <string name="dose_given_date">Dosis %1$s yang diberikan %2$s</string>
 
 
     <string name="unauthorized">Silakan periksa surat pengenal</string>
@@ -30,7 +32,7 @@
     <string name="updating_dialog_title">Memperbarui</string>
     <string name="remove_from_register">Hapus dari register</string>
     <string name="url_separator">/</string>
-    <string name="clients_key">Klien</string>
+    <string name="clients_key">Ibu</string>
     <string name="events_key">Peristiwa</string>
     <string name="sync">Sinkronisasi</string>
     <string name="sync_round_complete">Semua sinkronisasi selesai</string>
@@ -106,17 +108,17 @@
     <string name="matching_results">%1$s cocok</string>
 
     <!-- side nav -->
-    <string name="anc_clients">klien ANC</string>
+    <string name="anc_clients">Ibu ANC</string>
     <string name="counseling_resources">Sumber daya konseling</string>
     <string name="site_characteristics">Karakteristik tempat</string>
     <string name="contact_summary">Ringkasan Kunjungan</string>
     <string name="sync_data">Sinkronkan data</string>
-    <string name="navigation_drawer_close">Tutup panel menu </string>
+    <string name="navigation_drawer_close">Tutup panel menu</string>
     <string name="navigation_drawer_open">Buka panel menu</string>
     <string name="antenatal_care_module">Modul perawatan antenatal</string>
     <string name="anc_id_text">ID: %1$s</string>
     <string name="age_text">Usia: %1$s</string>
-    <string name="ga_text">Usia kehamilan: %1$dbulan</string>
+    <string name="ga_text">UK: %1$d bln</string>
     <string name="bullet">\u2022</string>
 
     <string name="overview">Tinjauan</string>
@@ -138,21 +140,27 @@
     <string name="record_birth">Catatan kelahiran</string>
     <string name="the_qr_code_scanner_button">Tombol kode QR scanner</string>
     <string name="woman_filter">Filter</string>
-    <string name="clients">%1$d klien</string>
-    <string name="client">%1$d klien</string>
+    <string name="clients">%1$d ibu</string>
+    <string name="client">%1$d ibu</string>
     <string name="register">Register</string>
     <string name="library">Penyimpanan</string>
     <string name="me">Saya</string>
-    <string name="clients_menu">Klien</string>
-    <string name="_0_clients_sort_updated">0 Klien (Sortir: diperbarui)</string>
+    <string name="clients_menu">Ibu</string>
+    <string name="_0_clients_sort_updated">0 Ibu (Sortir: diperbarui)</string>
 
-    <string name="reason_for_coming_facility"><font fgcolor="black">Alasan datang ke fasilitas? </font><font fgcolor="red"></font></string>
+    <string name="reason_for_coming_facility">
+        <font fgcolor="black">Alasan datang ke fasilitas?</font>
+        <font fgcolor="red"></font>
+    </string>
 
     <string name="first_contact">Kunjungan pertama</string>
     <string name="scheduled_contact">Kunjungan terjadwal</string>
     <string name="specific_complaint">Keluhan spesifik</string>
 
-    <string name="specific_complaints"><font fgcolor="black">Keluhan spesifik </font><font fgcolor="red">*</font></string>
+    <string name="specific_complaints">
+        <font fgcolor="black">Keluhan spesifik</font>
+        <font fgcolor="red">*</font>
+    </string>
 
     <string name="abnormal_discharge">Keputihan yang tidak normal</string>
     <string name="altered_skin_color">Warna kulit berubah</string>
@@ -192,7 +200,10 @@
     <string name="visual_disturbance">Gangguan penglihatan</string>
     <string name="complaint_other_specify">Lainnya</string>
 
-    <string name="danger_signs"><font fgcolor="black">Tanda bahaya </font><font fgcolor="red">*</font></string>
+    <string name="danger_signs">
+        <font fgcolor="black">Tanda bahaya</font>
+        <font fgcolor="red">*</font>
+    </string>
 
     <string name="danger_none">Tidak ada</string>
     <string name="danger_bleeding">Perdarahan melalui vagina</string>
@@ -222,7 +233,9 @@
     <string name="cyanosis_info">Warna kebiruan di sekitar selaput lendir di mulut, bibir dan lidah</string>
 
     <string name="any_treatment">Adakah penanganan yang diberikan sebelum dirujuk?</string>
-    <string name="welcome_site_characteristics">Selamat datang! Untuk memulai, silakan atur karakteristik wilayah Anda.</string>
+    <string name="welcome_site_characteristics">Selamat datang! Untuk memulai, silakan atur karakteristik wilayah
+        Anda.
+    </string>
     <string name="yes">Ya</string>
     <string name="no">Tidak</string>
     <string name="contact_dummy_text">Kontak</string>
@@ -232,7 +245,9 @@
     <string name="continue_">Lanjut</string>
     <string name="continue_to_your_client_list">LANJUTKAN KE DAFTAR KLIEN ANDA</string>
     <string name="your_site_characteristics_for_facility_name">Karakter wilayah anda untuk %1$s sudah siap</string>
-    <string name="site_characteristics_are_shared_for_all">Karakteristik wilayah dibagi oleh semua pengguna OpenSRP di fasilitas. Anda dapat memperbarui karakteristik wilayah kapan saja.</string>
+    <string name="site_characteristics_are_shared_for_all">Karakteristik wilayah dibagi oleh semua pengguna OpenSRP di
+        fasilitas. Anda dapat memperbarui karakteristik wilayah kapan saja.
+    </string>
     <string name="go_back_to_site_characteristics">Kembali ke karakteristik wilayah</string>
     <string name="edit">sunting</string>
 
@@ -264,24 +279,28 @@
 
     <string name="data_synced">Data disinkronkan: %1$s pada %2$s</string>
     <string name="qr_code_label">Kode QR</string>
-    <string name="clients_facility">Fasilitas klien</string>
+    <string name="clients_facility">Fasilitas ibu</string>
     <!-- Form container -->
     <string name="upcoming_contact_dates">Tanggal kunjungan yang akan datang:</string>
-    <string name="go_to_client_profile">PERGI KE PROFIL KLIEN</string>
-    <string name="send_summary_to_client">KIRIM RINGKASAN KE KLIEN</string>
-    <string name="loading_client_settings">Memuat pengaturan klien</string>
-    <string name="allow_phone_call_management">Anda harus mengizinkan aplikasi WHO ANC untuk mengelola panggilan telepon untuk mengaktifkan panggilan </string>
+    <string name="go_to_client_profile">PERGI KE PROFIL IBU</string>
+    <string name="send_summary_to_client">KIRIM RINGKASAN KE IBU</string>
+    <string name="loading_client_settings">Memuat pengaturan ibu</string>
+    <string name="allow_phone_call_management">Anda harus mengizinkan aplikasi WHO ANC untuk mengelola panggilan telepon
+        untuk mengaktifkan panggilan
+    </string>
     <string name="any_changes_you_make">Setiap perubahan yang Anda lakukan akan hilang</string>
     <string name="woman_name">Nama Wanita</string>
     <string name="contact_weeks">Kunjungan %1$s \n %2$s</string>
     <string name="due_delivery">Waktu persalinan</string>
-    <string name="record_birth_popup_message">Usia kehamilan: %1$d Minggu / Hari Taksiran Persalinan: %2$s (%3$s lalu) %4$s harus segera datang untuk persalinan</string>
+    <string name="record_birth_popup_message">Usia kehamilan: %1$d Minggu / Hari Taksiran Persalinan: %2$s (%3$s lalu)
+        %4$s harus segera datang untuk persalinan
+    </string>
     <string name="contact_number">Kontak %1$d</string>
     <string name="contact_recorded">Kunjungan %1$d tercatat</string>
     <string name="info_icon_display">tampilan ikon info lebih lanjut</string>
     <string name="status_icon_display">tampilan ikon status</string>
     <string name="record">Catatan</string>
-    <string name="undo">Batalkan</string>
+    <string name="undo">Urungkan</string>
     <string name="save_and_finish">Simpan + Selesai</string>
     <string name="reason_for_visit">Alasan berkunjung</string>
     <string name="contact_recorded_today">Kunjungan %1$d dilakukan hari ini</string>
@@ -300,7 +319,9 @@
     <string name="contact_details">%1$sMinggu &#183; Kunjungan %2$s</string>
     <string name="referral_contact_details">Kontak %1$s</string>
     <string name="undo_test_result">Batalkan %1$s hasilnya ?</string>
-    <string name="negative_contact_text">Kontak negatif berarti bahwa pasien dirujuk sehingga jadwal kontaknya tidak berubah dan tetap sama seperti sebelumnya</string>
+    <string name="negative_contact_text">Kontak negatif berarti bahwa pasien dirujuk sehingga jadwal kontaknya tidak
+        berubah dan tetap sama seperti sebelumnya
+    </string>
     <string name="previous_contacts_header">Kontak sebelumnya</string>
     <string name="previous_contacts_tests_header">Semua Hasil Tes</string>
     <string name="expected_date_of_delivery">Hari taksiran persalinan</string>
@@ -571,4 +592,8 @@
     <string name="search_string_dob">TGL Lahir:</string>
     <string name="search_string_mobile_phone_number">No tlp:</string>
     <string name="search_string_alternate_contact_name">Nama alternatif:</string>
+    <string name="underweight">berat badan kurang</string>
+    <string name="normal_weight">berat badan normal</string>
+    <string name="obese">obesitas</string>
+    <string name="overweight">gemuk</string>
 </resources>

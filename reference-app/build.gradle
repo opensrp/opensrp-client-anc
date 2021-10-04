@@ -198,33 +198,6 @@ android {
         resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
     }
 
-
-    def toDir = "C:\\Users\\Muham\\OneDrive\\Documents\\Projects\\SID\\WHO-ANC\\APK"
-
-    def copyFolder = tasks.create(name: "copyInto", type: org.gradle.api.tasks.Copy) {
-        def fileName = buildFileName("debug", defaultConfig.versionName);
-        File file = new File(toDir+"\\"+fileName);
-        if (file.exists()) {
-            file.delete();
-        }
-        from "$buildDir/outputs/apk/debug/" + fileName;
-        into toDir
-    }
-    def createLatest = tasks.create(name: "createLatest", type: org.gradle.api.tasks.Copy) {
-        def fName = buildFileName("debug", defaultConfig.versionName);
-        File file = new File(toDir+"\\WHOANC.latest-debug.apk");
-        if (file.exists()) {
-            file.delete();
-        }
-        from "$buildDir/outputs/apk/debug/" + fName;
-        into toDir
-        rename { String fileName -> 'WHOANC.latest-debug.apk' }
-    }
-
-    afterEvaluate {
-        assembleDebug.dependsOn copyFolder
-        assembleDebug.dependsOn createLatest
-    }
 }
 /**
  * Generates the version code following the naming method describe here
@@ -388,8 +361,36 @@ jarJar {
 }
 
 def renameAPK(variant, version, buildType) {
+    def toDir = "C:\\Users\\Muham\\OneDrive\\Documents\\Projects\\SID\\WHO-ANC\\APK"
+    def fileName = buildFileName(buildType, version);
     variant.outputs.each { output ->
-        output.outputFileName = buildFileName(buildType, version)
+        output.outputFileName = fileName
+    }
+    variant.assembleProvider.configure { assemble ->
+        assemble.doLast {
+            //copy the apk in another directory, add here your
+            //logic to customize the destination folder
+            copy {
+                def out = 'WHOANC.latest-' + buildType + '.apk';
+                File file = new File(toDir + "\\" + out);
+                if (file.exists()) {
+                    file.delete();
+                }
+                from "$buildDir/outputs/apk/" + buildType + "/" + fileName
+                //for Windows
+                into toDir
+                rename { out }
+            }
+            copy {
+                File file = new File(toDir + "\\" + fileName);
+                if (file.exists()) {
+                    file.delete();
+                }
+                from "$buildDir/outputs/apk/" + buildType + "/" + fileName
+                //for Windows
+                into toDir
+            }
+        }
     }
 }
 

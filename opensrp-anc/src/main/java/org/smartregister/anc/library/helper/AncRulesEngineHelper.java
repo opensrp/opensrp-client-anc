@@ -25,6 +25,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.library.R;
+import org.smartregister.anc.library.constants.IMTWeight;
 import org.smartregister.anc.library.rule.AlertRule;
 import org.smartregister.anc.library.rule.ContactRule;
 import org.smartregister.anc.library.util.ANCFormUtils;
@@ -252,6 +253,10 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
         Integer dayz = days % 7;
 
         return String.format(context.getString(R.string.get_weeks_and_days_from_days), weeks, dayz);
+    }
+
+    public String weightIMT(String input) {
+        return context.getString(IMTWeight.fromString(input).getResourceString());
     }
 
     @Override

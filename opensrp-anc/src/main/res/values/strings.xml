@@ -613,6 +613,9 @@
     <string name="search_string_dob">DOB:</string>
     <string name="search_string_mobile_phone_number">Mobile phone number:</string>
     <string name="search_string_alternate_contact_name">Alternate contact name:</string>
-
+    <string name="underweight">Underweight</string>
+    <string name="normal_weight">Normal Weight</string>
+    <string name="obese">Obese</string>
+    <string name="overweight">Overweight</string>
 
 </resources>

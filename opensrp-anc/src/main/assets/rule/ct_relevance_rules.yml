@@ -233,14 +233,14 @@ actions:
 name: step4_increase_energy_counsel
 description: Increase daily energy and protein intake counseling
 priority: 1
-condition: "global_pop_undernourish == true && global_weight_cat == 'Underweight'"
+condition: "global_pop_undernourish == true && global_weight_cat == helper.weightIMT('Underweight')"
 actions:
   - "isRelevant = true"
 ---
 name: step4_balanced_energy_counsel
 description: Balanced energy and protein dietary supplementation counseling
 priority: 1
-condition: "global_pop_undernourish == true && global_weight_cat == 'Underweight'"
+condition: "global_pop_undernourish == true && global_weight_cat == helper.weightIMT('Underweight')"
 actions:
   - "isRelevant = true"
 ---
