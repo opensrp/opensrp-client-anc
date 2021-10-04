@@ -37,6 +37,7 @@ import org.smartregister.anc.library.model.Task;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.FormEntityConstants;
+import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.domain.Photo;
 import org.smartregister.domain.ProfileImage;
 import org.smartregister.domain.form.FormLocation;
@@ -233,7 +234,26 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
             Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag, entityId);
             Event baseEvent = org.smartregister.util.JsonFormUtils
                     .createEvent(fields, metadata, formTag, entityId, encounterType, DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME);
-
+//            List<Obs> obs = new ArrayList<>();
+//            List<Obs> obsCohab = new ArrayList<>();
+//
+//            for (Obs ob : baseEvent.getObs()) {
+//                if (ob.getFormSubmissionField().equals("cohabitants")) {
+//                    obsCohab.add(ob);
+//                } else {
+//                    obs.add(ob);
+//                }
+//            }
+//            if (obsCohab.size() > 0) {
+//                Obs obCohab = obsCohab.get(0);
+//                if (obsCohab.size() > 1) {
+//                    for (int i = 1; i < obsCohab.size(); i++) {
+//                        Obs ob = obsCohab.get(i);
+//                        obCohab.getHumanReadableValues().addAll(ob.getHumanReadableValues());
+//                        ob
+//                    }
+//                }
+//            }
             if (previousVisitsMap != null) {
                 baseEvent.addDetails(ConstantsUtils.JsonFormKeyUtils.PREVIOUS_VISITS_MAP, previousVisitsMap);
             }
@@ -558,7 +578,22 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
         } else if (jsonObject.getString(ANCJsonFormUtils.KEY).equalsIgnoreCase(ConstantsUtils.JsonFormKeyUtils.ANC_ID)) {
             jsonObject.put(ANCJsonFormUtils.VALUE, womanClient.get(DBConstantsUtils.KeyUtils.ANC_ID).replace("-", ""));
-        }  else if (womanClient.containsKey(jsonObject.getString(ANCJsonFormUtils.KEY))) {
+        } else if (jsonObject.getString(ANCJsonFormUtils.KEY).equalsIgnoreCase(DBConstantsUtils.KeyUtils.COHABITANTS)) {
+            String cohabitants = womanClient.get(DBConstantsUtils.KeyUtils.COHABITANTS);
+            JSONArray options = jsonObject.getJSONArray("options");
+            if (cohabitants.startsWith("[")) {
+                JSONArray array = new JSONArray(cohabitants);
+                for (int i = 0; i < array.length(); i++) {
+                    String cohib = array.getString(i);
+                    for (int j = 0; j < options.length(); j++) {
+                        JSONObject option = options.getJSONObject(j);
+                        if (option.getString(ANCJsonFormUtils.KEY).equals(cohib)) {
+                            option.put("value", true);
+                        }
+                    }
+                }
+            }
+        } else if (womanClient.containsKey(jsonObject.getString(ANCJsonFormUtils.KEY))) {
             jsonObject.put(ANCJsonFormUtils.READ_ONLY, false);
             jsonObject.put(ANCJsonFormUtils.VALUE, womanClient.get(jsonObject.getString(ANCJsonFormUtils.KEY)));
         } else {

@@ -4277,6 +4277,13 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "prescribe_daily_dose",
+            "text": "{{anc_counselling_treatment.step9.ifa_low_prev_notdone.options.prescribe_daily_dose.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5623AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
         "v_required": {
@@ -4304,6 +4311,45 @@
               {
                 "or": [
                   "other"
+                ]
+              }
+            ]
+          }
+        }
+      },
+
+
+      {
+        "key": "ifa_low_prev_prescribe_daily_dose",
+        "openmrs_entity_parent": "165355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "",
+        "type": "native_radio",
+        "label": "{{anc_counselling_treatment.step9.ifa_low_prev_prescribe_daily_dose.label}}",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done",
+            "text": "{{anc_counselling_treatment.step9.ifa_low_prev_prescribe_daily_dose.options.done.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "{{anc_counselling_treatment.step9.ifa_low_prev_prescribe_daily_dose.options.not_done.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "relevance": {
+          "step9:ifa_low_prev_notdone": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "prescribe_daily_dose"
                 ]
               }
             ]

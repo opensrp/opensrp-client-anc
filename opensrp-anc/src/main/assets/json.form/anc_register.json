@@ -342,7 +342,7 @@
         "key": "alt_phone_number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "159636AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "hint": "{{anc_register.step1.alt_phone_number.hint}}",
         "v_numeric": {
@@ -354,7 +354,7 @@
         "key": "cohabitants",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "159637AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "label": "{{anc_register.step1.cohabitants.label}}",
         "label_info_text": "{{anc_register.step1.cohabitants.label_info_text}}",
         "type": "check_box",
@@ -366,55 +366,55 @@
             "key": "parents",
             "text": "{{anc_register.step1.cohabitants.options.parents.text}}",
             "text_size": "18px",
-            "value": "false",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "value": false,
+            "openmrs_entity_id": "1596371AAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "siblings",
             "text": "{{anc_register.step1.cohabitants.options.siblings.text}}",
             "text_size": "18px",
-            "value": "false",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "value": false,
+            "openmrs_entity_id": "1596372AAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "extended_family",
             "text": "{{anc_register.step1.cohabitants.options.extended_family.text}}",
             "text_size": "18px",
-            "value": "false",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "value": false,
+            "openmrs_entity_id": "1596373AAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "partner",
             "text": "{{anc_register.step1.cohabitants.options.partner.text}}",
             "text_size": "18px",
-            "value": "false",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1596374AAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "friends",
             "text": "{{anc_register.step1.cohabitants.options.friends.text}}",
             "text_size": "18px",
-            "value": "false",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "value": false,
+            "openmrs_entity_id": "1596375AAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "no_one",
             "text": "{{anc_register.step1.cohabitants.options.no_one.text}}",
             "text_size": "18px",
-            "value": "false",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1596376AAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ]
       },

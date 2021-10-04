@@ -5,6 +5,9 @@
 
     <!-- General -->
     <string name="opensrp_url">https://sid.alcasha.com/opensrp/</string>
+    <string name="opensrp_base_url_title">OpenSRP base URL</string>
+    <string name="opensrp_base_url_message">Enter Base Server Url</string>
+    <string name="opensrp_base_url_summary">Defines the base server url that handles requests</string>
     <string name="app_name">WHO ANC</string>
     <string name="saving_dialog_title">Saving…</string>
     <string name="removing_dialog_title">Removing…</string>

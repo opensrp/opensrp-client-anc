@@ -596,4 +596,7 @@
     <string name="normal_weight">berat badan normal</string>
     <string name="obese">obesitas</string>
     <string name="overweight">gemuk</string>
+    <string name="opensrp_base_url_title">Alamat URL OpenSRP</string>
+    <string name="opensrp_base_url_message">Masukkan alamat URL OpenSRP</string>
+    <string name="opensrp_base_url_summary">Mendefinisikan alamat server OpenSRP</string>
 </resources>
