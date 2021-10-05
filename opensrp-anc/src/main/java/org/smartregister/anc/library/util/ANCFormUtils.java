@@ -733,4 +733,25 @@ public class ANCFormUtils extends FormUtils {
             Timber.e(e, " --> updateFormFields");
         }
     }
+
+
+    /**
+     * Update form properties file name according to the test fields populated
+     *  @param taskValue {@link JSONObject}
+     * @param form   {@link JSONObject}
+     */
+    public void updateFormPropertiesFileName(JSONObject form, JSONObject taskValue, Context context) {
+        try {
+            if (taskValue != null && taskValue.has(JsonFormConstants.CONTENT_FORM)) {
+                String subFormName = taskValue.getString(JsonFormConstants.CONTENT_FORM);
+                JSONObject subForm = FormUtils.getSubFormJson(subFormName, "", context);
+                String fileName = subForm.optString(JsonFormConstants.MLS.PROPERTIES_FILE_NAME);
+                form.put(JsonFormConstants.MLS.PROPERTIES_FILE_NAME, fileName);
+            }
+        } catch (JSONException e) {
+            Timber.e(e, " --> updateFormPropertiesFileName");
+        } catch (Exception e) {
+            Timber.e(e, " --> updateFormPropertiesFileName");
+        }
+    }
 }

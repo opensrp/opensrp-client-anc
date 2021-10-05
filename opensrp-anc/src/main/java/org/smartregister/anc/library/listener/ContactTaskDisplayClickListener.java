@@ -97,6 +97,8 @@ public class ContactTaskDisplayClickListener implements View.OnClickListener {
             JSONObject form = ANCFormUtils.loadTasksForm(context);
             updateFormTitle(form, formTitle);
             ANCFormUtils.updateFormFields(form, subFormFields);
+            // Update form properties file name according to the test fields populated
+            ANCFormUtils.updateFormPropertiesFileName(form, taskValue, context);
 
             profileTasksFragment.startTaskForm(form, task);
         }
