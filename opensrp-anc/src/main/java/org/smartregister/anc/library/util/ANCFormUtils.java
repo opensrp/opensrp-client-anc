@@ -754,4 +754,19 @@ public class ANCFormUtils extends FormUtils {
             Timber.e(e, " --> updateFormPropertiesFileName");
         }
     }
+
+    /**
+     * get translated form name according to key
+     * @param formKey {@link String}
+     * @param context   {@link Context}
+     */
+    public String getTranslatedFormTitle(String formKey, Context context) {
+        try {
+            int resourceId = context.getResources().getIdentifier(formKey, String.class.getSimpleName().toLowerCase(), context.getPackageName());
+            return context.getString(resourceId);
+        } catch (Exception e) {
+            Timber.e(e, " --> getTranslatedFormTitle");
+        }
+        return "";
+    }
 }
