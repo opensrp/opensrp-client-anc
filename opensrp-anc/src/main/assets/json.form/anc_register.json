@@ -116,6 +116,22 @@
         }
       },
       {
+        "key": "nrc",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "nrc",
+        "type": "edit_text",
+        "hint": "{{anc_register.step1.nrc.hint}}",
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_register.step1.nrc.v_required.err}}"
+        },
+        "v_regex": {
+          "value": "[0-9]{6}/[0-9]{2}/[0-9]{1}",
+          "err": "{{anc_register.step1.nrc.v_regex.err}}"
+        }
+      },
+      {
         "key": "gender",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
@@ -350,7 +366,63 @@
           "err": "{{anc_register.step1.alt_phone_number.v_numeric.err}}"
         }
       },
-            {
+      {
+        "key": "relation_NK",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "relation_NK",
+        "label":"Relation",
+        "label_info_text": "Relation to client",
+        "hint": "Relation to client",
+        "type": "spinner",
+        "options": [
+          {
+            "key": "parent",
+            "text": "Parent",
+            "text_size": "18px",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },{
+            "key": "guardian",
+            "text": "Guardian",
+            "text_size": "18px",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },{
+            "key": "sibling",
+            "text": "Sibling",
+            "text_size": "18px",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },{
+            "key": "partner",
+            "text": "Partner",
+            "text_size": "18px",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },{
+            "key": "extended_family",
+            "text": "Extended family",
+            "text_size": "18px",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "friend",
+            "text": "Friend",
+            "text_size": "18px",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
         "key": "cohabitants",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -371,7 +443,7 @@
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
-             {
+          {
             "key": "siblings",
             "text": "{{anc_register.step1.cohabitants.options.siblings.text}}",
             "text_size": "18px",
@@ -380,7 +452,7 @@
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
-             {
+          {
             "key": "extended_family",
             "text": "{{anc_register.step1.cohabitants.options.extended_family.text}}",
             "text_size": "18px",
@@ -389,7 +461,7 @@
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
-             {
+          {
             "key": "partner",
             "text": "{{anc_register.step1.cohabitants.options.partner.text}}",
             "text_size": "18px",
@@ -398,7 +470,7 @@
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
-             {
+          {
             "key": "friends",
             "text": "{{anc_register.step1.cohabitants.options.friends.text}}",
             "text_size": "18px",
@@ -407,7 +479,7 @@
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
-             {
+          {
             "key": "no_one",
             "text": "{{anc_register.step1.cohabitants.options.no_one.text}}",
             "text_size": "18px",
