@@ -43,6 +43,13 @@
           }
         },
         {
+          "column_name": "origin",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.origin"
+          }
+        },
+        {
           "column_name": "cohabitants",
           "type": "Event",
           "json_mapping": {

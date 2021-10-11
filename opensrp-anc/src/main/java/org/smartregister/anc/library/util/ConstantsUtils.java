@@ -172,6 +172,7 @@ public abstract class ConstantsUtils {
         public static final String DEFAULT = "default";
         public static final String PHOTO = "photo";
         public static final String AGE_ENTERED = "age_entered";
+        public static final String ORIGIN = "origin";
         public static final String STEP = "step";
         public static final String FORM = "form";
         public static final String CONTACT_NO = "contact_no";

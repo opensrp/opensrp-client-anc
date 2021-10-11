@@ -82,6 +82,15 @@
         }
       },
       {
+        "key": "study_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "study_id",
+        "type": "edit_text",
+        "hint": "Study ID"
+      },
+
+      {
         "key": "first_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
@@ -367,6 +376,29 @@
         }
       },
       {
+        "key": "origin",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "origin",
+        "type": "native_radio",
+        "label": "Origin ",
+        "options": [
+          {
+            "key": "catchment_area",
+            "text": "Catchment area",
+            "text_color": "#000000"
+          },
+          {
+            "key": "outside_catchment_area",
+            "text": "Outside catchment area",
+            "text_color": "#000000"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select origin"
+        },
+        "value":"catchment_area"
         "key": "relation_NK",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",

@@ -35,6 +35,7 @@ public class DBConstantsUtils {
         public static final String NRC_NUMBER = "nrc";
         public static final String RELATION_NK = "relation_NK";
         public static final String AGE = "age";
+        public static final String ORIGIN = "origin";
         public static final String REMINDERS = "reminders";
         public static final String RED_FLAG_COUNT = "red_flag_count";
         public static final String YELLOW_FLAG_COUNT = "yellow_flag_count";
