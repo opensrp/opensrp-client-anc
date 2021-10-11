@@ -771,7 +771,6 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
                             StringUtils.isBlank(fields.getJSONObject(i).getString(ConstantsUtils.KeyUtils.VALUE)) ? "0" :
                                     fields.getJSONObject(i).getString(ConstantsUtils.KeyUtils.VALUE));
                 }
-
             }
 
             return settings;
@@ -785,7 +784,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
                                                                            Map<String, String> characteristics) {
         try {
             JSONObject form = FormUtils.getInstance(context).getFormJson(ConstantsUtils.JsonFormUtils.ANC_SITE_CHARACTERISTICS);
-            Timber.d("Form is " + form.toString());
+            Timber.d("Form is %s", form.toString());
             if (form != null) {
                 form.put(ANCJsonFormUtils.ENCOUNTER_TYPE, ConstantsUtils.EventTypeUtils.SITE_CHARACTERISTICS);
 

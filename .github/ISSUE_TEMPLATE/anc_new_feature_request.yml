@@ -1,0 +1,32 @@
+name: 'WHO ANC new Feature request.'
+description: 'Use this to request for a new feature that is not available in the current application.'
+title: '[New Feature Request]: '
+labels: [New Feature Request]
+body:
+  - type: markdown
+    attributes:
+       value: |
+          Thanks for taking the time to fill out this new feature request!
+  - type: textarea
+    id: use_case
+    attributes:
+      label: Feature Use Case
+      description: "Give a detailed use case of how this feature is to be used?"
+      placeholder: "We need to add more indicators to the red & yellow flags"
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance criteria
+      description: "What is the acceptance criteria for this feature?"
+      placeholder: "The extra indicators should be shown on the red & yellow flags."
+    validations:
+      required: true
+  - type: textarea
+    id: extra_info
+    attributes:
+      label: Relevant Information
+      description: "Please share any other relevant information about the feature request or project."
+    validations:
+      required: false

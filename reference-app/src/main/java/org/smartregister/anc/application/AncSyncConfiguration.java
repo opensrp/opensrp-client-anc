@@ -43,7 +43,7 @@ public class AncSyncConfiguration extends SyncConfiguration {
     }
 
     @Override
-    public String getExtraSettingsParameters() {
+    public String getExtraStringSettingsParameters() {
         AllSharedPreferences sharedPreferences = AncLibrary.getInstance().getContext().userService().getAllSharedPreferences();
         String providerId = sharedPreferences.fetchRegisteredANM();
 
