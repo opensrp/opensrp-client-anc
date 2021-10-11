@@ -398,7 +398,8 @@
           "value": true,
           "err": "Please select origin"
         },
-        "value":"catchment_area"
+        "value": "catchment_area"
+      },{
         "key": "relation_NK",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
