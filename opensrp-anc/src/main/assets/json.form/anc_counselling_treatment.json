@@ -4343,18 +4343,7 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           }
-        ],
-        "relevance": {
-          "step9:ifa_low_prev_notdone": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "prescribe_daily_dose"
-                ]
-              }
-            ]
-          }
-        }
+        ]
       },
       {
         "key": "ifa_weekly",
