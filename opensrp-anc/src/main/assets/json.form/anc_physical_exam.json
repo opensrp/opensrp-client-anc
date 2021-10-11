@@ -493,8 +493,8 @@
           "err": ""
         },
         "v_min": {
-          "value": "20",
-          "err": "SBP must be equal or greater than 20"
+          "value": "60",
+          "err": "SBP must be equal or greater than 60"
         },
         "v_max": {
           "value": "260",
@@ -569,8 +569,8 @@
           "err": ""
         },
         "v_min": {
-          "value": "20",
-          "err": "DBP must be equal to or greater than 20"
+          "value": "60",
+          "err": "DBP must be equal to or greater than 60"
         },
         "v_max": {
           "value": "260",
@@ -720,8 +720,8 @@
           "err": ""
         },
         "v_min": {
-          "value": "20",
-          "err": "SBP must be equal or greater than 20"
+          "value": "60",
+          "err": "SBP must be equal or greater than 60"
         },
         "v_max": {
           "value": "260",
@@ -777,8 +777,8 @@
           "err": ""
         },
         "v_min": {
-          "value": "20",
-          "err": "DBP must be equal or greater than 20"
+          "value": "60",
+          "err": "DBP must be equal or greater than 60"
         },
         "v_max": {
           "value": "260",
@@ -1270,8 +1270,8 @@
           "err": ""
         },
         "v_min": {
-          "value": "20",
-          "err": "Pulse rate must be equal to or greater than 20"
+          "value": "50",
+          "err": "Pulse rate must be equal to or greater than 50"
         },
         "v_max": {
           "value": "200",

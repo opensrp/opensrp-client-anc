@@ -135,6 +135,20 @@
           "json_mapping": {
             "field": "attributes.visit_start_date"
           }
+        },
+        {
+          "column_name": "nrc",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.nrc"
+          }
+        },
+        {
+          "column_name": "relation_NK",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.relation_NK"
+          }
         }
       ]
     },

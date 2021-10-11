@@ -544,6 +544,15 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
     }
 
         else if (jsonObject.getString(ANCJsonFormUtils.KEY).equalsIgnoreCase(ConstantsUtils.WOM_IMAGE)) {
+        } else if (jsonObject.getString(ANCJsonFormUtils.KEY).equalsIgnoreCase(DBConstantsUtils.KeyUtils.NRC_NUMBER)) {
+            String nrcNumber = womanClient.get(DBConstantsUtils.KeyUtils.NRC_NUMBER);
+            jsonObject.put(ANCJsonFormUtils.VALUE, nrcNumber);
+
+        } else if (jsonObject.getString(ANCJsonFormUtils.KEY).equalsIgnoreCase(DBConstantsUtils.KeyUtils.RELATION_NK)) {
+            String relationNK = womanClient.get(DBConstantsUtils.KeyUtils.RELATION_NK);
+            jsonObject.put(ANCJsonFormUtils.VALUE, relationNK);
+
+        } else if (jsonObject.getString(ANCJsonFormUtils.KEY).equalsIgnoreCase(ConstantsUtils.WOM_IMAGE)) {
             getPhotoFieldValue(womanClient, jsonObject);
         } else if (jsonObject.getString(ANCJsonFormUtils.KEY).equalsIgnoreCase(DBConstantsUtils.KeyUtils.DOB_UNKNOWN)) {
             jsonObject.put(ANCJsonFormUtils.READ_ONLY, false);
