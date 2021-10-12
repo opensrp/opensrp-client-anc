@@ -149,6 +149,13 @@
           "json_mapping": {
             "field": "attributes.relation_NK"
           }
+        },
+        {
+          "column_name": "other_relation_to_client",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.other_relation_to_client"
+          }
         }
       ]
     },

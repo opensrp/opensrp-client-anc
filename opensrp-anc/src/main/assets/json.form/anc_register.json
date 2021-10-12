@@ -452,9 +452,35 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": ""
+          },
+          {
+            "key": "other_relations",
+            "text": "Other",
+            "text_size": "18px"
           }
         ]
       },
+      {
+        "key": "other_relation_to_client",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "other_relation_to_client",
+        "type": "edit_text",
+        "hint": "Other relation to client",
+        "edit_type": "edit_text",
+        "look_up": "true",
+        "entity_id": "",
+        "v_regex": {
+          "value": "[A-Za-z\\s\\.\\-]*",
+          "err": "{{anc_register.step1.alt_name.v_regex.err}}"
+        },
+        "relevance":{
+          "step1:relation_NK": {
+            "type": "string",
+            "ex": "equalTo(., \"other_relations\")"
+
+      }
+      }},
       {
         "key": "cohabitants",
         "openmrs_entity_parent": "",

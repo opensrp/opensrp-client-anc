@@ -48,5 +48,6 @@ public class DBConstantsUtils {
         public static final String VISIT_START_DATE = "visit_start_date";
         public static final String IS_FIRST_VISIT = "is_first_visit";
         public static final String COHABITANTS = "cohabitants";
+        public static final String OTHER_RELATIONS = "other_relation_to_client";
     }
 }
