@@ -10,8 +10,6 @@ import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.login.model.BaseLoginModel;
 import org.smartregister.view.contract.BaseLoginContract;
 
-import java.nio.charset.StandardCharsets;
-
 /**
  * Created by ndegwamartin on 28/06/2018.
  */
