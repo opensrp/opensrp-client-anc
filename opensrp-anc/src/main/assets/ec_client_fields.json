@@ -144,6 +144,13 @@
           }
         },
         {
+          "column_name": "maiden_name",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.maiden_name"
+          }
+        },
+        {
           "column_name": "relation_NK",
           "type": "Client",
           "json_mapping": {
@@ -216,6 +223,13 @@
           "type": "Client",
           "json_mapping": {
             "field": "addresses.address2"
+          }
+        },
+        {
+          "column_name": "landmark",
+          "type": "Client",
+          "json_mapping": {
+            "field": "addresses.landmark"
           }
         }
       ]

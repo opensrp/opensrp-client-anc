@@ -17,7 +17,7 @@
       "openmrs_entity_parent": "",
       "openmrs_entity": "concept",
       "openmrs_data_type": "end",
-      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
     },
     "today": {
       "openmrs_entity_parent": "",
@@ -57,6 +57,25 @@
   "step1": {
     "title": "RAM",
     "fields": [
+      {
+        "key": "contact_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "value": "today",
+        "hint": "Contact Date",
+        "expanded": false,
+        "duration": {
+          "label": "Contact Date"
+        },
+        "min_date": "today-20y",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify date of contact"
+        }
+      },
       {
         "key": "contact_reason",
         "openmrs_entity_parent": "",
@@ -274,6 +293,14 @@
           {
             "key": "depression",
             "text": "{{anc_quick_check.step1.specific_complaint.options.depression.text}}",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "119537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "mania_violent",
+            "text": "Mental Health - Mania/Violent",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",

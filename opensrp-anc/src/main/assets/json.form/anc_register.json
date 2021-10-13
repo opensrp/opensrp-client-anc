@@ -108,6 +108,23 @@
         }
       },
       {
+        "key": "maiden_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "maiden_name",
+        "type": "edit_text",
+        "hint": "Maiden Name",
+        "edit_type": "name",
+        "v_required": {
+          "value": "false",
+          "err": "Please enter the Maiden Name"
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\s\\.\\-]*",
+          "err": "Please enter a valid name"
+        }
+      },
+      {
         "key": "last_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
@@ -304,6 +321,19 @@
         }
       },
       {
+        "key": "landmark",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_address",
+        "openmrs_entity_id": "landmark",
+        "type": "edit_text",
+        "hint": "Landmark",
+        "edit_type": "name",
+        "v_required": {
+          "value": "false",
+          "err": "Please a enter a Landmark"
+        }
+      },
+      {
         "key": "phone_number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -317,6 +347,10 @@
         "v_required": {
           "value": "true",
           "err": "{{anc_register.step1.phone_number.v_required.err}}"
+        },
+        "v_regex": {
+          "value": "(0[9/7][5-7][0-9]{7})|s*",
+          "err": "Number must must be a total of 10 digits in length"
         }
       },
       {
@@ -373,6 +407,11 @@
         "v_numeric": {
           "value": "true",
           "err": "{{anc_register.step1.alt_phone_number.v_numeric.err}}"
+        },
+
+        "v_regex": {
+          "value": "(0[9/7][5-7][0-9]{7})|s*",
+          "err": "Number must must be a total of 10 digits in length"
         }
       },
       {
@@ -404,9 +443,9 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "relation_NK",
-        "label":"Relation",
-        "label_info_text": "Relation to client",
-        "hint": "Relation to client",
+        "label":"Relationship to client",
+        "label_info_text": "Relationship to client",
+        "hint": "Relationship to client",
         "type": "spinner",
         "options": [
           {

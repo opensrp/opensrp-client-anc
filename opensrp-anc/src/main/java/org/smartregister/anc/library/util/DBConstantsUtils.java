@@ -19,6 +19,7 @@ public class DBConstantsUtils {
         public static final String STEPNAME = "stepName";
         public static final String NUMBER_PICKER = "number_picker";
         public static final String FIRST_NAME = "first_name";
+        public static final String MAIDEN_NAME = "maiden_name";
         public static final String LAST_NAME = "last_name";
         public static final String BASE_ENTITY_ID = "base_entity_id";
         public static final String DOB = "dob";//Date Of Birth
@@ -32,6 +33,7 @@ public class DBConstantsUtils {
         public static final String ALT_NAME = "alt_name";
         public static final String ALT_PHONE_NUMBER = "alt_phone_number";
         public static final String HOME_ADDRESS = "home_address";
+        public static final String LANDMARK = "landmark";
         public static final String NRC_NUMBER = "nrc";
         public static final String RELATION_NK = "relation_NK";
         public static final String AGE = "age";
