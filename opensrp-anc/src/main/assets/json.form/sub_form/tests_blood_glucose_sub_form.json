@@ -12,7 +12,7 @@
       "options": [
         {
           "key": "done_today",
-          "text": "Done today",
+          "text": "{{tests_blood_glucose_sub_form.step1.glucose_test_status.options.done_today.text}}",
           "type": "done_today",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -20,7 +20,7 @@
         },
         {
           "key": "done_earlier",
-          "text": "Done earlier",
+          "text": "{{tests_blood_glucose_sub_form.step1.glucose_test_status.options.done_earlier.text}}",
           "type": "done_earlier",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -28,7 +28,7 @@
         },
         {
           "key": "ordered",
-          "text": "Ordered",
+          "text": "{{tests_blood_glucose_sub_form.step1.glucose_test_status.options.ordered.text}}",
           "type": "ordered",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -36,7 +36,7 @@
         },
         {
           "key": "not_done",
-          "text": "Not done",
+          "text": "{{tests_blood_glucose_sub_form.step1.glucose_test_status.options.not_done.text}}",
           "type": "not_done",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -151,11 +151,11 @@
       "edit_type": "number",
       "v_min": {
         "value": "30",
-        "err": "Fasting plasma glucose results must be greater than or equal to 30"
+        "err": "{{tests_blood_glucose_sub_form.step1.fasting_plasma_gluc.v_min.err}}"
       },
       "v_max": {
         "value": "500",
-        "err": "Fasting plasma glucose results must be less than or equal to 500"
+        "err": "{{tests_blood_glucose_sub_form.step1.fasting_plasma_gluc.v_max.err}}"
       },
       "v_numeric": {
         "value": "true",
@@ -183,11 +183,11 @@
       "edit_type": "number",
       "v_min": {
         "value": "30",
-        "err": "75g OGTT - fasting glucose results must be greater than or equal to 30"
+        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_fasting.v_min.err}}"
       },
       "v_max": {
         "value": "500",
-        "err": "75g OGTT - fasting glucose results must be less than or equal to 500"
+        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_fasting.v_max.err}}"
       },
       "v_numeric": {
         "value": "true",
@@ -215,11 +215,11 @@
       "edit_type": "number",
       "v_min": {
         "value": "30",
-        "err": "The result for the 75g OGTT - 1 hr must be greater than or equal to 30"
+        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_1.v_min.err}}"
       },
       "v_max": {
         "value": "500",
-        "err": "The result for the 75g OGTT - 1 hr must be less than or equal to 500"
+        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_1.v_max.err}}"
       },
       "v_numeric": {
         "value": "true",
@@ -247,11 +247,11 @@
       "edit_type": "number",
       "v_min": {
         "value": "30",
-        "err": "The result for the 75g OGTT - 2 hr must be greater than or equal to 30"
+        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_2.v_min.err}}"
       },
       "v_max": {
         "value": "500",
-        "err": "The result for the 75g OGTT - 2 hr must be less than or equal to 500"
+        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_2.v_max.err}}"
       },
       "v_numeric": {
         "value": "true",
@@ -279,11 +279,11 @@
       "edit_type": "number",
       "v_min": {
         "value": "30",
-        "err": "The result for the random plasma glucose test must be greater than or equal to 30"
+        "err": "{{tests_blood_glucose_sub_form.step1.random_plasma.v_min.err}}"
       },
       "v_max": {
         "value": "500",
-        "err": "The result for the random plasma glucose test must be less than or equal to 500"
+        "err": "{{tests_blood_glucose_sub_form.step1.random_plasma.v_max.err}}"
       },
       "v_numeric": {
         "value": "true",
