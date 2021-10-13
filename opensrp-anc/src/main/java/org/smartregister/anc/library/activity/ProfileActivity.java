@@ -378,4 +378,3 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         return (ProfilePresenter) presenter;
     }
 }
-

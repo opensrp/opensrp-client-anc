@@ -154,7 +154,7 @@ public class MeFragment extends org.smartregister.view.fragment.MeFragment imple
                 languages[x] = language.getKey(); //Update the languages strings array with the languages to be displayed on the alert dialog
                 x++;
 
-                if (getFullLanguage(current).equals(getFullLanguage(language.getValue()).toLowerCase())) {
+                if (getFullLanguage(current).equalsIgnoreCase(getFullLanguage(language.getValue()))) {
                     languageSwitcherText.setText(String.format(getActivity().getResources().getString(R.string.default_language_string), language.getKey()));
                 }
             }

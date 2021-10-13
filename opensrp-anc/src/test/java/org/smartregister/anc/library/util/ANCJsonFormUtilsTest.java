@@ -6,7 +6,11 @@ import androidx.core.util.Pair;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
+import androidx.core.util.Pair;
+
 import com.vijay.jsonwizard.constants.JsonFormConstants;
+
+import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.jetbrains.annotations.NotNull;
@@ -676,7 +680,7 @@ public class ANCJsonFormUtilsTest {
         PowerMockito.when(context.allSharedPreferences()).thenReturn(allSharedPreferences);
         Mockito.when(allSharedPreferences.fetchRegisteredANM()).thenReturn(providerId);
 
-        Pair<Event, Event> eventPair = ANCJsonFormUtils.createContactVisitEvent(formSubmissionIds, details);
+        Pair<Event, Event> eventPair = ANCJsonFormUtils.createVisitAndUpdateEvent(formSubmissionIds, details);
         Assert.assertNotNull(eventPair);
         Assert.assertNotNull(eventPair.first);
         Assert.assertEquals("Contact Visit", eventPair.first.getEventType());

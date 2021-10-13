@@ -1,57 +1,132 @@
 ---
+name: step2_bp_systolic_label
+description: BP Systolic Label
+priority: 1
+condition: "(step2_bp_measurement_method.contains('manually') || step2_bp_measurement_method.contains('optibp'))
+      && !step2_cant_record_bp.contains('cant_record_bp')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_bp_systolic
+description: BP Systolic Value
+priority: 1
+condition: "(step2_bp_measurement_method.contains('manually') || step2_bp_measurement_method.contains('optibp'))
+      && !step2_cant_record_bp.contains('cant_record_bp')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_bp_diastolic_label
+description: BP Diastolic Label
+priority: 1
+condition: "(step2_bp_measurement_method.contains('manually') || step2_bp_measurement_method.contains('optibp'))
+      && !step2_cant_record_bp.contains('cant_record_bp')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_bp_diastolic
+description: BP Diastolic Value
+priority: 1
+condition: "(step2_bp_measurement_method.contains('manually') || step2_bp_measurement_method.contains('optibp'))
+      && !step2_cant_record_bp.contains('cant_record_bp')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_cant_record_bp
+description: BP Diastolic Value
+priority: 1
+condition: "step2_bp_measurement_method.contains('manually') || step2_bp_measurement_method.contains('optibp')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_record_bp_using_optibp_button
+description: BP Measurement Widget
+priority: 1
+condition: "!(step2_bp_systolic >= 140 || step2_bp_diastolic >= 90) && step2_bp_measurement_method.contains('optibp') && !step2_cant_record_bp.contains('cant_record_bp')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_cant_record_bp_reason
+description: Cant record BP reason
+priority: 1
+condition: "step2_bp_measurement_method.contains('manually') && step2_cant_record_bp.contains('cant_record_bp')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_cant_record_bp_reason_opt
+description: Cant record BP reason via OptiBP
+priority: 1
+condition: "step2_bp_measurement_method.contains('optibp') && step2_cant_record_bp.contains('cant_record_bp')"
+actions:
+  - "isRelevant = true"
+---
 name: step2_toaster7
 description: BP measurement warning toaster
 priority: 1
-condition: "step2_bp_systolic >= 140 || step2_bp_diastolic >= 90"
+condition: "(step2_bp_systolic >= 140 || step2_bp_diastolic >= 90)
+        && (step2_bp_measurement_method.contains('optibp') || step2_bp_measurement_method.contains('manually'))"
 actions:
   - "isRelevant = true"
 ---
 name: step2_bp_systolic_repeat_label
 description: BP measurement
 priority: 1
-condition: "step2_bp_systolic >= 140 || step2_bp_diastolic >= 90"
+condition: "(step2_bp_systolic >= 140 || step2_bp_diastolic >= 90)
+        && (step2_bp_measurement_method.contains('optibp') || step2_bp_measurement_method.contains('manually'))"
 actions:
   - "isRelevant = true"
 ---
 name: step2_bp_systolic_repeat
 description: BP measurement
 priority: 1
-condition: "step2_bp_systolic >= 140 || step2_bp_diastolic >= 90"
+condition: "(step2_bp_systolic >= 140 || step2_bp_diastolic >= 90)
+        && (step2_bp_measurement_method.contains('optibp') || step2_bp_measurement_method.contains('manually'))"
 actions:
   - "isRelevant = true"
 ---
 name: step2_bp_diastolic_repeat_label
 description: BP measurement
 priority: 1
-condition: "step2_bp_systolic >= 140 || step2_bp_diastolic >= 90"
+condition: "(step2_bp_systolic >= 140 || step2_bp_diastolic >= 90)
+        && (step2_bp_measurement_method.contains('optibp') || step2_bp_measurement_method.contains('manually'))"
 actions:
   - "isRelevant = true"
 ---
 name: step2_bp_diastolic_repeat
 description: BP measurement
 priority: 1
-condition: "step2_bp_systolic >= 140 || step2_bp_diastolic >= 90"
+condition: "(step2_bp_systolic >= 140 || step2_bp_diastolic >= 90)
+        && (step2_bp_measurement_method.contains('optibp') || step2_bp_measurement_method.contains('manually'))"
+actions:
+  - "isRelevant = true"
+---
+name: step2_record_bp_using_optibp_2nd_reading_button
+description: BP measurement method 2
+priority: 1
+condition: "(step2_bp_systolic >= 140 || step2_bp_diastolic >= 90) && step2_bp_measurement_method.contains('optibp')"
 actions:
   - "isRelevant = true"
 ---
 name: step2_toaster8
 description: BP measurement warning toaster8
 priority: 1
-condition: "step2_bp_systolic_repeat >= 140 || step2_bp_diastolic_repeat >= 90"
+condition: "(step2_bp_systolic_repeat >= 140 || step2_bp_diastolic_repeat >= 90)
+         && (step2_bp_measurement_method.contains('optibp') || step2_bp_measurement_method.contains('manually'))"
 actions:
   - "isRelevant = true"
 ---
 name: step2_symp_sev_preeclampsia
 description: Check if the woman has any of the following symptoms of severe pre-eclampsia.
 priority: 1
-condition: "step2_bp_systolic_repeat >= 140 || step2_bp_diastolic_repeat >= 90"
+condition: "(step2_bp_systolic_repeat >= 140 || step2_bp_diastolic_repeat >= 90)
+         && (step2_bp_measurement_method.contains('optibp') || step2_bp_measurement_method.contains('manually'))"
 actions:
   - "isRelevant = true"
 ---
 name: step2_urine_protein
 description: Enter the result for the dipstick test - protein.
 priority: 1
-condition: "step2_bp_systolic_repeat >= 140 || step2_bp_diastolic_repeat >= 90"
+condition: "(step2_bp_systolic_repeat >= 140 || step2_bp_diastolic_repeat >= 90)
+         && (step2_bp_measurement_method.contains('optibp') || step2_bp_measurement_method.contains('manually'))"
 actions:
   - "isRelevant = true"
 ---

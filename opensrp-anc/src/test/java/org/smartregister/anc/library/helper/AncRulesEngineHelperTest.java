@@ -1,5 +1,9 @@
 package org.smartregister.anc.library.helper;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.jeasy.rules.api.Facts;
@@ -25,10 +29,6 @@ import org.smartregister.anc.library.util.ConstantsUtils;
 import java.text.ParseException;
 import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by ndegwamartin on 09/11/2018.

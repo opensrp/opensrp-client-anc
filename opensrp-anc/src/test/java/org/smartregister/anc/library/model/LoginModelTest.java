@@ -42,15 +42,15 @@ public class LoginModelTest extends BaseUnitTest {
 
     @Test
     public void testIsPasswordValidShouldTrueWhenPasswordValidatesCorrectly() {
-        boolean result = model.isPasswordValid(DUMMY_PASSWORD);
+        boolean result = model.isPasswordValid(DUMMY_PASSWORD.toCharArray());
         Assert.assertTrue(result);
     }
 
     @Test
     public void testIsPasswordValidShouldFalseWhenPasswordValidationFails() {
-        boolean result = model.isPasswordValid("");
+        boolean result = model.isPasswordValid("".toCharArray());
         Assert.assertFalse(result);
-        result = model.isPasswordValid("A");
+        result = model.isPasswordValid("A".toCharArray());
         Assert.assertFalse(result);
     }
 

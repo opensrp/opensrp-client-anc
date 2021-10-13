@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AlertDialog;
-
 import com.google.common.collect.ImmutableMap;
 
 import org.junit.After;
@@ -218,7 +217,7 @@ public class BaseHomeRegisterActivityTest extends BaseActivityUnitTest {
         Whitebox.setInternalState(baseHomeRegisterActivitySpy, "mBaseFragment", homeRegisterFragment);
         Whitebox.setInternalState(baseHomeRegisterActivitySpy, "presenter", registerPresenter);
         baseHomeRegisterActivitySpy.startRegistration();
-        Mockito.verify(registerPresenter).startForm("anc_register", null, null, (String) null);
+        Mockito.verify(registerPresenter).startForm("anc_register", null, "", (String) null);
     }
 
     @Test()

@@ -1,6 +1,8 @@
 package org.smartregister.anc.library.interactor;
 
-
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.timeout;
+import static org.mockito.Mockito.verify;
 import androidx.core.util.Pair;
 
 import org.apache.commons.lang3.tuple.Triple;
@@ -42,10 +44,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executors;
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.timeout;
-import static org.mockito.Mockito.verify;
 
 public class RegisterInteractorTest extends BaseUnitTest {
 
