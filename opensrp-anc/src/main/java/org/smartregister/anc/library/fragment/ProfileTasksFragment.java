@@ -172,6 +172,7 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
         intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, clientDetails);
         intent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, contactNo);
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, getForm());
+        intent.putExtra(JsonFormConstants.PERFORM_FORM_TRANSLATION, true);
         startActivityForResult(intent, ANCJsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 

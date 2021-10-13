@@ -13,7 +13,7 @@
       "options": [
         {
           "key": "done_today",
-          "text": "Done today",
+          "text": "{{tests_hiv_sub_form.step1.hiv_test_status.options.done_today.text}}",
           "type": "done_today",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -21,7 +21,7 @@
         },
         {
           "key": "done_earlier",
-          "text": "Done earlier",
+          "text": "{{tests_hiv_sub_form.step1.hiv_test_status.options.done_earlier.text}}",
           "type": "done_earlier",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -29,7 +29,7 @@
         },
         {
           "key": "ordered",
-          "text": "Ordered",
+          "text": "{{tests_hiv_sub_form.step1.hiv_test_status.options.ordered.text}}",
           "type": "ordered",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -37,7 +37,7 @@
         },
         {
           "key": "not_done",
-          "text": "Not done",
+          "text": "{{tests_hiv_sub_form.step1.hiv_test_status.options.not_done.text}}",
           "type": "not_done",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
