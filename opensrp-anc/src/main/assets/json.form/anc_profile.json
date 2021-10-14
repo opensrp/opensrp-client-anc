@@ -184,13 +184,6 @@
             "text": "{{anc_profile.step1.educ_level.options.none.text}}"
           },
           {
-            "key": "dont_know",
-            "text": "{{anc_profile.step1.educ_level.options.dont_know.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
             "key": "primary",
             "text": "{{anc_profile.step1.educ_level.options.primary.text}}",
             "openmrs_entity_parent": "",
@@ -693,7 +686,7 @@
         "openmrs_entity_id": "1439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "label_info_text": "If LMP is unknown and ultrasound wasn't done or it wasn't done early (before 24 weeks), then assess GA based on Symphysis Fundal Height (SFH) or abdominal palpation. Compare this GA against ultrasound GA (if done).",
-        "label_info_title": "GA from SFH or abdominal palpation - weeks",
+        "label_info_title": "GA from SFH or HOF - weeks",
         "hint": "{{anc_profile.step2.sfh_gest_age.hint}}",
         "v_required": {
           "value": true,
@@ -701,15 +694,15 @@
         },
         "v_numeric_integer": {
           "value": true,
-          "err": "Enter a Valid GA from SFH or abdominal palpation - weeks value"
+          "err": "Enter a Valid GA from SFH or HOF - weeks value"
         },
         "v_min": {
           "value": "4",
-          "err": "GA from SFH or abdominal palpation - weeks should 4 or greater"
+          "err": "GA from SFH or HOF - weeks should 4 or greater"
         },
         "v_max": {
           "value": "40",
-          "err": "GA from SFH or abdominal palpation - weeks should be 40 or less"
+          "err": "GA from SFH or HOF - weeks should be 40 or less"
         },
         "relevance": {
           "rules-engine": {
@@ -757,7 +750,7 @@
         "key": "select_gest_age_edd_label",
         "type": "label",
         "text": "{{anc_profile.step2.select_gest_age_edd_label.text}}",
-        "label_info_text": "If the difference between GA from LMP and early ultrasound is one week or less, then use GA from LMP. If the difference is more than 7 days, use the early ultrasound GA. If ultrasound was done late, use GA from LMP. Between late ultrasound and SFH or abdominal palpation, use your best judgment to select GA.",
+        "label_info_text": "If the difference between GA from LMP and early ultrasound is one week or less, then use GA from LMP. If the difference is more than 7 days, use the early ultrasound GA. If ultrasound was done late, use GA from LMP. Between late ultrasound and SFH or HOF, use your best judgment to select GA.",
         "label_text_style": "bold",
         "text_color": "#000000",
         "v_required": {
@@ -1445,13 +1438,13 @@
         "spacer_height": "24dp"
       },
       {
-        "key": "prev_preg_comps",
+        "key": "prev_preg_probs",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1430AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select multiple",
         "type": "check_box",
-        "label": "{{anc_profile.step3.prev_preg_comps.label}}",
+        "label": "{{anc_profile.step3.prev_preg_probs.label}}",
         "label_text_style": "bold",
         "exclusive": [
           "none",
@@ -1464,34 +1457,6 @@
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "none",
             "text": "{{anc_profile.step3.prev_preg_comps.options.none.text}}"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "dont_know",
-            "text": "{{anc_profile.step3.prev_preg_comps.options.dont_know.text}}"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "129251AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "pre_eclampsia",
-            "text": "{{anc_profile.step3.prev_preg_comps.options.pre_eclampsia.text}}"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "118744AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "eclampsia",
-            "text": "{{anc_profile.step3.prev_preg_comps.options.eclampsia.text}}"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "113054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "convulsions",
-            "text": "{{anc_profile.step3.prev_preg_comps.options.convulsions.text}}"
           },
           {
             "openmrs_entity_parent": "",
@@ -1521,6 +1486,64 @@
             "key": "illicit_substance",
             "text": "{{anc_profile.step3.prev_preg_comps.options.illicit_substance.text}}"
           },
+
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "140951AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "macrosomia",
+            "text": "{{anc_profile.step3.prev_preg_comps.options.macrosomia.text}}"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "{{anc_profile.step3.prev_preg_comps.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prev_preg_comps",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1430AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select multiple",
+        "type": "check_box",
+        "label": "{{anc_profile.step3.prev_preg_comps.label}}",
+        "label_text_style": "bold",
+        "exclusive": [
+          "none",
+          "dont_know"
+        ],
+        "options": [
+
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "129251AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "pre_eclampsia",
+            "text": "{{anc_profile.step3.prev_preg_comps.options.pre_eclampsia.text}}"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "118744AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "eclampsia",
+            "text": "{{anc_profile.step3.prev_preg_comps.options.eclampsia.text}}"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "113054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "convulsions",
+            "text": "{{anc_profile.step3.prev_preg_comps.options.convulsions.text}}"
+          },
+
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",

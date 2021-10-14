@@ -118,6 +118,13 @@ condition: "step3_previous_pregnancies > 0  "
 actions:
   - "isRelevant = true"
 ---
+name: step3_prev_preg_probs
+description: Previous pregnancy complications
+priority: 1
+condition: "step3_previous_pregnancies > 0  "
+actions:
+  - "isRelevant = true"
+---
 name: step3_c_sections_label
 description: C-sections label
 priority: 1
