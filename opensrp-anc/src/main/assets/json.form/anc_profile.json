@@ -184,13 +184,6 @@
             "text": "{{anc_profile.step1.educ_level.options.none.text}}"
           },
           {
-            "key": "dont_know",
-            "text": "{{anc_profile.step1.educ_level.options.dont_know.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
             "key": "primary",
             "text": "{{anc_profile.step1.educ_level.options.primary.text}}",
             "openmrs_entity_parent": "",
@@ -253,6 +246,20 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "separated",
+            "text": "Separated",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "separated"
+          },
+          {
+            "key": "cohabiting",
+            "text": "Living with a partner(Cohabiting)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "cohabiting"
           }
         ],
         "v_required": {
@@ -291,13 +298,6 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "informal_employment_sex_worker",
-            "text": "{{anc_profile.step1.occupation.options.informal_employment_sex_worker.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "160579AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "informal_employment_other",
