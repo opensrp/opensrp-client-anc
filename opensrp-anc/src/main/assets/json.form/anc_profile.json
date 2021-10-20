@@ -2139,13 +2139,6 @@
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "151286AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "cancer",
-            "text": "{{anc_profile.step4.health_conditions.options.cancer.text}}"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
             "openmrs_entity_id": "",
             "key": "cancer_other",
             "text": "{{anc_profile.step4.health_conditions.options.cancer_other.text}}"
@@ -2228,7 +2221,7 @@
         "hint": "{{anc_profile.step4.health_conditions_cancer_other.hint}}",
         "edit_type": "edit_text",
         "v_required": {
-          "value": false,
+          "value": true,
           "err": "{{anc_profile.step4.health_conditions_cancer_other.v_required.err}}"
         },
         "relevance": {
@@ -2431,6 +2424,31 @@
         }
       },
       {
+        "key": "underimmunized_doses",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "underimmunized_doses",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "How many doses ?",
+        "v_required": {
+          "value": true,
+          "err": "Please enter the number of doses"
+        },
+        "relevance": {
+          "step5:tt_immun_status": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "1-4_doses"
+
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
         "key": "tt_immunisation_toaster",
         "openers_entity_parent": "",
         "openmrs_entity": "",
@@ -2556,6 +2574,50 @@
               }
             ]
           }
+        }
+      },
+      {
+        "key": "hepatitis_immun_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hepatitis_immun_status",
+        "type": "native_radio",
+        "label": "{{anc_profile.step5.hepatitis_immun_status.label}}",
+        "label_text_style": "bold",
+        "multi_relevance": true,
+        "options": [
+          {
+            "key": "3_doses",
+            "text": "{{anc_profile.step5.tt_immun_status.options.3_doses.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "164134AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "1-4_doses",
+            "text": "{{anc_profile.step5.tt_immun_status.options.1-4_doses.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165226AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "ttcv_not_received",
+            "text": "{{anc_profile.step5.tt_immun_status.options.ttcv_not_received.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165227AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "unknown",
+            "text": "{{anc_profile.step5.tt_immun_status.options.unknown.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "{{anc_profile.step5.hepatitis_immun_status.v_required.err}}"
         }
       }
     ]
@@ -2874,13 +2936,6 @@
             "openmrs_entity_id": "",
             "key": "tea",
             "text": "{{anc_profile.step7.caffeine_intake.options.tea.text}}"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "more_than_48_pieces_squares_of_chocolate",
-            "text": "{{anc_profile.step7.caffeine_intake.options.more_than_48_pieces_squares_of_chocolate.text}}"
           },
           {
             "openmrs_entity_parent": "",
