@@ -279,10 +279,24 @@ condition: "global_syphilis_positive == 1 && global_pop_syphilis == false"
 actions:
   - "isRelevant = true"
 ---
+name: step5_low_prev_allergy_toaster
+description: prep_toaster
+priority: 1
+condition: "(global_syphilis_positive == 1 && global_pop_syphilis == false) && !global_allergies.isEmpty()"
+actions:
+  - "isRelevant = true"
+---
 name: step5_syphilis_high_prev_counsel
 description: Syphilis counselling and treatment
 priority: 1
 condition: "global_syphilis_positive == 1 && global_pop_syphilis == true"
+actions:
+  - "isRelevant = true"
+---
+name: step5_high_prev_allergy_toaster
+description: prep_toaster
+priority: 1
+condition: "(global_syphilis_positive == 1 && global_pop_syphilis == true) && !global_allergies.isEmpty()"
 actions:
   - "isRelevant = true"
 ---
@@ -391,10 +405,24 @@ condition: "global_pop_anaemia_40 == true && (global_anaemic == '' || global_ana
 actions:
   - "isRelevant = true"
 ---
+name: step9_ifa_high_prev_toaster
+description: ifa_high_prev_toaster
+priority: 1
+condition: "global_pop_anaemia_40 == true && (global_anaemic == '' || global_anaemic == 0) && !global_allergies.isEmpty()"
+actions:
+  - "isRelevant = true"
+---
 name: step9_ifa_low_prev
 description: ifa_low_prev
 priority: 1
 condition: "global_pop_anaemia_40 == false && (global_anaemic == '' || global_anaemic == 0)"
+actions:
+  - "isRelevant = true"
+---
+name: step9_ifa_low_prev_toaster
+description: ifa_low_prev_toaster
+priority: 1
+condition: "global_pop_anaemia_40 == false && (global_anaemic == '' || global_anaemic == 0) && !global_allergies.isEmpty()"
 actions:
   - "isRelevant = true"
 ---
@@ -409,6 +437,13 @@ name: step10_deworm
 description: deworm
 priority: 1
 condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13 ) && (global_pop_anaemia_40 == true || global_pop_helminth == true) && (global_contact_no == 1 || (global_contact_no > 1 && global_previous_deworm == '')) "
+actions:
+  - "isRelevant = true"
+---
+name: step10_deworm_toaster
+description: deworm_toaster
+priority: 1
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13 ) && (global_pop_anaemia_40 == true || global_pop_helminth == true) && (global_contact_no == 1 || (global_contact_no > 1 && global_previous_deworm == '') && !global_allergies.isEmpty() ) "
 actions:
   - "isRelevant = true"
 ---
