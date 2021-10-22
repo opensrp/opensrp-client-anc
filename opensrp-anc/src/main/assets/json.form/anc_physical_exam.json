@@ -493,8 +493,8 @@
           "err": ""
         },
         "v_min": {
-          "value": "60",
-          "err": "SBP must be equal or greater than 60"
+          "value": "40",
+          "err": "SBP must be equal or greater than 40"
         },
         "v_max": {
           "value": "260",
@@ -569,8 +569,8 @@
           "err": ""
         },
         "v_min": {
-          "value": "60",
-          "err": "DBP must be equal to or greater than 60"
+          "value": "20",
+          "err": "DBP must be equal to or greater than 20"
         },
         "v_max": {
           "value": "260",

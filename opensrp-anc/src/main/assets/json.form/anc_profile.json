@@ -2148,28 +2148,14 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "",
             "key": "gest_diabetes",
-            "text": "{{anc_profile.step4.health_conditions.options.gest_diabetes.text}}"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "key": "diabetes_other",
-            "text": "{{anc_profile.step4.health_conditions.options.diabetes_other.text}}"
+            "text": "Diabetes Mellitus (gestational)"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "119481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "diabetes",
-            "text": "{{anc_profile.step4.health_conditions.options.diabetes.text}}"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "key": "diabetes_type2",
-            "text": "{{anc_profile.step4.health_conditions.options.diabetes_type2.text}}"
+            "text": "Diabetes Mellitus (pre-existing)"
           },
           {
             "openmrs_entity_parent": "",
@@ -2990,6 +2976,43 @@
         "openmrs_entity_id": "163731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "{{anc_profile.step7.tobacco_user.label}}",
+        "label_text_style": "bold",
+        "multi_relevance": true,
+        "options": [
+          {
+            "key": "yes",
+            "text": "{{anc_profile.step7.tobacco_user.options.yes.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "159450AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no",
+            "text": "{{anc_profile.step7.tobacco_user.options.no.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "recently_quit",
+            "text": "{{anc_profile.step7.tobacco_user.options.recently_quit.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "{{anc_profile.step7.tobacco_user.v_required.err}}"
+        }
+      },
+      {
+        "key": "tobacco_user",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "163731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "Tobacco use - Sniffing(Insunko)",
         "label_text_style": "bold",
         "multi_relevance": true,
         "options": [
