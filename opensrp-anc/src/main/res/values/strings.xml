@@ -237,7 +237,7 @@
     <string name="edit"> edit </string>
 
     <!-- contact -->
-    <string name="quick_check">Quick Check</string>
+    <string name="quick_check">RAM</string>
     <string name="profile">Profile</string>
     <string name="symptoms_follow_up">Symptoms and Follow-up</string>
     <string name="physical_exam">Physical Exam</string>
