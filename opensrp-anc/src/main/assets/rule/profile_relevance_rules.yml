@@ -76,6 +76,20 @@ condition: "step3_previous_pregnancies > 0 "
 actions:
   - "isRelevant = true"
 ---
+name: step3_miscarriages_lost_label
+description: Miscarrige lost label
+priority: 1
+condition: "((step3_previous_pregnancies - step3_miscarriages_abortions) > 0)"
+actions:
+  - "isRelevant = true"
+---
+name: step3_miscarriages_lost
+description: Miscarrige lost
+priority: 1
+condition: "((step3_previous_pregnancies - step3_miscarriages_abortions) > 0)"
+actions:
+  - "isRelevant = true"
+---
 name: step3_live_births_label
 description: Live births label
 priority: 1
