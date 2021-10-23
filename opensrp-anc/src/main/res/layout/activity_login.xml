@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/canvasSV"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,6 +17,7 @@
 
 
         <!-- Top section -->
+
         <LinearLayout
             android:id="@+id/top_section"
             android:layout_width="match_parent"
@@ -24,16 +26,22 @@
             android:orientation="vertical"
             android:paddingTop="@dimen/login_logo_top_padding">
 
-            <ImageView
-                android:id="@+id/login_logo"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/login_logo_height"
-                android:layout_alignParentTop="true"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:contentDescription="logo"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_who_logo" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/login_logo"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/login_logo_height"
+                    android:layout_alignParentTop="true"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:contentDescription="logo"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_who_logo" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/login_title_text_view"
@@ -66,6 +74,17 @@
                 android:text="@string/form_manifest_version"
                 android:textColor="#90c4dc"
                 android:textSize="@dimen/login_build_text_view_textSize" />
+
+            <ImageView
+                android:id="@+id/ministry_of_health_image_view"
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:adjustViewBounds="false"
+                android:cropToPadding="false"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_ministry_of_health" />
 
         </LinearLayout>
 
@@ -174,16 +193,6 @@
             android:orientation="vertical"
             android:paddingTop="150dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:paddingTop="10dp"
-                android:paddingBottom="5dp"
-                android:text="Powered by"
-                android:textAlignment="center"
-                android:textColor="#A6ffffff" />
-
             <ImageView
                 android:id="@+id/opensrp_logo_image_view"
                 android:layout_width="@dimen/login_opensrp_logo_width"
@@ -193,6 +202,16 @@
                 android:cropToPadding="false"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_opensrp_logo" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="5dp"
+                android:paddingTop="10dp"
+                android:text="Powered by"
+                android:textAlignment="center"
+                android:textColor="#A6ffffff" />
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>
