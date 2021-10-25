@@ -187,7 +187,7 @@
           },
           {
             "key": "no_fetal_movement",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.no_fetal_movement.text}}",
+            "text": "No fetal movement",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
@@ -195,7 +195,7 @@
           },
           {
             "key": "reduced_fetal_movement",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.reduced_fetal_movement.text}}",
+            "text": "Reduced fetal movement",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
@@ -355,7 +355,7 @@
           },
           {
             "key": "full_abdominal_pain",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.full_abdominal_pain.text}}",
+            "text": "Abdominal pain",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
@@ -387,7 +387,7 @@
           },
           {
             "key": "low_back_pain",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.low_back_pain.text}}",
+            "text": "Low back pain",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
@@ -395,7 +395,7 @@
           },
           {
             "key": "other_pain",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.other_pain.text}}",
+            "text": "Other pain",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
@@ -403,7 +403,7 @@
           },
           {
             "key": "pelvic_pain",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.pelvic_pain.text}}",
+            "text": "Pelvic pain",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
