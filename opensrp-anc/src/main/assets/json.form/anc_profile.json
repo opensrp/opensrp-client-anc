@@ -1548,14 +1548,6 @@
             "openmrs_entity_id": "160246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "illicit_substance",
             "text": "{{anc_profile.step3.prev_preg_comps.options.illicit_substance.text}}"
-          },
-
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "140951AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "macrosomia",
-            "text": "{{anc_profile.step3.prev_preg_comps.options.macrosomia.text}}"
           }
         ],
         "v_required": {
