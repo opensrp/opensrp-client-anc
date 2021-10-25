@@ -122,81 +122,6 @@
         "spacer_height": "10sp"
       },
       {
-        "key": "pregest_weight_label",
-        "type": "label",
-        "label_text_style": "bold",
-        "text": "{{anc_physical_exam.step1.pregest_weight_label.text}}",
-        "text_color": "#000000",
-        "v_required": {
-          "value": "true",
-          "err": "{{anc_physical_exam.step1.pregest_weight_label.v_required.err}}"
-        },
-        "relevance": {
-          "step1:pregest_weight_unknown": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "pregest_weight_unknown"
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "key": "pregest_weight",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "normal_edit_text",
-        "edit_text_style": "bordered",
-        "edit_type": "number",
-        "relevance": {
-          "step1:pregest_weight_unknown": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "pregest_weight_unknown"
-                ]
-              }
-            ]
-          }
-        },
-        "v_numeric": {
-          "value": "true",
-          "err": ""
-        },
-        "v_min": {
-          "value": "30",
-          "err": "Weight must be equal or greater than 30"
-        },
-        "v_max": {
-          "value": "180",
-          "err": "Weight must be equal or less than 180"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "{{anc_physical_exam.step1.pregest_weight.v_required.err}}"
-        }
-      },
-      {
-        "key": "pregest_weight_unknown",
-        "openmrs_entity_parent": "165277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "check_box",
-        "options": [
-          {
-            "key": "pregest_weight_unknown",
-            "text": "{{anc_physical_exam.step1.pregest_weight_unknown.options.pregest_weight_unknown.text}}",
-            "value": "false",
-            "openmrs_entity_parent": "165277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ]
-      },
-      {
         "key": "spacer",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -593,71 +518,6 @@
         }
       },
       {
-        "key": "cant_record_bp",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "check_box",
-        "options": [
-          {
-            "key": "cant_record_bp",
-            "text": "{{anc_physical_exam.step2.cant_record_bp.options.cant_record_bp.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
-          }
-        ]
-      },
-      {
-        "key": "cant_record_bp_reason",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165428AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "label": "{{anc_physical_exam.step2.cant_record_bp_reason.label}}",
-        "type": "check_box",
-        "label_text_style": "bold",
-        "text_color": "#000000",
-        "options": [
-          {
-            "key": "bp_cuff_unavailable",
-            "text": "{{anc_physical_exam.step2.cant_record_bp_reason.options.bp_cuff_unavailable.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165386AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "bp_cuff_broken",
-            "text": "{{anc_physical_exam.step2.cant_record_bp_reason.options.bp_cuff_broken.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165179AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "other",
-            "text": "{{anc_physical_exam.step2.cant_record_bp_reason.options.other.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "{{anc_physical_exam.step2.cant_record_bp_reason.v_required.err}}"
-        },
-        "relevance": {
-          "step2:cant_record_bp": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "cant_record_bp"
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
         "key": "spacer",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -775,10 +635,6 @@
         "v_numeric": {
           "value": "true",
           "err": ""
-        },
-        "v_min": {
-          "value": "60",
-          "err": "DBP must be equal or greater than 60"
         },
         "v_max": {
           "value": "260",
@@ -1102,6 +958,85 @@
             "ex-rules": {
               "rules-file": "physical-exam-relevance-rules.yml"
             }
+          }
+        }
+      },
+      {
+        "key": "cant_record_bp",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "options": [
+          {
+            "key": "cant_record_bp",
+            "text": "{{anc_physical_exam.step2.cant_record_bp.options.cant_record_bp.text}}",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "cant_record_bp_reason",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165428AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "label": "{{anc_physical_exam.step2.cant_record_bp_reason.label}}",
+        "type": "check_box",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "bp_cuff_unavailable",
+            "text": "{{anc_physical_exam.step2.cant_record_bp_reason.options.bp_cuff_unavailable.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165386AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "bp_cuff_broken",
+            "text": "{{anc_physical_exam.step2.cant_record_bp_reason.options.bp_cuff_broken.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165179AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "batteries_not_available",
+            "text": "{{anc_physical_exam.step2.cant_record_bp_reason.options.batteries_not_available.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165179AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "other",
+            "text": "{{anc_physical_exam.step2.cant_record_bp_reason.options.other.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_physical_exam.step2.cant_record_bp_reason.v_required.err}}"
+        },
+        "relevance": {
+          "step2:cant_record_bp": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "cant_record_bp"
+                ]
+              }
+            ]
           }
         }
       }
