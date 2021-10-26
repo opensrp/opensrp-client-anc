@@ -870,8 +870,16 @@
             "openmrs_entity_parent": ""
           },
           {
-            "key": "nausea_vomiting",
-            "text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.nausea_vomiting.text}}",
+            "key": "nausea",
+            "text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.nausea.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "133473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "vomiting",
+            "text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.vomiting.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "133473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -960,14 +968,6 @@
         ],
         "options": [
           {
-            "key": "none",
-            "text": "{{anc_symptoms_follow_up.step3.other_sym_lbpp.options.none.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
             "key": "contractions",
             "text": "{{anc_symptoms_follow_up.step3.other_sym_lbpp.options.contractions.text}}",
             "value": false,
@@ -1023,14 +1023,6 @@
         ],
         "options": [
           {
-            "key": "none",
-            "text": "{{anc_symptoms_follow_up.step3.other_sym_vvo.options.none.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
             "key": "leg_pain",
             "text": "{{anc_symptoms_follow_up.step3.other_sym_vvo.options.leg_pain.text}}",
             "value": false,
@@ -1074,7 +1066,8 @@
             "ex-checkbox": [
               {
                 "or": [
-                  "nausea_vomiting"
+                  "nausea",
+                  "vomiting"
                 ]
               }
             ]
@@ -1381,8 +1374,16 @@
             "openmrs_entity_parent": ""
           },
           {
-            "key": "nausea_vomiting",
-            "text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.nausea_vomiting.text}}",
+            "key": "nausea",
+            "text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.nausea.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "133473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "vomiting",
+            "text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.vomiting.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "133473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1464,14 +1465,6 @@
         ],
         "options": [
           {
-            "key": "none",
-            "text": "{{anc_symptoms_follow_up.step4.other_sym_lbpp.options.none.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
             "key": "contractions",
             "text": "{{anc_symptoms_follow_up.step4.other_sym_lbpp.options.contractions.text}}",
             "value": false,
@@ -1527,14 +1520,6 @@
         ],
         "options": [
           {
-            "key": "none",
-            "text": "{{anc_symptoms_follow_up.step4.other_sym_vvo.options.none.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
             "key": "leg_pain",
             "text": "{{anc_symptoms_follow_up.step4.other_sym_vvo.options.leg_pain.text}}",
             "value": false,
@@ -1578,7 +1563,8 @@
             "ex-checkbox": [
               {
                 "or": [
-                  "nausea_vomiting"
+                  "nausea",
+                  "vomiting"
                 ]
               }
             ]
@@ -1766,14 +1752,6 @@
           "none"
         ],
         "options": [
-          {
-            "key": "none",
-            "text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.none.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
           {
             "key": "abnormal_vaginal_discharge",
             "text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.abnormal_vaginal_discharge.text}}",
