@@ -1,4 +1,4 @@
-name: 'OpenSRP web new Feature request.'
+name: 'WHO ANC new Feature request.'
 description: 'Use this to request for a new feature that is not available in the current application.'
 title: '[New Feature Request]: '
 labels: [New Feature Request]
@@ -12,7 +12,7 @@ body:
     attributes:
       label: Feature Use Case
       description: "Give a detailed use case of how this feature is to be used?"
-      placeholder: "Needed to display what teams practitioners are assigned to"
+      placeholder: "We need to add more indicators to the red & yellow flags"
     validations:
       required: true
   - type: textarea
@@ -20,7 +20,7 @@ body:
     attributes:
       label: Acceptance criteria
       description: "What is the acceptance criteria for this feature?"
-      placeholder: "Team assignments should be shown on the user details page."
+      placeholder: "The extra indicators should be shown on the red & yellow flags."
     validations:
       required: true
   - type: textarea
