@@ -1,0 +1,40 @@
+name: 'WHO ANC support request (SID Team).'
+description: 'Use this for the (SID Team) team to request for support form the ona team.'
+title: '[Ona Support Request]: '
+labels: [Tech Partner (SID Team)]
+body:
+  - type: markdown
+    attributes:
+       value: |
+          Thanks for taking the time to fill out this support request!
+  - type: input
+    id: bug_project
+    attributes:
+      label: Affected App or Server Version
+      description: "What Server or App Version do you need support in?"
+      placeholder: "v1.6.8 App or 2.7.18 Server"
+    validations:
+      required: true
+  - type: textarea
+    id: use_case
+    attributes:
+      label: What kind of support do you need?
+      description: "Give a detailed explanation of the kind of support you need?"
+      placeholder: "We need to add more indicators to the red & yellow flags"
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: What is the acceptance criteria for your support request?
+      description: "What is the acceptance criteria for this support request?"
+      placeholder: "The extra indicators should be shown on the red & yellow flags."
+    validations:
+      required: true
+  - type: textarea
+    id: extra_info
+    attributes:
+      label: Relevant Information
+      description: "Please share any other relevant information about the feature request or project."
+    validations:
+      required: false
