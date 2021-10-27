@@ -331,13 +331,9 @@ public class Utils extends org.smartregister.util.Utils {
         String value = "";
         if (facts.get(key) instanceof String) {
             value = facts.get(key);
-            if(key.equals("nausea_pharma") || key.equals("antacid") || key.equals("penicillin") || key.equals("antibiotic") || key.equals("ifa_medication"))
-            {
-                if(value!= null && value.equals("0"))
-                {
-                    return ANCFormUtils.keyToValueConverter("");
-                }
-            }
+            if((key.equals("nausea_pharma") || key.equals("antacid") || key.equals("penicillin") || key.equals("antibiotic") || key.equals("ifa_medication")) && (value!= null && value.equals("0")))
+                return ANCFormUtils.keyToValueConverter("");
+
             if (value != null && value.endsWith(OTHER_SUFFIX)) {
                 Object otherValue = value.endsWith(OTHER_SUFFIX) ? facts.get(key + ConstantsUtils.SuffixUtils.OTHER) : "";
                 value = otherValue != null ?
