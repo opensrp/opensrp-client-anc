@@ -28,10 +28,9 @@
         },
         {
           "column_name": "alt_phone_number",
-          "type": "Event",
+          "type": "Client",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "field": "attributes.alt_phone_number"
           }
         },
         {
@@ -44,10 +43,9 @@
         },
         {
           "column_name": "cohabitants",
-          "type": "Event",
+          "type": "Client",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "field": "attributes.cohabitants"
           }
         },
         {
@@ -60,10 +58,9 @@
         },
         {
           "column_name": "alt_phone_number",
-          "type": "Event",
+          "type": "Client",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "field": "attributes.alt_phone_number"
           }
         },
         {

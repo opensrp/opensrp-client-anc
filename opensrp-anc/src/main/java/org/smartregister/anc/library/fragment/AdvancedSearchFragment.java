@@ -392,6 +392,7 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
             switchViews(false);
         } else {
             ((BaseRegisterActivity) getActivity()).switchToBaseFragment();
+            ((BaseRegisterActivity) getActivity()).setSelectedBottomBarMenuItem(org.smartregister.R.id.action_clients);
         }
     }
 
@@ -502,9 +503,13 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
         lastName.addTextChangedListener(advancedSearchTextwatcher);
 
         edd = view.findViewById(R.id.edd);
+        edd.setFocusable(false);
+        edd.setFocusableInTouchMode(false);
         edd.addTextChangedListener(advancedSearchTextwatcher);
 
         dob = view.findViewById(R.id.dob);
+        dob.setFocusable(false);
+        dob.setFocusableInTouchMode(false);
         dob.addTextChangedListener(advancedSearchTextwatcher);
 
         phoneNumber = view.findViewById(R.id.phone_number);
@@ -513,8 +518,8 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
         altContactName = view.findViewById(R.id.alternate_contact_name);
         altContactName.addTextChangedListener(advancedSearchTextwatcher);
 
-        setDatePicker(edd);
-        setDatePicker(dob);
+        setDatePicker(edd, false);
+        setDatePicker(dob, true);
 
         qrCodeButton.setOnClickListener(view1 -> {
             if (getActivity() == null) {
@@ -530,8 +535,8 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
         resetForm();
     }
 
-    private void setDatePicker(final EditText editText) {
-        editText.setOnClickListener(new DatePickerListener(getActivity(), editText, true));
+    private void setDatePicker(final EditText editText, boolean maxDateToday) {
+        editText.setOnClickListener(new DatePickerListener(getActivity(), editText, maxDateToday));
     }
 
     private HashMap<String, String> createSelectedFieldMap() {
