@@ -331,6 +331,13 @@ public class Utils extends org.smartregister.util.Utils {
         String value = "";
         if (facts.get(key) instanceof String) {
             value = facts.get(key);
+            if(key.equals("nausea_pharma") || key.equals("antacid") || key.equals("penicillin") || key.equals("antibiotic") || key.equals("ifa_medication"))
+            {
+                if(value!= null && value.equals("0"))
+                {
+                    return ANCFormUtils.keyToValueConverter("");
+                }
+            }
             if (value != null && value.endsWith(OTHER_SUFFIX)) {
                 Object otherValue = value.endsWith(OTHER_SUFFIX) ? facts.get(key + ConstantsUtils.SuffixUtils.OTHER) : "";
                 value = otherValue != null ?
@@ -345,7 +352,6 @@ public class Utils extends org.smartregister.util.Utils {
 
     private static String cleanValueResult(String result) {
         List<String> nonEmptyItems = new ArrayList<>();
-        result = result.replace("0", "");
         for (String item : result.split(",")) {
             if (item.length() > 0 && !item.trim().equals("")) {
                 nonEmptyItems.add(item);
