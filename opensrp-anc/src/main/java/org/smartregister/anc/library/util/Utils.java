@@ -41,8 +41,6 @@ import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.anc.library.activity.ContactJsonFormActivity;
 import org.smartregister.anc.library.activity.ContactSummaryFinishActivity;
-import org.smartregister.anc.library.activity.MainContactActivity;
-import org.smartregister.anc.library.activity.ProfileActivity;
 import org.smartregister.anc.library.constants.AncAppPropertyConstants;
 import org.smartregister.anc.library.domain.ButtonAlertStatus;
 import org.smartregister.anc.library.domain.Contact;
@@ -347,9 +345,9 @@ public class Utils extends org.smartregister.util.Utils {
 
     private static String cleanValueResult(String result) {
         List<String> nonEmptyItems = new ArrayList<>();
-
+        result = result.replace("0", "");
         for (String item : result.split(",")) {
-            if (item.length() > 0) {
+            if (item.length() > 0 && !item.trim().equals("")) {
                 nonEmptyItems.add(item);
             }
         }
@@ -360,6 +358,8 @@ public class Utils extends org.smartregister.util.Utils {
             itemLabel = separatedLabel[0];
             if (separatedLabel.length > 1) {
                 nonEmptyItems.set(0, nonEmptyItems.get(0).split(":")[1]);
+                if (nonEmptyItems.get(0).trim().equals(""))
+                    nonEmptyItems.remove(0);
             }//replace with extracted value
         }
         return itemLabel + (!TextUtils.isEmpty(itemLabel) ? ": " : "") + StringUtils.join(nonEmptyItems.toArray(), ",");
