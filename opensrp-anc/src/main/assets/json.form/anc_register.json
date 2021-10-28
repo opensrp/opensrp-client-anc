@@ -349,7 +349,7 @@
           "err": "{{anc_register.step1.phone_number.v_required.err}}"
         },
         "v_regex": {
-          "value": "(0[9/7][5-7][0-9]{7})|s*",
+          "value": "(0([9]{1}[5-7]{1}|[7]{1}[6/7]{1})[0-9]{7})|s*",
           "err": "Number must must be a total of 10 digits in length"
         }
       },
@@ -410,7 +410,7 @@
         },
 
         "v_regex": {
-          "value": "(0[9/7][5-7][0-9]{7})|s*",
+          "value": "(0([9]{1}[5-7]{1}|[7]{1}[6/7]{1})[0-9]{7})|s*",
           "err": "Number must must be a total of 10 digits in length"
         }
       },
