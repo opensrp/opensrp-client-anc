@@ -1062,6 +1062,13 @@
               "rules-file": "physical-exam-relevance-rules.yml"
             }
           }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
         }
       },
       {
