@@ -460,6 +460,42 @@
     "next": "step3",
     "fields": [
       {
+        "key": "bp_measurement_method",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "{{anc_physical_exam.step2.bp_measurement_method.label}}",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "exclusive": [
+          "optibp",
+          "manually"
+        ],
+        "options": [
+          {
+            "key": "optibp",
+            "text": "{{anc_physical_exam.step2.bp_measurement_method.options.optibp.text}}",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "manually",
+            "text": "{{anc_physical_exam.step2.bp_measurement_method.options.manually.text}}",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_physical_exam.step2.bp_measurement_method.v_required.err}}"
+        }
+      },
+      {
         "key": "bp_systolic_label",
         "type": "label",
         "label_text_style": "bold",
@@ -469,14 +505,10 @@
           "value": true
         },
         "relevance": {
-          "step2:cant_record_bp": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "cant_record_bp"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
           }
         }
       },
@@ -664,6 +696,32 @@
         "openmrs_entity_id": "spacer",
         "type": "spacer",
         "spacer_height": "10sp"
+      },
+      {
+        "key": "record_bp_using_optibp_button",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "optibp",
+        "label": "{{anc_physical_exam.step2.record_bp_using_optibp_button.label}}",
+        "optibp_button_bg_color": "#EB5281",
+        "optibp_button_text_color": "#FFFFFF",
+        "read_only": false,
+        "optibp_data": {
+          "clientId": "",
+          "clientOpenSRPId": ""
+        },
+        "fields_to_use_value": [
+          "bp_systolic",
+          "bp_diastolic"
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "toaster7",
