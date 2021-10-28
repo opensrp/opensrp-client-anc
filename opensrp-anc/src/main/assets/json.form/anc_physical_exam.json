@@ -1039,6 +1039,112 @@
             ]
           }
         }
+      },
+      {
+        "key": "unrecordable_bp",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "options": [
+          {
+            "key": "bp_unrecordable",
+            "text": "{{anc_physical_exam.step2.unrecordable_bp.options.unrecordable_bp.text}}",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "unrecordable_bp_reason",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165428AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "label": "{{anc_physical_exam.step2.cant_record_bp_reason.label}}",
+        "type": "check_box",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "vomiting",
+            "text": "Vomiting",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "122963AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "diarrhoea",
+            "text": "Diarrhoea",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "122988AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "severe_hypertension ",
+            "text": "Severe hypertension ",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165179AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "other",
+            "text": "Other",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_physical_exam.step2.cant_record_bp_reason.v_required.err}}"
+        },
+        "relevance": {
+          "step2:unrecordable_bp": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "bp_unrecordable"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "other_reason_unrecordable_bp",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160132AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Enter other reason ",
+        "edit_type": "name",
+        "v_required": {
+          "value": true,
+          "err": "Please enter the other reason Bp was unrecordable"
+        },
+        "relevance": {
+          "step2:unrecordable_bp_reason": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
+        }
+
       }
     ]
   },
@@ -1269,8 +1375,8 @@
           "err": ""
         },
         "v_min": {
-          "value": "20",
-          "err": "Pulse rate must be equal to or greater than 20"
+          "value": "50",
+          "err": "Pulse rate must be equal to or greater than 50"
         },
         "v_max": {
           "value": "200",
