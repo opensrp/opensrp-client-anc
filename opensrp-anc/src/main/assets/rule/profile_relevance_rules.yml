@@ -93,14 +93,14 @@ actions:
 name: step3_live_births_label
 description: Live births label
 priority: 1
-condition: "((step3_previous_pregnancies - step3_miscarriages_abortions) > 0)"
+condition: "((step3_previous_pregnancies - step3_miscarriages_abortions - step3_miscarriages_lost) > 0)"
 actions:
   - "isRelevant = true"
 ---
 name: step3_live_births
 description: Live births
 priority: 1
-condition: "((step3_previous_pregnancies - step3_miscarriages_abortions) > 0)"
+condition: "((step3_previous_pregnancies - step3_miscarriages_abortions - step3_miscarriages_lost) > 0)"
 actions:
   - "isRelevant = true"
 ---
@@ -114,14 +114,14 @@ actions:
 name: step3_stillbirths_label
 description: Still births label
 priority: 1
-condition: "((step3_previous_pregnancies - step3_miscarriages_abortions - step3_live_births) > 0)"
+condition: "((step3_previous_pregnancies - step3_miscarriages_abortions - step3_live_births - step3_miscarriages_lost) > 0)"
 actions:
   - "isRelevant = true"
 ---
 name: step3_stillbirths
 description: Slill births
 priority: 1
-condition: "((step3_previous_pregnancies - step3_miscarriages_abortions - step3_live_births) > 0) "
+condition: "((step3_previous_pregnancies - step3_miscarriages_abortions - step3_live_births - step3_miscarriages_lost) > 0) "
 actions:
   - "isRelevant = true"
 ---
