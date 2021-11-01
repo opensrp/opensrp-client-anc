@@ -6,17 +6,32 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.os.Build;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
+
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Text;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
 
@@ -58,7 +73,10 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.util.JsonFormUtils;
 import org.smartregister.view.activity.DrishtiApplication;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -867,5 +885,55 @@ public class Utils extends org.smartregister.util.Utils {
         } else {
             return null;
         }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public static void createPdf(String sometext, Context activityContext){
+        // write the document content
+        String directory_path = Environment.getExternalStorageDirectory().getPath() ;
+        File file = new File(directory_path);
+
+        String targetPdf = directory_path+"/test.pdf";
+        File filePath = new File(targetPdf);
+
+        try {
+
+            PdfWriter pdfWriter = new PdfWriter(filePath);
+            PdfDocument pdfDocument = new PdfDocument(pdfWriter);
+            Document document = new Document(pdfDocument);
+
+
+            Paragraph paragraph = new Paragraph();
+
+            Text text1 = new Text("First Text");
+            paragraph.add(text1);
+
+            Text text2 = new Text("Second Text");
+            text2.setBold();
+            paragraph.add(text2);
+
+            Text text3 = new Text("Third Text");
+            text3.setUnderline();
+            paragraph.add(text3);
+
+            Text text4 = new Text("Fourth Text");
+            text4.setItalic();
+            text4.setLineThrough();
+            paragraph.add(text4);
+
+            document.add(paragraph);
+            document.close();
+
+          //  Toast.makeText(activityContext,"done",Toast.LENGTH_SHORT).show();
+
+
+        } catch (IOException  e) {
+            Log.e("main", "error "+e.toString());
+           // e.printStackTrace();
+            Toast.makeText(activityContext, "Something wrong: " + e.toString(),  Toast.LENGTH_LONG).show();
+        }
+
+        // close the document
+
     }
 }

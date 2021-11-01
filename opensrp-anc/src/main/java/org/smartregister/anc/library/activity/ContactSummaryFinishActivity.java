@@ -1,5 +1,8 @@
 package org.smartregister.anc.library.activity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -7,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.RequiresApi;
 
 import org.jeasy.rules.api.Facts;
 import org.json.JSONObject;
@@ -25,6 +30,7 @@ import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.FilePathUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.helper.ImageRenderHelper;
+import org.smartregister.util.PermissionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +65,9 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         mProfilePresenter = new ProfilePresenter(this);
         imageRenderHelper = new ImageRenderHelper(this);
         loadContactSummaryData();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Utils.createPdf("",this);
+        }
 
     }
 
@@ -80,9 +89,14 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         }
     }
 
+
     protected void loadContactSummaryData() {
         try {
             new LoadContactSummaryDataTask(this, getIntent(), mProfilePresenter, facts, baseEntityId).execute();
+           if(PermissionUtils.isPermissionGranted(this, Manifest.permission.WRITE_EXTERNAL_STORAGE,PermissionUtils.WRITE_EXTERNAL_STORAGE_REQUEST_CODE))
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+               // Utils.createPdf("this is a test",this);
+            }
         } catch (Exception e) {
             Timber.e(e, "%s loadContactSummaryData()", this.getClass().getCanonicalName());
         }
@@ -228,6 +242,16 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         //Overriden
+        if (requestCode == PermissionUtils.WRITE_EXTERNAL_STORAGE_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    Utils.createPdf("this is a test",this);
+                }
+
+            } else {
+                displayToast(R.string.allow_phone_call_management);
+            }
+        }
     }
 
     public List<YamlConfig> getYamlConfigList() {
