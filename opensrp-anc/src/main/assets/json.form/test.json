@@ -87,14 +87,7 @@
         "accordion_info_title": "{{anc_test.step1.accordion_ultrasound.accordion_info_title}}",
         "type": "expansion_panel",
         "content_form": "tests_ultrasound_sub_form",
-        "container": "anc_test",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "tests_expansion_panel_relevance_rules.yml"
-            }
-          }
-        }
+        "container": "anc_test"
       },
       {
         "key": "accordion_blood_type",
@@ -104,14 +97,7 @@
         "text": "{{anc_test.step1.accordion_blood_type.text}}",
         "type": "expansion_panel",
         "content_form": "tests_blood_type_sub_form",
-        "container": "anc_test",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "tests_expansion_panel_relevance_rules.yml"
-            }
-          }
-        }
+        "container": "anc_test"
       },
       {
         "key": "accordion_hiv",
@@ -123,14 +109,7 @@
         "accordion_info_title": "{{anc_test.step1.accordion_hiv.accordion_info_title}}",
         "type": "expansion_panel",
         "content_form": "tests_hiv_sub_form",
-        "container": "anc_test",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "tests_expansion_panel_relevance_rules.yml"
-            }
-          }
-        }
+        "container": "anc_test"
       },
       {
         "key": "accordion_hepatitis_b",
@@ -142,14 +121,7 @@
         "accordion_info_title": "{{anc_test.step1.accordion_hepatitis_b.accordion_info_title}}",
         "type": "expansion_panel",
         "content_form": "tests_hepatitis_b_sub_form",
-        "container": "anc_test",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "tests_expansion_panel_relevance_rules.yml"
-            }
-          }
-        }
+        "container": "anc_test"
       },
       {
         "key": "accordion_hepatitis_c",
@@ -180,14 +152,7 @@
         "accordion_info_title": "{{anc_test.step1.accordion_syphilis.accordion_info_title}}",
         "type": "expansion_panel",
         "content_form": "tests_syphilis_sub_form",
-        "container": "anc_test",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "tests_expansion_panel_relevance_rules.yml"
-            }
-          }
-        }
+        "container": "anc_test"
       },
       {
         "key": "accordion_urine",
@@ -199,14 +164,7 @@
         "accordion_info_title": "{{anc_test.step1.accordion_urine.accordion_info_title}}",
         "type": "expansion_panel",
         "content_form": "tests_urine_sub_form",
-        "container": "anc_test",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "tests_expansion_panel_relevance_rules.yml"
-            }
-          }
-        }
+        "container": "anc_test"
       },
       {
         "key": "accordion_blood_haemoglobin",
@@ -218,14 +176,7 @@
         "accordion_info_title": "{{anc_test.step1.accordion_blood_haemoglobin.accordion_info_title}}",
         "type": "expansion_panel",
         "content_form": "tests_blood_haemoglobin_sub_form",
-        "container": "anc_test",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "tests_expansion_panel_relevance_rules.yml"
-            }
-          }
-        }
+        "container": "anc_test"
       },
       {
         "key": "accordion_tb_screening",
@@ -237,14 +188,7 @@
         "accordion_info_title": "{{anc_test.step1.accordion_tb_screening.accordion_info_title}}",
         "type": "expansion_panel",
         "content_form": "tests_tb_screening_sub_form",
-        "container": "anc_test",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "tests_expansion_panel_relevance_rules.yml"
-            }
-          }
-        }
+        "container": "anc_test"
       }
     ]
   },
