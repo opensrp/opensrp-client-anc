@@ -306,3 +306,17 @@ priority: 1
 condition: "((step2_bp_diastolic_repeat > 0 && step2_bp_diastolic_repeat < 20 ) || (bp_systolic_repeat > 0 && bp_systolic_repeat < 60))"
 actions:
   - "isRelevant = false"
+---
+name: fetal_heart_rate_repeat
+description: Second heartrate
+priority: 1
+condition: "((fetal_heart_rate > 0 && fetal_heart_rate < 120 ) || (fetal_heart_rate > 160))"
+actions:
+  - "isRelevant = false"
+---
+name: fetal_heart_rate_repeat_label
+description: Second heartrate
+priority: 1
+condition: "((fetal_heart_rate > 0 && fetal_heart_rate < 120 ) || (fetal_heart_rate > 160))"
+actions:
+  - "isRelevant = false"
