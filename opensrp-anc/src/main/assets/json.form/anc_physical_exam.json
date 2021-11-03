@@ -3151,7 +3151,7 @@
     ]
   },
   "step5": {
-    "title": "{{Respiratory Assessment}}",
+    "title": "Respiratory Assessment",
     "fields": [
       {
         "key": "bpm_label",
@@ -3161,17 +3161,6 @@
         "text_color": "#000000",
         "v_required": {
           "value": true
-        },
-        "relevance": {
-          "step5:cant_record_bpm": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "cant_record_bpm"
-                ]
-              }
-            ]
-          }
         }
       },
       {
@@ -3192,23 +3181,11 @@
         },
         "v_max": {
           "value": "18",
-          "err": "SBP must be equal or less than 18"
+          "err": "BPM must be equal or less than 18"
         },
         "v_required": {
           "value": "true",
           "err": "Fill in Details"
-        },
-
-        "relevance": {
-          "step5:cant_record_bpm": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "cant_record_bpm"
-                ]
-              }
-            ]
-          }
         }
       },
       {
@@ -3220,7 +3197,7 @@
         "options": [
           {
             "key": "cant_record_bpm",
-            "text": "{{anc_physical_exam.step2.cant_record_bp.options.cant_record_bp.text}}",
+            "text": "Unable to record bpm(Respiratory rate cannot be taken)",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
@@ -3236,7 +3213,7 @@
         }
       },
       {
-        "key": "cant_record_bp_reason",
+        "key": "cant_record_bpm_reason",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165428AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -3279,11 +3256,11 @@
           "err": "{{anc_physical_exam.step2.cant_record_bp_reason.v_required.err}}"
         },
         "relevance": {
-          "step2:cant_record_bp": {
+          "step5:cant_record_bpm": {
             "ex-checkbox": [
               {
                 "or": [
-                  "cant_record_bp"
+                  "cant_record_bpm"
                 ]
               }
             ]
