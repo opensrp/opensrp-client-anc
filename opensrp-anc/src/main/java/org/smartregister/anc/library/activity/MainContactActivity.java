@@ -295,8 +295,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             //initialize required fields map
             String encounterType = object.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE);
 
-            //Do not add defaults for test and CT contact containers unless they are opened
-            if (!ConstantsUtils.JsonFormUtils.ANC_TEST_ENCOUNTER_TYPE.equals(encounterType) && (requiredFieldsMap.size() == 0 || !requiredFieldsMap.containsKey(encounterType))) {
+            if (requiredFieldsMap.size() == 0 || !requiredFieldsMap.containsKey(encounterType)) {
                 requiredFieldsMap.put(object.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE), 0);
             }
             if (contactNo > 1 && ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE.equals(encounterType)
@@ -395,6 +394,8 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             }
             JSONArray requiredFieldsArray = fieldObject.has(ConstantsUtils.REQUIRED_FIELDS) ?
                     fieldObject.getJSONArray(ConstantsUtils.REQUIRED_FIELDS) : new JSONArray();
+            // This logic might not be required for ANC tests as they have been changed
+            // from expansion panel to direct forms.
             updateSubFormRequiredCount(requiredFieldsArray, createAccordionValuesMap(fieldObject, encounterObject), encounterObject);
             updateFormGlobalValuesFromExpansionPanel(fieldObject);
         }

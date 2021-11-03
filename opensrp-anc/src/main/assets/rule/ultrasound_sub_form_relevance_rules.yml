@@ -128,14 +128,14 @@ actions:
 name: step1_pre_eclampsia_toaster
 description: Pre-eclampsia risk counseling
 priority: 1
-condition: "step1_preeclampsia_risk == 1"
+condition: "step1_preeclampsia_risk == 1 && (step1_ultrasound == 'done_today' || step1_ultrasound == 'done_earlier')"
 actions:
   - "isRelevant = true"
 ---
 name: step2_pre_eclampsia_toaster
 description: Pre-eclampsia risk counseling
 priority: 1
-condition: "step2_preeclampsia_risk == 1"
+condition: "step2_preeclampsia_risk == 1 && (step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier')"
 actions:
   - "isRelevant = true"
 ---

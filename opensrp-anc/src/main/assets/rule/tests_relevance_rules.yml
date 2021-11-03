@@ -72,14 +72,14 @@ actions:
 name: step1_hiv_positive_toaster
 description: HIV positive counseling
 priority: 1
-condition: "(step1_hiv_positive == 1)"
+condition: "(step1_hiv_positive == 1) && (step1_hiv_test_status == 'done_today' || step1_hiv_test_status == 'done_earlier')"
 actions:
 - "isRelevant = true"
 ---
 name: step2_hiv_positive_toaster
 description: HIV positive counseling
 priority: 1
-condition: "(step2_hiv_positive == 1)"
+condition: "(step2_hiv_positive == 1) && (step2_hiv_test_status == 'done_today' || step2_hiv_test_status == 'done_earlier')"
 actions:
 - "isRelevant = true"
 ---
@@ -100,7 +100,7 @@ actions:
 name: step2_hiv_risk_toaster
 description: hiv_risk_toaster
 priority: 1
-condition: "step2_hiv_risk == 1"
+condition: "step2_hiv_risk == 1 && (step2_hiv_test_partner_status == 'done_today'  || step2_hiv_test_partner_status == 'done_earlier')"
 actions:
 - "isRelevant = true"
 ---
@@ -219,14 +219,14 @@ actions:
 name: step1_hepatitis_b_info_toaster
 description: Hep B vaccination required
 priority: 1
-condition: "step1_hepb_positive == 0"
+condition: "step1_hepb_positive == 0 && (step1_hepb_test_status == 'done_today' || step1_hepb_test_status == 'done_earlier')"
 actions:
 - "isRelevant = true"
 ---
 name: step2_hepatitis_b_info_toaster
 description: Hep B vaccination required
 priority: 1
-condition: "step2_hepb_positive == 0"
+condition: "step2_hepb_positive == 0 && (step2_hepb_test_status == 'done_today' || step2_hepb_test_status == 'done_earlier')"
 actions:
 - "isRelevant = true"
 ---
@@ -625,14 +625,14 @@ actions:
 name: step1_gdm_risk_toaster
 description: Gestational diabetes mellitus (GDM) risk counseling
 priority: 1
-condition: "step1_gdm_risk == 1 && helper.getValueFromAccordion('accordion_blood_glucose', 'step2_gdm') != '1' && helper.getValueFromAccordion('accordion_blood_glucose', 'step2_dm_in_preg')  != '1'"
+condition: "step1_gdm_risk == 1 && helper.getValueFromAccordion('accordion_blood_glucose', 'step2_gdm') != '1' && helper.getValueFromAccordion('accordion_blood_glucose', 'step2_dm_in_preg')  != '1' && (step1_urine_test_status == 'done_today' || step1_urine_test_status == 'done_earlier')"
 actions:
 - "isRelevant = true"
 ---
 name: step2_gdm_risk_toaster
 description: Gestational diabetes mellitus (GDM) risk counseling
 priority: 1
-condition: "step2_gdm_risk == 1 && helper.getValueFromAccordion('accordion_blood_glucose', 'step2_gdm') != '1' && helper.getValueFromAccordion('accordion_blood_glucose', 'step2_dm_in_preg')  != '1'"
+condition: "step2_gdm_risk == 1 && helper.getValueFromAccordion('accordion_blood_glucose', 'step2_gdm') != '1' && helper.getValueFromAccordion('accordion_blood_glucose', 'step2_dm_in_preg')  != '1' && (step2_urine_test_status == 'done_today' || step2_urine_test_status == 'done_earlier')"
 actions:
 - "isRelevant = true"
 ---
