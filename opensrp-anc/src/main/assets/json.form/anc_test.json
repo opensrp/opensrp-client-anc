@@ -84,10 +84,11 @@
         "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "label": "{{anc_test.step1.ultrasound.label}}",
         "label_text_style": "bold",
-        "label_info_text": "{{anc_test.step1.accordion_ultrasound.accordion_info_text}}",
-        "label_info_title": "{{anc_test.step1.accordion_ultrasound.accordion_info_title}}",
+        "label_info_text": "{{anc_test.step1.ultrasound.label_info_text}}",
+        "label_info_title": "{{anc_test.step1.ultrasound.label_info_title}}",
         "text_color": "#000000",
         "type": "extended_radio_button",
+        "content_form": "tests_ultrasound_sub_form",
         "options": [
           {
             "key": "done_today",
@@ -575,6 +576,7 @@
         "label_text_style": "bold",
         "text_color": "#000000",
         "type": "extended_radio_button",
+        "content_form": "tests_blood_type_sub_form",
         "options": [
           {
             "key": "done_today",
@@ -784,10 +786,11 @@
         "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "label": "{{anc_test.step1.hiv_test_status.label}}",
         "label_text_style": "bold",
-        "label_info_text": "{{anc_test.step1.accordion_hiv.accordion_info_text}}",
-        "label_info_title": "{{anc_test.step1.accordion_hiv.accordion_info_title}}",
+        "label_info_text": "{{anc_test.step1.hiv_test_status.label_info_text}}",
+        "label_info_title": "{{anc_test.step1.hiv_test_status.label_info_title}}",
         "text_color": "#000000",
         "type": "extended_radio_button",
+        "content_form": "tests_hiv_sub_form",
         "options": [
           {
             "key": "done_today",
@@ -1044,11 +1047,12 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "label": "{{anc_test.step1.hepb_test_status.label}}",
-        "label_info_text": "{{anc_test.step1.accordion_hepatitis_b.accordion_info_text}}",
-        "label_info_title": "{{anc_test.step1.accordion_hepatitis_b.accordion_info_title}}",
+        "label_info_text": "{{anc_test.step1.hepb_test_status.label_info_text}}",
+        "label_info_title": "{{anc_test.step1.hepb_test_status.label_info_title}}",
         "label_text_style": "bold",
         "text_color": "#000000",
         "type": "extended_radio_button",
+        "content_form": "tests_hepatitis_b_sub_form",
         "options": [
           {
             "key": "done_today",
@@ -1413,11 +1417,12 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "label": "{{anc_test.step1.hepc_test_status.label}}",
-        "label_info_text": "{{anc_test.step1.accordion_hepatitis_c.accordion_info_text}}",
-        "label_info_title": "{{anc_test.step1.accordion_hepatitis_c.accordion_info_title}}",
+        "label_info_text": "{{anc_test.step1.hepc_test_status.label_info_text}}",
+        "label_info_title": "{{anc_test.step1.hepc_test_status.label_info_title}}",
         "label_text_style": "bold",
         "text_color": "#000000",
         "type": "extended_radio_button",
+        "content_form": "tests_hepatitis_c_sub_form",
         "options": [
           {
             "key": "done_today",
@@ -1762,11 +1767,12 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "label": "{{anc_test.step1.syph_test_status.label}}",
-        "label_info_text": "{{anc_test.step1.accordion_syphilis.accordion_info_text}}",
-        "label_info_title": "{{anc_test.step1.accordion_syphilis.accordion_info_title}}",
+        "label_info_text": "{{anc_test.step1.syph_test_status.label_info_text}}",
+        "label_info_title": "{{anc_test.step1.syph_test_status.label_info_title}}",
         "label_text_style": "bold",
         "text_color": "#000000",
         "type": "extended_radio_button",
+        "content_form": "tests_syphilis_sub_form",
         "options": [
           {
             "key": "done_today",
@@ -2145,11 +2151,12 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "label": "{{anc_test.step1.urine_test_status.label}}",
-        "label_info_text": "{{anc_test.step1.accordion_urine.accordion_info_text}}",
-        "label_info_title": "{{anc_test.step1.accordion_urine.accordion_info_title}}",
+        "label_info_text": "{{anc_test.step1.urine_test_status.label_info_text}}",
+        "label_info_title": "{{anc_test.step1.urine_test_status.label_info_title}}",
         "label_text_style": "bold",
         "text_color": "#000000",
         "type": "extended_radio_button",
+        "content_form": "tests_urine_sub_form",
         "options": [
           {
             "key": "done_today",
@@ -2749,11 +2756,12 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "label": "{{anc_test.step1.hb_test_status.label}}",
-        "label_info_text": "{{anc_test.step1.accordion_blood_haemoglobin.accordion_info_text}}",
-        "label_info_title": "{{anc_test.step1.accordion_blood_haemoglobin.accordion_info_title}}",
+        "label_info_text": "{{anc_test.step1.hb_test_status.label_info_text}}",
+        "label_info_title": "{{anc_test.step1.hb_test_status.label_info_title}}",
         "label_text_style": "bold",
         "text_color": "#000000",
         "type": "extended_radio_button",
+        "content_form": "tests_blood_haemoglobin_sub_form",
         "options": [
           {
             "key": "done_today",
@@ -3236,11 +3244,12 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "label": "{{anc_test.step1.tb_screening_status.label}}",
-        "label_info_text": "{{anc_test.step1.accordion_tb_screening.accordion_info_text}}",
-        "label_info_title": "{{anc_test.step1.accordion_tb_screening.accordion_info_title}}",
+        "label_info_text": "{{anc_test.step1.tb_screening_status.label_info_text}}",
+        "label_info_title": "{{anc_test.step1.tb_screening_status.label_info_title}}",
         "label_text_style": "bold",
         "text_color": "#000000",
         "type": "extended_radio_button",
+        "content_form": "tests_tb_screening_sub_form",
         "options": [
           {
             "key": "done_today",
@@ -3512,9 +3521,10 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "label": "{{anc_test.step2.ultrasound.label}}",
-        "label_info_text": "{{anc_test.step2.accordion_ultrasound.accordion_info_text}}",
-        "label_info_title": "{{anc_test.step2.accordion_ultrasound.accordion_info_title}}",
+        "label_info_text": "{{anc_test.step2.ultrasound.label_info_text}}",
+        "label_info_title": "{{anc_test.step2.ultrasound.label_info_title}}",
         "label_text_style": "bold",
+        "content_form": "tests_ultrasound_sub_form",
         "text_color": "#000000",
         "type": "extended_radio_button",
         "options": [
@@ -4004,6 +4014,7 @@
         "label_text_style": "bold",
         "text_color": "#000000",
         "type": "extended_radio_button",
+        "content_form": "tests_blood_type_sub_form",
         "options": [
           {
             "key": "done_today",
@@ -4212,11 +4223,12 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "label": "{{anc_test.step2.hiv_test_status.label}}",
-        "label_info_text": "{{anc_test.step2.accordion_hiv.accordion_info_text}}",
-        "label_info_title": "{{anc_test.step2.accordion_hiv.accordion_info_title}}",
+        "label_info_text": "{{anc_test.step2.hiv_test_status.label_info_text}}",
+        "label_info_title": "{{anc_test.step2.hiv_test_status.label_info_title}}",
         "label_text_style": "bold",
         "text_color": "#000000",
         "type": "extended_radio_button",
+        "content_form": "tests_hiv_sub_form",
         "options": [
           {
             "key": "done_today",
@@ -4476,6 +4488,7 @@
         "label_text_style": "bold",
         "text_color": "#000000",
         "type": "extended_radio_button",
+        "content_form": "tests_partner_hiv_sub_form",
         "options": [
           {
             "key": "done_today",
@@ -4683,11 +4696,12 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "label": "{{anc_test.step2.hepb_test_status.label}}",
-        "label_info_text": "{{anc_test.step2.accordion_hepatitis_b.accordion_info_text}}",
-        "label_info_title": "{{anc_test.step2.accordion_hepatitis_b.accordion_info_title}}",
+        "label_info_text": "{{anc_test.step2.hepb_test_status.label_info_text}}",
+        "label_info_title": "{{anc_test.step2.hepb_test_status.label_info_title}}",
         "label_text_style": "bold",
         "text_color": "#000000",
         "type": "extended_radio_button",
+        "content_form": "tests_hepatitis_b_sub_form",
         "options": [
           {
             "key": "done_today",
@@ -5052,11 +5066,12 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "label": "{{anc_test.step2.hepc_test_status.label}}",
-        "label_info_text": "{{anc_test.step2.accordion_hepatitis_c.accordion_info_text}}",
-        "label_info_title": "{{anc_test.step2.accordion_hepatitis_c.accordion_info_title}}",
+        "label_info_text": "{{anc_test.step2.hepc_test_status.label_info_text}}",
+        "label_info_title": "{{anc_test.step2.hepc_test_status.label_info_title}}",
         "label_text_style": "bold",
         "text_color": "#000000",
         "type": "extended_radio_button",
+        "content_form": "tests_hepatitis_c_sub_form",
         "options": [
           {
             "key": "done_today",
@@ -5401,11 +5416,12 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "label": "{{anc_test.step2.syph_test_status.label}}",
-        "label_info_text": "{{anc_test.step2.accordion_syphilis.accordion_info_text}}",
-        "label_info_title": "{{anc_test.step2.accordion_syphilis.accordion_info_title}}",
+        "label_info_text": "{{anc_test.step2.syph_test_status.label_info_text}}",
+        "label_info_title": "{{anc_test.step2.syph_test_status.label_info_title}}",
         "label_text_style": "bold",
         "text_color": "#000000",
         "type": "extended_radio_button",
+        "content_form": "tests_syphilis_sub_form",
         "options": [
           {
             "key": "done_today",
@@ -5784,11 +5800,12 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "label": "{{anc_test.step2.urine_test_status.label}}",
-        "label_info_text": "{{anc_test.step2.accordion_urine.accordion_info_text}}",
-        "label_info_title": "{{anc_test.step2.accordion_urine.accordion_info_title}}",
+        "label_info_text": "{{anc_test.step2.urine_test_status.label_info_text}}",
+        "label_info_title": "{{anc_test.step2.urine_test_status.label_info_title}}",
         "label_text_style": "bold",
         "text_color": "#000000",
         "type": "extended_radio_button",
+        "content_form": "tests_urine_sub_form",
         "options": [
           {
             "key": "done_today",
@@ -6391,6 +6408,7 @@
         "label_text_style": "bold",
         "text_color": "#000000",
         "type": "extended_radio_button",
+        "content_form": "tests_blood_glucose_sub_form",
         "options": [
           {
             "key": "done_today",
@@ -6774,11 +6792,12 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "label": "{{anc_test.step2.hb_test_status.label}}",
-        "label_info_text": "{{anc_test.step2.accordion_blood_haemoglobin.accordion_info_text}}",
-        "label_info_title": "{{anc_test.step2.accordion_blood_haemoglobin.accordion_info_title}}",
+        "label_info_text": "{{anc_test.step2.hb_test_status.label_info_text}}",
+        "label_info_title": "{{anc_test.step2.hb_test_status.label_info_title}}",
         "label_text_style": "bold",
         "text_color": "#000000",
         "type": "extended_radio_button",
+        "content_form": "tests_blood_haemoglobin_sub_form",
         "options": [
           {
             "key": "done_today",
@@ -7261,11 +7280,12 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "label": "{{anc_test.step2.tb_screening_status.label}}",
-        "label_info_text": "{{anc_test.step2.accordion_tb_screening.accordion_info_text}}",
-        "label_info_title": "{{anc_test.step2.accordion_tb_screening.accordion_info_title}}",
+        "label_info_text": "{{anc_test.step2.tb_screening_status.label_info_text}}",
+        "label_info_title": "{{anc_test.step2.tb_screening_status.label_info_title}}",
         "label_text_style": "bold",
         "text_color": "#000000",
         "type": "extended_radio_button",
+        "content_form": "tests_tb_screening_sub_form",
         "options": [
           {
             "key": "done_today",
@@ -7532,11 +7552,12 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "label": "{{anc_test.step2.other_test.label}}",
-        "label_info_text": "{{anc_test.step2.accordion_other_tests.accordion_info_text}}",
-        "label_info_title": "{{anc_test.step2.accordion_other_tests.accordion_info_title}}",
+        "label_info_text": "{{anc_test.step2.other_test.label_info_text}}",
+        "label_info_title": "{{anc_test.step2.other_test.label_info_title}}",
         "label_text_style": "bold",
         "text_color": "#000000",
         "type": "extended_radio_button",
+        "content_form": "tests_other_tests_sub_form",
         "options": [
           {
             "key": "done_today",
