@@ -11,8 +11,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.RequiresApi;
-
 import org.jeasy.rules.api.Facts;
 import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
@@ -32,6 +30,7 @@ import org.smartregister.anc.library.util.Utils;
 import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.util.PermissionUtils;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,9 +64,6 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         mProfilePresenter = new ProfilePresenter(this);
         imageRenderHelper = new ImageRenderHelper(this);
         loadContactSummaryData();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Utils.createPdf("",this);
-        }
 
     }
 
@@ -93,10 +89,6 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     protected void loadContactSummaryData() {
         try {
             new LoadContactSummaryDataTask(this, getIntent(), mProfilePresenter, facts, baseEntityId).execute();
-           if(PermissionUtils.isPermissionGranted(this, Manifest.permission.WRITE_EXTERNAL_STORAGE,PermissionUtils.WRITE_EXTERNAL_STORAGE_REQUEST_CODE))
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-               // Utils.createPdf("this is a test",this);
-            }
         } catch (Exception e) {
             Timber.e(e, "%s loadContactSummaryData()", this.getClass().getCanonicalName());
         }
@@ -229,6 +221,19 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     }
 
     @Override
+    public void createContactSummaryPdf() {
+        if (isPermissionGranted()) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                try {
+                    new Utils().createSavePdf(this, yamlConfigList, facts);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
     public void displayToast(int stringID) {
         Utils.showShortToast(this, this.getString(stringID));
     }
@@ -241,17 +246,18 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        //Overriden
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == PermissionUtils.WRITE_EXTERNAL_STORAGE_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    Utils.createPdf("this is a test",this);
-                }
-
+                createContactSummaryPdf();
             } else {
                 displayToast(R.string.allow_phone_call_management);
             }
         }
+    }
+
+    protected boolean isPermissionGranted() {
+        return PermissionUtils.isPermissionGranted(this, Manifest.permission.WRITE_EXTERNAL_STORAGE, PermissionUtils.WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
     }
 
     public List<YamlConfig> getYamlConfigList() {

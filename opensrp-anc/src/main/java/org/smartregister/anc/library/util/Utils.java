@@ -6,15 +6,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.os.Build;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
@@ -23,15 +18,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 
-
-import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.Text;
+import com.itextpdf.layout.property.HorizontalAlignment;
+import com.itextpdf.layout.property.TextAlignment;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
 
@@ -56,11 +50,11 @@ import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.anc.library.activity.ContactJsonFormActivity;
 import org.smartregister.anc.library.activity.ContactSummaryFinishActivity;
-import org.smartregister.anc.library.activity.MainContactActivity;
-import org.smartregister.anc.library.activity.ProfileActivity;
 import org.smartregister.anc.library.constants.AncAppPropertyConstants;
 import org.smartregister.anc.library.domain.ButtonAlertStatus;
 import org.smartregister.anc.library.domain.Contact;
+import org.smartregister.anc.library.domain.YamlConfig;
+import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.event.BaseEvent;
 import org.smartregister.anc.library.model.ContactModel;
 import org.smartregister.anc.library.model.PartialContact;
@@ -74,6 +68,7 @@ import org.smartregister.util.JsonFormUtils;
 import org.smartregister.view.activity.DrishtiApplication;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -887,53 +882,91 @@ public class Utils extends org.smartregister.util.Utils {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public static void createPdf(String sometext, Context activityContext){
-        // write the document content
-        String directory_path = Environment.getExternalStorageDirectory().getPath() ;
-        File file = new File(directory_path);
+    public void createSavePdf(Context context, List<YamlConfig> yamlConfigList, Facts facts) throws FileNotFoundException {
 
-        String targetPdf = directory_path+"/test.pdf";
-        File filePath = new File(targetPdf);
+        String FILENAME = context.getResources().getString(R.string.contact_summary_data_file);
+        String filePath = getAppPath(context) + FILENAME;
 
-        try {
-
-            PdfWriter pdfWriter = new PdfWriter(filePath);
-            PdfDocument pdfDocument = new PdfDocument(pdfWriter);
-            Document document = new Document(pdfDocument);
+        if ((new File(filePath)).exists()) {
+            (new File(filePath)).delete();
+        }
+        FileOutputStream fOut = new FileOutputStream(filePath);
+        PdfWriter pdfWriter = new PdfWriter((OutputStream) fOut);
+        PdfDocument pdfDocument = new PdfDocument(pdfWriter);
+        Document layoutDocument = new Document(pdfDocument);
 
 
-            Paragraph paragraph = new Paragraph();
-
-            Text text1 = new Text("First Text");
-            paragraph.add(text1);
-
-            Text text2 = new Text("Second Text");
-            text2.setBold();
-            paragraph.add(text2);
-
-            Text text3 = new Text("Third Text");
-            text3.setUnderline();
-            paragraph.add(text3);
-
-            Text text4 = new Text("Fourth Text");
-            text4.setItalic();
-            text4.setLineThrough();
-            paragraph.add(text4);
-
-            document.add(paragraph);
-            document.close();
-
-          //  Toast.makeText(activityContext,"done",Toast.LENGTH_SHORT).show();
+        addTitle(layoutDocument, context.getResources().getString(R.string.contact_summary_data, getTodaysDate()));
 
 
-        } catch (IOException  e) {
-            Log.e("main", "error "+e.toString());
-           // e.printStackTrace();
-            Toast.makeText(activityContext, "Something wrong: " + e.toString(),  Toast.LENGTH_LONG).show();
+        for (YamlConfig yamlConfig : yamlConfigList) {
+            addEmptyLine(layoutDocument, 1);
+            addSubHeading(layoutDocument, processUnderscores(yamlConfig.getGroup()));
+
+            List<YamlConfigItem> fields = yamlConfig.getFields();
+            StringBuilder outputBuilder = new StringBuilder();
+            for (YamlConfigItem yamlConfigItem : fields) {
+                if (yamlConfigItem.isMultiWidget() != null && yamlConfigItem.isMultiWidget()) {
+                    prefillInjectableFacts(facts, yamlConfigItem.getTemplate());
+                }
+                if (AncLibrary.getInstance().getAncRulesEngineHelper().getRelevance(facts, yamlConfigItem.getRelevance())) {
+                    outputBuilder.append(Utils.fillTemplate(yamlConfigItem.getTemplate(), facts)).append("\n\n");
+                }
+            }
+            String output = outputBuilder.toString();
+
+            addParagraph(layoutDocument, HorizontalAlignment.LEFT, output);
         }
 
-        // close the document
 
+        layoutDocument.close();
+        Toast.makeText(context, (CharSequence) (context.getResources().getString(R.string.pdf_saved_successfully) + filePath), Toast.LENGTH_SHORT).show();
+    }
+
+    private String processUnderscores(String string) {
+        return string.replace("_", " ").toUpperCase();
+    }
+
+    private void prefillInjectableFacts(Facts facts, String template) {
+        String[] relevanceToken = template.split(",");
+        String key;
+        for (String token : relevanceToken) {
+            if (token.contains("{") && token.contains("}")) {
+                key = token.substring(token.indexOf('{') + 1, token.indexOf('}'));
+                if (facts.get(key) == null) {
+                    facts.put(key, "");
+                }
+            }
+        }
+    }
+
+    private void addParagraph(Document layoutDocument, HorizontalAlignment horizontalAlignment, String headerDetails) {
+        layoutDocument.add((IBlockElement) (new Paragraph(headerDetails).setHorizontalAlignment(horizontalAlignment)));
+    }
+
+    private final String getAppPath(Context context) {
+        File dir = new File(Environment.getExternalStorageDirectory().toString() + File.separator + context.getResources().getString(R.string.app_name) + File.separator);
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
+
+        return dir.getPath() + File.separator;
+    }
+
+    private final void addTitle(Document layoutDocument, String text) {
+        layoutDocument.add((IBlockElement) ((Paragraph) ((Paragraph) (new Paragraph(text)).setBold()).setUnderline()).setTextAlignment(TextAlignment.CENTER));
+    }
+
+    private final void addEmptyLine(Document layoutDocument, int number) {
+        int i = 0;
+
+        for (int j = number; i < j; ++i) {
+            layoutDocument.add((IBlockElement) (new Paragraph(" ")));
+        }
+
+    }
+
+    private final void addSubHeading(Document layoutDocument, String text) {
+        layoutDocument.add((IBlockElement) ((Paragraph) (new Paragraph(text)).setBold()).setHorizontalAlignment(HorizontalAlignment.LEFT));
     }
 }
