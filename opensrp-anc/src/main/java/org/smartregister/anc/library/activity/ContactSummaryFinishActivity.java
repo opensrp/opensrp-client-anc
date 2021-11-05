@@ -222,13 +222,11 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
     @Override
     public void createContactSummaryPdf() {
-        if (isPermissionGranted()) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                try {
-                    new Utils().createSavePdf(this, yamlConfigList, facts);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
+        if (isPermissionGranted() && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)) {
+            try {
+                new Utils().createSavePdf(this, yamlConfigList, facts);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
             }
         }
     }
