@@ -1,7 +1,7 @@
 {
   "validate_on_submit": true,
   "display_scroll_bars": true,
-  "count": "5",
+  "count": "4",
   "encounter_type": "Physical Exam",
   "entity_id": "",
   "relational_id": "",
@@ -1436,6 +1436,49 @@
         "spacer_height": "10sp"
       },
       {
+        "key": "bpm_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Respiratory Rate",
+        "text_color": "#000000",
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "bpm",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "12",
+          "err": "BPM must be equal or greater than 12"
+        },
+        "v_max": {
+          "value": "18",
+          "err": "BPM must be equal or less than 18"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Fill in Details"
+        }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
         "key": "pallor",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -2692,7 +2735,6 @@
   },
   "step4": {
     "title": "{{anc_physical_exam.step4.title}}",
-    "next": "step5",
     "fields": [
       {
         "key": "sfh_label",
@@ -3147,231 +3189,6 @@
             }
           }
         }
-      }
-    ]
-  },
-  "step5": {
-    "title": "Respiratory Assessment",
-    "fields": [
-      {
-        "key": "bpm_label",
-        "type": "label",
-        "label_text_style": "bold",
-        "text": "Respiratory Rate",
-        "text_color": "#000000",
-        "v_required": {
-          "value": true
-        }
-      },
-      {
-        "key": "bpm",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "normal_edit_text",
-        "edit_text_style": "bordered",
-        "edit_type": "number",
-        "v_numeric": {
-          "value": "true",
-          "err": ""
-        },
-        "v_min": {
-          "value": "12",
-          "err": "BPM must be equal or greater than 12"
-        },
-        "v_max": {
-          "value": "18",
-          "err": "BPM must be equal or less than 18"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Fill in Details"
-        }
-      },
-      {
-        "key": "cant_record_bpm",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "check_box",
-        "options": [
-          {
-            "key": "cant_record_bpm",
-            "text": "Unable to record bpm(Respiratory rate cannot be taken)",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
-          }
-        ],
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-calculations-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "cant_record_bpm_reason",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165428AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "label": "{{anc_physical_exam.step2.cant_record_bp_reason.label}}",
-        "type": "check_box",
-        "label_text_style": "bold",
-        "text_color": "#000000",
-        "options": [
-          {
-            "key": "bp_cuff_unavailable",
-            "text": "{{anc_physical_exam.step2.cant_record_bp_reason.options.bp_cuff_unavailable.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165386AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "bp_cuff_broken",
-            "text": "{{anc_physical_exam.step2.cant_record_bp_reason.options.bp_cuff_broken.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165179AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "batteries_not_available",
-            "text": "{{anc_physical_exam.step2.cant_record_bp_reason.options.batteries_not_available.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165179AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "other",
-            "text": "{{anc_physical_exam.step2.cant_record_bp_reason.options.other.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "{{anc_physical_exam.step2.cant_record_bp_reason.v_required.err}}"
-        },
-        "relevance": {
-          "step5:cant_record_bpm": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "cant_record_bpm"
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "key": "unrecordable_bp",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "check_box",
-        "options": [
-          {
-            "key": "bp_unrecordable",
-            "text": "{{anc_physical_exam.step2.unrecordable_bp.options.unrecordable_bp.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
-          }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "unrecordable_bp_reason",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165428AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "label": "{{anc_physical_exam.step2.cant_record_bp_reason.label}}",
-        "type": "check_box",
-        "label_text_style": "bold",
-        "text_color": "#000000",
-        "options": [
-          {
-            "key": "vomiting",
-            "text": "Vomiting",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "122963AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "diarrhoea",
-            "text": "Diarrhoea",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "122988AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "severe_hypertension ",
-            "text": "Severe hypertension ",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165179AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "other",
-            "text": "Other",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "{{anc_physical_exam.step2.cant_record_bp_reason.v_required.err}}"
-        },
-        "relevance": {
-          "step2:unrecordable_bp": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "bp_unrecordable"
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "key": "other_reason_unrecordable_bp",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "160132AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
-        "hint": "Enter other reason ",
-        "edit_type": "name",
-        "v_required": {
-          "value": true,
-          "err": "Please enter the other reason Bp was unrecordable"
-        },
-        "relevance": {
-          "step2:unrecordable_bp_reason": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "other"
-                ]
-              }
-            ]
-          }
-        }
-
       }
     ]
   },

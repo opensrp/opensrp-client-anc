@@ -149,7 +149,7 @@
         "type": "edit_text",
         "hint": "{{anc_register.step1.nrc.hint}}",
         "v_required": {
-          "value": "true",
+          "value": "false",
           "err": "{{anc_register.step1.nrc.v_required.err}}"
         },
         "v_regex": {
