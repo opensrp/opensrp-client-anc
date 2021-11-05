@@ -327,10 +327,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         }
     }
 
-    private void checkIfTestSelected(JSONObject object) {
-
-    }
-
     private List<String> getListValues(JSONArray jsonArray) {
         if (jsonArray != null) {
             return AncLibrary.getInstance().getGsonInstance()
