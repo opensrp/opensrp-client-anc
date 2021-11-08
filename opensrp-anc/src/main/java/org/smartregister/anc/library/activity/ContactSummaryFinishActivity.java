@@ -226,7 +226,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
             try {
                 new Utils().createSavePdf(this, yamlConfigList, facts);
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                Timber.e(e, "%s createContactSummaryPdf()", this.getClass().getCanonicalName());
             }
         }
     }
