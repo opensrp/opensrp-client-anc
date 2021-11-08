@@ -985,11 +985,15 @@
             }
           }
         },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
+        "read-only": {
+          "step2:unrecordable_bp": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "unrecordable_bp"
+                ]
+              }
+            ]
           }
         }
       },
