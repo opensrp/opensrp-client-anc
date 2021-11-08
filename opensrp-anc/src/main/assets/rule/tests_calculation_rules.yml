@@ -271,3 +271,32 @@ priority: 1
 condition: "step2_hb_test_status != '' && step2_hb_test_status == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
+
+---
+name: step2_fasting_plasma_gluc_mmol
+description: fasting_plasma_gluc_mmol
+priority: 1
+condition: "step2_fasting_plasma_gluc > 30"
+actions:
+  - "calculation = step2_fasting_plasma_gluc / 18 "
+---
+name: step2_ogtt_fasting_mmol
+description: ogtt_fasting_mmol
+priority: 1
+condition: "step2_ogtt_fasting > 30"
+actions:
+  - "calculation = step2_ogtt_fasting/ 18  "
+---
+name: step2_ogtt_1_mmol
+description:  step2_ogtt_1_mmol
+priority: 1
+condition: " step2_ogtt_1 > 30"
+actions:
+  - "calculation =  step2_ogtt_1 / 18 "
+---
+name: step2_ogtt_2_mmol
+description:  step2_ogtt_2_mmol
+priority: 1
+condition: " step2_ogtt_2 > 30"
+actions:
+  - "calculation =  step2_ogtt_2 / 18 "

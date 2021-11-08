@@ -1069,3 +1069,33 @@ priority: 1
 condition: "step2_other_test == 'done_earlier' || step2_other_test == 'done_today'"
 actions:
 - "isRelevant = true"
+---
+name: step2_fasting_plasma_gluc_mmol
+description: fasting_plasma_gluc_mmol
+priority: 1
+condition: "step2_fasting_plasma_gluc > 0"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_ogtt_fasting_mmol
+description: ogtt_fasting_mmol
+priority: 1
+condition: "step2_ogtt_fasting > 0"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_ogtt_1_mmol
+description: ogtt_1_mmol
+priority: 1
+condition: "step2_ogtt_1 > 0"
+actions:
+  - "isRelevant = true"
+---
+name: step2_ogtt_2_mmol
+description: ogtt_2_mmol
+priority: 1
+condition: "step2_ogtt_2 > 0"
+actions:
+  - "isRelevant = true"
