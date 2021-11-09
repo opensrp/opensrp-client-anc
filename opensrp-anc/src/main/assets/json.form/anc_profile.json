@@ -1,7 +1,7 @@
 {
   "validate_on_submit": true,
   "display_scroll_bars": true,
-  "count": "8",
+  "count": "9",
   "encounter_type": "Profile",
   "entity_id": "",
   "relational_id": "",
@@ -3506,5 +3506,6 @@
       }
     ]
   },
+
   "properties_file_name": "anc_profile"
 }
