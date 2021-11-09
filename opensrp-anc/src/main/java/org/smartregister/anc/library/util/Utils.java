@@ -331,7 +331,8 @@ public class Utils extends org.smartregister.util.Utils {
         String value = "";
         if (facts.get(key) instanceof String) {
             value = facts.get(key);
-            if((key.equals("nausea_pharma") || key.equals("antacid") || key.equals("penicillin") || key.equals("antibiotic") || key.equals("ifa_medication")) && (value!= null && value.equals("0")))
+            if((key.equals(ConstantsUtils.PrescriptionUtils.NAUSEA_PHARMA) || key.equals(ConstantsUtils.PrescriptionUtils.ANTACID) || key.equals(ConstantsUtils.PrescriptionUtils.PENICILLIN) || key.equals(ConstantsUtils.PrescriptionUtils.ANTIBIOTIC) || key.equals(ConstantsUtils.PrescriptionUtils.IFA_MEDICATION) || key.equals(ConstantsUtils.PrescriptionUtils.VITA)
+             || key.equals(ConstantsUtils.PrescriptionUtils.MAG_CALC) || key.equals(ConstantsUtils.PrescriptionUtils.ALBEN_MEBEN) || key.equals(ConstantsUtils.PrescriptionUtils.PREP) || key.equals(ConstantsUtils.PrescriptionUtils.SP) || key.equals(ConstantsUtils.PrescriptionUtils.IFA) || key.equals(ConstantsUtils.PrescriptionUtils.ASPIRIN) || key.equals(ConstantsUtils.PrescriptionUtils.CALCIUM)) && (value!= null && value.equals("0")))
                 return ANCFormUtils.keyToValueConverter("");
 
             if (value != null && value.endsWith(OTHER_SUFFIX)) {
@@ -349,7 +350,7 @@ public class Utils extends org.smartregister.util.Utils {
     private static String cleanValueResult(String result) {
         List<String> nonEmptyItems = new ArrayList<>();
         for (String item : result.split(",")) {
-            if (item.length() > 0 && !item.trim().equals("")) {
+            if (item.length() > 0 && StringUtils.isNotBlank(item)) {
                 nonEmptyItems.add(item);
             }
         }
@@ -360,7 +361,7 @@ public class Utils extends org.smartregister.util.Utils {
             itemLabel = separatedLabel[0];
             if (separatedLabel.length > 1) {
                 nonEmptyItems.set(0, nonEmptyItems.get(0).split(":")[1]);
-                if (nonEmptyItems.get(0).trim().equals(""))
+                if (StringUtils.isBlank(nonEmptyItems.get(0)))
                     nonEmptyItems.remove(0);
             }//replace with extracted value
         }
