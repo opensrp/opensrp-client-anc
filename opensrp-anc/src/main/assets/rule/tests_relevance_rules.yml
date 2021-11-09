@@ -681,35 +681,35 @@ actions:
 name: step2_fasting_plasma_gluc
 description: Fasting plasma glucose results (mg/dl)
 priority: 1
-condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'fasting_plasma'"
+condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type.contains('fasting_plasma')"
 actions:
 - "isRelevant = true"
 ---
 name: step2_ogtt_fasting
 description: 75g OGTT - fasting glucose results (mg/dl)
 priority: 1
-condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'ogtt_75'"
+condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type.contains('ogtt_75')"
 actions:
 - "isRelevant = true"
 ---
 name: step2_ogtt_1
 description: 75g OGTT - 1 hr results (mg/dl)
 priority: 1
-condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'ogtt_75'"
+condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type.contains('ogtt_75')"
 actions:
 - "isRelevant = true"
 ---
 name: step2_ogtt_2
 description: 75g OGTT - 2 hrs results (mg/dl)
 priority: 1
-condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'ogtt_75'"
+condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type.contains('ogtt_75')"
 actions:
 - "isRelevant = true"
 ---
 name: step2_random_plasma
 description: Random plasma glucose results (mg/dl)
 priority: 1
-condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'random_plasma'"
+condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type.contains('random_plasma')"
 actions:
 - "isRelevant = true"
 ---
@@ -1095,5 +1095,19 @@ name: step2_syphilis_allergy_toaster
 description: Syphilis positive and Penicillin allergy
 priority: 1
 condition: "step2_syphilis_positive == 1 && global_allergies.contains('penicillin')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_urine_culture_agent_name
+description: Micro organism name
+priority: 1
+condition: "step1_urine_culture == 'positive_any'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_urine_culture_agent_name
+description: Micro organism name
+priority: 1
+condition: "step2_urine_culture == 'positive_any'"
 actions:
   - "isRelevant = true"

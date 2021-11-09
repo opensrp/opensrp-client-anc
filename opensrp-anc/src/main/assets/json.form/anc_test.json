@@ -2526,6 +2526,26 @@
         }
       },
       {
+        "key": "urine_culture_agent_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "{{anc_test.step1.urine_culture_name.hint}}",
+        "edit_type": "name",
+        "v_required": {
+          "value": true,
+          "err": "{{anc_test.step1.urine_culture_name.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "tests_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "urine_gram_stain",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -6298,6 +6318,26 @@
         }
       },
       {
+        "key": "urine_culture_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "{{anc_test.step2.urine_culture_name.hint}}",
+        "edit_type": "name",
+        "v_required": {
+          "value": true,
+          "err": "{{anc_test.step2.urine_culture_name.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "tests_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "urine_gram_stain",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -6750,7 +6790,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165394AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "native_radio",
+        "type": "check_box",
         "label": "{{anc_test.step2.glucose_test_type.label}}",
         "label_text_style": "bold",
         "options": [
