@@ -2,7 +2,7 @@
   "validate_on_submit": true,
   "display_scroll_bars": true,
   "skip_blank_steps": true,
-  "count": "12",
+  "count": "13",
   "encounter_type": "Counselling and Treatment",
   "entity_id": "",
   "relational_id": "",
@@ -5528,6 +5528,7 @@
   },
   "step12": {
     "title": "{{anc_counselling_treatment.step12.title}}",
+    "next": "step13",
     "fields": [
       {
         "key": "prep_toaster",
@@ -5540,6 +5541,86 @@
         "toaster_type": "info"
       }
     ]
+  },
+
+  "step13": {
+    "title": "HIV Treatment",
+    "fields": [
+      {
+        "key": "initiate_ctx",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Initiate CTX?",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "started_art",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Started on ART in ANC?",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "art_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "ART Number",
+        "edit_type": "name"
+      },
+      {
+        "key": "viral_load",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Viral Load result",
+        "edit_type": "name"
+      }
+    ],
+    "relevance": {
+      "test_hiv_sub_form:hiv_test_result": {
+        "ex": "positive"
+      }
+    }
+
   },
   "properties_file_name": "anc_counselling_treatment"
 }

@@ -73,13 +73,6 @@
             "openmrs_entity_id": "125872AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "miscarriage",
-            "text": "{{anc_close.step1.anc_close_reason.options.miscarriage.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "48AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
             "key": "abortion",
             "text": "{{anc_close.step1.anc_close_reason.options.abortion.text}}",
             "openmrs_entity_parent": "",
