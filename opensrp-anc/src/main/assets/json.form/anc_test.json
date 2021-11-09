@@ -2321,8 +2321,8 @@
         "openmrs_entity_id": "165438AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
         "label": "{{anc_test.step1.urine_test_type.label}}",
-        "label_info_text": "Midstream urine culture is the preferred method for testing for asymptomatic bacteriuria (ASB) in pregnancy. If culture is not available, midstream urine Gram-staining is recommended over dipstick.",
-        "label_info_title": "Urine test",
+        "label_info_text": "{{anc_test.step1.urine_test_type.label_info_text}}",
+        "label_info_title": "{{anc_test.step1.urine_test_type.label_info_title}}",
         "label_text_style": "bold",
         "options": [
           {
@@ -5970,8 +5970,8 @@
         "openmrs_entity_id": "165438AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
         "label": "{{anc_test.step2.urine_test_type.label}}",
-        "label_info_text": "Midstream urine culture is the preferred method for testing for asymptomatic bacteriuria (ASB) in pregnancy. If culture is not available, midstream urine Gram-staining is recommended over dipstick.",
-        "label_info_title": "Urine test",
+        "label_info_text": "{{anc_test.step2.urine_test_type.label_info_text}}",
+        "label_info_title": "{{anc_test.step2.urine_test_type.label_info_title}}",
         "label_text_style": "bold",
         "options": [
           {
