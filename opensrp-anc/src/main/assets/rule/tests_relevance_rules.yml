@@ -1069,3 +1069,31 @@ priority: 1
 condition: "step2_other_test == 'done_earlier' || step2_other_test == 'done_today'"
 actions:
 - "isRelevant = true"
+---
+name: step1_vdrl_test
+description: VDRL
+priority: 1
+condition: "((step1_syph_test_status == 'done_today' || step1_syph_test_status == 'done_earlier') && step1_syph_test_type == 'vdrl')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_vdrl_test
+description: VDRL
+priority: 1
+condition: "((step2_syph_test_status == 'done_today' || step2_syph_test_status == 'done_earlier') && step2_syph_test_type == 'vdrl')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_syphilis_allergy_toaster
+description: Syphilis positive and Penicillin allergy
+priority: 1
+condition: "step1_syphilis_positive == 1 && global_allergies.contains('penicillin')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_syphilis_allergy_toaster
+description: Syphilis positive and Penicillin allergy
+priority: 1
+condition: "step2_syphilis_positive == 1 && global_allergies.contains('penicillin')"
+actions:
+  - "isRelevant = true"

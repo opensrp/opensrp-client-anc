@@ -58,14 +58,14 @@ actions:
 name: step1_syphilis_positive
 description: syphilis_positive
 priority: 1
-condition: "(step1_rapid_syphilis_test == 'positive' && step1_rapid_syphilis_test != '' ) || (step1_rpr_syphilis_test == 'positive' && step1_rpr_syphilis_test != '') || (step1_lab_syphilis_test == 'positive' && step1_lab_syphilis_test != '')"
+condition: "(step1_rapid_syphilis_test == 'positive' && step1_rapid_syphilis_test != '' ) || (step1_rpr_syphilis_test == 'positive' && step1_rpr_syphilis_test != '') || (step1_lab_syphilis_test == 'positive' && step1_lab_syphilis_test != '') || (step1_vdrl_test != 'negative' && step1_vdrl_test != '')"
 actions:
   - "calculation = 1"
 ---
 name: step2_syphilis_positive
 description: syphilis_positive
 priority: 1
-condition: "(step2_rapid_syphilis_test == 'positive' && step2_rapid_syphilis_test != '' ) || (step2_rpr_syphilis_test == 'positive' && step2_rpr_syphilis_test != '') || (step2_lab_syphilis_test == 'positive' && step2_lab_syphilis_test != '')"
+condition: "(step2_rapid_syphilis_test == 'positive' && step2_rapid_syphilis_test != '' ) || (step2_rpr_syphilis_test == 'positive' && step2_rpr_syphilis_test != '') || (step2_lab_syphilis_test == 'positive' && step2_lab_syphilis_test != '') || (step2_vdrl_test != 'negative' && step2_vdrl_test != '')"
 actions:
   - "calculation = 1"
 ---
