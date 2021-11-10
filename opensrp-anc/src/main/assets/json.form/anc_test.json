@@ -2531,11 +2531,11 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "hint": "{{anc_test.step1.urine_culture_name.hint}}",
+        "hint": "{{anc_test.step1.urine_culture_agent_name.hint}}",
         "edit_type": "name",
         "v_required": {
           "value": true,
-          "err": "{{anc_test.step1.urine_culture_name.v_required.err}}"
+          "err": "{{anc_test.step1.urine_culture_agent_name.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -6318,16 +6318,16 @@
         }
       },
       {
-        "key": "urine_culture_name",
+        "key": "urine_culture_agent_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "hint": "{{anc_test.step2.urine_culture_name.hint}}",
+        "hint": "{{anc_test.step2.urine_culture_agent_name.hint}}",
         "edit_type": "name",
         "v_required": {
           "value": true,
-          "err": "{{anc_test.step2.urine_culture_name.v_required.err}}"
+          "err": "{{anc_test.step2.urine_culture_agent_name.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {

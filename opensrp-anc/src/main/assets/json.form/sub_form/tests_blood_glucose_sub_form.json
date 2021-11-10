@@ -104,7 +104,7 @@
       "openmrs_entity_parent": "",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165394AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-      "type": "native_radio",
+      "type": "check_box",
       "label": "{{tests_blood_glucose_sub_form.step1.glucose_test_type.label}}",
       "label_text_style": "bold",
       "options": [

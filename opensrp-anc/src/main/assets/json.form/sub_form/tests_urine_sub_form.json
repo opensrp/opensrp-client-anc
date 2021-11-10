@@ -248,6 +248,26 @@
       }
     },
     {
+      "key": "urine_culture_agent_name",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "edit_text",
+      "hint": "{{tests_urine_sub_form.step1.urine_culture_agent_name.hint}}",
+      "edit_type": "name",
+      "v_required": {
+        "value": true,
+        "err": "{{tests_urine_sub_form.step1.urine_culture_agent_name.v_required.err}}"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
       "key": "urine_gram_stain",
       "openmrs_entity_parent": "",
       "openmrs_entity": "concept",

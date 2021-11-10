@@ -222,6 +222,111 @@
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165389AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "vdrl",
+          "text": "{{tests_syphilis_sub_form.step1.syph_test_type.options.vdrl.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165389999AAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ],
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      },
+      "v_required": {
+        "value": true
+      }
+    },
+    {
+      "key": "vdrl_test",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165389AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "native_radio",
+      "label": "{{tests_syphilis_sub_form.step1.vdrl_test.label}}",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "negative",
+          "text": "{{tests_syphilis_sub_form.step1.vdrl_test.options.negative.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1653891AAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "one_by_one",
+          "text": "{{tests_syphilis_sub_form.step1.vdrl_test.options.one_by_one.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1653892AAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "one_by_2",
+          "text": "{{tests_syphilis_sub_form.step1.vdrl_test.options.one_by_2.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1653893AAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "one_by_4",
+          "text": "{{tests_syphilis_sub_form.step1.vdrl_test.options.one_by_4.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1653894AAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "one_by_8",
+          "text": "{{tests_syphilis_sub_form.step1.vdrl_test.options.one_by_8.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1653898AAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "one_by_16",
+          "text": "{{tests_syphilis_sub_form.step1.vdrl_test.options.one_by_16.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "16538916AAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "one_by_32",
+          "text": "{{tests_syphilis_sub_form.step1.vdrl_test.options.one_by_32.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "16538932AAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "one_by_64",
+          "text": "{{tests_syphilis_sub_form.step1.vdrl_test.options.one_by_64.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "16538964AAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "one_by_128",
+          "text": "{{tests_syphilis_sub_form.step1.vdrl_test.options.one_by_128.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165389128AAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "one_by_256",
+          "text": "{{tests_syphilis_sub_form.step1.vdrl_test.options.one_by_256.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165389256AAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "one_by_512",
+          "text": "{{tests_syphilis_sub_form.step1.vdrl_test.options.one_by_512.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165389512AAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
       "relevance": {
