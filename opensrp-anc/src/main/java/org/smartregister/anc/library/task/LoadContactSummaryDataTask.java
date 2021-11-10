@@ -90,5 +90,8 @@ public class LoadContactSummaryDataTask extends AsyncTask<Void, Void, Void> {
         //load profile details
 
         mProfilePresenter.refreshProfileView(baseEntityId);
+
+        //Create PDF file stuff
+        mProfilePresenter.createContactSummaryPdf();
     }
 }
