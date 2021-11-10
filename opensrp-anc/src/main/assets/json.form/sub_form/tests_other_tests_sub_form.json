@@ -25,6 +25,12 @@
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165385AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "ordered",
+          "text": "Ordered",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165387AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
       "v_required": {

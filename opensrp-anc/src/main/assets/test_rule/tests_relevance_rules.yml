@@ -131,3 +131,4 @@ priority: 1
 condition: "(global_contact_no > 1  && (global_previous_hb_test_status != '' && (global_previous_hb_test_status == 'done_earlier' || global_previous_hb_test_status == 'done_today')))"
 actions:
   - "isRelevant = true"
+

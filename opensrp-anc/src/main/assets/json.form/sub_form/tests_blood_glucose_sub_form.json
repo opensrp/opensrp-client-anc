@@ -174,6 +174,38 @@
       }
     },
     {
+      "key": "fasting_plasma_gluc_mmol",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "160053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "edit_text",
+      "read_only": true,
+      "hint": "{{tests_blood_glucose_sub_form.step1.fasting_plasma_gluc_mmol.hint}}",
+      "edit_type": "number",
+      "v_numeric": {
+        "value": "true",
+        "err": "{{tests_blood_glucose_sub_form.step1.fasting_plasma_gluc.v_numeric.err}}"
+      },
+      "v_required": {
+        "value": true,
+        "err": "{{tests_blood_glucose_sub_form.step1.fasting_plasma_gluc.v_required.err}}"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
       "key": "ogtt_fasting",
       "openmrs_entity_parent": "",
       "openmrs_entity": "concept",
@@ -204,6 +236,31 @@
           }
         }
       }
+    },
+    {
+      "key": "ogtt_fasting_mmol",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "163594AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "edit_text",
+      "read_only": true,
+      "hint": "{{tests_blood_glucose_sub_form.step1.ogtt_fasting_mmol.hint}}",
+      "edit_type": "number",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
+      }
+
     },
     {
       "key": "ogtt_1",
@@ -238,6 +295,38 @@
       }
     },
     {
+      "key": "ogtt_1_mmol",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "163704AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "edit_text",
+      "hint": "{{tests_blood_glucose_sub_form.step1.ogtt_1_mmol.hint}}",
+      "read_only": true,
+      "edit_type": "number",
+      "v_numeric": {
+        "value": "true",
+        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_1.v_numeric.err}}"
+      },
+      "v_required": {
+        "value": true,
+        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_1.v_required.err}}"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
       "key": "ogtt_2",
       "openmrs_entity_parent": "",
       "openmrs_entity": "concept",
@@ -265,6 +354,38 @@
         "rules-engine": {
           "ex-rules": {
             "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "ogtt_2_mmol",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "163705AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "edit_text",
+      "read_only":true,
+      "hint": "{{tests_blood_glucose_sub_form.step1.ogtt_2_mmol.hint}}",
+      "edit_type": "number",
+      "v_numeric": {
+        "value": "true",
+        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_2.v_numeric.err}}"
+      },
+      "v_required": {
+        "value": true,
+        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_2.v_required.err}}"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
           }
         }
       }
