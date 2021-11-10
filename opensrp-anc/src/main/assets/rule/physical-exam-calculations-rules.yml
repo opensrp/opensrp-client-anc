@@ -125,9 +125,9 @@ condition: "(global_ipv_signs_symptoms != null && !global_ipv_signs_symptoms.isE
 actions:
   - "calculation = 1"
 ---
-name:  step2_unrecordable_bp
-description:  unrecordable_bp
+name: step2_bp_unrecordable
+description: bp_unrecordable
 priority: 1
-condition: "((step2_bp_diastolic_repeat > 0 && step2_bp_diastolic_repeat < 20 ) || (bp_systolic_repeat > 0 && bp_systolic_repeat < 60))"
+condition: "bp_diastolic_repeat < 20 || bp_systolic_repeat < 60"
 actions:
-  - 'step2_unrecordable_bp = true'
+  - 'calculation = ["bp_unrecordable" : "true"]'
