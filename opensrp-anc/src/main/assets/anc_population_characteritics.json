@@ -86,12 +86,6 @@
           "label": "National Hep B ANC routine screening program established",
           "value": "true",
           "key": "pop_hepb_screening"
-        },
-        {
-          "description": "The proportion of Hepatitis C virus (HCV) antibody seroprevalence in the general population is 2% or higher. ",
-          "label": "Hep C prevalence is intermediate (2% or higher) or high (5% or higher)",
-          "value": "false",
-          "key": "pop_hepc"
         }
       ],
       "locationId": "02ebbc84-5e29-4cd5-9b79-c594058923e9",

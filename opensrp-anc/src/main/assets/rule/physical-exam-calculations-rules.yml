@@ -130,4 +130,4 @@ description: bp_unrecordable
 priority: 1
 condition: "bp_diastolic_repeat < 20 || bp_systolic_repeat < 60"
 actions:
-  - 'calculation = ["bp_unrecordable" : "true"]'
+  - 'calculation = ["bp_unrecordable" : 1]'
