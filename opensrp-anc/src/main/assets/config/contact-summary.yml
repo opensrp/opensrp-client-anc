@@ -171,7 +171,7 @@ fields:
   relevance: "!medications_value.isEmpty()"
 
 - template: "{{contact_summary.medications.medications_prescribed}}: {vita}, {alben_meben}, {mag_calc}, {nausea_pharma}, {antacid}, {penicillin}, {antibiotic}, {prep}, {sp}, {ifa}, {ifa_medication}, {aspirin}, {calcium}"
-  relevance: "vita != '' || mag_calc != '' ||  nausea_pharma != '' || vita != '' || alben_meben != '' || antacid != '' || penicillin != '' || antibiotic != '' ||  prep != '' || sp != '' || ifa != '' || ifa_medication != '' ||  aspirin != '' || calcium != ''"
+  relevance: "(vita != '' && vita !='0') || (mag_calc != '' && mag_calc != '0') ||  ( nausea_pharma != '' && nausea_pharma != '0' ) || (alben_meben != '' && alben_meben != '0') || ( antacid != ''  && antacid != '0') || (penicillin != '' && penicillin != '0' ) || ( antibiotic != ''  && antibiotic != '0') ||  (prep != '' && prep != '0') || (sp != '' && sp != '0') || (ifa != '' && ifa != '0') || (ifa_medication != '' && ifa_medication != '0' ) ||  (aspirin != '' && aspirin != '0') || (calcium != '' && calcium != '0')"
   isMultiWidget: true
 
 - template: "{{contact_summary.medications.calcium_compliance}}: {calcium_comply}"
