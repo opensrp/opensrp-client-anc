@@ -112,6 +112,18 @@
         "container": "anc_test"
       },
       {
+        "key": "partner_accordion_hepatitis_b",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Partner Hepatitis B Required",
+        "accordion_info_text": "Partner Hepatitis B Required",
+        "accordion_info_title": "Partner Hepatitis B Required",
+        "type": "expansion_panel",
+        "content_form": "partner_tests_hepatitis_b_sub_form",
+        "container": "anc_test"
+      },
+      {
         "key": "accordion_hepatitis_b",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -152,6 +164,18 @@
         "accordion_info_title": "{{anc_test.step1.accordion_syphilis.accordion_info_title}}",
         "type": "expansion_panel",
         "content_form": "tests_syphilis_sub_form",
+        "container": "anc_test"
+      },
+      {
+        "key": "partner_accordion_syphilis",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Partner Syphilis Test",
+        "accordion_info_text": "Partner Syphilis Test",
+        "accordion_info_title": "Partner Syphilis Test",
+        "type": "expansion_panel",
+        "content_form": "partner_tests_syphilis_sub_form",
         "container": "anc_test"
       },
       {
