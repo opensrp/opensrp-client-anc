@@ -1,11 +1,11 @@
 {
   "validate_on_submit": true,
   "display_scroll_bars": true,
-  "count": "8",
+  "count": "10",
   "encounter_type": "Profile",
   "entity_id": "",
   "relational_id": "",
-  "form_version": "0.0.15",
+  "form_version": "0.0.17",
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -148,7 +148,7 @@
     "title": "{{anc_profile.step1.title}}",
     "next": "step2",
     "fields": [
-     {
+      {
         "key": "headss_toaster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
@@ -1576,7 +1576,6 @@
           "dont_know"
         ],
         "options": [
-
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
@@ -1598,7 +1597,6 @@
             "key": "convulsions",
             "text": "{{anc_profile.step3.prev_preg_comps.options.convulsions.text}}"
           },
-
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
@@ -2475,7 +2473,6 @@
               {
                 "or": [
                   "1-4_doses"
-
                 ]
               }
             ]
@@ -3392,6 +3389,7 @@
   },
   "step8": {
     "title": "{{anc_profile.step8.title}}",
+    "next": "step9",
     "fields": [
       {
         "key": "partner_hiv_status",
@@ -3505,6 +3503,425 @@
         }
       }
     ]
+  },
+  "step9": {
+    "title": "{{anc_profile.step9.title}}",
+    "next": "step10",
+    "fields": [
+      {
+        "key": "mebendazole",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "mebendazole",
+        "type": "native_radio",
+        "label": "Mebendazole",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ]
+      },
+      {
+        "key": "reason_mebendazole_no",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "161641AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "check_box",
+        "label": "Reasons no mebendazole",
+        "hint": "Reasons no mebendazole",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "expired",
+            "text": "Expired",
+            "value": false
+          },
+          {
+            "key": "out_of_stock",
+            "text": "Out of stock",
+            "value": false
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "value": false
+          }
+        ],
+        "relevance": {
+          "step9:mebendazole": {
+            "type": "string",
+            "ex": "equalTo(., \"no\")"
+          }
+        }
+      },
+      {
+        "key": "other_reason_mebendazole_no",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_reason_mebendazole_no",
+        "type": "edit_text",
+        "hint": "Other reason(Specify)",
+        "edit_type": "name",
+        "v_regex": {
+          "value": "[A-Za-z\\s\\.\\-]*",
+          "err": " can only contain letters"
+        },
+        "relevance": {
+          "step9:reason_mebendazole_no": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "fansidar",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "fansidar",
+        "type": "native_radio",
+        "label": "Fansidar - IPTp SP (for HIV- pregnant women)?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ]
+      },
+      {
+        "key": "reason_fansider_no",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reason_fansider_no",
+        "openmrs_data_type": "select one",
+        "type": "check_box",
+        "label": "Reasons no Fansider",
+        "hint": "Reasons no Fansider",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "expired",
+            "text": "Expired",
+            "value": false
+          },
+          {
+            "key": "out_of_stock",
+            "text": "Out of stock",
+            "value": false
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "value": false
+          }
+        ],
+        "relevance": {
+          "step9:fansidar": {
+            "type": "string",
+            "ex": "equalTo(., \"no\")"
+          }
+        }
+      },
+      {
+        "key": "other_reason_fansider_no",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_reason_fansider_no",
+        "type": "edit_text",
+        "hint": "Other reason(Specify)",
+        "edit_type": "name",
+        "v_regex": {
+          "value": "[A-Za-z\\s\\.\\-]*",
+          "err": " can only contain letters"
+        },
+        "relevance": {
+          "step9:reason_fansider_no": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "co_trimoxazole",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "co_trimoxazole",
+        "type": "native_radio",
+        "label": "Co-trimoxazole - CPT (for HIV+ pregnant women)",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ]
+      },
+      {
+        "key": "reason_co_trimoxazole_no",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "161642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "check_box",
+        "label": "Reasons no Co-trimoxazole",
+        "hint": "Reasons no Co-trimoxazole",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "expired",
+            "text": "Expired",
+            "value": false
+          },
+          {
+            "key": "out_of_stock",
+            "text": "Out of stock",
+            "value": false
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "value": false
+          }
+        ],
+        "relevance": {
+          "step9:co_trimoxazole": {
+            "type": "string",
+            "ex": "equalTo(., \"no\")"
+          }
+        }
+      },
+      {
+        "key": "other_reason_co_trimoxazole_no",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_reason_mebendazole_no",
+        "type": "edit_text",
+        "hint": "Other reason(Specify)",
+        "edit_type": "name",
+        "v_regex": {
+          "value": "[A-Za-z\\s\\.\\-]*",
+          "err": " can only contain letters"
+        },
+        "relevance": {
+          "step9:reason_co_trimoxazole_no": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "itn_issued",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "itn_issued",
+        "type": "native_radio",
+        "label": "ITN Issued?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ]
+      },
+      {
+        "key": "prep",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "prep",
+        "type": "native_radio",
+        "label": "Prep issued?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "regimen",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "itn_issued",
+        "type": "native_radio",
+        "label": "Regimen",
+        "options": [
+          {
+            "key": "tdf_ftc",
+            "text": "TDF+FTC"
+          },
+          {
+            "key": "tdf_3tc",
+            "text": "TDF +3TC"
+          }
+        ],
+        "relevance": {
+          "step9:prep": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      }
+    ]
+
+},
+  "step10": {
+    "title": "TB screening history",
+    "fields": [
+      {
+        "key": "tb_screening_history",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "tb_screening_history",
+        "type": "check_box",
+        "label": "",
+        "label_text_style": "bold",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "cough_weeks",
+            "text": "Cough > 2 weeks",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "cough_weeks"
+          },
+          {
+            "key": "fever",
+            "text": "Fever",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "fever"
+          },
+          {
+            "key": "weight_loss",
+            "text": "Weight loss",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "weight_loss"
+          },
+          {
+            "key": "night_sweats",
+            "text": "Night sweats",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "157351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "none",
+            "text": "None",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none"
+          },
+          {
+            "key": "other",
+            "text": "Other(Specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ]
+        },
+      {
+        "key": "other_tb_screening_history",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_tb_screening_history",
+        "type": "edit_text",
+        "hint": "Other reason(Specify)",
+        "edit_type": "name",
+        "v_regex": {
+          "value": "[A-Za-z\\s\\.\\-]*",
+          "err": " can only contain letters"
+        },
+        "relevance": {
+          "step10:tb_screening_history": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "tb_screening_history_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "TB Screening Recommended",
+        "text_color": "#000000",
+        "toaster_info_text": "TB Screening Recommended",
+        "toaster_info_title": "TB screening",
+        "toaster_type": "info",
+        "relevance": {
+          "step10:tb_screening_history": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "cough_weeks",
+                  "weight_loss",
+                  "night_sweats"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
+
   },
   "properties_file_name": "anc_profile"
 }
