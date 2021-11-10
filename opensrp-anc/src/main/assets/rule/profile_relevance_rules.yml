@@ -201,3 +201,10 @@ priority: 1
 condition: "(global_age < 19)"
 actions:
   - "isRelevant = true"
+---
+name: step9_prep
+description: Prep
+priority: 1
+condition: "(step8_partner_hiv_status.contains('positive')) || (step8_partner_hiv_status.contains('dont_know'))"
+actions:
+  - "isRelevant = true"
