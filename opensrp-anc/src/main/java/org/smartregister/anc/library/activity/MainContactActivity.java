@@ -28,6 +28,7 @@ import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.FilePathUtils;
 import org.smartregister.anc.library.util.Utils;
+import org.smartregister.util.FormUtils;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.IOException;
@@ -42,6 +43,9 @@ import java.util.Map;
 import java.util.Set;
 
 import timber.log.Timber;
+
+import java.util.UUID;
+
 
 public class MainContactActivity extends BaseContactActivity implements ContactContract.View {
     private TextView patientNameView;
@@ -61,6 +65,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             ConstantsUtils.JsonFormUtils.ANC_SYMPTOMS_FOLLOW_UP, ConstantsUtils.JsonFormUtils.ANC_PHYSICAL_EXAM,
             ConstantsUtils.JsonFormUtils.ANC_TEST, ConstantsUtils.JsonFormUtils.ANC_COUNSELLING_TREATMENT, ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS};
     private String formInvalidFields = null;
+    public JSONObject formObject;
 
     @Override
     protected void onResume() {
@@ -81,6 +86,23 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
         //Enable/Disable finalize button
         findViewById(R.id.finalize_contact).setEnabled(getRequiredCountTotal() == 0);
+    }
+
+    public void main(String[] args) throws Exception {
+        // Creating a random UUID (Universally unique identifier).
+        FormUtils formUtils = new FormUtils(MainContactActivity.this);
+
+        UUID uuid = UUID.randomUUID();
+        String randomUUIDString = uuid.toString();
+        formObject = new JSONObject();
+
+
+        System.out.println("Random UUID String = " + randomUUIDString);
+        System.out.println("UUID version       = " + uuid.version());
+        System.out.println("UUID variant       = " + uuid.variant());
+
+        formObject = formUtils.getFormJson("anc_register");
+        formObject.getJSONObject("step1").getJSONArray("fields").getJSONObject(2).put("value", randomUUIDString);
     }
 
     private void initializeMainContactContainers() {
