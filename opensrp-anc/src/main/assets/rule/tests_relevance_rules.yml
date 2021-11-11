@@ -1111,3 +1111,46 @@ priority: 1
 condition: "step2_urine_culture == 'positive_any'"
 actions:
   - "isRelevant = true"
+---
+name: step2_covid_test_date
+description: covid date
+priority: 1
+condition: "step2_covid_status != ''  && step2_covid_status == 'done_earlier'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_covid_type
+description: covid type
+priority: 1
+condition: "(step2_covid_status == 'done_today' || step2_covid_status == 'done_earlier')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_covid_pcr_test
+description: covid type
+priority: 1
+condition: "(step2_covid_type.contains('rt_pcr'))"
+actions:
+  - "isRelevant = true"
+---
+name: step2_covid_antigen_test
+description: covid type
+priority: 1
+condition: "(step2_covid_type.contains('antigen_test'))"
+actions:
+  - "isRelevant = true"
+---
+name: step2_covid_igg_test
+description: covid type
+priority: 1
+condition: "(step2_covid_type.contains('serology'))"
+actions:
+  - "isRelevant = true"
+---
+name: step2_covid_igm_test
+description: covid_igm_test
+priority: 1
+condition: "(step2_covid_type.contains('serology'))"
+actions:
+  - "isRelevant = true"
+
