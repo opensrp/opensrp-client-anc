@@ -881,6 +881,14 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "122983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
+          },
+          {
+            "key": "face_oedema",
+            "text": "{{anc_physical_exam.step2.symp_sev_preeclampsia.options.face_oedema.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1229833AAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
           }
         ],
         "v_required": {

@@ -93,7 +93,7 @@ actions:
 name: step3_toaster21
 description: Oxymetry Entry
 priority: 1
-condition: "step3_oximetry > 0 && step3_oximetry < 92"
+condition: "step3_oximetry > 0 && step3_oximetry < 95"
 actions:
   - "isRelevant = true"
 ---
