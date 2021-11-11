@@ -156,6 +156,16 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             tests.setFormName(ConstantsUtils.JsonFormUtils.ANC_TEST);
             contacts.add(tests);
 
+            Contact hivTests = new Contact();
+            hivTests.setName(getString(R.string.hiv_tests));
+            hivTests.setContactNumber(contactNo);
+            hivTests.setBackground(R.drawable.tests_bg);
+            hivTests.setActionBarBackground(R.color.contact_tests_actionbar);
+            hivTests.setNavigationBackground(R.color.contact_tests_navigation);
+            setRequiredFields(hivTests);
+            hivTests.setFormName(ConstantsUtils.JsonFormUtils.HIV_TEST_AND_RESULTS);
+            contacts.add(hivTests);
+
             Contact counsellingAndTreatment = new Contact();
             counsellingAndTreatment.setName(getString(R.string.counselling_treatment));
             counsellingAndTreatment.setContactNumber(contactNo);

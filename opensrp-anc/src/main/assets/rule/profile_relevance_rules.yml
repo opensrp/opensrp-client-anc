@@ -187,13 +187,7 @@ priority: 1
 condition: "(step7_hiv_risk == 1)"
 actions:
   - "isRelevant = true"
----
-name: step8_hiv_risk_counselling_toaster
-description: Hiv Risk counselling
-priority: 1
-condition: "(step8_hiv_risk == 1)"
-actions:
-  - "isRelevant = true"
+
 ---
 name: step1_headss_toaster
 description: HEADSS info

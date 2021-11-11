@@ -1,0 +1,7 @@
+---
+name: step3_prep
+description: Prep
+priority: 1
+condition: "(step1_hiv_test_result.contains('positive')) || (step2_partner_hiv_status.contains('positive'))"
+actions:
+  - "isRelevant = true"
