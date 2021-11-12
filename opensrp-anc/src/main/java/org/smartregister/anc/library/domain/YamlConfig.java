@@ -11,16 +11,14 @@ public class YamlConfig {
     private String sub_group;
     private List<YamlConfigItem> fields;
     private String test_results;
-    private String properties_file_name;
+    private String propertiesFileName;
 
     public YamlConfig() {
+        this("", "", null, "", "");
     }
 
     public YamlConfig(String group, String sub_group, List<YamlConfigItem> fields, String test_results) {
-        this.group = group;
-        this.sub_group = sub_group;
-        this.fields = fields;
-        this.test_results = test_results;
+        this(group, sub_group, fields, test_results, "");
     }
 
     public YamlConfig(String group, String sub_group, List<YamlConfigItem> fields, String test_results, String properties_file_name) {
@@ -28,7 +26,7 @@ public class YamlConfig {
         this.sub_group = sub_group;
         this.fields = fields;
         this.test_results = test_results;
-        this.properties_file_name = properties_file_name;
+        this.propertiesFileName = properties_file_name;
     }
 
     public String getSubGroup() {
@@ -64,11 +62,11 @@ public class YamlConfig {
     }
 
     public String getPropertiesFileName() {
-        return properties_file_name;
+        return propertiesFileName;
     }
 
     public void setPropertiesFileName(String properties_file_name) {
-        this.properties_file_name = properties_file_name;
+        this.propertiesFileName = properties_file_name;
     }
 
     public static final class KeyUtils {

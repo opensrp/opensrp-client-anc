@@ -284,7 +284,7 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
         List<YamlConfig> list = Whitebox.getInternalState(spyActivity, "yamlConfigList");
 
         Assert.assertNotNull(list);
-        Assert.assertEquals(39, list.size());
+        Assert.assertEquals(38, list.size());
     }
 
     @Test
