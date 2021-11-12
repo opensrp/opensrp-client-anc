@@ -88,23 +88,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         findViewById(R.id.finalize_contact).setEnabled(getRequiredCountTotal() == 0);
     }
 
-    public void main(String[] args) throws Exception {
-        // Creating a random UUID (Universally unique identifier).
-        FormUtils formUtils = new FormUtils(MainContactActivity.this);
-
-        UUID uuid = UUID.randomUUID();
-        String randomUUIDString = uuid.toString();
-        formObject = new JSONObject();
-
-
-        System.out.println("Random UUID String = " + randomUUIDString);
-        System.out.println("UUID version       = " + uuid.version());
-        System.out.println("UUID variant       = " + uuid.variant());
-
-        formObject = formUtils.getFormJson("anc_register");
-        formObject.getJSONObject("step1").getJSONArray("fields").getJSONObject(2).put("value", randomUUIDString);
-    }
-
     private void initializeMainContactContainers() {
 
         try {
