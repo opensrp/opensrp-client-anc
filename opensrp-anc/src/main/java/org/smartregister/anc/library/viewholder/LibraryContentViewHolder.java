@@ -34,8 +34,5 @@ public class LibraryContentViewHolder extends RecyclerView.ViewHolder {
 
     private void attachClickListeners() {
         contentLayout.setOnClickListener(libraryContentClickListener);
-        attachIcon.setOnClickListener(libraryContentClickListener);
-        contentHeader.setOnClickListener(libraryContentClickListener);
-        openContentIcon.setOnClickListener(libraryContentClickListener);
     }
 }
