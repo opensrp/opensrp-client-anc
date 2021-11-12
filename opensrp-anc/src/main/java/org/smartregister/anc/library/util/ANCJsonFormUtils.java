@@ -118,9 +118,20 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
             // Inject opensrp id into the form
             JSONArray field = ANCJsonFormUtils.fields(form);
             JSONObject ancId = getFieldJSONObject(field, ConstantsUtils.JsonFormKeyUtils.ANC_ID);
+            JSONObject studyId = getFieldJSONObject(field, ConstantsUtils.JsonFormKeyUtils.STUDY_ID);
             if (ancId != null) {
                 ancId.remove(ANCJsonFormUtils.VALUE);
                 ancId.put(ANCJsonFormUtils.VALUE, entityId);
+
+                UUID uuid = UUID.randomUUID();
+                String randomUUIDString = uuid.toString();
+
+                System.out.println("Random UUID String = " + randomUUIDString);
+                System.out.println("UUID version       = " + uuid.version());
+                System.out.println("UUID variant       = " + uuid.variant());
+
+
+                studyId.put(ANCJsonFormUtils.VALUE, randomUUIDString);
             }
 
         } else if (ConstantsUtils.JsonFormUtils.ANC_CLOSE.equals(formName)) {

@@ -88,7 +88,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         findViewById(R.id.finalize_contact).setEnabled(getRequiredCountTotal() == 0);
     }
 
-    public void main(String[] args) throws Exception {
+    public void onCreate(String[] args) throws Exception {
         // Creating a random UUID (Universally unique identifier).
         FormUtils formUtils = new FormUtils(MainContactActivity.this);
 
