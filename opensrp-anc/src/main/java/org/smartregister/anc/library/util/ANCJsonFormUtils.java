@@ -123,15 +123,18 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 ancId.remove(ANCJsonFormUtils.VALUE);
                 ancId.put(ANCJsonFormUtils.VALUE, entityId);
 
+                long RandomStudyID = (long) Math.floor(Math.random() * 9_000_000_000L) + 1_000_000_000L;
+
                 UUID uuid = UUID.randomUUID();
                 String randomUUIDString = uuid.toString();
+                //String randomGeneratedStudyID = RandomStudyID.toString();
 
                 System.out.println("Random UUID String = " + randomUUIDString);
                 System.out.println("UUID version       = " + uuid.version());
                 System.out.println("UUID variant       = " + uuid.variant());
 
 
-                studyId.put(ANCJsonFormUtils.VALUE, randomUUIDString);
+                studyId.put(ANCJsonFormUtils.VALUE, RandomStudyID);
             }
 
         } else if (ConstantsUtils.JsonFormUtils.ANC_CLOSE.equals(formName)) {
