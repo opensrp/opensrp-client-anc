@@ -136,6 +136,14 @@
             "field": "attributes.visit_start_date"
           }
         },
+
+        {
+          "column_name": "study_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.study_id"
+          }
+        },
         {
           "column_name": "nrc",
           "type": "Client",
