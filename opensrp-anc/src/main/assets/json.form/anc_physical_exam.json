@@ -1411,7 +1411,7 @@
         "options": [
           {
             "key": "pulse_unrecordable",
-            "text": "Unrecordable pulse rate",
+            "text": "Unrecordable below pulse rate (bmp)",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
