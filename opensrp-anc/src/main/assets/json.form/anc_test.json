@@ -114,25 +114,6 @@
         }
       },
       {
-        "key": "accordion_hiv",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "text": "{{anc_test.step1.accordion_hiv.text}}",
-        "accordion_info_text": "{{anc_test.step1.accordion_hiv.accordion_info_text}}",
-        "accordion_info_title": "{{anc_test.step1.accordion_hiv.accordion_info_title}}",
-        "type": "expansion_panel",
-        "content_form": "tests_hiv_sub_form",
-        "container": "anc_test",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "tests_expansion_panel_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
         "key": "accordion_hepatitis_b",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
