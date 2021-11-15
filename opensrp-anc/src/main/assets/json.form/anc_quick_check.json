@@ -219,7 +219,7 @@
           },
           {
             "key": "fluid_loss",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.fluid_loss.text}}",
+            "text": "Fluid loss(draining)",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
