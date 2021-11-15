@@ -201,3 +201,10 @@ priority: 1
 condition: "(step5_covid_immun_status == 'fully_immunized')"
 actions:
   - "isRelevant = true"
+---
+name: step4_uterine_rupture_counseling_toaster
+description: uterine_rupture_counseling_toaster
+priority: 1
+condition: "(step4_uterine_rupture_risk == 1)"
+actions:
+  - "isRelevant = true"
