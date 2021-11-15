@@ -321,6 +321,49 @@
       "spacer_height": "10dp"
     },
     {
+      "key": "multiple_preg",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "{{tests_ultrasound_sub_form.step1.multiple_preg.label}}",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "dichorionic",
+          "text": "{{tests_ultrasound_sub_form.step1.multiple_preg.options.dichorionic.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "monochorionic",
+          "text": "{{tests_ultrasound_sub_form.step1.multiple_preg.options.monochorionic.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "monochorionic_monoamniotic",
+          "text": "{{tests_ultrasound_sub_form.step1.multiple_preg.options.monochorionic_monoamniotic.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ],
+      "v_required": {
+        "value": true,
+        "err": "{{tests_ultrasound_sub_form.step1.multiple_preg.v_required.err}}"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
       "key": "fetal_presentation",
       "openmrs_entity_parent": "",
       "openmrs_entity": "concept",
@@ -472,6 +515,23 @@
           "openmrs_entity_id": "165298AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "placenta_location_toaster",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "toaster_notes",
+      "text": "{{tests_ultrasound_sub_form.step1.placenta_location_toaster.text}}",
+      "toaster_info_text": "{{tests_ultrasound_sub_form.step1.placenta_location_toaster.toaster_info_text}}",
+      "toaster_type": "problem",
       "relevance": {
         "rules-engine": {
           "ex-rules": {
