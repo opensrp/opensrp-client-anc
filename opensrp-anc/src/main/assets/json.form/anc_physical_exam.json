@@ -1329,15 +1329,12 @@
           "value": "true",
           "err": ""
         },
-        "v_min": {
-          "value": "50",
-          "err": "Pulse rate must be equal to or greater than 50"
-        },
         "v_max": {
           "value": "200",
           "err": "Pulse rate must be equal to or less than 200"
         }
       },
+
       {
         "key": "toaster17",
         "openmrs_entity_parent": "",
@@ -1368,7 +1365,7 @@
         "type": "label",
         "label_text_style": "bold",
         "text": "{{anc_physical_exam.step3.pulse_rate_repeat_label.text}}",
-        "label_info_text": "Retake the woman\u0027s pulse rate if the first reading was lower than 60 or higher than 100.",
+        "label_info_text": "Retake the woman\u0027s pulse rate if the first reading was lower 50.",
         "text_color": "#000000",
         "v_required": {
           "value": true
@@ -1393,14 +1390,6 @@
           "value": "true",
           "err": ""
         },
-        "v_min": {
-          "value": "50",
-          "err": "Pulse rate must be equal to or greater than 50"
-        },
-        "v_max": {
-          "value": "200",
-          "err": "Pulse rate must be equal to or less than 200"
-        },
         "v_required": {
           "value": "true",
           "err": "{{anc_physical_exam.step3.pulse_rate_repeat.v_required.err}}"
@@ -1412,6 +1401,119 @@
             }
           }
         }
+      },
+      {
+        "key": "unrecordable_pulse",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "options": [
+          {
+            "key": "pulse_unrecordable",
+            "text": "Unrecordable below pulse rate (bmp)",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "unrecordable_pulse_reason",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165428AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "label": "Unrecordable pulse rate reason (Specify)",
+        "type": "check_box",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "vomiting",
+            "text": "Vomiting",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "122963AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "diarrhoea",
+            "text": "Diarrhoea",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "122988AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "severe_hypertension ",
+            "text": "Severe hypertension ",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165179AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "other",
+            "text": "Other",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_physical_exam.step2.cant_record_bp_reason.v_required.err}}"
+        },
+        "relevance": {
+          "step3:unrecordable_pulse": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "pulse_unrecordable"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "other_reason_unrecordable_pulse",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160132AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Enter other reason ",
+        "edit_type": "name",
+        "v_required": {
+          "value": true,
+          "err": "Please enter the other reason pulse rate was unrecordable"
+        },
+        "relevance": {
+          "step3:unrecordable_pulse_reason": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
+        }
+
       },
       {
         "key": "toaster18",

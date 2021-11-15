@@ -107,7 +107,7 @@ actions:
 name: step2_dm_in_preg
 description: dm_in_preg
 priority: 1
-condition: "(step2_fasting_plasma_gluc >= 126) || (step2_ogtt_fasting >= 126) || (step2_ogtt_1 >= 200) || (step2_ogtt_2 >= 200) || (step2_random_plasma >= 200)"
+condition: "(step2_fasting_plasma_gluc >= 7) || (step2_ogtt_fasting >= 7) || (step2_ogtt_1 >= 7) || (step2_ogtt_2 >= 7) || (step2_random_plasma >= 7)"
 actions:
   - "calculation = 1"
 ---

@@ -150,12 +150,12 @@
       "hint": "{{tests_blood_glucose_sub_form.step1.fasting_plasma_gluc.hint}}",
       "edit_type": "number",
       "v_min": {
-        "value": "30",
-        "err": "Fasting plasma glucose results must be greater than or equal to 30"
+        "value": "0",
+        "err": "Fasting plasma glucose results must be greater than or equal to 0"
       },
       "v_max": {
-        "value": "500",
-        "err": "Fasting plasma glucose results must be less than or equal to 500"
+        "value": "30",
+        "err": "Fasting plasma glucose results must be less than or equal to 30"
       },
       "v_numeric": {
         "value": "true",
@@ -169,38 +169,6 @@
         "rules-engine": {
           "ex-rules": {
             "rules-file": "tests_relevance_rules.yml"
-          }
-        }
-      }
-    },
-    {
-      "key": "fasting_plasma_gluc_mmol",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "concept",
-      "openmrs_entity_id": "160053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-      "type": "edit_text",
-      "read_only": true,
-      "hint": "{{tests_blood_glucose_sub_form.step1.fasting_plasma_gluc_mmol.hint}}",
-      "edit_type": "number",
-      "v_numeric": {
-        "value": "true",
-        "err": "{{tests_blood_glucose_sub_form.step1.fasting_plasma_gluc.v_numeric.err}}"
-      },
-      "v_required": {
-        "value": true,
-        "err": "{{tests_blood_glucose_sub_form.step1.fasting_plasma_gluc.v_required.err}}"
-      },
-      "relevance": {
-        "rules-engine": {
-          "ex-rules": {
-            "rules-file": "tests_relevance_rules.yml"
-          }
-        }
-      },
-      "calculation": {
-        "rules-engine": {
-          "ex-rules": {
-            "rules-file": "tests_calculation_rules.yml"
           }
         }
       }
@@ -214,11 +182,11 @@
       "hint": "{{tests_blood_glucose_sub_form.step1.ogtt_fasting.hint}}",
       "edit_type": "number",
       "v_min": {
-        "value": "30",
+        "value": "0",
         "err": "75g OGTT - fasting glucose results must be greater than or equal to 30"
       },
       "v_max": {
-        "value": "500",
+        "value": "30",
         "err": "75g OGTT - fasting glucose results must be less than or equal to 500"
       },
       "v_numeric": {
@@ -238,44 +206,19 @@
       }
     },
     {
-      "key": "ogtt_fasting_mmol",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "concept",
-      "openmrs_entity_id": "163594AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-      "type": "edit_text",
-      "read_only": true,
-      "hint": "{{tests_blood_glucose_sub_form.step1.ogtt_fasting_mmol.hint}}",
-      "edit_type": "number",
-      "relevance": {
-        "rules-engine": {
-          "ex-rules": {
-            "rules-file": "tests_relevance_rules.yml"
-          }
-        }
-      },
-      "calculation": {
-        "rules-engine": {
-          "ex-rules": {
-            "rules-file": "tests_calculation_rules.yml"
-          }
-        }
-      }
-
-    },
-    {
       "key": "ogtt_1",
       "openmrs_entity_parent": "",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163704AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
-      "hint": "{{tests_blood_glucose_sub_form.step1.ogtt_1.hint}}",
+      "hint": "{{tests_blood_glucose_sub_form.step1.ogtt_1_mmol.hint}}",
       "edit_type": "number",
       "v_min": {
-        "value": "30",
+        "value": "0",
         "err": "The result for the 75g OGTT - 1 hr must be greater than or equal to 30"
       },
       "v_max": {
-        "value": "500",
+        "value": "30",
         "err": "The result for the 75g OGTT - 1 hr must be less than or equal to 500"
       },
       "v_numeric": {
@@ -295,78 +238,21 @@
       }
     },
     {
-      "key": "ogtt_1_mmol",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "concept",
-      "openmrs_entity_id": "163704AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-      "type": "edit_text",
-      "hint": "{{tests_blood_glucose_sub_form.step1.ogtt_1_mmol.hint}}",
-      "read_only": true,
-      "edit_type": "number",
-      "v_numeric": {
-        "value": "true",
-        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_1.v_numeric.err}}"
-      },
-      "v_required": {
-        "value": true,
-        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_1.v_required.err}}"
-      },
-      "relevance": {
-        "rules-engine": {
-          "ex-rules": {
-            "rules-file": "tests_relevance_rules.yml"
-          }
-        }
-      },
-      "calculation": {
-        "rules-engine": {
-          "ex-rules": {
-            "rules-file": "tests_calculation_rules.yml"
-          }
-        }
-      }
-    },
-    {
       "key": "ogtt_2",
       "openmrs_entity_parent": "",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163705AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
-      "hint": "{{tests_blood_glucose_sub_form.step1.ogtt_2.hint}}",
-      "edit_type": "number",
-      "v_min": {
-        "value": "30",
-        "err": "The result for the 75g OGTT - 2 hr must be greater than or equal to 30"
-      },
-      "v_max": {
-        "value": "500",
-        "err": "The result for the 75g OGTT - 2 hr must be less than or equal to 500"
-      },
-      "v_numeric": {
-        "value": "true",
-        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_2.v_numeric.err}}"
-      },
-      "v_required": {
-        "value": true,
-        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_2.v_required.err}}"
-      },
-      "relevance": {
-        "rules-engine": {
-          "ex-rules": {
-            "rules-file": "tests_relevance_rules.yml"
-          }
-        }
-      }
-    },
-    {
-      "key": "ogtt_2_mmol",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "concept",
-      "openmrs_entity_id": "163705AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-      "type": "edit_text",
-      "read_only":true,
       "hint": "{{tests_blood_glucose_sub_form.step1.ogtt_2_mmol.hint}}",
       "edit_type": "number",
+      "v_min": {
+        "value": "0",
+        "err": "The result for the 75g OGTT - 2 hr must be greater than or equal to 0"
+      },
+      "v_max": {
+        "value": "30",
+        "err": "The result for the 75g OGTT - 2 hr must be less than or equal to 30"
+      },
       "v_numeric": {
         "value": "true",
         "err": "{{tests_blood_glucose_sub_form.step1.ogtt_2.v_numeric.err}}"
@@ -379,13 +265,6 @@
         "rules-engine": {
           "ex-rules": {
             "rules-file": "tests_relevance_rules.yml"
-          }
-        }
-      },
-      "calculation": {
-        "rules-engine": {
-          "ex-rules": {
-            "rules-file": "tests_calculation_rules.yml"
           }
         }
       }
@@ -399,12 +278,12 @@
       "hint": "{{tests_blood_glucose_sub_form.step1.random_plasma.hint}}",
       "edit_type": "number",
       "v_min": {
-        "value": "30",
-        "err": "The result for the random plasma glucose test must be greater than or equal to 30"
+        "value": "0",
+        "err": "The result for the random plasma glucose test must be greater than or equal to 0"
       },
       "v_max": {
-        "value": "500",
-        "err": "The result for the random plasma glucose test must be less than or equal to 500"
+        "value": "30",
+        "err": "The result for the random plasma glucose test must be less than or equal to 30"
       },
       "v_numeric": {
         "value": "true",

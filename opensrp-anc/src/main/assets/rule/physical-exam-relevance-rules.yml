@@ -72,14 +72,14 @@ actions:
 name: step3_pulse_rate_repeat
 description: Pulse rate measurement
 priority: 1
-condition: "step3_pulse_rate > 0 && (step3_pulse_rate < 60 || step3_pulse_rate > 100)"
+condition: "step3_pulse_rate > 0 && step3_pulse_rate < 50 "
 actions:
   - "isRelevant = true"
 ---
 name: step3_pulse_rate_repeat_label
 description: Pulse rate measurement
 priority: 1
-condition: "step3_pulse_rate > 0 && (step3_pulse_rate < 60 || step3_pulse_rate > 100) "
+condition: "step3_pulse_rate > 0 && step3_pulse_rate < 50"
 actions:
   - "isRelevant = true"
 ---
@@ -320,3 +320,10 @@ priority: 1
 condition: "((fetal_heart_rate > 0 && fetal_heart_rate < 120 ) || (fetal_heart_rate > 160))"
 actions:
   - "isRelevant = false"
+---
+name: step3_unrecordable_pulse
+description: cant_record_bp
+priority: 1
+condition: "step3_pulse_rate_repeat > 0 && step3_pulse_rate_repeat < 50 "
+actions:
+  - "isRelevant = true"
