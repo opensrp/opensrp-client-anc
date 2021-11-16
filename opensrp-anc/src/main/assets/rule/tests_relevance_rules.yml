@@ -1155,9 +1155,9 @@ actions:
   - "isRelevant = true"
 ---
 name: step1_toxo_test_status
-description: step1 toxo_test_status
+description: toxo_test_status
 priority: 1
-condition: "global_contact_no == 1  || (global_contact_no > 1 && (global_gest_age_openmrs != '' && (global_gest_age_openmrs == 20  || global_gest_age_openmrs == 28)))"
+condition: "global_contact_no == 1 || (global_contact_no > 1 && (global_gest_age_openmrs != '' && (global_gest_age_openmrs == 20 || global_gest_age_openmrs == 28)))"
 actions:
   - "isRelevant = true"
 ---

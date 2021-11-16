@@ -3722,7 +3722,7 @@
         "label_text_style": "bold",
         "text_color": "#000000",
         "type": "extended_radio_button",
-        "content_form": "tests_tb_screening_sub_form",
+        "content_form": "tests_toxo_sub_form",
         "options": [
           {
             "key": "done_today",

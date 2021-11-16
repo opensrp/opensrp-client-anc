@@ -437,5 +437,6 @@
     <string name="hiv_test_partner_status">Partner HIV test</string>
     <string name="glucose_test_status">Blood Glucose test</string>
     <string name="other_test">Other test</string>
+    <string name="toxo_test_status">Toxoplasmosis test</string>
 
 </resources>
