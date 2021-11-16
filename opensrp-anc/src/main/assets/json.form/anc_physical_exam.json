@@ -1974,6 +1974,24 @@
         }
       },
       {
+        "key": "oedema_severity_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_physical_exam.step3.oedema_severity_toaster.text}}",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+
+      {
         "key": "ipv_physical_signs_symptoms",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

@@ -292,3 +292,17 @@ priority: 1
 condition: "step3_ipv_subject == 'yes'"
 actions:
   - "isRelevant = true"
+---
+name: step3_oedema_severity_toaster
+description: oedema_severity_toaster
+priority: 1
+condition: "step3_oedema_severity == '+++' || step3_oedema_severity == '++++'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_oedema_severity_toaster_face_odem
+description: oedema_severity_toaster
+priority: 1
+condition: "!step3_oedema_type.isEmpty() && step3_oedema_type.contains('face_oedema')"
+actions:
+  - "isRelevant = true"
