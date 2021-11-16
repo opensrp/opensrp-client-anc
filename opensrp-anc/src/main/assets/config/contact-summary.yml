@@ -142,7 +142,6 @@ fields:
 ---
 group: immunisation_status
 fields:
-
   - template: "{{contact_summary.immunisation_status.tt_immunisation_status}}: {tt_immun_status_value}"
     relevance: "tt_immun_status_value != ''"
 
@@ -166,7 +165,6 @@ fields:
 ---
 group: medications
 fields:
-
   - template: "{{contact_summary.medications.current_medications}}: {medications_value}"
     relevance: "!medications_value.isEmpty()"
 
@@ -197,7 +195,6 @@ fields:
 ---
 group: woman's_behaviour
 fields:
-
   - template: "{{contact_summary.woman_behaviour.persisting_behaviours}}: {behaviour_persist_value}"
     relevance: "behaviour_persist != ''"
 
@@ -251,7 +248,6 @@ fields:
 ---
 group: physiological_symptoms
 fields:
-
   - template: "{{contact_summary.physiological_symptoms.persisting_physiological_symptoms}}: {phys_symptoms_persist_value}"
     relevance: "phys_symptoms_persist != ''"
 
@@ -335,7 +331,6 @@ fields:
 ---
 group: height_and_weight
 fields:
-
   - template: "{{contact_summary.height_and_weight.height}}: {height} cm"
     relevance: "height != ''"
 
@@ -380,7 +375,6 @@ fields:
 ---
 group: blood_pressure
 fields:
-
   - template: "{{contact_summary.blood_pressure.bp}}: {bp_systolic}/{bp_diastolic} mmHg"
     relevance: "bp_systolic != '' && bp_diastolic != ''"
 
@@ -413,7 +407,6 @@ fields:
 ---
 group: maternal_exam
 fields:
-
   - template: "{{contact_summary.maternal_exam.temperature}}: {body_temp}ºC"
     relevance: "body_temp != ''"
 
@@ -479,7 +472,6 @@ fields:
 ---
 group: fetal_assessment
 fields:
-
   - template: "{{contact_summary.maternal_exam.sfh}}: {sfh} cm"
     relevance: "sfh != ''"
 
@@ -497,7 +489,6 @@ fields:
 ---
 group: ultrasound_test
 fields:
-
   - template: "{{contact_summary.ultrasound_tests.ultrasound_test}}"
     relevance: "ultrasound == 'ordered'"
 
@@ -506,7 +497,6 @@ fields:
 ---
 group: blood_type_test
 fields:
-
   - template: "{{contact_summary.blood_type_test.blood_type_test_ordered}}"
     relevance: "blood_type_test_status == 'ordered'"
 
@@ -530,7 +520,6 @@ fields:
 ---
 group: hiv_test
 fields:
-
   - template: "{{contact_summary.hiv_tests.hiv_test_ordered}}"
     relevance: "hiv_test_status == 'ordered'"
 
@@ -551,7 +540,6 @@ fields:
 ---
 group: partner_hiv_test
 fields:
-
   - template: "{{contact_summary.partner_hiv_test.partner_hiv_test_status}}: {partner_hiv_status_value}"
     relevance: "partner_hiv_status != ''"
 
@@ -569,7 +557,6 @@ fields:
 ---
 group: hepatitis_b_test
 fields:
-
   - template: "{{contact_summary.hepatitis_b_test.hepatitis_b_test_ordered}}"
     relevance: "hepb_test_status == 'ordered'"
 
@@ -596,7 +583,6 @@ fields:
 ---
 group: hepatitis_c_test
 fields:
-
   - template: "{{contact_summary.hepatitis_c_test.hepatitis_c_test_ordered}}"
     relevance: "hepc_test_status == 'ordered'"
 
@@ -623,7 +609,6 @@ fields:
 ---
 group: syphilis_test
 fields:
-
   - template: "{{contact_summary.syphilis_test.syphilis_test_ordered}}"
     relevance: "syph_test_status == 'ordered'"
 
@@ -656,7 +641,6 @@ fields:
 ---
 group: urine_test
 fields:
-
   - template: "{{contact_summary.urine_tests.urine_test_ordered}}"
     relevance: "urine_test_status == 'ordered'"
 
@@ -698,7 +682,6 @@ fields:
 ---
 group: blood_glucose_test
 fields:
-
   - template: "{{contact_summary.blood_glucose_tests.blood_glucose_test_ordered}}"
     relevance: "glucose_test_status == 'ordered'"
 
@@ -731,7 +714,6 @@ fields:
 ---
 group: blood_haemoglobin_test_and_ifa
 fields:
-
   - template: "{{contact_summary.blood_haemoglobin_test.blood_haemoglobin_test_ordered}}"
     relevance: "hb_test_status == 'ordered'"
 
@@ -767,7 +749,6 @@ fields:
 ---
 group: tb_screening
 fields:
-
   - template: "{{contact_summary.tb_screening_test.tb_screening_ordered}}"
     relevance: "tb_screening_status == 'ordered'"
 
@@ -788,7 +769,6 @@ fields:
 ---
 group: other_tests
 fields:
-
   - template: "{{contact_summary.other_tests.other_test_done}}: {other_test_name}"
     relevance: "other_test_name != ''"
 
@@ -800,7 +780,6 @@ fields:
 ---
 group: pre-eclampsia_risk
 fields:
-
   - template: "{{contact_summary.pre_eclampsia_risk.asprin_till_deliver_prescribed}}"
     relevance: "pe_risk_aspirin == 'done'"
 
@@ -815,7 +794,6 @@ fields:
 ---
 group: hiv_risk_and_prep
 fields:
-
   - template: "{{contact_summary.hiv_risk_and_prep.hiv_risk_counseling_done}}"
     relevance: "hiv_risk_counsel == 'done'"
 
@@ -830,7 +808,6 @@ fields:
 ---
 group: diabetes_risk
 fields:
-
   - template: "{{contact_summary.diabetes_risk.gdm_risk_counseling_done}}"
     relevance: "gdm_risk_counsel == 'done'"
 
@@ -839,7 +816,6 @@ fields:
 ---
 group: danger_signs_counseling
 fields:
-
   - template: "{{contact_summary.danger_signs_counseling.seek_danger_signs_care_counseling_done}}"
     relevance: "danger_signs_counsel == 'done'"
 
@@ -854,7 +830,6 @@ fields:
 ---
 group: anc_contacts_counseling
 fields:
-
   - template: "{{contact_summary.anc_contacts_counseling.contact_schedule_counseling_done}}"
     relevance: "anc_contact_counsel == 'done'"
 
@@ -863,7 +838,6 @@ fields:
 ---
 group: family_planning_counseling
 fields:
-
   - template: "{{contact_summary.family_planning_counseling.pfp_counseling_done}}"
     relevance: "family_planning_counsel == 'done'"
 
@@ -875,7 +849,6 @@ fields:
 ---
 group: birth_plan_counseling
 fields:
-
   - template: "{{contact_summary.birth_plan_counseling.planned_birth_place}}: {delivery_place_value}"
     relevance: "delivery_place != ''"
 
@@ -887,7 +860,6 @@ fields:
 ---
 group: breastfeeding_counseling
 fields:
-
   - template: "{{contact_summary.breastfeeding_counseling.breastfeeding_counseling_done}}"
     relevance: "breastfeed_counsel == 'done'"
 
@@ -896,7 +868,6 @@ fields:
 ---
 group: anaemia_prevention
 fields:
-
   - template: "{{contact_summary.anaemia_prevention.daily_folic_acid_prescribed}}"
     relevance: "ifa_high_prev == 'done'"
 
@@ -917,7 +888,6 @@ fields:
 ---
 group: deworming_and_malaria_prophylaxis
 fields:
-
   - template: "{{contact_summary.deworming_and_malaria_prophylaxis.single_dose_prescribed}}"
     relevance: "deworm == 'done'"
 
@@ -950,7 +920,6 @@ fields:
 ---
 group: calcium_supplementation
 fields:
-
   - template: "{{contact_summary.calcium_supplementation.daily_calcium_prescribed}}"
     relevance: "calcium_supp == 'done'"
 
@@ -959,7 +928,6 @@ fields:
 ---
 group: vitamin_a_supplementation
 fields:
-
   - template: "{{contact_summary.vitamin_a_supplementation.daily_dose_ui_prescribed}}"
     relevance: "vita_supp == 'done'"
 
