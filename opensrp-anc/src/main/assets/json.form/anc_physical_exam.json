@@ -2510,61 +2510,6 @@
         }
       },
       {
-        "key": "ipv_physical_signs_symptoms",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "check_box",
-        "label": "{{anc_physical_exam.step3.ipv_physical_signs_symptoms.label}}",
-        "label_info_text": "{{anc_physical_exam.step3.ipv_physical_signs_symptoms.label_info_text}}",
-        "label_text_style": "bold",
-        "text_color": "#000000",
-        "exclusive": [
-          "none"
-        ],
-        "options": [
-          {
-            "key": "none",
-            "text": "{{anc_physical_exam.step3.ipv_physical_signs_symptoms.options.none.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "abdomen_injury",
-            "text": "{{anc_physical_exam.step3.ipv_physical_signs_symptoms.options.abdomen_injury.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "other_injury",
-            "text": "{{anc_physical_exam.step3.ipv_physical_signs_symptoms.options.other_injury.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "other",
-            "text": "{{anc_physical_exam.step3.ipv_physical_signs_symptoms.options.other.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
-      },
-      {
         "key": "ipv_physical_signs_symptoms_injury_other",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

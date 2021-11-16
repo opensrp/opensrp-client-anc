@@ -1933,14 +1933,6 @@
             "openmrs_entity_parent": ""
           },
           {
-            "key": "harmful_behaviour",
-            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.harmful_behaviour.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          },
-          {
             "key": "suicide_thoughts",
             "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.suicide_thoughts.text}}",
             "value": false,
