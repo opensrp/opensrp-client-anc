@@ -278,3 +278,10 @@ priority: 1
 condition: "step2_covid_status == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
+---
+name: step1_toxo_test_date
+description: toxo_test_date
+priority: 1
+condition: "step1_toxo_test_status == 'done_today'"
+actions:
+  - "calculation = helper.getDateToday()"

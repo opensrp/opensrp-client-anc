@@ -1153,4 +1153,59 @@ priority: 1
 condition: "(step2_covid_type.contains('serology'))"
 actions:
   - "isRelevant = true"
-
+---
+name: step1_toxo_test_status
+description: step1 toxo_test_status
+priority: 1
+condition: "global_contact_no == 1  || (global_contact_no > 1 && (global_gest_age_openmrs != '' && (global_gest_age_openmrs == 20  || global_gest_age_openmrs == 28)))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_toxo_test_date
+description: toxo_test_datedate
+priority: 1
+condition: "step1_toxo_test_status != ''  && step1_toxo_test_status == 'done_earlier'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_toxo_igg_test
+description: toxo_igg_test
+priority: 1
+condition: "(step1_toxo_test_status == 'done_today' || step1_toxo_test_status == 'done_earlier')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_toxo_igm_test
+description: toxo_igm_test
+priority: 1
+condition: "(step1_toxo_test_status == 'done_today' || step1_toxo_test_status == 'done_earlier')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_toxo_avidity_test
+description: toxo_avidity_test
+priority: 1
+condition: "(step1_toxo_igm_test == 'positive')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_toaster_toxoplasmosis_susceptible
+description: toaster_toxoplasmosis_susceptible
+priority: 1
+condition: "(step1_toxo_igm_test == 'negative' && step1_toxo_igg_test == 'negative')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_toaster_toxoplasmosis_immune
+description: toaster_toxoplasmosis_immune
+priority: 1
+condition: "(step1_toxo_igm_test == 'negative' && step1_toxo_igg_test == 'positive') || (step1_toxo_igm_test == 'positive' && step1_toxo_igg_test == 'positive' && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 16) && step1_toxo_avidity_test == 'greater_than_60')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_toaster_toxoplasmosis_positive
+description: toaster_toxoplasmosis_positive
+priority: 1
+condition: "(step1_toxo_igm_test == 'positive' && step1_toxo_igg_test == 'negative') || (step1_toxo_igm_test == 'positive' && step1_toxo_igg_test == 'positive' && (global_gest_age_openmrs != '' && global_gest_age_openmrs > 16) && step1_toxo_avidity_test == 'greater_than_60') || (step1_toxo_avidity_test == 'less_than_60')"
+actions:
+  - "isRelevant = true"
