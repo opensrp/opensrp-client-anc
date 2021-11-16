@@ -273,7 +273,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select multiple",
-        "type": "check_box",
+        "type": "native_radio",
         "label": "{{anc_profile.step1.occupation.label}}",
         "hint": "{{anc_profile.step1.occupation.hint}}",
         "label_text_style": "bold",
@@ -2221,8 +2221,15 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "hypertension_gestational",
+            "text": "Hypertension(gestational)"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "hypertension",
-            "text": "{{anc_profile.step4.health_conditions.options.hypertension.text}}"
+            "text": "Hypertension(pre-existing)"
           },
           {
             "openmrs_entity_parent": "",
@@ -2492,6 +2499,10 @@
         "type": "edit_text",
         "edit_type": "number",
         "hint": "How many doses ?",
+        "v_regex": {
+          "value": "([1-4]{1})|s*",
+          "err": "Number of Vaccinations cannot be over 4"
+        },
         "v_required": {
           "value": true,
           "err": "Please enter the number of doses"
@@ -2548,88 +2559,6 @@
               {
                 "or": [
                   "3_doses"
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "key": "flu_immun_status",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165227AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "native_radio",
-        "label": "{{anc_profile.step5.flu_immun_status.label}}",
-        "label_text_style": "bold",
-        "multi_relevance": true,
-        "options": [
-          {
-            "key": "seasonal_flu_dose_given",
-            "text": "{{anc_profile.step5.flu_immun_status.options.seasonal_flu_dose_given.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "seasonal_flu_dose_missing",
-            "text": "{{anc_profile.step5.flu_immun_status.options.seasonal_flu_dose_missing.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "unknown",
-            "text": "{{anc_profile.step5.flu_immun_status.options.unknown.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ],
-        "v_required": {
-          "value": true,
-          "err": "{{anc_profile.step5.flu_immun_status.v_required.err}}"
-        }
-      },
-      {
-        "key": "flu_immunisation_toaster",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "{{anc_profile.step5.flu_immunisation_toaster.text}}",
-        "text_color": "#000000",
-        "toaster_info_text": "{{anc_profile.step5.flu_immunisation_toaster.toaster_info_text}}",
-        "toaster_info_title": "{{anc_profile.step5.flu_immunisation_toaster.toaster_info_title}}",
-        "toaster_type": "info",
-        "relevance": {
-          "step5:flu_immun_status": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "seasonal_flu_dose_missing",
-                  "unknown"
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "key": "immunised_against_flu_toaster",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "{{anc_profile.step5.immunised_against_flu_toaster.text}}",
-        "text_color": "#000000",
-        "toaster_type": "positive",
-        "relevance": {
-          "step5:flu_immun_status": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "seasonal_flu_dose_given"
                 ]
               }
             ]
@@ -2869,35 +2798,11 @@
             "openmrs_entity_parent": ""
           },
           {
-            "key": "asthma",
-            "text": "{{anc_profile.step6.medications.options.asthma.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165234AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
             "key": "cotrimoxazole",
             "text": "{{anc_profile.step6.medications.options.cotrimoxazole.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "105281AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "antibiotics",
-            "text": "{{anc_profile.step6.medications.options.antibiotics.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1195AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "hematinic",
-            "text": "{{anc_profile.step6.medications.options.hematinic.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165233AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
@@ -2911,6 +2816,14 @@
           {
             "key": "multivitamin",
             "text": "{{anc_profile.step6.medications.options.multivitamin.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "461AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "salbutamol",
+            "text": "Salbutamol",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "461AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -3433,7 +3346,7 @@
         "options": [
           {
             "key": "cough_weeks",
-            "text": "Cough > 2 weeks",
+            "text": "Cough lasting more than 2 weeks",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "cough_weeks"
@@ -3492,6 +3405,33 @@
             "ex-checkbox": [
               {
                 "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "tb_lab_test_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Laboratory test should be  conducted",
+        "text_color": "#000000",
+        "toaster_info_text": "Laboratory test should be conducted",
+        "toaster_info_title": "Laboratory test",
+        "toaster_type": "problem",
+        "relevance": {
+          "step8:tb_screening_history": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "cough_weeks",
+                  "fever",
+                  "weight_loss",
+                  "night_sweats",
                   "other"
                 ]
               }

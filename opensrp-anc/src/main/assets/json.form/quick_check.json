@@ -376,7 +376,7 @@
           },
           {
             "key": "leg_pain",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.leg_pain.text}}",
+            "text": "Leg pain",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
