@@ -195,6 +195,13 @@ condition: "(step5_covid_immun_status == 'no_doses') || (step5_covid_immun_statu
 actions:
   - "isRelevant = true"
 ---
+name: step5_hep_b_recommended_toaster
+description: Hapatitis B test is required
+priority: 1
+condition: "((step5_hep_b_immun_status == 'no_doses') || (step5_hep_b_immun_status == 'unknown')) && (global_pop_hepb_screening == true || global_pop_hepb == true || global_hiv_positive == 1)"
+actions:
+  - "isRelevant = true"
+---
 name: step5_covid_immunized_toaster
 description: COVID-19 immunized
 priority: 1
