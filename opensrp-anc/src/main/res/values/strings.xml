@@ -210,7 +210,7 @@
 
     <string name="specify">Specify</string>
 
-    <string name="proceed_to_normal_contact">Proceed to normal contact</string>
+    <string name="proceed_to_normal_contact">Proceed to contact</string>
     <string name="refer_and_close_contact">Refer and close contact</string>
 
     <string name="validation_no_reason_selected">Please select a reason for coming to facility</string>
@@ -237,7 +237,7 @@
     <string name="edit"> edit </string>
 
     <!-- contact -->
-    <string name="quick_check">RAM</string>
+    <string name="quick_check">Rapid Assessment Management</string>
     <string name="profile">Profile</string>
     <string name="symptoms_follow_up">Symptoms and Follow-up</string>
     <string name="physical_exam">Physical Exam</string>

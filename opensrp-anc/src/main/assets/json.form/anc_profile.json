@@ -220,20 +220,6 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "married",
-            "text": "{{anc_profile.step1.marital_status.options.married.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1055AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "divorced",
-            "text": "{{anc_profile.step1.marital_status.options.divorced.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1058AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
             "key": "single",
             "text": "{{anc_profile.step1.marital_status.options.single.text}}",
             "openmrs_entity_parent": "",
@@ -241,11 +227,18 @@
             "openmrs_entity_id": "5615AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "widowed",
-            "text": "{{anc_profile.step1.marital_status.options.widowed.text}}",
+            "key": "cohabiting",
+            "text": "Living with a partner(Cohabiting)",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "cohabiting"
+          },
+          {
+            "key": "married",
+            "text": "{{anc_profile.step1.marital_status.options.married.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1055AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "separated",
@@ -255,11 +248,18 @@
             "openmrs_entity_id": "separated"
           },
           {
-            "key": "cohabiting",
-            "text": "Living with a partner(Cohabiting)",
+            "key": "divorced",
+            "text": "{{anc_profile.step1.marital_status.options.divorced.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "cohabiting"
+            "openmrs_entity_id": "1058AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "widowed",
+            "text": "{{anc_profile.step1.marital_status.options.widowed.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
         "v_required": {
@@ -1524,13 +1524,6 @@
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1449AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "gestational_diabetes",
-            "text": "{{anc_profile.step3.prev_preg_comps.options.gestational_diabetes.text}}"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
             "openmrs_entity_id": "159084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "tobacco_use",
             "text": "{{anc_profile.step3.prev_preg_comps.options.tobacco_use.text}}"
@@ -1576,6 +1569,13 @@
           "dont_know"
         ],
         "options": [
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "129251AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "none",
+            "text": "None"
+          },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
@@ -1638,6 +1638,13 @@
             "openmrs_entity_id": "124858AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "3rd_degree_tear",
             "text": "{{anc_profile.step3.prev_preg_comps.options.3rd_degree_tear.text}}"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1449AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "gestational_diabetes",
+            "text": "{{anc_profile.step3.prev_preg_comps.options.gestational_diabetes.text}}"
           },
           {
             "openmrs_entity_parent": "",
@@ -1878,13 +1885,6 @@
             "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "dont_know",
             "text": "{{anc_profile.step4.allergies.options.dont_know.text}}"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "70439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "albendazole",
-            "text": "{{anc_profile.step4.allergies.options.albendazole.text}}"
           },
           {
             "openmrs_entity_parent": "",

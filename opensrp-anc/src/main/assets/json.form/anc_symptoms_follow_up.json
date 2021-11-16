@@ -1753,6 +1753,14 @@
         ],
         "options": [
           {
+            "key": "none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "123395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
             "key": "abnormal_vaginal_discharge",
             "text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.abnormal_vaginal_discharge.text}}",
             "value": false,
