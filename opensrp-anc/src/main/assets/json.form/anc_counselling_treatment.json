@@ -3085,7 +3085,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165336AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "check_box",
+        "type": "native_radio",
         "label": "{{anc_counselling_treatment.step6.hiv_prep_notdone.label}}",
         "label_text_style": "bold",
         "options": [
@@ -3139,13 +3139,8 @@
         "edit_type": "name",
         "relevance": {
           "step6:hiv_prep_notdone": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "other"
-                ]
-              }
-            ]
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
           }
         }
       },
@@ -3352,20 +3347,6 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "155886AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "home",
-            "text": "{{anc_counselling_treatment.step7.delivery_place.options.home.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "other",
-            "text": "{{anc_counselling_treatment.step7.delivery_place.options.other.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ]
       },
@@ -4164,7 +4145,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165346AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "",
-        "type": "check_box",
+        "type": "native_radio",
         "label": "{{anc_counselling_treatment.step9.ifa_high_prev_notdone.label}}",
         "hint": "{{anc_counselling_treatment.step9.ifa_high_prev_notdone.hint}}",
         "label_text_style": "bold",
@@ -4205,13 +4186,8 @@
         "edit_type": "name",
         "relevance": {
           "step9:ifa_high_prev_notdone": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "other"
-                ]
-              }
-            ]
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
           }
         }
       },
@@ -4259,7 +4235,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165346AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "",
-        "type": "check_box",
+        "type": "native_radio",
         "label": "{{anc_counselling_treatment.step9.ifa_low_prev_notdone.label}}",
         "hint": "{{anc_counselling_treatment.step9.ifa_low_prev_notdone.hint}}",
         "label_text_style": "bold",
@@ -4300,13 +4276,8 @@
         "edit_type": "name",
         "relevance": {
           "step9:ifa_low_prev_notdone": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "other"
-                ]
-              }
-            ]
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
           }
         }
       },
@@ -4465,7 +4436,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165346AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "",
-        "type": "check_box",
+        "type": "native_radio",
         "label": "{{anc_counselling_treatment.step9.calcium_supp_notdone.label}}",
         "hint": "{{anc_counselling_treatment.step9.calcium_supp_notdone.hint}}",
         "label_text_style": "bold",
@@ -4506,13 +4477,8 @@
         "edit_type": "name",
         "relevance": {
           "step9:calcium_supp_notdone": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "other"
-                ]
-              }
-            ]
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
           }
         }
       },
@@ -4530,101 +4496,6 @@
             "ex-rules": {
               "rules-file": "ct_calculation_rules.yml"
             }
-          }
-        }
-      },
-      {
-        "key": "vita_supp",
-        "openmrs_entity_parent": "164804AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165345AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "native_radio",
-        "label": "{{anc_counselling_treatment.step9.vita_supp.label}}",
-        "label_info_text": "{{anc_counselling_treatment.step9.vita_supp.label_info_text}}",
-        "label_info_title": "{{anc_counselling_treatment.step9.vita_supp.label_info_title}}",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "done",
-            "text": "{{anc_counselling_treatment.step9.vita_supp.options.done.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "not_done",
-            "text": "{{anc_counselling_treatment.step9.vita_supp.options.not_done.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ],
-        "v_required": {
-          "value": true,
-          "err": "{{anc_counselling_treatment.step9.vita_supp.v_required.err}}"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "vita_supp_notdone",
-        "openmrs_entity_parent": "164804AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165346AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "",
-        "type": "check_box",
-        "label": "{{anc_counselling_treatment.step9.vita_supp_notdone.label}}",
-        "hint": "{{anc_counselling_treatment.step9.vita_supp_notdone.hint}}",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "referred_instead",
-            "text": "{{anc_counselling_treatment.step9.vita_supp_notdone.options.referred_instead.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "other",
-            "text": "{{anc_counselling_treatment.step9.vita_supp_notdone.options.other.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ],
-        "v_required": {
-          "value": true,
-          "err": "{{anc_counselling_treatment.step9.vita_supp_notdone.v_required.err}}"
-        },
-        "relevance": {
-          "step9:vita_supp": {
-            "type": "string",
-            "ex": "equalTo(., \"not_done\")"
-          }
-        }
-      },
-      {
-        "key": "vita_supp_notdone_other",
-        "openmrs_entity_parent": "164804AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
-        "hint": "{{anc_counselling_treatment.step9.vita_supp_notdone_other.hint}}",
-        "edit_type": "name",
-        "relevance": {
-          "step9:vita_supp_notdone": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "other"
-                ]
-              }
-            ]
           }
         }
       },
