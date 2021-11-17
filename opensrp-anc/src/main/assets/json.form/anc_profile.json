@@ -1639,6 +1639,7 @@
             "key": "3rd_degree_tear",
             "text": "{{anc_profile.step3.prev_preg_comps.options.3rd_degree_tear.text}}"
           },
+
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
