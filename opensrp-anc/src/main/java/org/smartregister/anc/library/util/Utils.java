@@ -950,7 +950,7 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     private final String getAppPath(Context context) {
-        File dir = new File(Environment.getExternalStorageDirectory().toString() + File.separator + context.getResources().getString(R.string.app_name) + File.separator);
+        File dir = new File(context.getExternalFilesDir("")+ File.separator + context.getResources().getString(R.string.app_name) + File.separator);
         if (!dir.exists()) {
             dir.mkdir();
         }
