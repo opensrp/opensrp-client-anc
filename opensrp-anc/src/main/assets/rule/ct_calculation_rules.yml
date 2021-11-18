@@ -123,7 +123,7 @@ description: penicillin
 priority: 1
 condition: "true"
 actions:
-  - 'calculation = (step5_syphilis_high_prev_counsel == "done" || step5_syphilis_low_prev_counsel == "done" ? "Penicillin for syphilis" : "") '
+  - 'calculation = (step5_syphilis_high_prev_counsel == "done" || step5_syphilis_low_prev_counsel == "done"  ?  ((!global_allergies.isEmpty() && global_allergies.contains("penicillin")) ? "Erythromycin 500 mg orally four times daily for 14 days or Azithromycin 2 g once orally." : "Penicillin for syphilis") : "") '
 ---
 name: step5_ifa_medication
 description: ifa_medication
