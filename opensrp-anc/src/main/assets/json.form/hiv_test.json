@@ -1,7 +1,7 @@
 {
   "validate_on_submit": true,
   "display_scroll_bars": true,
-  "count": "3",
+  "count": "2`",
   "encounter_type": "Hiv test",
   "entity_id": "",
   "relational_id": "",
@@ -351,7 +351,6 @@
     ]},
   "step2": {
     "title": "Partner HIV status",
-    "next": "step3",
     "fields": [
       {
 

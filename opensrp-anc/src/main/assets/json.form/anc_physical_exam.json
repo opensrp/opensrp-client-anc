@@ -1198,11 +1198,11 @@
           "err": ""
         },
         "v_min": {
-          "value": "35",
+          "value": "0",
           "err": "Temperature must be equal to or greater than 35"
         },
         "v_max": {
-          "value": "42",
+          "value": "50",
           "err": "Temperature must be equal to or less than 42"
         }
       },
@@ -1212,13 +1212,14 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "{{anc_physical_exam.step3.toaster15.text}}",
+        "text": "Temperature is abnormal, measure again after 5 minutes",
         "text_color": "#D56900",
         "toaster_type": "warning",
         "relevance": {
-          "step3:body_temp": {
-            "type": "numeric",
-            "ex": "greaterThanEqualTo(., \"38\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
           }
         }
       },
@@ -1241,9 +1242,10 @@
           "value": true
         },
         "relevance": {
-          "step3:body_temp": {
-            "type": "numeric",
-            "ex": "greaterThanEqualTo(., \"38\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
           }
         }
       },
@@ -1260,22 +1262,15 @@
           "err": "{{anc_physical_exam.step3.body_temp_repeat.v_required.err}}"
         },
         "relevance": {
-          "step3:body_temp": {
-            "type": "numeric",
-            "ex": "greaterThanEqualTo(., \"38\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
           }
         },
         "v_numeric": {
           "value": "true",
           "err": ""
-        },
-        "v_min": {
-          "value": "35",
-          "err": "Temperature must be equal to or greater than 35"
-        },
-        "v_max": {
-          "value": "42",
-          "err": "Temperature must be equal to or less than 42"
         }
       },
       {
@@ -1284,14 +1279,32 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "{{anc_physical_exam.step3.toaster16.text}}",
-        "toaster_info_text": "{{anc_physical_exam.step3.toaster16.toaster_info_text}}",
+        "text": "Woman has hyperthermia",
+        "toaster_info_text": "Woman has hyperthermia,provide treatment and refer to hospital",
         "text_color": "#E20000",
         "toaster_type": "problem",
         "relevance": {
           "step3:body_temp_repeat": {
             "type": "numeric",
-            "ex": "greaterThanEqualTo(., \"38\")"
+            "ex": "greaterThanEqualTo(., \"39\")"
+          }
+        }
+      },
+      {
+        "key": "hypothermia_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Woman has hypothermia",
+        "toaster_info_text": "Woman has hypothermia,provide treatment and refer to hospital",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
           }
         }
       },
@@ -1328,10 +1341,6 @@
         "v_numeric": {
           "value": "true",
           "err": ""
-        },
-        "v_max": {
-          "value": "200",
-          "err": "Pulse rate must be equal to or less than 200"
         }
       },
 
@@ -1563,17 +1572,86 @@
           "value": "true",
           "err": ""
         },
-        "v_min": {
-          "value": "12",
-          "err": "BPM must be equal or greater than 12"
+        "v_required": {
+          "value": "true",
+          "err": "Fill in Details"
+        }
+      },
+      {
+        "key": "repeat_bpm_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Record respiratory rate after 5 minuets",
+        "toaster_info_text": "Record respiratory rate after 5 minutes",
+        "text_color": "#E20000",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "bpm_repeat_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Second Respiratory Rate",
+        "text_color": "#000000",
+        "v_required": {
+          "value": true
         },
-        "v_max": {
-          "value": "18",
-          "err": "BPM must be equal or less than 18"
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "bpm_repeat",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
         },
         "v_required": {
           "value": "true",
           "err": "Fill in Details"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "suspected_anemia_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Anaemia possible! HB test recommended",
+        "toaster_info_text": "Anaemia possible! HB test recommended",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
         }
       },
       {
