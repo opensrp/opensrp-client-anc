@@ -28,7 +28,6 @@ import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
-import org.smartregister.util.FormUtils;
 import org.smartregister.util.Utils;
 
 import java.util.Date;
@@ -668,10 +667,18 @@ public class RegisterModelTest extends BaseUnitTest {
         Assert.assertEquals(ANCJsonFormUtils.formatDate("25-07-2018", true), event.getEventDate());
     }
 
+    @PrepareForTest({AncLibrary.class, RegisterModelTest.class, com.vijay.jsonwizard.utils.FormUtils.class})
     @Test
     public void testFormAsJson() throws Exception {
-        FormUtils formUtils = Mockito.mock(FormUtils.class);
-        RegisterModel registerModel = (RegisterModel) model;
+        AncLibrary ancLibrary = Mockito.mock(AncLibrary.class);
+        android.content.Context context = Mockito.mock(android.content.Context.class);
+        PowerMockito.mockStatic(AncLibrary.class);
+        PowerMockito.when(AncLibrary.getInstance()).thenReturn(ancLibrary);
+        PowerMockito.when(ancLibrary.getApplicationContext()).thenReturn(context);
+
+        com.vijay.jsonwizard.utils.FormUtils formUtils = Mockito.mock(com.vijay.jsonwizard.utils.FormUtils.class);
+
+        RegisterModel registerModel = Mockito.spy((RegisterModel) model);
 
         String formName = "anc_register";
         String entityId = "ENTITY_ID";
@@ -683,11 +690,10 @@ public class RegisterModelTest extends BaseUnitTest {
                 jsonInMock.getJSONObject(ANCJsonFormUtils.METADATA).getString(ANCJsonFormUtils.ENCOUNTER_LOCATION));
         Assert.assertNotEquals(entityId, entityId(jsonInMock));
 
-        Mockito.doReturn(jsonInMock).when(formUtils).getFormJson(formName);
+        Mockito.doReturn(formUtils).when(registerModel).getFormUtils();
+        Mockito.doReturn(jsonInMock).when(formUtils).getFormJsonFromRepositoryOrAssets(context, formName);
 
         JSONObject actualJson = registerModel.getFormAsJson(formName, entityId, currentLocationId);
-
-        Mockito.verify(formUtils).getFormJson(formName);
 
         Assert.assertEquals(currentLocationId,
                 actualJson.getJSONObject(ANCJsonFormUtils.METADATA).getString(ANCJsonFormUtils.ENCOUNTER_LOCATION));

@@ -2,6 +2,8 @@ package org.smartregister.anc.library.model;
 
 import androidx.core.util.Pair;
 
+import com.vijay.jsonwizard.utils.FormUtils;
+
 import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.RegisterContract;
@@ -49,11 +51,15 @@ public class RegisterModel implements RegisterContract.Model {
 
     @Override
     public JSONObject getFormAsJson(String formName, String entityId, String currentLocationId) throws Exception {
-        JSONObject form = new com.vijay.jsonwizard.utils.FormUtils().getFormJsonFromRepositoryOrAssets(AncLibrary.getInstance().getApplicationContext(), formName);
+        JSONObject form = getFormUtils().getFormJsonFromRepositoryOrAssets(AncLibrary.getInstance().getApplicationContext(), formName);
         if (form == null) {
             return null;
         }
         return ANCJsonFormUtils.getFormAsJson(form, formName, entityId, currentLocationId);
+    }
+
+    protected FormUtils getFormUtils() {
+        return new com.vijay.jsonwizard.utils.FormUtils();
     }
 
     @Override
