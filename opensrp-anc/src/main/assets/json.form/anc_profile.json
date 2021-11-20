@@ -272,7 +272,6 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "select multiple",
         "type": "native_radio",
         "label": "{{anc_profile.step1.occupation.label}}",
         "hint": "{{anc_profile.step1.occupation.hint}}",
@@ -283,7 +282,14 @@
             "text": "{{anc_profile.step1.occupation.options.student.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "159465AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "159465AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "read_only": "true",
+            "relevance": {
+              "step1:educ_level": {
+                "type": "string",
+                "ex": "equalTo(., \"none\")"
+              }
+            }
           },
           {
             "key": "unemployed",
@@ -2175,6 +2181,13 @@
             "openmrs_entity_id": "148117AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "autoimmune_disease",
             "text": "{{anc_profile.step4.health_conditions.options.autoimmune_disease.text}}"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "148117AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "asthma",
+            "text": "Asthma"
           },
           {
             "openmrs_entity_parent": "",
