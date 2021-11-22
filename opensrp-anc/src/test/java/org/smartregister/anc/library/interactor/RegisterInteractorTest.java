@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Captor;
@@ -21,11 +22,16 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.contract.RegisterContract;
 import org.smartregister.anc.library.helper.ECSyncHelper;
+import org.smartregister.anc.library.repository.PatientRepository;
+import org.smartregister.anc.library.repository.RegisterQueryProvider;
 import org.smartregister.anc.library.sync.BaseAncClientProcessorForJava;
 import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.AppExecutors;
@@ -47,6 +53,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executors;
 
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({AncLibrary.class, PatientRepository.class})
 public class RegisterInteractorTest extends BaseUnitTest {
 
     @Rule
@@ -127,9 +135,14 @@ public class RegisterInteractorTest extends BaseUnitTest {
         verify(callBack, timeout(ASYNC_TIMEOUT)).onNoUniqueId();
     }
 
-
     @Test
     public void testSaveNewRegistration() throws Exception {
+        PowerMockito.mockStatic(AncLibrary.class);
+        PowerMockito.when(AncLibrary.getInstance()).thenReturn(ancLibrary);
+        PowerMockito.when(ancLibrary.getRegisterQueryProvider()).thenReturn(new RegisterQueryProvider());
+        PowerMockito.mockStatic(PatientRepository.class);
+        PowerMockito.doNothing().when(PatientRepository.class, "updateCohabitants", ArgumentMatchers.anyString(), ArgumentMatchers.anyString());
+
         UniqueIdRepository uniqueIdRepository = Mockito.mock(UniqueIdRepository.class);
         ECSyncHelper syncHelper = Mockito.mock(ECSyncHelper.class);
         AllSharedPreferences allSharedPreferences = Mockito.mock(AllSharedPreferences.class);
@@ -161,7 +174,7 @@ public class RegisterInteractorTest extends BaseUnitTest {
         JSONObject clientObject = new JSONObject(ANCJsonFormUtils.gson.toJson(client));
         JSONObject eventObject = new JSONObject(ANCJsonFormUtils.gson.toJson(event));
 
-        String jsonString = "{'json':'string'}";
+        String jsonString = "{\"json\":\"string\",\"step1\":{\"fields\":[{\"key\":\"cohabitants\"}]}}";
 
         long timestamp = new Date().getTime();
 
@@ -190,8 +203,8 @@ public class RegisterInteractorTest extends BaseUnitTest {
 
         assertEquals(eventObject.get("type"), jsonArgumentCaptor.getValue().get("type"));
         assertEquals(eventObject.getString("baseEntityId"), jsonArgumentCaptor.getValue().getString("baseEntityId"));
-        assertEquals(eventObject.getString("duration"), jsonArgumentCaptor.getValue().getString("duration"));
-        assertEquals(eventObject.getString("version"), jsonArgumentCaptor.getValue().getString("version"));
+        assertEquals(eventObject.getInt("duration"), jsonArgumentCaptor.getValue().getInt("duration"));
+        assertEquals(eventObject.getInt("version"), jsonArgumentCaptor.getValue().getInt("version"));
 
         verify(uniqueIdRepository, timeout(ASYNC_TIMEOUT)).close(stringArgumentCaptor.capture());
         assertEquals(ancId, stringArgumentCaptor.getValue());
