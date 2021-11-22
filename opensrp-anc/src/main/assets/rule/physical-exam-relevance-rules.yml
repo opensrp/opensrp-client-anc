@@ -100,7 +100,7 @@ actions:
 name: step4_toaster28
 description: Fetal heart beat rate
 priority: 1
-condition: "(step4_fetal_heart_rate > 0 && (step4_fetal_heart_rate < 100 || step4_fetal_heart_rate > 180))"
+condition: "(step4_fetal_heart_rate > 0 && step4_fetal_heart_rate < 120 ) || (step4_fetal_heart_rate > 160)"
 actions:
   - "isRelevant = true"
 ---
@@ -114,14 +114,14 @@ actions:
 name: step4_fetal_heart_rate_repeat_label
 description: Fetal heart beat rate
 priority: 1
-condition: "(step4_fetal_heart_rate > 0 && (step4_fetal_heart_rate < 100 || step4_fetal_heart_rate > 180))"
+condition: "(step4_fetal_heart_rate > 0 && step4_fetal_heart_rate < 120 ) || (step4_fetal_heart_rate > 160)"
 actions:
   - "isRelevant = true"
 ---
 name: step4_fetal_heart_rate_repeat
 description: Fetal heart beat rate
 priority: 1
-condition: "(step4_fetal_heart_rate > 0 && (step4_fetal_heart_rate < 100 || step4_fetal_heart_rate > 180))"
+condition: "(step4_fetal_heart_rate > 0 && step4_fetal_heart_rate < 120 ) || (step4_fetal_heart_rate > 160)"
 actions:
   - "isRelevant = true"
 ---
@@ -135,7 +135,7 @@ actions:
 name: step4_toaster29
 description: Fetal heart beat rate repeat toaster
 priority: 1
-condition: "(step4_fetal_heart_rate_repeat > 0 && (step4_fetal_heart_rate_repeat < 100 || step4_fetal_heart_rate_repeat > 180))"
+condition: "(step4_fetal_heart_rate_repeat > 0 && step4_fetal_heart_rate_repeat < 120 ) || (step4_fetal_heart_rate_repeat > 160)"
 actions:
   - "isRelevant = true"
 ---
