@@ -2901,6 +2901,41 @@
         }
       },
       {
+        "key": "hof_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Height of fundus",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "hof",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_min": {
+          "value": "0",
+          "err": "HOF must be greater than 0"
+        },
+        "v_max": {
+          "value": "50",
+          "err": "HOF must be less than or equal to 50"
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Enter a valid sfh"
+        },
+        "v_required": {
+          "value": "false",
+          "err": "{{anc_physical_exam.step4.sfh.v_required.err}}"
+        }
+      },
+      {
         "key": "spacer",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -3004,18 +3039,6 @@
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
         "edit_type": "number",
-        "v_min": {
-          "value": "80",
-          "err": "Fetal heartbeat must be equal or greater than 80"
-        },
-        "v_max": {
-          "value": "200",
-          "err": "Fetal heartbeat must be less than or equal to 200"
-        },
-        "v_numeric_integer": {
-          "value": "true",
-          "err": "Enter a valid number"
-        },
         "relevance": {
           "step4:fetal_heartbeat": {
             "type": "string",
