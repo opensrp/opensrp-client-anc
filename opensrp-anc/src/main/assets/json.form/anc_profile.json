@@ -1121,383 +1121,296 @@
         }
       },
       {
-        "key": "gravida",
+        "key": "number_of_pregnancies",
+        "type": "repeating_group",
+        "reference_edit_text": "",
+        "reference_edit_text_hint": "No. of pregnancies (including this pregnancy) :",
+        "repeating_group_label": "Pregnancy :",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "5624AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "numbers_selector",
-        "number_of_selectors": "5",
-        "start_number": "1",
-        "max_value": "15",
-        "text_size": "16px",
-        "text_color": "#000000",
-        "selected_text_color": "#ffffff",
-        "v_required": {
-          "value": true,
-          "err": "{{anc_profile.step3.gravida.v_required.err}}"
-        }
-      },
-      {
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "key": "previous_pregnancies",
-        "type": "hidden",
-        "label_text_style": "bold",
-        "text_color": "#FF0000",
-        "v_required": {
-          "value": true,
-          "err": "{{anc_profile.step3.previous_pregnancies.v_required.err}}"
-        },
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_calculation_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "spacer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "spacer",
-        "type": "spacer",
-        "spacer_height": "24dp"
-      },
-      {
-        "key": "miscarriages_abortions_label",
-        "type": "label",
-        "label_text_style": "bold",
-        "text": "{{anc_profile.step3.miscarriages_abortions_label.text}}",
-        "text_color": "#000000",
-        "v_required": {
-          "value": true
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "miscarriages_abortions",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1823AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "numbers_selector",
-        "number_of_selectors": "5",
-        "start_number": "0",
-        "max_value": "15",
-        "text_size": "16px",
-        "text_color": "#000000",
-        "selected_text_color": "#ffffff",
-        "v_required": {
-          "value": true,
-          "err": "{{anc_profile.step3.miscarriages_abortions.v_required.err}}"
-        },
-        "constraints": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_constraint_rules.yml"
-            }
-          }
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "spacer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "spacer",
-        "type": "spacer",
-        "spacer_height": "24dp"
-      },
-      {
-        "key": "miscarriages_lost_label",
-        "type": "label",
-        "label_text_style": "bold",
-        "text": "No. of miscarriages (before 28 weeks / 7 months)",
-        "text_color": "#000000",
-        "v_required": {
-          "value": true
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "miscarriages_lost",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "miscarriages_lost",
-        "type": "numbers_selector",
-        "number_of_selectors": "5",
-        "start_number": "0",
-        "max_value": "15",
-        "text_size": "16px",
-        "text_color": "#000000",
-        "selected_text_color": "#ffffff",
-        "v_required": {
-          "value": true,
-          "err": "{{anc_profile.step3.miscarriages_abortions.v_required.err}}"
-        },
-        "constraints": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_constraint_rules.yml"
-            }
-          }
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "spacer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "spacer",
-        "type": "spacer",
-        "spacer_height": "24dp"
-      },
-      {
-        "key": "live_births_label",
-        "type": "label",
-        "label_text_style": "bold",
-        "text": "{{anc_profile.step3.live_births_label.text}}",
-        "text_color": "#000000",
-        "v_required": {
-          "value": true
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "live_births",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "160601AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "numbers_selector",
-        "number_of_selectors": "5",
-        "start_number": "0",
-        "max_value": "15",
-        "text_size": "16px",
-        "text_color": "#000000",
-        "selected_text_color": "#ffffff",
-        "v_required": {
-          "value": true,
-          "err": "{{anc_profile.step3.live_births.v_required.err}}"
-        },
-        "constraints": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_constraint_rules.yml"
-            }
-          }
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "spacer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "spacer",
-        "type": "spacer",
-        "spacer_height": "24dp"
-      },
-      {
-        "key": "last_live_birth_preterm",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "native_radio",
-        "label": "{{anc_profile.step3.last_live_birth_preterm.label}}",
-        "text_color": "#000000",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "yes",
-            "text": "{{anc_profile.step3.last_live_birth_preterm.options.yes.text}}",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "no",
-            "text": "{{anc_profile.step3.last_live_birth_preterm.options.no.text}}",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "dont_know",
-            "text": "{{anc_profile.step3.last_live_birth_preterm.options.dont_know.text}}",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
-          }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
-            }
-          }
-        },
+        "openmrs_entity_id": "No_pregnancies",
         "v_required": {
           "value": false,
-          "err": "{{anc_profile.step3.last_live_birth_preterm.v_required.err}}"
-        }
-      },
-      {
-        "key": "stillbirths_label",
-        "type": "label",
-        "label_text_style": "bold",
-        "text": "{{anc_profile.step3.stillbirths_label.text}}",
-        "text_color": "#000000",
-        "v_required": {
-          "value": true,
-          "err": "{{anc_profile.step3.stillbirths_label.v_required.err}}"
+          "err": "Please specify the No. of pregnancies (including this pregnancy) :"
         },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
+        "value": [
+          {
+            "key": "live_birth",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "live_birth",
+            "type": "native_radio",
+            "label": "Live birth?",
+            "label_text_style": "bold",
+            "options": [
+              {
+                "key": "yes",
+                "text": "Yes"
+              },
+              {
+                "key": "no",
+                "text": "No"
+              }
+            ]
+          },
+          {
+            "key": "live_before_28",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "live_before_28",
+            "type": "native_radio",
+            "label": "Live birth happened before 28weeks /7months?",
+            "label_text_style": "bold",
+            "relevance": {
+              "step3:live_birth": {
+                "type": "string",
+                "ex": "equalTo(., \"yes\")"
+              }
+            },
+            "options": [
+              {
+                "key": "yes",
+                "text": "Yes"
+              },
+              {
+                "key": "no",
+                "text": "No"
+              }
+            ]
+          },
+          {
+            "key": "still_before_28",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "still_before_28",
+            "type": "native_radio",
+            "label": "Stillbirth happened before 28weeks/7months?",
+            "label_text_style": "bold",
+            "relevance": {
+              "step3:live_birth": {
+                "type": "string",
+                "ex": "equalTo(., \"no\")"
+              }
+            },
+            "options": [
+              {
+                "key": "yes",
+                "text": "Yes"
+              },
+              {
+                "key": "no",
+                "text": "No"
+              }
+            ]
+          },
+          {
+            "key": "sex_infant",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "sex_infant",
+            "type": "native_radio",
+            "label": "Sex of infant?",
+            "label_text_style": "bold",
+            "options": [
+              {
+                "key": "male",
+                "text": "Male"
+              },
+              {
+                "key": "female",
+                "text": "Female"
+              },
+              {
+                "key": "unknown",
+                "text": "Unknown"
+              }
+            ]
+          },
+          {
+            "key": "delivery_method",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "delivery_method",
+            "type": "native_radio",
+            "label": "Method of delivery?",
+            "label_text_style": "bold",
+            "options": [
+              {
+                "key": "natural",
+                "text": "Natural"
+              },
+              {
+                "key": "c",
+                "text": "C-Section"
+              }
+            ]
+          },
+          {
+            "key": "spacer",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "spacer",
+            "type": "spacer",
+            "spacer_height": "10sp"
+          },
+          {
+            "key": "birth_weight_label",
+            "type": "label",
+            "label_text_style": "bold",
+            "text": "Birth weight?",
+            "text_color": "#000000",
+            "v_required": {
+              "value": false
+            }
+          },
+          {
+            "key": "spacer",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "spacer",
+            "type": "spacer",
+            "spacer_height": "10sp"
+          },
+          {
+            "key": "birth_weight",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "birth_weight",
+            "type": "normal_edit_text",
+            "edit_text_style": "bordered",
+            "edit_type": "number",
+            "v_numeric": {
+              "value": "true",
+              "err": ""
+            },
+            "v_min": {
+              "value": "0",
+              "err": "Weight must be equal or greater than 0"
+            },
+            "v_max": {
+              "value": "8",
+              "err": "Weight must be equal or less than 8"
+            },
+            "v_required": {
+              "value": "false",
+              "err": "Please enter birth weight"
+            }
+          },
+          {
+            "key": "complications",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "complications",
+            "type": "native_radio",
+            "label": "Any complications in child birth?",
+            "label_text_style": "bold",
+            "options": [
+              {
+                "key": "yes",
+                "text": "Yes"
+              },
+              {
+                "key": "no",
+                "text": "No"
+              }
+            ]
+          },
+          {
+            "key": "miscarriage",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "miscarriage",
+            "type": "native_radio",
+            "label": "Miscarriage?",
+            "label_text_style": "bold",
+            "relevance": {
+              "step3:live_birth": {
+                "type": "string",
+                "ex": "equalTo(., \"no\")"
+              }
+            },
+            "options": [
+              {
+                "key": "yes",
+                "text": "Yes"
+              },
+              {
+                "key": "no",
+                "text": "No"
+              }
+            ]
+          },
+          {
+            "key": "mis_before_28",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "mis_before_28",
+            "type": "native_radio",
+            "label": "Miscarriage happened before 28weeks/7months?",
+            "label_text_style": "bold",
+            "relevance": {
+              "step3:miscarriage": {
+                "type": "string",
+                "ex": "equalTo(., \"yes\")"
+              }
+            },
+            "options": [
+              {
+                "key": "yes",
+                "text": "Yes"
+              },
+              {
+                "key": "no",
+                "text": "No"
+              }
+            ]
+          },
+          {
+            "key": "abortion",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "abortion",
+            "type": "native_radio",
+            "label": "Abortion?",
+            "label_text_style": "bold",
+            "relevance": {
+              "step3:live_birth": {
+                "type": "string",
+                "ex": "equalTo(., \"no\")"
+              }
+            },
+            "options": [
+              {
+                "key": "yes",
+                "text": "Yes"
+              },
+              {
+                "key": "no",
+                "text": "No"
+              }
+            ]
+          },
+          {
+            "key": "due_date_pregnancy",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "due_date_pregnancy",
+            "type": "date_picker",
+            "hint": "Due Date",
+            "expanded": false,
+            "duration": {
+              "label": ""
+            },
+            "min_date": "today - 35y",
+            "max_date": "today",
+            "v_required": {
+              "value": false,
+              "err": "Due Date"
             }
           }
-        }
+        ]
       },
-      {
-        "key": "stillbirths",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "160077AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "numbers_selector",
-        "number_of_selectors": "5",
-        "start_number": "0",
-        "max_value": "15",
-        "text_size": "16px",
-        "text_color": "#000000",
-        "selected_text_color": "#ffffff",
-        "v_required": {
-          "value": true,
-          "err": "{{anc_profile.step3.stillbirths.v_required.err}}"
-        },
-        "constraints": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_constraint_rules.yml"
-            }
-          }
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "key": "parity",
-        "type": "hidden",
-        "label_text_style": "bold",
-        "text_color": "#FF0000",
-        "v_required": {
-          "value": false
-        },
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_calculation_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "spacer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "spacer",
-        "type": "spacer",
-        "spacer_height": "24dp"
-      },
-      {
-        "key": "c_sections_label",
-        "type": "label",
-        "label_text_style": "bold",
-        "text": "{{anc_profile.step3.c_sections_label.text}}",
-        "text_color": "#000000",
-        "v_required": {
-          "value": true
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "c_sections",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "160081AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "numbers_selector",
-        "number_of_selectors": "5",
-        "start_number": "0",
-        "max_value": "15",
-        "text_size": "16px",
-        "text_color": "#000000",
-        "selected_text_color": "#ffffff",
-        "v_required": {
-          "value": true,
-          "err": "{{anc_profile.step3.c_sections.v_required.err}}"
-        },
-        "constraints": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_constraint_rules.yml"
-            }
-          }
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
-            }
-          }
-        }
-      },
+
       {
         "key": "spacer",
         "openmrs_entity_parent": "",
@@ -1552,13 +1465,6 @@
         "v_required": {
           "value": true,
           "err": "{{anc_profile.step3.prev_preg_comps.v_required.err}}"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
-            }
-          }
         }
       },
       {
@@ -1664,13 +1570,6 @@
         "v_required": {
           "value": true,
           "err": "{{anc_profile.step3.prev_preg_comps.v_required.err}}"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
-            }
-          }
         }
       },
       {
@@ -3401,7 +3300,7 @@
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ]
-        },
+      },
       {
         "key": "other_tb_screening_history",
         "openmrs_entity_parent": "",
