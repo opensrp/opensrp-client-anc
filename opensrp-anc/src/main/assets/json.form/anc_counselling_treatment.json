@@ -2082,9 +2082,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "",
-        "type": "check_box",
+        "type": "native_radio",
         "label": "{{anc_counselling_treatment.step4.increase_energy_counsel_notdone.label}}",
-        "hint": "{{anc_counselling_treatment.step4.increase_energy_counsel_notdone.hint}}",
         "label_text_style": "bold",
         "options": [
           {
@@ -2123,13 +2122,8 @@
         "edit_type": "name",
         "relevance": {
           "step4:increase_energy_counsel_notdone": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "other"
-                ]
-              }
-            ]
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
           }
         }
       },
@@ -2177,9 +2171,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "",
-        "type": "check_box",
+        "type": "native_radio",
         "label": "{{anc_counselling_treatment.step4.balanced_energy_counsel_notdone.label}}",
-        "hint": "{{anc_counselling_treatment.step4.balanced_energy_counsel_notdone.hint}}",
         "label_text_style": "bold",
         "options": [
           {
@@ -2218,13 +2211,8 @@
         "edit_type": "name",
         "relevance": {
           "step4:balanced_energy_counsel_notdone": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "other"
-                ]
-              }
-            ]
+              "type": "string",
+              "ex": "equalTo(., \"other\")"
           }
         }
       }
