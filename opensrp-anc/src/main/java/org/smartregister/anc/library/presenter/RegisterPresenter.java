@@ -150,8 +150,10 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
 
     @Override
     public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId) {
+//30010-007-uuid/21
+        String smNumber = "30010007" + "/" +entityId +"/21";
         try {
-            startForm(triple.getLeft(), entityId, triple.getMiddle(), triple.getRight());
+            startForm(triple.getLeft(), smNumber, triple.getMiddle(), triple.getRight());
         } catch (Exception e) {
             Timber.e(e, " --> onUniqueIdFetched");
             getView().displayToast(R.string.error_unable_to_start_form);

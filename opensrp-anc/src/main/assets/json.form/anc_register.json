@@ -67,15 +67,10 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_identifier",
         "openmrs_entity_id": "ANC_ID",
-        "type": "barcode",
-        "barcode_type": "qrcode",
+        "type": "edit_text",
+        "read_only": "true",
         "hint": "{{anc_register.step1.anc_id.hint}}",
         "value": "0",
-        "scanButtonText": "Scan QR Code",
-        "v_numeric": {
-          "value": "true",
-          "err": "{{anc_register.step1.anc_id.v_numeric.err}}"
-        },
         "v_required": {
           "value": "true",
           "err": "{{anc_register.step1.anc_id.v_required.err}}"
@@ -87,6 +82,7 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "study_id",
         "type": "edit_text",
+        "read_only": "true",
         "hint": "Study ID"
       },
 

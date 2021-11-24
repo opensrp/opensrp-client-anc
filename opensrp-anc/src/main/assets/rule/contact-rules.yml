@@ -7,6 +7,14 @@ actions:
   - "contactRule.currentVisit = contactRule.currentVisit + 8"
   - "contactRule.set.add(contactRule.currentVisit)"
 ---
+name: after_eight
+description: after eight weeks
+priority: 2
+condition: "contactRule.currentVisit >= 20"
+actions:
+  - "contactRule.currentVisit = contactRule.currentVisit + 8"
+  - "contactRule.set.add(contactRule.currentVisit)"
+---
 name: after_six
 description: after six weeks
 priority: 2

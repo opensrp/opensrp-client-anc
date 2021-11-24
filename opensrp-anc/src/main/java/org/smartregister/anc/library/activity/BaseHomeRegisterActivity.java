@@ -187,6 +187,8 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
 
     @Override
     public void startFormActivity(String formName, String entityId, String metaData) {
+
+        String smNumber = entityId + "9";
         try {
             if (mBaseFragment instanceof HomeRegisterFragment) {
                 String locationId = AncLibrary.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);

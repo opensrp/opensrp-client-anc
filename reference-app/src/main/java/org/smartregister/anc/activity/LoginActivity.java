@@ -61,6 +61,11 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     }
 
     @Override
+    public boolean isAppVersionAllowed() {
+        return true;
+    }
+
+    @Override
     public void goToHome(boolean remote) {
         if (remote) {
             Utils.startAsyncTask(new SaveTeamLocationsTask(), null);
