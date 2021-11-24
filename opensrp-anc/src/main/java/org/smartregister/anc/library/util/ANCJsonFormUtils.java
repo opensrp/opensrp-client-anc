@@ -234,26 +234,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
             Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag, entityId);
             Event baseEvent = org.smartregister.util.JsonFormUtils
                     .createEvent(fields, metadata, formTag, entityId, encounterType, DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME);
-//            List<Obs> obs = new ArrayList<>();
-//            List<Obs> obsCohab = new ArrayList<>();
-//
-//            for (Obs ob : baseEvent.getObs()) {
-//                if (ob.getFormSubmissionField().equals("cohabitants")) {
-//                    obsCohab.add(ob);
-//                } else {
-//                    obs.add(ob);
-//                }
-//            }
-//            if (obsCohab.size() > 0) {
-//                Obs obCohab = obsCohab.get(0);
-//                if (obsCohab.size() > 1) {
-//                    for (int i = 1; i < obsCohab.size(); i++) {
-//                        Obs ob = obsCohab.get(i);
-//                        obCohab.getHumanReadableValues().addAll(ob.getHumanReadableValues());
-//                        ob
-//                    }
-//                }
-//            }
+
             if (previousVisitsMap != null) {
                 baseEvent.addDetails(ConstantsUtils.JsonFormKeyUtils.PREVIOUS_VISITS_MAP, previousVisitsMap);
             }

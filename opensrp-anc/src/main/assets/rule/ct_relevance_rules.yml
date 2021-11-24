@@ -93,7 +93,7 @@ actions:
 name: step1_no_fetal_heartbeat_toaster
 description: No fetal heartbeat observed
 priority: 1
-condition: "global_fetal_heartbeat != '' && global_fetal_heartbeat == 'no'"
+condition: "global_fetal_heartbeat != '' && global_fetal_heartbeat == 'no' && global_gest_age_openmrs > 20 "
 actions:
   - "isRelevant = true"
 ---
@@ -107,7 +107,7 @@ actions:
 name: step1_referred_hosp
 description: Referred to hospital
 priority: 1
-condition: "(global_severe_hypertension != '' && global_severe_hypertension == 1) || (!global_danger_signs.isEmpty() && !global_danger_signs.contains('danger_none') && global_danger_signs_value != 'None') || (global_hypertension != '' && global_hypertension == 1 && !global_symp_sev_preeclampsia.isEmpty() && !global_symp_sev_preeclampsia.contains('none')) || (global_preeclampsia != '' && global_preeclampsia == 1) || (global_severe_preeclampsia != ''  && global_severe_preeclampsia == 1) || (global_body_temp_repeat != '' && global_body_temp_repeat >= 38) || global_pulse_rate_repeat != '' && (global_pulse_rate_repeat < 60 || global_pulse_rate_repeat > 100) || global_respiratory_exam == 3 || global_cardiac_exam == 3 || global_breast_exam == 3 || global_abdominal_exam == 3 || global_pelvic_exam == 3 || global_fetal_heartbeat == 'no' || global_fetal_heart_rate_repeat != '' && (global_fetal_heart_rate_repeat < 110 || global_fetal_heart_rate_repeat > 160)"
+condition: "(global_severe_hypertension != '' && global_severe_hypertension == 1) || (!global_danger_signs.isEmpty() && !global_danger_signs.contains('danger_none') && global_danger_signs_value != 'None') || (global_hypertension != '' && global_hypertension == 1 && !global_symp_sev_preeclampsia.isEmpty() && !global_symp_sev_preeclampsia.contains('none')) || (global_preeclampsia != '' && global_preeclampsia == 1) || (global_severe_preeclampsia != ''  && global_severe_preeclampsia == 1) || (global_body_temp_repeat != '' && global_body_temp_repeat >= 38) || global_pulse_rate_repeat != '' && (global_pulse_rate_repeat < 60 || global_pulse_rate_repeat > 100) || global_respiratory_exam == 3 || global_cardiac_exam == 3 || global_breast_exam == 3 || global_abdominal_exam == 3 || global_pelvic_exam == 3 || (global_fetal_heartbeat == 'no' && global_gest_age_openmrs > 20) || global_fetal_heart_rate_repeat != '' && (global_fetal_heart_rate_repeat < 110 || global_fetal_heart_rate_repeat > 160)"
 actions:
   - "isRelevant = true"
 ---
@@ -279,10 +279,24 @@ condition: "global_syphilis_positive == 1 && global_pop_syphilis == false"
 actions:
   - "isRelevant = true"
 ---
+name: step5_low_prev_allergy_toaster
+description: prep_toaster
+priority: 1
+condition: "(global_syphilis_positive == 1 && global_pop_syphilis == false) && !global_allergies.isEmpty() && !global_allergies.contains('none')"
+actions:
+  - "isRelevant = true"
+---
 name: step5_syphilis_high_prev_counsel
 description: Syphilis counselling and treatment
 priority: 1
 condition: "global_syphilis_positive == 1 && global_pop_syphilis == true"
+actions:
+  - "isRelevant = true"
+---
+name: step5_high_prev_allergy_toaster
+description: prep_toaster
+priority: 1
+condition: "(global_syphilis_positive == 1 && global_pop_syphilis == true) && !global_allergies.isEmpty() && !global_allergies.contains('none')"
 actions:
   - "isRelevant = true"
 ---
@@ -391,10 +405,24 @@ condition: "global_pop_anaemia_40 == true && (global_anaemic == '' || global_ana
 actions:
   - "isRelevant = true"
 ---
+name: step9_ifa_high_prev_toaster
+description: ifa_high_prev_toaster
+priority: 1
+condition: "global_pop_anaemia_40 == true && (global_anaemic == '' || global_anaemic == 0) && !global_allergies.isEmpty() && !global_allergies.contains('none')"
+actions:
+  - "isRelevant = true"
+---
 name: step9_ifa_low_prev
 description: ifa_low_prev
 priority: 1
 condition: "global_pop_anaemia_40 == false && (global_anaemic == '' || global_anaemic == 0)"
+actions:
+  - "isRelevant = true"
+---
+name: step9_ifa_low_prev_toaster
+description: ifa_low_prev_toaster
+priority: 1
+condition: "global_pop_anaemia_40 == false && (global_anaemic == '' || global_anaemic == 0) && !global_allergies.isEmpty() && !global_allergies.isEmpty('none')"
 actions:
   - "isRelevant = true"
 ---
@@ -409,6 +437,13 @@ name: step10_deworm
 description: deworm
 priority: 1
 condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13 ) && (global_pop_anaemia_40 == true || global_pop_helminth == true) && (global_contact_no == 1 || (global_contact_no > 1 && global_previous_deworm == '')) "
+actions:
+  - "isRelevant = true"
+---
+name: step10_deworm_toaster
+description: deworm_toaster
+priority: 1
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13 ) && (global_pop_anaemia_40 == true || global_pop_helminth == true) && (global_contact_no == 1 || (global_contact_no > 1 && global_previous_deworm == '') && !global_allergies.isEmpty() && !global_allergies.contains('none')) "
 actions:
   - "isRelevant = true"
 ---

@@ -5,7 +5,7 @@
   "encounter_type": "Profile",
   "entity_id": "",
   "relational_id": "",
-  "form_version": "0.0.1",
+  "form_version": "0.0.15",
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -48,7 +48,7 @@
       "openmrs_data_type": "phonenumber",
       "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
     },
-    "encounter_location": "",
+    "encounter_location": "44de66fb-e6c6-4bae-92bb-386dfe626eba",
     "look_up": {
       "entity_id": "",
       "value": ""
@@ -3341,10 +3341,10 @@
         "toaster_info_title": "{{anc_profile.step8.hiv_risk_counselling_toaster.toaster_info_title}}",
         "toaster_type": "problem",
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
-            }
+          "step8:partner_hiv_status": {
+            "type": "string",
+            "ex": "equalTo(., \"positive\")"
+
           }
         }
       }
