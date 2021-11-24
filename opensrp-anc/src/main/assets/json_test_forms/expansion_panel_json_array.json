@@ -39,7 +39,7 @@
     {
       "key": "hepc_test_date",
       "type": "date_picker",
-      "label": "Hep C test date",
+      "label": "Tanggal Test Hepatitis C",
       "index": 5,
       "values": [
         "28-05-2019"
