@@ -107,7 +107,7 @@ actions:
 name: step4_fetal_movement
 description: Fetal movement
 priority: 1
-condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 20)"
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs > 20)"
 actions:
   - "isRelevant = true"
 ---
@@ -128,7 +128,7 @@ actions:
 name: step4_toaster27
 description: No fetal heartbeat observed. Refer to hospital.
 priority: 1
-condition: "(step4_fetal_heartbeat == 'no' && (global_gest_age_openmrs != '' && global_gest_age_openmrs >= 20))"
+condition: "(step4_fetal_heartbeat == 'no' && (global_gest_age_openmrs != '' && global_gest_age_openmrs > 20))"
 actions:
   - "isRelevant = true"
 ---

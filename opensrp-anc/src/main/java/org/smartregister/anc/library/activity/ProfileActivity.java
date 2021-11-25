@@ -366,6 +366,11 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         getTaskTabCount().setText(taskCount);
     }
 
+    @Override
+    public void createContactSummaryPdf() {
+        //overridden
+    }
+
     public TextView getTaskTabCount() {
         return taskTabCount;
     }

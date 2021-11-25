@@ -1,5 +1,8 @@
 package org.smartregister.anc.library.activity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,7 +28,9 @@ import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.FilePathUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.helper.ImageRenderHelper;
+import org.smartregister.util.PermissionUtils;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,6 +84,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
             actionBar.setTitle(R.string.back);
         }
     }
+
 
     protected void loadContactSummaryData() {
         try {
@@ -215,6 +221,17 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     }
 
     @Override
+    public void createContactSummaryPdf() {
+        if (isPermissionGranted() && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)) {
+            try {
+                new Utils().createSavePdf(this, yamlConfigList, facts);
+            } catch (FileNotFoundException e) {
+                Timber.e(e, "%s createContactSummaryPdf()", this.getClass().getCanonicalName());
+            }
+        }
+    }
+
+    @Override
     public void displayToast(int stringID) {
         Utils.showShortToast(this, this.getString(stringID));
     }
@@ -227,7 +244,18 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        //Overriden
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PermissionUtils.WRITE_EXTERNAL_STORAGE_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                createContactSummaryPdf();
+            } else {
+                displayToast(R.string.allow_phone_call_management);
+            }
+        }
+    }
+
+    protected boolean isPermissionGranted() {
+        return PermissionUtils.isPermissionGranted(this, Manifest.permission.WRITE_EXTERNAL_STORAGE, PermissionUtils.WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
     }
 
     public List<YamlConfig> getYamlConfigList() {
