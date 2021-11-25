@@ -214,6 +214,7 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'org.jeasy:easy-rules-core:3.3.0'
     implementation 'org.jeasy:easy-rules-mvel:3.3.0'
+    implementation("com.itextpdf:itext7-core:7.1.12")
 
     testImplementation 'junit:junit:4.13.1'
     testImplementation 'org.apache.maven:maven-ant-tasks:2.1.3'
