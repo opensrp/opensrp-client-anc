@@ -4675,7 +4675,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165345AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
-        "label": "{{anc_counselling_treatment.step10.deworm.label}}",
+          "label": "{{anc_counselling_treatment.step10.deworm.label}}",
         "label_info_text": "{{anc_counselling_treatment.step10.deworm.label_info_text}}",
         "label_text_style": "bold",
         "options": [

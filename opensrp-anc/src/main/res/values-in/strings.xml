@@ -686,4 +686,7 @@
     <string name="simprints_init_fail">Project Id or user id or module id not found. can be use SimprintsLibrary.init
     </string>
     <string name="optibp_btn_get_started">Mulai Ukur</string>
+    <string name="contact_summary_data">Ringkasan data kunjungan  -  %1$s</string>
+    <string name="pdf_saved_successfully">\"Pdf berhasil disimpan ke lokasi \"</string>
+    <string name="contact_summary_data_file">contactSummaryData.pdf</string>
 </resources>

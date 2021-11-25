@@ -620,5 +620,8 @@
     <string name="normal_weight">Normal Weight</string>
     <string name="obese">Obese</string>
     <string name="overweight">Overweight</string>
+    <string name="contact_summary_data">Contact Summary Data  -  %1$s</string>
+    <string name="pdf_saved_successfully">\"Pdf saved successfully to location \"</string>
+    <string name="contact_summary_data_file">contactSummaryData.pdf</string>
 
 </resources>
