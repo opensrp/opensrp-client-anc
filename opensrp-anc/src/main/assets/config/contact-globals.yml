@@ -117,6 +117,8 @@ fields:
   - "flu_date"
   - "flu_date_value"
   - "ipv_subject"
+  - "allergies"
+  - "allergies_value"
 ---
 form: anc_profile
 fields:
