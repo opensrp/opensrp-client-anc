@@ -275,108 +275,6 @@
             }
           }
         }
-      },
-      {
-        "key": "toaster1",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "Body mass Index",
-        "openmrs_entity_id": "1432",
-        "type": "toaster_notes",
-        "text": "{{anc_physical_exam.step1.toaster1.text}}",
-        "text_color": "#1199F9",
-        "toaster_type": "info",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-calculations-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "toaster2",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "Weight gain finding",
-        "openmrs_entity_id": "122887",
-        "type": "toaster_notes",
-        "text": "{{anc_physical_exam.step1.toaster2.text}}",
-        "text_color": "#1199F9",
-        "toaster_type": "info",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-calculations-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "toaster3",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "{{anc_physical_exam.step1.toaster3.text}}",
-        "text_color": "#D56900",
-        "toaster_info_text": "{{anc_physical_exam.step1.toaster3.toaster_info_text}}",
-        "toaster_type": "warning",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "toaster4",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "{{anc_physical_exam.step1.toaster4.text}}",
-        "text_color": "#1199F9",
-        "toaster_type": "info",
-        "toaster_info_text": "{{anc_physical_exam.step1.toaster4.toaster_info_text}}",
-        "toaster_info_title": "{{anc_physical_exam.step1.toaster4.toaster_info_title}}"
-      },
-      {
-        "key": "toaster5",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "Weight gain finding",
-        "openmrs_entity_id": "122887",
-        "type": "toaster_notes",
-        "text": "{{anc_physical_exam.step1.toaster5.text}}",
-        "text_color": "#1199F9",
-        "toaster_type": "info",
-        "toaster_info_text": "{{anc_physical_exam.step1.toaster5.toaster_info_text}}",
-        "toaster_info_title": "{{anc_physical_exam.step1.toaster5.toaster_info_title}}",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "toaster6",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "Weight gain finding",
-        "openmrs_entity_id": "122887",
-        "type": "toaster_notes",
-        "text": "{{anc_physical_exam.step1.toaster6.text}}",
-        "text_color": "#1199F9",
-        "toaster_type": "info",
-        "toaster_info_text": "{{anc_physical_exam.step1.toaster6.toaster_info_text}}",
-        "toaster_info_title": "{{anc_physical_exam.step1.toaster6.toaster_info_title}}",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
       }
     ]
   },
@@ -418,8 +316,8 @@
           "err": ""
         },
         "v_min": {
-          "value": "40",
-          "err": "SBP must be equal or greater than 40"
+          "value": "90",
+          "err": "SBP must be equal or greater than 90"
         },
         "v_max": {
           "value": "260",
@@ -495,8 +393,8 @@
           "err": ""
         },
         "v_min": {
-          "value": "20",
-          "err": "DBP must be equal to or greater than 20"
+          "value": "60",
+          "err": "DBP must be equal to or greater than 60"
         },
         "v_max": {
           "value": "260",
