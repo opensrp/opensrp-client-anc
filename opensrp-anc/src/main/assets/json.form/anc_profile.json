@@ -1124,16 +1124,53 @@
         "key": "number_of_pregnancies",
         "type": "repeating_group",
         "reference_edit_text": "",
-        "reference_edit_text_hint": "No. of pregnancies (including this pregnancy) :",
+        "reference_edit_text_hint": "No. of previous pregnancies :",
         "repeating_group_label": "Pregnancy :",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "No_pregnancies",
         "v_required": {
           "value": false,
-          "err": "Please specify the No. of pregnancies (including this pregnancy) :"
+          "err": "Please specify the No. of previous pregnancies"
         },
         "value": [
+          {
+            "key": "gestational_age_label",
+            "type": "label",
+            "label_text_style": "bold",
+            "text": "Gestational age?",
+            "text_color": "#000000",
+            "v_required": {
+              "value": false
+            }
+          },
+          {
+            "key": "gestational_age",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gestational_age",
+            "label": "Gestational age?",
+            "label_text_style": "bold",
+            "type": "normal_edit_text",
+            "edit_text_style": "bordered",
+            "edit_type": "number",
+            "v_numeric": {
+              "value": "true",
+              "err": ""
+            },
+            "v_min": {
+              "value": "0",
+              "err": "Gestational age must be equal or greater than 0"
+            },
+            "v_max": {
+              "value": "48",
+              "err": "Gestational age must be equal or less than 48"
+            },
+            "v_required": {
+              "value": "false",
+              "err": "Please enter gestational age"
+            }
+          },
           {
             "key": "live_birth",
             "openmrs_entity_parent": "",
@@ -1142,56 +1179,6 @@
             "type": "native_radio",
             "label": "Live birth?",
             "label_text_style": "bold",
-            "options": [
-              {
-                "key": "yes",
-                "text": "Yes"
-              },
-              {
-                "key": "no",
-                "text": "No"
-              }
-            ]
-          },
-          {
-            "key": "live_before_28",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "live_before_28",
-            "type": "native_radio",
-            "label": "Live birth happened before 28weeks /7months?",
-            "label_text_style": "bold",
-            "relevance": {
-              "step3:live_birth": {
-                "type": "string",
-                "ex": "equalTo(., \"yes\")"
-              }
-            },
-            "options": [
-              {
-                "key": "yes",
-                "text": "Yes"
-              },
-              {
-                "key": "no",
-                "text": "No"
-              }
-            ]
-          },
-          {
-            "key": "still_before_28",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "still_before_28",
-            "type": "native_radio",
-            "label": "Stillbirth happened before 28weeks/7months?",
-            "label_text_style": "bold",
-            "relevance": {
-              "step3:live_birth": {
-                "type": "string",
-                "ex": "equalTo(., \"no\")"
-              }
-            },
             "options": [
               {
                 "key": "yes",
@@ -1316,62 +1303,12 @@
             ]
           },
           {
-            "key": "miscarriage",
+            "key": "miscarriage_abortion",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "miscarriage",
+            "openmrs_entity_id": "miscarriage_abortion",
             "type": "native_radio",
-            "label": "Miscarriage?",
-            "label_text_style": "bold",
-            "relevance": {
-              "step3:live_birth": {
-                "type": "string",
-                "ex": "equalTo(., \"no\")"
-              }
-            },
-            "options": [
-              {
-                "key": "yes",
-                "text": "Yes"
-              },
-              {
-                "key": "no",
-                "text": "No"
-              }
-            ]
-          },
-          {
-            "key": "mis_before_28",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "mis_before_28",
-            "type": "native_radio",
-            "label": "Miscarriage happened before 28weeks/7months?",
-            "label_text_style": "bold",
-            "relevance": {
-              "step3:miscarriage": {
-                "type": "string",
-                "ex": "equalTo(., \"yes\")"
-              }
-            },
-            "options": [
-              {
-                "key": "yes",
-                "text": "Yes"
-              },
-              {
-                "key": "no",
-                "text": "No"
-              }
-            ]
-          },
-          {
-            "key": "abortion",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "abortion",
-            "type": "native_radio",
-            "label": "Abortion?",
+            "label": "Miscarriage/Abortion?",
             "label_text_style": "bold",
             "relevance": {
               "step3:live_birth": {
@@ -1396,7 +1333,7 @@
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "due_date_pregnancy",
             "type": "date_picker",
-            "hint": "Due Date",
+            "hint": "Year of delivery",
             "expanded": false,
             "duration": {
               "label": ""
@@ -1795,37 +1732,9 @@
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "70991AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "aluminium_hydroxide",
-            "text": "{{anc_profile.step4.allergies.options.aluminium_hydroxide.text}}"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "72650AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "calcium",
-            "text": "{{anc_profile.step4.allergies.options.calcium.text}}"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "73154AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "chamomile",
-            "text": "{{anc_profile.step4.allergies.options.chamomile.text}}"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
             "openmrs_entity_id": "76613AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "folic_acid",
             "text": "{{anc_profile.step4.allergies.options.folic_acid.text}}"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "77001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "ginger",
-            "text": "{{anc_profile.step4.allergies.options.ginger.text}}"
           },
           {
             "openmrs_entity_parent": "",
@@ -1847,13 +1756,6 @@
             "openmrs_entity_id": "924AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "malaria_medication",
             "text": "{{anc_profile.step4.allergies.options.malaria_medication.text}}"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "79413AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "mebendazole",
-            "text": "{{anc_profile.step4.allergies.options.mebendazole.text}}"
           },
           {
             "openmrs_entity_parent": "",
@@ -2078,13 +1980,6 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "148117AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "autoimmune_disease",
-            "text": "{{anc_profile.step4.health_conditions.options.autoimmune_disease.text}}"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "148117AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "asthma",
             "text": "Asthma"
           },
@@ -2147,9 +2042,16 @@
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "6033AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "kidney_disease",
-            "text": "{{anc_profile.step4.health_conditions.options.kidney_disease.text}}"
+            "openmrs_entity_id": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "mental",
+            "text": "Mental illness"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "tb",
+            "text": "TB"
           },
           {
             "openmrs_entity_parent": "",
@@ -2206,6 +2108,30 @@
               {
                 "or": [
                   "other"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "mental_other",
+        "openmrs_entity_parent": "1628AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Specify type of mental illness",
+        "edit_type": "edit_text",
+        "v_required": {
+          "value": false,
+          "err": "Specify type of mental illness"
+        },
+        "relevance": {
+          "step4:health_conditions": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "mental"
                 ]
               }
             ]
@@ -3332,9 +3258,9 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Laboratory test should be  conducted",
+        "text": "Laboratory test should be  conducted (collect sample)",
         "text_color": "#000000",
-        "toaster_info_text": "Laboratory test should be conducted",
+        "toaster_info_text": "Laboratory test should be conducted (collect sample)",
         "toaster_info_title": "Laboratory test",
         "toaster_type": "problem",
         "relevance": {
