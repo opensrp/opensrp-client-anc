@@ -320,8 +320,8 @@
           "err": "SBP must be equal or greater than 90"
         },
         "v_max": {
-          "value": "260",
-          "err": "SBP must be equal or less than 260"
+          "value": "139",
+          "err": "SBP must be equal or less than 139"
         },
         "v_required": {
           "value": "true",
@@ -397,8 +397,8 @@
           "err": "DBP must be equal to or greater than 60"
         },
         "v_max": {
-          "value": "260",
-          "err": "DBP must be equal to or less than 260"
+          "value": "89",
+          "err": "DBP must be equal to or less than 89"
         },
         "v_required": {
           "value": "true",
@@ -2453,8 +2453,56 @@
             "openmrs_entity_parent": ""
           },
           {
-            "key": "abdomen_injury",
-            "text": "{{anc_physical_exam.step3.ipv_physical_signs_symptoms.options.abdomen_injury.text}}",
+            "key": "traumatic_injury",
+            "text": "Traumatic injury or implausible explanations",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "intrusive",
+            "text": "Intrusive partner or husband present at consultations",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "adverse",
+            "text": "Adverse reproductive outcomes",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "depression",
+            "text": "Symptoms of depression and anxiety",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "alcohol",
+            "text": "Alcohol and other substance use",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "suicidal",
+            "text": "Self-harm or suicidal",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "unexplained",
+            "text": "Unexplained or repeated genitourinary symptoms",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "",

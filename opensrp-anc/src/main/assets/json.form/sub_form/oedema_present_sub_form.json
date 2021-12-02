@@ -41,6 +41,14 @@
           "openmrs_entity": "concept",
           "openmrs_entity_id": "141478AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "openmrs_entity_parent": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "varicose_veins",
+          "text": "Varicose veins",
+          "value": false,
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "varicose_veins",
+          "openmrs_entity_parent": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ]
     }

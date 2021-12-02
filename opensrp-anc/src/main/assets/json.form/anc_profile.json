@@ -2799,7 +2799,7 @@
         "key": "tobacco_user",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "163731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "tobacco_user",
         "type": "native_radio",
         "label": "{{anc_profile.step7.tobacco_user.label}}",
         "label_text_style": "bold",
@@ -2810,21 +2810,21 @@
             "text": "{{anc_profile.step7.tobacco_user.options.yes.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "159450AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "yess"
           },
           {
             "key": "no",
             "text": "{{anc_profile.step7.tobacco_user.options.no.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "noo"
           },
           {
             "key": "recently_quit",
             "text": "{{anc_profile.step7.tobacco_user.options.recently_quit.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "165267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "quitt"
           }
         ],
         "v_required": {
@@ -2833,10 +2833,10 @@
         }
       },
       {
-        "key": "tobacco_user",
+        "key": "tobacco_user_sniffing",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "163731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "tobacco_user_sniffing",
         "type": "native_radio",
         "label": "Tobacco use - Sniffing(Insunko)",
         "label_text_style": "bold",
@@ -2847,21 +2847,21 @@
             "text": "{{anc_profile.step7.tobacco_user.options.yes.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "159450AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "yes"
           },
           {
             "key": "no",
             "text": "{{anc_profile.step7.tobacco_user.options.no.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "no"
           },
           {
             "key": "recently_quit",
             "text": "{{anc_profile.step7.tobacco_user.options.recently_quit.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "165267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "quit"
           }
         ],
         "v_required": {
