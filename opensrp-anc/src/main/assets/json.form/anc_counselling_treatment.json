@@ -4135,8 +4135,15 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "referred_instead",
-            "text": "{{anc_counselling_treatment.step9.ifa_high_prev_notdone.options.referred_instead.text}}",
+            "key": "out_stock",
+            "text": "Out of stock",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "expired",
+            "text": "Expired",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -4225,8 +4232,15 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "referred_instead",
-            "text": "{{anc_counselling_treatment.step9.ifa_low_prev_notdone.options.referred_instead.text}}",
+            "key": "out_stock",
+            "text": "Out of stock",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "expired",
+            "text": "Expired",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -4315,8 +4329,15 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "referred_instead",
-            "text": "{{anc_counselling_treatment.step9.ifa_weekly_notdone.options.referred_instead.text}}",
+            "key": "out_stock",
+            "text": "Out of stock",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "expired",
+            "text": "Expired",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -4426,8 +4447,15 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "referred_instead",
-            "text": "{{anc_counselling_treatment.step9.calcium_supp_notdone.options.referred_instead.text}}",
+            "key": "out_stock",
+            "text": "Out of stock",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "expired",
+            "text": "Expired",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -4554,8 +4582,15 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "referred_instead",
-            "text": "{{anc_counselling_treatment.step10.deworm_notdone.options.referred_instead.text}}",
+            "key": "out_stock",
+            "text": "Out of stock",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "expired",
+            "text": "Expired",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"

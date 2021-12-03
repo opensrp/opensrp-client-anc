@@ -202,3 +202,10 @@ priority: 1
 condition: "(step8_partner_hiv_status.contains('positive')) || (step8_partner_hiv_status.contains('dont_know'))"
 actions:
   - "isRelevant = true"
+---
+name: step7_tobacco_cessation_toaster
+description: Cessation Counselling
+priority: 1
+condition: "(step7_tobacco_user.contains('yes')) || (step7_tobacco_user.contains('recently_quit')) || (step7_tobacco_user_sniffing.contains('yes')) || (step7_tobacco_user_sniffing.contains('recently_quit'))"
+actions:
+  - "isRelevant = true"

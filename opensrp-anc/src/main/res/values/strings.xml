@@ -237,11 +237,11 @@
     <string name="edit"> edit </string>
 
     <!-- contact -->
-    <string name="quick_check">Rapid Assessment Management</string>
-    <string name="profile">Profile</string>
+    <string name="quick_check">Rapid Assessment and Management</string>
+    <string name="profile">Client Profile</string>
     <string name="symptoms_follow_up">Symptoms and Follow-up</string>
     <string name="physical_exam">Physical Exam</string>
-    <string name="tests">Lab tests and imaging</string>
+    <string name="tests">Diagnostic tests and imaging</string>
     <string name="hiv_tests">HIV tests</string>
     <string name="counselling_treatment">Counselling,Treatment and Preventive Therapy</string>
     <string name="contact_tasks_form">Contact Tasks</string>

@@ -163,220 +163,6 @@
           "value": "true",
           "err": "{{anc_physical_exam.step1.current_weight.v_required.err}}"
         }
-      },
-      {
-        "key": "first_weight",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-calculations-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "bmi",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "hidden",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-calculations-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "gdm_risk",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165261AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "hidden",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-calculations-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "weight_cat",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-calculations-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "exp_weight_gain",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-calculations-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "weight_gain_duration",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-calculations-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "weight_gain",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-calculations-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "tot_weight_gain",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-calculations-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "toaster1",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "Body mass Index",
-        "openmrs_entity_id": "1432",
-        "type": "toaster_notes",
-        "text": "{{anc_physical_exam.step1.toaster1.text}}",
-        "text_color": "#1199F9",
-        "toaster_type": "info",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-calculations-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "toaster2",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "Weight gain finding",
-        "openmrs_entity_id": "122887",
-        "type": "toaster_notes",
-        "text": "{{anc_physical_exam.step1.toaster2.text}}",
-        "text_color": "#1199F9",
-        "toaster_type": "info",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-calculations-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "toaster3",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "{{anc_physical_exam.step1.toaster3.text}}",
-        "text_color": "#D56900",
-        "toaster_info_text": "{{anc_physical_exam.step1.toaster3.toaster_info_text}}",
-        "toaster_type": "warning",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "toaster4",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "{{anc_physical_exam.step1.toaster4.text}}",
-        "text_color": "#1199F9",
-        "toaster_type": "info",
-        "toaster_info_text": "{{anc_physical_exam.step1.toaster4.toaster_info_text}}",
-        "toaster_info_title": "{{anc_physical_exam.step1.toaster4.toaster_info_title}}"
-      },
-      {
-        "key": "toaster5",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "Weight gain finding",
-        "openmrs_entity_id": "122887",
-        "type": "toaster_notes",
-        "text": "{{anc_physical_exam.step1.toaster5.text}}",
-        "text_color": "#1199F9",
-        "toaster_type": "info",
-        "toaster_info_text": "{{anc_physical_exam.step1.toaster5.toaster_info_text}}",
-        "toaster_info_title": "{{anc_physical_exam.step1.toaster5.toaster_info_title}}",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "toaster6",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "Weight gain finding",
-        "openmrs_entity_id": "122887",
-        "type": "toaster_notes",
-        "text": "{{anc_physical_exam.step1.toaster6.text}}",
-        "text_color": "#1199F9",
-        "toaster_type": "info",
-        "toaster_info_text": "{{anc_physical_exam.step1.toaster6.toaster_info_text}}",
-        "toaster_info_title": "{{anc_physical_exam.step1.toaster6.toaster_info_title}}",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
       }
     ]
   },
@@ -418,12 +204,12 @@
           "err": ""
         },
         "v_min": {
-          "value": "40",
-          "err": "SBP must be equal or greater than 40"
+          "value": "90",
+          "err": "SBP must be equal or greater than 90"
         },
         "v_max": {
-          "value": "260",
-          "err": "SBP must be equal or less than 260"
+          "value": "139",
+          "err": "SBP must be equal or less than 139"
         },
         "v_required": {
           "value": "true",
@@ -495,12 +281,12 @@
           "err": ""
         },
         "v_min": {
-          "value": "20",
-          "err": "DBP must be equal to or greater than 20"
+          "value": "60",
+          "err": "DBP must be equal to or greater than 60"
         },
         "v_max": {
-          "value": "260",
-          "err": "DBP must be equal to or less than 260"
+          "value": "89",
+          "err": "DBP must be equal to or less than 89"
         },
         "v_required": {
           "value": "true",
@@ -2555,8 +2341,56 @@
             "openmrs_entity_parent": ""
           },
           {
-            "key": "abdomen_injury",
-            "text": "{{anc_physical_exam.step3.ipv_physical_signs_symptoms.options.abdomen_injury.text}}",
+            "key": "traumatic_injury",
+            "text": "Traumatic injury or implausible explanations",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "intrusive",
+            "text": "Intrusive partner or husband present at consultations",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "adverse",
+            "text": "Adverse reproductive outcomes",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "depression",
+            "text": "Symptoms of depression and anxiety",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "alcohol",
+            "text": "Alcohol and other substance use",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "suicidal",
+            "text": "Self-harm or suicidal",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "unexplained",
+            "text": "Unexplained or repeated genitourinary symptoms",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "",
@@ -3048,6 +2882,54 @@
         "v_required": {
           "value": "true",
           "err": "{{anc_physical_exam.step4.fetal_heart_rate.v_required.err}}"
+        }
+      },
+      {
+        "key": "fetal_weight_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Fetal weight (grams)",
+        "text_color": "#000000",
+        "v_required": {
+          "value": "false",
+          "err": "Fetal weight required"
+        },
+        "relevance": {
+          "step4:fetal_heartbeat": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "fetal_weight",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "fetal_weight",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "relevance": {
+          "step4:fetal_heartbeat": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        },
+        "v_required": {
+          "value": "false",
+          "err": "{{anc_physical_exam.step4.fetal_heart_rate.v_required.err}}"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Weight must be equal or greater than 0 grams"
+        },
+        "v_max": {
+          "value": "8000",
+          "err": "Weight must be equal or less than 8000 grams"
         }
       },
       {
