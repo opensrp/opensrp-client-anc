@@ -163,118 +163,6 @@
           "value": "true",
           "err": "{{anc_physical_exam.step1.current_weight.v_required.err}}"
         }
-      },
-      {
-        "key": "first_weight",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-calculations-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "bmi",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "hidden",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-calculations-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "gdm_risk",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165261AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "hidden",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-calculations-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "weight_cat",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-calculations-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "exp_weight_gain",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-calculations-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "weight_gain_duration",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-calculations-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "weight_gain",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-calculations-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "tot_weight_gain",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-calculations-rules.yml"
-            }
-          }
-        }
       }
     ]
   },
@@ -2994,6 +2882,54 @@
         "v_required": {
           "value": "true",
           "err": "{{anc_physical_exam.step4.fetal_heart_rate.v_required.err}}"
+        }
+      },
+      {
+        "key": "fetal_weight_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Fetal weight (grams)",
+        "text_color": "#000000",
+        "v_required": {
+          "value": "false",
+          "err": "Fetal weight required"
+        },
+        "relevance": {
+          "step4:fetal_heartbeat": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "fetal_weight",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "fetal_weight",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "relevance": {
+          "step4:fetal_heartbeat": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        },
+        "v_required": {
+          "value": "false",
+          "err": "{{anc_physical_exam.step4.fetal_heart_rate.v_required.err}}"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Weight must be equal or greater than 0 grams"
+        },
+        "v_max": {
+          "value": "8000",
+          "err": "Weight must be equal or less than 8000 grams"
         }
       },
       {

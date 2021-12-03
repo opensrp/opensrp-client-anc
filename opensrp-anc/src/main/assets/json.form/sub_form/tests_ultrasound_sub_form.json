@@ -398,7 +398,14 @@
           "openmrs_entity": "concept",
           "openmrs_entity_id": "oblique"
         }
-      ]
+      ],
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+          }
+        }
+      }
     },
     {
       "key": "amniotic_fluid",
