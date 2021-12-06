@@ -5730,7 +5730,6 @@
 
   "step13": {
     "title": "HIV Treatment",
-    "next": "step14",
     "fields": [
       {
         "key": "initiate_ctx",
