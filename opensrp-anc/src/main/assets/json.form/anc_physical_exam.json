@@ -2319,6 +2319,38 @@
         }
       },
       {
+        "key": "varicose",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "varicose",
+        "type": "native_radio",
+        "label": "Varicose veins",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "extra_rel": true,
+        "has_extra_rel": "yes",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "specify_info": "specify type...",
+            "specify_widget": "radio_button",
+            "specify_info_color": "#8C8C8C",
+            "content_form": "varicose_present_sub_form",
+            "openmrs_entity_parent": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "{{anc_physical_exam.step3.oedema.options.no.text}}",
+            "openmrs_entity_parent": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ]
+      },
+      {
         "key": "ipv_physical_signs_symptoms",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
