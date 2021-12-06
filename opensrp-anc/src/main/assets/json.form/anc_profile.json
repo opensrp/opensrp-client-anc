@@ -1211,7 +1211,13 @@
                 "key": "unknown",
                 "text": "Unknown"
               }
-            ]
+            ],
+            "relevance": {
+              "step3:live_birth": {
+                "type": "string",
+                "ex": "equalTo(., \"Yes\")"
+              }
+            }
           },
           {
             "key": "delivery_method",
