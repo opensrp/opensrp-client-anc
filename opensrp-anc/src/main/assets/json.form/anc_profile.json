@@ -3308,164 +3308,164 @@
 
   },
   "step9": {
-  "title": "Woman's HIV status",
+    "title": "Woman's HIV status",
     "next": "step10",
-  "fields": [
-    {
-      "key": "hiv_test_result",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "concept",
-      "openmrs_entity_id": "159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-      "type": "native_radio",
-      "label": "HIV status",
-      "label_text_style": "bold",
-      "options": [
-        {
-          "key": "positive",
-          "text": "Positive",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        {
-          "key": "negative",
-          "text": "Negative",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        {
-          "key": "unknown",
-          "text": "Unknown",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    "fields": [
+      {
+        "key": "hiv_test_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "HIV status",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "positive",
+            "text": "Positive",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "negative",
+            "text": "Negative",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "unknown",
+            "text": "Unknown",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select HIV status"
         }
-      ],
-      "v_required": {
-        "value": true,
-        "err": "Please select HIV status"
-      }
-    },
-    {
-      "key": "test_every_three_months_toaster",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "type": "toaster_notes",
-      "text": "Test for HIV every 3 months",
-      "text_color": "#000000",
-      "toaster_info_text": "Test for HIV every 3 months",
-      "toaster_info_title": "Test for HIV every 3 months",
-      "toaster_type": "info",
-      "relevance": {
-        "step9:hiv_test_result": {
-          "type": "string",
-          "ex": "equalTo(., \"negative\")"
-        }
-      }
-    },
-    {
-      "key": "hiv_unknown_toaster",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "type": "toaster_notes",
-      "text": "HIV status unknown please refer for testing",
-      "toaster_type": "warning",
-      "relevance": {
-        "step10:hiv_test_result": {
-          "type": "string",
-          "ex": "equalTo(., \"unknown\")"
-        }
-      }
-    },
-    {
-      "key": "on_art",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "concept",
-      "openmrs_entity_id": "on_art",
-      "type": "native_radio",
-      "label": "On art?",
-      "options": [
-        {
-          "key": "yes",
-          "text": "Yes"
-        },
-        {
-          "key": "no",
-          "text": "No"
-        }
-      ],
-      "relevance": {
-        "step9:hiv_test_result": {
-          "type": "string",
-          "ex": "equalTo(., \"positive\")"
-        }
-      }},
-    {
-      "key": "reason_not_on_art",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "concept",
-      "openmrs_entity_id": "reason_on_art",
-      "type": "native_radio",
-      "label": "Reason why not on art",
-      "options": [
-        {
-          "key": "stock_out",
-          "text": "Stock out"
-        },
-        {
-          "key": "expired",
-          "text": "Expired"
-        },
-        {
-          "key": "other",
-          "text": "Other (Specify)"
-        }
-      ],
-      "relevance": {
-        "step9:on_art": {
-          "type": "string",
-          "ex": "equalTo(., \"no\")"
-        }
-      }},
-    {
-      "key": "other_reason_not_art",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "concept",
-      "openmrs_entity_id": "other_reason_not_art",
-      "type": "edit_text",
-      "hint": "Specify ",
-      "edit_type": "name",
-      "v_required": {
-        "value": true,
-        "err": "Please enter the other reason not on art"
       },
-      "relevance": {
-        "step9:reason_not_on_art": {
-          "type": "string",
-          "ex": "equalTo(., \"other\")"
+      {
+        "key": "test_every_three_months_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Test for HIV every 3 months",
+        "text_color": "#000000",
+        "toaster_info_text": "Test for HIV every 3 months",
+        "toaster_info_title": "Test for HIV every 3 months",
+        "toaster_type": "info",
+        "relevance": {
+          "step9:hiv_test_result": {
+            "type": "string",
+            "ex": "equalTo(., \"negative\")"
+          }
         }
+      },
+      {
+        "key": "hiv_unknown_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "HIV status unknown please refer for testing",
+        "toaster_type": "warning",
+        "relevance": {
+          "step10:hiv_test_result": {
+            "type": "string",
+            "ex": "equalTo(., \"unknown\")"
+          }
+        }
+      },
+      {
+        "key": "on_art",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "on_art",
+        "type": "native_radio",
+        "label": "On art?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ],
+        "relevance": {
+          "step9:hiv_test_result": {
+            "type": "string",
+            "ex": "equalTo(., \"positive\")"
+          }
+        }},
+      {
+        "key": "reason_not_on_art",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reason_on_art",
+        "type": "native_radio",
+        "label": "Reason why not on art",
+        "options": [
+          {
+            "key": "stock_out",
+            "text": "Stock out"
+          },
+          {
+            "key": "expired",
+            "text": "Expired"
+          },
+          {
+            "key": "other",
+            "text": "Other (Specify)"
+          }
+        ],
+        "relevance": {
+          "step9:on_art": {
+            "type": "string",
+            "ex": "equalTo(., \"no\")"
+          }
+        }},
+      {
+        "key": "other_reason_not_art",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_reason_not_art",
+        "type": "edit_text",
+        "hint": "Specify ",
+        "edit_type": "name",
+        "v_required": {
+          "value": true,
+          "err": "Please enter the other reason not on art"
+        },
+        "relevance": {
+          "step9:reason_not_on_art": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
 
-      }},
-    {
-      "key": "not_on_art_toaster",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "type": "toaster_notes",
-      "text": "Refer to art clinic",
-      "toaster_info_text": "Refer to art clinic",
-      "toaster_info_title": "Refer to art clinic",
-      "toaster_type": "problem",
-      "relevance": {
-        "step9:on_art": {
-          "type": "string",
-          "ex": "equalTo(., \"no\")"
-        }
-      }}
-  ]},
+        }},
+      {
+        "key": "not_on_art_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Refer to art clinic",
+        "toaster_info_text": "Refer to art clinic",
+        "toaster_info_title": "Refer to art clinic",
+        "toaster_type": "problem",
+        "relevance": {
+          "step9:on_art": {
+            "type": "string",
+            "ex": "equalTo(., \"no\")"
+          }
+        }}
+    ]},
   "step10": {
     "title": "Partner's HIV status",
     "fields": [
