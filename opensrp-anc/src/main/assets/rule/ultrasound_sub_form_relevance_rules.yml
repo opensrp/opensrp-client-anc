@@ -128,14 +128,14 @@ actions:
 name: step1_pre_eclampsia_toaster
 description: Pre-eclampsia risk counseling
 priority: 1
-condition: "step1_preeclampsia_risk == 1"
+condition: "step1_preeclampsia_risk == 1 && (step1_ultrasound == 'done_today' || step1_ultrasound == 'done_earlier')"
 actions:
   - "isRelevant = true"
 ---
 name: step2_pre_eclampsia_toaster
 description: Pre-eclampsia risk counseling
 priority: 1
-condition: "step2_preeclampsia_risk == 1"
+condition: "step2_preeclampsia_risk == 1 && (step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier')"
 actions:
   - "isRelevant = true"
 ---
@@ -276,5 +276,33 @@ name: step1_lmp_gest_age_selection
 description: lmp_gest_age_selection
 priority: 1
 condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier') && (global_lmp_known == 'yes' && global_ultrasound_done == 'no')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_multiple_preg
+description: multiple_preg
+priority: 1
+condition: "step1_no_of_fetuses > 1"
+actions:
+  - "isRelevant = true"
+---
+name: step1_placenta_location_toaster
+description: placenta_location_toaster
+priority: 1
+condition: "step1_placenta_location == 'low'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_multiple_preg
+description: multiple_preg
+priority: 1
+condition: "step2_no_of_fetuses > 1"
+actions:
+  - "isRelevant = true"
+---
+name: step2_placenta_location_toaster
+description: placenta_location_toaster
+priority: 1
+condition: "step2_placenta_location == 'low'"
 actions:
   - "isRelevant = true"

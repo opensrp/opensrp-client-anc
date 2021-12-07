@@ -767,6 +767,6 @@ public class ANCFormUtils extends FormUtils {
         } catch (Exception e) {
             Timber.e(e, " --> getTranslatedFormTitle");
         }
-        return "";
+        return formKey;
     }
 }

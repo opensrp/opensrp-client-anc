@@ -303,16 +303,17 @@ public class ContactVisit {
     private void saveOrDeleteTasks(@NotNull JSONArray stepFields) throws JSONException {
         for (int i = 0; i < stepFields.length(); i++) {
             JSONObject field = stepFields.getJSONObject(i);
-            if (field != null && field.has(JsonFormConstants.IS_VISIBLE) && field.getBoolean(JsonFormConstants.IS_VISIBLE)) {
-                JSONArray jsonArray = field.optJSONArray(JsonFormConstants.VALUE);
+            if (field != null && field.has(JsonFormConstants.IS_VISIBLE)
+                    && field.getBoolean(JsonFormConstants.IS_VISIBLE) && field.has(JsonFormConstants.CONTENT_FORM)) {
+                String value = field.optString(JsonFormConstants.VALUE);
                 String key = field.optString(JsonFormConstants.KEY);
-                if (jsonArray == null || (jsonArray.length() == 0)) {
+                if (StringUtils.isEmpty(value)) {
                     if (getCurrentClientTasks() != null && !getCurrentClientTasks().containsKey(key)) {
                         saveTasks(field);
                     }
                 } else {
                     if (StringUtils.isNotBlank(key) && getCurrentClientTasks() != null) {
-                        if (checkTestsStatus(jsonArray)) {
+                        if (checkTestsStatus(value)) {
                             if (!getCurrentClientTasks().containsKey(key)) {
                                 saveTasks(field);
                             }
@@ -342,29 +343,12 @@ public class ContactVisit {
     /**
      * Checks where a test qualifies to be a tasks.  This happens in case a test is marked as ordered or not done;
      *
-     * @param valueArray {@link JSONArray} the expansion panel values
+     * @param value {@link String} the test status value
      * @return isTasks {@link Boolean} true/false if true then it means the test qualifies to be a task.
      */
-    private boolean checkTestsStatus(JSONArray valueArray) {
-        boolean isTask = false;
-        try {
-            for (int i = 0; i < valueArray.length(); i++) {
-                JSONObject value = valueArray.getJSONObject(i);
-                if (value != null && value.has(JsonFormConstants.TYPE) && JsonFormConstants.EXTENDED_RADIO_BUTTON.equals(value.getString(JsonFormConstants.TYPE))) {
-                    JSONArray givenValue = value.getJSONArray(JsonFormConstants.VALUES);
-                    if (givenValue.length() > 0) {
-                        String firstValue = givenValue.optString(0);
-                        if (StringUtils.isNotBlank(firstValue) && (firstValue.contains(ConstantsUtils.AncRadioButtonOptionTypesUtils.ORDERED) || firstValue.contains(ConstantsUtils.AncRadioButtonOptionTypesUtils.NOT_DONE))) {
-                            isTask = true;
-                        }
-                    }
-                    break;
-                }
-            }
-        } catch (JSONException e) {
-            Timber.e(e, " --> checkTestsStatus");
-        }
-        return isTask;
+    private boolean checkTestsStatus(String value) {
+        return value.contains(ConstantsUtils.AncRadioButtonOptionTypesUtils.ORDERED)
+                || value.contains(ConstantsUtils.AncRadioButtonOptionTypesUtils.NOT_DONE);
     }
 
     @NotNull

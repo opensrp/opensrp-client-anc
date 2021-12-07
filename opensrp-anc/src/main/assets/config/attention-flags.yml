@@ -182,3 +182,6 @@ fields:
 
   - template: "{{attention_flags.red.tb_screening_positive}}"
     relevance: "tb_screening_result == 'positive'"
+
+  - template: "{{attention_flags.red.covid_19_suspected}}"
+    relevance: "specific_complaint.contains('flu_symptoms')"

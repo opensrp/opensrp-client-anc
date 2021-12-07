@@ -295,12 +295,12 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             //initialize required fields map
             String encounterType = object.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE);
 
-            //Do not add defaults for test and CT contact containers unless they are opened
             if (!ConstantsUtils.JsonFormUtils.ANC_TEST_ENCOUNTER_TYPE.equals(encounterType) && (requiredFieldsMap.size() == 0 || !requiredFieldsMap.containsKey(encounterType))) {
                 requiredFieldsMap.put(object.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE), 0);
             }
+
             if (contactNo > 1 && ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE.equals(encounterType)
-            && !PatientRepository.isFirstVisit(baseEntityId)) {
+                    && !PatientRepository.isFirstVisit(baseEntityId)) {
                 requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE, 0);
             }
 
@@ -395,6 +395,8 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             }
             JSONArray requiredFieldsArray = fieldObject.has(ConstantsUtils.REQUIRED_FIELDS) ?
                     fieldObject.getJSONArray(ConstantsUtils.REQUIRED_FIELDS) : new JSONArray();
+            // This logic might need to be changed for ANC tests as they have been changed
+            // from expansion panel to direct forms.
             updateSubFormRequiredCount(requiredFieldsArray, createAccordionValuesMap(fieldObject, encounterObject), encounterObject);
             updateFormGlobalValuesFromExpansionPanel(fieldObject);
         }
@@ -466,11 +468,14 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 requiredFieldsMap.put(encounterType, 0);
             }
 
-            JSONArray accordionValues = accordionJsonObject.getJSONArray(JsonFormConstants.VALUE);
-            for (int index = 0; index < accordionValues.length(); index++) {
-                JSONObject item = accordionValues.getJSONObject(index);
-                accordionValuesMap.put(item.getString(JsonFormConstants.KEY),
-                        item.getJSONArray(JsonFormConstants.VALUES));
+            //TODO: Expansion panels are removed now se accordion values should be altered
+            JSONArray accordionValues = accordionJsonObject.optJSONArray(JsonFormConstants.VALUE);
+            if (accordionValues != null) {
+                for (int index = 0; index < accordionValues.length(); index++) {
+                    JSONObject item = accordionValues.getJSONObject(index);
+                    accordionValuesMap.put(item.getString(JsonFormConstants.KEY),
+                            item.getJSONArray(JsonFormConstants.VALUES));
+                }
             }
             return accordionValuesMap;
         }

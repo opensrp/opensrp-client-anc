@@ -72,14 +72,14 @@ actions:
 name: step1_hiv_positive_toaster
 description: HIV positive counseling
 priority: 1
-condition: "(step1_hiv_positive == 1)"
+condition: "(step1_hiv_positive == 1) && (step1_hiv_test_status == 'done_today' || step1_hiv_test_status == 'done_earlier')"
 actions:
 - "isRelevant = true"
 ---
 name: step2_hiv_positive_toaster
 description: HIV positive counseling
 priority: 1
-condition: "(step2_hiv_positive == 1)"
+condition: "(step2_hiv_positive == 1) && (step2_hiv_test_status == 'done_today' || step2_hiv_test_status == 'done_earlier')"
 actions:
 - "isRelevant = true"
 ---
@@ -100,7 +100,7 @@ actions:
 name: step2_hiv_risk_toaster
 description: hiv_risk_toaster
 priority: 1
-condition: "step2_hiv_risk == 1"
+condition: "step2_hiv_risk == 1 && (step2_hiv_test_partner_status == 'done_today'  || step2_hiv_test_partner_status == 'done_earlier')"
 actions:
 - "isRelevant = true"
 ---
@@ -219,14 +219,14 @@ actions:
 name: step1_hepatitis_b_info_toaster
 description: Hep B vaccination required
 priority: 1
-condition: "step1_hepb_positive == 0"
+condition: "step1_hepb_positive == 0 && (step1_hepb_test_status == 'done_today' || step1_hepb_test_status == 'done_earlier')"
 actions:
 - "isRelevant = true"
 ---
 name: step2_hepatitis_b_info_toaster
 description: Hep B vaccination required
 priority: 1
-condition: "step2_hepb_positive == 0"
+condition: "step2_hepb_positive == 0 && (step2_hepb_test_status == 'done_today' || step2_hepb_test_status == 'done_earlier')"
 actions:
 - "isRelevant = true"
 ---
@@ -625,14 +625,14 @@ actions:
 name: step1_gdm_risk_toaster
 description: Gestational diabetes mellitus (GDM) risk counseling
 priority: 1
-condition: "step1_gdm_risk == 1 && helper.getValueFromAccordion('accordion_blood_glucose', 'step2_gdm') != '1' && helper.getValueFromAccordion('accordion_blood_glucose', 'step2_dm_in_preg')  != '1'"
+condition: "step1_gdm_risk == 1 && helper.getValueFromAccordion('accordion_blood_glucose', 'step2_gdm') != '1' && helper.getValueFromAccordion('accordion_blood_glucose', 'step2_dm_in_preg')  != '1' && (step1_urine_test_status == 'done_today' || step1_urine_test_status == 'done_earlier')"
 actions:
 - "isRelevant = true"
 ---
 name: step2_gdm_risk_toaster
 description: Gestational diabetes mellitus (GDM) risk counseling
 priority: 1
-condition: "step2_gdm_risk == 1 && helper.getValueFromAccordion('accordion_blood_glucose', 'step2_gdm') != '1' && helper.getValueFromAccordion('accordion_blood_glucose', 'step2_dm_in_preg')  != '1'"
+condition: "step2_gdm_risk == 1 && helper.getValueFromAccordion('accordion_blood_glucose', 'step2_gdm') != '1' && helper.getValueFromAccordion('accordion_blood_glucose', 'step2_dm_in_preg')  != '1' && (step2_urine_test_status == 'done_today' || step2_urine_test_status == 'done_earlier')"
 actions:
 - "isRelevant = true"
 ---
@@ -681,35 +681,35 @@ actions:
 name: step2_fasting_plasma_gluc
 description: Fasting plasma glucose results (mg/dl)
 priority: 1
-condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'fasting_plasma'"
+condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type.contains('fasting_plasma')"
 actions:
 - "isRelevant = true"
 ---
 name: step2_ogtt_fasting
 description: 75g OGTT - fasting glucose results (mg/dl)
 priority: 1
-condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'ogtt_75'"
+condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type.contains('ogtt_75')"
 actions:
 - "isRelevant = true"
 ---
 name: step2_ogtt_1
 description: 75g OGTT - 1 hr results (mg/dl)
 priority: 1
-condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'ogtt_75'"
+condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type.contains('ogtt_75')"
 actions:
 - "isRelevant = true"
 ---
 name: step2_ogtt_2
 description: 75g OGTT - 2 hrs results (mg/dl)
 priority: 1
-condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'ogtt_75'"
+condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type.contains('ogtt_75')"
 actions:
 - "isRelevant = true"
 ---
 name: step2_random_plasma
 description: Random plasma glucose results (mg/dl)
 priority: 1
-condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'random_plasma'"
+condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type.contains('random_plasma')"
 actions:
 - "isRelevant = true"
 ---
@@ -1069,3 +1069,143 @@ priority: 1
 condition: "step2_other_test == 'done_earlier' || step2_other_test == 'done_today'"
 actions:
 - "isRelevant = true"
+---
+name: step1_vdrl_test
+description: VDRL
+priority: 1
+condition: "((step1_syph_test_status == 'done_today' || step1_syph_test_status == 'done_earlier') && step1_syph_test_type == 'vdrl')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_vdrl_test
+description: VDRL
+priority: 1
+condition: "((step2_syph_test_status == 'done_today' || step2_syph_test_status == 'done_earlier') && step2_syph_test_type == 'vdrl')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_syphilis_allergy_toaster
+description: Syphilis positive and Penicillin allergy
+priority: 1
+condition: "step1_syphilis_positive == 1 && global_allergies.contains('penicillin')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_syphilis_allergy_toaster
+description: Syphilis positive and Penicillin allergy
+priority: 1
+condition: "step2_syphilis_positive == 1 && global_allergies.contains('penicillin')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_urine_culture_agent_name
+description: Micro organism name
+priority: 1
+condition: "step1_urine_culture == 'positive_any'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_urine_culture_agent_name
+description: Micro organism name
+priority: 1
+condition: "step2_urine_culture == 'positive_any'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_covid_test_date
+description: covid date
+priority: 1
+condition: "step2_covid_status != ''  && step2_covid_status == 'done_earlier'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_covid_type
+description: covid type
+priority: 1
+condition: "(step2_covid_status == 'done_today' || step2_covid_status == 'done_earlier')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_covid_pcr_test
+description: covid type
+priority: 1
+condition: "(step2_covid_type.contains('rt_pcr'))"
+actions:
+  - "isRelevant = true"
+---
+name: step2_covid_antigen_test
+description: covid type
+priority: 1
+condition: "(step2_covid_type.contains('antigen_test'))"
+actions:
+  - "isRelevant = true"
+---
+name: step2_covid_igg_test
+description: covid type
+priority: 1
+condition: "(step2_covid_type.contains('serology'))"
+actions:
+  - "isRelevant = true"
+---
+name: step2_covid_igm_test
+description: covid_igm_test
+priority: 1
+condition: "(step2_covid_type.contains('serology'))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_toxo_test_status
+description: toxo_test_status
+priority: 1
+condition: "global_contact_no == 1 || (global_contact_no > 1 && (global_gest_age_openmrs != '' && (global_gest_age_openmrs == 20 || global_gest_age_openmrs == 28)))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_toxo_test_date
+description: toxo_test_datedate
+priority: 1
+condition: "step1_toxo_test_status != ''  && step1_toxo_test_status == 'done_earlier'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_toxo_igg_test
+description: toxo_igg_test
+priority: 1
+condition: "(step1_toxo_test_status == 'done_today' || step1_toxo_test_status == 'done_earlier')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_toxo_igm_test
+description: toxo_igm_test
+priority: 1
+condition: "(step1_toxo_test_status == 'done_today' || step1_toxo_test_status == 'done_earlier')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_toxo_avidity_test
+description: toxo_avidity_test
+priority: 1
+condition: "(step1_toxo_igm_test == 'positive')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_toaster_toxoplasmosis_susceptible
+description: toaster_toxoplasmosis_susceptible
+priority: 1
+condition: "(step1_toxo_igm_test == 'negative' && step1_toxo_igg_test == 'negative')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_toaster_toxoplasmosis_immune
+description: toaster_toxoplasmosis_immune
+priority: 1
+condition: "(step1_toxo_igm_test == 'negative' && step1_toxo_igg_test == 'positive') || (step1_toxo_igm_test == 'positive' && step1_toxo_igg_test == 'positive' && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 16) && step1_toxo_avidity_test == 'greater_than_60')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_toaster_toxoplasmosis_positive
+description: toaster_toxoplasmosis_positive
+priority: 1
+condition: "(step1_toxo_igm_test == 'positive' && step1_toxo_igg_test == 'negative') || (step1_toxo_igm_test == 'positive' && step1_toxo_igg_test == 'positive' && (global_gest_age_openmrs != '' && global_gest_age_openmrs > 16) && step1_toxo_avidity_test == 'greater_than_60') || (step1_toxo_avidity_test == 'less_than_60')"
+actions:
+  - "isRelevant = true"
