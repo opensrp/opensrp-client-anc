@@ -1198,6 +1198,37 @@
             "type": "native_radio",
             "label": "Sex of infant?",
             "label_text_style": "bold",
+            "relevance": {
+              "step3:live_birth": {
+                "type": "string",
+                "ex": "equalTo(., \"yes\")"
+              }
+            },
+            "options": [
+              {
+                "key": "male",
+                "text": "Male"
+              },
+              {
+                "key": "female",
+                "text": "Female"
+              }
+            ]
+          },
+          {
+            "key": "sex_dead_infant",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "sex_dead_infant",
+            "type": "native_radio",
+            "label": "Sex of infant?",
+            "label_text_style": "bold",
+            "relevance": {
+              "step3:live_birth": {
+                "type": "string",
+                "ex": "equalTo(., \"no\")"
+              }
+            },
             "options": [
               {
                 "key": "male",
@@ -1248,6 +1279,12 @@
             "text_color": "#000000",
             "v_required": {
               "value": false
+            },
+            "relevance": {
+              "step3:live_birth": {
+                "type": "string",
+                "ex": "equalTo(., \"yes\")"
+              }
             }
           },
           {
@@ -1266,6 +1303,12 @@
             "type": "normal_edit_text",
             "edit_text_style": "bordered",
             "edit_type": "number",
+            "relevance": {
+              "step3:live_birth": {
+                "type": "string",
+                "ex": "equalTo(., \"yes\")"
+              }
+            },
             "v_numeric": {
               "value": "true",
               "err": ""
@@ -1335,6 +1378,36 @@
             "type": "date_picker",
             "hint": "Year of delivery",
             "expanded": false,
+            "relevance": {
+              "step3:live_birth": {
+                "type": "string",
+                "ex": "equalTo(., \"yes\")"
+              }
+            },
+            "duration": {
+              "label": ""
+            },
+            "min_date": "today - 35y",
+            "max_date": "today",
+            "v_required": {
+              "value": false,
+              "err": "Due Date"
+            }
+          },
+          {
+            "key": "due_date_lost",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "due_date_lost",
+            "type": "date_picker",
+            "hint": "Year of termination",
+            "expanded": false,
+            "relevance": {
+              "step3:live_birth": {
+                "type": "string",
+                "ex": "equalTo(., \"no\")"
+              }
+            },
             "duration": {
               "label": ""
             },
