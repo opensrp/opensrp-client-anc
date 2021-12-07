@@ -280,16 +280,9 @@
           {
             "key": "student",
             "text": "{{anc_profile.step1.occupation.options.student.text}}",
-            "openmrs_entity_parent": "",
+           "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "159465AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "read_only": "true",
-            "relevance": {
-              "step1:educ_level": {
-                "type": "string",
-                "ex": "equalTo(., \"none\")"
-              }
-            }
+            "openmrs_entity_id": "159465AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "unemployed",
@@ -323,6 +316,64 @@
         "v_required": {
           "value": true,
           "err": "{{anc_profile.step1.occupation.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "occupation_redacted",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "{{anc_profile.step1.occupation.label}}",
+        "hint": "{{anc_profile.step1.occupation.hint}}",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "unemployed_redacted",
+            "text": "{{anc_profile.step1.occupation.options.unemployed.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "unemployed_reducted"
+          },
+          {
+            "key": "formal_employment_redacted",
+            "text": "{{anc_profile.step1.occupation.options.formal_employment.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "formal_employment_redacted"
+          },
+          {
+            "key": "informal_employment_other_redacted",
+            "text": "{{anc_profile.step1.occupation.options.informal_employment_other.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "informal_employment_other_redacted"
+          },
+          {
+            "key": "other_redacted",
+            "text": "{{anc_profile.step1.occupation.options.other.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_redacted"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "{{anc_profile.step1.occupation.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
         }
       },
       {
@@ -335,13 +386,31 @@
         "edit_type": "name",
         "relevance": {
           "step1:occupation": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "other"
-                ]
-              }
-            ]
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+        },
+        "v_required": {
+          "value": false,
+          "err": "{{anc_profile.step1.occupation_other.v_required.err}}"
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\s\\.\\-]*",
+          "err": "{{anc_profile.step1.occupation_other.v_regex.err}}"
+        }
+      },
+      {
+        "key": "occupation_other_redacted",
+        "openmrs_entity_parent": "1542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "occupation_other_redacted",
+        "type": "edit_text",
+        "hint": "{{anc_profile.step1.occupation_other.hint}}",
+        "edit_type": "name",
+        "relevance": {
+          "step1:occupation_redacted": {
+            "type": "string",
+            "ex": "equalTo(., \"other_redacted\")"
           }
         },
         "v_required": {
@@ -1377,7 +1446,6 @@
             "openmrs_entity_id": "due_date_pregnancy",
             "type": "date_picker",
             "hint": "Year of delivery",
-            "expanded": false,
             "relevance": {
               "step3:live_birth": {
                 "type": "string",
@@ -1389,9 +1457,12 @@
             },
             "min_date": "today - 35y",
             "max_date": "today",
-            "v_required": {
-              "value": false,
-              "err": "Due Date"
+            "calculation": {
+              "rules-engine": {
+                "ex-rules": {
+                  "rules-file": "profile_calculation_rules.yml"
+                }
+              }
             }
           },
           {
