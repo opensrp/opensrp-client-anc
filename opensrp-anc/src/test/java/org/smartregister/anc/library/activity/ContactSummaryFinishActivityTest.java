@@ -228,8 +228,8 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
 
         Mockito.doReturn(R.id.save_finish_menu_item).when(saveFinishMenuItem).getItemId();
         activity.onOptionsItemSelected(saveFinishMenuItem);
-
         Intent expectedIntent = new Intent(activity, ContactSummarySendActivity.class);
+        Mockito.verify(activity);
         Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
         Assert.assertEquals(expectedIntent.getComponent(), actual.getComponent());
     }
