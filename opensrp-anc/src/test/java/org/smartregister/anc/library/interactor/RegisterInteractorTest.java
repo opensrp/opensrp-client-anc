@@ -202,7 +202,8 @@ public class RegisterInteractorTest extends BaseUnitTest {
         verify(allSharedPreferences, timeout(ASYNC_TIMEOUT)).saveLastUpdatedAtDate(longArgumentCaptor.capture());
         assertEquals(new Long(timestamp), longArgumentCaptor.getValue());
 
-       Mockito.verify(callBack, timeout(ASYNC_TIMEOUT)).onRegistrationSaved(ArgumentMatchers.anyBoolean());
+//       Mockito.verify(callBack).onRegistrationSaved(ArgumentMatchers.anyBoolean());
+        Mockito.verify(callBack,timeout(ASYNC_TIMEOUT)).onRegistrationSaved(true);
     }
 
     @Test

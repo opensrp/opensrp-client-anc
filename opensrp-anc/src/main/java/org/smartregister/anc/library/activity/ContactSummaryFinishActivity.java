@@ -39,6 +39,10 @@ import timber.log.Timber;
 /**
  * Created by ndegwamartin on 10/07/2018.
  */
+
+
+
+
 public class ContactSummaryFinishActivity extends BaseProfileActivity implements ProfileContract.View {
     public MenuItem saveFinishMenuItem;
     private TextView nameView;
