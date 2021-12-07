@@ -283,7 +283,6 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159465AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "read_only": "true",
             "relevance": {
               "step1:educ_level": {
                 "type": "string",
@@ -1377,7 +1376,6 @@
             "openmrs_entity_id": "due_date_pregnancy",
             "type": "date_picker",
             "hint": "Year of delivery",
-            "expanded": false,
             "relevance": {
               "step3:live_birth": {
                 "type": "string",
@@ -1389,9 +1387,12 @@
             },
             "min_date": "today - 35y",
             "max_date": "today",
-            "v_required": {
-              "value": false,
-              "err": "Due Date"
+            "calculation": {
+              "rules-engine": {
+                "ex-rules": {
+                  "rules-file": "profile_calculation_rules.yml"
+                }
+              }
             }
           },
           {

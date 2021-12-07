@@ -201,3 +201,10 @@ priority: 1
 condition: "(step8_partner_hiv_status == 'positive') || (global_hiv_test_partner_result != null && global_hiv_test_partner_result != '' && global_hiv_test_partner_result == 'positive')"
 actions:
   - "calculation = 1"
+---
+name: step3_due_date_pregnancy
+description: Happiness level calculation
+priority: 1
+condition: "step3_due_date_pregnancy != null"
+actions:
+  - 'calculation = helper.formatDate(step3_due_date_pregnancy,"y")'
