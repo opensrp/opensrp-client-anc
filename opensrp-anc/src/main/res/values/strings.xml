@@ -438,5 +438,19 @@
     <string name="glucose_test_status">Blood Glucose test</string>
     <string name="other_test">Other test</string>
     <string name="toxo_test_status">Toxoplasmosis test</string>
-
+    <string name="accordion_ultrasound">Ultrasound test</string>
+    <string name="accordion_blood_type">Blood Type test</string>
+    <string name="accordion_hepatitis_b">Hepatitis B test</string>
+    <string name="accordion_hepatitis_c">Hepatitis C test</string>
+    <string name="accordion_syphilis">Syphilis test</string>
+    <string name="accordion_urine">Urine test</string>
+    <string name="accordion_blood_haemoglobin">Blood Haemoglobin test</string>
+    <string name="accordion_hiv">HIV test</string>
+    <string name="accordion_tb_screening">TB Screening</string>
+    <string name="accordion_partner_hiv">Partner HIV test</string>
+    <string name="accordion_blood_glucose">Blood Glucose test</string>
+    <string name="accordion_other_tests">Other test</string>
+    <string name="contact_summary_data">Contact Summary Data  -  %1$s</string>
+    <string name="pdf_saved_successfully">\"Pdf saved successfully to location \"</string>
+    <string name="contact_summary_data_file">contactSummaryData.pdf</string>
 </resources>

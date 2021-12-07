@@ -3456,10 +3456,10 @@
         "toaster_info_title": "{{anc_profile.step8.hiv_risk_counselling_toaster.toaster_info_title}}",
         "toaster_type": "problem",
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
-            }
+          "step8:partner_hiv_status": {
+            "type": "string",
+            "ex": "equalTo(., \"positive\")"
+
           }
         }
       }
