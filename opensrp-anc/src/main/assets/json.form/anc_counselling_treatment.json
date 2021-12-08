@@ -2,7 +2,7 @@
   "validate_on_submit": true,
   "display_scroll_bars": true,
   "skip_blank_steps": true,
-  "count": "13",
+  "count": "12",
   "encounter_type": "Counselling and Treatment",
   "entity_id": "",
   "relational_id": "",
@@ -2215,7 +2215,18 @@
               "ex": "equalTo(., \"other\")"
           }
         }
+      },
+      {
+        "key": "prep_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_counselling_treatment.step12.prep_toaster.text}}",
+        "toaster_info_text": "{{anc_counselling_treatment.step12.prep_toaster.toaster_info_text}}",
+        "toaster_type": "info"
       }
+
     ]
   },
   "step5": {
@@ -5719,23 +5730,6 @@
     ]
   },
   "step12": {
-    "title": "{{anc_counselling_treatment.step12.title}}",
-    "next": "step13",
-    "fields": [
-      {
-        "key": "prep_toaster",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "{{anc_counselling_treatment.step12.prep_toaster.text}}",
-        "toaster_info_text": "{{anc_counselling_treatment.step12.prep_toaster.toaster_info_text}}",
-        "toaster_type": "info"
-      }
-    ]
-  },
-
-  "step13": {
     "title": "HIV Treatment",
     "fields": [
       {
