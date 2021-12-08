@@ -2782,7 +2782,6 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "normal_edit_text",
-        "value": "/40",
         "edit_text_style": "bordered",
         "edit_type": "number",
         "v_min": {
