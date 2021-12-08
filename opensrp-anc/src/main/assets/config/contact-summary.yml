@@ -101,7 +101,7 @@ fields:
 ---
 group: obstetric_history
 fields:
-- template: "{{contact_summary.obstetric_history.gravida}} = {gravida}, {{contact_summary.obstetric_history.parity}} = {parity}"
+- template: "{{contact_summary.obstetric_history.gravida}} = {gravida + 1}, {{contact_summary.obstetric_history.parity}} = {parity}"
   relevance: "gravida !='' || parity != ''"
 
 - template: "{{contact_summary.obstetric_history.no_of_pregnancies_lost_ended}}: {miscarriages_abortions}"

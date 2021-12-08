@@ -383,3 +383,10 @@ priority: 1
 condition: " step3_body_temp_repeat > 0 && step3_body_temp_repeat < 36"
 actions:
   - "isRelevant = true"
+---
+name: step2_systolic_repeat
+description: systolic_repeat
+priority: 1
+condition: "((step2_bp_systolic > 0 && step2_bp_systolic < 90) || (step2_bp_systolic > 139))"
+actions:
+  - "isRelevant = true"
