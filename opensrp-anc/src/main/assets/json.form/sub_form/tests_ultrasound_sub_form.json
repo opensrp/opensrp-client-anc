@@ -331,25 +331,18 @@
       "label_info_text": "{{tests_ultrasound_sub_form.step1.fetal_presentation.label_info_text}}",
       "options": [
         {
+          "key": "breech",
+          "text": "Breech",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "breech"
+        },
+        {
           "key": "cephalic",
           "text": "{{tests_ultrasound_sub_form.step1.fetal_presentation.options.cephalic.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "160091AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        {
-          "key": "pelvic",
-          "text": "{{tests_ultrasound_sub_form.step1.fetal_presentation.options.pelvic.text}}",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "146922AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        {
-          "key": "transverse",
-          "text": "{{tests_ultrasound_sub_form.step1.fetal_presentation.options.transverse.text}}",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "112259AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "other",
@@ -370,6 +363,46 @@
         "rules-engine": {
           "ex-rules": {
             "rules-file": "ultrasound_sub_form_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "baby_lie",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "baby_lie",
+      "type": "native_radio",
+      "label": "Baby lie",
+      "label_text_style": "bold",
+      "label_info_text": "The position in which the baby is laying",
+      "options": [
+        {
+          "key": "cephalic",
+          "text": "{{tests_ultrasound_sub_form.step1.fetal_presentation.options.cephalic.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "cephalic"
+        },
+        {
+          "key": "longitudinal",
+          "text": "Longitudinal",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "Longitudinal"
+        },
+        {
+          "key": "oblique",
+          "text": "Oblique",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "oblique"
+        }
+      ],
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_relevance_rules.yml"
           }
         }
       }

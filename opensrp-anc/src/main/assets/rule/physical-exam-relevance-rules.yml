@@ -359,27 +359,27 @@ actions:
 name: step3_body_temp_repeat
 description: body_temp_repeat
 priority: 1
-condition: "((step3_body_temp > 0 && step3_body_temp < 35) || (step3_body_temp > 38))"
+condition: "((step3_body_temp > 0 && step3_body_temp < 36) || (step3_body_temp > 37.2))"
 actions:
   - "isRelevant = true"
 ---
 name: step3_toaster15
 description: toaster15
 priority: 1
-condition: "((step3_body_temp > 0 && step3_body_temp < 35) || (step3_body_temp > 38))"
+condition: "((step3_body_temp > 0 && step3_body_temp < 36) || (step3_body_temp > 37.2))"
 actions:
   - "isRelevant = true"
 ---
 name: step3_body_temp_repeat_label
 description: body_temp_repeat_label
 priority: 1
-condition: "((step3_body_temp > 0 && step3_body_temp < 35) || (step3_body_temp > 38))"
+condition: "((step3_body_temp > 0 && step3_body_temp < 36) || (step3_body_temp > 37.2))"
 actions:
   - "isRelevant = true"
 ---
 name: step3_hypothermia_toaster
 description: hypothermia_toaster
 priority: 1
-condition: " step3_body_temp_repeat > 0 && step3_body_temp_repeat < 35"
+condition: " step3_body_temp_repeat > 0 && step3_body_temp_repeat < 36"
 actions:
   - "isRelevant = true"

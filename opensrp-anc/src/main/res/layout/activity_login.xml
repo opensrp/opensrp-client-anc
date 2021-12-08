@@ -71,8 +71,8 @@
 
             <ImageView
                 android:id="@+id/ministry_of_health_image_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="186dp"
+                android:layout_height="170dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:contentDescription="ministry of health"
@@ -101,6 +101,7 @@
                 android:background="@drawable/rounded_corner_edit_text"
                 android:cursorVisible="true"
                 android:ems="10"
+                android:text="anc"
                 android:hint="@string/username"
                 android:imeOptions="actionNext"
                 android:inputType="text"
@@ -119,6 +120,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="15dp"
                 android:layout_weight="8"
+                android:text="anc123!"
                 android:background="@drawable/rounded_corner_edit_text"
                 android:cursorVisible="true"
                 android:ems="10"

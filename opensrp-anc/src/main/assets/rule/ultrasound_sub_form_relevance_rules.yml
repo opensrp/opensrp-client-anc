@@ -278,3 +278,10 @@ priority: 1
 condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier') && (global_lmp_known == 'yes' && global_ultrasound_done == 'no')"
 actions:
   - "isRelevant = true"
+---
+name: step1_baby_lie
+description: baby_lie
+priority: 1
+condition: "(step1_ultrasound == 'done_today' || step1_ultrasound == 'done_earlier')"
+actions:
+  - "isRelevant = true"

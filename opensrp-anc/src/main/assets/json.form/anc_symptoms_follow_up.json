@@ -924,22 +924,6 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "131034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
-          },
-          {
-            "key": "varicose_veins",
-            "text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.varicose_veins.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "156666AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "oedema",
-            "text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.oedema.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
           }
         ],
         "v_required": {
@@ -1427,22 +1411,6 @@
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "131034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "varicose_veins",
-            "text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.varicose_veins.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "156666AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "oedema",
-            "text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.oedema.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           }
         ],

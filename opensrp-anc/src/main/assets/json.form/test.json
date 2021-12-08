@@ -105,9 +105,9 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "text": "Partner Hepatitis B required",
-        "accordion_info_text": "Partner Hepatitis B required",
-        "accordion_info_title": "Partner Hepatitis B required",
+        "text": "Partner Hepatitis B test",
+        "accordion_info_text": "Partner Hepatitis B test",
+        "accordion_info_title": "Partner Hepatitis B test",
         "type": "expansion_panel",
         "content_form": "partner_tests_hepatitis_b_sub_form",
         "container": "anc_test"

@@ -280,16 +280,9 @@
           {
             "key": "student",
             "text": "{{anc_profile.step1.occupation.options.student.text}}",
-            "openmrs_entity_parent": "",
+           "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "159465AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "read_only": "true",
-            "relevance": {
-              "step1:educ_level": {
-                "type": "string",
-                "ex": "equalTo(., \"none\")"
-              }
-            }
+            "openmrs_entity_id": "159465AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "unemployed",
@@ -323,6 +316,64 @@
         "v_required": {
           "value": true,
           "err": "{{anc_profile.step1.occupation.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "occupation_redacted",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "{{anc_profile.step1.occupation.label}}",
+        "hint": "{{anc_profile.step1.occupation.hint}}",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "unemployed_redacted",
+            "text": "{{anc_profile.step1.occupation.options.unemployed.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "unemployed_reducted"
+          },
+          {
+            "key": "formal_employment_redacted",
+            "text": "{{anc_profile.step1.occupation.options.formal_employment.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "formal_employment_redacted"
+          },
+          {
+            "key": "informal_employment_other_redacted",
+            "text": "{{anc_profile.step1.occupation.options.informal_employment_other.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "informal_employment_other_redacted"
+          },
+          {
+            "key": "other_redacted",
+            "text": "{{anc_profile.step1.occupation.options.other.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_redacted"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "{{anc_profile.step1.occupation.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
         }
       },
       {
@@ -335,13 +386,31 @@
         "edit_type": "name",
         "relevance": {
           "step1:occupation": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "other"
-                ]
-              }
-            ]
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+        },
+        "v_required": {
+          "value": false,
+          "err": "{{anc_profile.step1.occupation_other.v_required.err}}"
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\s\\.\\-]*",
+          "err": "{{anc_profile.step1.occupation_other.v_regex.err}}"
+        }
+      },
+      {
+        "key": "occupation_other_redacted",
+        "openmrs_entity_parent": "1542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "occupation_other_redacted",
+        "type": "edit_text",
+        "hint": "{{anc_profile.step1.occupation_other.hint}}",
+        "edit_type": "name",
+        "relevance": {
+          "step1:occupation_redacted": {
+            "type": "string",
+            "ex": "equalTo(., \"other_redacted\")"
           }
         },
         "v_required": {
@@ -1124,16 +1193,53 @@
         "key": "number_of_pregnancies",
         "type": "repeating_group",
         "reference_edit_text": "",
-        "reference_edit_text_hint": "No. of pregnancies (including this pregnancy) :",
+        "reference_edit_text_hint": "No. of previous pregnancies :",
         "repeating_group_label": "Pregnancy :",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "No_pregnancies",
         "v_required": {
           "value": false,
-          "err": "Please specify the No. of pregnancies (including this pregnancy) :"
+          "err": "Please specify the No. of previous pregnancies"
         },
         "value": [
+          {
+            "key": "gestational_age_label",
+            "type": "label",
+            "label_text_style": "bold",
+            "text": "Gestational age?",
+            "text_color": "#000000",
+            "v_required": {
+              "value": false
+            }
+          },
+          {
+            "key": "gestational_age",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gestational_age",
+            "label": "Gestational age?",
+            "label_text_style": "bold",
+            "type": "normal_edit_text",
+            "edit_text_style": "bordered",
+            "edit_type": "number",
+            "v_numeric": {
+              "value": "true",
+              "err": ""
+            },
+            "v_min": {
+              "value": "0",
+              "err": "Gestational age must be equal or greater than 0"
+            },
+            "v_max": {
+              "value": "48",
+              "err": "Gestational age must be equal or less than 48"
+            },
+            "v_required": {
+              "value": "false",
+              "err": "Please enter gestational age"
+            }
+          },
           {
             "key": "live_birth",
             "openmrs_entity_parent": "",
@@ -1154,12 +1260,12 @@
             ]
           },
           {
-            "key": "live_before_28",
+            "key": "sex_infant",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "live_before_28",
+            "openmrs_entity_id": "sex_infant",
             "type": "native_radio",
-            "label": "Live birth happened before 28weeks /7months?",
+            "label": "Sex of infant?",
             "label_text_style": "bold",
             "relevance": {
               "step3:live_birth": {
@@ -1169,22 +1275,22 @@
             },
             "options": [
               {
-                "key": "yes",
-                "text": "Yes"
+                "key": "male",
+                "text": "Male"
               },
               {
-                "key": "no",
-                "text": "No"
+                "key": "female",
+                "text": "Female"
               }
             ]
           },
           {
-            "key": "still_before_28",
+            "key": "sex_dead_infant",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "still_before_28",
+            "openmrs_entity_id": "sex_dead_infant",
             "type": "native_radio",
-            "label": "Stillbirth happened before 28weeks/7months?",
+            "label": "Sex of infant?",
             "label_text_style": "bold",
             "relevance": {
               "step3:live_birth": {
@@ -1192,25 +1298,6 @@
                 "ex": "equalTo(., \"no\")"
               }
             },
-            "options": [
-              {
-                "key": "yes",
-                "text": "Yes"
-              },
-              {
-                "key": "no",
-                "text": "No"
-              }
-            ]
-          },
-          {
-            "key": "sex_infant",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "sex_infant",
-            "type": "native_radio",
-            "label": "Sex of infant?",
-            "label_text_style": "bold",
             "options": [
               {
                 "key": "male",
@@ -1261,6 +1348,12 @@
             "text_color": "#000000",
             "v_required": {
               "value": false
+            },
+            "relevance": {
+              "step3:live_birth": {
+                "type": "string",
+                "ex": "equalTo(., \"yes\")"
+              }
             }
           },
           {
@@ -1279,6 +1372,12 @@
             "type": "normal_edit_text",
             "edit_text_style": "bordered",
             "edit_type": "number",
+            "relevance": {
+              "step3:live_birth": {
+                "type": "string",
+                "ex": "equalTo(., \"yes\")"
+              }
+            },
             "v_numeric": {
               "value": "true",
               "err": ""
@@ -1316,62 +1415,12 @@
             ]
           },
           {
-            "key": "miscarriage",
+            "key": "miscarriage_abortion",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "miscarriage",
+            "openmrs_entity_id": "miscarriage_abortion",
             "type": "native_radio",
-            "label": "Miscarriage?",
-            "label_text_style": "bold",
-            "relevance": {
-              "step3:live_birth": {
-                "type": "string",
-                "ex": "equalTo(., \"no\")"
-              }
-            },
-            "options": [
-              {
-                "key": "yes",
-                "text": "Yes"
-              },
-              {
-                "key": "no",
-                "text": "No"
-              }
-            ]
-          },
-          {
-            "key": "mis_before_28",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "mis_before_28",
-            "type": "native_radio",
-            "label": "Miscarriage happened before 28weeks/7months?",
-            "label_text_style": "bold",
-            "relevance": {
-              "step3:miscarriage": {
-                "type": "string",
-                "ex": "equalTo(., \"yes\")"
-              }
-            },
-            "options": [
-              {
-                "key": "yes",
-                "text": "Yes"
-              },
-              {
-                "key": "no",
-                "text": "No"
-              }
-            ]
-          },
-          {
-            "key": "abortion",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "abortion",
-            "type": "native_radio",
-            "label": "Abortion?",
+            "label": "Miscarriage/Abortion?",
             "label_text_style": "bold",
             "relevance": {
               "step3:live_birth": {
@@ -1396,8 +1445,40 @@
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "due_date_pregnancy",
             "type": "date_picker",
-            "hint": "Due Date",
+            "hint": "Year of delivery",
+            "relevance": {
+              "step3:live_birth": {
+                "type": "string",
+                "ex": "equalTo(., \"yes\")"
+              }
+            },
+            "duration": {
+              "label": ""
+            },
+            "min_date": "today - 35y",
+            "max_date": "today",
+            "calculation": {
+              "rules-engine": {
+                "ex-rules": {
+                  "rules-file": "profile_calculation_rules.yml"
+                }
+              }
+            }
+          },
+          {
+            "key": "due_date_lost",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "due_date_lost",
+            "type": "date_picker",
+            "hint": "Year of termination",
             "expanded": false,
+            "relevance": {
+              "step3:live_birth": {
+                "type": "string",
+                "ex": "equalTo(., \"no\")"
+              }
+            },
             "duration": {
               "label": ""
             },
@@ -1795,37 +1876,9 @@
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "70991AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "aluminium_hydroxide",
-            "text": "{{anc_profile.step4.allergies.options.aluminium_hydroxide.text}}"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "72650AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "calcium",
-            "text": "{{anc_profile.step4.allergies.options.calcium.text}}"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "73154AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "chamomile",
-            "text": "{{anc_profile.step4.allergies.options.chamomile.text}}"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
             "openmrs_entity_id": "76613AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "folic_acid",
             "text": "{{anc_profile.step4.allergies.options.folic_acid.text}}"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "77001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "ginger",
-            "text": "{{anc_profile.step4.allergies.options.ginger.text}}"
           },
           {
             "openmrs_entity_parent": "",
@@ -1847,13 +1900,6 @@
             "openmrs_entity_id": "924AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "malaria_medication",
             "text": "{{anc_profile.step4.allergies.options.malaria_medication.text}}"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "79413AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "mebendazole",
-            "text": "{{anc_profile.step4.allergies.options.mebendazole.text}}"
           },
           {
             "openmrs_entity_parent": "",
@@ -2078,13 +2124,6 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "148117AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "autoimmune_disease",
-            "text": "{{anc_profile.step4.health_conditions.options.autoimmune_disease.text}}"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "148117AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "asthma",
             "text": "Asthma"
           },
@@ -2147,9 +2186,16 @@
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "6033AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "kidney_disease",
-            "text": "{{anc_profile.step4.health_conditions.options.kidney_disease.text}}"
+            "openmrs_entity_id": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "mental",
+            "text": "Mental illness"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "tb",
+            "text": "TB"
           },
           {
             "openmrs_entity_parent": "",
@@ -2206,6 +2252,30 @@
               {
                 "or": [
                   "other"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "mental_other",
+        "openmrs_entity_parent": "1628AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Specify type of mental illness",
+        "edit_type": "edit_text",
+        "v_required": {
+          "value": false,
+          "err": "Specify type of mental illness"
+        },
+        "relevance": {
+          "step4:health_conditions": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "mental"
                 ]
               }
             ]
@@ -2873,7 +2943,7 @@
         "key": "tobacco_user",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "163731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "tobacco_user",
         "type": "native_radio",
         "label": "{{anc_profile.step7.tobacco_user.label}}",
         "label_text_style": "bold",
@@ -2884,21 +2954,21 @@
             "text": "{{anc_profile.step7.tobacco_user.options.yes.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "159450AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "yess"
           },
           {
             "key": "no",
             "text": "{{anc_profile.step7.tobacco_user.options.no.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "noo"
           },
           {
             "key": "recently_quit",
             "text": "{{anc_profile.step7.tobacco_user.options.recently_quit.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "165267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "quitt"
           }
         ],
         "v_required": {
@@ -2907,10 +2977,10 @@
         }
       },
       {
-        "key": "tobacco_user",
+        "key": "tobacco_user_sniffing",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "163731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "tobacco_user_sniffing",
         "type": "native_radio",
         "label": "Tobacco use - Sniffing(Insunko)",
         "label_text_style": "bold",
@@ -2921,21 +2991,21 @@
             "text": "{{anc_profile.step7.tobacco_user.options.yes.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "159450AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "yes"
           },
           {
             "key": "no",
             "text": "{{anc_profile.step7.tobacco_user.options.no.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "no"
           },
           {
             "key": "recently_quit",
             "text": "{{anc_profile.step7.tobacco_user.options.recently_quit.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "165267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "quit"
           }
         ],
         "v_required": {
@@ -3332,9 +3402,9 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Laboratory test should be  conducted",
+        "text": "Laboratory test should be  conducted (collect sample)",
         "text_color": "#000000",
-        "toaster_info_text": "Laboratory test should be conducted",
+        "toaster_info_text": "Laboratory test should be conducted (collect sample)",
         "toaster_info_title": "Laboratory test",
         "toaster_type": "problem",
         "relevance": {
@@ -3382,164 +3452,164 @@
 
   },
   "step9": {
-  "title": "Woman's HIV status",
+    "title": "Woman's HIV status",
     "next": "step10",
-  "fields": [
-    {
-      "key": "hiv_test_result",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "concept",
-      "openmrs_entity_id": "159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-      "type": "native_radio",
-      "label": "HIV status",
-      "label_text_style": "bold",
-      "options": [
-        {
-          "key": "positive",
-          "text": "Positive",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        {
-          "key": "negative",
-          "text": "Negative",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        {
-          "key": "unknown",
-          "text": "Unknown",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    "fields": [
+      {
+        "key": "hiv_test_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "HIV status",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "positive",
+            "text": "Positive",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "negative",
+            "text": "Negative",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "unknown",
+            "text": "Unknown",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select HIV status"
         }
-      ],
-      "v_required": {
-        "value": true,
-        "err": "Please select HIV status"
-      }
-    },
-    {
-      "key": "test_every_three_months_toaster",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "type": "toaster_notes",
-      "text": "Test for HIV every 3 months",
-      "text_color": "#000000",
-      "toaster_info_text": "Test for HIV every 3 months",
-      "toaster_info_title": "Test for HIV every 3 months",
-      "toaster_type": "info",
-      "relevance": {
-        "step9:hiv_test_result": {
-          "type": "string",
-          "ex": "equalTo(., \"negative\")"
-        }
-      }
-    },
-    {
-      "key": "hiv_unknown_toaster",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "type": "toaster_notes",
-      "text": "HIV status unknown please refer for testing",
-      "toaster_type": "warning",
-      "relevance": {
-        "step10:hiv_test_result": {
-          "type": "string",
-          "ex": "equalTo(., \"unknown\")"
-        }
-      }
-    },
-    {
-      "key": "on_art",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "concept",
-      "openmrs_entity_id": "on_art",
-      "type": "native_radio",
-      "label": "On art?",
-      "options": [
-        {
-          "key": "yes",
-          "text": "Yes"
-        },
-        {
-          "key": "no",
-          "text": "No"
-        }
-      ],
-      "relevance": {
-        "step9:hiv_test_result": {
-          "type": "string",
-          "ex": "equalTo(., \"positive\")"
-        }
-      }},
-    {
-      "key": "reason_not_on_art",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "concept",
-      "openmrs_entity_id": "reason_on_art",
-      "type": "native_radio",
-      "label": "Reason why not on art",
-      "options": [
-        {
-          "key": "stock_out",
-          "text": "Stock out"
-        },
-        {
-          "key": "expired",
-          "text": "Expired"
-        },
-        {
-          "key": "other",
-          "text": "Other (Specify)"
-        }
-      ],
-      "relevance": {
-        "step9:on_art": {
-          "type": "string",
-          "ex": "equalTo(., \"no\")"
-        }
-      }},
-    {
-      "key": "other_reason_not_art",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "concept",
-      "openmrs_entity_id": "other_reason_not_art",
-      "type": "edit_text",
-      "hint": "Specify ",
-      "edit_type": "name",
-      "v_required": {
-        "value": true,
-        "err": "Please enter the other reason not on art"
       },
-      "relevance": {
-        "step9:reason_not_on_art": {
-          "type": "string",
-          "ex": "equalTo(., \"other\")"
+      {
+        "key": "test_every_three_months_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Test for HIV every 3 months",
+        "text_color": "#000000",
+        "toaster_info_text": "Test for HIV every 3 months",
+        "toaster_info_title": "Test for HIV every 3 months",
+        "toaster_type": "info",
+        "relevance": {
+          "step9:hiv_test_result": {
+            "type": "string",
+            "ex": "equalTo(., \"negative\")"
+          }
         }
+      },
+      {
+        "key": "hiv_unknown_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "HIV status unknown please refer for testing",
+        "toaster_type": "warning",
+        "relevance": {
+          "step10:hiv_test_result": {
+            "type": "string",
+            "ex": "equalTo(., \"unknown\")"
+          }
+        }
+      },
+      {
+        "key": "on_art",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "on_art",
+        "type": "native_radio",
+        "label": "On art?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ],
+        "relevance": {
+          "step9:hiv_test_result": {
+            "type": "string",
+            "ex": "equalTo(., \"positive\")"
+          }
+        }},
+      {
+        "key": "reason_not_on_art",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reason_on_art",
+        "type": "native_radio",
+        "label": "Reason why not on art",
+        "options": [
+          {
+            "key": "stock_out",
+            "text": "Stock out"
+          },
+          {
+            "key": "expired",
+            "text": "Expired"
+          },
+          {
+            "key": "other",
+            "text": "Other (Specify)"
+          }
+        ],
+        "relevance": {
+          "step9:on_art": {
+            "type": "string",
+            "ex": "equalTo(., \"no\")"
+          }
+        }},
+      {
+        "key": "other_reason_not_art",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_reason_not_art",
+        "type": "edit_text",
+        "hint": "Specify ",
+        "edit_type": "name",
+        "v_required": {
+          "value": true,
+          "err": "Please enter the other reason not on art"
+        },
+        "relevance": {
+          "step9:reason_not_on_art": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
 
-      }},
-    {
-      "key": "not_on_art_toaster",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "",
-      "openmrs_entity_id": "",
-      "type": "toaster_notes",
-      "text": "Refer to art clinic",
-      "toaster_info_text": "Refer to art clinic",
-      "toaster_info_title": "Refer to art clinic",
-      "toaster_type": "problem",
-      "relevance": {
-        "step9:on_art": {
-          "type": "string",
-          "ex": "equalTo(., \"no\")"
-        }
-      }}
-  ]},
+        }},
+      {
+        "key": "not_on_art_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Refer to art clinic",
+        "toaster_info_text": "Refer to art clinic",
+        "toaster_info_title": "Refer to art clinic",
+        "toaster_type": "problem",
+        "relevance": {
+          "step9:on_art": {
+            "type": "string",
+            "ex": "equalTo(., \"no\")"
+          }
+        }}
+    ]},
   "step10": {
     "title": "Partner's HIV status",
     "fields": [
