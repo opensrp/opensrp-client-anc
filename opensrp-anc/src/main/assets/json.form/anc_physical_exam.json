@@ -2770,7 +2770,7 @@
         "key": "hof_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Height of fundus",
+        "text": "Height of fundus ( /40)",
         "text_color": "#000000",
         "v_required": {
           "value": false
@@ -2782,6 +2782,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "normal_edit_text",
+        "value": "/40",
         "edit_text_style": "bordered",
         "edit_type": "number",
         "v_min": {
