@@ -4995,11 +4995,18 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "referred_instead",
-            "text": "{{anc_counselling_treatment.step10.malaria_counsel_notdone.options.referred_instead.text}}",
+            "key": "out",
+            "text": "Out of stock",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "out"
+          },
+          {
+            "key": "have",
+            "text": "Already have",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "have"
           },
           {
             "key": "other",

@@ -202,6 +202,13 @@ condition: "(step8_partner_hiv_status == 'positive') || (global_hiv_test_partner
 actions:
   - "calculation = 1"
 ---
+name: step4_discordant
+description: discordant
+priority: 1
+condition: "(step1_hiv_test_result == 'positive') || (step1_partner_hiv_status == 'positive')"
+actions:
+  - "calculation = 1"
+---
 name: step3_due_date_pregnancy
 description: Happiness level calculation
 priority: 1

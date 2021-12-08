@@ -314,7 +314,7 @@
           }
         ],
         "v_required": {
-          "value": true,
+          "value": false,
           "err": "{{anc_profile.step1.occupation.v_required.err}}"
         },
         "relevance": {
@@ -365,7 +365,7 @@
           }
         ],
         "v_required": {
-          "value": true,
+          "value": false,
           "err": "{{anc_profile.step1.occupation.v_required.err}}"
         },
         "relevance": {
@@ -2421,7 +2421,14 @@
             "text": "No",
             "value": ""
           }
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
+        }
       }
     ]
   },
