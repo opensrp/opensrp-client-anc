@@ -35,3 +35,11 @@ jobs:
         with:
           name: reference-app-debug.apk
           path: reference-app/build/outputs/apk/debug/reference-app-debug.apk
+
+      - name: Send to QA
+        uses: wzieba/Firebase-Distribution-Github-Action@v1.2.1
+        with:
+          appId: ${{ secrets.FIREBASE_APP_ID }}
+          token: ${{ secrets.FIREBASE_TOKEN }}
+          groups: Bluecode Anc-testers
+          file: reference-app/build/outputs/apk/debug/reference-app-debug.apk
