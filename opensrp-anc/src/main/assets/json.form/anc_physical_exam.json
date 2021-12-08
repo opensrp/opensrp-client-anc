@@ -204,12 +204,12 @@
           "err": ""
         },
         "v_min": {
-          "value": "90",
-          "err": "SBP must be equal or greater than 90"
+          "value": "70",
+          "err": "SBP must be equal or greater than 70"
         },
         "v_max": {
-          "value": "139",
-          "err": "SBP must be equal or less than 139"
+          "value": "159",
+          "err": "SBP must be equal or less than 159"
         },
         "v_required": {
           "value": "true",
@@ -281,12 +281,12 @@
           "err": ""
         },
         "v_min": {
-          "value": "60",
-          "err": "DBP must be equal to or greater than 60"
+          "value": "40",
+          "err": "DBP must be equal to or greater than 40"
         },
         "v_max": {
-          "value": "89",
-          "err": "DBP must be equal to or less than 89"
+          "value": "109",
+          "err": "DBP must be equal to or less than 109"
         },
         "v_required": {
           "value": "true",
@@ -371,8 +371,8 @@
           "err": "SBP must be equal or greater than 60"
         },
         "v_max": {
-          "value": "260",
-          "err": "SBP must be equal or less than 260"
+          "value": "160",
+          "err": "SBP must be equal or less than 160"
         },
         "v_required": {
           "value": "true",
@@ -424,8 +424,8 @@
           "err": ""
         },
         "v_max": {
-          "value": "260",
-          "err": "DBP must be equal or less than 260"
+          "value": "110",
+          "err": "DBP must be equal or less than 110"
         },
         "v_required": {
           "value": "true",
