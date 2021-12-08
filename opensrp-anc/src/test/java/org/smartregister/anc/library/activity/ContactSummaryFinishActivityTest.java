@@ -78,7 +78,6 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
         contactSummaryActivityIntent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, DUMMY_CONTACT_NO);
         activityController = Robolectric.buildActivity(ContactSummaryFinishActivity.class,
                 contactSummaryActivityIntent);
-//        activity=Mockito.spy(ContactSummaryFinishActivity.class);
         activity = activityController.create().resume().get();
     }
 
