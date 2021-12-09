@@ -134,60 +134,44 @@ public class RegisterInteractorTest extends BaseUnitTest {
         ECSyncHelper syncHelper = Mockito.mock(ECSyncHelper.class);
         AllSharedPreferences allSharedPreferences = Mockito.mock(AllSharedPreferences.class);
         BaseAncClientProcessorForJava baseAncClientProcessorForJava = Mockito.mock(BaseAncClientProcessorForJava.class);
-
         RegisterContract.InteractorCallBack callBack = Mockito.mock(RegisterContract.InteractorCallBack.class);
-
         RegisterInteractor registerInteractor = (RegisterInteractor) interactor;
         registerInteractor.setUniqueIdRepository(uniqueIdRepository);
         registerInteractor.setSyncHelper(syncHelper);
         registerInteractor.setAllSharedPreferences(allSharedPreferences);
         registerInteractor.setClientProcessorForJava(baseAncClientProcessorForJava);
-
         String baseEntityId = "112123";
         String ancId = "1324354";
         String formSubmissionId = "132vb-sdsd-we";
-
         Client client = new Client(baseEntityId);
         Map<String, String> identifiers = new HashMap<>();
         identifiers.put(ConstantsUtils.JsonFormKeyUtils.ANC_ID, ancId);
         client.setIdentifiers(identifiers);
-
         Event event = new Event();
         event.setBaseEntityId(baseEntityId);
         event.setFormSubmissionId(formSubmissionId);
-
         Pair<Client, Event> pair = Pair.create(client, event);
-
         JSONObject clientObject = new JSONObject(ANCJsonFormUtils.gson.toJson(client));
         JSONObject eventObject = new JSONObject(ANCJsonFormUtils.gson.toJson(event));
-
         String jsonString = "{'json':'string'}";
-
         long timestamp = new Date().getTime();
-
         List<EventClient> eventClients = new ArrayList<>();
         EventClient eventClient = new EventClient(ANCJsonFormUtils.gson.fromJson(eventObject.toString(), org.smartregister.domain.Event.class),
                 ANCJsonFormUtils.gson.fromJson(clientObject.toString(), org.smartregister.domain.Client.class));
         eventClients.add(eventClient);
-
         Mockito.doReturn(timestamp).when(allSharedPreferences).fetchLastUpdatedAtDate(0);
         Mockito.doReturn(eventClients).when(syncHelper).getEvents(Arrays.asList(formSubmissionId));
-
         ReflectionHelpers.setStaticField(AncLibrary.class, "instance", ancLibrary);
-
         registerInteractor.saveRegistration(pair, jsonString, false, callBack);
 
         verify(syncHelper, timeout(ASYNC_TIMEOUT)).addClient(stringArgumentCaptor.capture(), jsonArgumentCaptor.capture());
-
         assertEquals(baseEntityId, stringArgumentCaptor.getValue());
-
         assertEquals(clientObject.get("type"), jsonArgumentCaptor.getValue().get("type"));
         assertEquals(clientObject.get("baseEntityId"), jsonArgumentCaptor.getValue().get("baseEntityId"));
         assertEquals(clientObject.getJSONObject("identifiers").get("anc_id"), jsonArgumentCaptor.getValue().getJSONObject("identifiers").get("anc_id"));
 
         verify(syncHelper, timeout(ASYNC_TIMEOUT)).addEvent(stringArgumentCaptor.capture(), jsonArgumentCaptor.capture());
         assertEquals(baseEntityId, stringArgumentCaptor.getValue());
-
         assertEquals(eventObject.get("type"), jsonArgumentCaptor.getValue().get("type"));
         assertEquals(eventObject.getString("baseEntityId"), jsonArgumentCaptor.getValue().getString("baseEntityId"));
         assertEquals(eventObject.getString("duration"), jsonArgumentCaptor.getValue().getString("duration"));
@@ -201,9 +185,7 @@ public class RegisterInteractorTest extends BaseUnitTest {
 
         verify(allSharedPreferences, timeout(ASYNC_TIMEOUT)).saveLastUpdatedAtDate(longArgumentCaptor.capture());
         assertEquals(new Long(timestamp), longArgumentCaptor.getValue());
-
-//       Mockito.verify(callBack).onRegistrationSaved(ArgumentMatchers.anyBoolean());
-        Mockito.verify(callBack,timeout(ASYNC_TIMEOUT)).onRegistrationSaved(true);
+        Mockito.verify(callBack,timeout(ASYNC_TIMEOUT)).onRegistrationSaved(ArgumentMatchers.anyBoolean());
     }
 
     @Test
