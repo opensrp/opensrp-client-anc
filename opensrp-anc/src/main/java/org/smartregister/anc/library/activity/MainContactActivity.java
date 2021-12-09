@@ -85,7 +85,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         initializeMainContactContainers();
 
         //Enable/Disable finalize button
-        findViewById(R.id.finalize_contact).setEnabled(getRequiredCountTotal() == 0);
+        findViewById(R.id.finalize_contact).setEnabled(true);
     }
 
     private void initializeMainContactContainers() {
@@ -160,16 +160,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             setRequiredFields(tests);
             tests.setFormName(ConstantsUtils.JsonFormUtils.ANC_TEST);
             contacts.add(tests);
-
-            Contact hivTests = new Contact();
-            hivTests.setName(getString(R.string.hiv_tests));
-            hivTests.setContactNumber(contactNo);
-            hivTests.setBackground(R.drawable.tests_bg);
-            hivTests.setActionBarBackground(R.color.contact_tests_actionbar);
-            hivTests.setNavigationBackground(R.color.contact_tests_navigation);
-            setRequiredFields(hivTests);
-            hivTests.setFormName(ConstantsUtils.JsonFormUtils.HIV_TEST_AND_RESULTS);
-            contacts.add(hivTests);
 
             Contact counsellingAndTreatment = new Contact();
             counsellingAndTreatment.setName(getString(R.string.counselling_treatment));
