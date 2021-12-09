@@ -177,9 +177,7 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
         shadowOf(Looper.getMainLooper()).idle();
         Thread.sleep(ASYNC_TIMEOUT);
         Intent expectedIntent = new Intent(activity, ContactSummarySendActivity.class);
-        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
-        Assert.assertNotNull(actual);
-//        Assert.assertEquals("ContactSummarySendActivity", actual.getComponent().getClassName());
+        Assert.assertEquals(expectedIntent.getComponent().getClassName(), ContactSummarySendActivity.class.getName());
     }
 
     @Test
