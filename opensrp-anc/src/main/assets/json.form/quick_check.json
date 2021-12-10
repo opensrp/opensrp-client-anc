@@ -695,42 +695,18 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "diagnostics",
-        "type": "native_radio",
-        "label": "Diagnostics and Lab tests?",
-        "options": [
-          {
-            "key": "injectable",
-            "text": "Injectable contraceptives",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "injectable"
-          },
-          {
-            "key": "implant",
-            "text": "Implant insertion or removal",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "implant"
-          },
-          {
-            "key": "iud",
-            "text": "IUD insertion or removal",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "iud"
-          },
-          {
-            "key": "sterilization",
-            "text": "Sterilization",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "sterilization"
-          }
-        ],
-        "v_required": {
-          "value": "false",
-          "err": "{{anc_quick_check.step1.contact_reason.v_required.err}}"
-        }
+        "type": "edit_text",
+        "hint": "Diagnostics and tests(specify)",
+        "edit_type": "name"
+      },
+      {
+        "key": "other_services",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_services",
+        "type": "edit_text",
+        "hint": "Other general services(specify)",
+        "edit_type": "name"
       },
       {
         "key": "treatment",
@@ -759,15 +735,6 @@
           "value": "false",
           "err": "{{anc_quick_check.step1.contact_reason.v_required.err}}"
         }
-      },
-      {
-        "key": "other_services",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "other_services",
-        "type": "edit_text",
-        "hint": "Other general services(specify)",
-        "edit_type": "name"
       },
       {
         "key": "receiving",
@@ -803,6 +770,47 @@
         "v_regex": {
           "value": "(0([9]{1}[5-7]{1}|[7]{1}[6/7]{1})[0-9]{7})|s*",
           "err": "Number must must be a total of 10 digits in length"
+        }
+      },
+      {
+        "key": "referral_notes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referral_notes",
+        "type": "edit_text",
+        "hint": "Referral notes?",
+        "edit_type": "name"
+      },
+      {
+        "key": "date_referral",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "date_referral",
+        "type": "date_picker",
+        "value": "today",
+        "hint": "Date referral was made",
+        "expanded": false,
+        "min_date": "today-20y",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify date of referral"
+        }
+      },
+      {
+        "key": "date_scheduled",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "date_scheduled",
+        "type": "date_picker",
+        "value": "today",
+        "hint": "Date of scheduled referral",
+        "expanded": false,
+        "min_date": "today-20y",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify date of schedule"
         }
       }
     ]
