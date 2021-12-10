@@ -637,6 +637,173 @@
             }
           }
         }
+      },
+      {
+        "key": "reasons_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Reasons for referral",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "reasons",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reasons",
+        "type": "native_radio",
+        "label": "Family planning?",
+        "options": [
+          {
+            "key": "injectable",
+            "text": "Injectable contraceptives",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "injectable"
+          },
+          {
+            "key": "implant",
+            "text": "Implant insertion or removal",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "implant"
+          },
+          {
+            "key": "iud",
+            "text": "IUD insertion or removal",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "iud"
+          },
+          {
+            "key": "sterilization",
+            "text": "Sterilization",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "sterilization"
+          }
+        ],
+        "v_required": {
+          "value": "false",
+          "err": "{{anc_quick_check.step1.contact_reason.v_required.err}}"
+        }
+      },
+      {
+        "key": "diagnostics",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "diagnostics",
+        "type": "native_radio",
+        "label": "Diagnostics and Lab tests?",
+        "options": [
+          {
+            "key": "injectable",
+            "text": "Injectable contraceptives",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "injectable"
+          },
+          {
+            "key": "implant",
+            "text": "Implant insertion or removal",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "implant"
+          },
+          {
+            "key": "iud",
+            "text": "IUD insertion or removal",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "iud"
+          },
+          {
+            "key": "sterilization",
+            "text": "Sterilization",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "sterilization"
+          }
+        ],
+        "v_required": {
+          "value": "false",
+          "err": "{{anc_quick_check.step1.contact_reason.v_required.err}}"
+        }
+      },
+      {
+        "key": "treatment",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "treatment",
+        "type": "native_radio",
+        "label": "Any treatment given before referral?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "false",
+          "err": "{{anc_quick_check.step1.contact_reason.v_required.err}}"
+        }
+      },
+      {
+        "key": "other_services",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_services",
+        "type": "edit_text",
+        "hint": "Other general services(specify)",
+        "edit_type": "name"
+      },
+      {
+        "key": "receiving",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "receiving",
+        "type": "edit_text",
+        "hint": "Receiving Facility?",
+        "edit_type": "name"
+      },
+      {
+        "key": "provider_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "provider_name",
+        "type": "edit_text",
+        "hint": "Providers name?",
+        "edit_type": "name",
+        "read_only": "true",
+        "value": "James"
+      },
+      {
+        "key": "provider_phone_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "provider_phone_number",
+        "type": "edit_text",
+        "hint": "Providers phone number?",
+        "v_numeric": {
+          "value": "true",
+          "err": "Enter number"
+        },
+        "v_regex": {
+          "value": "(0([9]{1}[5-7]{1}|[7]{1}[6/7]{1})[0-9]{7})|s*",
+          "err": "Number must must be a total of 10 digits in length"
+        }
       }
     ]
   },

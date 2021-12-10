@@ -208,10 +208,3 @@ priority: 1
 condition: "(step1_hiv_test_result == 'positive') || (step1_partner_hiv_status == 'positive')"
 actions:
   - "calculation = 1"
----
-name: step3_due_date_pregnancy
-description: Happiness level calculation
-priority: 1
-condition: "step3_due_date_pregnancy != null"
-actions:
-  - 'calculation = helper.formatDate(step3_due_date_pregnancy,"y")'

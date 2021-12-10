@@ -1415,12 +1415,12 @@
             ]
           },
           {
-            "key": "miscarriage_abortion",
+            "key": "stillbirth",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "miscarriage_abortion",
+            "openmrs_entity_id": "stillbirth",
             "type": "native_radio",
-            "label": "Miscarriage/Abortion?",
+            "label": "Stillbirth?",
             "label_text_style": "bold",
             "relevance": {
               "step3:live_birth": {
@@ -1440,12 +1440,57 @@
             ]
           },
           {
+            "key": "miscarriage_abortion",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "miscarriage_abortion",
+            "type": "native_radio",
+            "label": "Miscarriage/Abortion?",
+            "label_text_style": "bold",
+            "relevance": {
+              "step3:stillbirth": {
+                "type": "string",
+                "ex": "equalTo(., \"no\")"
+              }
+            },
+            "options": [
+              {
+                "key": "yes",
+                "text": "Yes"
+              },
+              {
+                "key": "no",
+                "text": "No"
+              }
+            ]
+          },
+          {
+            "key": "puerperium",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "puerperium",
+            "type": "native_radio",
+            "label": "Puerperium?",
+            "label_text_style": "bold",
+            "options": [
+              {
+                "key": "normal",
+                "text": "Normal"
+              },
+              {
+                "key": "abnormal",
+                "text": "Abnormal"
+              }
+            ]
+          },
+          {
             "key": "due_date_pregnancy",
             "openmrs_entity_parent": "",
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "due_date_pregnancy",
             "type": "date_picker",
             "hint": "Year of delivery",
+            "expanded": false,
             "relevance": {
               "step3:live_birth": {
                 "type": "string",
@@ -1483,11 +1528,7 @@
               "label": ""
             },
             "min_date": "today - 35y",
-            "max_date": "today",
-            "v_required": {
-              "value": false,
-              "err": "Due Date"
-            }
+            "max_date": "today"
           }
         ]
       },
