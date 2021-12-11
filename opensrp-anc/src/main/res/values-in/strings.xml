@@ -4,6 +4,7 @@
     <string name="action_language">Bahasa</string>
 
     <!-- General -->
+
     <string name="app_name">WHO ANC</string>
     <string name="saving_dialog_title">Menyimpan</string>
     <string name="removing_dialog_title">Menghapus</string>
@@ -118,7 +119,7 @@
     <string name="antenatal_care_module">Modul perawatan antenatal</string>
     <string name="anc_id_text">ID: %1$s</string>
     <string name="age_text">Usia: %1$s</string>
-    <string name="ga_text">UK: %1$d bln</string>
+    <string name="ga_text">UK: %1$d minggu</string>
     <string name="bullet">\u2022</string>
 
     <string name="overview">Tinjauan</string>
@@ -505,7 +506,7 @@
     </string>
     <string name="clean_cloths_of_different_sizes_for_the_bed_for_drying_and_wrapping_the_baby_for_cleaning_the_baby_s_eyes_for_the_birth_attendant_to_wash_and_dry_her_hands_for_use_as_sanitary_pads">
         Pakaian bersih dengan berbagai ukuran: untuk tempat tidur, untuk menjemur dan membungkus bayi, untuk
-        membersihkan mata bayi, untuk dukun bayi untuk mencuci dan mengeringkan tangannya, untuk digunakan sebagai
+        membersihkan mata bayi, untuk bidan mencuci dan mengeringkan tangannya, untuk digunakan sebagai
         pembalut.
     </string>
     <string name="blankets">Selimut.</string>
@@ -574,8 +575,8 @@
     </string>
     <string name="choose_language">Pilih bahasa</string>
     <string name="english_language">Bahasa Inggris</string>
-    <string name="french_language">Perancis</string>
-    <string name="portuguese_brazil_language">Portugis (Brasil)</string>
+    <string name="french_language">Bahasa Perancis</string>
+    <string name="portuguese_brazil_language">Bahasa Portugis (Brasil)</string>
     <string name="bahasa_indonesia">Bahasa Indonesia</string>
     <string name="opensrp_url">https://ancs.dev.sid-indonesia.org/opensrp/</string>
     <string name="overview_of_pregnancy">Ikhtisar Kehamilan</string>
@@ -672,7 +673,7 @@
     <string name="please_specify_content">Silakan tentukan konten yang akan ditampilkan oleh pop up&#8230;</string>
     <string name="previous">Sebelumnya</string>
     <string name="next">Berikutnya</string>
-    <string name="submit">Submit</string>
+    <string name="submit">Kirim</string>
     <string name="the_extra_info_icon">Informasi extra ikon</string>
     <string name="edit_button_label">Tombol Edit</string>
     <string name="info_icon">Informasi Ikon</string>
