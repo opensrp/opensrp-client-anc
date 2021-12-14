@@ -215,8 +215,6 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
         partialContactsList.add(partialContact);
         Mockito.doReturn(partialContactsList).when(partialContactRepository).getPartialContacts(DUMMY_BASE_ENTITY_ID, DUMMY_CONTACT_NO);
         ReflectionHelpers.callInstanceMethod(spyActivity, "process");
-//        shadowOf(Looper.getMainLooper()).idle();
-//        Thread.sleep(ASYNC_TIMEOUT);
         List<YamlConfig> list = Whitebox.getInternalState(spyActivity, "yamlConfigList");
         Assert.assertNotNull(list);
         Assert.assertEquals(38, list.size());
