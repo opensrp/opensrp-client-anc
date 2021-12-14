@@ -1,6 +1,7 @@
 package org.smartregister.anc.library.activity;
 
 import static org.robolectric.Shadows.shadowOf;
+import static org.robolectric.annotation.LooperMode.Mode.PAUSED;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,15 +18,14 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
+import org.robolectric.annotation.LooperMode;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.ProfileContract;
@@ -34,12 +34,11 @@ import org.smartregister.anc.library.model.PartialContact;
 import org.smartregister.anc.library.repository.PartialContactRepository;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.helper.ImageRenderHelper;
-import org.smartregister.util.FormUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
+@LooperMode(PAUSED)
 public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
 
     private ActivityController<ContactSummaryFinishActivity> activityController;
@@ -168,16 +167,16 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
         Mockito.verify(textView).setText("ID: " + TEST_STRING);
     }
 
-    //Incomplete
     @Test
     public void testSaveAndFinishButtonClickedOpensContactSummarySendPage() throws  Exception{
-        ContactSummaryFinishActivity activity = Mockito.mock(ContactSummaryFinishActivity.class);
+        ContactSummaryFinishActivity spyActivity = Mockito.spy(activity);
         Mockito.doReturn(R.id.save_finish_menu_item).when(saveFinishMenuItem).getItemId();
-        activity.onOptionsItemSelected(saveFinishMenuItem);
+        spyActivity.onOptionsItemSelected(saveFinishMenuItem);
         shadowOf(Looper.getMainLooper()).idle();
         Thread.sleep(ASYNC_TIMEOUT);
-        Intent expectedIntent = new Intent(activity, ContactSummarySendActivity.class);
-        Assert.assertEquals(expectedIntent.getComponent().getClassName(), ContactSummarySendActivity.class.getName());
+        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
+        Assert.assertNotNull(actual.getComponent().getClassName());
+        Assert.assertEquals(actual.getComponent().getClassName(), ContactSummarySendActivity.class.getName());
     }
 
     @Test
@@ -190,7 +189,7 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
     }
 
     @Test
-    public void testProcessShouldPopulateContactSummaryYamlConfigListCorrectly() {
+    public void testProcessShouldPopulateContactSummaryYamlConfigListCorrectly()  throws Exception{
         ContactSummaryFinishActivity spyActivity = Mockito.spy(activity);
         Mockito.doNothing().when(spyActivity).registerEventBus();
         Mockito.doReturn(partialContactRepository).when(spyActivity).getPartialContactRepository();
@@ -215,9 +214,11 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
         partialContactsList.add(partialContact);
         Mockito.doReturn(partialContactsList).when(partialContactRepository).getPartialContacts(DUMMY_BASE_ENTITY_ID, DUMMY_CONTACT_NO);
         ReflectionHelpers.callInstanceMethod(spyActivity, "process");
+//        shadowOf(Looper.getMainLooper()).idle();
+//        Thread.sleep(ASYNC_TIMEOUT);
         List<YamlConfig> list = Whitebox.getInternalState(spyActivity, "yamlConfigList");
         Assert.assertNotNull(list);
-        Assert.assertEquals(39, list.size());
+        Assert.assertEquals(38, list.size());
     }
 
     @Test

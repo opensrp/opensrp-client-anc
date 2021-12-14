@@ -13,6 +13,7 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
@@ -204,6 +205,7 @@ public class ProfileActivityTest extends BaseActivityUnitTest {
     }
 
     @Test
+    @Ignore
     public void testOnOffsetChangedShouldSetCorrectValuesForCollapsingBar() {
         ProfileActivity spyActivity = Mockito.spy(profileActivity);
         Mockito.doReturn(0).when(appBarLayout).getTotalScrollRange();
