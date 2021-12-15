@@ -1,0 +1,62 @@
+{
+  "content_form": [
+    {
+      "key": "varicose_type",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "varicose_type",
+      "type": "check_box",
+      "label": "Varicose Type",
+      "label_text_style": "bold",
+      "text_color": "#000000",
+      "options": [
+        {
+          "key": "leg_pain",
+          "text": "Leg Pain",
+          "value": false,
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "leg_pain",
+          "openmrs_entity_parent": "varicose"
+        },
+        {
+          "key": "leg_redness",
+          "text": "Leg Redness",
+          "value": false,
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "leg_redness",
+          "openmrs_entity_parent": "varicose"
+        },
+        {
+          "key": "varicose_other",
+          "text": "Other(specify)",
+          "value": false,
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "varicose_other",
+          "openmrs_entity_parent": "varicose"
+        }
+      ]
+    },
+    {
+      "key": "other_specify",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "",
+      "type": "edit_text",
+      "hint": "Other(Specify)",
+      "edit_type": "name",
+      "relevance": {
+        "step1:varicose_type": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "varicose_other"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "count": 1,
+  "properties_file_name": "oedema_present_sub_form"
+}
