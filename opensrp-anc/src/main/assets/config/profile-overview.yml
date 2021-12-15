@@ -37,10 +37,6 @@ fields:
 ---
 sub_group: obstetric_history
 fields:
-  - template: "{{profile_overview.overview_of_pregnancy.obstetric_history.gravida}}: {gravida}"
-    relevance: "{gravida} != 1+ ({previous_pregnancies}+{miscarriages_abortions}+{live_births}+{stillbirths})"
-    isRedFont: "gravida >= 5"
-
   - template: "{{profile_overview.overview_of_pregnancy.obstetric_history.parity}}: {parity}"
     relevance: "parity != ''"
     isRedFont: "parity >= 5"
