@@ -56,10 +56,19 @@ fields:
 ---
 group: reason_for_visit
 fields:
-- template: "{{contact_summary.reason_for_visit.reason_for_coming_to_facility}}: {contact_reason_value}"
+- template: "{{contact_summary.reasons.reason_for_coming_to_facility}}: {contact_reason_value}"
   relevance: "contact_reason_value != ''"
 
 - template: "{{contact_summary.reason_for_visit.health_complaint}}: {specific_complaint_value}"
+  relevance: "specific_complaint_value != ''"
+
+---
+group: reason_for_referral
+fields:
+- template: "{{contact_summary.reason_for_visit.reason_for_coming_to_facility}}: {reasons_value}"
+  relevance: "contact_reason_value != ''"
+
+- template: "{{contact_summary.reason_for_visit.reason_for_coming_to_facility}}: {treatment_value}"
   relevance: "specific_complaint_value != ''"
 
 ---
