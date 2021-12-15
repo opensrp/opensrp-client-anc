@@ -45,7 +45,7 @@
       "hint": "Other(Specify)",
       "edit_type": "name",
       "relevance": {
-        "step1:varicose_type": {
+        "step3:varicose_type": {
           "ex-checkbox": [
             {
               "or": [
