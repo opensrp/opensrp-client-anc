@@ -203,85 +203,61 @@ public class RegisterInteractorTest extends BaseUnitTest {
     }
 
     @Test
-    @Ignore
     public void testSaveEditRegistration() throws Exception {
         UniqueIdRepository uniqueIdRepository = Mockito.mock(UniqueIdRepository.class);
         ECSyncHelper syncHelper = Mockito.mock(ECSyncHelper.class);
         AllSharedPreferences allSharedPreferences = Mockito.mock(AllSharedPreferences.class);
         BaseAncClientProcessorForJava baseAncClientProcessorForJava = Mockito.mock(BaseAncClientProcessorForJava.class);
-
         RegisterContract.InteractorCallBack callBack = Mockito.mock(RegisterContract.InteractorCallBack.class);
-
         RegisterInteractor registerInteractor = (RegisterInteractor) interactor;
         registerInteractor.setUniqueIdRepository(uniqueIdRepository);
         registerInteractor.setSyncHelper(syncHelper);
         registerInteractor.setAllSharedPreferences(allSharedPreferences);
         registerInteractor.setClientProcessorForJava(baseAncClientProcessorForJava);
-
         String baseEntityId = "112123";
         String ancId = "1324354";
         String originalAncId = "456456456456";
-
         Client client = new Client(baseEntityId);
         Map<String, String> identifiers = new HashMap<>();
         identifiers.put(DBConstantsUtils.KeyUtils.ANC_ID, ancId);
         client.setIdentifiers(identifiers);
-
         Event event = new Event();
         event.setBaseEntityId(baseEntityId);
-
         Pair<Client, Event> pair = Pair.create(client, event);
-
         JSONObject clientObject = new JSONObject(ANCJsonFormUtils.gson.toJson(client));
         JSONObject eventObject = new JSONObject(ANCJsonFormUtils.gson.toJson(event));
-
         String jsonString = "{\"" + DBConstantsUtils.KeyUtils.ANC_ID + "\":\"" + originalAncId + "\"}";
-
         long timestamp = new Date().getTime();
-
         List<EventClient> eventClients = new ArrayList<>();
         EventClient eventClient = new EventClient(ANCJsonFormUtils.gson.fromJson(eventObject.toString(), org.smartregister.domain.Event.class),
                 ANCJsonFormUtils.gson.fromJson(clientObject.toString(), org.smartregister.domain.Client.class));
         eventClients.add(eventClient);
-
         JSONObject orginalClientObject = clientObject;
         orginalClientObject.put("original", "yes");
-
         Mockito.doReturn(orginalClientObject).when(syncHelper).getClient(Mockito.anyString());
         Mockito.doReturn(timestamp).when(allSharedPreferences).fetchLastUpdatedAtDate(0);
         Mockito.doReturn(eventClients).when(syncHelper).getEvents(new Date(timestamp), BaseRepository.TYPE_Unsynced);
-
         registerInteractor.saveRegistration(pair, jsonString, true, callBack);
-
         verify(syncHelper, timeout(ASYNC_TIMEOUT)).getClient(stringArgumentCaptor.capture());
         assertEquals(baseEntityId, stringArgumentCaptor.getValue());
-
         verify(syncHelper, timeout(ASYNC_TIMEOUT)).addClient(stringArgumentCaptor.capture(), jsonArgumentCaptor.capture());
-
         assertEquals(baseEntityId, stringArgumentCaptor.getValue());
-
         assertEquals(orginalClientObject.get("type"), jsonArgumentCaptor.getValue().get("type"));
         assertEquals(orginalClientObject.get("baseEntityId"), jsonArgumentCaptor.getValue().get("baseEntityId"));
         assertEquals(orginalClientObject.getJSONObject("identifiers").get("anc_id"), jsonArgumentCaptor.getValue().getJSONObject("identifiers").get("anc_id"));
         assertEquals(orginalClientObject.get("original"), jsonArgumentCaptor.getValue().get("original"));
-
         verify(syncHelper, timeout(ASYNC_TIMEOUT)).addEvent(stringArgumentCaptor.capture(), jsonArgumentCaptor.capture());
         assertEquals(baseEntityId, stringArgumentCaptor.getValue());
-
         assertEquals(eventObject.get("type"), jsonArgumentCaptor.getValue().get("type"));
         assertEquals(eventObject.getString("baseEntityId"), jsonArgumentCaptor.getValue().getString("baseEntityId"));
         assertEquals(eventObject.getString("duration"), jsonArgumentCaptor.getValue().getString("duration"));
         assertEquals(eventObject.getString("version"), jsonArgumentCaptor.getValue().getString("version"));
-
         verify(uniqueIdRepository, timeout(ASYNC_TIMEOUT)).open(stringArgumentCaptor.capture());
         assertEquals(originalAncId, stringArgumentCaptor.getValue());
-
         verify(baseAncClientProcessorForJava, timeout(ASYNC_TIMEOUT)).processClient(eventClientArgumentCaptor.capture());
         assertEquals(eventClients, eventClientArgumentCaptor.getValue());
-
         verify(allSharedPreferences, timeout(ASYNC_TIMEOUT)).saveLastUpdatedAtDate(longArgumentCaptor.capture());
         assertEquals(new Long(timestamp), longArgumentCaptor.getValue());
-
         verify(callBack, timeout(ASYNC_TIMEOUT)).onRegistrationSaved(ArgumentMatchers.anyBoolean());
     }
 }

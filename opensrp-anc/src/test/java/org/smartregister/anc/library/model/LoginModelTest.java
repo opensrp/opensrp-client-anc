@@ -48,7 +48,6 @@ public class LoginModelTest extends BaseUnitTest {
     }
 
     @Test
-    @Ignore
     //Already Tested somewhere else
     public void testGetOpenSRPContextShouldReturnValidValue() {
 
