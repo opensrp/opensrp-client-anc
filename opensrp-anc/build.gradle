@@ -189,6 +189,7 @@ dependencies {
     }
     implementation group: 'org.apache.commons', name: 'commons-text', version: '1.9'
     implementation 'junit:junit:4.12'
+    implementation 'androidx.test:core:1.4.0'
     annotationProcessor 'com.jakewharton:butterknife:10.2.3'
     implementation 'net.zetetic:android-database-sqlcipher:4.4.0@aar'
     implementation 'commons-validator:commons-validator:1.7'
