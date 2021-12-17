@@ -2,6 +2,8 @@ package org.smartregister.anc.library.activity;
 
 import android.content.Context;
 
+import com.vijay.jsonwizard.views.CustomTextView;
+
 import org.json.JSONObject;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -9,6 +11,7 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.application.AncTestApplication;
+import org.smartregister.anc.library.shadows.CustomTextShadow;
 import org.smartregister.anc.library.shadows.MyShadowActivity;
 import org.smartregister.anc.library.util.ANCJsonFormUtils;
 
@@ -20,7 +23,7 @@ import java.util.Date;
  */
 
 @RunWith(RobolectricTestRunner.class)
-@Config(application = AncTestApplication.class, shadows = {MyShadowActivity.class})
+@Config(application = AncTestApplication.class, shadows = {MyShadowActivity.class, CustomTextShadow.class})
 public abstract class BaseUnitTest {
     protected static final String DUMMY_USERNAME = "myusername";
     protected static final String DUMMY_PASSWORD = "mypassword";

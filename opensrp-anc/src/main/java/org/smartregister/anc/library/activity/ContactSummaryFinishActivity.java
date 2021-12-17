@@ -41,8 +41,6 @@ import timber.log.Timber;
  */
 
 
-
-
 public class ContactSummaryFinishActivity extends BaseProfileActivity implements ProfileContract.View {
     public MenuItem saveFinishMenuItem;
     private TextView nameView;
@@ -51,7 +49,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     private TextView ancIdView;
     private ImageView imageView;
     private ImageRenderHelper imageRenderHelper;
-    private Facts facts = new Facts();
+    private final Facts facts = new Facts();
     private List<YamlConfig> yamlConfigList = new ArrayList<>();
     private String baseEntityId;
     private int contactNo;
@@ -129,10 +127,13 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         Iterable<Object> ruleObjects = AncLibrary.getInstance().readYaml(FilePathUtils.FileUtils.CONTACT_SUMMARY);
 
         yamlConfigList = new ArrayList<>();
-        for (Object ruleObject : ruleObjects) {
-            YamlConfig yamlConfig = (YamlConfig) ruleObject;
-            yamlConfigList.add(yamlConfig);
+        if(ruleObjects!=null){
+            for (Object ruleObject : ruleObjects) {
+                YamlConfig yamlConfig = (YamlConfig) ruleObject;
+                yamlConfigList.add(yamlConfig);
+            }
         }
+
     }
 
     public PartialContactRepository getPartialContactRepository() {
@@ -147,7 +148,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         if (itemId == android.R.id.home) {
             PatientRepository.updateEDDDate(baseEntityId, null); //Reset EDD
             super.onBackPressed();
-        } else {
+        } else if (itemId == R.id.save_finish_menu_item) {
             saveFinishForm();
         }
         return super.onOptionsItemSelected(item);
@@ -175,7 +176,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
     }
 
-    private void saveFinishForm() {
+    public void saveFinishForm() {
         new FinalizeContactTask(this, mProfilePresenter, getIntent()).execute();
     }
 

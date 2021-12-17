@@ -5,15 +5,10 @@ import static org.robolectric.annotation.LooperMode.Mode.PAUSED;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Looper;
-import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
-
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -28,6 +23,9 @@ import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.LooperMode;
+import org.robolectric.fakes.RoboMenuItem;
+import org.robolectric.shadows.ShadowApplication;
+import org.robolectric.shadows.ShadowLooper;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.ProfileContract;
@@ -45,8 +43,6 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
 
     private ActivityController<ContactSummaryFinishActivity> activityController;
     private ContactSummaryFinishActivity activity;
-    @Mock
-    private CollapsingToolbarLayout collapsingToolbarLayout;
 
     @Mock
     private ProfileContract.Presenter presenter;
@@ -65,9 +61,6 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
 
     @Mock
     private Intent intent;
-
-    @Mock
-    private MenuItem saveFinishMenuItem;
 
     @Before
     @Override
@@ -169,15 +162,14 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
         Mockito.verify(textView).setText("ID: " + TEST_STRING);
     }
 
-    @Test
 
-    public void testSaveAndFinishButtonClickedOpensContactSummarySendPage() throws  Exception{
-        ContactSummaryFinishActivity spyActivity = Mockito.spy(activity);
-        Mockito.doReturn(R.id.save_finish_menu_item).when(saveFinishMenuItem).getItemId();
-        spyActivity.onOptionsItemSelected(saveFinishMenuItem);
-        shadowOf(Looper.getMainLooper()).idle();
-        Thread.sleep(ASYNC_TIMEOUT);
-        Intent actual = shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
+    @Test
+    public void testSaveAndFinishButtonClickedOpensContactSummarySendPage() {
+        ContactSummaryFinishActivity spyActivity=Mockito.spy(activity);
+        RoboMenuItem menuItem = new RoboMenuItem(R.id.save_finish_menu_item);
+        Mockito.doNothing().when(spyActivity).saveFinishForm();
+        spyActivity.onOptionsItemSelected(menuItem);
+        Intent actual = shadowOf(spyActivity).getNextStartedActivity();
         Assert.assertNotNull(actual.getComponent().getClassName());
         Assert.assertEquals(actual.getComponent().getClassName(), ContactSummarySendActivity.class.getName());
     }
@@ -192,7 +184,7 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
     }
 
     @Test
-    public void testProcessShouldPopulateContactSummaryYamlConfigListCorrectly()  throws Exception{
+    public void testProcessShouldPopulateContactSummaryYamlConfigListCorrectly() throws Exception {
         ContactSummaryFinishActivity spyActivity = Mockito.spy(activity);
         Mockito.doNothing().when(spyActivity).registerEventBus();
         Mockito.doReturn(partialContactRepository).when(spyActivity).getPartialContactRepository();
@@ -241,6 +233,7 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
 
     @After
     public void tearDown() {
-        destroyController();
+        // shadowOf(Looper.getMainLooper()).idle();
+       // destroyController();
     }
 }
