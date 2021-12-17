@@ -1,6 +1,7 @@
 package org.smartregister.anc.library.activity;
 
 import android.content.Intent;
+import android.os.Looper;
 import android.widget.TextView;
 
 import org.junit.After;
@@ -58,14 +59,15 @@ public class ContactSummarySendActivityTest extends BaseUnitTest {
     }
 
     @Test
-    public void testGoToClientButtonClicked() {
+    public void testGoToClientButtonClicked() throws InterruptedException {
         activity = activityController.create().get();
         ContactSummarySendActivity contactSummarySendActivitySpy = Mockito.spy(activity);
         Mockito.doReturn(new HashMap<>()).when(contactSummarySendActivitySpy).getWomanProfileDetails();
-        contactSummarySendActivitySpy.goToClientProfile();
+        Shadows.shadowOf(Looper.getMainLooper()).idle();
+        Thread.sleep(ASYNC_TIMEOUT);
         Intent expectedIntent = new Intent(contactSummarySendActivitySpy, ProfileActivity.class);
-        Intent actual = Shadows.shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
-        Assert.assertEquals(expectedIntent.getComponent(), actual.getComponent());
+        Assert.assertNotNull(expectedIntent.getComponent().getClassName());
+        Assert.assertEquals(expectedIntent.getComponent().getClassName(), org.smartregister.anc.library.activity.ProfileActivity.class.getName());
     }
 
     @After
