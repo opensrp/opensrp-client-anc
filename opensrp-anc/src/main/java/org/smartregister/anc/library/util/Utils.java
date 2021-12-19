@@ -374,13 +374,16 @@ public class Utils extends org.smartregister.util.Utils {
         if (!nonEmptyItems.isEmpty() && nonEmptyItems.get(0).contains(":")) {
             String[] separatedLabel = nonEmptyItems.get(0).split(":");
             itemLabel = separatedLabel[0];
-            if (separatedLabel.length > 1) {
+            if (separatedLabel.length > 1 ) {
                 nonEmptyItems.set(0, nonEmptyItems.get(0).split(":")[1]);
                 if (StringUtils.isBlank(nonEmptyItems.get(0)))
                     nonEmptyItems.remove(0);
             }//replace with extracted value
         }
-        return itemLabel + (!TextUtils.isEmpty(itemLabel) ? ": " : "") + StringUtils.join(nonEmptyItems.toArray(), ",");
+        if(!itemLabel.equals(StringUtils.join(nonEmptyItems.toArray(),",").replace(":","")))
+         return itemLabel + (!TextUtils.isEmpty(itemLabel) ? ": " : "") + StringUtils.join(nonEmptyItems.toArray(), ",");
+        else
+            return itemLabel+":";
     }
 
     public static void navigateToHomeRegister(Context context, boolean isRemote, Class<? extends BaseHomeRegisterActivity> homeRegisterActivityClass) {
@@ -950,7 +953,7 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     private final String getAppPath(Context context) {
-        File dir = new File(context.getExternalFilesDir("")+ File.separator + context.getResources().getString(R.string.app_name) + File.separator);
+        File dir = new File(Environment.getExternalStorageDirectory()+ File.separator + context.getResources().getString(R.string.app_name) + File.separator);
         if (!dir.exists()) {
             dir.mkdir();
         }

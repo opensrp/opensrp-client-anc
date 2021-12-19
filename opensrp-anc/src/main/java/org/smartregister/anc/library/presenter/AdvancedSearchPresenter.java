@@ -4,7 +4,6 @@ import android.database.Cursor;
 import android.database.CursorJoiner;
 
 import org.apache.commons.lang3.StringUtils;
-import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.AdvancedSearchContract;
 import org.smartregister.anc.library.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.library.interactor.AdvancedSearchInteractor;
@@ -37,13 +36,7 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter
         if (StringUtils.isBlank(searchCriteria)) {
             return;
         }
-        searchCriteria = searchCriteria
-                .replace(AdvancedSearchModel.FIRST_NAME, getView().getContext().getString(R.string.search_string_first_name))
-                .replace(AdvancedSearchModel.LAST_NAME, getView().getContext().getString(R.string.search_string_last_name))
-                .replace(AdvancedSearchModel.EDD, getView().getContext().getString(R.string.search_string_edd))
-                .replace(AdvancedSearchModel.DOB, getView().getContext().getString(R.string.search_string_dob))
-                .replace(AdvancedSearchModel.MOBILE_PHONE_NUMBER, getView().getContext().getString(R.string.search_string_mobile_phone_number))
-                .replace(AdvancedSearchModel.ALTERNATE_CONTACT_NAME, getView().getContext().getString(R.string.search_string_alternate_contact_name));
+
         getView().updateSearchCriteria(searchCriteria);
 
         Map<String, String> editMap =
@@ -108,8 +101,8 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter
         if (cursor != null && cursor.getCount() > 0) {
             AdvancedMatrixCursor remoteLocalCursor = new AdvancedMatrixCursor(
                     new String[]{DBConstantsUtils.KeyUtils.ID_LOWER_CASE, DBConstantsUtils.KeyUtils.RELATIONAL_ID, DBConstantsUtils.KeyUtils.FIRST_NAME,
-                            DBConstantsUtils.KeyUtils.LAST_NAME, DBConstantsUtils.KeyUtils.DOB, DBConstantsUtils.KeyUtils.ANC_ID,
-                            DBConstantsUtils.KeyUtils.PHONE_NUMBER, DBConstantsUtils.KeyUtils.ALT_NAME});
+                            DBConstantsUtils.KeyUtils.LAST_NAME, DBConstantsUtils.KeyUtils.DOB,DBConstantsUtils.KeyUtils.EDD, DBConstantsUtils.KeyUtils.ANC_ID,
+                            DBConstantsUtils.KeyUtils.PHONE_NUMBER, DBConstantsUtils.KeyUtils.ALT_NAME,DBConstantsUtils.KeyUtils.NEXT_CONTACT,DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE});
 
             CursorJoiner joiner =
                     new CursorJoiner(matrixCursor, new String[]{DBConstantsUtils.KeyUtils.ANC_ID, DBConstantsUtils.KeyUtils.ID_LOWER_CASE},
@@ -121,16 +114,22 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter
                         remoteLocalCursor.addRow(new Object[]{createRemoteLocalCursorUtils.getId(),
                                 createRemoteLocalCursorUtils.getRelationalId(), createRemoteLocalCursorUtils.getFirstName(),
                                 createRemoteLocalCursorUtils.getLastName(), createRemoteLocalCursorUtils.getDob(),
+                                createRemoteLocalCursorUtils.getEdd(),
                                 createRemoteLocalCursorUtils.getAncId(), createRemoteLocalCursorUtils.getPhoneNumber(),
-                                createRemoteLocalCursorUtils.getAltName()});
+                                createRemoteLocalCursorUtils.getAltName(),
+                                createRemoteLocalCursorUtils.getNextContact(),
+                                createRemoteLocalCursorUtils.getNextContactDate()
+                        });
                         break;
                     case RIGHT:
                         CreateRemoteLocalCursorUtils localCreateRemoteLocalCursorUtils = new CreateRemoteLocalCursorUtils(cursor, false);
                         remoteLocalCursor.addRow(new Object[]{localCreateRemoteLocalCursorUtils.getId(),
                                 localCreateRemoteLocalCursorUtils.getRelationalId(), localCreateRemoteLocalCursorUtils.getFirstName(),
                                 localCreateRemoteLocalCursorUtils.getLastName(), localCreateRemoteLocalCursorUtils.getDob(),
+                                localCreateRemoteLocalCursorUtils.getEdd(),
                                 localCreateRemoteLocalCursorUtils.getAncId(), localCreateRemoteLocalCursorUtils.getPhoneNumber(),
-                                localCreateRemoteLocalCursorUtils.getAltName()});
+                                localCreateRemoteLocalCursorUtils.getAltName(),localCreateRemoteLocalCursorUtils.getNextContact(),
+                                localCreateRemoteLocalCursorUtils.getNextContactDate()});
 
                         break;
                     case LEFT:
@@ -138,8 +137,12 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter
                         remoteLocalCursor.addRow(new Object[]{createRemoteLocalCursorUtils.getId(),
                                 createRemoteLocalCursorUtils.getRelationalId(), createRemoteLocalCursorUtils.getFirstName(),
                                 createRemoteLocalCursorUtils.getLastName(), createRemoteLocalCursorUtils.getDob(),
+                                createRemoteLocalCursorUtils.getEdd(),
                                 createRemoteLocalCursorUtils.getAncId(), createRemoteLocalCursorUtils.getPhoneNumber(),
-                                createRemoteLocalCursorUtils.getAltName()});
+                                createRemoteLocalCursorUtils.getAltName(),
+                                createRemoteLocalCursorUtils.getNextContact(),
+                                createRemoteLocalCursorUtils.getNextContactDate()
+                        });
                         break;
                     default:
                         break;
