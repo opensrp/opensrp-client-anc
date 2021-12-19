@@ -639,6 +639,38 @@
         }
       },
       {
+        "key": "diagnostics",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "diagnostics",
+        "type": "edit_text",
+        "hint": "Diagnostics and tests(specify)",
+        "edit_type": "name",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "quick_check_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_services",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_services",
+        "type": "edit_text",
+        "hint": "Other general services(specify)",
+        "edit_type": "name",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "quick_check_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "reasons_label",
         "type": "label",
         "label_text_style": "bold",
@@ -696,38 +728,6 @@
           "value": "false",
           "err": "{{anc_quick_check.step1.contact_reason.v_required.err}}"
         },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "quick_check_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "diagnostics",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "diagnostics",
-        "type": "edit_text",
-        "hint": "Diagnostics and tests(specify)",
-        "edit_type": "name",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "quick_check_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "other_services",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "other_services",
-        "type": "edit_text",
-        "hint": "Other general services(specify)",
-        "edit_type": "name",
         "relevance": {
           "rules-engine": {
             "ex-rules": {

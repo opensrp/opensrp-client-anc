@@ -1343,7 +1343,7 @@
             "label": "Sex of infant?",
             "label_text_style": "bold",
             "relevance": {
-              "step3:live_birth": {
+              "step3:miscarriage_abortion": {
                 "type": "string",
                 "ex": "equalTo(., \"no\")"
               }
