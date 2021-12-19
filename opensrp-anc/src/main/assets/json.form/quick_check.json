@@ -777,7 +777,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "receiving",
         "type": "edit_text",
-        "hint": "Receiving Facility?",
+        "hint": "Receiving Facility",
         "edit_type": "name",
         "relevance": {
           "rules-engine": {
@@ -793,7 +793,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "provider_name",
         "type": "edit_text",
-        "hint": "Providers name?",
+        "hint": "Providers name",
         "edit_type": "name",
         "read_only": "true",
         "value": "James",
@@ -811,7 +811,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "provider_phone_number",
         "type": "edit_text",
-        "hint": "Providers phone number?",
+        "hint": "Providers phone number",
         "v_numeric": {
           "value": "true",
           "err": "Enter number"
@@ -834,7 +834,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "referral_notes",
         "type": "edit_text",
-        "hint": "Referral notes?",
+        "hint": "Referral notes",
         "edit_type": "name",
         "relevance": {
           "rules-engine": {
