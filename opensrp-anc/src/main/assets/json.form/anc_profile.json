@@ -3073,15 +3073,10 @@
         "toaster_info_title": "{{anc_profile.step7.tobacco_cessation_toaster.toaster_info_title}}",
         "toaster_type": "problem",
         "relevance": {
-          "step7:tobacco_user": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "yes",
-                  "recently_quit"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
           }
         }
       },
