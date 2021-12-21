@@ -28,6 +28,14 @@ public class FinalizeContactTask extends AsyncTask<Void, Void, Void> {
     }
 
     @Override
+    protected void onPreExecute() {
+        ((ContactSummaryFinishActivity) context).showProgressDialog(R.string.please_wait_message);
+        ((ContactSummaryFinishActivity) context).getProgressDialog().setMessage(
+                String.format(context.getString(R.string.finalizing_contact),
+                        intent.getExtras().getInt(ConstantsUtils.IntentKeyUtils.CONTACT_NO)) + " data");
+        ((ContactSummaryFinishActivity) context).getProgressDialog().show();
+    }
+    @Override
     protected Void doInBackground(Void... nada) {
         try {
             HashMap<String, String> womanProfileDetails = (HashMap<String, String>) PatientRepository
@@ -45,14 +53,7 @@ public class FinalizeContactTask extends AsyncTask<Void, Void, Void> {
 
     }
 
-    @Override
-    protected void onPreExecute() {
-        ((ContactSummaryFinishActivity) context).showProgressDialog(R.string.please_wait_message);
-        ((ContactSummaryFinishActivity) context).getProgressDialog().setMessage(
-                String.format(context.getString(R.string.finalizing_contact),
-                        intent.getExtras().getInt(ConstantsUtils.IntentKeyUtils.CONTACT_NO)) + " data");
-        ((ContactSummaryFinishActivity) context).getProgressDialog().show();
-    }
+
 
     @Override
     protected void onPostExecute(Void result) {
