@@ -6,6 +6,14 @@ condition: "(step4_hiv_positive != 1 && (step8_partner_hiv_positive == 1 || step
 actions:
   - "calculation = 1"
 ---
+
+name: step2_lmp_known_date
+description: step2_lmp_known_date
+priority: 1
+condition: "step2_lmp_known == 'yes'"
+actions:
+  - "calculation = helper.getDateToday()"
+---
 name: step2_lmp_edd
 description: LMP EDD
 priority: 1
@@ -26,6 +34,13 @@ priority: 1
 condition: "step2_ultrasound_done== 'yes' && step2_ultrasound_gest_age_days != ''"
 actions:
   - "calculation = Math.ceil(((step2_ultrasound_gest_age_wks * 7) + new Integer(step2_ultrasound_gest_age_days)) / 7)"
+---
+name: step2_ultrasound_done_date
+description: step2_ultrasound_done_date
+priority: 1
+condition: "step2_ultrasound_done == 'yes'"
+actions:
+  - "calculation = helper.getDateToday()"
 ---
 name: step2_ultrasound_edd
 description: Ultrasound edd
