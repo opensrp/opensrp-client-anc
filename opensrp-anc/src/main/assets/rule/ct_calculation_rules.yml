@@ -123,7 +123,7 @@ description: penicillin
 priority: 1
 condition: "true"
 actions:
-  - 'calculation = (step5_syphilis_high_prev_counsel == "done" || step5_syphilis_low_prev_counsel == "done" ? "Penicillin for syphilis" : "") '
+  - 'calculation = (step5_syphilis_high_prev_counsel == "done" || step5_syphilis_low_prev_counsel == "done"  ?  ((!global_allergies.isEmpty() && global_allergies.contains("penicillin")) ? "Erythromycin 500 mg orally four times daily for 14 days or Azithromycin 2 g once orally." : "Penicillin for syphilis") : "") '
 ---
 name: step5_ifa_medication
 description: ifa_medication
@@ -138,6 +138,20 @@ priority: 1
 condition: "true"
 actions:
   - 'calculation = (step5_asb_positive_counsel == "done" ? "Seven-day antibiotic for ASB" : "") '
+---
+name: step5_low_prev_allergy_toaster
+description: Displays the womans allergies .
+priority: 1
+condition: "!global_allergies.isEmpty()"
+actions:
+ - 'calculation = ["allergies_values":global_allergies]'
+---
+name: step5_high_prev_allergy_toaster
+description: Displays the womans allergies .
+priority: 1
+condition: "!global_allergies.isEmpty()"
+actions:
+ - 'calculation = ["allergies_values":global_allergies_value]'
 ---
 name: step6_aspirin
 description: aspirin
@@ -160,12 +174,33 @@ condition: "true"
 actions:
   - 'calculation = ((step9_ifa_high_prev == "done" || step9_ifa_low_prev == "done") ? "Iron & folic acid supplement" : "") '
 ---
+name: step9_ifa_high_prev_toaster
+description: Displays the womans allergies .
+priority: 1
+condition: "!global_allergies.isEmpty()"
+actions:
+ - 'calculation = ["allergies_values":global_allergies_value]'
+---
+name: step9_ifa_low_prev_toaster
+description: Displays the womans allergies .
+priority: 1
+condition: "!global_allergies.isEmpty()"
+actions:
+ - 'calculation = ["allergies_values":global_allergies_value]'
+---
 name: step10_alben_meben
 description: alben_meben
 priority: 1
 condition: "true"
 actions:
   - 'calculation = (step10_deworm == "done" ? "Albendazole/mebendazole for deworming" : "")'
+---
+name: step10_deworm_toaster
+description: Displays the womans allergies .
+priority: 1
+condition: "!global_allergies.isEmpty()"
+actions:
+ - 'calculation = ["allergies_values":global_allergies_value]'
 ---
 name: step10_sp
 description: sp

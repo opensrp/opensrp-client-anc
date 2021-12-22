@@ -127,7 +127,7 @@ fields:
     relevance: "dilation_cm > 2"
 
   - template: "{{attention_flags.red.no_fetal_heartbeat_observed}}"
-    relevance: "fetal_heartbeat == 'no'"
+    relevance: "fetal_heartbeat == 'no' && gest_age > 20"
 
   - template: "{{attention_flags.red.abnormal_fetal_heart_rate}}: {fetal_heart_rate_repeat}bpm"
     relevance: "fetal_heart_rate_repeat < 100 || fetal_heart_rate_repeat > 180"
