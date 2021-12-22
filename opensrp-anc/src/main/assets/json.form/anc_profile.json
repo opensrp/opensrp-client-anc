@@ -1104,6 +1104,24 @@
         "spacer_height": "20dp"
       },
       {
+        "key": "gravida_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_profile.step3.gravida_label.gravida_toaster.title}}",
+        "toaster_info_text": "{{anc_profile.step3.gravida_label.gravida_toaster.text}}",
+        "toaster_info_title": "{{anc_profile.step3.gravida_label.gravida_toaster.text}}",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "gravida_label",
         "type": "label",
         "label_text_style": "bold",
@@ -1114,6 +1132,7 @@
           "err": "{{anc_profile.step3.gravida_label.v_required.err}}"
         }
       },
+
       {
         "key": "gravida",
         "openmrs_entity_parent": "",
@@ -2060,6 +2079,43 @@
                 ]
               }
             ]
+          }
+        }
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "uterine_rupture_risk",
+        "type": "hidden",
+        "label_text_style": "bold",
+        "text_color": "#FF0000",
+        "v_required": {
+          "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "uterine_rupture_counseling_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_profile.step4.uterine_rupture_counseling_toaster.text}}",
+        "text_color": "#000000",
+        "toaster_info_text": "{{anc_profile.step4.uterine_rupture_counseling_toaster.toaster_info_text}}",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
           }
         }
       },
@@ -3474,10 +3530,10 @@
         "toaster_info_title": "{{anc_profile.step8.hiv_risk_counselling_toaster.toaster_info_title}}",
         "toaster_type": "problem",
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
-            }
+          "step8:partner_hiv_status": {
+            "type": "string",
+            "ex": "equalTo(., \"positive\")"
+
           }
         }
       }

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
@@ -13,10 +14,18 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.IBlockElement;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.property.HorizontalAlignment;
+import com.itextpdf.layout.property.TextAlignment;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
 
@@ -41,11 +50,11 @@ import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.anc.library.activity.ContactJsonFormActivity;
 import org.smartregister.anc.library.activity.ContactSummaryFinishActivity;
-import org.smartregister.anc.library.activity.MainContactActivity;
-import org.smartregister.anc.library.activity.ProfileActivity;
 import org.smartregister.anc.library.constants.AncAppPropertyConstants;
 import org.smartregister.anc.library.domain.ButtonAlertStatus;
 import org.smartregister.anc.library.domain.Contact;
+import org.smartregister.anc.library.domain.YamlConfig;
+import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.event.BaseEvent;
 import org.smartregister.anc.library.model.ContactModel;
 import org.smartregister.anc.library.model.PartialContact;
@@ -58,7 +67,11 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.util.JsonFormUtils;
 import org.smartregister.view.activity.DrishtiApplication;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -333,6 +346,10 @@ public class Utils extends org.smartregister.util.Utils {
         String value = "";
         if (facts.get(key) instanceof String) {
             value = facts.get(key);
+            if((key.equals(ConstantsUtils.PrescriptionUtils.NAUSEA_PHARMA) || key.equals(ConstantsUtils.PrescriptionUtils.ANTACID) || key.equals(ConstantsUtils.PrescriptionUtils.PENICILLIN) || key.equals(ConstantsUtils.PrescriptionUtils.ANTIBIOTIC) || key.equals(ConstantsUtils.PrescriptionUtils.IFA_MEDICATION) || key.equals(ConstantsUtils.PrescriptionUtils.VITA)
+             || key.equals(ConstantsUtils.PrescriptionUtils.MAG_CALC) || key.equals(ConstantsUtils.PrescriptionUtils.ALBEN_MEBEN) || key.equals(ConstantsUtils.PrescriptionUtils.PREP) || key.equals(ConstantsUtils.PrescriptionUtils.SP) || key.equals(ConstantsUtils.PrescriptionUtils.IFA) || key.equals(ConstantsUtils.PrescriptionUtils.ASPIRIN) || key.equals(ConstantsUtils.PrescriptionUtils.CALCIUM)) && (value!= null && value.equals("0")))
+                return ANCFormUtils.keyToValueConverter("");
+
             if (value != null && value.endsWith(OTHER_SUFFIX)) {
                 Object otherValue = value.endsWith(OTHER_SUFFIX) ? facts.get(key + ConstantsUtils.SuffixUtils.OTHER) : "";
                 value = otherValue != null ?
@@ -347,9 +364,8 @@ public class Utils extends org.smartregister.util.Utils {
 
     private static String cleanValueResult(String result) {
         List<String> nonEmptyItems = new ArrayList<>();
-
         for (String item : result.split(",")) {
-            if (item.length() > 0) {
+            if (item.length() > 0 && StringUtils.isNotBlank(item)) {
                 nonEmptyItems.add(item);
             }
         }
@@ -360,6 +376,8 @@ public class Utils extends org.smartregister.util.Utils {
             itemLabel = separatedLabel[0];
             if (separatedLabel.length > 1) {
                 nonEmptyItems.set(0, nonEmptyItems.get(0).split(":")[1]);
+                if (StringUtils.isBlank(nonEmptyItems.get(0)))
+                    nonEmptyItems.remove(0);
             }//replace with extracted value
         }
         return itemLabel + (!TextUtils.isEmpty(itemLabel) ? ": " : "") + StringUtils.join(nonEmptyItems.toArray(), ",");
@@ -867,5 +885,93 @@ public class Utils extends org.smartregister.util.Utils {
         } else {
             return null;
         }
+    }
+
+    public void createSavePdf(Context context, List<YamlConfig> yamlConfigList, Facts facts) throws FileNotFoundException {
+
+        String FILENAME = context.getResources().getString(R.string.contact_summary_data_file);
+        String filePath = getAppPath(context) + FILENAME;
+
+        if ((new File(filePath)).exists()) {
+            (new File(filePath)).delete();
+        }
+        FileOutputStream fOut = new FileOutputStream(filePath);
+        PdfWriter pdfWriter = new PdfWriter((OutputStream) fOut);
+        PdfDocument pdfDocument = new PdfDocument(pdfWriter);
+        Document layoutDocument = new Document(pdfDocument);
+
+
+        addTitle(layoutDocument, context.getResources().getString(R.string.contact_summary_data, getTodaysDate()));
+
+
+        for (YamlConfig yamlConfig : yamlConfigList) {
+            addEmptyLine(layoutDocument, 1);
+            addSubHeading(layoutDocument, processUnderscores(yamlConfig.getGroup()));
+
+            List<YamlConfigItem> fields = yamlConfig.getFields();
+            StringBuilder outputBuilder = new StringBuilder();
+            for (YamlConfigItem yamlConfigItem : fields) {
+                if (yamlConfigItem.isMultiWidget() != null && yamlConfigItem.isMultiWidget()) {
+                    prefillInjectableFacts(facts, yamlConfigItem.getTemplate());
+                }
+                if (AncLibrary.getInstance().getAncRulesEngineHelper().getRelevance(facts, yamlConfigItem.getRelevance())) {
+                    outputBuilder.append(Utils.fillTemplate(yamlConfigItem.getTemplate(), facts)).append("\n\n");
+                }
+            }
+            String output = outputBuilder.toString();
+
+            addParagraph(layoutDocument, HorizontalAlignment.LEFT, output);
+        }
+
+
+        layoutDocument.close();
+        Toast.makeText(context, (CharSequence) (context.getResources().getString(R.string.pdf_saved_successfully) + filePath), Toast.LENGTH_SHORT).show();
+    }
+
+    private String processUnderscores(String string) {
+        return string.replace("_", " ").toUpperCase();
+    }
+
+    private void prefillInjectableFacts(Facts facts, String template) {
+        String[] relevanceToken = template.split(",");
+        String key;
+        for (String token : relevanceToken) {
+            if (token.contains("{") && token.contains("}")) {
+                key = token.substring(token.indexOf('{') + 1, token.indexOf('}'));
+                if (facts.get(key) == null) {
+                    facts.put(key, "");
+                }
+            }
+        }
+    }
+
+    private void addParagraph(Document layoutDocument, HorizontalAlignment horizontalAlignment, String headerDetails) {
+        layoutDocument.add((IBlockElement) (new Paragraph(headerDetails).setHorizontalAlignment(horizontalAlignment)));
+    }
+
+    private final String getAppPath(Context context) {
+        File dir = new File(context.getExternalFilesDir("")+ File.separator + context.getResources().getString(R.string.app_name) + File.separator);
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
+
+        return dir.getPath() + File.separator;
+    }
+
+    private final void addTitle(Document layoutDocument, String text) {
+        layoutDocument.add((IBlockElement) ((Paragraph) ((Paragraph) (new Paragraph(text)).setBold()).setUnderline()).setTextAlignment(TextAlignment.CENTER));
+    }
+
+    private final void addEmptyLine(Document layoutDocument, int number) {
+        int i = 0;
+
+        for (int j = number; i < j; ++i) {
+            layoutDocument.add((IBlockElement) (new Paragraph(" ")));
+        }
+
+    }
+
+    private final void addSubHeading(Document layoutDocument, String text) {
+        layoutDocument.add((IBlockElement) ((Paragraph) (new Paragraph(text)).setBold()).setHorizontalAlignment(HorizontalAlignment.LEFT));
     }
 }

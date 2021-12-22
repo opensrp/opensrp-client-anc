@@ -201,3 +201,10 @@ priority: 1
 condition: "(step8_partner_hiv_status == 'positive') || (global_hiv_test_partner_result != null && global_hiv_test_partner_result != '' && global_hiv_test_partner_result == 'positive')"
 actions:
   - "calculation = 1"
+---
+name: step4_uterine_rupture_risk
+description: Automatically calculates risk for uterus surgery.
+priority: 1
+condition: "step4_surgeries.contains('removal_of_fibroid')"
+actions:
+  - "calculation = 1"

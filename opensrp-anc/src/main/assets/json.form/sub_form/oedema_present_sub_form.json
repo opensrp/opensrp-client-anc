@@ -11,6 +11,14 @@
       "text_color": "#000000",
       "options": [
         {
+          "key": "face_oedema",
+          "text": "{{oedema_present_sub_form.step1.oedema_type.options.face_oedema.text}}",
+          "value": false,
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1551133AAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
           "key": "ankle_oedema",
           "text": "{{oedema_present_sub_form.step1.oedema_type.options.ankle_oedema.text}}",
           "value": false,
@@ -43,6 +51,23 @@
           "openmrs_entity_parent": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ]
+    },
+    {
+      "key": "oedema_severity_toaster_face_odem",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "toaster_notes",
+      "text": "{{oedema_present_sub_form.step1.oedema_severity_toaster.text}}",
+      "text_color": "#D56900",
+      "toaster_type": "warning",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "physical-exam-relevance-rules.yml"
+          }
+        }
+      }
     }
   ],
   "count": 1,
