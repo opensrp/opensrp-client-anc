@@ -220,6 +220,6 @@ actions:
 name: step3_gravida_toaster
 description: Obstetric Info
 priority: 1
-condition: "step3_gravida !=1 + (step3_previous_pregnancies+step3_miscarriages_abortions+step3_live_births+step3_stillbirths)"
+condition: "step3_gravida != 0 && step3_gravida != 1 + (step3_previous_pregnancies+step3_miscarriages_abortions+step3_live_births+step3_stillbirths)"
 actions:
   - "isRelevant = true"
