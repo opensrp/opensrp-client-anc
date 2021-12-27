@@ -1465,25 +1465,6 @@
             ]
           },
           {
-            "key": "puerperium",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "puerperium",
-            "type": "native_radio",
-            "label": "Puerperium?",
-            "label_text_style": "bold",
-            "options": [
-              {
-                "key": "normal",
-                "text": "Normal"
-              },
-              {
-                "key": "abnormal",
-                "text": "Abnormal"
-              }
-            ]
-          },
-          {
             "key": "due_date_pregnancy",
             "openmrs_entity_parent": "",
             "openmrs_entity": "person_attribute",
@@ -1917,27 +1898,6 @@
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "76613AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "folic_acid",
-            "text": "{{anc_profile.step4.allergies.options.folic_acid.text}}"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "78218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "iron",
-            "text": "{{anc_profile.step4.allergies.options.iron.text}}"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "79229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "magnesium_carbonate",
-            "text": "{{anc_profile.step4.allergies.options.magnesium_carbonate.text}}"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
             "openmrs_entity_id": "924AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "malaria_medication",
             "text": "{{anc_profile.step4.allergies.options.malaria_medication.text}}"
@@ -1948,13 +1908,6 @@
             "openmrs_entity_id": "81724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "penicillin",
             "text": "{{anc_profile.step4.allergies.options.penicillin.text}}"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "84797AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "prep_tenofovir_disoproxil_fumarate",
-            "text": "{{anc_profile.step4.allergies.options.prep_tenofovir_disoproxil_fumarate.text}}"
           },
           {
             "openmrs_entity_parent": "",
@@ -2078,34 +2031,6 @@
         "v_required": {
           "value": false,
           "err": "{{anc_profile.step4.surgeries.v_required.err}}"
-        }
-      },
-      {
-        "key": "surgeries_other_gyn_proced",
-        "openmrs_entity_parent": "165263AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165264AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
-        "hint": "{{anc_profile.step4.surgeries_other_gyn_proced.hint}}",
-        "edit_type": "edit_text",
-        "other_for": {
-          "parent_key": "surgeries",
-          "label": "Other gynecological procedures (specify)"
-        },
-        "relevance": {
-          "step4:surgeries": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "other_gynecological_procedures"
-                ]
-              }
-            ]
-          }
-        },
-        "v_required": {
-          "value": false,
-          "err": "{{anc_profile.step4.surgeries_other_gyn_proced.v_required.err}}"
         }
       },
       {
@@ -3078,7 +3003,7 @@
               "rules-file": "profile_relevance_rules.yml"
             }
           }
-        }
+
       },
       {
         "key": "shs_exposure",
