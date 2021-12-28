@@ -1207,7 +1207,7 @@
             "key": "gestational_age_label",
             "type": "label",
             "label_text_style": "bold",
-            "text": "Gestational age?",
+            "text": "Gestational age (months)",
             "text_color": "#000000",
             "v_required": {
               "value": false
@@ -1218,7 +1218,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "gestational_age",
-            "label": "Gestational age?",
+            "label": "Gestational age",
             "label_text_style": "bold",
             "type": "normal_edit_text",
             "edit_text_style": "bordered",
@@ -1232,8 +1232,8 @@
               "err": "Gestational age must be equal or greater than 0"
             },
             "v_max": {
-              "value": "48",
-              "err": "Gestational age must be equal or less than 48"
+              "value": "10",
+              "err": "Gestational age must be equal or less than 10"
             },
             "v_required": {
               "value": "false",
@@ -1246,7 +1246,7 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "live_birth",
             "type": "native_radio",
-            "label": "Live birth?",
+            "label": "Live birth",
             "label_text_style": "bold",
             "options": [
               {
@@ -1265,7 +1265,7 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "stillbirth",
             "type": "native_radio",
-            "label": "Stillbirth?",
+            "label": "Stillbirth",
             "label_text_style": "bold",
             "relevance": {
               "step3:live_birth": {
@@ -1290,7 +1290,7 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "miscarriage_abortion",
             "type": "native_radio",
-            "label": "Miscarriage/Abortion?",
+            "label": "Miscarriage/Abortion",
             "label_text_style": "bold",
             "relevance": {
               "step3:stillbirth": {
@@ -1315,7 +1315,7 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "sex_infant",
             "type": "native_radio",
-            "label": "Sex of infant?",
+            "label": "Sex of infant",
             "label_text_style": "bold",
             "relevance": {
               "step3:live_birth": {
@@ -1340,7 +1340,7 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "sex_dead_infant",
             "type": "native_radio",
-            "label": "Sex of infant?",
+            "label": "Sex of infant",
             "label_text_style": "bold",
             "relevance": {
               "step3:miscarriage_abortion": {
@@ -1369,7 +1369,7 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "delivery_method",
             "type": "native_radio",
-            "label": "Method of delivery?",
+            "label": "Method of delivery",
             "label_text_style": "bold",
             "options": [
               {
@@ -1394,7 +1394,7 @@
             "key": "birth_weight_label",
             "type": "label",
             "label_text_style": "bold",
-            "text": "Birth weight?",
+            "text": "Birth weight",
             "text_color": "#000000",
             "v_required": {
               "value": false
@@ -1451,7 +1451,7 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "complications",
             "type": "native_radio",
-            "label": "Any complications in child birth?",
+            "label": "Any complications in child birth",
             "label_text_style": "bold",
             "options": [
               {
@@ -2440,7 +2440,7 @@
         "openmrs_entity_id": "underimmunized_doses",
         "type": "edit_text",
         "edit_type": "number",
-        "hint": "How many doses ?",
+        "hint": "How many doses",
         "v_regex": {
           "value": "([1-4]{1})|s*",
           "err": "Number of Vaccinations cannot be over 4"
@@ -2989,7 +2989,7 @@
               "rules-file": "profile_relevance_rules.yml"
             }
           }
-
+        }
       },
       {
         "key": "shs_exposure",
@@ -3484,7 +3484,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "on_art",
         "type": "native_radio",
-        "label": "On art?",
+        "label": "On art",
         "options": [
           {
             "key": "yes",
@@ -3642,7 +3642,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "on_art",
         "type": "native_radio",
-        "label": "On art?",
+        "label": "On art",
         "options": [
           {
             "key": "yes",
