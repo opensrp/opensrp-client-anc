@@ -66,10 +66,10 @@ fields:
 group: reason_for_referral
 fields:
 - template: "{{contact_summary.reason_for_visit.reason_for_coming_to_facility}}: {reasons_value}"
-  relevance: "contact_reason_value != ''"
+  relevance: "reasons_value != ''"
 
 - template: "{{contact_summary.reason_for_visit.reason_for_coming_to_facility}}: {treatment_value}"
-  relevance: "specific_complaint_value != ''"
+  relevance: "treatment_value != ''"
 
 ---
 group: demographic_info

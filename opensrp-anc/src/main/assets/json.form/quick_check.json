@@ -639,6 +639,38 @@
         }
       },
       {
+        "key": "diagnostics",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "diagnostics",
+        "type": "edit_text",
+        "hint": "Diagnostics and tests(specify)",
+        "edit_type": "name",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "quick_check_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_services",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_services",
+        "type": "edit_text",
+        "hint": "Other general services(specify)",
+        "edit_type": "name",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "quick_check_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "reasons_label",
         "type": "label",
         "label_text_style": "bold",
@@ -646,6 +678,13 @@
         "text_color": "#000000",
         "v_required": {
           "value": false
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "quick_check_relevance_rules.yml"
+            }
+          }
         }
       },
       {
@@ -654,7 +693,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "reasons",
         "type": "native_radio",
-        "label": "Family planning?",
+        "label": "Family planning",
         "options": [
           {
             "key": "injectable",
@@ -688,25 +727,14 @@
         "v_required": {
           "value": "false",
           "err": "{{anc_quick_check.step1.contact_reason.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "quick_check_relevance_rules.yml"
+            }
+          }
         }
-      },
-      {
-        "key": "diagnostics",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "diagnostics",
-        "type": "edit_text",
-        "hint": "Diagnostics and tests(specify)",
-        "edit_type": "name"
-      },
-      {
-        "key": "other_services",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "other_services",
-        "type": "edit_text",
-        "hint": "Other general services(specify)",
-        "edit_type": "name"
       },
       {
         "key": "treatment",
@@ -714,7 +742,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "treatment",
         "type": "native_radio",
-        "label": "Any treatment given before referral?",
+        "label": "Any treatment given before referral",
         "options": [
           {
             "key": "yes",
@@ -734,6 +762,13 @@
         "v_required": {
           "value": "false",
           "err": "{{anc_quick_check.step1.contact_reason.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "quick_check_relevance_rules.yml"
+            }
+          }
         }
       },
       {
@@ -742,8 +777,15 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "receiving",
         "type": "edit_text",
-        "hint": "Receiving Facility?",
-        "edit_type": "name"
+        "hint": "Receiving Facility",
+        "edit_type": "name",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "quick_check_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "provider_name",
@@ -751,10 +793,17 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "provider_name",
         "type": "edit_text",
-        "hint": "Providers name?",
+        "hint": "Providers name",
         "edit_type": "name",
         "read_only": "true",
-        "value": "James"
+        "value": "James",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "quick_check_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "provider_phone_number",
@@ -762,7 +811,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "provider_phone_number",
         "type": "edit_text",
-        "hint": "Providers phone number?",
+        "hint": "Providers phone number",
         "v_numeric": {
           "value": "true",
           "err": "Enter number"
@@ -770,6 +819,13 @@
         "v_regex": {
           "value": "(0([9]{1}[5-7]{1}|[7]{1}[6/7]{1})[0-9]{7})|s*",
           "err": "Number must must be a total of 10 digits in length"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "quick_check_relevance_rules.yml"
+            }
+          }
         }
       },
       {
@@ -778,8 +834,15 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "referral_notes",
         "type": "edit_text",
-        "hint": "Referral notes?",
-        "edit_type": "name"
+        "hint": "Referral notes",
+        "edit_type": "name",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "quick_check_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "date_referral",
@@ -795,6 +858,13 @@
         "v_required": {
           "value": "true",
           "err": "Please specify date of referral"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "quick_check_relevance_rules.yml"
+            }
+          }
         }
       },
       {
@@ -811,6 +881,13 @@
         "v_required": {
           "value": "true",
           "err": "Please specify date of schedule"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "quick_check_relevance_rules.yml"
+            }
+          }
         }
       }
     ]

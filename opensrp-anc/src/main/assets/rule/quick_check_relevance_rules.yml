@@ -9,6 +9,76 @@ actions:
 name: step1_reasons
 description: reasons
 priority: 1
-condition: "!step1_contact_reason.isEmpty()"
+condition: "!step1_danger_signs.isEmpty()"
+actions:
+  - "isRelevant = true"
+---
+name: step1_reasons_label
+description: reasons_label
+priority: 1
+condition: "!step1_danger_signs.isEmpty()"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diagnostics
+description: diagnostics
+priority: 1
+condition: "!step1_danger_signs.isEmpty()"
+actions:
+  - "isRelevant = true"
+---
+name: step1_other_services
+description: other_services
+priority: 1
+condition: "!step1_danger_signs.isEmpty()"
+actions:
+  - "isRelevant = true"
+---
+name: step1_treatment
+description: treatment
+priority: 1
+condition: "!step1_danger_signs.isEmpty()"
+actions:
+  - "isRelevant = true"
+---
+name: step1_receiving
+description: receiving
+priority: 1
+condition: "!step1_danger_signs.isEmpty()"
+actions:
+  - "isRelevant = true"
+---
+name: step1_provider_name
+description: provider_name
+priority: 1
+condition: "!step1_danger_signs.isEmpty()"
+actions:
+  - "isRelevant = true"
+---
+name: step1_provider_phone_number
+description: provider_phone_number
+priority: 1
+condition: "!step1_danger_signs.isEmpty()"
+actions:
+  - "isRelevant = true"
+---
+name: step1_referral_notes
+description: referral_notes
+priority: 1
+condition: "!step1_danger_signs.isEmpty()"
+actions:
+  - "isRelevant = true"
+---
+name: step1_date_referral
+description: date_referral
+priority: 1
+condition: "!step1_danger_signs.isEmpty()"
+actions:
+  - "isRelevant = true"
+---
+name: step1_date_scheduled
+description: date_scheduled
+priority: 1
+condition: "!step1_danger_signs.isEmpty()"
 actions:
   - "isRelevant = true"
