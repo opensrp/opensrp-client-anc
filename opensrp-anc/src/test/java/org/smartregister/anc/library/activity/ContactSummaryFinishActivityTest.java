@@ -41,17 +41,12 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
 
     private ActivityController<ContactSummaryFinishActivity> activityController;
     private ContactSummaryFinishActivity activity;
-    @Mock
-    private CollapsingToolbarLayout collapsingToolbarLayout;
 
     @Mock
     private ProfileContract.Presenter presenter;
 
     @Mock
     private TextView textView;
-
-    @Mock
-    private AppBarLayout appBarLayout;
 
     @Mock
     private PartialContactRepository partialContactRepository;

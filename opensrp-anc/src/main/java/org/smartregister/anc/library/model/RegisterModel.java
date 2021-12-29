@@ -59,7 +59,7 @@ public class RegisterModel implements RegisterContract.Model {
     }
 
     protected FormUtils getFormUtils() {
-        return new com.vijay.jsonwizard.utils.FormUtils();
+        return new FormUtils();
     }
 
     @Override
