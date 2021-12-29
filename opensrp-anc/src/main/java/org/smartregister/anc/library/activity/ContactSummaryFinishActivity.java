@@ -228,6 +228,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         //Overriden
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     public List<YamlConfig> getYamlConfigList() {

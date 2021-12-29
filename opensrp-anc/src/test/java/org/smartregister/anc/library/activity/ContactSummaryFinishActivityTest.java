@@ -220,7 +220,7 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
     }
 
     @Test
-    public void testProcessShouldPopulateContactSummaryYamlConfigListCorrectly()  {
+    public void testProcessShouldPopulateContactSummaryYamlConfigListCorrectly() {
         ContactSummaryFinishActivity spyActivity = Mockito.spy(activity);
         Mockito.doNothing().when(spyActivity).registerEventBus();
         Mockito.doReturn(partialContactRepository).when(spyActivity).getPartialContactRepository();
@@ -245,9 +245,9 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
         partialContactsList.add(partialContact);
         Mockito.doReturn(partialContactsList).when(partialContactRepository).getPartialContacts(DUMMY_BASE_ENTITY_ID, DUMMY_CONTACT_NO);
         ReflectionHelpers.callInstanceMethod(spyActivity, "process");
-        List<YamlConfig> list = Whitebox.getInternalState(spyActivity, "yamlConfigList");
+        List<YamlConfig> list = spyActivity.getYamlConfigList();
         Assert.assertNotNull(list);
-        Assert.assertEquals(38, list.size());
+        Assert.assertEquals(1, list.size());
     }
 
     @Test
