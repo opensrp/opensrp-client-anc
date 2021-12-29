@@ -1,5 +1,5 @@
 ---
-propertiesFileName: "contact_summary"
+properties_file_name: "contact_summary"
 group: hospital_referral
 fields:
   - template: "{{contact_summary.hospital_referral.woman_referred_to_hospital}}"
