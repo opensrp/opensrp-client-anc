@@ -639,6 +639,23 @@
         }
       },
       {
+        "key": "reasons_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Reasons for referral",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "quick_check_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "diagnostics",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -662,23 +679,6 @@
         "type": "edit_text",
         "hint": "Other general services(specify)",
         "edit_type": "name",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "quick_check_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "reasons_label",
-        "type": "label",
-        "label_text_style": "bold",
-        "text": "Reasons for referral",
-        "text_color": "#000000",
-        "v_required": {
-          "value": false
-        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
