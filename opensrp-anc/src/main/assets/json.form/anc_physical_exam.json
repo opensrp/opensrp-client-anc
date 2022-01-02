@@ -204,12 +204,12 @@
           "err": ""
         },
         "v_min": {
-          "value": "70",
-          "err": "SBP must be equal or greater than 70"
+          "value": "90",
+          "err": "SBP must be equal or greater than 90"
         },
         "v_max": {
-          "value": "159",
-          "err": "SBP must be equal or less than 159"
+          "value": "139",
+          "err": "SBP must be equal or less than 139"
         },
         "v_required": {
           "value": "true",
@@ -281,12 +281,12 @@
           "err": ""
         },
         "v_min": {
-          "value": "40",
-          "err": "DBP must be equal to or greater than 40"
+          "value": "60",
+          "err": "DBP must be equal to or greater than 60"
         },
         "v_max": {
-          "value": "109",
-          "err": "DBP must be equal to or less than 109"
+          "value": "89",
+          "err": "DBP must be equal to or less than 89"
         },
         "v_required": {
           "value": "true",
@@ -3217,22 +3217,6 @@
             "value": "false",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "160091AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "pelvic",
-            "text": "{{anc_physical_exam.step4.fetal_presentation.options.pelvic.text}}",
-            "value": "false",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "146922AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "transverse",
-            "text": "{{anc_physical_exam.step4.fetal_presentation.options.transverse.text}}",
-            "value": "false",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "112259AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
