@@ -1380,7 +1380,14 @@
                 "key": "c",
                 "text": "C-Section"
               }
-            ]
+            ],
+            "relevance": {
+              "rules-engine": {
+                "ex-rules": {
+                  "rules-file": "profile_relevance_rules.yml"
+                }
+              }
+            }
           },
           {
             "key": "spacer",
@@ -1389,6 +1396,25 @@
             "openmrs_entity_id": "spacer",
             "type": "spacer",
             "spacer_height": "10sp"
+          },
+          {
+            "key": "labour_type",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "labour_type",
+            "type": "native_radio",
+            "label": "Type of labour",
+            "label_text_style": "bold",
+            "options": [
+              {
+                "key": "induced",
+                "text": "Induced"
+              },
+              {
+                "key": "spontaneous",
+                "text": "Spontaneous"
+              }
+            ]
           },
           {
             "key": "birth_weight_label",
@@ -1444,6 +1470,37 @@
               "value": "false",
               "err": "Please enter birth weight"
             }
+          },
+          {
+            "key": "outcome",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "outcome",
+            "type": "native_radio",
+            "label": "Outcome",
+            "label_text_style": "bold",
+            "options": [
+              {
+                "key": "live",
+                "text": "Live birth"
+              },
+              {
+                "key": "still",
+                "text": "Still birth"
+              },
+              {
+                "key": "abortion_miscarriage",
+                "text": "Abortion/Miscarriage"
+              }
+            ]
+          },
+          {
+            "key": "spacer",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "spacer",
+            "type": "spacer",
+            "spacer_height": "10sp"
           },
           {
             "key": "complications",

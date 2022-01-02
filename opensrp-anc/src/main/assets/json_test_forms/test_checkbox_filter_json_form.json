@@ -1983,39 +1983,6 @@
         "spacer_height": "10sp"
       },
       {
-        "key": "abdominal_exam",
-        "openmrs_entity_parent": "Abdominal Examination",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "160947",
-        "type": "native_radio",
-        "label": "Abdominal exam",
-        "label_text_style": "bold",
-        "text_color": "#000000",
-        "extra_rel": true,
-        "has_extra_rel": "3",
-        "options": [
-          {
-            "key": "1",
-            "text": "Not done"
-          },
-          {
-            "key": "2",
-            "text": "Normal"
-          },
-          {
-            "key": "3",
-            "text": "Abnormal",
-            "specify_info": "specify...",
-            "specify_widget": "check_box",
-            "specify_info_color": "#8C8C8C",
-            "content_form": "abdominal_exam_sub_form"
-          }
-        ],
-        "step": "step3",
-        "is-rule-check": true,
-        "value": "2"
-      },
-      {
         "key": "toaster24",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",

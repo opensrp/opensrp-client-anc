@@ -223,3 +223,10 @@ priority: 1
 condition: "(step1_educ_level.contains('none'))"
 actions:
   - "isRelevant = true"
+---
+name: step3_delivery_method
+description: delivery_method
+priority: 1
+condition: "(step3_gestational_age > 6) && (step1_gestational_age < 11)"
+actions:
+  - "isRelevant = true"
