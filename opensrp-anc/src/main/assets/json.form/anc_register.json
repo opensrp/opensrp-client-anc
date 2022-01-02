@@ -379,6 +379,35 @@
         }
       },
       {
+        "key": "couple",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "couple",
+        "type": "native_radio",
+        "label": "Came as couple to ANC?",
+        "label_info_text": "Came as couple to ANC?",
+        "label_text_style": "normal",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "yes",
+            "text": "{{anc_register.step1.reminders.options.yes.text}}",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no",
+            "text": "{{anc_register.step1.reminders.options.no.text}}",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": false,
+          "err": "{{anc_register.step1.reminders.v_required.err}}"
+        }
+      },
+      {
         "key": "alt_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
