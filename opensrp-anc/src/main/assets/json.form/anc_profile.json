@@ -2669,30 +2669,6 @@
             "openmrs_entity_parent": ""
           },
           {
-            "key": "doxylamine",
-            "text": "{{anc_profile.step6.medications.options.doxylamine.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "75229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "folic_acid",
-            "text": "{{anc_profile.step6.medications.options.folic_acid.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "76613AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "iron",
-            "text": "{{anc_profile.step6.medications.options.iron.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "78218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
             "key": "magnesium",
             "text": "{{anc_profile.step6.medications.options.magnesium.text}}",
             "value": false,
@@ -2717,59 +2693,51 @@
             "openmrs_entity_parent": ""
           },
           {
-            "key": "analgesic",
-            "text": "{{anc_profile.step6.medications.options.analgesic.text}}",
+            "key": "carbamazepine",
+            "text": "Carbamazepine",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "165231AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "carbamazepine",
             "openmrs_entity_parent": ""
           },
           {
-            "key": "anti_convulsive",
-            "text": "{{anc_profile.step6.medications.options.anti_convulsive.text}}",
+            "key": "phenytoin",
+            "text": "Phenytoin",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "165230AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "phenytoin",
             "openmrs_entity_parent": ""
           },
           {
-            "key": "anti_diabetic",
-            "text": "{{anc_profile.step6.medications.options.anti_diabetic.text}}",
+            "key": "metformine",
+            "text": "Metformine",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "159460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "metformine",
             "openmrs_entity_parent": ""
           },
           {
-            "key": "anthelmintic",
-            "text": "{{anc_profile.step6.medications.options.anthelmintic.text}}",
+            "key": "glibenclamide",
+            "text": "Glibenclamide (Daonil)",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "165238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "glibenclamide",
             "openmrs_entity_parent": ""
           },
           {
-            "key": "anti_hypertensive",
-            "text": "{{anc_profile.step6.medications.options.anti_hypertensive.text}}",
+            "key": "nifedipine",
+            "text": "Nifedipine",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "165237AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "nifedipine",
             "openmrs_entity_parent": ""
           },
           {
-            "key": "anti_malarials",
-            "text": "{{anc_profile.step6.medications.options.anti_malarials.text}}",
+            "key": "methyldopa",
+            "text": "Methyldopa",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "5839AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "antivirals",
-            "text": "{{anc_profile.step6.medications.options.antivirals.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165236AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "methyldopa",
             "openmrs_entity_parent": ""
           },
           {
@@ -2781,59 +2749,11 @@
             "openmrs_entity_parent": ""
           },
           {
-            "key": "prep_hiv",
-            "text": "{{anc_profile.step6.medications.options.prep_hiv.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "antitussive",
-            "text": "{{anc_profile.step6.medications.options.antitussive.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165235AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "cotrimoxazole",
-            "text": "{{anc_profile.step6.medications.options.cotrimoxazole.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "105281AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "hemorrhoidal",
-            "text": "{{anc_profile.step6.medications.options.hemorrhoidal.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165255AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "multivitamin",
-            "text": "{{anc_profile.step6.medications.options.multivitamin.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "461AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
             "key": "salbutamol",
             "text": "Salbutamol",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "461AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "thyroid",
-            "text": "{{anc_profile.step6.medications.options.thyroid.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165232AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
