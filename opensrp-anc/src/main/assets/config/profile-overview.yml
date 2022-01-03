@@ -159,7 +159,7 @@ fields:
     relevance: "body_temp_repeat >= 38"
     isRedFont: "true"
 
-  - template: "{{profile_overview.hospital_referral_reasons.abnormal_pulse_rate}}: {pulse_rate_repeat} bpm"
+  - template: "{{profile_overview.hospital_referral_reasons.abnormal_pulse_rate}}: {pulse_rate_repeat} kpm"
     relevance: "pulse_rate_repeat < 60 || pulse_rate_repeat > 100"
 
   - template: "{{profile_overview.hospital_referral_reasons.respiratory_distress}}: {respiratory_exam_abnormal_value}"
@@ -185,7 +185,7 @@ fields:
     relevance: "fetal_heartbeat == 'No'"
     isRedFont: "true"
 
-  - template: "{{profile_overview.hospital_referral_reasons.abnormal_fetal_heart_rate}}: {fetal_heart_rate_repeat} bpm"
+  - template: "{{profile_overview.hospital_referral_reasons.abnormal_fetal_heart_rate}}: {fetal_heart_rate_repeat} kpm"
     relevance: "fetal_heart_rate_repeat < 100 || fetal_heart_rate_repeat > 180"
 
 ---
