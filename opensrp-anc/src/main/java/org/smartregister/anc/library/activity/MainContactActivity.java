@@ -538,7 +538,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 disabledFields = com.vijay.jsonwizard.utils.Utils.convertJsonArrayToSet(formConfig.optJSONArray(JsonFormConstants.JSON_FORM_KEY.DISABLED_FIELDS));
             }
         } catch (JSONException | IOException e) {
-            Timber.e(e);
+            Timber.w(e);
         }
         contact.setHiddenFields(hiddenFields);
         contact.setDisabledFields(disabledFields);
