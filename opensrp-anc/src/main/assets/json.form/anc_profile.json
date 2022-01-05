@@ -1924,15 +1924,15 @@
     "next": "step5",
     "fields": [
       {
-        "key": "allergies",
+        "key": "health_conditions",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "160643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "1628AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select multiple",
         "type": "check_box",
-        "label": "{{anc_profile.step4.allergies.label}}",
+        "label": "{{anc_profile.step4.health_conditions.label}}",
         "label_text_style": "bold",
-        "hint": "{{anc_profile.step4.allergies.hint}}",
+        "hint": "{{anc_profile.step4.health_conditions.hint}}",
         "exclusive": [
           "none",
           "dont_know"
@@ -1943,52 +1943,105 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "none",
-            "text": "{{anc_profile.step4.allergies.options.none.text}}"
+            "text": "{{anc_profile.step4.health_conditions.options.none.text}}"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "dont_know",
-            "text": "{{anc_profile.step4.allergies.options.dont_know.text}}"
+            "text": "{{anc_profile.step4.health_conditions.options.dont_know.text}}"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "924AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "malaria_medication",
-            "text": "{{anc_profile.step4.allergies.options.malaria_medication.text}}"
+            "openmrs_entity_id": "148117AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "asthma",
+            "text": "Asthma"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "81724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "penicillin",
-            "text": "{{anc_profile.step4.allergies.options.penicillin.text}}"
+            "openmrs_entity_id": "165223AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "blood_disorder",
+            "text": "{{anc_profile.step4.health_conditions.options.blood_disorder.text}}"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "key": "cancer_other",
+            "text": "{{anc_profile.step4.health_conditions.options.cancer_other.text}}"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "key": "gest_diabetes",
+            "text": "Diabetes Mellitus"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "155AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "epilepsy",
+            "text": "{{anc_profile.step4.health_conditions.options.epilepsy.text}}"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "138571AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "hiv",
+            "text": "{{anc_profile.step4.health_conditions.options.hiv.text}}"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "hypertension",
+            "text": "Hypertension"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "mental",
+            "text": "Mental illness"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "tb",
+            "text": "TB"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "other",
-            "text": "{{anc_profile.step4.allergies.options.other.text}}"
+            "text": "{{anc_profile.step4.health_conditions.options.other.text}}"
           }
         ],
         "v_required": {
           "value": false,
-          "err": "{{anc_profile.step4.allergies.v_required.err}}"
+          "err": "{{anc_profile.step4.health_conditions.v_required.err}}"
         }
       },
       {
-        "key": "allergies_other",
-        "openmrs_entity_parent": "160643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "key": "health_conditions_other",
+        "openmrs_entity_parent": "1628AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "hint": "{{anc_profile.step4.allergies_other.hint}}",
+        "hint": "{{anc_profile.step4.health_conditions_other.hint}}",
         "edit_type": "edit_text",
+        "v_required": {
+          "value": false,
+          "err": "{{anc_profile.step4.health_conditions_other.v_required.err}}"
+        },
         "relevance": {
-          "step4:allergies": {
+          "step4:health_conditions": {
             "ex-checkbox": [
               {
                 "or": [
@@ -2114,16 +2167,17 @@
           }
         }
       },
+
       {
-        "key": "health_conditions",
+        "key": "allergies",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1628AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "160643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select multiple",
         "type": "check_box",
-        "label": "{{anc_profile.step4.health_conditions.label}}",
+        "label": "{{anc_profile.step4.allergies.label}}",
         "label_text_style": "bold",
-        "hint": "{{anc_profile.step4.health_conditions.hint}}",
+        "hint": "{{anc_profile.step4.allergies.hint}}",
         "exclusive": [
           "none",
           "dont_know"
@@ -2134,91 +2188,64 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "none",
-            "text": "{{anc_profile.step4.health_conditions.options.none.text}}"
+            "text": "{{anc_profile.step4.allergies.options.none.text}}"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "dont_know",
-            "text": "{{anc_profile.step4.health_conditions.options.dont_know.text}}"
+            "text": "{{anc_profile.step4.allergies.options.dont_know.text}}"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "148117AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "asthma",
-            "text": "Asthma"
+            "openmrs_entity_id": "924AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "malaria_medication",
+            "text": "{{anc_profile.step4.allergies.options.malaria_medication.text}}"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "165223AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "blood_disorder",
-            "text": "{{anc_profile.step4.health_conditions.options.blood_disorder.text}}"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "key": "cancer_other",
-            "text": "{{anc_profile.step4.health_conditions.options.cancer_other.text}}"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "key": "gest_diabetes",
-            "text": "Diabetes Mellitus"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "155AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "epilepsy",
-            "text": "{{anc_profile.step4.health_conditions.options.epilepsy.text}}"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "138571AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "hiv",
-            "text": "{{anc_profile.step4.health_conditions.options.hiv.text}}"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "hypertension",
-            "text": "Hypertension"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "mental",
-            "text": "Mental illness"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "key": "tb",
-            "text": "TB"
+            "openmrs_entity_id": "81724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "penicillin",
+            "text": "{{anc_profile.step4.allergies.options.penicillin.text}}"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "other",
-            "text": "{{anc_profile.step4.health_conditions.options.other.text}}"
+            "text": "{{anc_profile.step4.allergies.options.other.text}}"
           }
         ],
         "v_required": {
           "value": false,
-          "err": "{{anc_profile.step4.health_conditions.v_required.err}}"
+          "err": "{{anc_profile.step4.allergies.v_required.err}}"
         }
       },
+      {
+        "key": "allergies_other",
+        "openmrs_entity_parent": "160643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "{{anc_profile.step4.allergies_other.hint}}",
+        "edit_type": "edit_text",
+        "relevance": {
+          "step4:allergies": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
+        }
+      },
+
+
       {
         "key": "health_conditions_cancer_other",
         "openmrs_entity_parent": "",
@@ -2237,30 +2264,6 @@
               {
                 "or": [
                   "cancer_other"
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "key": "health_conditions_other",
-        "openmrs_entity_parent": "1628AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
-        "hint": "{{anc_profile.step4.health_conditions_other.hint}}",
-        "edit_type": "edit_text",
-        "v_required": {
-          "value": false,
-          "err": "{{anc_profile.step4.health_conditions_other.v_required.err}}"
-        },
-        "relevance": {
-          "step4:health_conditions": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "other"
                 ]
               }
             ]
