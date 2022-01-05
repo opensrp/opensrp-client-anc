@@ -1854,23 +1854,31 @@
         "options": [
           {
             "key": "none",
-            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.none.text}}",
+            "text": "{{anc_physical_exam.step3.ipv_physical_signs_symptoms.options.none.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "",
             "openmrs_entity_parent": ""
           },
           {
-            "key": "stress",
-            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.stress.text}}",
+            "key": "traumatic_injury",
+            "text": "Traumatic injury or implausible explanations",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "",
             "openmrs_entity_parent": ""
           },
           {
-            "key": "anxiety",
-            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.anxiety.text}}",
+            "key": "intrusive",
+            "text": "Intrusive partner or husband present at consultations",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "adverse",
+            "text": "Adverse reproductive outcomes",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "",
@@ -1878,175 +1886,47 @@
           },
           {
             "key": "depression",
-            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.depression.text}}",
+            "text": "Symptoms of depression and anxiety",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "",
             "openmrs_entity_parent": ""
           },
           {
-            "key": "emotional_health_issues",
-            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.emotional_health_issues.text}}",
+            "key": "alcohol",
+            "text": "Alcohol and other substance use",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "",
             "openmrs_entity_parent": ""
           },
           {
-            "key": "alcohol_misuse",
-            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.alcohol_misuse.text}}",
+            "key": "suicidal",
+            "text": "Self-harm or suicidal",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "",
             "openmrs_entity_parent": ""
           },
           {
-            "key": "drugs_misuse",
-            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.drugs_misuse.text}}",
+            "key": "unexplained",
+            "text": "Unexplained or repeated genitourinary symptoms",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "",
             "openmrs_entity_parent": ""
           },
           {
-            "key": "suicide_thoughts",
-            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.suicide_thoughts.text}}",
+            "key": "other_injury",
+            "text": "{{anc_physical_exam.step3.ipv_physical_signs_symptoms.options.other_injury.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "",
             "openmrs_entity_parent": ""
           },
           {
-            "key": "suicide_plans",
-            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.suicide_plans.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "suicide_acts",
-            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.suicide_acts.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "repeat_stis",
-            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.repeat_stis.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "unwanted_pregnancies",
-            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.unwanted_pregnancies.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "chronic_pain",
-            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.chronic_pain.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "gastro_symptoms",
-            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.gastro_symptoms.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "genitourinary_symptoms",
-            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.genitourinary_symptoms.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "adverse_repro_outcomes",
-            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.adverse_repro_outcomes.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "unexplained_repro_symptoms",
-            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.unexplained_repro_symptoms.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "repeat_vaginal_bleeding",
-            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.repeat_vaginal_bleeding.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "injury_abdomen",
-            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.injury_abdomen.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "injury_other",
-            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.injury_other.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "problems_cns",
-            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.problems_cns.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "repeat_health_consultations",
-            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.repeat_health_consultations.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "intrusive_partner",
-            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.intrusive_partner.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "misses_appointments",
-            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.misses_appointments.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "children_emotional_problems",
-            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.children_emotional_problems.text}}",
+            "key": "other",
+            "text": "{{anc_physical_exam.step3.ipv_physical_signs_symptoms.options.other.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "",

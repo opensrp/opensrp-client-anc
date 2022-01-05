@@ -195,7 +195,7 @@
     <string name="danger_signs"><font fgcolor="black">Danger signs </font><font fgcolor="red">*</font></string>
 
     <string name="danger_none">None</string>
-    <string name="danger_bleeding">Bleeding vaginally</string>
+    <string name="danger_bleeding">Vaginal bleeding</string>
     <string name="central_cyanosis">Central cyanosis</string>
     <string name="convulsing">Convulsing</string>
     <string name="danger_fever">Fever</string>

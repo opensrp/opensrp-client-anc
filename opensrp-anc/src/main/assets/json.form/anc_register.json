@@ -349,6 +349,237 @@
           "err": "Number must must be a total of 10 digits in length"
         }
       },
+
+      {
+        "key": "educ_level",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "educ_level",
+        "type": "native_radio",
+        "label": "Level of education",
+        "options": [
+          {
+            "key": "none",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none",
+            "text": "None"
+          },
+          {
+            "key": "primary",
+            "text": "Primary",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "primary"
+          },
+          {
+            "key": "secondary",
+            "text": "Secondary",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "secondary"
+          },
+          {
+            "key": "higher",
+            "text": "Higher",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "Higher"
+          }
+        ],
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "marital_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "martial_status",
+        "type": "native_radio",
+        "label": "Martial Status",
+        "options": [
+          {
+            "key": "single",
+            "text": "Single",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "single"
+          },
+          {
+            "key": "cohabiting",
+            "text": "Living with a partner(Cohabiting)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "cohabiting"
+          },
+          {
+            "key": "married",
+            "text": "Married",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "married"
+          },
+          {
+            "key": "separated",
+            "text": "Separated",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "separated"
+          },
+          {
+            "key": "divorced",
+            "text": "Divorced",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "divorced"
+          },
+          {
+            "key": "widowed",
+            "text": "Widowed",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "widowed"
+          }
+        ],
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "occupation",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "occupation",
+        "type": "native_radio",
+        "label": "Occupation",
+        "hint": "Occupation",
+        "options": [
+          {
+            "key": "student",
+            "text": "Student",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "student"
+          },
+          {
+            "key": "unemployed",
+            "text": "Unemployed",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "unemployed"
+          },
+          {
+            "key": "formal_employment",
+            "text": "Formal Employment",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "formal_employment"
+          },
+          {
+            "key": "informal_employment_other",
+            "text": "Informal employment",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "informal_employment_other"
+          },
+          {
+            "key": "other",
+            "text": "Other",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other"
+          }
+        ],
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "occupation_redacted",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "occupation_redacted",
+        "type": "native_radio",
+        "label": "Occupation",
+        "hint": "Occupation",
+        "options": [
+          {
+            "key": "unemployed_redacted",
+            "text": "Unemployed",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "unemployed_reducted"
+          },
+          {
+            "key": "formal_employment_redacted",
+            "text": "Formal employment",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "formal_employment_redacted"
+          },
+          {
+            "key": "informal_employment_other_redacted",
+            "text": "Informal employment",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "informal_employment_other_redacted"
+          },
+          {
+            "key": "other_redacted",
+            "text": "Other",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_redacted"
+          }
+        ],
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "occupation_other",
+        "openmrs_entity_parent": "occupation_other",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "occupation_other",
+        "type": "edit_text",
+        "hint": "Other",
+        "edit_type": "name",
+        "relevance": {
+          "step1:occupation": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+        },
+        "v_required": {
+          "value": false
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\s\\.\\-]*"
+        }
+      },
+      {
+        "key": "occupation_other_redacted",
+        "openmrs_entity_parent": "occupation_other_redacted",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "occupation_other_redacted",
+        "type": "edit_text",
+        "hint": "Other",
+        "edit_type": "name",
+        "relevance": {
+          "step1:occupation_redacted": {
+            "type": "string",
+            "ex": "equalTo(., \"other_redacted\")"
+          }
+        },
+        "v_required": {
+          "value": false
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\s\\.\\-]*"
+        }
+      },
+
       {
         "key": "reminders",
         "openmrs_entity_parent": "",
@@ -375,6 +606,35 @@
         ],
         "v_required": {
           "value": true,
+          "err": "{{anc_register.step1.reminders.v_required.err}}"
+        }
+      },
+      {
+        "key": "couple",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "couple",
+        "type": "native_radio",
+        "label": "Came as couple to ANC?",
+        "label_info_text": "Came as couple to ANC?",
+        "label_text_style": "normal",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "yes",
+            "text": "{{anc_register.step1.reminders.options.yes.text}}",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no",
+            "text": "{{anc_register.step1.reminders.options.no.text}}",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": false,
           "err": "{{anc_register.step1.reminders.v_required.err}}"
         }
       },
