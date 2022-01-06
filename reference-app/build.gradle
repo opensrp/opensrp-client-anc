@@ -174,6 +174,7 @@ android {
             buildConfigField "int", "CLIENT_SETTINGS_SYNC_MINUTES", '15'
             testCoverageEnabled true
         }
+
     }
 
     packagingOptions {
@@ -185,6 +186,33 @@ android {
         unitTests {
             returnDefaultValues = true
             includeAndroidResources = true
+        }
+    }
+    flavorDimensions 'baseDimension'
+    productFlavors {
+        brazil {
+            dimension 'baseDimension'
+            applicationIdSuffix '.brazil'
+            versionCode 8
+            versionName "2.1.0-SNAPSHOT"
+        }
+        indonesia {
+            dimension 'baseDimension'
+            applicationIdSuffix '.indonesia'
+            versionCode 8
+            versionName "2.1.0-SNAPSHOT"
+        }
+        zambia {
+            dimension 'baseDimension'
+            applicationIdSuffix '.zambia'
+            versionCode 8
+            versionName "2.1.0-SNAPSHOT"
+        }
+        rwanda {
+            dimension 'baseDimension'
+            applicationIdSuffix '.rwanda'
+            versionCode 8
+            versionName "2.1.0-SNAPSHOT"
         }
     }
 
@@ -217,7 +245,7 @@ private String generateVersionName() {
     if (ext.versionClassifier != null) {
         versionName += "-" + ext.versionClassifier
     }
-    return versionName;
+    return versionName
 }
 
 tasks.withType(Test) {
@@ -327,7 +355,14 @@ dependencies {
     testImplementation 'org.apache.maven:maven-ant-tasks:2.1.3'
     testImplementation 'org.skyscreamer:jsonassert:1.5.0'
 }
+def flavors = android.productFlavors.collect { flavor -> flavor.name }
+if (!flavors) flavors.add('')
 
+def testDependencies = []
+flavors.each { productFlavorName ->
+    testDependencies.add("test${productFlavorName.capitalize()}DebugUnitTest")
+    testDependencies.add("create${productFlavorName.capitalize()}DebugCoverageReport")
+}
 task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
     reports {
         xml.enabled = true
