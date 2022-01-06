@@ -773,9 +773,9 @@
           "step1:relation_NK": {
             "type": "string",
             "ex": "equalTo(., \"other_relations\")"
-
-      }
-      }},
+          }
+        }
+      },
       {
         "key": "cohabitants",
         "openmrs_entity_parent": "",
