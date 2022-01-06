@@ -939,7 +939,13 @@
                 "key": "no",
                 "text": "No"
               }
-            ]
+            ],
+            "relevance":{
+              "step2:gestational_age": {
+                "type": "string",
+                "ex": "greaterThan(., \"6\")"
+              }
+            }
           },
           {
             "key": "stillbirth",
@@ -999,10 +1005,10 @@
             "type": "native_radio",
             "label": "Sex of infant",
             "label_text_style": "bold",
-            "relevance": {
-              "step2:live_birth": {
+            "relevance":{
+              "step2:gestational_age": {
                 "type": "string",
-                "ex": "equalTo(., \"yes\")"
+                "ex": "greaterThan(., \"6\")"
               }
             },
             "options": [
@@ -1063,11 +1069,10 @@
                 "text": "C-Section"
               }
             ],
-            "relevance": {
-              "rules-engine": {
-                "ex-rules": {
-                  "rules-file": "profile_relevance_rules.yml"
-                }
+            "relevance":{
+              "step2:gestational_age": {
+                "type": "string",
+                "ex": "greaterThan(., \"6\")"
               }
             }
           },
@@ -1096,7 +1101,13 @@
                 "key": "spontaneous",
                 "text": "Spontaneous"
               }
-            ]
+            ],
+            "relevance":{
+              "step2:gestational_age": {
+                "type": "string",
+                "ex": "greaterThan(., \"6\")"
+              }
+            }
           },
           {
             "key": "birth_weight_label",
@@ -1107,10 +1118,10 @@
             "v_required": {
               "value": false
             },
-            "relevance": {
-              "step2:live_birth": {
+            "relevance":{
+              "step2:gestational_age": {
                 "type": "string",
-                "ex": "equalTo(., \"yes\")"
+                "ex": "greaterThan(., \"6\")"
               }
             }
           },
@@ -1130,10 +1141,10 @@
             "type": "normal_edit_text",
             "edit_text_style": "bordered",
             "edit_type": "number",
-            "relevance": {
-              "step2:live_birth": {
+            "relevance":{
+              "step2:gestational_age": {
                 "type": "string",
-                "ex": "equalTo(., \"yes\")"
+                "ex": "greaterThan(., \"6\")"
               }
             },
             "v_numeric": {
@@ -1174,7 +1185,13 @@
                 "key": "abortion_miscarriage",
                 "text": "Abortion/Miscarriage"
               }
-            ]
+            ],
+            "relevance":{
+              "step2:gestational_age": {
+                "type": "string",
+                "ex": "greaterThan(., \"6\")"
+              }
+            }
           },
           {
             "key": "spacer",
@@ -1201,7 +1218,14 @@
                 "key": "no",
                 "text": "No"
               }
-            ]
+            ],
+            "relevance": {
+              "rules-engine": {
+                "ex-rules": {
+                  "rules-file": "profile_relevance_rules.yml"
+                }
+              }
+            }
           },
           {
             "key": "due_date_pregnancy",
