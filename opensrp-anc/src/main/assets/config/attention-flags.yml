@@ -118,7 +118,7 @@ fields:
     relevance: "!respiratory_exam_abnormal.contains('none') && !respiratory_exam_abnormal.isEmpty()"
 
   - template: "{{attention_flags.red.low_oximetry}}: {oximetry}%"
-    relevance: "oximetry < 92"
+    relevance: "oximetry < 95"
 
   - template: "{{attention_flags.red.abnormal_cardiac_exam}}: {cardiac_exam_abnormal_value}"
     relevance: "!cardiac_exam_abnormal.contains('none') && !cardiac_exam_abnormal.isEmpty()"
