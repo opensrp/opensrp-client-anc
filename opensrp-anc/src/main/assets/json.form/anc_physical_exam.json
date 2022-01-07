@@ -894,6 +894,7 @@
         "label": "{{anc_physical_exam.step2.record_bp_using_optibp_2nd_reading_button.label}}",
         "optibp_button_bg_color": "#EB5281",
         "optibp_button_text_color": "#FFFFFF",
+        "optibp_button_text": "{{anc_physical_exam.step2.record_bp_using_optibp_2nd_reading_button.text}}",
         "read_only": false,
         "optibp_data": {
           "clientId": "",
