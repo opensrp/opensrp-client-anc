@@ -384,7 +384,7 @@
             "text": "Higher",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "Higher"
+            "openmrs_entity_id": "higher"
           }
         ],
         "v_required": {
@@ -493,6 +493,12 @@
         ],
         "v_required": {
           "value": false
+        },
+        "relevance": {
+          "step1:educ_level": {
+            "type": "string",
+            "ex": "notEqualTo(.,\"none\")"
+          }
         }
       },
       {
@@ -535,6 +541,12 @@
         ],
         "v_required": {
           "value": false
+        },
+        "relevance": {
+          "step1:educ_level": {
+            "type": "string",
+            "ex": "equalTo(.,\"none\")"
+          }
         }
       },
       {
