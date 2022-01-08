@@ -353,7 +353,7 @@
       {
         "key": "educ_level",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "educ_level",
         "type": "native_radio",
         "label": "Level of education",
@@ -394,7 +394,7 @@
       {
         "key": "marital_status",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "martial_status",
         "type": "native_radio",
         "label": "Martial Status",
@@ -449,7 +449,7 @@
       {
         "key": "occupation",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "occupation",
         "type": "native_radio",
         "label": "Occupation",
@@ -504,7 +504,7 @@
       {
         "key": "occupation_redacted",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "occupation_redacted",
         "type": "native_radio",
         "label": "Occupation",
@@ -552,7 +552,7 @@
       {
         "key": "occupation_other",
         "openmrs_entity_parent": "occupation_other",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "occupation_other",
         "type": "edit_text",
         "hint": "Other",
@@ -573,7 +573,7 @@
       {
         "key": "occupation_other_redacted",
         "openmrs_entity_parent": "occupation_other_redacted",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "occupation_other_redacted",
         "type": "edit_text",
         "hint": "Other",
