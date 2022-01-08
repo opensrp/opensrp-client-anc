@@ -2878,6 +2878,13 @@
         "v_required": {
           "value": "true",
           "err": "{{anc_physical_exam.step4.fetal_heartbeat.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
         }
       },
       {
