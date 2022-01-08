@@ -55,6 +55,7 @@
     }
   },
   "editable_fields": [
+    "discordant",
     "educ_level",
     "marital_status",
     "occupation",
@@ -96,6 +97,7 @@
     "partner_hiv_status"
   ],
   "default_values": [
+    "discordant",
     "educ_level",
     "marital_status",
     "occupation",
@@ -142,7 +144,8 @@
     "sfh_ultrasound_gest_age_selection"
   ],
   "global_previous": [
-    "age"
+    "age",
+    "discordant"
   ],
   "step1": {
     "title": "{{anc_profile.step2.title}}",
@@ -2113,10 +2116,10 @@
         }
       },
       {
-        "key": "Discordant",
+        "key": "discordant",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "160643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "discordant",
         "type": "check_box",
         "read_only": "true",
         "label": "Discordant",
@@ -2126,7 +2129,7 @@
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "discordant_yes",
             "key": "yes",
             "text": "Yes",
             "value": ""
@@ -2134,7 +2137,7 @@
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "discordant_no",
             "key": "no",
             "text": "No",
             "value": ""
