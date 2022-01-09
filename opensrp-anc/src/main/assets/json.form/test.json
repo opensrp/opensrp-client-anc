@@ -112,16 +112,6 @@
         "container": "anc_test"
       },
       {
-        "key": "accordion_partner_hiv",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "text": "{{anc_test.step2.accordion_partner_hiv.text}}",
-        "type": "expansion_panel",
-        "content_form": "tests_partner_hiv_sub_form",
-        "container": "anc_test"
-      },
-      {
         "key": "partner_accordion_hepatitis_b",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
