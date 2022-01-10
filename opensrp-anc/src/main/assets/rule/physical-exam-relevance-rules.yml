@@ -383,3 +383,24 @@ priority: 1
 condition: " step3_body_temp_repeat > 0 && step3_body_temp_repeat < 36"
 actions:
   - "isRelevant = true"
+---
+name: step4_fetal_heartbeat
+description: Fetal heartbeat
+priority: 1
+condition: "(global_gest_age_openmrs >= 26 && global_gest_age_openmrs <= 28)"
+actions:
+  - "isRelevant = true"
+---
+name: step4_sfh_label
+description: SFH label
+priority: 1
+condition: "(global_gest_age_openmrs >= 22 && global_gest_age_openmrs <= 45)"
+actions:
+  - "isRelevant = true"
+---
+name: step4_sfh
+description: SFH
+priority: 1
+condition: "(global_gest_age_openmrs >= 22 && global_gest_age_openmrs <= 45)"
+actions:
+  - "isRelevant = true"

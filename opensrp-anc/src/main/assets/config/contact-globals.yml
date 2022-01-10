@@ -133,6 +133,7 @@ fields:
   - "alcohol_substance_use_value"
   - "occupation"
   - "occupation_value"
+  - "discordant"
 ---
 form: anc_physical_exam
 fields:

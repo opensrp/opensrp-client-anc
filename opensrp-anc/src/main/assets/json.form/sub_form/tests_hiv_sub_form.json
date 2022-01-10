@@ -81,6 +81,27 @@
           "openmrs_entity_id": "165299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
+          "key": "declined",
+          "text": "Declined",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "declined"
+        },
+        {
+          "key": "not_available",
+          "text": "Not available",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "not_available"
+        },
+        {
+          "key": "counsellor_not_available",
+          "text": "Counsellor not available",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "counsellor_not_available"
+        },
+        {
           "key": "other",
           "text": "{{tests_hiv_sub_form.step1.hiv_test_notdone.options.other.text}}",
           "openmrs_entity_parent": "165300AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

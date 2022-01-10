@@ -152,6 +152,34 @@
           }
         },
         {
+          "column_name": "educ_level",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.educ_level"
+          }
+        },
+        {
+          "column_name": "marital_status",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.marital_status"
+          }
+        },
+        {
+          "column_name": "occupation",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.occupation"
+          }
+        },
+        {
+          "column_name": "occupation_redacted",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.occupation_redacted"
+          }
+        },
+        {
           "column_name": "maiden_name",
           "type": "Client",
           "json_mapping": {

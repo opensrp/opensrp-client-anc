@@ -1854,7 +1854,7 @@
         "options": [
           {
             "key": "none",
-            "text": "{{anc_physical_exam.step3.ipv_physical_signs_symptoms.options.none.text}}",
+            "text": "None",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "",
@@ -1918,15 +1918,15 @@
           },
           {
             "key": "other_injury",
-            "text": "{{anc_physical_exam.step3.ipv_physical_signs_symptoms.options.other_injury.text}}",
+            "text": "Other injury",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "",
             "openmrs_entity_parent": ""
           },
           {
-            "key": "other",
-            "text": "{{anc_physical_exam.step3.ipv_physical_signs_symptoms.options.other.text}}",
+            "key": "other_ipv",
+            "text": "Other",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "",
@@ -1947,7 +1947,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "hint": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms_injury_other.hint}}",
+        "hint": "Other(specify)",
         "v_regex": {
           "value": "[A-Za-z\\s\\.\\-]*",
           "err": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms_injury_other.v_regex.err}}"
