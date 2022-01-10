@@ -56,6 +56,70 @@
       "spacer_height": "10dp"
     },
     {
+      "key": "partner_hiv_test_notdone",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "partner_hiv_test_notdone",
+      "type": "check_box",
+      "label": "{{tests_hiv_sub_form.step1.hiv_test_notdone.label}}",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "stock_out",
+          "text": "{{tests_hiv_sub_form.step1.hiv_test_notdone.options.stock_out.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165183AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "expired_stock",
+          "text": "{{tests_hiv_sub_form.step1.hiv_test_notdone.options.expired_stock.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "declined",
+          "text": "Declined",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "declined"
+        },
+        {
+          "key": "not_available",
+          "text": "Not available",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "not_available"
+        },
+        {
+          "key": "counsellor_not_available",
+          "text": "Counsellor not available",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "counsellor_not_available"
+        },
+        {
+          "key": "other",
+          "text": "{{tests_hiv_sub_form.step1.hiv_test_notdone.options.other.text}}",
+          "openmrs_entity_parent": "165300AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ],
+      "v_required": {
+        "value": true,
+        "err": "{{tests_hiv_sub_form.step1.hiv_test_notdone.v_required.err}}"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
