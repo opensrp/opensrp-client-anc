@@ -243,7 +243,7 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
             }
 
             yes.setOnClickListener(v -> goToContactFinalize(dialog));
-            no.setOnClickListener(v -> goToContactFinalize(dialog));
+            no.setOnClickListener(v -> quickCheckClose());
 
             dialog.show();
         }
