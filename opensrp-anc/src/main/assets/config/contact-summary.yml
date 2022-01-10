@@ -11,6 +11,63 @@ fields:
 - template: "{{contact_summary.hospital_referral.danger_signs}}: {danger_signs_value}"
   relevance: "!danger_signs.isEmpty() && !danger_signs.contains('danger_none')"
 
+- template: "{{contact_summary.hospital_referral.additional_contact}}: {additional_contact_value}"
+  relevance: "!additional_contact.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.emergency_referal}}: {emergency_referal_value}"
+  relevance: "!emergency_referal.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.referal_reason}}: {referal_reason_value}"
+  relevance: "!referal_reason.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.other_reason}}: {other_reason_value}"
+  relevance: "!other_reason.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.pre_existing_medic}}: {pre_existing_medic_value}"
+  relevance: "!pre_existing_medic.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.other_complications}}: {other_complications_value}"
+  relevance: "!other_complications.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.diagnostics_specify}}: {diagnostics_specify_value}"
+  relevance: "!diagnostics_specify.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.treatment}}: {treatment_value}"
+  relevance: "!treatment.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.receiving}}: {receiving_value}"
+  relevance: "!receiving.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.provider_name}}: {provider_name_value}"
+  relevance: "!provider_name.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.provider_phone_number}}: {provider_phone_number_value}"
+  relevance: "!provider_phone_number.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.referral_notes}}: {referral_notes_value}"
+  relevance: "!referral_notes.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.date_referral}}: {date_referral_value}"
+  relevance: "!date_referral.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.date_scheduled}}: {date_scheduled_value}"
+  relevance: "!date_scheduled.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.no_of_prev_preg}}: {no_of_prev_preg_value}"
+  relevance: "!no_of_prev_preg.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.live_births}}: {live_births_value}"
+  relevance: "!live_births.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.still_births}}: {still_births_value}"
+  relevance: "!still_births.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.miscarriage}}: {miscarriage_value}"
+  relevance: "!miscarriage.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.pregnancy_comp}}: {pregnancy_comp_value}"
+  relevance: "!pregnancy_comp.isEmpty()"
+
 - template: "{{contact_summary.hospital_referral.severe_hypertension}}: {bp_systolic_repeat}/{bp_diastolic_repeat} mmHg"
   relevance: "severe_hypertension == 1"
 
@@ -52,24 +109,6 @@ fields:
 
 - template: "{{contact_summary.hospital_referral.abnormal_fetal_heart_rate}}: {fetal_heart_rate_repeat}bpm"
   relevance: "fetal_heart_rate_repeat < 100 || fetal_heart_rate_repeat > 180"
-
----
-group: reason_for_visit
-fields:
-- template: "{{contact_summary.reasons.reason_for_coming_to_facility}}: {contact_reason_value}"
-  relevance: "contact_reason_value != ''"
-
-- template: "{{contact_summary.reason_for_visit.health_complaint}}: {specific_complaint_value}"
-  relevance: "specific_complaint_value != ''"
-
----
-group: reason_for_referral
-fields:
-- template: "{{contact_summary.reason_for_visit.reason_for_coming_to_facility}}: {reasons_value}"
-  relevance: "reasons_value != ''"
-
-- template: "{{contact_summary.reason_for_visit.reason_for_coming_to_facility}}: {treatment_value}"
-  relevance: "treatment_value != ''"
 
 ---
 group: demographic_info
