@@ -134,6 +134,7 @@ fields:
   - "occupation"
   - "occupation_value"
   - "discordant"
+  - "lmp_known_date"
 ---
 form: anc_physical_exam
 fields:

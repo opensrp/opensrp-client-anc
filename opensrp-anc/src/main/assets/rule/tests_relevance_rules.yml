@@ -6,10 +6,10 @@ condition: "step1_hiv_test_status != '' && step1_hiv_test_status == 'done_earlie
 actions:
 - "isRelevant = true"
 ---
-name: step2_hiv_test_date
+name: step1_hiv_test_date
 description: Date that the ultrasound was done.
 priority: 1
-condition: "step2_hiv_test_status != '' && step2_hiv_test_status == 'done_earlier' "
+condition: "step1_hiv_test_status != '' && step1_hiv_test_status == 'done_earlier' "
 actions:
 - "isRelevant = true"
 ---
@@ -23,7 +23,7 @@ actions:
 name: step2_hiv_test_notdone
 description: HIV not done.
 priority: 1
-condition: "step2_hiv_test_status != '' && step2_hiv_test_status == 'not_done' "
+condition: "step1_hiv_test_status != '' && step1_hiv_test_status == 'not_done' "
 actions:
 - "isRelevant = true"
 ---
@@ -34,10 +34,10 @@ condition: "!step1_hiv_test_notdone.isEmpty() && step1_hiv_test_notdone.contains
 actions:
 - "isRelevant = true"
 ---
-name: step2_hiv_test_notdone_other
+name: step1_hiv_test_notdone_other
 description: Reason
 priority: 1
-condition: "!step2_hiv_test_notdone.isEmpty() && step2_hiv_test_notdone.contains('other')"
+condition: "!step1_hiv_test_notdone.isEmpty() && step1_hiv_test_notdone.contains('other')"
 actions:
 - "isRelevant = true"
 ---
@@ -48,10 +48,10 @@ condition: "step1_hiv_test_result != '' && step1_hiv_test_result == 'inconclusiv
 actions:
 - "isRelevant = true"
 ---
-name: step2_hiv_inconclusive_toaster
+name: step1_hiv_inconclusive_toaster
 description: HIV test resupt
 priority: 1
-condition: "step2_hiv_test_result != '' && step2_hiv_test_result == 'inconclusive'"
+condition: "step1_hiv_test_result != '' && step1_hiv_test_result == 'inconclusive'"
 actions:
 - "isRelevant = true"
 ---
@@ -62,10 +62,10 @@ condition: "step1_hiv_test_status != '' && (step1_hiv_test_status == 'done_today
 actions:
 - "isRelevant = true"
 ---
-name: step2_hiv_test_result
+name: step1_hiv_test_result
 description: HIV test result
 priority: 1
-condition: "step2_hiv_test_status != '' && (step2_hiv_test_status == 'done_today' || step2_hiv_test_status == 'done_earlier') "
+condition: "step1_hiv_test_status != '' && (step1_hiv_test_status == 'done_today' || step1_hiv_test_status == 'done_earlier') "
 actions:
 - "isRelevant = true"
 ---
@@ -76,31 +76,31 @@ condition: "(step1_hiv_positive == 1)"
 actions:
 - "isRelevant = true"
 ---
-name: step2_hiv_positive_toaster
+name: step1_hiv_positive_toaster
 description: HIV positive counseling
 priority: 1
-condition: "(step2_hiv_positive == 1)"
+condition: "(step1_hiv_positive == 1)"
 actions:
 - "isRelevant = true"
 ---
-name: step2_hiv_test_partner_date
+name: step1_hiv_test_partner_date
 description: Partner HIV test date
 priority: 1
-condition: "(step2_hiv_test_partner_status != '' && step2_hiv_test_partner_status == 'done_earlier')"
+condition: "(step1_hiv_test_partner_status != '' && step1_hiv_test_partner_status == 'done_earlier')"
 actions:
 - "isRelevant = true"
 ---
-name: step2_hiv_test_partner_result
+name: step1_hiv_test_partner_result
 description:  partner HIV result
 priority: 1
-condition: "step2_hiv_test_partner_status != '' && (step2_hiv_test_partner_status == 'done_today'  || step2_hiv_test_partner_status == 'done_earlier')"
+condition: "step1_hiv_test_partner_status != '' && (step1_hiv_test_partner_status == 'done_today'  || step1_hiv_test_partner_status == 'done_earlier')"
 actions:
 - "isRelevant = true"
 ---
-name: step2_hiv_risk_toaster
+name: step1_hiv_risk_toaster
 description: hiv_risk_toaster
 priority: 1
-condition: "step2_hiv_risk == 1"
+condition: "step1_hiv_risk == 1"
 actions:
 - "isRelevant = true"
 ---
@@ -615,10 +615,10 @@ condition: "(step1_urine_test_status == 'done_today' || step1_urine_test_status 
 actions:
 - "isRelevant = true"
 ---
-name: step2_urine_glucose
+name: step1_urine_glucose
 description: Urine dipstick result - glucose
 priority: 1
-condition: "(step2_urine_test_status == 'done_today' || step2_urine_test_status == 'done_earlier') && step2_urine_test_type.contains('urine_dipstick')"
+condition: "(step1_urine_test_status == 'done_today' || step1_urine_test_status == 'done_earlier') && step1_urine_test_type.contains('urine_dipstick')"
 actions:
 - "isRelevant = true"
 ---
@@ -664,52 +664,52 @@ condition: "step2_urine_culture == 'positive_gbs'"
 actions:
 - "isRelevant = true"
 ---
-name: step2_glucose_test_date
+name: step1_glucose_test_date
 description: Blood glucose test date.
 priority: 1
-condition: "step2_glucose_test_status == 'done_earlier'"
+condition: "step1_glucose_test_status == 'done_earlier'"
 actions:
 - "isRelevant = true"
 ---
-name: step2_glucose_test_type
+name: step1_glucose_test_type
 description: Blood glucose test.
 priority: 1
-condition: "step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier' || step2_glucose_test_status == 'ordered'"
+condition: "step1_glucose_test_status == 'done_today' || step1_glucose_test_status == 'done_earlier' || step1_glucose_test_status == 'ordered'"
 actions:
 - "isRelevant = true"
 ---
-name: step2_fasting_plasma_gluc
+name: step1_fasting_plasma_gluc
 description: Fasting plasma glucose results (mg/dl)
 priority: 1
-condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'fasting_plasma'"
+condition: "(step1_glucose_test_status == 'done_today' || step1_glucose_test_status == 'done_earlier') && step1_glucose_test_type == 'fasting_plasma'"
 actions:
 - "isRelevant = true"
 ---
-name: step2_ogtt_fasting
+name: step1_ogtt_fasting
 description: 75g OGTT - fasting glucose results (mg/dl)
 priority: 1
-condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'ogtt_75'"
+condition: "(step1_glucose_test_status == 'done_today' || step1_glucose_test_status == 'done_earlier') && step1_glucose_test_type == 'ogtt_75'"
 actions:
 - "isRelevant = true"
 ---
-name: step2_ogtt_1
+name: step1_ogtt_1
 description: 75g OGTT - 1 hr results (mg/dl)
 priority: 1
-condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'ogtt_75'"
+condition: "(step1_glucose_test_status == 'done_today' || step1_glucose_test_status == 'done_earlier') && step1_glucose_test_type == 'ogtt_75'"
 actions:
 - "isRelevant = true"
 ---
-name: step2_ogtt_2
+name: step1_ogtt_2
 description: 75g OGTT - 2 hrs results (mg/dl)
 priority: 1
-condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'ogtt_75'"
+condition: "(step1_glucose_test_status == 'done_today' || step1_glucose_test_status == 'done_earlier') && step1_glucose_test_type == 'ogtt_75'"
 actions:
 - "isRelevant = true"
 ---
-name: step2_random_plasma
+name: step1_random_plasma
 description: Random plasma glucose results (mg/dl)
 priority: 1
-condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'random_plasma'"
+condition: "(step1_glucose_test_status == 'done_today' || step1_glucose_test_status == 'done_earlier') && step1_glucose_test_type == 'random_plasma'"
 actions:
 - "isRelevant = true"
 ---
@@ -1021,10 +1021,10 @@ condition: "(step1_blood_type_test_status == 'done_today' || step1_blood_type_te
 actions:
 - "isRelevant = true"
 ---
-name: step2_blood_type
+name: step1_blood_type
 description: blood_type
 priority: 1
-condition: "(step2_blood_type_test_status == 'done_today' || step2_blood_type_test_status == 'done_earlier')"
+condition: "(step1_blood_type_test_status == 'done_today' || step1_blood_type_test_status == 'done_earlier')"
 actions:
 - "isRelevant = true"
 ---
@@ -1035,10 +1035,10 @@ condition: "(step1_blood_type_test_status == 'done_today' || step1_blood_type_te
 actions:
 - "isRelevant = true"
 ---
-name: step2_rh_factor
+name: step1_rh_factor
 description: rh_factor
 priority: 1
-condition: "(step2_blood_type_test_status == 'done_today' || step2_blood_type_test_status == 'done_earlier')"
+condition: "(step1_blood_type_test_status == 'done_today' || step1_blood_type_test_status == 'done_earlier')"
 actions:
 - "isRelevant = true"
 ---
@@ -1049,10 +1049,10 @@ condition: "(step1_rh_factor != '' && step1_rh_factor == 'negative')"
 actions:
 - "isRelevant = true"
 ---
-name: step2_rh_factor_toaster
+name: step1_rh_factor_toaster
 description: rh_factor
 priority: 1
-condition: "(step2_rh_factor != '' && step2_rh_factor == 'negative')"
+condition: "(step1_rh_factor != '' && step1_rh_factor == 'negative')"
 actions:
 - "isRelevant = true"
 ---
@@ -1070,32 +1070,32 @@ condition: "step2_other_test == 'done_earlier' || step2_other_test == 'done_toda
 actions:
 - "isRelevant = true"
 ---
-name: step2_fasting_plasma_gluc_mmol
+name: step1_fasting_plasma_gluc_mmol
 description: fasting_plasma_gluc_mmol
 priority: 1
-condition: "step2_fasting_plasma_gluc > 0"
+condition: "step1_fasting_plasma_gluc > 0"
 actions:
   - "isRelevant = true"
 
 ---
-name: step2_ogtt_fasting_mmol
+name: step1_ogtt_fasting_mmol
 description: ogtt_fasting_mmol
 priority: 1
-condition: "step2_ogtt_fasting > 0"
+condition: "step1_ogtt_fasting > 0"
 actions:
   - "isRelevant = true"
 
 ---
-name: step2_ogtt_1_mmol
+name: step1_ogtt_1_mmol
 description: ogtt_1_mmol
 priority: 1
-condition: "step2_ogtt_1 > 0"
+condition: "step1_ogtt_1 > 0"
 actions:
   - "isRelevant = true"
 ---
-name: step2_ogtt_2_mmol
+name: step1_ogtt_2_mmol
 description: ogtt_2_mmol
 priority: 1
-condition: "step2_ogtt_2 > 0"
+condition: "step1_ogtt_2 > 0"
 actions:
   - "isRelevant = true"

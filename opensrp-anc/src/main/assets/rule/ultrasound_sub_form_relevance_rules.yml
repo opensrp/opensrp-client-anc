@@ -285,3 +285,10 @@ priority: 1
 condition: "(step1_ultrasound == 'done_today' || step1_ultrasound == 'done_earlier')"
 actions:
   - "isRelevant = true"
+---
+name: step1_descent
+description: descent
+priority: 1
+condition: "(step1_ultrasound == 'done_today' || step1_ultrasound == 'done_earlier')"
+actions:
+  - "isRelevant = true"

@@ -108,7 +108,7 @@
         }
       ],
       "relevance": {
-        "step2:hiv_test_partner_status": {
+        "step1:hiv_test_partner_status": {
           "type": "string",
           "ex": "equalTo(., \"not_done\")"
         }
@@ -123,7 +123,7 @@
       "hint": "Specify",
       "edit_type": "name",
       "relevance": {
-        "step2:partner_hiv_not_done": {
+        "step1:partner_hiv_not_done": {
           "ex-checkbox": [
             {
               "or": [
@@ -244,7 +244,7 @@
       "text": "{{tests_partner_hiv_sub_form.step1.partner_hiv_positive_toaster.text}}",
       "toaster_type": "warning",
       "relevance": {
-        "step2:hiv_test_partner_result": {
+        "step1:hiv_test_partner_result": {
           "type": "string",
           "ex": "equalTo(., \"inconclusive\")"
         }
