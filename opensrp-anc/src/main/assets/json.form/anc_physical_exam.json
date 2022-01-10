@@ -203,14 +203,6 @@
           "value": "true",
           "err": ""
         },
-        "v_min": {
-          "value": "90",
-          "err": "SBP must be equal or greater than 90"
-        },
-        "v_max": {
-          "value": "139",
-          "err": "SBP must be equal or less than 139"
-        },
         "v_required": {
           "value": "true",
           "err": "{{anc_physical_exam.step2.bp_systolic.v_required.err}}"
@@ -279,14 +271,6 @@
         "v_numeric": {
           "value": "true",
           "err": ""
-        },
-        "v_min": {
-          "value": "60",
-          "err": "DBP must be equal to or greater than 60"
-        },
-        "v_max": {
-          "value": "89",
-          "err": "DBP must be equal to or less than 89"
         },
         "v_required": {
           "value": "true",
@@ -366,14 +350,6 @@
           "value": "true",
           "err": ""
         },
-        "v_min": {
-          "value": "90",
-          "err": "SBP must be equal or greater than 90"
-        },
-        "v_max": {
-          "value": "139",
-          "err": "SBP must be equal or less than 139"
-        },
         "v_required": {
           "value": "true",
           "err": "{{anc_physical_exam.step2.bp_systolic_repeat.v_required.err}}"
@@ -422,14 +398,6 @@
         "v_numeric": {
           "value": "true",
           "err": ""
-        },
-        "v_min": {
-          "value": "90",
-          "err": "SBP must be equal or greater than 90"
-        },
-        "v_max": {
-          "value": "89",
-          "err": "DBP must be equal or less than 89"
         },
         "v_required": {
           "value": "true",
