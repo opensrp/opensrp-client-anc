@@ -304,53 +304,6 @@
         }
       },
       {
-        "key": "home_address",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_address",
-        "openmrs_entity_id": "address2",
-        "type": "edit_text",
-        "hint": "{{anc_register.step1.home_address.hint}}",
-        "edit_type": "name",
-        "v_required": {
-          "value": "true",
-          "err": "{{anc_register.step1.home_address.v_required.err}}"
-        }
-      },
-      {
-        "key": "landmark",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_address",
-        "openmrs_entity_id": "landmark",
-        "type": "edit_text",
-        "hint": "Landmark",
-        "edit_type": "name",
-        "v_required": {
-          "value": "false",
-          "err": "Please a enter a Landmark"
-        }
-      },
-      {
-        "key": "phone_number",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
-        "hint": "{{anc_register.step1.phone_number.hint}}",
-        "v_numeric": {
-          "value": "true",
-          "err": "{{anc_register.step1.phone_number.v_numeric.err}}"
-        },
-        "v_required": {
-          "value": "false",
-          "err": "{{anc_register.step1.phone_number.v_required.err}}"
-        },
-        "v_regex": {
-          "value": "(0([9]{1}[5-7]{1}|[7]{1}[6/7]{1})[0-9]{7})|s*",
-          "err": "Number must must be a total of 10 digits in length"
-        }
-      },
-
-      {
         "key": "educ_level",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
@@ -591,36 +544,6 @@
           "value": "[A-Za-z\\s\\.\\-]*"
         }
       },
-
-      {
-        "key": "reminders",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "163164AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "native_radio",
-        "label": "{{anc_register.step1.reminders.label}}",
-        "label_info_text": "{{anc_register.step1.reminders.label_info_text}}",
-        "label_text_style": "normal",
-        "text_color": "#000000",
-        "options": [
-          {
-            "key": "yes",
-            "text": "{{anc_register.step1.reminders.options.yes.text}}",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "no",
-            "text": "{{anc_register.step1.reminders.options.no.text}}",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ],
-        "v_required": {
-          "value": true,
-          "err": "{{anc_register.step1.reminders.v_required.err}}"
-        }
-      },
       {
         "key": "couple",
         "openmrs_entity_parent": "",
@@ -647,6 +570,81 @@
         ],
         "v_required": {
           "value": false,
+          "err": "{{anc_register.step1.reminders.v_required.err}}"
+        }
+      },
+      {
+        "key": "home_address",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_address",
+        "openmrs_entity_id": "address2",
+        "type": "edit_text",
+        "hint": "{{anc_register.step1.home_address.hint}}",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_register.step1.home_address.v_required.err}}"
+        }
+      },
+      {
+        "key": "landmark",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_address",
+        "openmrs_entity_id": "landmark",
+        "type": "edit_text",
+        "hint": "Landmark",
+        "edit_type": "name",
+        "v_required": {
+          "value": "false",
+          "err": "Please a enter a Landmark"
+        }
+      },
+      {
+        "key": "phone_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "{{anc_register.step1.phone_number.hint}}",
+        "v_numeric": {
+          "value": "true",
+          "err": "{{anc_register.step1.phone_number.v_numeric.err}}"
+        },
+        "v_required": {
+          "value": "false",
+          "err": "{{anc_register.step1.phone_number.v_required.err}}"
+        },
+        "v_regex": {
+          "value": "(0([9]{1}[5-7]{1}|[7]{1}[6/7]{1})[0-9]{7})|s*",
+          "err": "Number must must be a total of 10 digits in length"
+        }
+      },
+      {
+        "key": "reminders",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "163164AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "{{anc_register.step1.reminders.label}}",
+        "label_info_text": "{{anc_register.step1.reminders.label_info_text}}",
+        "label_text_style": "normal",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "yes",
+            "text": "{{anc_register.step1.reminders.options.yes.text}}",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no",
+            "text": "{{anc_register.step1.reminders.options.no.text}}",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": true,
           "err": "{{anc_register.step1.reminders.v_required.err}}"
         }
       },

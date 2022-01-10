@@ -367,12 +367,12 @@
           "err": ""
         },
         "v_min": {
-          "value": "60",
-          "err": "SBP must be equal or greater than 60"
+          "value": "90",
+          "err": "SBP must be equal or greater than 90"
         },
         "v_max": {
-          "value": "160",
-          "err": "SBP must be equal or less than 160"
+          "value": "139",
+          "err": "SBP must be equal or less than 139"
         },
         "v_required": {
           "value": "true",
@@ -423,9 +423,13 @@
           "value": "true",
           "err": ""
         },
+        "v_min": {
+          "value": "90",
+          "err": "SBP must be equal or greater than 90"
+        },
         "v_max": {
-          "value": "110",
-          "err": "DBP must be equal or less than 110"
+          "value": "89",
+          "err": "DBP must be equal or less than 89"
         },
         "v_required": {
           "value": "true",
@@ -1842,70 +1846,6 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "{{anc_physical_exam.step3.toaster23.text}}",
-        "text_color": "#D56900",
-        "toaster_type": "warning",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "spacer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "spacer",
-        "type": "spacer",
-        "spacer_height": "10sp"
-      },
-      {
-        "key": "abdominal_exam",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165370AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "native_radio",
-        "label": "{{anc_physical_exam.step3.abdominal_exam.label}}",
-        "label_text_style": "bold",
-        "text_color": "#000000",
-        "extra_rel": true,
-        "has_extra_rel": "3",
-        "options": [
-          {
-            "key": "1",
-            "text": "{{anc_physical_exam.step3.abdominal_exam.options.1.text}}",
-            "openmrs_entity_parent": "165370AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "2",
-            "text": "{{anc_physical_exam.step3.abdominal_exam.options.2.text}}",
-            "openmrs_entity_parent": "165370AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "3",
-            "text": "{{anc_physical_exam.step3.abdominal_exam.options.3.text}}",
-            "specify_info": "specify...",
-            "specify_widget": "check_box",
-            "specify_info_color": "#8C8C8C",
-            "content_form": "abdominal_exam_sub_form",
-            "openmrs_entity_parent": "165370AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ]
-      },
-      {
-        "key": "toaster24",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "{{anc_physical_exam.step3.toaster24.text}}",
         "text_color": "#D56900",
         "toaster_type": "warning",
         "relevance": {
