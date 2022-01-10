@@ -622,6 +622,13 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "other",
+            "text": "Other (Specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
         "v_required": {
@@ -632,6 +639,21 @@
           "step1:emergency_referal": {
             "type": "string",
             "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "other_reason",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "diagnostics",
+        "type": "edit_text",
+        "hint": "Specify",
+        "edit_type": "name",
+        "relevance": {
+          "step1:referal_reason": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
           }
         }
       },
