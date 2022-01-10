@@ -3161,7 +3161,7 @@
         "text": "HIV status unknown please refer for testing",
         "toaster_type": "warning",
         "relevance": {
-          "step9:hiv_test_result": {
+          "step8:hiv_test_result": {
             "type": "string",
             "ex": "equalTo(., \"unknown\")"
           }
@@ -3189,7 +3189,8 @@
             "type": "string",
             "ex": "equalTo(., \"positive\")"
           }
-        }},
+        }
+      },
       {
         "key": "reason_not_on_art",
         "openmrs_entity_parent": "",
@@ -3235,7 +3236,8 @@
             "ex": "equalTo(., \"other\")"
           }
 
-        }},
+        }
+      },
       {
         "key": "not_on_art_toaster",
         "openmrs_entity_parent": "",
@@ -3251,8 +3253,10 @@
             "type": "string",
             "ex": "equalTo(., \"no\")"
           }
-        }}
-    ]},
+        }
+      }
+    ]
+  },
   "step9": {
     "title": "Partner's HIV status",
     "fields": [
