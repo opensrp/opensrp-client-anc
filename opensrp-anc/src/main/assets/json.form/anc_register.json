@@ -154,14 +154,6 @@
         }
       },
       {
-        "key": "gender",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "gender",
-        "type": "hidden",
-        "value": "F"
-      },
-      {
         "key": "dob",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
@@ -302,6 +294,14 @@
           "value": "true",
           "err": "{{anc_register.step1.age_entered.v_required.err}}"
         }
+      },
+      {
+        "key": "gender",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "gender",
+        "type": "hidden",
+        "value": "F"
       },
       {
         "key": "educ_level",
@@ -681,30 +681,6 @@
         }
       },
       {
-        "key": "origin",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "origin",
-        "type": "native_radio",
-        "label": "Origin ",
-        "options": [
-          {
-            "key": "catchment_area",
-            "text": "Catchment area",
-            "text_color": "#000000"
-          },
-          {
-            "key": "outside_catchment_area",
-            "text": "Outside catchment area",
-            "text_color": "#000000"
-          }
-        ],
-        "v_required": {
-          "value": true,
-          "err": "Please select origin"
-        },
-        "value": "catchment_area"
-      },{
         "key": "relation_NK",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
@@ -853,6 +829,31 @@
             "openmrs_entity_id": ""
           }
         ]
+      },
+      {
+        "key": "origin",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "origin",
+        "type": "native_radio",
+        "label": "Origin ",
+        "options": [
+          {
+            "key": "catchment_area",
+            "text": "Catchment area",
+            "text_color": "#000000"
+          },
+          {
+            "key": "outside_catchment_area",
+            "text": "Outside catchment area",
+            "text_color": "#000000"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select origin"
+        },
+        "value": "catchment_area"
       },
       {
         "key": "next_contact",

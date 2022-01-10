@@ -636,11 +636,116 @@
         }
       },
       {
+        "key": "pre_existing_medic",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160288AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "label": "preexisting medical conditions",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "asthma",
+            "text": "Asthma",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165269AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "cardiac_condition",
+            "text": " Cardiac condition",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "diabetes_mellitus",
+            "text": "Diabetes mellitus",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "renal_failure",
+            "text": "Renal failure",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "epilepsy",
+            "text": "Epilepsy",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "hypertension",
+            "text": "Hypertension",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "hyperthyroidism",
+            "text": "Hyperthyroidism",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "moderate_anaemia",
+            "text": "Moderate to severe anaemia (< 8g/dl)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "previous_coagulopathy",
+            "text": "Previous or current coagulopathy (eg. DVT)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "renal disease",
+            "text": "Renal disease",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "sickle_cell_disease",
+            "text": "Sickle cell disease",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "rh_negative",
+            "text": "RH negative",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_quick_check.step1.contact_reason.v_required.err}}"
+        },
+        "relevance": {
+          "step1:referal_reason": {
+            "type": "string",
+            "ex": "equalTo(., \"pre_existing_medical\")"
+          }
+        }
+      },
+      {
         "key": "other_complications",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "160288AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "native_radio",
+        "type": "check_box",
         "label": "Other complications",
         "label_text_style": "bold",
         "options": [

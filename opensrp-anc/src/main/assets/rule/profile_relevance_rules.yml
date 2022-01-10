@@ -181,10 +181,10 @@ condition: "step3_health_conditions.contains('hiv') && !step3_hiv_diagnosis_date
 actions:
   - "isRelevant = true"
 ---
-name: step6_hiv_counselling_toaster
+name: step5_hiv_counselling_toaster
 description: Hiv Risk counselling
 priority: 1
-condition: "(step6_hiv_risk == 1)"
+condition: "(step5_hiv_risk == 1)"
 actions:
   - "isRelevant = true"
 
