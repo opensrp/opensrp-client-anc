@@ -467,7 +467,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165307AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
-        "type": "check_box",
+        "type": "native_radio",
         "label": "{{anc_counselling_treatment.step1.referred_hosp_notdone.label}}",
         "hint": "{{anc_counselling_treatment.step1.referred_hosp_notdone.hint}}",
         "label_text_style": "bold",
@@ -520,13 +520,8 @@
         "edit_type": "name",
         "relevance": {
           "step1:referred_hosp_notdone": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "other"
-                ]
-              }
-            ]
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
           }
         }
       }
