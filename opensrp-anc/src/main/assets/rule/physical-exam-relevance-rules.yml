@@ -408,13 +408,13 @@ actions:
 name: step4_hof
 description: HOF
 priority: 1
-condition: "(global_gest_age_openmrs >= 1 && global_gest_age_openmrs <= 22)"
+condition: "(global_gest_age_openmrs != null && global_gest_age_openmrs <= 22)"
 actions:
   - "isRelevant = true"
 ---
 name: step4_hof_label
 description: HOF label
 priority: 1
-condition: "(global_gest_age_openmrs >= 1 && global_gest_age_openmrs <= 22)"
+condition: "(global_gest_age_openmrs != null && global_gest_age_openmrs <= 22)"
 actions:
   - "isRelevant = true"
