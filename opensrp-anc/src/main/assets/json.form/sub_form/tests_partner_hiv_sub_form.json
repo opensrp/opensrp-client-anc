@@ -112,10 +112,9 @@
         "err": "{{tests_hiv_sub_form.step1.hiv_test_notdone.v_required.err}}"
       },
       "relevance": {
-        "rules-engine": {
-          "ex-rules": {
-            "rules-file": "tests_relevance_rules.yml"
-          }
+        "step1:hiv_test_partner_status": {
+          "type": "string",
+          "ex": "equalTo(., \"not_done\")"
         }
       }
     },
