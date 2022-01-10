@@ -512,6 +512,30 @@
           }
         }
       }
+    },
+    {
+      "key": "ultrasound_ordered_date",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "date_picker",
+      "hint": "Date ordered",
+      "expanded": false,
+      "duration": {
+        "label": "Date ordered"
+      },
+      "min_date": "global_lmp_known_date",
+      "max_date": "today",
+      "v_required": {
+        "value": "true",
+        "err": "Specify date"
+      },
+      "relevance": {
+        "step1:ultrasound": {
+          "type": "string",
+          "ex": "equalTo(., \"ordered\")"
+        }
+      }
     }
   ],
   "count": 1,
