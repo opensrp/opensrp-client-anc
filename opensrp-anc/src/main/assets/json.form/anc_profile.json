@@ -892,7 +892,7 @@
             "key": "gestational_age_label",
             "type": "label",
             "label_text_style": "bold",
-            "text": "Gestational age (months)",
+            "text": "Duration (months)",
             "text_color": "#000000",
             "v_required": {
               "value": false
@@ -903,7 +903,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "gestational_age",
-            "label": "Gestational age",
+            "label": "Duration",
             "label_text_style": "bold",
             "type": "normal_edit_text",
             "edit_text_style": "bordered",
@@ -914,66 +914,16 @@
             },
             "v_min": {
               "value": "0",
-              "err": "Gestational age must be equal or greater than 0"
+              "err": "Duration must be equal or greater than 0"
             },
             "v_max": {
               "value": "10",
-              "err": "Gestational age must be equal or less than 10"
+              "err": "Duration must be equal or less than 10"
             },
             "v_required": {
               "value": "false",
-              "err": "Please enter gestational age"
+              "err": "Please enter duration"
             }
-          },
-          {
-            "key": "live_birth",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "live_birth",
-            "type": "native_radio",
-            "label": "Live birth",
-            "label_text_style": "bold",
-            "options": [
-              {
-                "key": "yes",
-                "text": "Yes"
-              },
-              {
-                "key": "no",
-                "text": "No"
-              }
-            ],
-            "relevance":{
-              "step2:gestational_age": {
-                "type": "string",
-                "ex": "greaterThan(., \"6\")"
-              }
-            }
-          },
-          {
-            "key": "stillbirth",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "stillbirth",
-            "type": "native_radio",
-            "label": "Stillbirth",
-            "label_text_style": "bold",
-            "relevance": {
-              "step2:live_birth": {
-                "type": "string",
-                "ex": "equalTo(., \"no\")"
-              }
-            },
-            "options": [
-              {
-                "key": "yes",
-                "text": "Yes"
-              },
-              {
-                "key": "no",
-                "text": "No"
-              }
-            ]
           },
           {
             "key": "miscarriage_abortion",
@@ -1116,7 +1066,7 @@
             "key": "birth_weight_label",
             "type": "label",
             "label_text_style": "bold",
-            "text": "Birth weight",
+            "text": "Birth weight(grams)",
             "text_color": "#000000",
             "v_required": {
               "value": false
@@ -1155,12 +1105,12 @@
               "err": ""
             },
             "v_min": {
-              "value": "0",
-              "err": "Weight must be equal or greater than 0"
+              "value": "800",
+              "err": "Weight must be equal or greater than 800 grams"
             },
             "v_max": {
-              "value": "8",
-              "err": "Weight must be equal or less than 8"
+              "value": "6000",
+              "err": "Weight must be equal or less than 6000 grams"
             },
             "v_required": {
               "value": "false",
@@ -1183,7 +1133,24 @@
               {
                 "key": "still",
                 "text": "Still birth"
-              },
+              }
+            ],
+            "relevance":{
+              "step2:gestational_age": {
+                "type": "string",
+                "ex": "greaterThan(., \"6\")"
+              }
+            }
+          },
+          {
+            "key": "outcome_early",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "outcome",
+            "type": "native_radio",
+            "label": "Outcome",
+            "label_text_style": "bold",
+            "options": [
               {
                 "key": "abortion_miscarriage",
                 "text": "Abortion/Miscarriage"
@@ -1192,7 +1159,7 @@
             "relevance":{
               "step2:gestational_age": {
                 "type": "string",
-                "ex": "greaterThan(., \"6\")"
+                "ex": "lessThan(., \"6\")"
               }
             }
           },
@@ -2748,6 +2715,13 @@
         "v_required": {
           "value": false,
           "err": "{{anc_profile.step7.condom_use.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
         }
       },
       {

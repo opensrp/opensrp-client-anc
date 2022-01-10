@@ -244,3 +244,10 @@ priority: 1
 condition: "(global_hiv_test_result == 'positive')"
 actions:
   - "isRelevant = true"
+---
+name: step5_condom_use
+description: condom_use
+priority: 1
+condition: "(global_hiv_test_result == 'positive')"
+actions:
+  - "isRelevant = true"

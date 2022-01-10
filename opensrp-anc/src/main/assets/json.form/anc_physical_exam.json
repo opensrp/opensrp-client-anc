@@ -93,6 +93,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "readonly": "false",
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
         "edit_type": "number",
