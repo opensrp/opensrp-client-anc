@@ -208,3 +208,10 @@ priority: 1
 condition: "(step1_hiv_test_result == 'positive') || (step1_partner_hiv_status == 'positive')"
 actions:
   - "calculation = 1"
+---
+me: step2_delivery_termination
+description: delivery_termination
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = helper.formatDate("19-12-2020","y")'

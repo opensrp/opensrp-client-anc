@@ -889,6 +889,289 @@
         },
         "value": [
           {
+            "key": "delivery_termination_label",
+            "type": "label",
+            "label_text_style": "bold",
+            "text": "Date of delivery/termination",
+            "text_color": "#000000",
+            "v_required": {
+              "value": false
+            },
+            "relevance": {
+              "step2:dt_unknown": {
+                "ex-checkbox": [
+                  {
+                    "not": [
+                      "dt_unknown"
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "key": "delivery_termination",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "delivery_termination",
+            "type": "date_picker",
+            "hint": "Date of delivery/termination",
+            "expanded": false,
+            "duration": {
+              "label": "Date"
+            },
+            "min_date": "today-49y",
+            "max_date": "today",
+            "v_required": {
+              "value": "false",
+              "err": "Enter date"
+            },
+            "relevance": {
+              "step2:dt_unknown": {
+                "ex-checkbox": [
+                  {
+                    "not": [
+                      "dt_unknown"
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "key": "dt_unknown",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "person",
+            "openmrs_entity_id": "dt_unknown",
+            "type": "check_box",
+            "options": [
+              {
+                "key": "dt_unknown",
+                "text": "Date of delivery/termination unknown",
+                "text_size": "18px",
+                "value": "false",
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "",
+                "openmrs_entity_id": ""
+              }
+            ]
+          },
+          {
+            "key": "emonth",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "emonth",
+            "type": "spinner",
+            "label": "Estimated month",
+            "label_text_style": "bold",
+            "hint": "Estimated month",
+            "options": [
+              {
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "jan",
+                "key": "jan",
+                "text": "January"
+              },
+              {
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "feb",
+                "key": "feb",
+                "text": "February`"
+              },
+              {
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "mar",
+                "key": "mar",
+                "text": "March"
+              },
+              {
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "apr",
+                "key": "apr",
+                "text": "April"
+              },
+              {
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "may",
+                "openmrs_entity_id": "",
+                "key": "may",
+                "text": "May"
+              },
+              {
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "jun",
+                "key": "jun",
+                "text": "June"
+              },
+              {
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "jul",
+                "key": "jul",
+                "text": "July"
+              },
+              {
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "aug",
+                "key": "aug",
+                "text": "August"
+              },
+              {
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "sep",
+                "key": "sep",
+                "text": "September"
+              },
+              {
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "oct",
+                "key": "oct",
+                "text": "October"
+              },
+              {
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "nov",
+                "key": "nov",
+                "text": "November"
+              },
+              {
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "dec",
+                "key": "dec",
+                "text": "December"
+              }
+            ],
+            "v_required": {
+              "value": false,
+              "err": "place year"
+            },
+            "relevance": {
+              "step2:dt_unknown": {
+                "ex-checkbox": [
+                  {
+                    "or": [
+                      "dt_unknown"
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "key": "eyear",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "eyear",
+            "type": "spinner",
+            "label": "Estimated year",
+            "label_text_style": "bold",
+            "hint": "Estimated year",
+            "options": [
+              {
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "2012",
+                "key": "2012",
+                "text": "2012`"
+              },
+              {
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "2013",
+                "key": "2013",
+                "text": "2013`"
+              },
+              {
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "2014",
+                "key": "2014",
+                "text": "2014`"
+              },
+              {
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "2015",
+                "key": "2015",
+                "text": "2015`"
+              },
+              {
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "2016",
+                "openmrs_entity_id": "",
+                "key": "2016",
+                "text": "2016"
+              },
+              {
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "2017",
+                "key": "2017",
+                "text": "2017"
+              },
+              {
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "2018",
+                "key": "2018",
+                "text": "2018"
+              },
+              {
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "2019",
+                "key": "2019",
+                "text": "2019"
+              },
+              {
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "2020",
+                "key": "2020",
+                "text": "2020"
+              },
+              {
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "2021",
+                "key": "2021",
+                "text": "2021"
+              },
+              {
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "2022",
+                "key": "2022",
+                "text": "2022"
+              }
+            ],
+            "v_required": {
+              "value": false,
+              "err": "place year"
+            },
+            "relevance": {
+              "step2:dt_unknown": {
+                "ex-checkbox": [
+                  {
+                    "or": [
+                      "dt_unknown"
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          {
             "key": "gestational_age_label",
             "type": "label",
             "label_text_style": "bold",
