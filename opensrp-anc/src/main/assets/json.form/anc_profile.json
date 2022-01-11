@@ -875,14 +875,14 @@
         }
       },
       {
-        "key": "number_of_pregnancies",
+        "key": "gravida",
         "type": "repeating_group",
         "reference_edit_text": "",
         "reference_edit_text_hint": "No. of previous pregnancies :",
         "repeating_group_label": "Pregnancy :",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "No_pregnancies",
+        "openmrs_entity_id": "gravida",
         "v_required": {
           "value": false,
           "err": "Please specify the No. of previous pregnancies"

@@ -202,13 +202,6 @@ condition: "(step4_preeclampsia_risk == 1)"
 actions:
   - "isRelevant = true"
 ---
-name: step4_fetal_presentation
-description: Fetal movement
-priority: 1
-condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 28)"
-actions:
-  - "isRelevant = true"
----
 name: step3_toaster22
 description: toaster22
 priority: 1
@@ -416,5 +409,26 @@ name: step4_hof_label
 description: HOF label
 priority: 1
 condition: "(global_gest_age_openmrs != null && global_gest_age_openmrs <= 22)"
+actions:
+  - "isRelevant = true"
+---
+name: step4_fetal_presentation
+description: Fetal movement
+priority: 1
+condition: "(global_gest_age_openmrs != null && global_gest_age_openmrs >= 26)"
+actions:
+  - "isRelevant = true"
+---
+name: step4_descent
+description: Descent
+priority: 1
+condition: "(global_gest_age_openmrs != null && global_gest_age_openmrs >= 26)"
+actions:
+  - "isRelevant = true"
+---
+name: step4_baby_lie
+description: Baby lie
+priority: 1
+condition: "(global_gest_age_openmrs != null && global_gest_age_openmrs >= 26)"
 actions:
   - "isRelevant = true"

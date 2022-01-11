@@ -326,7 +326,7 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "baby_lie",
       "type": "native_radio",
-      "label": "Baby lie",
+      "label": "Fetal lie",
       "label_text_style": "bold",
       "label_info_text": "The position in which the baby is laying",
       "options": [
