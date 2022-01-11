@@ -112,6 +112,13 @@
         "v_max": {
           "value": "200",
           "err": "Height must be equal or less than 200"
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
         }
       },
       {
@@ -2332,14 +2339,6 @@
           {
             "key": "unexplained",
             "text": "Unexplained or repeated genitourinary symptoms",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "other_injury",
-            "text": "{{anc_physical_exam.step3.ipv_physical_signs_symptoms.options.other_injury.text}}",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "",

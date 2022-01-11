@@ -1861,14 +1861,6 @@
             "openmrs_entity_parent": ""
           },
           {
-            "key": "traumatic_injury",
-            "text": "Traumatic injury or implausible explanations",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          },
-          {
             "key": "intrusive",
             "text": "Intrusive partner or husband present at consultations",
             "value": false,
@@ -1893,14 +1885,6 @@
             "openmrs_entity_parent": ""
           },
           {
-            "key": "alcohol",
-            "text": "Alcohol and other substance use",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          },
-          {
             "key": "suicidal",
             "text": "Self-harm or suicidal",
             "value": false,
@@ -1911,14 +1895,6 @@
           {
             "key": "unexplained",
             "text": "Unexplained or repeated genitourinary symptoms",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "other_injury",
-            "text": "Other injury",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "",
