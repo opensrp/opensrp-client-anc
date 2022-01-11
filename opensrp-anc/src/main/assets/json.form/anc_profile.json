@@ -884,7 +884,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "extra_info": "Usia Kehamilan: {sfh_gest_age} Minggu<br/> HPL: {sfh_edd} Hari"
+            "extra_info": "Usia Kehamilan: {sfh_gest_age} <br/> HPL: {sfh_edd} "
           }
         ],
         "v_required": {
@@ -919,7 +919,7 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "text": "{{anc_profile.step2.lmp_ultrasound_gest_age_selection.options.lmp.text}}",
-            "extra_info": "Usia Kehamilan: {lmp_gest_age} Minggu <br/>HPL: {lmp_edd} Hari"
+            "extra_info": "Usia Kehamilan: {lmp_gest_age}  <br/>HPL: {lmp_edd} "
           },
           {
             "key": "ultrasound",
@@ -927,7 +927,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159618AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "extra_info": "Usia Kehamilan: {ultrasound_gest_age} Minggu<br/> HPL: {ultrasound_edd} Hari"
+            "extra_info": "Usia Kehamilan: {ultrasound_gest_age} <br/> HPL: {ultrasound_edd} "
           }
         ],
         "v_required": {
@@ -962,7 +962,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159618AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "extra_info": "Usia Kehamilan: {ultrasound_gest_age} Minggu<br/> HPL: {ultrasound_edd} Hari"
+            "extra_info": "Usia Kehamilan: {ultrasound_gest_age} <br/> HPL: {ultrasound_edd} "
           },
           {
             "key": "sfh",
@@ -970,7 +970,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "extra_info": "Usia Kehamilan: {sfh_gest_age} Minggu<br/> HPL: {sfh_edd} Hari"
+            "extra_info": "Usia Kehamilan: {sfh_gest_age} <br/> HPL: {sfh_edd} "
           }
         ],
         "v_required": {
