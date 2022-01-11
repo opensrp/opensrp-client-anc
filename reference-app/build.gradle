@@ -360,37 +360,44 @@ jarJar {
 }
 
 def renameAPK(variant, version, buildType) {
-    def toDir = "C:\\Users\\Muham\\OneDrive\\Documents\\Projects\\SID\\WHO-ANC\\APK"
     def fileName = buildFileName(buildType, version);
     variant.outputs.each { output ->
         output.outputFileName = fileName
     }
-    variant.assembleProvider.configure { assemble ->
-        assemble.doLast {
-            //copy the apk in another directory, add here your
-            //logic to customize the destination folder
-            copy {
-                def out = 'WHOANC.latest-' + buildType + '-optibp.apk';
-                File file = new File(toDir + "\\" + out);
-                if (file.exists()) {
-                    file.delete();
+    if (project.rootProject.file("local.properties").exists()) {
+        Properties properties = new Properties();
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        if (properties.containsKey("copy.output.enable") && Boolean.parseBoolean(properties.getProperty("copy.output.enable"))) {
+            def toDir = properties.getProperty("copy.output.path");
+            variant.assembleProvider.configure { assemble ->
+                assemble.doLast {
+                    //copy the apk in another directory, add here your
+                    //logic to customize the destination folder
+                    copy {
+                        def out = 'WHOANC.latest-' + buildType + '-optibp.apk';
+                        File file = new File(toDir + "\\" + out);
+                        if (file.exists()) {
+                            file.delete();
+                        }
+                        from "$buildDir/outputs/apk/" + buildType + "/" + fileName
+                        //for Windows
+                        into toDir
+                        rename { out }
+                    }
+                    copy {
+                        File file = new File(toDir + "\\" + fileName);
+                        if (file.exists()) {
+                            file.delete();
+                        }
+                        from "$buildDir/outputs/apk/" + buildType + "/" + fileName
+                        //for Windows
+                        into toDir
+                    }
                 }
-                from "$buildDir/outputs/apk/" + buildType + "/" + fileName
-                //for Windows
-                into toDir
-                rename { out }
-            }
-            copy {
-                File file = new File(toDir + "\\" + fileName);
-                if (file.exists()) {
-                    file.delete();
-                }
-                from "$buildDir/outputs/apk/" + buildType + "/" + fileName
-                //for Windows
-                into toDir
             }
         }
     }
+
 }
 
 
