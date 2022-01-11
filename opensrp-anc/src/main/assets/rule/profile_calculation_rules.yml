@@ -207,7 +207,7 @@ description: discordant
 priority: 1
 condition: "(step1_hiv_test_result == 'positive') || (step1_partner_hiv_status == 'positive')"
 actions:
-  - "calculation = 1"
+  - "calculation = yes"
 ---
 me: step2_delivery_termination
 description: delivery_termination

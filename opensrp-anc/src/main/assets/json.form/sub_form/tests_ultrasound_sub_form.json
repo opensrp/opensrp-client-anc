@@ -585,7 +585,7 @@
         "err": "Specify date"
       },
       "relevance": {
-        "step1:ultrasound": {
+        "step2:ultrasound": {
           "type": "string",
           "ex": "equalTo(., \"ordered\")"
         }
