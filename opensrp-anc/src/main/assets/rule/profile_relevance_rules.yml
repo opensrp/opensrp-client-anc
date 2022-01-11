@@ -238,8 +238,8 @@ condition: "(step2_gestational_age > 6)"
 actions:
   - "isRelevant = true"
 ---
-name: step3_discordant
-description: discordant
+name: step5_condom_use
+description: condom_use
 priority: 1
 condition: "(global_hiv_test_result == 'positive')"
 actions:

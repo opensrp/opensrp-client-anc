@@ -93,6 +93,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "readonly": "false",
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
         "edit_type": "number",
@@ -111,6 +112,13 @@
         "v_max": {
           "value": "200",
           "err": "Height must be equal or less than 200"
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
         }
       },
       {
@@ -2337,14 +2345,6 @@
             "openmrs_entity_parent": ""
           },
           {
-            "key": "other_injury",
-            "text": "{{anc_physical_exam.step3.ipv_physical_signs_symptoms.options.other_injury.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          },
-          {
             "key": "other",
             "text": "{{anc_physical_exam.step3.ipv_physical_signs_symptoms.options.other.text}}",
             "value": false,
@@ -2729,6 +2729,140 @@
           "value": "false",
           "err": "{{anc_physical_exam.step4.sfh.v_required.err}}"
         },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "baby_lie",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "baby_lie",
+        "type": "native_radio",
+        "label": "Fetal lie",
+        "label_text_style": "bold",
+        "label_info_text": "The position in which the baby is laying",
+        "options": [
+          {
+            "key": "cephalic",
+            "text": "Cephalic",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "cephalic"
+          },
+          {
+            "key": "longitudinal",
+            "text": "Longitudinal",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "longitudinal"
+          },
+          {
+            "key": "oblique",
+            "text": "Oblique",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "oblique"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "fetal_presentation",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "fetal_presentation",
+        "type": "native_radio",
+        "label": "Fetal Presentation",
+        "label_text_style": "bold",
+        "label_info_text": "Fetal Presentation",
+        "options": [
+          {
+            "key": "breech",
+            "text": "Breech",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "breech"
+          },
+          {
+            "key": "cephalic",
+            "text": "Cephalic",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "cephalic"
+          },
+          {
+            "key": "other_presentation",
+            "text": "Other (Specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_presentation"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "descent",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "descent",
+        "type": "native_radio",
+        "label": "Descent",
+        "label_text_style": "bold",
+        "label_info_text": "Descent",
+        "options": [
+          {
+            "key": "five",
+            "text": "5/5",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "five"
+          },
+          {
+            "key": "four",
+            "text": "4/5",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "four"
+          },
+          {
+            "key": "three",
+            "text": "3/5",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "three"
+          },
+          {
+            "key": "two",
+            "text": "2/5",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "two"
+          },
+          {
+            "key": "one",
+            "text": "1/5",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "one"
+          }
+        ],
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -3128,53 +3262,6 @@
         "text_color": "#D56900",
         "toaster_info_text": "{{anc_physical_exam.step4.toaster30.toaster_info_text}}",
         "toaster_type": "warning",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "fetal_presentation",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "160090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "native_radio",
-        "label": "{{anc_physical_exam.step4.fetal_presentation.label}}",
-        "label_text_style": "bold",
-        "label_info_text": "{{anc_physical_exam.step4.fetal_presentation.label_info_text}}",
-        "options": [
-          {
-            "key": "unknown",
-            "text": "{{anc_physical_exam.step4.fetal_presentation.options.unknown.text}}",
-            "value": "false",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "cephalic",
-            "text": "{{anc_physical_exam.step4.fetal_presentation.options.cephalic.text}}",
-            "value": "false",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "160091AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "other",
-            "text": "{{anc_physical_exam.step4.fetal_presentation.options.other.text}}",
-            "value": "false",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "{{anc_physical_exam.step4.fetal_presentation.v_required.err}}"
-        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {

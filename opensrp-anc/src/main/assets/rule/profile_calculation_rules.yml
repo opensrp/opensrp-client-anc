@@ -144,7 +144,7 @@ description: Previous pregnancies
 priority: 1
 condition: "step2_gravida > 0"
 actions:
-  - "calculation = step2_gravida - 1 "
+  - "calculation = step2_gravida + 1 "
 ---
 name: step2_parity
 description: Parity calculation
@@ -205,6 +205,20 @@ actions:
 name: step3_discordant
 description: discordant
 priority: 1
-condition: "(step1_hiv_test_result == 'positive') || (step1_partner_hiv_status == 'positive')"
+condition: "(global_hiv_test_result == 'positive')"
 actions:
-  - "calculation = 1"
+  - "calculation = 'yes'"
+---
+name: step2_delivery_termination
+description: delivery_termination
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = helper.formatDate("19-12-2020","y")'
+---
+name: step2_gravida
+description: gravida
+priority: 1
+condition: "(step2_gravida > '0.5')"
+actions:
+  - "calculation = ['global_gravida': step2_gravida + 1]"
