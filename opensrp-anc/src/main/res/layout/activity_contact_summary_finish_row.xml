@@ -21,21 +21,6 @@
         android:textColor="@color/white" />
 
     <TextView
-        android:id="@+id/contact_summary_section_referral"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/contact_summary_section_header_bg"
-        android:gravity="left"
-        android:paddingTop="@dimen/contact_drawable_padding"
-        android:paddingBottom="@dimen/contact_drawable_padding"
-        android:paddingLeft="@dimen/contact_drawable_padding"
-        android:singleLine="true"
-        android:text="REASON FOR REFERRAL"
-        android:textAllCaps="true"
-        android:textAppearance="?android:textAppearanceMedium"
-        android:textColor="@color/white" />
-
-    <TextView
         android:id="@+id/contact_summary_section_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
