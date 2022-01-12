@@ -131,10 +131,3 @@ priority: 1
 condition: "bp_diastolic_repeat < 20 || bp_systolic_repeat < 60"
 actions:
   - 'calculation = ["bp_unrecordable" : 1]'
----
-name: step1_height
-description: Height
-priority: 1
-condition: "step1_height != null && step1_height >= 10"
-actions:
-  - "calculation = (step1_height_readonly_value = 0)"
