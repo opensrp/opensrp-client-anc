@@ -244,3 +244,11 @@ priority: 1
 condition: "(global_hiv_test_result == 'positive')"
 actions:
   - "isRelevant = true"
+
+---
+name: step2_preg_one_delivery_termination_label
+description: preg_one_delivery_termination_label
+priority: 1
+condition: "(step3_gravida == 1)"
+actions:
+  - "isRelevant = true"

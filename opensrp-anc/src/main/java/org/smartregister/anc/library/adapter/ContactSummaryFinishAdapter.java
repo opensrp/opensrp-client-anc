@@ -104,7 +104,6 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
         ViewHolder(View itemView) {
             super(itemView);
             sectionHeader = itemView.findViewById(R.id.contact_summary_section_header);
-            sectionReferral = itemView.findViewById(R.id.contact_summary_section_referral);
             sectionDetails = itemView.findViewById(R.id.contact_summary_section_details);
             parent = itemView;
         }
