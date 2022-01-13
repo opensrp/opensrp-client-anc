@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
@@ -43,6 +44,8 @@ import java.util.Map;
 import java.util.Set;
 
 import timber.log.Timber;
+import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import java.util.UUID;
 
@@ -65,7 +68,9 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             ConstantsUtils.JsonFormUtils.ANC_SYMPTOMS_FOLLOW_UP, ConstantsUtils.JsonFormUtils.ANC_PHYSICAL_EXAM,
             ConstantsUtils.JsonFormUtils.ANC_TEST, ConstantsUtils.JsonFormUtils.ANC_COUNSELLING_TREATMENT, ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS};
     private String formInvalidFields = null;
+    public List<Contact> contacts = new ArrayList<>();
     public JSONObject formObject;
+    public boolean removeMainC = false;
 
     @Override
     protected void onResume() {
@@ -84,9 +89,28 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
         initializeMainContactContainers();
 
+        Switch s = (Switch) findViewById(R.id.routineSwitch);
+
+        s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                                         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                             if (isChecked) {
+                                                 removeMainC = true;
+                                                 contacts.clear();
+                                                 initializeSecondContactContainers();
+                                             } else {
+                                                 removeMainC = false;
+                                                 contacts.clear();
+                                                 initializeMainContactContainers();
+                                             }
+                                         }
+                                     }
+        );
+
+
         //Enable/Disable finalize button
         findViewById(R.id.finalize_contact).setEnabled(true);
     }
+
 
     private void initializeMainContactContainers() {
 
@@ -103,8 +127,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 if (ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE.equals(pair[0]))
                     requiredFieldsMap.put(pair[0], Integer.parseInt(pair[1]));
             }
-
-            List<Contact> contacts = new ArrayList<>();
 
             Contact quickCheck = new Contact();
             quickCheck.setName(getString(R.string.quick_check));
@@ -131,26 +153,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             profile.setFormName(ConstantsUtils.JsonFormUtils.ANC_PROFILE);
             contacts.add(profile);
 
-            Contact symptomsAndFollowUp = new Contact();
-            symptomsAndFollowUp.setName(getString(R.string.symptoms_follow_up));
-            symptomsAndFollowUp.setContactNumber(contactNo);
-            symptomsAndFollowUp.setBackground(R.drawable.symptoms_bg);
-            symptomsAndFollowUp.setActionBarBackground(R.color.contact_symptoms_actionbar);
-            symptomsAndFollowUp.setNavigationBackground(R.color.contact_symptoms_navigation);
-            setRequiredFields(symptomsAndFollowUp);
-            symptomsAndFollowUp.setFormName(ConstantsUtils.JsonFormUtils.ANC_SYMPTOMS_FOLLOW_UP);
-            contacts.add(symptomsAndFollowUp);
-
-            Contact physicalExam = new Contact();
-            physicalExam.setName(getString(R.string.physical_exam));
-            physicalExam.setContactNumber(contactNo);
-            physicalExam.setBackground(R.drawable.physical_exam_bg);
-            physicalExam.setActionBarBackground(R.color.contact_exam_actionbar);
-            physicalExam.setNavigationBackground(R.color.contact_exam_navigation);
-            setRequiredFields(physicalExam);
-            physicalExam.setFormName(ConstantsUtils.JsonFormUtils.ANC_PHYSICAL_EXAM);
-            contacts.add(physicalExam);
-
             Contact tests = new Contact();
             tests.setName(getString(R.string.tests));
             tests.setContactNumber(contactNo);
@@ -176,6 +178,51 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
         } catch (Exception e) {
             Timber.e(e, " --> initializeMainContactContainers");
+        }
+
+    }
+
+    private void initializeSecondContactContainers() {
+
+        try {
+
+            requiredFieldsMap.clear();
+            loadContactGlobalsConfig();
+
+            process(contactForms);
+            requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS_ENCOUNTER_TYPE, 0);
+
+            if (StringUtils.isNotBlank(formInvalidFields) && contactNo > 1 && !PatientRepository.isFirstVisit(baseEntityId)) {
+                String[] pair = formInvalidFields.split(":");
+                if (ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE.equals(pair[0]))
+                    requiredFieldsMap.put(pair[0], Integer.parseInt(pair[1]));
+            }
+
+            Contact symptomsAndFollowUp = new Contact();
+            symptomsAndFollowUp.setName(getString(R.string.symptoms_follow_up));
+            symptomsAndFollowUp.setContactNumber(contactNo);
+            symptomsAndFollowUp.setBackground(R.drawable.symptoms_bg);
+            symptomsAndFollowUp.setActionBarBackground(R.color.contact_symptoms_actionbar);
+            symptomsAndFollowUp.setNavigationBackground(R.color.contact_symptoms_navigation);
+            setRequiredFields(symptomsAndFollowUp);
+            symptomsAndFollowUp.setFormName(ConstantsUtils.JsonFormUtils.ANC_SYMPTOMS_FOLLOW_UP);
+            contacts.add(symptomsAndFollowUp);
+
+            Contact physicalExam = new Contact();
+            physicalExam.setName(getString(R.string.physical_exam));
+            physicalExam.setContactNumber(contactNo);
+            physicalExam.setBackground(R.drawable.physical_exam_bg);
+            physicalExam.setActionBarBackground(R.color.contact_exam_actionbar);
+            physicalExam.setNavigationBackground(R.color.contact_exam_navigation);
+            setRequiredFields(physicalExam);
+            physicalExam.setFormName(ConstantsUtils.JsonFormUtils.ANC_PHYSICAL_EXAM);
+            contacts.add(physicalExam);
+
+            contactAdapter.setContacts(contacts);
+            contactAdapter.notifyDataSetChanged();
+
+        } catch (Exception e) {
+            Timber.e(e, " --> initializeSecondContactContainers");
         }
 
     }

@@ -69,4 +69,10 @@
 
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
+
+    <Switch
+        android:id="@+id/routineSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:text="Routine Antenatal Care" />
 </com.google.android.material.appbar.AppBarLayout>

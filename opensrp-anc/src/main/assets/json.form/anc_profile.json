@@ -890,7 +890,38 @@
           "value": false
         }
       },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp",
+        "relevance": {
+          "step2:gravida": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"0\")"
+          }
+        }
+      },
 
+      {
+        "key": "pregnancy_one_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Pregnancy 1",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false,
+          "err": "Pregnancy 1"
+        },
+        "relevance": {
+          "step2:gravida": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"0\")"
+          }
+        }
+      },
       {
         "key": "preg_one_delivery_termination_label",
         "type": "label",
@@ -903,7 +934,7 @@
         "relevance": {
           "step2:gravida": {
             "type": "numeric",
-            "ex": "equalTo(.,\"1\")"
+            "ex": "greaterThan(.,\"0\")"
           }
         }
       },
@@ -927,7 +958,7 @@
         "relevance": {
           "step2:gravida": {
             "type": "numeric",
-            "ex": "equalTo(.,\"1\")"
+            "ex": "greaterThan(.,\"0\")"
           }
         }
       },
@@ -951,203 +982,26 @@
         "relevance": {
           "step2:gravida": {
             "type": "numeric",
-            "ex": "equalTo(.,\"1\")"
+            "ex": "greaterThan(.,\"0\")"
           }
         }
       },
       {
-        "key": "preg_one_emonth",
+        "key": "preg_one_estimated_delivery_termination",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "emonth",
-        "type": "spinner",
-        "label": "Estimated month",
-        "label_text_style": "bold",
-        "hint": "Estimated month",
-        "options": [
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "jan",
-            "key": "jan",
-            "text": "January"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "feb",
-            "key": "feb",
-            "text": "February`"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "mar",
-            "key": "mar",
-            "text": "March"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "apr",
-            "key": "apr",
-            "text": "April"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "may",
-            "openmrs_entity_id": "",
-            "key": "may",
-            "text": "May"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "jun",
-            "key": "jun",
-            "text": "June"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "jul",
-            "key": "jul",
-            "text": "July"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "aug",
-            "key": "aug",
-            "text": "August"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "sep",
-            "key": "sep",
-            "text": "September"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "oct",
-            "key": "oct",
-            "text": "October"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "nov",
-            "key": "nov",
-            "text": "November"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "dec",
-            "key": "dec",
-            "text": "December"
-          }
-        ],
-        "relevance": {
-          "step2:preg_one_dt_unknown": {
-            "type": "string",
-            "ex": "equalTo(.,\"true\")"
-          }
-        }
-      },
-      {
-        "key": "preg_one_eyear",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "eyear",
-        "type": "spinner",
-        "label": "Estimated year",
-        "label_text_style": "bold",
-        "hint": "Estimated year",
-        "options": [
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "2012",
-            "key": "2012",
-            "text": "2012`"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "2013",
-            "key": "2013",
-            "text": "2013`"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "2014",
-            "key": "2014",
-            "text": "2014`"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "2015",
-            "key": "2015",
-            "text": "2015`"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "2016",
-            "openmrs_entity_id": "",
-            "key": "2016",
-            "text": "2016"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "2017",
-            "key": "2017",
-            "text": "2017"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "2018",
-            "key": "2018",
-            "text": "2018"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "2019",
-            "key": "2019",
-            "text": "2019"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "2020",
-            "key": "2020",
-            "text": "2020"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "2021",
-            "key": "2021",
-            "text": "2021"
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "2022",
-            "key": "2022",
-            "text": "2022"
-          }
-        ],
+        "openmrs_entity_id": "preg_one_estimated_delivery_termination",
+        "type": "date_picker",
+        "hint": "Date of delivery/termination",
+        "expanded": false,
+        "duration": {
+          "label": "Date"
+        },
+        "min_date": "today-49y",
+        "max_date": "today",
         "v_required": {
-          "value": false,
-          "err": "place year"
+          "value": "false",
+          "err": "Enter date"
         },
         "relevance": {
           "step2:preg_one_dt_unknown": {
@@ -1160,7 +1014,7 @@
         "key": "preg_one_gestational_age_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Duration (months)",
+        "text": "Gestational age",
         "text_color": "#000000",
         "v_required": {
           "value": false
@@ -1168,7 +1022,7 @@
         "relevance": {
           "step2:gravida": {
             "type": "numeric",
-            "ex": "equalTo(.,\"1\")"
+            "ex": "greaterThan(.,\"0\")"
           }
         }
       },
@@ -1201,7 +1055,7 @@
         "relevance": {
           "step2:gravida": {
             "type": "numeric",
-            "ex": "equalTo(.,\"1\")"
+            "ex": "greaterThan(.,\"0\")"
           }
         }
       },
@@ -1228,36 +1082,8 @@
             "type": "string",
             "ex": "greaterThan(., \"6\")"
           }
-      }},
-
-      {
-        "key": "preg_one_sex_dead_infant",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "sex_dead_infant",
-        "type": "native_radio",
-        "label": "Sex of infant",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "male",
-            "text": "Male"
-          },
-          {
-            "key": "female",
-            "text": "Female"
-          },
-          {
-            "key": "unknown",
-            "text": "Unknown"
-          }
-        ],
-        "relevance": {
-          "step2:miscarriage_abortion": {
-            "type": "string",
-            "ex": "equalTo(., \"no\")"
-          }
-      }},
+        }
+      },
       {
         "key": "delivery_method",
         "openmrs_entity_parent": "",
@@ -1387,7 +1213,9 @@
           "step2:gestational_age": {
             "type": "string",
             "ex": "greaterThan(., \"6\")"
-      }}},
+          }
+        }
+      },
       {
         "key": "preg_one_outcome_early",
         "openmrs_entity_parent": "",
@@ -1402,10 +1230,11 @@
             "text": "Abortion/Miscarriage"
           }
         ],
-        "relevance":{
-          "step2:gestational_age": {
-            "type": "string",
-            "ex": "lessThan(., \"6\")"
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
           }
         }
       },
@@ -1435,49 +1264,1525 @@
           "key": "no",
           "text": "No"
         }
-      ]
+      ],
+        "relevance":{
+          "step2:gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
       },
 
+
+
+
+
+
+
       {
-        "key": "preg_one_due_date_pregnancy",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "due_date_pregnancy",
-        "type": "date_picker",
-        "hint": "Year of delivery",
-        "expanded": false,
-        "duration": {
-          "label": ""
+        "key": "pregnancy_two_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Pregnancy 2",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false,
+          "err": "Pregnancy 1"
         },
-        "min_date": "today - 35y",
-        "max_date": "today",
-        "relevance":{
-          "step2:preg_one_outcome": {
-            "type": "string",
-            "ex": "equalTo(., \"live\")"
+        "relevance": {
+          "step2:gravida": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"1\")"
           }
         }
       },
       {
-        "key": "preg_one_due_date_lost",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "due_date_lost",
-        "type": "date_picker",
-        "hint": "Year of termination",
-        "relevance":{
-          "step2:preg_one_outcome": {
-            "type": "string",
-            "ex": "equalTo(., \"still\")"
-          }
+        "key": "pregnancy_two_delivery_termination_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Date of delivery/termination",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
         },
+        "relevance": {
+          "step2:gravida": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"1\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_two_delivery_termination",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "delivery_termination",
+        "type": "date_picker",
+        "hint": "Date of delivery/termination",
         "expanded": false,
         "duration": {
-          "label": ""
+          "label": "Date"
         },
-        "min_date": "today - 35y",
-        "max_date": "today"
+        "min_date": "today-49y",
+        "max_date": "today",
+        "v_required": {
+          "value": "false",
+          "err": "Enter date"
+        },
+        "relevance": {
+          "step2:gravida": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"1\")"
+          }
+        }
       },
+      {
+        "key": "pregnancy_two_dt_unknown",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "dt_unknown",
+        "type": "check_box",
+        "options": [
+          {
+            "key": "dt_unknown",
+            "text": "Date of delivery/termination unknown",
+            "text_size": "18px",
+            "value": "false",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "relevance": {
+          "step2:gravida": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"1\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_two_estimated_delivery_termination",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "pregnancy_two_estimated_delivery_termination",
+        "type": "date_picker",
+        "hint": "Date of delivery/termination",
+        "expanded": false,
+        "duration": {
+          "label": "Date"
+        },
+        "min_date": "today-49y",
+        "max_date": "today",
+        "v_required": {
+          "value": "false",
+          "err": "Enter date"
+        },
+        "relevance": {
+          "step2:pregnancy_two_dt_unknown": {
+            "type": "string",
+            "ex": "equalTo(.,\"true\")"
+          }
+        }
+      },
+
+
+      {
+        "key": "pregnancy_two_pregnancy_two_gestational_age_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Gestational Age",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        },
+        "relevance": {
+          "step2:gravida": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"1\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_two_gestational_age",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "pregnancy_two_gestational_age",
+        "label": "Duration",
+        "label_text_style": "bold",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Duration must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "10",
+          "err": "Duration must be equal or less than 10"
+        },
+        "v_required": {
+          "value": "false",
+          "err": "Please enter duration"
+        },
+        "relevance": {
+          "step2:gravida": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"1\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_two_sex_infant",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "sex_infant",
+        "type": "native_radio",
+        "label": "Sex of infant",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "male",
+            "text": "Male"
+          },
+          {
+            "key": "female",
+            "text": "Female"
+          }
+        ],
+        "relevance":{
+          "step2:pregnancy_two_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_two_delivery_method",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "delivery_method",
+        "type": "native_radio",
+        "label": "Method of delivery",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "natural",
+            "text": "Natural"
+          },
+          {
+            "key": "c",
+            "text": "C-Section"
+          }
+        ],
+        "relevance":{
+          "step2:pregnancy_two_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
+        "key": "pregnancy_two_labour_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "labour_type",
+        "type": "native_radio",
+        "label": "Type of labour",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "induced",
+            "text": "Induced"
+          },
+          {
+            "key": "spontaneous",
+            "text": "Spontaneous"
+          }
+        ],
+        "relevance":{
+          "step2:pregnancy_two_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+
+      {
+        "key": "pregnancy_two_birth_weight_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Birth weight(grams)",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        },
+        "relevance":{
+          "step2:pregnancy_two_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_two_birth_weight",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "birth_weight",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "800",
+          "err": "Weight must be equal or greater than 800 grams"
+        },
+        "v_max": {
+          "value": "6000",
+          "err": "Weight must be equal or less than 6000 grams"
+        },
+        "v_required": {
+          "value": "false",
+          "err": "Please enter birth weight"
+        },
+        "relevance":{
+          "step2:pregnancy_two_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+
+      {
+        "key": "pregnancy_two_outcome",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "outcome",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "live",
+            "text": "Live birth"
+          },
+          {
+            "key": "still",
+            "text": "Still birth"
+          }
+        ],
+        "relevance":{
+          "step2:pregnancy_two_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_two_outcome_early",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "outcome",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "abortion_miscarriage",
+            "text": "Abortion/Miscarriage"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "pregnancy_two_spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+
+      {
+        "key": "pregnancy_two_complications",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "complications",
+        "type": "native_radio",
+        "label": "Any complications in child birth",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ],
+        "relevance":{
+          "step2:pregnancy_two_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+
+
+
+
+
+
+
+
+
+
+
+      {
+        "key": "pregnancy_three_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Pregnancy 3",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false,
+          "err": "Pregnancy 3"
+        },
+        "relevance": {
+          "step2:gravida": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"2\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_three_delivery_termination_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Date of delivery/termination",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        },
+        "relevance": {
+          "step2:gravida": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"2\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_three_delivery_termination",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "delivery_termination",
+        "type": "date_picker",
+        "hint": "Date of delivery/termination",
+        "expanded": false,
+        "duration": {
+          "label": "Date"
+        },
+        "min_date": "today-49y",
+        "max_date": "today",
+        "v_required": {
+          "value": "false",
+          "err": "Enter date"
+        },
+        "relevance": {
+          "step2:gravida": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"2\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_three_dt_unknown",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "dt_unknown",
+        "type": "check_box",
+        "options": [
+          {
+            "key": "dt_unknown",
+            "text": "Date of delivery/termination unknown",
+            "text_size": "18px",
+            "value": "false",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "relevance": {
+          "step2:gravida": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"2\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_three_estimated_delivery_termination",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "pregnancy_three_estimated_delivery_termination",
+        "type": "date_picker",
+        "hint": "Date of delivery/termination",
+        "expanded": false,
+        "duration": {
+          "label": "Date"
+        },
+        "min_date": "today-49y",
+        "max_date": "today",
+        "v_required": {
+          "value": "false",
+          "err": "Enter date"
+        },
+        "relevance": {
+          "step2:pregnancy_three_dt_unknown": {
+            "type": "string",
+            "ex": "equalTo(.,\"true\")"
+          }
+        }
+      },
+
+
+      {
+        "key": "pregnancy_three_pregnancy_three_gestational_age_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Gestational Age",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        },
+        "relevance": {
+          "step2:gravida": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"2\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_three_gestational_age",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "pregnancy_three_gestational_age",
+        "label": "Duration",
+        "label_text_style": "bold",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Duration must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "10",
+          "err": "Duration must be equal or less than 10"
+        },
+        "v_required": {
+          "value": "false",
+          "err": "Please enter duration"
+        },
+        "relevance": {
+          "step2:gravida": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"2\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_three_sex_infant",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "sex_infant",
+        "type": "native_radio",
+        "label": "Sex of infant",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "male",
+            "text": "Male"
+          },
+          {
+            "key": "female",
+            "text": "Female"
+          }
+        ],
+        "relevance":{
+          "step2:pregnancy_three_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_three_delivery_method",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "delivery_method",
+        "type": "native_radio",
+        "label": "Method of delivery",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "natural",
+            "text": "Natural"
+          },
+          {
+            "key": "c",
+            "text": "C-Section"
+          }
+        ],
+        "relevance":{
+          "step2:pregnancy_three_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
+        "key": "pregnancy_three_labour_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "labour_type",
+        "type": "native_radio",
+        "label": "Type of labour",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "induced",
+            "text": "Induced"
+          },
+          {
+            "key": "spontaneous",
+            "text": "Spontaneous"
+          }
+        ],
+        "relevance":{
+          "step2:pregnancy_three_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+
+      {
+        "key": "pregnancy_three_birth_weight_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Birth weight(grams)",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        },
+        "relevance":{
+          "step2:pregnancy_three_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_three_birth_weight",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "birth_weight",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "800",
+          "err": "Weight must be equal or greater than 800 grams"
+        },
+        "v_max": {
+          "value": "6000",
+          "err": "Weight must be equal or less than 6000 grams"
+        },
+        "v_required": {
+          "value": "false",
+          "err": "Please enter birth weight"
+        },
+        "relevance":{
+          "step2:pregnancy_three_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+
+      {
+        "key": "pregnancy_three_outcome",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "outcome",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "live",
+            "text": "Live birth"
+          },
+          {
+            "key": "still",
+            "text": "Still birth"
+          }
+        ],
+        "relevance":{
+          "step2:pregnancy_three_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_three_outcome_early",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "outcome",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "abortion_miscarriage",
+            "text": "Abortion/Miscarriage"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "pregnancy_three_spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+
+      {
+        "key": "pregnancy_three_complications",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "complications",
+        "type": "native_radio",
+        "label": "Any complications in child birth",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ],
+        "relevance":{
+          "step2:pregnancy_three_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+
+
+
+
+      {
+        "key": "pregnancy_four_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Pregnancy 4",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false,
+          "err": "Pregnancy 4"
+        },
+        "relevance": {
+          "step2:gravida": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"3\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_four_delivery_termination_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Date of delivery/termination",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        },
+        "relevance": {
+          "step2:gravida": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"3\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_four_delivery_termination",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "delivery_termination",
+        "type": "date_picker",
+        "hint": "Date of delivery/termination",
+        "expanded": false,
+        "duration": {
+          "label": "Date"
+        },
+        "min_date": "today-49y",
+        "max_date": "today",
+        "v_required": {
+          "value": "false",
+          "err": "Enter date"
+        },
+        "relevance": {
+          "step2:gravida": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"3\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_four_dt_unknown",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "dt_unknown",
+        "type": "check_box",
+        "options": [
+          {
+            "key": "dt_unknown",
+            "text": "Date of delivery/termination unknown",
+            "text_size": "18px",
+            "value": "false",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "relevance": {
+          "step2:gravida": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"3\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_four_estimated_delivery_termination",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "pregnancy_four_estimated_delivery_termination",
+        "type": "date_picker",
+        "hint": "Date of delivery/termination",
+        "expanded": false,
+        "duration": {
+          "label": "Date"
+        },
+        "min_date": "today-49y",
+        "max_date": "today",
+        "v_required": {
+          "value": "false",
+          "err": "Enter date"
+        },
+        "relevance": {
+          "step2:pregnancy_four_dt_unknown": {
+            "type": "string",
+            "ex": "equalTo(.,\"true\")"
+          }
+        }
+      },
+
+
+      {
+        "key": "pregnancy_four_pregnancy_four_gestational_age_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Gestational Age",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        },
+        "relevance": {
+          "step2:gravida": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"3\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_four_gestational_age",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "pregnancy_four_gestational_age",
+        "label": "Duration",
+        "label_text_style": "bold",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Duration must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "10",
+          "err": "Duration must be equal or less than 10"
+        },
+        "v_required": {
+          "value": "false",
+          "err": "Please enter duration"
+        },
+        "relevance": {
+          "step2:gravida": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"3\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_four_sex_infant",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "sex_infant",
+        "type": "native_radio",
+        "label": "Sex of infant",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "male",
+            "text": "Male"
+          },
+          {
+            "key": "female",
+            "text": "Female"
+          }
+        ],
+        "relevance":{
+          "step2:pregnancy_four_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_four_delivery_method",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "delivery_method",
+        "type": "native_radio",
+        "label": "Method of delivery",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "natural",
+            "text": "Natural"
+          },
+          {
+            "key": "c",
+            "text": "C-Section"
+          }
+        ],
+        "relevance":{
+          "step2:pregnancy_four_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
+        "key": "pregnancy_four_labour_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "labour_type",
+        "type": "native_radio",
+        "label": "Type of labour",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "induced",
+            "text": "Induced"
+          },
+          {
+            "key": "spontaneous",
+            "text": "Spontaneous"
+          }
+        ],
+        "relevance":{
+          "step2:pregnancy_four_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+
+      {
+        "key": "pregnancy_four_birth_weight_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Birth weight(grams)",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        },
+        "relevance":{
+          "step2:pregnancy_four_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_four_birth_weight",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "birth_weight",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "800",
+          "err": "Weight must be equal or greater than 800 grams"
+        },
+        "v_max": {
+          "value": "6000",
+          "err": "Weight must be equal or less than 6000 grams"
+        },
+        "v_required": {
+          "value": "false",
+          "err": "Please enter birth weight"
+        },
+        "relevance":{
+          "step2:pregnancy_four_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+
+      {
+        "key": "pregnancy_four_outcome",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "outcome",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "live",
+            "text": "Live birth"
+          },
+          {
+            "key": "still",
+            "text": "Still birth"
+          }
+        ],
+        "relevance":{
+          "step2:pregnancy_four_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_four_outcome_early",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "outcome",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "abortion_miscarriage",
+            "text": "Abortion/Miscarriage"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "pregnancy_four_spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+
+      {
+        "key": "pregnancy_four_complications",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "complications",
+        "type": "native_radio",
+        "label": "Any complications in child birth",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ],
+        "relevance":{
+          "step2:pregnancy_four_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+
+
+
+      {
+        "key": "pregnancy_five_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Pregnancy 5",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false,
+          "err": "Pregnancy 4"
+        },
+        "relevance": {
+          "step2:gravida": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"4\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_five_delivery_termination_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Date of delivery/termination",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        },
+        "relevance": {
+          "step2:gravida": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"4\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_five_delivery_termination",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "delivery_termination",
+        "type": "date_picker",
+        "hint": "Date of delivery/termination",
+        "expanded": false,
+        "duration": {
+          "label": "Date"
+        },
+        "min_date": "today-49y",
+        "max_date": "today",
+        "v_required": {
+          "value": "false",
+          "err": "Enter date"
+        },
+        "relevance": {
+          "step2:gravida": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"4\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_five_dt_unknown",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "dt_unknown",
+        "type": "check_box",
+        "options": [
+          {
+            "key": "dt_unknown",
+            "text": "Date of delivery/termination unknown",
+            "text_size": "18px",
+            "value": "false",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "relevance": {
+          "step2:gravida": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"4\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_five_estimated_delivery_termination",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "pregnancy_five_estimated_delivery_termination",
+        "type": "date_picker",
+        "hint": "Date of delivery/termination",
+        "expanded": false,
+        "duration": {
+          "label": "Date"
+        },
+        "min_date": "today-49y",
+        "max_date": "today",
+        "v_required": {
+          "value": "false",
+          "err": "Enter date"
+        },
+        "relevance": {
+          "step2:pregnancy_five_dt_unknown": {
+            "type": "string",
+            "ex": "equalTo(.,\"true\")"
+          }
+        }
+      },
+
+
+      {
+        "key": "pregnancy_five_pregnancy_five_gestational_age_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Gestational Age",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        },
+        "relevance": {
+          "step2:gravida": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"4\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_five_gestational_age",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "pregnancy_five_gestational_age",
+        "label": "Duration",
+        "label_text_style": "bold",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Duration must be equal or greater than 0"
+        },
+        "v_max": {
+          "value": "10",
+          "err": "Duration must be equal or less than 10"
+        },
+        "v_required": {
+          "value": "false",
+          "err": "Please enter duration"
+        },
+        "relevance": {
+          "step2:gravida": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"4\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_five_sex_infant",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "sex_infant",
+        "type": "native_radio",
+        "label": "Sex of infant",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "male",
+            "text": "Male"
+          },
+          {
+            "key": "female",
+            "text": "Female"
+          }
+        ],
+        "relevance":{
+          "step2:pregnancy_five_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_five_delivery_method",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "delivery_method",
+        "type": "native_radio",
+        "label": "Method of delivery",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "natural",
+            "text": "Natural"
+          },
+          {
+            "key": "c",
+            "text": "C-Section"
+          }
+        ],
+        "relevance":{
+          "step2:pregnancy_five_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
+        "key": "pregnancy_five_labour_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "labour_type",
+        "type": "native_radio",
+        "label": "Type of labour",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "induced",
+            "text": "Induced"
+          },
+          {
+            "key": "spontaneous",
+            "text": "Spontaneous"
+          }
+        ],
+        "relevance":{
+          "step2:pregnancy_five_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+
+      {
+        "key": "pregnancy_five_birth_weight_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Birth weight(grams)",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        },
+        "relevance":{
+          "step2:pregnancy_five_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_five_birth_weight",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "birth_weight",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "800",
+          "err": "Weight must be equal or greater than 800 grams"
+        },
+        "v_max": {
+          "value": "6000",
+          "err": "Weight must be equal or less than 6000 grams"
+        },
+        "v_required": {
+          "value": "false",
+          "err": "Please enter birth weight"
+        },
+        "relevance":{
+          "step2:pregnancy_five_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+
+      {
+        "key": "pregnancy_five_outcome",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "outcome",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "live",
+            "text": "Live birth"
+          },
+          {
+            "key": "still",
+            "text": "Still birth"
+          }
+        ],
+        "relevance":{
+          "step2:pregnancy_five_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_five_outcome_early",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "outcome",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "abortion_miscarriage",
+            "text": "Abortion/Miscarriage"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "pregnancy_five_spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+
+      {
+        "key": "pregnancy_five_complications",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "complications",
+        "type": "native_radio",
+        "label": "Any complications in child birth",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ],
+        "relevance":{
+          "step2:pregnancy_five_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+
+
+
+
+
+
+
+
+
+
 
 
       {
@@ -1506,6 +2811,12 @@
         "type": "check_box",
         "label": "{{anc_profile.step3.prev_preg_probs.label}}",
         "label_text_style": "bold",
+        "relevance": {
+          "step2:gravida": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"0\")"
+          }
+        },
         "exclusive": [
           "none",
           "dont_know"
@@ -1554,6 +2865,12 @@
         "type": "check_box",
         "label": "{{anc_profile.step3.prev_preg_comps.label}}",
         "label_text_style": "bold",
+        "relevance": {
+          "step2:gravida": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"0\")"
+          }
+        },
         "exclusive": [
           "none",
           "dont_know"
@@ -2153,14 +3470,6 @@
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "79755AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "vitamina",
-            "text": "{{anc_profile.step6.medications.options.vitamina.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "86339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
@@ -3169,6 +4478,18 @@
     "next": "step7",
     "title": "TB screening history",
     "fields": [
+      {
+        "key": "tb_label",
+        "type": "label",
+        "text": "TB screening",
+        "label_info_text": "TB screening",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false,
+          "err": "TB screening"
+        }
+      },
       {
         "key": "tb_screening_history",
         "openmrs_entity_parent": "",
