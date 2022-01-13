@@ -3170,6 +3170,18 @@
     "title": "TB screening history",
     "fields": [
       {
+        "key": "tb_label",
+        "type": "label",
+        "text": "TB screening",
+        "label_info_text": "TB screening",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false,
+          "err": "TB screening"
+        }
+      },
+      {
         "key": "tb_screening_history",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
