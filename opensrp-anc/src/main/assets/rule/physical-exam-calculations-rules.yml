@@ -1,36 +1,36 @@
 ---
-name: step1_first_weight
+name: step3_first_weight
 description: This is a calculated field for purposes of making weight calculations simpler. It fixes which weight to use as pre-gestational weight.
 priority: 1
 condition: "true"
 actions:
-  - "calculation = ((!step1_pregest_weight_unknown.isEmpty() && step1_pregest_weight_unknown.contains('pregest_weight_unknown')) ? step1_current_weight : step1_pregest_weight)"
+  - "calculation = ((!step3_pregest_weight_unknown.isEmpty() && step3_pregest_weight_unknown.contains('pregest_weight_unknown')) ? step3_current_weight : step3_pregest_weight)"
 ---
-name: step1_bmi
+name: step3_bmi
 description: This is a calculated field for purposes of making weight calculations simpler. It fixes which weight to use as pre-gestational weight.
 priority: 1
-condition: "(step1_first_weight > 0)"
+condition: "(step3_first_weight > 0)"
 actions:
-  - "calculation = (step1_first_weight/((step1_height/100)*(step1_height/100)))"
+  - "calculation = (step3_first_weight/((step3_height/100)*(step3_height/100)))"
 ---
-name: step1_weight_cat
+name: step3_weight_cat
 description: weight cat tingz
 priority: 1
 condition: "true"
 actions:
-  - "calculation = (step1_bmi < 18.5 ? 'Underweight' : ((step1_bmi >= 18.5 && step1_bmi < 25) ?  'Normal Weight' : ((step1_bmi >= 25 && step1_bmi < 30) ? 'Overweight' : 'Obese')))"
+  - "calculation = (step3_bmi < 18.5 ? 'Underweight' : ((step3_bmi >= 18.5 && step3_bmi < 25) ?  'Normal Weight' : ((step3_bmi >= 25 && step3_bmi < 30) ? 'Overweight' : 'Obese')))"
 ---
-name: step1_exp_weight_gain
+name: step3_exp_weight_gain
 description: weight gain tingz
 priority: 1
 condition: "true"
 actions:
-  - "calculation = (step1_weight_cat == 'Underweight' ? '12.5 - 18': (step1_weight_cat == 'Normal Weight' ? '11.5 - 16' : (step1_weight_cat == 'Overweight' ? '7 - 11.5' : '5 - 9')))"
+  - "calculation = (step3_weight_cat == 'Underweight' ? '12.5 - 18': (step3_weight_cat == 'Normal Weight' ? '11.5 - 16' : (step3_weight_cat == 'Overweight' ? '7 - 11.5' : '5 - 9')))"
 ---
 name: step1_gdm_risk
 description: gdm risk
 priority: 1
-condition: "step1_bmi >= 30 || (!global_prev_preg_comps.isEmpty() && (global_prev_preg_comps.contains('gestational_diabetes') || global_prev_preg_comps.contains('macrosomia'))) || (global_urine_glucose != '' && (global_urine_glucose == '++' || global_urine_glucose == '+++' ||  global_urine_glucose == '++++'))"
+condition: "step3_bmi >= 30 || (!global_prev_preg_comps.isEmpty() && (global_prev_preg_comps.contains('gestational_diabetes') || global_prev_preg_comps.contains('macrosomia'))) || (global_urine_glucose != '' && (global_urine_glucose == '++' || global_urine_glucose == '+++' ||  global_urine_glucose == '++++'))"
 actions:
   - "calculation = 1"
 ---
@@ -97,31 +97,31 @@ condition: "((step2_urine_protein == '++' || step2_urine_protein == '+++' || ste
 actions:
   - "calculation = 1"
 ---
-name: step3_anaemic
+name: step4_anaemic
 description: Anaemic
 priority: 1
-condition: "(global_hb_result != '' && global_hb_result < 11 && (global_gest_age_openmrs <= 12 || global_gest_age_openmrs >= 28)) || (global_hb_result != '' && global_hb_result < 10.5 && (global_gest_age_openmrs > 12 && global_gest_age_openmrs < 28)) || (global_hb_result == '' && step3_pallor == 'yes')"
+condition: "(global_hb_result != '' && global_hb_result < 11 && (global_gest_age_openmrs <= 12 || global_gest_age_openmrs >= 28)) || (global_hb_result != '' && global_hb_result < 10.5 && (global_gest_age_openmrs > 12 && global_gest_age_openmrs < 28)) || (global_hb_result == '' && step4_pallor == 'yes')"
 actions:
   - "calculation = 1"
 ---
-name: step4_preeclampsia_risk
+name: step1_preeclampsia_risk
 description: Preeclampsia_risk
 priority: 1
-condition: "((global_prev_preg_comps != null && !global_prev_preg_comps.isEmpty() && (global_prev_preg_comps.contains('convulsions') || global_prev_preg_comps.contains('pre_eclampsia'))) || (global_health_conditions != null && !global_health_conditions.isEmpty() && (global_health_conditions.contains('autoimmune_disease') || global_health_conditions.contains('diabetes') || global_health_conditions.contains('gest_diabetes') || global_health_conditions.contains('diabetes_other') || global_health_conditions.contains('diabetes_type2') || global_health_conditions.contains('Hypertension') || global_health_conditions.contains('kidney_disease'))) || (step4_no_of_fetuses != null && step4_no_of_fetuses != '' && step4_no_of_fetuses >= 2))"
+condition: "((global_prev_preg_comps != null && !global_prev_preg_comps.isEmpty() && (global_prev_preg_comps.contains('convulsions') || global_prev_preg_comps.contains('pre_eclampsia'))) || (global_health_conditions != null && !global_health_conditions.isEmpty() && (global_health_conditions.contains('autoimmune_disease') || global_health_conditions.contains('diabetes') || global_health_conditions.contains('gest_diabetes') || global_health_conditions.contains('diabetes_other') || global_health_conditions.contains('diabetes_type2') || global_health_conditions.contains('Hypertension') || global_health_conditions.contains('kidney_disease'))) || (step1_no_of_fetuses != null && step1_no_of_fetuses != '' && step1_no_of_fetuses >= 2))"
 actions:
   - "calculation = 1"
 ---
-name: step3_toaster26_hidden
+name: step4_toaster26_hidden
 description: toaster
 priority: 1
-condition: "step3_dilation_cm > 2"
+condition: "step4_dilation_cm > 2"
 actions:
-  - 'calculation = step3_dilation_cm'
+  - 'calculation = step4_dilation_cm'
 ---
-name: step3_ipv_suspect
+name: step4_ipv_suspect
 description: ipv_suspect
 priority: 1
-condition: "(global_ipv_signs_symptoms != null && !global_ipv_signs_symptoms.isEmpty() && !global_ipv_signs_symptoms.contains('none')) || (step3_ipv_physical_signs_symptoms != null && !step3_ipv_physical_signs_symptoms.isEmpty() && !step3_ipv_physical_signs_symptoms.contains('none'))"
+condition: "(global_ipv_signs_symptoms != null && !global_ipv_signs_symptoms.isEmpty() && !global_ipv_signs_symptoms.contains('none')) || (step4_ipv_physical_signs_symptoms != null && !step4_ipv_physical_signs_symptoms.isEmpty() && !step4_ipv_physical_signs_symptoms.contains('none'))"
 actions:
   - "calculation = 1"
 ---

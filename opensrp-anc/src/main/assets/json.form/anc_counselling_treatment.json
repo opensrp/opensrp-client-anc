@@ -5136,7 +5136,14 @@
             "key": "no",
             "text": "No"
           }
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "reason_fansider_no",
@@ -5211,7 +5218,14 @@
             "key": "no",
             "text": "No"
           }
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "reason_co_trimoxazole_no",
@@ -5728,6 +5742,30 @@
     "title": "HIV Treatment",
     "fields": [
       {
+        "key": "woman_hiv_negative_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Woman is HIV negative",
+        "toaster_info_text": "Woman is HIV negative , no further action is required",
+        "toaster_type": "success",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_calculation_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "initiate_ctx",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -5750,7 +5788,14 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           }
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "started_art",
@@ -5775,7 +5820,14 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           }
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "art_number",
@@ -5784,7 +5836,14 @@
         "openmrs_entity_id": "",
         "type": "edit_text",
         "hint": "ART Number",
-        "edit_type": "name"
+        "edit_type": "name",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "viral_load",
@@ -5793,7 +5852,14 @@
         "openmrs_entity_id": "",
         "type": "edit_text",
         "hint": "Viral Load result",
-        "edit_type": "name"
+        "edit_type": "name",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "viral_load_testdate",
@@ -5815,8 +5881,10 @@
       }
     ],
     "relevance": {
-      "test_hiv_sub_form:hiv_test_result": {
-        "ex": "positive"
+      "rules-engine": {
+        "ex-rules": {
+          "rules-file": "ct_relevance_rules.yml"
+        }
       }
     }
   },

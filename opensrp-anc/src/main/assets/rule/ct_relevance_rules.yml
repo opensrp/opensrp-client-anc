@@ -607,3 +607,69 @@ priority: 1
 condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care.contains('referred')"
 actions:
   - "isRelevant = true"
+
+---
+name: step10_fansidar
+description: fansidar
+priority: 1
+condition: "!(global_hiv_positive == 1)"
+actions:
+  - "isRelevant = true"
+
+---
+name: step10_co_trimoxazole
+description: co_trimoxazole
+priority: 1
+condition: "global_hiv_positive == 1"
+actions:
+  - "isRelevant = true"
+
+---
+name: step12_initiate_ctx
+description: initiate_ctx
+priority: 1
+condition: "global_hiv_positive == 1"
+actions:
+  - "isRelevant = true"
+
+---
+name: step12_started_art
+description: started_art
+priority: 1
+condition: "global_hiv_positive == 1"
+actions:
+  - "isRelevant = true"
+
+---
+name: step12_art_number
+description: art_number
+priority: 1
+condition: "global_hiv_positive == 1"
+actions:
+  - "isRelevant = true"
+
+---
+name: step12_viral_load
+description: art_number
+priority: 1
+condition: "global_hiv_positive == 1"
+actions:
+  - "isRelevant = true"
+
+---
+name: step12_viral_load_testdate
+description: viral_load_testdate
+priority: 1
+condition: "step12_viral_load != null && !step12_viral_load.isEmpty()"
+actions:
+  - "isRelevant = true"
+
+---
+name: step12_woman_hiv_negative_toaster
+description: woman_hiv_negative_toaster
+priority: 1
+condition: "!(global_hiv_positive == 1)"
+actions:
+  - "isRelevant = true"
+
+

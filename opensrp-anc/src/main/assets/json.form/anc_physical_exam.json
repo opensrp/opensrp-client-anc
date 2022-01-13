@@ -75,48 +75,256 @@
     }
   },
   "step1": {
-    "title": "{{anc_physical_exam.step1.title}}",
+    "title": "{{anc_physical_exam.step4.title}}",
     "next": "step2",
     "fields": [
       {
-        "key": "height_label",
+        "key": "sfh_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "{{anc_physical_exam.step1.height_label.text}}",
+        "text": "{{anc_physical_exam.step4.sfh_label.text}}",
         "text_color": "#000000",
         "v_required": {
-          "value": true
+          "value": false
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
         }
       },
       {
-        "key": "height",
+        "key": "sfh",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "readonly": "false",
+        "openmrs_entity_id": "1439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
         "edit_type": "number",
-        "v_required": {
-          "value": "true",
-          "err": "{{anc_physical_exam.step1.height.v_required.err}}"
-        },
-        "v_numeric": {
-          "value": "true",
-          "err": ""
-        },
         "v_min": {
-          "value": "100",
-          "err": "Height must be equal or greater than 100"
+          "value": "0.1",
+          "err": "SFH must be greater than 0"
         },
         "v_max": {
-          "value": "200",
-          "err": "Height must be equal or less than 200"
+          "value": "44",
+          "err": "SFH must be less than or equal to 44"
         },
-        "calculation": {
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Enter a valid sfh"
+        },
+        "v_required": {
+          "value": "false",
+          "err": "{{anc_physical_exam.step4.sfh.v_required.err}}"
+        },
+        "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "physical-exam-calculations-rules.yml"
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "hof_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Height of fundus ( /40)",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "hof",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hof",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_min": {
+          "value": "0",
+          "err": "HOF must be greater than 0"
+        },
+        "v_max": {
+          "value": "50",
+          "err": "HOF must be less than or equal to 50"
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Enter a valid sfh"
+        },
+        "v_required": {
+          "value": "false",
+          "err": "{{anc_physical_exam.step4.sfh.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "baby_lie",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "baby_lie",
+        "type": "native_radio",
+        "label": "Fetal lie",
+        "label_text_style": "bold",
+        "label_info_text": "The position in which the baby is laying",
+        "options": [
+          {
+            "key": "cephalic",
+            "text": "Cephalic",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "cephalic"
+          },
+          {
+            "key": "longitudinal",
+            "text": "Longitudinal",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "longitudinal"
+          },
+          {
+            "key": "oblique",
+            "text": "Oblique",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "oblique"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "fetal_presentation",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "fetal_presentation",
+        "type": "native_radio",
+        "label": "Fetal Presentation",
+        "label_text_style": "bold",
+        "label_info_text": "Fetal Presentation",
+        "options": [
+          {
+            "key": "breech",
+            "text": "Breech",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "breech"
+          },
+          {
+            "key": "cephalic",
+            "text": "Cephalic",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "cephalic"
+          },
+          {
+            "key": "other_presentation",
+            "text": "Other (Specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_presentation"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_fetal_presentation",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "5090",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "hint": "Other (specify)",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the fetal presentation"
+        },
+        "relevance": {
+          "step1:fetal_presentation": {
+            "type": "string",
+            "ex": "equalTo(., \"other_presentation\")"
+          }
+        }
+      },
+      {
+        "key": "descent",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "descent",
+        "type": "native_radio",
+        "label": "Descent",
+        "label_text_style": "bold",
+        "label_info_text": "Descent",
+        "options": [
+          {
+            "key": "five",
+            "text": "5/5",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "five"
+          },
+          {
+            "key": "four",
+            "text": "4/5",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "four"
+          },
+          {
+            "key": "three",
+            "text": "3/5",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "three"
+          },
+          {
+            "key": "two",
+            "text": "2/5",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "two"
+          },
+          {
+            "key": "one",
+            "text": "1/5",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "one"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
             }
           }
         }
@@ -130,6 +338,203 @@
         "spacer_height": "10sp"
       },
       {
+        "key": "fetal_movement",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165376AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "{{anc_physical_exam.step4.fetal_movement.label}}",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "yes",
+            "text": "{{anc_physical_exam.step4.fetal_movement.options.yes.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "165376AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no",
+            "text": "{{anc_physical_exam.step4.fetal_movement.options.no.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "165376AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": "false",
+          "err": "{{anc_physical_exam.step4.fetal_movement.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "fetal_heartbeat",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "Fetal heartbeat",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Present",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "165377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no",
+            "text": "Absent",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "165377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_physical_exam.step4.fetal_heartbeat.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "fetal_heart_rate_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "{{anc_physical_exam.step4.fetal_heart_rate_label.text}}",
+        "text_color": "#000000",
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_physical_exam.step4.fetal_heart_rate_label.v_required.err}}"
+        },
+        "relevance": {
+          "step1:fetal_heartbeat": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "fetal_heart_rate",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1440AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "relevance": {
+          "step1:fetal_heartbeat": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_physical_exam.step4.fetal_heart_rate.v_required.err}}"
+        }
+      },
+      {
+        "key": "fetal_weight_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Fetal weight (grams)",
+        "text_color": "#000000",
+        "v_required": {
+          "value": "false",
+          "err": "Fetal weight required"
+        },
+        "relevance": {
+          "step1:fetal_heartbeat": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "fetal_weight",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "fetal_weight",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "relevance": {
+          "step1:fetal_heartbeat": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        },
+        "v_required": {
+          "value": "false",
+          "err": "{{anc_physical_exam.step4.fetal_heart_rate.v_required.err}}"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Weight must be equal or greater than 0 grams"
+        },
+        "v_max": {
+          "value": "8000",
+          "err": "Weight must be equal or less than 8000 grams"
+        }
+      },
+      {
+        "key": "toaster27",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_physical_exam.step4.toaster27.text}}",
+        "toaster_info_text": "{{anc_physical_exam.step4.toaster27.toaster_info_text}}",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toaster28",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_physical_exam.step4.toaster28.text}}",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "spacer",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -138,38 +543,189 @@
         "spacer_height": "10sp"
       },
       {
-        "key": "current_weight_label",
+        "key": "fetal_heart_rate_repeat_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "{{anc_physical_exam.step1.current_weight_label.text}}",
+        "text": "{{anc_physical_exam.step4.fetal_heart_rate_repeat_label.text}}",
         "text_color": "#000000",
         "v_required": {
           "value": true
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
         }
       },
       {
-        "key": "current_weight",
+        "key": "fetal_heart_rate_repeat",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "1440AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
         "edit_type": "number",
-        "v_numeric": {
-          "value": "true",
-          "err": ""
-        },
-        "v_min": {
-          "value": "30",
-          "err": "Weight must be equal or greater than 30"
-        },
-        "v_max": {
-          "value": "180",
-          "err": "Weight must be equal or less than 180"
-        },
         "v_required": {
           "value": "true",
-          "err": "{{anc_physical_exam.step1.current_weight.v_required.err}}"
+          "err": "{{anc_physical_exam.step4.fetal_heart_rate_repeat.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toaster29",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_physical_exam.step4.toaster29.text}}",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
+        "key": "no_of_fetuses_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "{{anc_physical_exam.step4.no_of_fetuses_label.text}}",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        },
+        "relevance": {
+          "step1:no_of_fetuses_unknown": {
+            "ex-checkbox": [
+              {
+                "not": [
+                  "no_of_fetuses_unknown"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "no_of_fetuses",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165293AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "numbers_selector",
+        "number_of_selectors": "5",
+        "start_number": "1",
+        "max_value": "8",
+        "text_size": "16px",
+        "text_color": "#000000",
+        "selected_text_color": "#ffffff",
+        "v_required": {
+          "value": false
+        },
+        "relevance": {
+          "step1:no_of_fetuses_unknown": {
+            "ex-checkbox": [
+              {
+                "not": [
+                  "no_of_fetuses_unknown"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp",
+        "relevance": {
+          "step4:no_of_fetuses_unknown": {
+            "ex-checkbox": [
+              {
+                "not": [
+                  "no_of_fetuses_unknown"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
+        "key": "no_of_fetuses_unknown",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165294AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "options": [
+          {
+            "key": "no_of_fetuses_unknown",
+            "text": "{{anc_physical_exam.step4.no_of_fetuses_unknown.options.no_of_fetuses_unknown.text}}",
+            "value": "false",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165294AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ]
+      },
+      {
+        "key": "preeclampsia_risk",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toaster30",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_physical_exam.step4.toaster30.text}}",
+        "text_color": "#D56900",
+        "toaster_info_text": "{{anc_physical_exam.step4.toaster30.toaster_info_text}}",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
         }
       }
     ]
@@ -934,8 +1490,107 @@
     ]
   },
   "step3": {
-    "title": "{{anc_physical_exam.step3.title}}",
+    "title": "{{anc_physical_exam.step1.title}}",
     "next": "step4",
+    "fields": [
+      {
+        "key": "height_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "{{anc_physical_exam.step1.height_label.text}}",
+        "text_color": "#000000",
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "height",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "readonly": "false",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_physical_exam.step1.height.v_required.err}}"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "100",
+          "err": "Height must be equal or greater than 100"
+        },
+        "v_max": {
+          "value": "200",
+          "err": "Height must be equal or less than 200"
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
+        "key": "current_weight_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "{{anc_physical_exam.step1.current_weight_label.text}}",
+        "text_color": "#000000",
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "current_weight",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "30",
+          "err": "Weight must be equal or greater than 30"
+        },
+        "v_max": {
+          "value": "180",
+          "err": "Weight must be equal or less than 180"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_physical_exam.step1.current_weight.v_required.err}}"
+        }
+      }
+    ]
+  },
+  "step4": {
+    "title": "{{anc_physical_exam.step3.title}}",
     "fields": [
       {
         "key": "body_temp_label",
@@ -1050,7 +1705,7 @@
         "text_color": "#E20000",
         "toaster_type": "problem",
         "relevance": {
-          "step3:body_temp_repeat": {
+          "step4:body_temp_repeat": {
             "type": "numeric",
             "ex": "greaterThanEqualTo(., \"39\")"
           }
@@ -1254,7 +1909,7 @@
           "err": "{{anc_physical_exam.step2.cant_record_bp_reason.v_required.err}}"
         },
         "relevance": {
-          "step3:unrecordable_pulse": {
+          "step4:unrecordable_pulse": {
             "ex-checkbox": [
               {
                 "or": [
@@ -1278,7 +1933,7 @@
           "err": "Please enter the other reason pulse rate was unrecordable"
         },
         "relevance": {
-          "step3:unrecordable_pulse_reason": {
+          "step4:unrecordable_pulse_reason": {
             "ex-checkbox": [
               {
                 "or": [
@@ -1589,7 +2244,7 @@
           }
         ],
         "relevance": {
-          "step3:respiratory_exam": {
+          "step4:respiratory_exam": {
             "type": "string",
             "ex": "equalTo(., \"3\")"
           }
@@ -1641,7 +2296,7 @@
         "text": "{{anc_physical_exam.step3.oximetry_label.text}}",
         "text_color": "#000000",
         "relevance": {
-          "step3:respiratory_exam_abnormal": {
+          "step4:respiratory_exam_abnormal": {
             "ex-checkbox": [
               {
                 "or": [
@@ -1668,7 +2323,7 @@
         "edit_text_style": "bordered",
         "edit_type": "number",
         "relevance": {
-          "step3:respiratory_exam_abnormal": {
+          "step4:respiratory_exam_abnormal": {
             "ex-checkbox": [
               {
                 "or": [
@@ -2018,7 +2673,7 @@
           }
         ],
         "relevance": {
-          "step3:cervical_exam": {
+          "step4:cervical_exam": {
             "type": "string",
             "ex": "equalTo(., \"3\")"
           }
@@ -2037,7 +2692,7 @@
           "value": false
         },
         "relevance": {
-          "step3:speculum_abnormal_symptoms": {
+          "step4:speculum_abnormal_symptoms": {
             "ex-checkbox": [
               {
                 "or": [
@@ -2072,7 +2727,7 @@
           "value": false,
           "err": "Field cervical dilation is required"
         }, "relevance": {
-        "step3:speculum_abnormal_symptoms": {
+        "step4:speculum_abnormal_symptoms": {
           "ex-checkbox": [
             {
               "or": [
@@ -2093,7 +2748,7 @@
         "hint": "{{anc_physical_exam.step3.speculum_abnormal_symptoms.options.others.text}}",
         "edit_type": "name",
         "relevance": {
-          "step3:speculum_abnormal_symptoms": {
+          "step4:speculum_abnormal_symptoms": {
             "ex-checkbox": [
               {
                 "or": [
@@ -2228,7 +2883,7 @@
           "err": "{{anc_physical_exam.step3.oedema_severity.v_required.err}}"
         },
         "relevance": {
-          "step3:oedema": {
+          "step4:oedema": {
             "type": "string",
             "ex": "equalTo(., \"yes\")"
           }
@@ -2370,7 +3025,7 @@
         "hint": "{{anc_physical_exam.step3.ipv_physical_signs_symptoms_injury_other.hint}}",
         "edit_type": "name",
         "relevance": {
-          "step3:ipv_physical_signs_symptoms": {
+          "step4:ipv_physical_signs_symptoms": {
             "ex-checkbox": [
               {
                 "or": [
@@ -2390,7 +3045,7 @@
         "hint": "{{anc_physical_exam.step3.ipv_physical_signs_symptoms_other.hint}}",
         "edit_type": "name",
         "relevance": {
-          "step3:ipv_physical_signs_symptoms": {
+          "step4:ipv_physical_signs_symptoms": {
             "ex-checkbox": [
               {
                 "or": [
@@ -2626,642 +3281,6 @@
             "openmrs_entity_parent": ""
           }
         ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
-      }
-    ]
-  },
-  "step4": {
-    "title": "{{anc_physical_exam.step4.title}}",
-    "fields": [
-      {
-        "key": "sfh_label",
-        "type": "label",
-        "label_text_style": "bold",
-        "text": "{{anc_physical_exam.step4.sfh_label.text}}",
-        "text_color": "#000000",
-        "v_required": {
-          "value": false
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "sfh",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "normal_edit_text",
-        "edit_text_style": "bordered",
-        "edit_type": "number",
-        "v_min": {
-          "value": "0.1",
-          "err": "SFH must be greater than 0"
-        },
-        "v_max": {
-          "value": "44",
-          "err": "SFH must be less than or equal to 44"
-        },
-        "v_numeric_integer": {
-          "value": "true",
-          "err": "Enter a valid sfh"
-        },
-        "v_required": {
-          "value": "false",
-          "err": "{{anc_physical_exam.step4.sfh.v_required.err}}"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "hof_label",
-        "type": "label",
-        "label_text_style": "bold",
-        "text": "Height of fundus ( /40)",
-        "text_color": "#000000",
-        "v_required": {
-          "value": false
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "hof",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "hof",
-        "type": "normal_edit_text",
-        "edit_text_style": "bordered",
-        "edit_type": "number",
-        "v_min": {
-          "value": "0",
-          "err": "HOF must be greater than 0"
-        },
-        "v_max": {
-          "value": "50",
-          "err": "HOF must be less than or equal to 50"
-        },
-        "v_numeric_integer": {
-          "value": "true",
-          "err": "Enter a valid sfh"
-        },
-        "v_required": {
-          "value": "false",
-          "err": "{{anc_physical_exam.step4.sfh.v_required.err}}"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "baby_lie",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "baby_lie",
-        "type": "native_radio",
-        "label": "Fetal lie",
-        "label_text_style": "bold",
-        "label_info_text": "The position in which the baby is laying",
-        "options": [
-          {
-            "key": "cephalic",
-            "text": "Cephalic",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "cephalic"
-          },
-          {
-            "key": "longitudinal",
-            "text": "Longitudinal",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "longitudinal"
-          },
-          {
-            "key": "oblique",
-            "text": "Oblique",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "oblique"
-          }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "fetal_presentation",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "fetal_presentation",
-        "type": "native_radio",
-        "label": "Fetal Presentation",
-        "label_text_style": "bold",
-        "label_info_text": "Fetal Presentation",
-        "options": [
-          {
-            "key": "breech",
-            "text": "Breech",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "breech"
-          },
-          {
-            "key": "cephalic",
-            "text": "Cephalic",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "cephalic"
-          },
-          {
-            "key": "other_presentation",
-            "text": "Other (Specify)",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "other_presentation"
-          }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "descent",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "descent",
-        "type": "native_radio",
-        "label": "Descent",
-        "label_text_style": "bold",
-        "label_info_text": "Descent",
-        "options": [
-          {
-            "key": "five",
-            "text": "5/5",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "five"
-          },
-          {
-            "key": "four",
-            "text": "4/5",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "four"
-          },
-          {
-            "key": "three",
-            "text": "3/5",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "three"
-          },
-          {
-            "key": "two",
-            "text": "2/5",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "two"
-          },
-          {
-            "key": "one",
-            "text": "1/5",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "one"
-          }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "spacer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "spacer",
-        "type": "spacer",
-        "spacer_height": "10sp"
-      },
-      {
-        "key": "fetal_movement",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165376AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "native_radio",
-        "label": "{{anc_physical_exam.step4.fetal_movement.label}}",
-        "label_text_style": "bold",
-        "text_color": "#000000",
-        "options": [
-          {
-            "key": "yes",
-            "text": "{{anc_physical_exam.step4.fetal_movement.options.yes.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": "165376AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "no",
-            "text": "{{anc_physical_exam.step4.fetal_movement.options.no.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": "165376AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ],
-        "v_required": {
-          "value": "false",
-          "err": "{{anc_physical_exam.step4.fetal_movement.v_required.err}}"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "fetal_heartbeat",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "native_radio",
-        "label": "{{anc_physical_exam.step4.fetal_heartbeat.label}}",
-        "label_text_style": "bold",
-        "text_color": "#000000",
-        "options": [
-          {
-            "key": "yes",
-            "text": "{{anc_physical_exam.step4.fetal_heartbeat.options.yes.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": "165377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "no",
-            "text": "{{anc_physical_exam.step4.fetal_heartbeat.options.no.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": "165377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "{{anc_physical_exam.step4.fetal_heartbeat.v_required.err}}"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "fetal_heart_rate_label",
-        "type": "label",
-        "label_text_style": "bold",
-        "text": "{{anc_physical_exam.step4.fetal_heart_rate_label.text}}",
-        "text_color": "#000000",
-        "v_required": {
-          "value": "true",
-          "err": "{{anc_physical_exam.step4.fetal_heart_rate_label.v_required.err}}"
-        },
-        "relevance": {
-          "step4:fetal_heartbeat": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          }
-        }
-      },
-      {
-        "key": "fetal_heart_rate",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1440AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "normal_edit_text",
-        "edit_text_style": "bordered",
-        "edit_type": "number",
-        "relevance": {
-          "step4:fetal_heartbeat": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          }
-        },
-        "v_required": {
-          "value": "true",
-          "err": "{{anc_physical_exam.step4.fetal_heart_rate.v_required.err}}"
-        }
-      },
-      {
-        "key": "fetal_weight_label",
-        "type": "label",
-        "label_text_style": "bold",
-        "text": "Fetal weight (grams)",
-        "text_color": "#000000",
-        "v_required": {
-          "value": "false",
-          "err": "Fetal weight required"
-        },
-        "relevance": {
-          "step4:fetal_heartbeat": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          }
-        }
-      },
-      {
-        "key": "fetal_weight",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "fetal_weight",
-        "type": "normal_edit_text",
-        "edit_text_style": "bordered",
-        "edit_type": "number",
-        "relevance": {
-          "step4:fetal_heartbeat": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          }
-        },
-        "v_required": {
-          "value": "false",
-          "err": "{{anc_physical_exam.step4.fetal_heart_rate.v_required.err}}"
-        },
-        "v_numeric": {
-          "value": "true",
-          "err": ""
-        },
-        "v_min": {
-          "value": "0",
-          "err": "Weight must be equal or greater than 0 grams"
-        },
-        "v_max": {
-          "value": "8000",
-          "err": "Weight must be equal or less than 8000 grams"
-        }
-      },
-      {
-        "key": "toaster27",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "{{anc_physical_exam.step4.toaster27.text}}",
-        "toaster_info_text": "{{anc_physical_exam.step4.toaster27.toaster_info_text}}",
-        "text_color": "#E20000",
-        "toaster_type": "problem",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "toaster28",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "{{anc_physical_exam.step4.toaster28.text}}",
-        "text_color": "#D56900",
-        "toaster_type": "warning",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "spacer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "spacer",
-        "type": "spacer",
-        "spacer_height": "10sp"
-      },
-      {
-        "key": "fetal_heart_rate_repeat_label",
-        "type": "label",
-        "label_text_style": "bold",
-        "text": "{{anc_physical_exam.step4.fetal_heart_rate_repeat_label.text}}",
-        "text_color": "#000000",
-        "v_required": {
-          "value": true
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "fetal_heart_rate_repeat",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1440AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "normal_edit_text",
-        "edit_text_style": "bordered",
-        "edit_type": "number",
-        "v_required": {
-          "value": "true",
-          "err": "{{anc_physical_exam.step4.fetal_heart_rate_repeat.v_required.err}}"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "toaster29",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "{{anc_physical_exam.step4.toaster29.text}}",
-        "text_color": "#E20000",
-        "toaster_type": "problem",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "spacer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "spacer",
-        "type": "spacer",
-        "spacer_height": "10sp"
-      },
-      {
-        "key": "no_of_fetuses_label",
-        "type": "label",
-        "label_text_style": "bold",
-        "text": "{{anc_physical_exam.step4.no_of_fetuses_label.text}}",
-        "text_color": "#000000",
-        "v_required": {
-          "value": false
-        },
-        "relevance": {
-          "step4:no_of_fetuses_unknown": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "no_of_fetuses_unknown"
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "key": "no_of_fetuses",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165293AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "numbers_selector",
-        "number_of_selectors": "5",
-        "start_number": "1",
-        "max_value": "8",
-        "text_size": "16px",
-        "text_color": "#000000",
-        "selected_text_color": "#ffffff",
-        "v_required": {
-          "value": false
-        },
-        "relevance": {
-          "step4:no_of_fetuses_unknown": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "no_of_fetuses_unknown"
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "key": "spacer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "spacer",
-        "type": "spacer",
-        "spacer_height": "10sp",
-        "relevance": {
-          "step4:no_of_fetuses_unknown": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "no_of_fetuses_unknown"
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "key": "spacer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "spacer",
-        "type": "spacer",
-        "spacer_height": "10sp"
-      },
-      {
-        "key": "no_of_fetuses_unknown",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165294AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "check_box",
-        "options": [
-          {
-            "key": "no_of_fetuses_unknown",
-            "text": "{{anc_physical_exam.step4.no_of_fetuses_unknown.options.no_of_fetuses_unknown.text}}",
-            "value": "false",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165294AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ]
-      },
-      {
-        "key": "preeclampsia_risk",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "hidden",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-calculations-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "toaster30",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "{{anc_physical_exam.step4.toaster30.text}}",
-        "text_color": "#D56900",
-        "toaster_info_text": "{{anc_physical_exam.step4.toaster30.toaster_info_text}}",
-        "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
