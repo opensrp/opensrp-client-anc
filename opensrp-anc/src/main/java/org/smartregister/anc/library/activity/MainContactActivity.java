@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
@@ -43,6 +44,8 @@ import java.util.Map;
 import java.util.Set;
 
 import timber.log.Timber;
+import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import java.util.UUID;
 
@@ -65,7 +68,10 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             ConstantsUtils.JsonFormUtils.ANC_SYMPTOMS_FOLLOW_UP, ConstantsUtils.JsonFormUtils.ANC_PHYSICAL_EXAM,
             ConstantsUtils.JsonFormUtils.ANC_TEST, ConstantsUtils.JsonFormUtils.ANC_COUNSELLING_TREATMENT, ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS};
     private String formInvalidFields = null;
+    public List<Contact> contacts = new ArrayList<>();
     public JSONObject formObject;
+    public boolean removeMainC = false;
+    public boolean removeSecondC = false;
 
     @Override
     protected void onResume() {
@@ -84,9 +90,30 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
         initializeMainContactContainers();
 
+        Switch s = (Switch) findViewById(R.id.routineSwitch);
+
+        /* ... */
+
+        s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                                         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                             if (isChecked) {
+                                                 removeMainC = true;
+                                                 contacts.clear();
+                                                 initializeSecondContactContainers();
+                                             } else {
+                                                 removeMainC = false;
+                                                 contacts.clear();
+                                                 initializeMainContactContainers();
+                                             }
+                                         }
+                                     }
+        );
+
+
         //Enable/Disable finalize button
         findViewById(R.id.finalize_contact).setEnabled(true);
     }
+
 
     private void initializeMainContactContainers() {
 
@@ -103,8 +130,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 if (ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE.equals(pair[0]))
                     requiredFieldsMap.put(pair[0], Integer.parseInt(pair[1]));
             }
-
-            List<Contact> contacts = new ArrayList<>();
 
             Contact quickCheck = new Contact();
             quickCheck.setName(getString(R.string.quick_check));
@@ -130,15 +155,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             setRequiredFields(profile);
             profile.setFormName(ConstantsUtils.JsonFormUtils.ANC_PROFILE);
             contacts.add(profile);
-
-            Contact routine = new Contact();
-            routine.setName("Routine Antenatal Contacts");
-            routine.setContactNumber(contactNo);
-            routine.setBackground(R.drawable.symptoms_bg);
-            routine.setActionBarBackground(R.color.contact_symptoms_actionbar);
-            routine.setNavigationBackground(R.color.contact_symptoms_navigation);
-            initializeSecondContactContainers();
-            contacts.add(routine);
 
             Contact tests = new Contact();
             tests.setName(getString(R.string.tests));
@@ -184,9 +200,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 if (ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE.equals(pair[0]))
                     requiredFieldsMap.put(pair[0], Integer.parseInt(pair[1]));
             }
-
-            List<Contact> contacts = new ArrayList<>();
-
 
             Contact symptomsAndFollowUp = new Contact();
             symptomsAndFollowUp.setName(getString(R.string.symptoms_follow_up));
