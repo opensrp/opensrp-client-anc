@@ -17,10 +17,10 @@ fields:
 - template: "{{contact_summary.hospital_referral.emergency_referal}}: {emergency_referal_value}"
   relevance: "!emergency_referal.isEmpty()"
 
-- template: "{{contact_summary.hospital_referral.referal_reason}}: {referal_reason_value}"
+- template: "{{contact_summary.hospital_referral.referal_reason}}: {referal_reason}"
   relevance: "!referal_reason.isEmpty()"
 
-- template: "{{contact_summary.hospital_referral.other_reason}}: {other_reason_value}"
+- template: "{{contact_summary.hospital_referral.other_reason}}: {other_reason}"
   relevance: "!other_reason.isEmpty()"
 
 - template: "{{contact_summary.hospital_referral.pre_existing_medic}}: {pre_existing_medic_value}"
@@ -32,41 +32,26 @@ fields:
 - template: "{{contact_summary.hospital_referral.diagnostics_specify}}: {diagnostics_specify_value}"
   relevance: "!diagnostics_specify.isEmpty()"
 
-- template: "{{contact_summary.hospital_referral.treatment}}: {treatment_value}"
+- template: "{{contact_summary.hospital_referral.treatment}}: {treatment}"
   relevance: "!treatment.isEmpty()"
 
-- template: "{{contact_summary.hospital_referral.receiving}}: {receiving_value}"
+- template: "{{contact_summary.hospital_referral.receiving}}: {receiving}"
   relevance: "!receiving.isEmpty()"
 
-- template: "{{contact_summary.hospital_referral.provider_name}}: {provider_name_value}"
+- template: "{{contact_summary.hospital_referral.provider_name}}: {provider_name}"
   relevance: "!provider_name.isEmpty()"
 
-- template: "{{contact_summary.hospital_referral.provider_phone_number}}: {provider_phone_number_value}"
+- template: "{{contact_summary.hospital_referral.provider_phone_number}}: {provider_phone_number}"
   relevance: "!provider_phone_number.isEmpty()"
 
-- template: "{{contact_summary.hospital_referral.referral_notes}}: {referral_notes_value}"
+- template: "{{contact_summary.hospital_referral.treatment}}: {referral_notes}"
   relevance: "!referral_notes.isEmpty()"
 
-- template: "{{contact_summary.hospital_referral.date_referral}}: {date_referral_value}"
+- template: "{{contact_summary.hospital_referral.date_referral}}: {date_referral}"
   relevance: "!date_referral.isEmpty()"
 
-- template: "{{contact_summary.hospital_referral.date_scheduled}}: {date_scheduled_value}"
+- template: "{{contact_summary.hospital_referral.date_scheduled}}: {date_scheduled}"
   relevance: "!date_scheduled.isEmpty()"
-
-- template: "{{contact_summary.hospital_referral.no_of_prev_preg}}: {no_of_prev_preg_value}"
-  relevance: "!no_of_prev_preg.isEmpty()"
-
-- template: "{{contact_summary.hospital_referral.live_births}}: {live_births_value}"
-  relevance: "!live_births.isEmpty()"
-
-- template: "{{contact_summary.hospital_referral.still_births}}: {still_births_value}"
-  relevance: "!still_births.isEmpty()"
-
-- template: "{{contact_summary.hospital_referral.miscarriage}}: {miscarriage_value}"
-  relevance: "!miscarriage.isEmpty()"
-
-- template: "{{contact_summary.hospital_referral.pregnancy_comp}}: {pregnancy_comp_value}"
-  relevance: "!pregnancy_comp.isEmpty()"
 
 - template: "{{contact_summary.hospital_referral.severe_hypertension}}: {bp_systolic_repeat}/{bp_diastolic_repeat} mmHg"
   relevance: "severe_hypertension == 1"
@@ -149,6 +134,9 @@ fields:
 ---
 group: obstetric_history
 fields:
+- template: "{{contact_summary.hospital_referral.no_of_prev_preg}}: {no_of_prev_preg}"
+  relevance: "!no_of_prev_preg.isEmpty()"
+
 - template: "{{contact_summary.obstetric_history.gravida}} = {gravida + 1}, {{contact_summary.obstetric_history.parity}} = {parity}"
   relevance: "gravida !='' || parity != ''"
 
@@ -157,6 +145,15 @@ fields:
 
 - template: "{{contact_summary.obstetric_history.no_of_live_births}}: {live_births}"
   relevance: "live_births > 0"
+
+- template: "{{contact_summary.hospital_referral.still_births}}: {still_births}"
+  relevance: "!still_births.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.miscarriage}}: {miscarriage}"
+  relevance: "!miscarriage.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.pregnancy_comp}}: {pregnancy_comp}"
+  relevance: "!pregnancy_comp.isEmpty()"
 
 - template: "{{contact_summary.obstetric_history.no_of_stillbirths}}: {stillbirths}"
   relevance: "stillbirths > 0"
