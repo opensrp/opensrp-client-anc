@@ -5794,6 +5794,24 @@
         "type": "edit_text",
         "hint": "Viral Load result",
         "edit_type": "name"
+      },
+      {
+        "key": "viral_load_testdate",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "viral_load_testdate",
+        "type": "date_picker",
+        "hint": "Viral load test date",
+        "expanded": false,
+        "duration": {
+          "label": "Date"
+        },
+        "min_date": "today-49y",
+        "max_date": "today",
+        "v_required": {
+          "value": "false",
+          "err": "Enter date"
+        }
       }
     ],
     "relevance": {
@@ -5801,9 +5819,6 @@
         "ex": "positive"
       }
     }
-
-
-
   },
   "properties_file_name": "anc_counselling_treatment"
 }
