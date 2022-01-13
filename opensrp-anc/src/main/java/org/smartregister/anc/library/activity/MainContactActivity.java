@@ -71,7 +71,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     public List<Contact> contacts = new ArrayList<>();
     public JSONObject formObject;
     public boolean removeMainC = false;
-    public boolean removeSecondC = false;
 
     @Override
     protected void onResume() {
@@ -91,8 +90,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         initializeMainContactContainers();
 
         Switch s = (Switch) findViewById(R.id.routineSwitch);
-
-        /* ... */
 
         s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                                          public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
