@@ -220,6 +220,129 @@
       }
     },
     {
+      "key": "fetal_heartbeat",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "native_radio",
+      "label": "Fetal heartbeat",
+      "label_text_style": "bold",
+      "text_color": "#000000",
+      "options": [
+        {
+          "key": "yes",
+          "text": "Present",
+          "value": false,
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "165377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "no",
+          "text": "Absent",
+          "value": false,
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "165377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ],
+      "v_required": {
+        "value": "true",
+        "err": "Fetal heartbeat is required"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "fetal_heart_rate_label",
+      "type": "label",
+      "label_text_style": "bold",
+      "text": "Fetal heartrate",
+      "text_color": "#000000",
+      "v_required": {
+        "value": "true",
+        "err": "Fetal heart rate"
+      },
+      "relevance": {
+        "step2:fetal_heartbeat": {
+          "type": "string",
+          "ex": "equalTo(., \"yes\")"
+        }
+      }
+    },
+    {
+      "key": "fetal_heart_rate",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "1440AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "normal_edit_text",
+      "edit_text_style": "bordered",
+      "edit_type": "number",
+      "relevance": {
+        "step2:fetal_heartbeat": {
+          "type": "string",
+          "ex": "equalTo(., \"yes\")"
+        }
+      },
+      "v_required": {
+        "value": "true",
+        "err": "enter fetal heartrate"
+      }
+    },
+    {
+      "key": "fetal_weight_label",
+      "type": "label",
+      "label_text_style": "bold",
+      "text": "Fetal weight (grams)",
+      "text_color": "#000000",
+      "v_required": {
+        "value": "false",
+        "err": "Fetal weight required"
+      },
+      "relevance": {
+        "step2:fetal_heartbeat": {
+          "type": "string",
+          "ex": "equalTo(., \"yes\")"
+        }
+      }
+    },
+    {
+      "key": "fetal_weight",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "fetal_weight",
+      "type": "normal_edit_text",
+      "edit_text_style": "bordered",
+      "edit_type": "number",
+      "relevance": {
+        "step2:fetal_heartbeat": {
+          "type": "string",
+          "ex": "equalTo(., \"yes\")"
+        }
+      },
+      "v_required": {
+        "value": "false",
+        "err": "Enter fetal weight"
+      },
+      "v_numeric": {
+        "value": "true",
+        "err": ""
+      },
+      "v_min": {
+        "value": "0",
+        "err": "Weight must be equal or greater than 0 grams"
+      },
+      "v_max": {
+        "value": "8000",
+        "err": "Weight must be equal or less than 8000 grams"
+      }
+    },
+    {
       "key": "no_of_fetuses_label",
       "type": "label",
       "label_text_style": "bold",

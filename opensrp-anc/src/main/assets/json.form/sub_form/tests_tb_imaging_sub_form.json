@@ -5,7 +5,7 @@
       "openmrs_entity_parent": "164800AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-      "label": "{{tests_tb_screening_sub_form.step1.tb_screening_status.label}}",
+      "label": "{{tests_tb_screening_sub_form.step1.tb_imaging_status.label}}",
       "label_text_style": "bold",
       "text_color": "#000000",
       "type": "extended_radio_button",
@@ -66,46 +66,11 @@
       "label_text_style": "bold",
       "options": [
         {
-          "key": "sputum_smear",
-          "text": "{{tests_tb_screening_sub_form.step1.tb_screening_notdone.options.sputum_smear.text}}",
+          "key": "xray_machine",
+          "text": "{{tests_tb_screening_sub_form.step1.tb_screening_notdone.options.xray_machine.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
-          "openmrs_entity_id": "165401AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        {
-          "key": "sputum_culture",
-          "text": "{{tests_tb_screening_sub_form.step1.tb_screening_notdone.options.sputum_culture.text}}",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "165402AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        {
-          "key": "genexpert_machine",
-          "text": "{{tests_tb_screening_sub_form.step1.tb_screening_notdone.options.genexpert_machine.text}}",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "165403AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        {
-          "key": "no_sputum_supplies",
-          "text": "{{tests_tb_screening_sub_form.step1.tb_screening_notdone.options.no_sputum_supplies.text}}",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "165183AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        {
-          "key": "machine_not_functioning",
-          "text": "{{tests_tb_screening_sub_form.step1.tb_screening_notdone.options.machine_not_functioning.text}}",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "165179AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        {
-          "key": "technician_not_available",
-          "text": "{{tests_tb_screening_sub_form.step1.tb_screening_notdone.options.technician_not_available.text}}",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "165400AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "openmrs_entity_id": "165404AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "other",

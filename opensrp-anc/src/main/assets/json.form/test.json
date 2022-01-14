@@ -134,6 +134,18 @@
         "container": "anc_test"
       },
       {
+        "key": "accordion_tb_screening",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "{{anc_test.step1.accordion_tb_screening.text}}",
+        "accordion_info_text": "{{anc_test.step1.accordion_tb_screening.accordion_info_text}}",
+        "accordion_info_title": "{{anc_test.step1.accordion_tb_screening.accordion_info_title}}",
+        "type": "expansion_panel",
+        "content_form": "tests_tb_screening_sub_form",
+        "container": "anc_test"
+      },
+      {
         "key": "accordion_hepatitis_c",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -229,15 +241,15 @@
         "container": "anc_test"
       },
       {
-        "key": "accordion_tb_screening",
+        "key": "accordion_tb_imaging",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "text": "{{anc_test.step1.accordion_tb_screening.text}}",
+        "text": "{{anc_test.step1.accordion_tb_imaging.text}}",
         "accordion_info_text": "{{anc_test.step1.accordion_tb_screening.accordion_info_text}}",
-        "accordion_info_title": "{{anc_test.step1.accordion_tb_screening.accordion_info_title}}",
+        "accordion_info_title": "{{anc_test.step1.accordion_tb_imaging.accordion_info_title}}",
         "type": "expansion_panel",
-        "content_form": "tests_tb_screening_sub_form",
+        "content_form": "tests_tb_imaging_sub_form",
         "container": "anc_test"
       },
       {
@@ -355,7 +367,7 @@
         }
       },
       {
-        "key": "accordion_tb_screening",
+        "key": "accordion_imaging",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
