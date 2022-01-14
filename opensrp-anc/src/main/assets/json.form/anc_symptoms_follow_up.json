@@ -1531,7 +1531,28 @@
             "ex-checkbox": [
               {
                 "or": [
-                  "nausea",
+                  "nausea"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "vomitingToaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Non-pharma measures to relieve vomiting counseling",
+        "toaster_info_text": "Non-pharma measures to relieve vomiting counseling",
+        "text_color": "#4855B3",
+        "toaster_type": "info",
+        "relevance": {
+          "step4:phys_symptoms": {
+            "ex-checkbox": [
+              {
+                "or": [
                   "vomiting"
                 ]
               }
