@@ -880,9 +880,9 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165293AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "numbers_selector",
-        "number_of_selectors": "5",
+        "number_of_selectors": "3",
         "start_number": "0",
-        "max_value": "8",
+        "max_value": "2",
         "text_size": "16px",
         "text_color": "#000000",
         "selected_text_color": "#ffffff",
@@ -932,9 +932,10 @@
           "value": false
         },
         "relevance": {
-          "step2:gravida": {
-            "type": "numeric",
-            "ex": "greaterThan(.,\"0\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
           }
         }
       },
@@ -946,21 +947,20 @@
         "type": "date_picker",
         "hint": "Date of delivery/termination",
         "expanded": false,
-        "duration": {
-          "label": "Date"
-        },
         "min_date": "today-49y",
         "max_date": "today",
         "v_required": {
           "value": "false",
           "err": "Enter date"
         },
-        "relevance": {
-          "step2:gravida": {
-            "type": "numeric",
-            "ex": "greaterThan(.,\"0\")"
+          "relevance": {
+            "rules-engine": {
+              "ex-rules": {
+                "rules-file": "profile_relevance_rules.yml"
+              }
+            }
           }
-        }
+
       },
       {
         "key": "preg_one_dt_unknown",
@@ -992,11 +992,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "preg_one_estimated_delivery_termination",
         "type": "date_picker",
-        "hint": "Date of delivery/termination",
+        "hint": "Estimated date of delivery/termination",
         "expanded": false,
-        "duration": {
-          "label": "Date"
-        },
         "min_date": "today-49y",
         "max_date": "today",
         "v_required": {
@@ -1031,7 +1028,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "gestational_age",
-        "label": "Duration",
+        "hint": "Duration",
         "label_text_style": "bold",
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
@@ -1060,37 +1057,12 @@
         }
       },
       {
-        "key": "preg_one_sex_infant",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "sex_infant",
-        "type": "native_radio",
-        "label": "Sex of infant",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "male",
-            "text": "Male"
-          },
-          {
-            "key": "female",
-            "text": "Female"
-          }
-        ],
-        "relevance":{
-          "step2:gestational_age": {
-            "type": "string",
-            "ex": "greaterThan(., \"6\")"
-          }
-        }
-      },
-      {
         "key": "delivery_method",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "delivery_method",
         "type": "native_radio",
-        "label": "Method of delivery",
+        "label": "Mode of delivery",
         "label_text_style": "bold",
         "options": [
           {
@@ -1110,14 +1082,6 @@
         }
       },
       {
-        "key": "spacer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "spacer",
-        "type": "spacer",
-        "spacer_height": "10sp"
-      },
-      {
         "key": "labour_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -1135,12 +1099,48 @@
             "text": "Spontaneous"
           }
         ],
-        "relevance":{
-          "step2:gestational_age": {
-            "type": "string",
-            "ex": "greaterThan(., \"6\")"
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
           }
         }
+      },
+      {
+        "key": "preg_one_sex_infant",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "sex_infant",
+        "type": "native_radio",
+        "label": "Sex of infant",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "male",
+            "text": "Male"
+          },
+          {
+            "key": "female",
+            "text": "Female"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
+        }
+      },
+
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
       },
 
       {
@@ -1152,10 +1152,11 @@
         "v_required": {
           "value": false
         },
-        "relevance":{
-          "step2:gestational_age": {
-            "type": "string",
-            "ex": "greaterThan(., \"6\")"
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
           }
         }
       },
@@ -1167,6 +1168,7 @@
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
         "edit_type": "number",
+        "hint": "weight",
         "v_numeric": {
           "value": "true",
           "err": ""
@@ -1183,10 +1185,11 @@
           "value": "false",
           "err": "Please enter birth weight"
         },
-        "relevance":{
-          "step2:gestational_age": {
-            "type": "string",
-            "ex": "greaterThan(., \"6\")"
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
           }
         }
       },
@@ -1239,15 +1242,6 @@
         }
       },
       {
-        "key": "spacer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "spacer",
-        "type": "spacer",
-        "spacer_height": "10sp"
-      },
-
-      {
       "key": "preg_one_complications",
       "openmrs_entity_parent": "",
       "openmrs_entity": "concept",
@@ -1287,7 +1281,7 @@
         "text_color": "#000000",
         "v_required": {
           "value": false,
-          "err": "Pregnancy 1"
+          "err": "Pregnancy 2"
         },
         "relevance": {
           "step2:gravida": {
@@ -1306,9 +1300,10 @@
           "value": false
         },
         "relevance": {
-          "step2:gravida": {
-            "type": "numeric",
-            "ex": "greaterThan(.,\"1\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
           }
         }
       },
@@ -1320,9 +1315,6 @@
         "type": "date_picker",
         "hint": "Date of delivery/termination",
         "expanded": false,
-        "duration": {
-          "label": "Date"
-        },
         "min_date": "today-49y",
         "max_date": "today",
         "v_required": {
@@ -1330,9 +1322,10 @@
           "err": "Enter date"
         },
         "relevance": {
-          "step2:gravida": {
-            "type": "numeric",
-            "ex": "greaterThan(.,\"1\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
           }
         }
       },
@@ -1407,7 +1400,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "pregnancy_two_gestational_age",
-        "label": "Duration",
+        "hint": "Duration",
         "label_text_style": "bold",
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
@@ -1436,37 +1429,12 @@
         }
       },
       {
-        "key": "pregnancy_two_sex_infant",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "sex_infant",
-        "type": "native_radio",
-        "label": "Sex of infant",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "male",
-            "text": "Male"
-          },
-          {
-            "key": "female",
-            "text": "Female"
-          }
-        ],
-        "relevance":{
-          "step2:pregnancy_two_gestational_age": {
-            "type": "string",
-            "ex": "greaterThan(., \"6\")"
-          }
-        }
-      },
-      {
         "key": "pregnancy_two_delivery_method",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "delivery_method",
         "type": "native_radio",
-        "label": "Method of delivery",
+        "label": "Mode of delivery",
         "label_text_style": "bold",
         "options": [
           {
@@ -1486,14 +1454,6 @@
         }
       },
       {
-        "key": "spacer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "spacer",
-        "type": "spacer",
-        "spacer_height": "10sp"
-      },
-      {
         "key": "pregnancy_two_labour_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -1511,12 +1471,47 @@
             "text": "Spontaneous"
           }
         ],
-        "relevance":{
-          "step2:pregnancy_two_gestational_age": {
-            "type": "string",
-            "ex": "greaterThan(., \"6\")"
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
           }
         }
+      },
+      {
+        "key": "pregnancy_two_sex_infant",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "sex_infant",
+        "type": "native_radio",
+        "label": "Sex of infant",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "male",
+            "text": "Male"
+          },
+          {
+            "key": "female",
+            "text": "Female"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
       },
 
       {
@@ -1528,10 +1523,11 @@
         "v_required": {
           "value": false
         },
-        "relevance":{
-          "step2:pregnancy_two_gestational_age": {
-            "type": "string",
-            "ex": "greaterThan(., \"6\")"
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
           }
         }
       },
@@ -1559,10 +1555,11 @@
           "value": "false",
           "err": "Please enter birth weight"
         },
-        "relevance":{
-          "step2:pregnancy_two_gestational_age": {
-            "type": "string",
-            "ex": "greaterThan(., \"6\")"
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
           }
         }
       },
