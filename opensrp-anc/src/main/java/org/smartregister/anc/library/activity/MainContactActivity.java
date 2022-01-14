@@ -95,10 +95,10 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             startUp = false;
         }
 
-        //Switch s = (Switch) findViewById(R.id.routineSwitch);
         Button r = (Button) findViewById(R.id.routineButton);
         Button b = (Button) findViewById(R.id.containerBack);
-        b.setVisibility(View.INVISIBLE);
+
+        r.setVisibility(View.VISIBLE);
 
         r.setOnClickListener(new OnClickListener() {
                                  @Override
@@ -106,22 +106,10 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                                      removeMainC = true;
                                      contacts.clear();
                                      initializeSecondContactContainers();
-                                     r.setVisibility(View.INVISIBLE);
+                                     r.setVisibility(View.GONE);
                                      b.setVisibility(View.VISIBLE);
 
                                  }
-
-               /*                  public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    removeMainC = true;
-                    contacts.clear();
-                    initializeSecondContactContainers();
-                } else {initializeSecondContactContainers();
-                    removeMainC = false;
-                    contacts.clear();
-                    initializeMainContactContainers();
-                }
-            }*/
         }
         );
 
@@ -131,30 +119,13 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                                      removeMainC = false;
                                      contacts.clear();
                                      initializeMainContactContainers();
-                                     b.setVisibility(View.INVISIBLE);
+                                     b.setVisibility(View.GONE);
                                      r.setVisibility(View.VISIBLE);
 
                                  }
                              }
         );
 
-
-        /*s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                                         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                             if (isChecked) {
-                                                 removeMainC = true;
-                                                 contacts.clear();
-                                                 initializeSecondContactContainers();
-                                             } else {
-                                                 removeMainC = false;
-                                                 contacts.clear();
-                                                 initializeMainContactContainers();
-                                             }
-                                         }
-                                     }
-        );
-
-*/
         //Enable/Disable finalize button
         findViewById(R.id.finalize_contact).setEnabled(true);
     }

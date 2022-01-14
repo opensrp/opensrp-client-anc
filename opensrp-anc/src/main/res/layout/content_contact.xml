@@ -50,6 +50,37 @@
                 android:textColor="@color/view_history_blue"
                 android:textSize="@dimen/contact_detail_text_size" />
 
+            <Button
+                android:id="@+id/containerBack"
+                android:background="@drawable/rounded_routine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:drawablePadding="10dp"
+                android:paddingBottom="@dimen/contact_drawable_padding"
+                android:paddingTop="@dimen/contact_drawable_padding"
+                android:text="Back"
+                android:textAllCaps="false"
+                android:visibility="gone"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/white"
+                android:textSize="18dp" />
+
+            <Button
+                android:id="@+id/routineButton"
+                android:background="@drawable/rounded2"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_gravity="center_horizontal"
+                android:text="Routine Antenatal Care"
+                android:textAllCaps="false"
+                android:visibility="visible"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/white"
+                android:textSize="18dp" />
+
+
+
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

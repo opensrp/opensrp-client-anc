@@ -71,18 +71,6 @@
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
-    <Button
-        android:id="@+id/containerBack"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#673AB7"
-        android:text="Back" />
 
-    <Button
-        android:id="@+id/routineButton"
-        android:layout_width="match_parent"
-        android:layout_height="133dp"
-        android:background="#673AB7"
-        android:text="Routine Antenatal Care" />
 
 </com.google.android.material.appbar.AppBarLayout>
