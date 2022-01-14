@@ -107,6 +107,8 @@ fields:
 - template: "{{contact_summary.demographic_info.occupation}}: {occupation_value}"
   relevance: "occupation_value != ''"
 
+- template: "Discordant: {discordant_value}"
+  relevance: "discordant != ''"
 ---
 group: current_pregnancy
 fields:
@@ -137,8 +139,11 @@ fields:
 - template: "{{contact_summary.hospital_referral.no_of_prev_preg}}: {no_of_prev_preg}"
   relevance: "!no_of_prev_preg.isEmpty()"
 
-- template: "{{contact_summary.obstetric_history.gravida}} = {gravida + 1}, {{contact_summary.obstetric_history.parity}} = {parity}"
-  relevance: "gravida !='' || parity != ''"
+- template: "{{contact_summary.obstetric_history.gravida}} : {total_gravida} "
+  relevance: "gravida >0"
+
+- template: "{{contact_summary.obstetric_history.parity}} = {parity}"
+  relevance: "parity > 0"
 
 - template: "{{contact_summary.obstetric_history.no_of_pregnancies_lost_ended}}: {miscarriages_abortions}"
   relevance: "miscarriages_abortions > 0"
