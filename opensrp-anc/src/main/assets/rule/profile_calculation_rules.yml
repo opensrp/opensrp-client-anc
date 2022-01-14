@@ -222,3 +222,11 @@ priority: 1
 condition: "(step2_gravida > '0.5')"
 actions:
   - "calculation = ['global_gravida': step2_gravida + 1]"
+
+---
+name: step2_total_gravida
+description: total_gravida
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step2_gravida + 1 "
