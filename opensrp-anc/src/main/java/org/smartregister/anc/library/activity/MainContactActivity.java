@@ -71,6 +71,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     public List<Contact> contacts = new ArrayList<>();
     public JSONObject formObject;
     public boolean removeMainC = false;
+    public boolean startUp = true;
 
     @Override
     protected void onResume() {
@@ -86,8 +87,11 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         if (!presenter.baseEntityIdExists()) {
             presenter.setBaseEntityId(baseEntityId);
         }
-
-        initializeMainContactContainers();
+        if (startUp ==true)
+        {
+            initializeMainContactContainers();
+            startUp = false;
+        }
 
         Switch s = (Switch) findViewById(R.id.routineSwitch);
 
