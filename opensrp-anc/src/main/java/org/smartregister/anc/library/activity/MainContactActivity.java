@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -93,9 +95,51 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             startUp = false;
         }
 
-        Switch s = (Switch) findViewById(R.id.routineSwitch);
+        //Switch s = (Switch) findViewById(R.id.routineSwitch);
+        Button r = (Button) findViewById(R.id.routineButton);
+        Button b = (Button) findViewById(R.id.containerBack);
+        b.setVisibility(View.INVISIBLE);
 
-        s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        r.setOnClickListener(new OnClickListener() {
+                                 @Override
+                                 public void onClick(View view) {
+                                     removeMainC = true;
+                                     contacts.clear();
+                                     initializeSecondContactContainers();
+                                     r.setVisibility(View.INVISIBLE);
+                                     b.setVisibility(View.VISIBLE);
+
+                                 }
+
+               /*                  public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    removeMainC = true;
+                    contacts.clear();
+                    initializeSecondContactContainers();
+                } else {initializeSecondContactContainers();
+                    removeMainC = false;
+                    contacts.clear();
+                    initializeMainContactContainers();
+                }
+            }*/
+        }
+        );
+
+        b.setOnClickListener(new OnClickListener() {
+                                 @Override
+                                 public void onClick(View view) {
+                                     removeMainC = false;
+                                     contacts.clear();
+                                     initializeMainContactContainers();
+                                     b.setVisibility(View.INVISIBLE);
+                                     r.setVisibility(View.VISIBLE);
+
+                                 }
+                             }
+        );
+
+
+        /*s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                                          public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                                              if (isChecked) {
                                                  removeMainC = true;
@@ -110,7 +154,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                                      }
         );
 
-
+*/
         //Enable/Disable finalize button
         findViewById(R.id.finalize_contact).setEnabled(true);
     }
