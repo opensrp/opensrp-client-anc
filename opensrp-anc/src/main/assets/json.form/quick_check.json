@@ -104,7 +104,7 @@
           },
           {
             "key": "additional_contact",
-            "text": "Additional contact",
+            "text": "Additional non-scheduled contact",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "additional_contact"
