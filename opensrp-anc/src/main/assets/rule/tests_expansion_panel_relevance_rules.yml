@@ -76,7 +76,7 @@ condition: "(helper.getValueFromAccordion('accordion_hiv', 'step1_hiv_positive')
 actions:
   - "isRelevant = true"
 ---
-name: step2_accordion_tb_screening
+name: step1_accordion_tb_screening
 description: tb_screening_status
 priority: 1
 condition: "(global_contact_no > 1 && (global_previous_tb_screening_status != '' && (global_previous_tb_screening_status == 'done_earlier' || global_previous_tb_screening_status == 'done_today')))"
