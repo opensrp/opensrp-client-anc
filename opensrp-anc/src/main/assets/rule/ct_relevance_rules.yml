@@ -649,6 +649,14 @@ actions:
   - "isRelevant = true"
 
 ---
+name: step12_viral_load_testdate
+description: viral_load_testdate
+priority: 1
+condition: "global_hiv_positive == 1"
+actions:
+  - "isRelevant = true"
+
+---
 name: step12_viral_load
 description: art_number
 priority: 1
@@ -669,6 +677,14 @@ name: step12_woman_hiv_negative_toaster
 description: woman_hiv_negative_toaster
 priority: 1
 condition: "!(global_hiv_positive == 1)"
+actions:
+  - "isRelevant = true"
+
+---
+name: step12_viral_load_testdate_toaster
+description: viral_load_testdate_toaster
+priority: 1
+condition: "global_gest_age_openmrs>35"
 actions:
   - "isRelevant = true"
 

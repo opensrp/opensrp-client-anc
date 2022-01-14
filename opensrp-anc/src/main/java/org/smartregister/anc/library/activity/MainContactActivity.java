@@ -99,8 +99,11 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         Button b = (Button) findViewById(R.id.containerBack);
 
         //r.setBackgroundResource(R.drawable.physical_exam_bg);
-
-        r.setVisibility(View.VISIBLE);
+        if(removeMainC==true){
+            r.setVisibility(View.GONE);
+        }else{
+           r.setVisibility(View.VISIBLE);
+        }
 
         r.setOnClickListener(new OnClickListener() {
                                  @Override
