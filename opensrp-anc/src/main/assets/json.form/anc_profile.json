@@ -1067,7 +1067,11 @@
         "options": [
           {
             "key": "natural",
-            "text": "Natural"
+            "text": "Normal Vertex Delivery"
+          },
+          {
+            "key": "assisted_delivery",
+            "text": "Assisted Vaginal Delivery"
           },
           {
             "key": "c",
