@@ -75,6 +75,7 @@
                 android:background="@drawable/physical_exam_container"
                 android:gravity="left|center_vertical"
                 android:text="Routine Antenatal Care"
+                android:textStyle="bold"
                 android:textAllCaps="false"
                 android:textAppearance="?android:textAppearanceSmall"
                 android:textColor="@color/white"
