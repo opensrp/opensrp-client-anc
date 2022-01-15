@@ -51,6 +51,7 @@
                 android:textSize="@dimen/contact_detail_text_size" />
 
             <Button
+                style="?android:attr/borderlessButtonStyle"
                 android:id="@+id/containerBack"
                 android:background="@drawable/rounded_routine"
                 android:layout_width="match_parent"
@@ -68,17 +69,19 @@
 
             <Button
                 android:id="@+id/routineButton"
-                android:background="@drawable/rounded2"
+                style="@style/P2pModeSelect.Buttons.MyBorderlessButton"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_gravity="center_horizontal"
+                android:layout_height="270dp"
+                android:background="@drawable/physical_exam_container"
+                android:gravity="left|center_vertical"
                 android:text="Routine Antenatal Care"
                 android:textAllCaps="false"
-                android:visibility="visible"
                 android:textAppearance="?android:textAppearanceSmall"
                 android:textColor="@color/white"
-                android:textSize="18dp" />
-
+                android:textColorLink="#00FFFFFF"
+                android:textSize="18dp"
+                android:translationX="8dp"
+                android:visibility="visible" />
 
 
         </LinearLayout>

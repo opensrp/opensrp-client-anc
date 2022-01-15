@@ -4512,7 +4512,6 @@
         "openmrs_entity_id": "discordant",
         "type": "native_radio",
         "read_only": "true",
-        "hidden": "true",
         "label": "Discordant",
         "label_text_style": "bold",
         "hint": "Discordant",

@@ -207,7 +207,7 @@ description: discordant
 priority: 1
 condition: "(global_hiv_test_result == 'positive')"
 actions:
-  - "calculation = 'yes'"
+  - "calculation = 1"
 ---
 name: step2_delivery_termination
 description: delivery_termination
