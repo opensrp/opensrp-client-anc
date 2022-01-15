@@ -82,7 +82,7 @@
                 android:textColorLink="#00FFFFFF"
                 android:textSize="18dp"
                 android:translationX="8dp"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
 
         </LinearLayout>
