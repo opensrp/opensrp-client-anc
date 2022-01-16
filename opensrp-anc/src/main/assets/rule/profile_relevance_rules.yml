@@ -730,3 +730,442 @@ priority: 1
 condition: "(step2_preg_seven_gestational_age > 0) && (step2_preg_seven_gestational_age < 7)"
 actions:
   - "isRelevant = true"
+
+---
+name: step2_preg_eight_delivery_termination
+description: preg_eight_delivery_termination
+priority: 1
+condition: "(step2_gravida > 7) && (step2_preg_eight_dt_unknown.isEmpty()) "
+actions:
+  - "isRelevant = true"
+---
+name: step2_preg_eight_delivery_termination_label
+description: preg_eight_delivery_termination_label
+priority: 1
+condition: "(step2_gravida > 7) && (step2_preg_eight_dt_unknown.isEmpty()) "
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_eight_labour_type
+description: preg_eight_labour_type
+priority: 1
+condition: " !step2_preg_eight_delivery_method.isEmpty() "
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_eight_sex_infant
+description: preg_eight_sex_infant
+priority: 1
+condition: " !step2_preg_eight_labour_type.isEmpty() "
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_eight_birth_weight_label
+description: preg_eight_birth_weight_label
+priority: 1
+condition: "(step2_preg_eight_gestational_age > 6) && (!step2_preg_eight_sex_infant.isEmpty())"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_eight_birth_weight
+description: preg_eight_birth_weight
+priority: 1
+condition: "(step2_preg_eight_gestational_age > 6) && (!step2_preg_eight_sex_infant.isEmpty())"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_eight_outcome_early
+description: preg_eight_outcome_early
+priority: 1
+condition: "(step2_preg_eight_gestational_age > 0) && (step2_preg_eight_gestational_age < 7)"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_nine_delivery_termination
+description: preg_nine_delivery_termination
+priority: 1
+condition: "(step2_gravida > 8) && (step2_preg_nine_dt_unknown.isEmpty()) "
+actions:
+  - "isRelevant = true"
+---
+name: step2_preg_nine_delivery_termination_label
+description: preg_nine_delivery_termination_label
+priority: 1
+condition: "(step2_gravida > 8 ) && (step2_preg_nine_dt_unknown.isEmpty()) "
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_nine_labour_type
+description: preg_nine_labour_type
+priority: 1
+condition: " !step2_preg_nine_delivery_method.isEmpty() "
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_nine_sex_infant
+description: preg_nine_sex_infant
+priority: 1
+condition: " !step2_preg_nine_labour_type.isEmpty() "
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_nine_birth_weight_label
+description: preg_nine_birth_weight_label
+priority: 1
+condition: "(step2_preg_nine_gestational_age > 7) && (!step2_preg_nine_sex_infant.isEmpty())"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_nine_birth_weight
+description: preg_nine_birth_weight
+priority: 1
+condition: "(step2_preg_nine_gestational_age > 6) && (!step2_preg_nine_sex_infant.isEmpty())"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_nine_outcome_early
+description: preg_nine_outcome_early
+priority: 1
+condition: "(step2_preg_nine_gestational_age > 0) && (step2_preg_nine_gestational_age < 7)"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_ten_delivery_termination
+description: preg_ten_delivery_termination
+priority: 1
+condition: "(step2_gravida > 9) && (step2_preg_ten_dt_unknown.isEmpty()) "
+actions:
+  - "isRelevant = true"
+---
+name: step2_preg_ten_delivery_termination_label
+description: preg_ten_delivery_termination_label
+priority: 1
+condition: "(step2_gravida > 9 ) && (step2_preg_ten_dt_unknown.isEmpty()) "
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_ten_labour_type
+description: preg_ten_labour_type
+priority: 1
+condition: " !step2_preg_ten_delivery_method.isEmpty() "
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_ten_sex_infant
+description: preg_ten_sex_infant
+priority: 1
+condition: " !step2_preg_ten_labour_type.isEmpty() "
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_ten_birth_weight_label
+description: preg_ten_birth_weight_label
+priority: 1
+condition: "(step2_preg_ten_gestational_age > 7) && (!step2_preg_ten_sex_infant.isEmpty())"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_ten_birth_weight
+description: preg_ten_birth_weight
+priority: 1
+condition: "(step2_preg_ten_gestational_age > 6) && (!step2_preg_ten_sex_infant.isEmpty())"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_ten_outcome_early
+description: preg_ten_outcome_early
+priority: 1
+condition: "(step2_preg_ten_gestational_age > 0) && (step2_preg_ten_gestational_age < 7)"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_eleven_delivery_termination
+description: preg_eleven_delivery_termination
+priority: 1
+condition: "(step2_gravida > 10) && (step2_preg_eleven_dt_unknown.isEmpty()) "
+actions:
+  - "isRelevant = true"
+---
+name: step2_preg_eleven_delivery_termination_label
+description: preg_eleven_delivery_termination_label
+priority: 1
+condition: "(step2_gravida > 10) && (step2_preg_ten_dt_unknown.isEmpty()) "
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_eleven_labour_type
+description: preg_eleven_labour_type
+priority: 1
+condition: " !step2_preg_eleven_delivery_method.isEmpty() "
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_eleven_sex_infant
+description: preg_eleven_sex_infant
+priority: 1
+condition: " !step2_preg_eleven_labour_type.isEmpty() "
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_eleven_birth_weight_label
+description: preg_eleven_birth_weight_label
+priority: 1
+condition: "(step2_preg_eleven_gestational_age > 7) && (!step2_preg_eleven_sex_infant.isEmpty())"
+actions:
+  - "isRelevant = true"
+---
+name: step2_preg_eleven_birth_weight
+description: preg_eleven_birth_weight
+priority: 1
+condition: "(step2_preg_eleven_gestational_age > 6) && (!step2_preg_eleven_sex_infant.isEmpty())"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_eleven_outcome_early
+description: preg_eleven_outcome_early
+priority: 1
+condition: "(step2_preg_eleven_gestational_age > 0) && (step2_preg_eleven_gestational_age < 7)"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_twelve_delivery_termination
+description: preg_twelve_delivery_termination
+priority: 1
+condition: "(step2_gravida > 11) && (step2_preg_twelve_dt_unknown.isEmpty()) "
+actions:
+  - "isRelevant = true"
+---
+name: step2_preg_twelve_delivery_termination_label
+description: preg_twelve_delivery_termination_label
+priority: 1
+condition: "(step2_gravida > 11 ) && (step2_preg_twelve_dt_unknown.isEmpty()) "
+actions:
+  - "isRelevant = true"
+---
+name: step2_preg_twelve_labour_type
+description: preg_twelve_labour_type
+priority: 1
+condition: " !step2_preg_twelve_delivery_method.isEmpty() "
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_twelve_sex_infant
+description: preg_twelve_sex_infant
+priority: 1
+condition: " !step2_preg_twelve_labour_type.isEmpty() "
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_twelve_birth_weight_label
+description: preg_twelve_birth_weight_label
+priority: 1
+condition: "(step2_preg_twelve_gestational_age > 7) && (!step2_preg_twelve_sex_infant.isEmpty())"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_twelve_birth_weight
+description: preg_twelve_birth_weight
+priority: 1
+condition: "(step2_preg_twelve_gestational_age > 6) && (!step2_preg_twelve_sex_infant.isEmpty())"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_twelve_outcome_early
+description: preg_twelve_outcome_early
+priority: 1
+condition: "(step2_preg_twelve_gestational_age > 0) && (step2_preg_twelve_gestational_age < 7)"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_thirteen_delivery_termination
+description: preg_thirteen_delivery_termination
+priority: 1
+condition: "(step2_gravida > 12 ) && (step2_preg_thirteen_dt_unknown.isEmpty()) "
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_thirteen_delivery_termination_label
+description: preg_thirteen_delivery_termination_label
+priority: 1
+condition: "(step2_gravida > 12 ) && (step2_preg_thirteen_dt_unknown.isEmpty()) "
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_thirteen_labour_type
+description: preg_thirteen_labour_type
+priority: 1
+condition: " !step2_preg_thirteen_delivery_method.isEmpty() "
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_thirteen_sex_infant
+description: preg_thirteen_sex_infant
+priority: 1
+condition: " !step2_preg_thirteen_labour_type.isEmpty() "
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_thirteen_birth_weight_label
+description: preg_thirteen_birth_weight_label
+priority: 1
+condition: "(step2_preg_thirteen_gestational_age > 7) && (!step2_preg_thirteen_sex_infant.isEmpty())"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_thirteen_birth_weight
+description: preg_thirteen_birth_weight
+priority: 1
+condition: "(step2_preg_thirteen_gestational_age > 6) && (!step2_preg_thirteen_sex_infant.isEmpty())"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_thirteen_outcome_early
+description: preg_thirteen_outcome_early
+priority: 1
+condition: "(step2_preg_thirteen_gestational_age > 0) && (step2_preg_thirteen_gestational_age < 7)"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_fourteen_delivery_termination
+description: preg_fourteen_delivery_termination
+priority: 1
+condition: "(step2_gravida > 13) && (step2_preg_fourteen_dt_unknown.isEmpty()) "
+actions:
+  - "isRelevant = true"
+---
+name: step2_preg_fourteen_delivery_termination_label
+description: preg_fourteen_delivery_termination_label
+priority: 1
+condition: "(step2_gravida > 13 ) && (step2_preg_fourteen_dt_unknown.isEmpty()) "
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_fourteen_labour_type
+description: preg_fourteen_labour_type
+priority: 1
+condition: " !step2_preg_fourteen_delivery_method.isEmpty() "
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_fourteen_sex_infant
+description: preg_fourteen_sex_infant
+priority: 1
+condition: " !step2_preg_fourteen_labour_type.isEmpty() "
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_fourteen_birth_weight_label
+description: preg_fourteen_birth_weight_label
+priority: 1
+condition: "(step2_preg_fourteen_gestational_age > 7) && (!step2_preg_fourteen_sex_infant.isEmpty())"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_fourteen_birth_weight
+description: preg_fourteen_birth_weight
+priority: 1
+condition: "(step2_preg_fourteen_gestational_age > 6) && (!step2_preg_fourteen_sex_infant.isEmpty())"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_fourteen_outcome_early
+description: preg_fourteen_outcome_early
+priority: 1
+condition: "(step2_preg_fourteen_gestational_age > 0) && (step2_preg_fourteen_gestational_age < 7)"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_fifteen_delivery_termination
+description: preg_fifteen_delivery_termination
+priority: 1
+condition: "(step2_gravida > 14) && (step2_preg_fifteen_dt_unknown.isEmpty()) "
+actions:
+  - "isRelevant = true"
+---
+name: step2_preg_fifteen_delivery_termination_label
+description: preg_fifteen_delivery_termination_label
+priority: 1
+condition: "(step2_gravida > 14 ) && (step2_preg_fifteen_dt_unknown.isEmpty()) "
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_fifteen_labour_type
+description: preg_fifteen_labour_type
+priority: 1
+condition: " !step2_preg_fifteen_delivery_method.isEmpty() "
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_fifteen_sex_infant
+description: preg_fifteen_sex_infant
+priority: 1
+condition: " !step2_preg_fifteen_labour_type.isEmpty() "
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_fifteen_birth_weight_label
+description: preg_fifteen_birth_weight_label
+priority: 1
+condition: "(step2_preg_fifteen_gestational_age > 7) && (!step2_preg_fifteen_sex_infant.isEmpty())"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_fifteen_birth_weight
+description: preg_fifteen_birth_weight
+priority: 1
+condition: "(step2_preg_fifteen_gestational_age > 6) && (!step2_preg_fifteen_sex_infant.isEmpty())"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_preg_fifteen_outcome_early
+description: preg_fifteen_outcome_early
+priority: 1
+condition: "(step2_preg_fifteen_gestational_age > 0) && (step2_preg_fifteen_gestational_age < 7)"
+actions:
+  - "isRelevant = true"
