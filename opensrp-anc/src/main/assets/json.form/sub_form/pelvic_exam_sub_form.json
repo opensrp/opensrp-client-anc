@@ -6,7 +6,7 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165372AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "check_box",
-      "label": "{{pelvic_exam_sub_form.step1.pelvic_exam_abnormal.label}}",
+      "label": "Pelvic Exam test",
       "label_text_style": "bold",
       "text_color": "#000000",
       "options": [

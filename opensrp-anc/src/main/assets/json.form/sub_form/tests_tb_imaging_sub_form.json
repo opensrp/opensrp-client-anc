@@ -5,7 +5,7 @@
       "openmrs_entity_parent": "164800AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-      "label": "{{tests_tb_screening_sub_form.step1.tb_imaging_status.label}}",
+      "label": "TB Imaging",
       "label_text_style": "bold",
       "text_color": "#000000",
       "type": "extended_radio_button",

@@ -5,7 +5,7 @@
       "openmrs_entity_parent": "1356AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-      "label": "{{tests_hiv_sub_form.step1.hiv_test_status.label}}",
+      "label": "Hiv test",
       "label_text_style": "bold",
       "label_info_text": "{{tests_hiv_sub_form.step1.hiv_test_status.label_info_text}}",
       "text_color": "#000000",

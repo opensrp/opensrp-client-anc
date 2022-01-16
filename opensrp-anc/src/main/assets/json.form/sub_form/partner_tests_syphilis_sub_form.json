@@ -5,7 +5,7 @@
       "openmrs_entity_parent": "161476AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-      "label": "{{tests_syphilis_sub_form.step1.syph_test_status.label}}",
+      "label": "Partner Syphilis test",
       "label_text_style": "bold",
       "text_color": "#000000",
       "type": "extended_radio_button",

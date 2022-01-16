@@ -4511,27 +4511,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "discordant",
         "type": "hidden",
-        "read_only": "true",
         "text_color": "#FF0000",
         "label_text_style": "bold",
-        "options": [
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "discordant_yes",
-            "key": "yes",
-            "text": "Yes",
-            "value": ""
-          },
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "discordant_no",
-            "key": "no",
-            "text": "No",
-            "value": ""
-          }
-        ],
         "calculation": {
           "rules-engine": {
             "ex-rules": {

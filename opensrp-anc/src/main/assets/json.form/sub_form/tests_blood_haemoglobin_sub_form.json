@@ -5,7 +5,7 @@
       "openmrs_entity_parent": "21AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-      "label": "{{tests_blood_haemoglobin_sub_form.step1.hb_test_status.label}}",
+      "label": "Hemoglobin test",
       "label_text_style": "bold",
       "text_color": "#000000",
       "type": "extended_radio_button",
