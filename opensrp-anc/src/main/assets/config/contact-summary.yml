@@ -107,7 +107,7 @@ fields:
 - template: "{{contact_summary.demographic_info.occupation}}: {occupation_value}"
   relevance: "occupation_value != ''"
 
-- template: "Discordant: {discordant_value}"
+- template: "Discordant: {hiv_test_result_value}"
   relevance: "discordant != ''"
 ---
 group: current_pregnancy

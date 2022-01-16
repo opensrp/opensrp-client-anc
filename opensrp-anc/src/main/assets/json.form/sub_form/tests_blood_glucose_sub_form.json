@@ -5,7 +5,7 @@
       "openmrs_entity_parent": "887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-      "label": "{{tests_blood_glucose_sub_form.step1.glucose_test_status.label}}",
+      "label": "Blood glucose test",
       "label_text_style": "bold",
       "text_color": "#000000",
       "type": "extended_radio_button",
