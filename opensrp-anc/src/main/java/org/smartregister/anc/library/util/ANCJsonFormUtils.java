@@ -576,6 +576,26 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
             String relationNK = womanClient.get(DBConstantsUtils.KeyUtils.RELATION_NK);
             jsonObject.put(ANCJsonFormUtils.VALUE, relationNK);
 
+        } else if (jsonObject.getString(ANCJsonFormUtils.KEY).equalsIgnoreCase(DBConstantsUtils.KeyUtils.OCCUPATION)) {
+            String occupation = womanClient.get(DBConstantsUtils.KeyUtils.OCCUPATION);
+            jsonObject.put(ANCJsonFormUtils.VALUE, occupation);
+
+        } else if (jsonObject.getString(ANCJsonFormUtils.KEY).equalsIgnoreCase(DBConstantsUtils.KeyUtils.OCCUPATION_REDACTED)) {
+            String occupationRedacted = womanClient.get(DBConstantsUtils.KeyUtils.OCCUPATION_REDACTED);
+            jsonObject.put(ANCJsonFormUtils.VALUE, occupationRedacted);
+
+        } else if (jsonObject.getString(ANCJsonFormUtils.KEY).equalsIgnoreCase(DBConstantsUtils.KeyUtils.EDUC_LEVEL)) {
+            String educLevel = womanClient.get(DBConstantsUtils.KeyUtils.EDUC_LEVEL);
+            jsonObject.put(ANCJsonFormUtils.VALUE, educLevel);
+
+        } else if (jsonObject.getString(ANCJsonFormUtils.KEY).equalsIgnoreCase(DBConstantsUtils.KeyUtils.COUPLE)) {
+            String couple = womanClient.get(DBConstantsUtils.KeyUtils.COUPLE);
+            jsonObject.put(ANCJsonFormUtils.VALUE, couple);
+
+        } else if (jsonObject.getString(ANCJsonFormUtils.KEY).equalsIgnoreCase(DBConstantsUtils.KeyUtils.MARITAL_STATUS)) {
+            String maritalStatus = womanClient.get(DBConstantsUtils.KeyUtils.MARITAL_STATUS);
+            jsonObject.put(ANCJsonFormUtils.VALUE, maritalStatus);
+
         } else if (jsonObject.getString(ANCJsonFormUtils.KEY).equalsIgnoreCase(ConstantsUtils.WOM_IMAGE)) {
             getPhotoFieldValue(womanClient, jsonObject);
         } else if (jsonObject.getString(ANCJsonFormUtils.KEY).equalsIgnoreCase(DBConstantsUtils.KeyUtils.DOB_UNKNOWN)) {
