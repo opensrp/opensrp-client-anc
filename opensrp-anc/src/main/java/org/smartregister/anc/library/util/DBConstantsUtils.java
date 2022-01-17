@@ -41,6 +41,7 @@ public class DBConstantsUtils {
         public static final String OCCUPATION_REDACTED = "occupation_redacted";
         public static final String MARITAL_STATUS = "marital_status";
         public static final String EDUC_LEVEL = "educ_level";
+        public static final String COUPLE = "couple";
         public static final String AGE = "age";
         public static final String ORIGIN = "origin";
         public static final String REMINDERS = "reminders";
