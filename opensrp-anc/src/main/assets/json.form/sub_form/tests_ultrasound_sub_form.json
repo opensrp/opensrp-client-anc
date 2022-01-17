@@ -143,7 +143,7 @@
       "hint": "{{tests_ultrasound_sub_form.step1.ultrasound_date.hint}}",
       "expanded": "false",
       "max_date": "today",
-      "min_date": "today-9m",
+      "min_date": "today-1y",
       "relevance": {
         "rules-engine": {
           "ex-rules": {
@@ -154,13 +154,6 @@
       "v_required": {
         "value": true,
         "err": "{{tests_ultrasound_sub_form.step1.ultrasound_date.v_required.err}}"
-      },
-      "calculation": {
-        "rules-engine": {
-          "ex-rules": {
-            "rules-file": "ultrasound_sub_form_calculation_rules.yml"
-          }
-        }
       }
     },
     {
@@ -701,7 +694,7 @@
       "duration": {
         "label": "Date ordered"
       },
-      "min_date": "global_lmp_known_date",
+      "min_date": "today-1y",
       "max_date": "today",
       "v_required": {
         "value": "true",
