@@ -293,7 +293,7 @@
     <string name="woman_name">Nama Wanita</string>
     <string name="contact_weeks">Kunjungan %1$s \n %2$s</string>
     <string name="due_delivery">Waktu persalinan</string>
-    <string name="record_birth_popup_message">Usia kehamilan: %1$d Minggu / Hari Taksiran Persalinan: %2$s (%3$s lalu)
+    <string name="record_birth_popup_message">Usia kehamilan: %1$d Minggu / Hari Perkiraan Persalinan: %2$s (%3$s lalu)
         %4$s harus segera datang untuk persalinan
     </string>
     <string name="contact_number">Kontak %1$d</string>
@@ -311,11 +311,11 @@
     <string name="password">Kata sandi</string>
     <string name="finalizing_contact">Menyelesaikan kunjungan%1$d</string>
     <string name="summarizing_contact_number">Meringkas kunjungan%1$d</string>
-    <string name="contact_number_due">Kontak%1$d; batas waktu %2$s</string>
+    <string name="contact_number_due">kunjungan %1$d; batas waktu %2$s</string>
     <string name="last_contact">Kunjungan terakhir</string>
     <string name="key_figure">Angka utama</string>
     <string name="recent_test">Tes terbaru: %1$s</string>
-    <string name="previous_contacts">Kunjungan sebelumnya</string>
+    <string name="previous_contacts">Daftar Kunjungan</string>
     <string name="all_tests_results">Semua Hasil Tes</string>
     <string name="contact_details">%1$sMinggu &#183; Kunjungan %2$s</string>
     <string name="referral_contact_details">Kontak %1$s</string>
@@ -323,22 +323,22 @@
     <string name="negative_contact_text">Kontak negatif berarti bahwa pasien dirujuk sehingga jadwal kontaknya tidak
         berubah dan tetap sama seperti sebelumnya
     </string>
-    <string name="previous_contacts_header">Kontak sebelumnya</string>
+    <string name="previous_contacts_header">Kunjungan sebelumnya</string>
     <string name="previous_contacts_tests_header">Semua Hasil Tes</string>
-    <string name="expected_date_of_delivery">Hari taksiran persalinan</string>
+    <string name="expected_date_of_delivery">Hari perkiraan persalinan</string>
     <string name="ga_weeks">%1$s minggu</string>
-    <string name="timeline_away">%1$s jauh</string>
+    <string name="timeline_away">%1$s mg lagi</string>
     <string name="all_results">Semua hasil</string>
     <string name="no_tests_available">Tidak ada tes yang tersedia</string>
     <string name="hospital_referral">Rumah Sakit Rujukan</string>
     <string name="no_contact_schedule">Belum ada jadwal kunjungan yang dihasilkan</string>
     <string name="default_language_string">Bahasa yang Digunakan: %1s</string>
-    <string name="contact_tasks_form">Tugas Kontak</string>
+    <string name="contact_tasks_form">Tugas Kunjungan</string>
     <string name="form_manifest_version">Versi Rilis Formulir: v%1$s</string>
     <string name="contact_weeks_no_break">MULAI &#183; KUNJUNGAN %1$s &#183; %2$s</string>
     <string name="contact_in_progress">KUNJUNGAN %1$s\n SEDANG BERLANGSUNG</string>
     <string name="contact_in_progress_no_break">KUNJUNGAN %1$s &#183; SEDANG BERLANGSUNG</string>
-    <string name="contact_number_due_no_break">KUNJUNGAN %1$d &#183; KARENA &#183; %2$s</string>
+    <string name="contact_number_due_no_break">KUNJUNGAN %1$d &#183; BATAS WAKTU &#183; %2$s</string>
     <string name="hospital_referral_title">Catatan rujukan Rumah Sakit</string>
     <string name="who_will_help_while_she_is_away_to_care_for_her_home_and_other_children">Siapa yang akan membantu saat
         dia pergi untuk merawat rumah dan anak-anaknya yang lain?
@@ -678,9 +678,9 @@
     <string name="edit_button_label">Tombol Edit</string>
     <string name="info_icon">Informasi Ikon</string>
     <string name="attention">Perhatian</string>
-    <string name="json_form_error_msg">Ditemukan %dkesalahan (s) dalam formulir. Harap perbaiki mereka untuk mengirim
+    <string name="json_form_error_msg">Ditemukan %d kesalahan dalam formulir. Harap perbaiki untuk dikirim
     </string>
-    <string name="json_form_on_next_error_msg">Harap perbaiki kesalahan (s) dalam formulir untuk melanjutkan</string>
+    <string name="json_form_on_next_error_msg">Harap perbaiki kesalahan dalam formulir untuk melanjutkan</string>
     <string name="go_to_step">Lanjutkan ke langkah</string>
     <string name="shows_image_on_dialog">menampilkan Gambar pada dialog</string>
     <string name="simprints_guid">GUID not found</string>
@@ -689,5 +689,19 @@
     <string name="optibp_btn_get_started">Mulai Ukur</string>
     <string name="contact_summary_data">Ringkasan data kunjungan  -  %1$s</string>
     <string name="pdf_saved_successfully">\"Pdf berhasil disimpan ke lokasi \"</string>
-    <string name="contact_summary_data_file">contactSummaryData.pdf</string>
+    <string name="contact_summary_data_file">dataRingkasanKunjungan.pdf</string>
+    <string name="loading_form_message">Harap tunggu, sistem sedang memuat formulir…</string>
+    <string name="next_step_loading">Harap tunggu sistem sedang mempersiapkan langkah selanjutnya.</string>
+
+    <string name="accordion_ultrasound">Tes USG</string>
+    <string name="accordion_blood_type">Tes Golongan Darah</string>
+    <string name="accordion_hepatitis_b">Tes Hepatitis B</string>
+    <string name="accordion_hepatitis_c">Tes Hepatitis C</string>
+    <string name="accordion_syphilis">Tes Syphilis</string>
+    <string name="accordion_urine">Tes Urin</string>
+    <string name="accordion_blood_haemoglobin">Tes Hemoglobin Darah</string>
+    <string name="accordion_hiv">Tes HIV</string>
+    <string name="accordion_tb_screening">Screening TB</string>
+    <string name="accordion_partner_hiv">Tes HIV Pasangan</string>
+    <string name="accordion_blood_glucose">Tes Glukosa Darah</string>
 </resources>

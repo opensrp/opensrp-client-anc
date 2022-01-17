@@ -130,7 +130,7 @@ fields:
     relevance: "fetal_heartbeat == 'no'"
 
   - template: "{{attention_flags.red.abnormal_fetal_heart_rate}}: {fetal_heart_rate_repeat}kpm"
-    relevance: "fetal_heart_rate_repeat < 100 || fetal_heart_rate_repeat > 180"
+    relevance: "fetal_heart_rate_repeat >= 80 || fetal_heart_rate_repeat <= 200"
 
   - template: "{{attention_flags.red.no_of_fetuses}}: {no_of_fetuses}"
     relevance: "no_of_fetuses > 1"

@@ -25,7 +25,7 @@ jacoco {
 // This variables are used by the version code & name generators
 ext.versionMajor = 1
 ext.versionMinor = 6
-ext.versionPatch = 11
+ext.versionPatch = 13
 ext.versionClassifier = null
 ext.isSnapshot = false
 ext.minimumSdkVersion = androidMinSdkVersion
@@ -235,7 +235,9 @@ dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
     def powerMockVersion = '2.0.7'
     implementation project(":opensrp-anc")
-    implementation('org.smartregister:opensrp-client-native-form:2.1.11-SNAPSHOT@aar') {
+   // implementation(project(':android-json-form-wizard'))
+    implementation('org.smartregister:opensrp-client-native-form:2.1.15-SNAPSHOT@aar')
+    {
         transitive = true
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -298,11 +300,11 @@ dependencies {
     implementation 'org.jeasy:easy-rules-mvel:3.3.0'
     implementation 'com.flurry.android:analytics:11.6.0@aar'
     implementation 'androidx.multidex:multidex:2.0.1'
-    // Import the BoM for the Firebase platform
+// Import the BoM for the Firebase platform
     implementation platform('com.google.firebase:firebase-bom:28.3.1')
 
-    // Declare the dependencies for the Crashlytics and Analytics libraries
-    // When using the BoM, you don't specify versions in Firebase library dependencies
+// Declare the dependencies for the Crashlytics and Analytics libraries
+// When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-crashlytics'
     implementation('com.google.firebase:firebase-analytics') {
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -318,12 +320,12 @@ dependencies {
     testImplementation('com.squareup:fest-android:1.0.8') {
         exclude module: 'support-v4'
     }
-    // https://mvnrepository.com/artifact/org.hamcrest/hamcrest
+// https://mvnrepository.com/artifact/org.hamcrest/hamcrest
     testImplementation group: 'org.hamcrest', name: 'hamcrest', version: '2.2'
     testImplementation 'org.robolectric:robolectric:4.4'
     testImplementation 'org.robolectric:shadows-multidex:4.4'
     testImplementation 'com.ibm.fhir:fhir-model:4.8.3'
-    //testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
+//testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
     testImplementation "org.powermock:powermock-module-junit4:$powerMockVersion"
     testImplementation "org.powermock:powermock-module-junit4-rule:$powerMockVersion"
     testImplementation "org.powermock:powermock-api-mockito2:$powerMockVersion"

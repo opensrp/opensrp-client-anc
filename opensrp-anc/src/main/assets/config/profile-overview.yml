@@ -192,8 +192,12 @@ fields:
 group: risks_and_diagnoses
 fields:
   - template: "Konsumsi kafein harian yang tinggi: {caffeine_intake_value}"
-    relevance: "caffeine_intake != '' && caffeine_intake != 'none'"
+    relevance: "caffeine_intake != '' && caffeine_intake != '[none]'"
     isRedFont: "true"
+
+  - template: "Konsumsi kafein harian yang tinggi: {caffeine_intake_value}"
+    relevance: "caffeine_intake == '[none]'"
+    isRedFont: "false"
 
   - template: "Pengguna tembakau atau baru saja berhenti: Ya"
     relevance: "tobacco_user != '' && tobacco_user != 'no'"

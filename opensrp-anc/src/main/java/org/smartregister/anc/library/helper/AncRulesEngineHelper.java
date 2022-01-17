@@ -3,6 +3,7 @@ package org.smartregister.anc.library.helper;
 import android.content.Context;
 import android.text.TextUtils;
 
+import android.util.Log;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 import com.vijay.jsonwizard.rules.RuleConstant;
@@ -28,6 +29,7 @@ import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.constants.IMTWeight;
 import org.smartregister.anc.library.rule.AlertRule;
 import org.smartregister.anc.library.rule.ContactRule;
+import org.smartregister.anc.library.rule.RelevanceRule;
 import org.smartregister.anc.library.util.ANCFormUtils;
 
 import java.io.BufferedReader;

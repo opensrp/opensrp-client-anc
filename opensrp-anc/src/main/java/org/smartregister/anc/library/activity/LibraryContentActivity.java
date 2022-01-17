@@ -1,7 +1,6 @@
 package org.smartregister.anc.library.activity;
 
 import android.os.Bundle;
-import android.view.View;
 import android.webkit.WebView;
 import android.widget.TextView;
 

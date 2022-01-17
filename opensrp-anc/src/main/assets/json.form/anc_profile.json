@@ -305,6 +305,7 @@
         "type": "check_box",
         "label": "{{anc_profile.step1.occupation.label}}",
         "hint": "{{anc_profile.step1.occupation.hint}}",
+        "exclusive": ["unemployed"],
         "label_text_style": "bold",
         "options": [
           {
@@ -530,7 +531,8 @@
             "specify_info": "tanggal USG",
             "specify_widget": "date_picker",
             "max_date": "today",
-            "min_date": "today-9m"
+            "min_date": "today-9m",
+            "default": "today"
           },
           {
             "key": "no",
@@ -552,7 +554,14 @@
         "key": "ultrasound_done_date",
         "type": "hidden",
         "label_text_style": "bold",
-        "text_color": "#FF0000"
+        "text_color": "#FF0000",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "ultrasound_toaster",

@@ -315,7 +315,7 @@ actions:
 name: step3_toaster26
 description: toaster26
 priority: 1
-condition: "step3_toaster26_hidden > 2"
+condition: "step3_toaster26_hidden > 2 && step3_cervical_exam == '1'"
 actions:
   - "isRelevant = true"
 ---
