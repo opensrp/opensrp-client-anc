@@ -155,7 +155,7 @@
       },
       "v_max": {
         "value": "6.5",
-        "err": "Fasting plasma glucose results must be less than or equal to 10"
+        "err": "Fasting plasma glucose results must be less than or equal to 6.5"
       },
       "v_numeric": {
         "value": "true",
@@ -278,12 +278,12 @@
       "hint": "{{tests_blood_glucose_sub_form.step1.random_plasma.hint}}",
       "edit_type": "number",
       "v_min": {
-        "value": "0",
-        "err": "The result for the random plasma glucose test must be greater than or equal to 0"
+        "value": "3.5",
+        "err": "The result for the random plasma glucose test must be greater than or equal to 3.5"
       },
       "v_max": {
-        "value": "30",
-        "err": "The result for the random plasma glucose test must be less than or equal to 30"
+        "value": "10",
+        "err": "The result for the random plasma glucose test must be less than or equal to 10"
       },
       "v_numeric": {
         "value": "true",

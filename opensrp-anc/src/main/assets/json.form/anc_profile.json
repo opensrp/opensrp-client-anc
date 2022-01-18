@@ -7720,6 +7720,50 @@
           "value": true,
           "err": "{{anc_profile.step5.hepatitis_immun_status.v_required.err}}"
         }
+      },
+      {
+        "key": "hep_immunised_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Woman is fully immunized against hepatitis",
+        "text_color": "#000000",
+        "toaster_type": "positive",
+        "relevance": {
+          "step4:hepatitis_immun_status": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "3_doses"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "hep_low_immunisation_toaster",
+        "openers_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Hepatitis immunization recommended",
+        "text_color": "#000000",
+        "toaster_type": "info",
+        "relevance": {
+          "step4:hepatitis_immun_status": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "1-4_doses",
+                  "ttcv_not_received",
+                  "unknown"
+                ]
+              }
+            ]
+          }
+        }
       }
     ]
   },
