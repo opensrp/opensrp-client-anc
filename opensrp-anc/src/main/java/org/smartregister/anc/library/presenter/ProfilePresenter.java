@@ -163,4 +163,9 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
     public void getTaskCount(String baseEntityId) {
         getProfileView().setTaskCount(mProfileInteractor.getTaskCount(baseEntityId));
     }
+
+    @Override
+    public void createContactSummaryPdf() {
+        getProfileView().createContactSummaryPdf();
+    }
 }

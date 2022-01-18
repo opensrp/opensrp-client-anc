@@ -233,6 +233,13 @@
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165393AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "not_available",
+          "text": "{{tests_urine_sub_form.step1.urine_culture.options.not_available.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165390AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
       "v_required": {

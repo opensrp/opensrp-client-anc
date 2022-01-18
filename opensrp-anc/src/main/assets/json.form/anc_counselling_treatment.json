@@ -480,13 +480,6 @@
             "openmrs_entity_id": "165306AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "not_necessary",
-            "text": "{{anc_counselling_treatment.step1.referred_hosp_notdone.options.not_necessary.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165305AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
             "key": "other",
             "text": "{{anc_counselling_treatment.step1.referred_hosp_notdone.options.other.text}}",
             "openmrs_entity_parent": "",
@@ -2429,6 +2422,32 @@
         }
       },
       {
+        "key": "low_prev_allergy_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_counselling_treatment.step5.high_prev_allergy_toaster.text}}",
+        "toaster_info_text": "{{anc_counselling_treatment.step5.high_prev_allergy_toaster.toaster_info_text}}",
+        "toaster_info_title": "{{anc_counselling_treatment.step5.syphilis_high_prev_counsel.label_info_title}}",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_calculation_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "syphilis_high_prev_counsel",
         "openmrs_entity_parent": "165332AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "concept",
@@ -2462,6 +2481,32 @@
           "rules-engine": {
             "ex-rules": {
               "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "high_prev_allergy_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_counselling_treatment.step5.high_prev_allergy_toaster.text}}",
+        "toaster_info_text": "{{anc_counselling_treatment.step5.high_prev_allergy_toaster.toaster_info_text}}",
+        "toaster_info_title": "{{anc_counselling_treatment.step5.syphilis_high_prev_counsel.label_info_title}}",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_calculation_rules.yml"
             }
           }
         }
@@ -4159,6 +4204,30 @@
         }
       },
       {
+        "key": "ifa_high_prev_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_counselling_treatment.step5.high_prev_allergy_toaster.text}}",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_calculation_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "ifa_high_prev_notdone",
         "openmrs_entity_parent": "165355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "concept",
@@ -4249,6 +4318,30 @@
           "rules-engine": {
             "ex-rules": {
               "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "ifa_low_prev_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_counselling_treatment.step5.high_prev_allergy_toaster.text}}",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_calculation_rules.yml"
             }
           }
         }
@@ -4685,6 +4778,30 @@
         "v_required": {
           "value": true,
           "err": "{{anc_counselling_treatment.step10.deworm.v_required.err}}"
+        }
+      },
+      {
+        "key": "deworm_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_counselling_treatment.step5.high_prev_allergy_toaster.text}}",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_calculation_rules.yml"
+            }
+          }
         }
       },
       {
