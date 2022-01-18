@@ -1112,6 +1112,31 @@
         }
       },
       {
+        "key": "c_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "c_type",
+        "type": "native_radio",
+        "label": "Type of C-section",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "planned_elective",
+            "text": "Planned/Elective"
+          },
+          {
+            "key": "emergency",
+            "text": "Emergency"
+          }
+        ],
+        "relevance": {
+          "step2:delivery_method": {
+            "type": "string",
+            "ex": "equalTo(., \"c\")"
+          }
+        }
+      },
+      {
         "key": "preg_one_sex_infant",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

@@ -793,6 +793,15 @@
             "openmrs_entity_id": ""
           },
           {
+            "key": "children",
+            "text": "Child(ren)",
+            "text_size": "18px",
+            "value": "false",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
             "key": "extended_family",
             "text": "{{anc_register.step1.cohabitants.options.extended_family.text}}",
             "text_size": "18px",
@@ -813,6 +822,15 @@
           {
             "key": "friends",
             "text": "{{anc_register.step1.cohabitants.options.friends.text}}",
+            "text_size": "18px",
+            "value": "false",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "employee",
+            "text": "Employee(s)",
             "text_size": "18px",
             "value": "false",
             "openmrs_entity_parent": "",
