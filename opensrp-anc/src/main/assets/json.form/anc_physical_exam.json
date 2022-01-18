@@ -3205,9 +3205,8 @@
         "openmrs_entity_id": "",
         "type": "edit_text",
         "hint": "{{anc_physical_exam.step3.ipv_clinical_enquiry_not_done_reason_other.hint}}",
-        "edit_type": "name",
         "relevance": {
-          "step3:ipv_clinical_enquiry_not_done_reason": {
+          "step4:ipv_clinical_enquiry_not_done_reason": {
             "type": "string",
             "ex": "equalTo(., \"other\")"
           }
@@ -3298,6 +3297,14 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "",
             "openmrs_entity_parent": ""
+          },
+          {
+            "key": "other",
+            "text": "Other specify",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
           }
         ],
         "relevance": {
@@ -3307,7 +3314,28 @@
             }
           }
         }
-      }
+      },
+      {
+        "key": "other_violence",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_violence",
+        "type": "edit_text",
+        "hint": "Specify (other)",
+        "edit_type": "name",
+        "v_regex": {
+          "value": "[A-Za-z\\s\\.\\-]*",
+          "err": "Cannot contain numbers or special characters"
+        },
+         "relevance": {
+        "step4:ipv_subject_violence_types": {
+          "ex-checkbox": [
+            {
+              "or": ["other"]
+            }
+          ]
+        }
+      }}
     ]
   },
   "properties_file_name": "anc_physical_exam"
