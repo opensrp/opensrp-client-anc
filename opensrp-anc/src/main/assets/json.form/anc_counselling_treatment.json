@@ -5805,10 +5805,9 @@
         "hint": "ART Number",
         "edit_type": "name",
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
-            }
+          "step12:started_art": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
           }
         }
       },
@@ -5821,10 +5820,9 @@
         "hint": "Viral Load result",
         "edit_type": "name",
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
-            }
+          "step12:started_art": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
           }
         }
       },
@@ -5846,10 +5844,9 @@
           "err": "Enter date"
         },
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
-            }
+          "step12:started_art": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
           }
         }
       },
