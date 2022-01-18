@@ -206,6 +206,13 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "oblique"
+          },
+          {
+            "key": "undetermined",
+            "text": "Undetermined",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "undetermined"
           }
         ],
         "relevance": {
@@ -239,6 +246,13 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "cephalic"
+          },
+          {
+            "key": "undetermined",
+            "text": "Undetermined",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "undetermined"
           }
         ],
         "relevance": {
@@ -745,7 +759,14 @@
           "value": "true",
           "err": "{{anc_physical_exam.step2.bp_systolic.v_required.err}}"
         },
-
+        "v_min": {
+          "value": "90",
+          "err": "Systolic bp must be equal or greater than 90"
+        },
+        "v_max": {
+          "value": "139",
+          "err": "Systolic bp must be less than or equal to 139"
+        },
         "relevance": {
           "step2:cant_record_bp": {
             "ex-checkbox": [
@@ -813,6 +834,14 @@
         "v_required": {
           "value": "true",
           "err": "{{anc_physical_exam.step2.bp_diastolic.v_required.err}}"
+        },
+        "v_min": {
+          "value": "60",
+          "err": "Diastolic bp must be equal or greater than 60"
+        },
+        "v_max": {
+          "value": "89",
+          "err": "Diastolic bp must be less than or equal to 89"
         },
         "relevance": {
           "step2:cant_record_bp": {
@@ -1732,6 +1761,14 @@
         "v_required": {
           "value": "true",
           "err": "{{anc_physical_exam.step3.pulse_rate.v_required.err}}"
+        },
+        "v_min": {
+          "value": "60",
+          "err": "Pulse rate must be greater than 60"
+        },
+        "v_max": {
+          "value": "90",
+          "err": "Pulse rate must be greater than 90"
         },
         "v_numeric": {
           "value": "true",

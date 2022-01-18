@@ -466,6 +466,13 @@
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "oblique"
+        },
+        {
+          "key": "undetermined",
+          "text": "Undetermined",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "undetermined"
         }
       ],
       "relevance": {
@@ -499,6 +506,13 @@
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "160091AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "undetermined",
+          "text": "Undetermined",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "undetermined"
         }
       ],
       "relevance": {
@@ -647,15 +661,8 @@
           "openmrs_entity_id": "541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
-          "key": "right_side",
-          "text": "{{tests_ultrasound_sub_form.step1.placenta_location.options.right_side.text}}",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "5141AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        {
-          "key": "left_side",
-          "text": "{{tests_ultrasound_sub_form.step1.placenta_location.options.left_side.text}}",
+          "key": "left_right_side",
+          "text": "Side walls (left or right lateral) ",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "5139AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -666,6 +673,13 @@
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165298AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "undetermined",
+          "text": "Undetermined",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "undetermined"
         }
       ],
       "relevance": {
