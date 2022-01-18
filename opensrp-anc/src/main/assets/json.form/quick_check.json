@@ -974,7 +974,7 @@
         "value": "today",
         "hint": "Date of scheduled referral",
         "expanded": false,
-        "min_date": "today",
+        "min_date": "today-5y",
         "max_date": "today+5y",
         "v_required": {
           "value": "true",
