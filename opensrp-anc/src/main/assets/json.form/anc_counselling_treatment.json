@@ -3457,7 +3457,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "native_radio",
+        "type": "check_box",
         "label": "{{anc_counselling_treatment.step7.family_planning_type.label}}",
         "label_text_style": "bold",
         "options": [

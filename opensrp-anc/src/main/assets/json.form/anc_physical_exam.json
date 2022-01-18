@@ -187,18 +187,18 @@
         "label_info_text": "The position in which the baby is laying",
         "options": [
           {
-            "key": "cephalic",
-            "text": "Cephalic",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "cephalic"
-          },
-          {
             "key": "longitudinal",
             "text": "Longitudinal",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "longitudinal"
+          },
+          {
+            "key": "transverse",
+            "text": "Transverse",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "transverse"
           },
           {
             "key": "oblique",
