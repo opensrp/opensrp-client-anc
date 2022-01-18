@@ -5075,10 +5075,6 @@
         "type": "edit_text",
         "hint": "Other reason(Specify)",
         "edit_type": "name",
-        "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
-          "err": " can only contain letters"
-        },
         "relevance": {
           "step10:reason_mebendazole_no": {
             "type": "string",
