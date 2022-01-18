@@ -447,18 +447,18 @@
       "label_info_text": "The position in which the baby is laying",
       "options": [
         {
-          "key": "cephalic",
-          "text": "{{tests_ultrasound_sub_form.step1.fetal_presentation.options.cephalic.text}}",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "cephalic"
-        },
-        {
           "key": "longitudinal",
           "text": "Longitudinal",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "Longitudinal"
+        },
+        {
+          "key": "transverse",
+          "text": "Transverse",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "transverse"
         },
         {
           "key": "oblique",
@@ -499,13 +499,6 @@
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "160091AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        {
-          "key": "other",
-          "text": "{{tests_ultrasound_sub_form.step1.fetal_presentation.options.other.text}}",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
       "relevance": {

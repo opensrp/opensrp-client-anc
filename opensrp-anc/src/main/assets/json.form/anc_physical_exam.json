@@ -187,18 +187,18 @@
         "label_info_text": "The position in which the baby is laying",
         "options": [
           {
-            "key": "cephalic",
-            "text": "Cephalic",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "cephalic"
-          },
-          {
             "key": "longitudinal",
             "text": "Longitudinal",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "longitudinal"
+          },
+          {
+            "key": "transverse",
+            "text": "Transverse",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "transverse"
           },
           {
             "key": "oblique",
@@ -239,13 +239,6 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "cephalic"
-          },
-          {
-            "key": "other_presentation",
-            "text": "Other (Specify)",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "other_presentation"
           }
         ],
         "relevance": {
@@ -253,25 +246,6 @@
             "ex-rules": {
               "rules-file": "physical-exam-relevance-rules.yml"
             }
-          }
-        }
-      },
-      {
-        "key": "other_fetal_presentation",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "5090",
-        "type": "normal_edit_text",
-        "edit_text_style": "bordered",
-        "hint": "Other (specify)",
-        "v_required": {
-          "value": "true",
-          "err": "Please specify the fetal presentation"
-        },
-        "relevance": {
-          "step1:fetal_presentation": {
-            "type": "string",
-            "ex": "equalTo(., \"other_presentation\")"
           }
         }
       },

@@ -154,8 +154,8 @@
         "err": "Fasting plasma glucose results must be greater than or equal to 3.5"
       },
       "v_max": {
-        "value": "5",
-        "err": "Fasting plasma glucose results must be less than or equal to 5"
+        "value": "10",
+        "err": "Fasting plasma glucose results must be less than or equal to 10"
       },
       "v_numeric": {
         "value": "true",
