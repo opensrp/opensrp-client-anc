@@ -1,5 +1,5 @@
 {
-  "validate_on_submit": true,
+  "validate_on_submit": false,
   "display_scroll_bars": true,
   "skip_blank_steps": true,
   "count": "4",
