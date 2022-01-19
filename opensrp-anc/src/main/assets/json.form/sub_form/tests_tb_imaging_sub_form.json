@@ -162,15 +162,15 @@
       "label_text_style": "bold",
       "options": [
         {
-          "key": "positive",
-          "text": "{{tests_tb_screening_sub_form.step1.tb_screening_result.options.positive.text}}",
+          "key": "suggestive",
+          "text": "Suggestive TB",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
-          "key": "negative",
-          "text": "{{tests_tb_screening_sub_form.step1.tb_screening_result.options.negative.text}}",
+          "key": "no_signs",
+          "text": "No signs of TB",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -181,13 +181,6 @@
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        {
-          "key": "incomplete",
-          "text": "{{tests_tb_screening_sub_form.step1.tb_screening_result.options.incomplete.text}}",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "163339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
       "relevance": {
