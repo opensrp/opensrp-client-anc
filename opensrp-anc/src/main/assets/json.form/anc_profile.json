@@ -254,6 +254,7 @@
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "specify_info": "ultrasound date",
             "specify_widget": "date_picker",
+            "value": "today",
             "max_date": "today",
             "min_date": "today-9m"
           },
@@ -419,6 +420,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden",
+        "value": "0",
         "text_color": "#000000",
         "calculation": {
           "rules-engine": {
