@@ -19,7 +19,7 @@ fields:
     relevance: "!substances_used.isEmpty() && !substances_used.contains('none')"
 
   - template: "{{attention_flags.yellow.pre_eclampsia_risk}}"
-    relevance: "preeclampsia_risk == 1"
+    relevance: "pre_eclampsia_risk == 1"
 
   - template: "{{attention_flags.yellow.diabetes_risk}}"
     relevance: "gdm_risk == 1"

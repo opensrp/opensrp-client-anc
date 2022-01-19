@@ -2718,7 +2718,7 @@
         "type": "toaster_notes",
         "text": "Pre-eclampsia risk counseling",
         "text_color": "#D56900",
-        "toaster_info_text": "The use of aspirin after 12 weeks gestation is recommended as well as calcium if low dietary intake area. Please also provide counseling. ",
+        "toaster_info_text": "The use of aspirin(75mg) after 12 weeks gestation is recommended as well as calcium if low dietary intake area. Please also provide counseling. ",
         "toaster_type": "warning",
         "relevance": {
           "rules-engine": {

@@ -254,6 +254,7 @@
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "specify_info": "ultrasound date",
             "specify_widget": "date_picker",
+            "value": "today",
             "max_date": "today",
             "min_date": "today-9m"
           },
@@ -419,6 +420,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden",
+        "value": "0",
         "text_color": "#000000",
         "calculation": {
           "rules-engine": {
@@ -1108,6 +1110,31 @@
             "ex-rules": {
               "rules-file": "profile_relevance_rules.yml"
             }
+          }
+        }
+      },
+      {
+        "key": "c_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "c_type",
+        "type": "native_radio",
+        "label": "Type of C-section",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "planned_elective",
+            "text": "Planned/Elective"
+          },
+          {
+            "key": "emergency",
+            "text": "Emergency"
+          }
+        ],
+        "relevance": {
+          "step2:delivery_method": {
+            "type": "string",
+            "ex": "equalTo(., \"c\")"
           }
         }
       },
@@ -7694,6 +7721,50 @@
         "v_required": {
           "value": true,
           "err": "{{anc_profile.step5.hepatitis_immun_status.v_required.err}}"
+        }
+      },
+      {
+        "key": "hep_immunised_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Woman is fully immunized against hepatitis",
+        "text_color": "#000000",
+        "toaster_type": "positive",
+        "relevance": {
+          "step4:hepatitis_immun_status": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "3_doses"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "hep_low_immunisation_toaster",
+        "openers_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Hepatitis immunization recommended",
+        "text_color": "#000000",
+        "toaster_type": "info",
+        "relevance": {
+          "step4:hepatitis_immun_status": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "1-4_doses",
+                  "ttcv_not_received",
+                  "unknown"
+                ]
+              }
+            ]
+          }
         }
       }
     ]

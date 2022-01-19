@@ -292,7 +292,7 @@ actions:
 name: step2_labour_type
 description: labour_type
 priority: 1
-condition: " !step2_delivery_method.isEmpty() "
+condition: " (!step2_delivery_method.isEmpty()) && (step2_delivery_method!='c') "
 actions:
   - "isRelevant = true"
 
