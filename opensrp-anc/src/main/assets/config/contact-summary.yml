@@ -461,7 +461,7 @@ fields:
 - template: "{{contact_summary.blood_pressure.severe_pre_eclampsia_diagnosis}}"
   relevance: "severe_preeclampsia == 1"
 ---
-group: maternal_exam
+group: speculum_exam
 fields:
 
 - template: "{{contact_summary.maternal_exam.temperature}}: {body_temp}ºC"
@@ -965,7 +965,7 @@ fields:
 - template: "{{contact_summary.anaemia_prevention.dont_changed_prescription_folic_acid}}: {ifa_weekly_notdone_value}"
   relevance: "ifa_weekly == 'not_done'"
 ---
-group: deworming_and_malaria_prophylaxis
+group: preventive_therapy
 fields:
 
 - template: "{{contact_summary.deworming_and_malaria_prophylaxis.single_dose_prescribed}}"

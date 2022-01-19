@@ -4565,7 +4565,7 @@
     ]
   },
   "step10": {
-    "title": "{{anc_counselling_treatment.step10.title}}",
+    "title": "Preventive therapy",
     "next": "step11",
     "fields": [
       {
@@ -5035,7 +5035,14 @@
             "key": "no",
             "text": "No"
           }
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "reason_mebendazole_no",
@@ -5082,10 +5089,6 @@
         "type": "edit_text",
         "hint": "Other reason(Specify)",
         "edit_type": "name",
-        "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
-          "err": " can only contain letters"
-        },
         "relevance": {
           "step10:reason_mebendazole_no": {
             "type": "string",
@@ -5761,6 +5764,13 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
+          },
+          {
+            "key": "initiated",
+            "text": "Already initiated",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
           }
         ],
         "relevance": {
@@ -5790,6 +5800,13 @@
           {
             "key": "no",
             "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "already",
+            "text": "Already on art",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
