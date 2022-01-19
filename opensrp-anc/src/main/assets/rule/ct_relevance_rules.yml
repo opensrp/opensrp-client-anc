@@ -688,4 +688,10 @@ condition: "global_gest_age_openmrs>35"
 actions:
   - "isRelevant = true"
 
-
+---
+name: step10_mebendazole
+description: mebendazole
+priority: 1
+condition: "gest_age_openmrs >= 16"
+actions:
+  - "isRelevant = true"
