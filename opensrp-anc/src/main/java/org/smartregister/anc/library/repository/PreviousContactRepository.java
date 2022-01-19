@@ -9,6 +9,8 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.anc.library.model.PreviousContact;
 import org.smartregister.anc.library.model.PreviousContactsSummaryModel;
 import org.smartregister.anc.library.util.ANCFormUtils;
@@ -52,7 +54,7 @@ public class PreviousContactRepository extends BaseRepository {
     private static final String INDEX_CONTACT_NO = "CREATE INDEX " + TABLE_NAME + "_" + CONTACT_NO +
             "_index ON " + TABLE_NAME + "(" + CONTACT_NO + " COLLATE NOCASE);";
 
-    private String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, BASE_ENTITY_ID, CREATED_AT};
+    private final String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, BASE_ENTITY_ID, CREATED_AT};
 
     public static void createTable(SQLiteDatabase database) {
         database.execSQL(CREATE_TABLE_SQL);
@@ -60,6 +62,17 @@ public class PreviousContactRepository extends BaseRepository {
         database.execSQL(INDEX_BASE_ENTITY_ID);
         database.execSQL(INDEX_KEY);
         database.execSQL(INDEX_CONTACT_NO);
+    }
+
+    private static String readRadiaButtonText(JSONObject dbValues) {
+        String text = null;
+        try {
+            text = dbValues.get("text").toString();
+        } catch (Exception e) {
+            Timber.e("Error occurred while reading text values" + e);
+
+        }
+        return text;
     }
 
     public void savePreviousContact(PreviousContact previousContact) {
@@ -321,9 +334,17 @@ public class PreviousContactRepository extends BaseRepository {
 
             if (mCursor != null && mCursor.getCount() > 0) {
                 while (mCursor.moveToNext()) {
-                    previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)),
-                            mCursor.getString(mCursor.getColumnIndex(VALUE)));
-
+//                    previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)),
+//                            mCursor.getString(mCursor.getColumnIndex(VALUE)));
+                    try{
+                        JSONObject object=new JSONObject(mCursor.getString(mCursor.getColumnIndex(VALUE)));
+                        previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)),
+                                object.get("text").toString());
+                    }
+                    catch (JSONException e){
+                        previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)),
+                                mCursor.getString(mCursor.getColumnIndex(VALUE)));
+                    }
                 }
                 previousContactFacts.put(CONTACT_NO, selectionArgs[1]);
                 return previousContactFacts;

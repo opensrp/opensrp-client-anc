@@ -384,7 +384,7 @@ public class ANCFormUtils extends FormUtils {
 
             for (int j = 0; j < expansionPanelValue.length(); j++) {
                 JSONObject jsonObject = expansionPanelValue.getJSONObject(j);
-                ExpansionPanelItemModel expansionPanelItem = getExpansionPanelItem(
+               ExpansionPanelItemModel expansionPanelItem = getExpansionPanelItem(
                         jsonObject.getString(JsonFormConstants.KEY), expansionPanelValue);
 
                 if (jsonObject.has(JsonFormConstants.TYPE) && (JsonFormConstants.CHECK_BOX.equals(jsonObject.getString(JsonFormConstants.TYPE))
