@@ -1916,6 +1916,13 @@
               "rules-file": "ct_calculation_rules.yml"
             }
           }
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
         }
       },
       {

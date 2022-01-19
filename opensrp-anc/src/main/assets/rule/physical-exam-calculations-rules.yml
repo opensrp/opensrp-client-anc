@@ -9,16 +9,16 @@ actions:
 name: step3_bmi
 description: This is a calculated field for purposes of making weight calculations simpler. It fixes which weight to use as pre-gestational weight.
 priority: 1
-condition: "(step3_first_weight > 0)"
+condition: "(step3_current_weight > 0)"
 actions:
-  - "calculation = (step3_first_weight/((step3_height/100)*(step3_height/100)))"
+  - "calculation = (step3_current_weight/((step3_height/100)*(step3_height/100)))"
 ---
 name: step3_weight_cat
 description: weight cat tingz
 priority: 1
 condition: "true"
 actions:
-  - "calculation = (step3_bmi < 18.5 ? 'Underweight' : ((step3_bmi >= 18.5 && step3_bmi < 25) ?  'Normal Weight' : ((step3_bmi >= 25 && step3_bmi < 30) ? 'Overweight' : 'Obese')))"
+  - "calculation = (step3_bmi < 18.5 ? 'Underweight' : ((step3_bmi >= 18.5 && step3_bmi < 26) ?  'Normal Weight' : ((step3_bmi >= 25 && step3_bmi < 30) ? 'Overweight' : 'Obese')))"
 ---
 name: step3_exp_weight_gain
 description: weight gain tingz
@@ -34,12 +34,12 @@ condition: "step3_bmi >= 30 || (!global_prev_preg_comps.isEmpty() && (global_pre
 actions:
   - "calculation = 1"
 ---
-name: step1_toaster1
+name: step3_toaster1
 description: Note displaying the woman's BMI, her weight category, and how much weight she should put on during pregnancy for her weight category.
 priority: 1
 condition: "true"
 actions:
-  - "calculation = ['bmi' : step1_bmi, 'weight_cat' : step1_weight_cat, 'exp_weight_gain' : step1_exp_weight_gain]"
+  - "calculation = ['bmi' : step3_bmi, 'weight_cat' : step3_weight_cat]"
 ---
 name: step1_weight_gain_duration
 description: Todays date

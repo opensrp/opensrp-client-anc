@@ -1,5 +1,5 @@
 {
-  "validate_on_submit": false,
+  "validate_on_submit": true,
   "display_scroll_bars": true,
   "count": "4",
   "encounter_type": "Physical Exam",
@@ -1559,6 +1559,64 @@
         "v_required": {
           "value": "true",
           "err": "{{anc_physical_exam.step1.current_weight.v_required.err}}"
+        }
+      },
+      {
+        "key": "bmi",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        },
+        "value": "24.62",
+        "step": "step1",
+        "is-rule-check": true
+      },
+      {
+        "key": "weight_cat",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        },
+        "value": "Normal Weight",
+        "step": "step3",
+        "is-rule-check": true
+      },
+      {
+        "key": "toaster1",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Body mass Index",
+        "openmrs_entity_id": "1432",
+        "type": "toaster_notes",
+        "text": "Body mass index (BMI) = {bmi} \n\nWoman is {weight_cat}",
+        "text_color": "#1199F9",
+        "toaster_type": "info",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-calculations-rules.yml"
+            }
+          }
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
         }
       }
     ]
