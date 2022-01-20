@@ -1,6 +1,7 @@
 package org.smartregister.anc.library.repository;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -9,8 +10,8 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
-import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.model.PreviousContact;
 import org.smartregister.anc.library.model.PreviousContactsSummaryModel;
 import org.smartregister.anc.library.util.ANCFormUtils;
@@ -64,16 +65,6 @@ public class PreviousContactRepository extends BaseRepository {
         database.execSQL(INDEX_CONTACT_NO);
     }
 
-    private static String readRadiaButtonText(JSONObject dbValues) {
-        String text = null;
-        try {
-            text = dbValues.get("text").toString();
-        } catch (Exception e) {
-            Timber.e("Error occurred while reading text values" + e);
-
-        }
-        return text;
-    }
 
     public void savePreviousContact(PreviousContact previousContact) {
         if (previousContact == null) return;
@@ -331,20 +322,17 @@ public class PreviousContactRepository extends BaseRepository {
             }
 
             mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
-
             if (mCursor != null && mCursor.getCount() > 0) {
                 while (mCursor.moveToNext()) {
-//                    previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)),
-//                            mCursor.getString(mCursor.getColumnIndex(VALUE)));
-                    try{
-                        JSONObject object=new JSONObject(mCursor.getString(mCursor.getColumnIndex(VALUE)));
-                        previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)),
-                                object.get("text").toString());
+                    Context context = AncLibrary.getInstance().getApplicationContext();
+                    String value = org.smartregister.util.Utils.getProperties(context).getProperty(ConstantsUtils.Properties.NATIVE_WIDGET_TRANSALATED_VALUE, "false");
+                    if (StringUtils.isNotBlank(value) && Boolean.parseBoolean(value)) {
+                        JSONObject dbObject = new JSONObject(mCursor.getString(mCursor.getColumnIndex(VALUE)));
+                        previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), dbObject.get("text").toString());
+                    } else {
+                        previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), mCursor.getString(mCursor.getColumnIndex(VALUE)));
                     }
-                    catch (JSONException e){
-                        previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)),
-                                mCursor.getString(mCursor.getColumnIndex(VALUE)));
-                    }
+
                 }
                 previousContactFacts.put(CONTACT_NO, selectionArgs[1]);
                 return previousContactFacts;
