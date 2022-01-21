@@ -311,7 +311,7 @@
     <string name="password">Kata sandi</string>
     <string name="finalizing_contact">Menyelesaikan kunjungan%1$d</string>
     <string name="summarizing_contact_number">Meringkas kunjungan%1$d</string>
-    <string name="contact_number_due">kunjungan %1$d; batas waktu %2$s</string>
+    <string name="contact_number_due">Kontak %1$d; batas waktu %2$s</string>
     <string name="last_contact">Kunjungan terakhir</string>
     <string name="key_figure">Angka utama</string>
     <string name="recent_test">Tes terbaru: %1$s</string>

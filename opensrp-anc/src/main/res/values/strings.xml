@@ -294,7 +294,7 @@
     <string name="allow_phone_call_management">You need to allow the WHO ANC app to manage phone calls to enable calling&#8230;</string>
     <string name="any_changes_you_make">Any changes you make will be lost</string>
     <string name="woman_name">Woman Name</string>
-    <string name="contact_weeks">START\nCONTACT %1$s\n%2$s</string>
+    <string name="contact_weeks">START CONTACT %1$s %2$s</string>
     <string name="contact_weeks_no_break">START &#183; CONTACT %1$s &#183; %2$s</string>
     <string name="contact_in_progress">CONTACT %1$s\n IN PROGRESS</string>
     <string name="contact_in_progress_no_break">CONTACT %1$s &#183; IN PROGRESS</string>
