@@ -345,7 +345,7 @@ actions:
 name: step4_suspected_anemia_toaster
 description: bpm_repeat
 priority: 1
-condition: "((step4_bpm_repeat > 0 && step4_bpm_repeat < 12) || (step4_bpm_repeat > 18))"
+condition: "((step4_bpm_repeat > 0 && step4_bpm_repeat < 16) || (step4_bpm_repeat > 24))"
 actions:
   - "isRelevant = true"
 ---
