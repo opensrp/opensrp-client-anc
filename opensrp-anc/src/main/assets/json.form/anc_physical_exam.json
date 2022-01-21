@@ -1821,11 +1821,11 @@
           "err": "{{anc_physical_exam.step3.pulse_rate.v_required.err}}"
         },
         "v_min": {
-          "value": "60",
+          "value": "30",
           "err": "Pulse rate must be greater than 60"
         },
         "v_max": {
-          "value": "90",
+          "value": "120",
           "err": "Pulse rate must be greater than 90"
         },
         "v_numeric": {
@@ -1893,6 +1893,59 @@
           "value": "true",
           "err": "{{anc_physical_exam.step3.pulse_rate_repeat.v_required.err}}"
         },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "low_pulse_rate_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Woman has Brabycardia",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "high_pulse_rate_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Woman has Cachycadia",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+
+      {
+        "key": "toaster18",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_physical_exam.step3.toaster18.text}}",
+        "toaster_info_text": "{{anc_physical_exam.step3.toaster18.toaster_info_text}}",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -2013,24 +2066,6 @@
           }
         }
 
-      },
-      {
-        "key": "toaster18",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "{{anc_physical_exam.step3.toaster18.text}}",
-        "toaster_info_text": "{{anc_physical_exam.step3.toaster18.toaster_info_text}}",
-        "text_color": "#E20000",
-        "toaster_type": "problem",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
       },
       {
         "key": "spacer",

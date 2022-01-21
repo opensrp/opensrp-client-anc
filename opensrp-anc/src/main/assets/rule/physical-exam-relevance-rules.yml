@@ -440,3 +440,19 @@ priority: 1
 condition: "(!step3_bmi.isEmpty()) && (step3_current_weight != '')"
 actions:
   - "isRelevant = true"
+
+---
+name: step4_low_pulse_rate_toaster
+description: low_pulse_rate_toaster
+priority: 1
+condition: "(step4_pulse_rate_repeat > 0 && step4_pulse_rate_repeat < 60)"
+actions:
+  - "isRelevant = true"
+
+---
+name: step4_high_pulse_rate_toaster
+description: high_pulse_rate_toaster
+priority: 1
+condition: "(step4_pulse_rate_repeat > 90)"
+actions:
+  - "isRelevant = true"
