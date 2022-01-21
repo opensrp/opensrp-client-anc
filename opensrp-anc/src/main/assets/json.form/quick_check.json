@@ -663,7 +663,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "pre_existing_medic",
         "type": "check_box",
-        "label": "preexisting medical conditions",
+        "label": "Pre-existing medical conditions",
         "label_text_style": "bold",
         "options": [
           {
