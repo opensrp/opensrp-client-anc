@@ -432,3 +432,11 @@ priority: 1
 condition: "(global_gest_age_openmrs >= 26)"
 actions:
   - "isRelevant = true"
+
+---
+name: step3_toaster1
+description: toaster1
+priority: 1
+condition: "(!step3_bmi.isEmpty()) && (step3_current_weight != '')"
+actions:
+  - "isRelevant = true"
