@@ -4986,7 +4986,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "mebendazole",
         "type": "native_radio",
-        "label": "Mebendazole",
+        "label": "Deworming (Mebendazole or Albendazole)",
         "label_text_style": "bold",
         "options": [
           {
@@ -5064,7 +5064,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "fansidar",
         "type": "native_radio",
-        "label": "Fansidar - IPTp SP (for HIV- pregnant women)?",
+        "label": "Fansidar - IPTp SP",
         "label_text_style": "bold",
         "options": [
           {
@@ -5253,8 +5253,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164464AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
-        "label": "{{anc_counselling_treatment.step11.tt1_date.label}}",
-        "label_info_text": "{{anc_counselling_treatment.step11.tt1_date.label_info_text}}",
+        "label": "TTCV immunization",
+        "label_info_text": "TTCV immunization",
         "label_text_style": "bold",
         "options": [
           {
@@ -5283,6 +5283,53 @@
           "value": true,
           "err": "{{anc_counselling_treatment.step11.tt1_date.v_required.err}}"
         },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "tt1_dose_no",
+        "openmrs_entity_parent": "84879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "tt1_dose_no",
+        "type": "native_radio",
+        "label": "TTCV dose No.",
+        "label_info_text": "TTCV dose No.",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "one",
+            "text": "1",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "one"
+          },
+          {
+            "key": "two",
+            "text": "2",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "two"
+          },
+          {
+            "key": "three",
+            "text": "3",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "three"
+          },
+          {
+            "key": "four",
+            "text": "4",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "four"
+          }
+        ],
         "relevance": {
           "rules-engine": {
             "ex-rules": {

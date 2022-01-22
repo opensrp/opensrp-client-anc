@@ -103,14 +103,6 @@
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
         "edit_type": "number",
-        "v_min": {
-          "value": "0.1",
-          "err": "SFH must be greater than 0"
-        },
-        "v_max": {
-          "value": "44",
-          "err": "SFH must be less than or equal to 44"
-        },
         "v_numeric_integer": {
           "value": "true",
           "err": "Enter a valid sfh"
@@ -152,14 +144,6 @@
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
         "edit_type": "number",
-        "v_min": {
-          "value": "0",
-          "err": "HOF must be greater than 0"
-        },
-        "v_max": {
-          "value": "50",
-          "err": "HOF must be less than or equal to 50"
-        },
         "v_numeric_integer": {
           "value": "true",
           "err": "Enter a valid sfh"
@@ -477,14 +461,6 @@
         "v_numeric": {
           "value": "true",
           "err": ""
-        },
-        "v_min": {
-          "value": "0",
-          "err": "Weight must be equal or greater than 0 grams"
-        },
-        "v_max": {
-          "value": "8000",
-          "err": "Weight must be equal or less than 8000 grams"
         }
       },
       {
@@ -759,14 +735,6 @@
           "value": "true",
           "err": "{{anc_physical_exam.step2.bp_systolic.v_required.err}}"
         },
-        "v_min": {
-          "value": "90",
-          "err": "Systolic bp must be equal or greater than 90"
-        },
-        "v_max": {
-          "value": "139",
-          "err": "Systolic bp must be less than or equal to 139"
-        },
         "relevance": {
           "step2:cant_record_bp": {
             "ex-checkbox": [
@@ -834,14 +802,6 @@
         "v_required": {
           "value": "true",
           "err": "{{anc_physical_exam.step2.bp_diastolic.v_required.err}}"
-        },
-        "v_min": {
-          "value": "60",
-          "err": "Diastolic bp must be equal or greater than 60"
-        },
-        "v_max": {
-          "value": "89",
-          "err": "Diastolic bp must be less than or equal to 89"
         },
         "relevance": {
           "step2:cant_record_bp": {
@@ -1523,14 +1483,6 @@
           "value": "true",
           "err": ""
         },
-        "v_min": {
-          "value": "100",
-          "err": "Height must be equal or greater than 100"
-        },
-        "v_max": {
-          "value": "200",
-          "err": "Height must be equal or less than 200"
-        },
         "calculation": {
           "rules-engine": {
             "ex-rules": {
@@ -1576,14 +1528,6 @@
         "v_numeric": {
           "value": "true",
           "err": ""
-        },
-        "v_min": {
-          "value": "30",
-          "err": "Weight must be equal or greater than 30"
-        },
-        "v_max": {
-          "value": "180",
-          "err": "Weight must be equal or less than 180"
         },
         "v_required": {
           "value": "true",
@@ -1678,14 +1622,6 @@
         "v_numeric": {
           "value": "true",
           "err": ""
-        },
-        "v_min": {
-          "value": "0",
-          "err": "Temperature must be equal to or greater than 35"
-        },
-        "v_max": {
-          "value": "50",
-          "err": "Temperature must be equal to or less than 42"
         }
       },
       {
@@ -1819,14 +1755,6 @@
         "v_required": {
           "value": "true",
           "err": "{{anc_physical_exam.step3.pulse_rate.v_required.err}}"
-        },
-        "v_min": {
-          "value": "30",
-          "err": "Pulse rate must be greater than 60"
-        },
-        "v_max": {
-          "value": "120",
-          "err": "Pulse rate must be greater than 90"
         },
         "v_numeric": {
           "value": "true",
@@ -2096,14 +2024,6 @@
         "v_numeric": {
           "value": "true",
           "err": ""
-        },
-        "v_min": {
-          "value": "0",
-          "err": "Respiratory rate must be equal or greater than 10"
-        },
-        "v_max": {
-          "value": "120",
-          "err": "Respiratory rate must be less than or equal to 30"
         },
         "v_required": {
           "value": "true",
@@ -2826,14 +2746,6 @@
         "v_numeric_integer": {
           "value": "true",
           "err": "Enter valid cervical dilation in cm"
-        },
-        "v_min": {
-          "value": "0",
-          "err": "Cervical dilation must be greater than or equal to 0"
-        },
-        "v_max": {
-          "value": "10",
-          "err": "Cervical dilation must be equal to or less than 10"
         },
         "v_required": {
           "value": false,

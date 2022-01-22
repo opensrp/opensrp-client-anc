@@ -333,11 +333,11 @@
             "openmrs_entity_id": "secondary"
           },
           {
-            "key": "higher",
-            "text": "Higher",
+            "key": "tetiary",
+            "text": "Tetiary",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "higher"
+            "openmrs_entity_id": "tetiary"
           }
         ],
         "v_required": {
