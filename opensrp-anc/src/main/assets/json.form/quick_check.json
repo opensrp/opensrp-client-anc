@@ -772,6 +772,13 @@
         "label_text_style": "bold",
         "options": [
           {
+            "key": "none_comp",
+            "text": "None",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none_comp"
+          },
+          {
             "key": "abruptio_placenta",
             "text": "Abruptio Placenta",
             "openmrs_entity_parent": "",
