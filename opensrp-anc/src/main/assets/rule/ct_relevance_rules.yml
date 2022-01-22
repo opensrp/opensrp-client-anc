@@ -695,6 +695,14 @@ condition: "(global_contact_no > 1) && (!global_bmi.isEmpty())"
 actions:
   - "isRelevant = true"
 ---
+name: step4_body_mass_toaster
+description: step4_body_mass_toaster
+priority: 1
+condition: "(global_contact_no > 1) && (!global_bmi.isEmpty())"
+actions:
+  - "isRelevant = true"
+
+---
 name: step10_mebendazole
 description: mebendazole
 priority: 1

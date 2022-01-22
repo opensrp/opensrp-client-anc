@@ -238,12 +238,12 @@
 
     <!-- contact -->
     <string name="quick_check">Rapid Assessment and Management</string>
-    <string name="profile">Client Profile</string>
+    <string name="profile">Client profile</string>
     <string name="symptoms_follow_up">Symptoms and Signs</string>
     <string name="physical_exam">Physical Exam</string>
     <string name="tests">Diagnostic Tests and Imaging</string>
     <string name="hiv_tests">HIV tests</string>
-    <string name="counselling_treatment">Counselling,Treatment and Preventive Therapy</string>
+    <string name="counselling_treatment">Counselling Treatment and Preventive Therapy</string>
     <string name="contact_tasks_form">Contact Tasks</string>
 
     <string name="finalize">Finalize</string>
