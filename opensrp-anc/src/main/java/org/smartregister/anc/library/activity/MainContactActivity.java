@@ -222,6 +222,15 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                     requiredFieldsMap.put(pair[0], Integer.parseInt(pair[1]));
             }
 
+            Contact symptomsAndFollowUp = new Contact();
+            symptomsAndFollowUp.setName(getString(R.string.symptoms_follow_up));
+            symptomsAndFollowUp.setContactNumber(contactNo);
+            symptomsAndFollowUp.setBackground(R.drawable.symptoms_bg);
+            symptomsAndFollowUp.setActionBarBackground(R.color.contact_symptoms_actionbar);
+            symptomsAndFollowUp.setNavigationBackground(R.color.contact_symptoms_navigation);
+            setRequiredFields(symptomsAndFollowUp);
+            symptomsAndFollowUp.setFormName(ConstantsUtils.JsonFormUtils.ANC_SYMPTOMS_FOLLOW_UP);
+            contacts.add(symptomsAndFollowUp);
 
             Contact physicalExam = new Contact();
             physicalExam.setName(getString(R.string.physical_exam));
@@ -232,16 +241,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             setRequiredFields(physicalExam);
             physicalExam.setFormName(ConstantsUtils.JsonFormUtils.ANC_PHYSICAL_EXAM);
             contacts.add(physicalExam);
-
-            Contact symptomsAndFollowUp = new Contact();
-            symptomsAndFollowUp.setName(getString(R.string.symptoms_follow_up));
-            symptomsAndFollowUp.setContactNumber(contactNo);
-            symptomsAndFollowUp.setBackground(R.drawable.symptoms_bg);
-            symptomsAndFollowUp.setActionBarBackground(R.color.contact_symptoms_actionbar);
-            symptomsAndFollowUp.setNavigationBackground(R.color.contact_symptoms_navigation);
-            setRequiredFields(symptomsAndFollowUp);
-            symptomsAndFollowUp.setFormName(ConstantsUtils.JsonFormUtils.ANC_SYMPTOMS_FOLLOW_UP);
-            contacts.add(symptomsAndFollowUp);
 
             contactAdapter.setContacts(contacts);
             contactAdapter.notifyDataSetChanged();

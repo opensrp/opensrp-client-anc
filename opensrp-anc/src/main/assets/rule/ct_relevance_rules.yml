@@ -461,6 +461,13 @@ condition: "(global_tt_immun_status != '' && global_tt_immun_status != '3_doses'
 actions:
   - "isRelevant = true"
 ---
+name: step11_tt1_dose_no
+description: tt1_dose_no
+priority: 1
+condition: "(global_tt_immun_status != '' && global_tt_immun_status != '3_doses') && (global_contact_no == 1 || (global_contact_no > 1 && (global_previous_tt1_date == '' || global_previous_tt1_date == 'not_done')))"
+actions:
+  - "isRelevant = true"
+---
 name: step11_tt2_date
 description: tt1_date
 priority: 1

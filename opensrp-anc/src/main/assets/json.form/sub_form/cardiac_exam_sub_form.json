@@ -80,7 +80,7 @@
       "key": "cardiac_exam_abnormal_other",
       "openmrs_entity_parent": "1124AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
-      "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity_id": "cardiac_exam_abnormal_other",
       "type": "edit_text",
       "hint": "{{cardiac_exam_sub_form.step1.cardiac_exam_abnormal_other.hint}}",
       "v_regex": {
@@ -88,7 +88,7 @@
         "err": "{{cardiac_exam_sub_form.step1.cardiac_exam_abnormal_other.v_regex.err}}"
       },
       "relevance": {
-        "step3:cardiac_exam_abnormal": {
+        "step1:cardiac_exam_abnormal": {
           "ex-checkbox": [
             {
               "or": [
