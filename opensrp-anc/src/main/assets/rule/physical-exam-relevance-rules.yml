@@ -345,7 +345,7 @@ actions:
 name: step4_suspected_anemia_toaster
 description: bpm_repeat
 priority: 1
-condition: "((step4_bpm_repeat > 0 && step4_bpm_repeat < 12) || (step4_bpm_repeat > 18))"
+condition: "((step4_bpm_repeat > 0 && step4_bpm_repeat < 16) || (step4_bpm_repeat > 24))"
 actions:
   - "isRelevant = true"
 ---
@@ -438,5 +438,21 @@ name: step3_toaster1
 description: toaster1
 priority: 1
 condition: "(!step3_bmi.isEmpty()) && (step3_current_weight != '')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step4_low_pulse_rate_toaster
+description: low_pulse_rate_toaster
+priority: 1
+condition: "(step4_pulse_rate_repeat > 0 && step4_pulse_rate_repeat < 60)"
+actions:
+  - "isRelevant = true"
+
+---
+name: step4_high_pulse_rate_toaster
+description: high_pulse_rate_toaster
+priority: 1
+condition: "(step4_pulse_rate_repeat > 90)"
 actions:
   - "isRelevant = true"
