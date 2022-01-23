@@ -168,7 +168,7 @@
         "type": "native_radio",
         "label": "Fetal lie",
         "label_text_style": "bold",
-        "label_info_text": "The position in which the baby is laying",
+        "label_info_text": "The position in which the baby is lying",
         "options": [
           {
             "key": "longitudinal",
@@ -218,18 +218,18 @@
         "label_info_text": "Fetal Presentation",
         "options": [
           {
-            "key": "breech",
-            "text": "Breech",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "breech"
-          },
-          {
             "key": "cephalic",
             "text": "Cephalic",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "cephalic"
+          },
+          {
+            "key": "breech",
+            "text": "Breech",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "breech"
           },
           {
             "key": "undetermined",
@@ -421,46 +421,6 @@
         "v_required": {
           "value": "true",
           "err": "{{anc_physical_exam.step4.fetal_heart_rate.v_required.err}}"
-        }
-      },
-      {
-        "key": "fetal_weight_label",
-        "type": "label",
-        "label_text_style": "bold",
-        "text": "Fetal weight (grams)",
-        "text_color": "#000000",
-        "v_required": {
-          "value": "false",
-          "err": "Fetal weight required"
-        },
-        "relevance": {
-          "step1:fetal_heartbeat": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          }
-        }
-      },
-      {
-        "key": "fetal_weight",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "fetal_weight",
-        "type": "normal_edit_text",
-        "edit_text_style": "bordered",
-        "edit_type": "number",
-        "relevance": {
-          "step1:fetal_heartbeat": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          }
-        },
-        "v_required": {
-          "value": "false",
-          "err": "{{anc_physical_exam.step4.fetal_heart_rate.v_required.err}}"
-        },
-        "v_numeric": {
-          "value": "true",
-          "err": ""
         }
       },
       {

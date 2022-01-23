@@ -426,16 +426,6 @@
             "openmrs_entity_id": "150802AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "central_cyanosis",
-            "text": "{{anc_quick_check.step1.danger_signs.options.central_cyanosis.text}}",
-            "label_info_text": "Bluish discolouration around the mucous membranes in the mouth, lips and tongue",
-            "label_info_title": "Central cyanosis",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165216AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
             "key": "convulsing",
             "text": "{{anc_quick_check.step1.danger_signs.options.convulsing.text}}",
             "value": false,

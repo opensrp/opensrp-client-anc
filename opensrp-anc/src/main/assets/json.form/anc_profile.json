@@ -1006,7 +1006,7 @@
           "step2:preg_one_dt_unknown": {
             "type": "string",
             "ex": "equalTo(.,\"true\")"
-
+          }
         }
       },
       {
@@ -2342,7 +2342,7 @@
           }
         ],
         "relevance":{
-          "step2:preg_three_gestational_age": {
+          "step2:preg_four_gestational_age": {
             "type": "string",
             "ex": "greaterThan(., \"6\")"
           }
@@ -7175,11 +7175,11 @@
             "openmrs_entity_parent": ""
           },
           {
-            "key": "metformine",
-            "text": "Metformine",
+            "key": "metformin",
+            "text": "Metformin",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "metformine",
+            "openmrs_entity_id": "metformin",
             "openmrs_entity_parent": ""
           },
           {
@@ -8411,7 +8411,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "on_art",
         "type": "native_radio",
-        "label": "On art",
+        "label": "On ART",
         "options": [
           {
             "key": "yes",
@@ -8435,7 +8435,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "reason_on_art",
         "type": "native_radio",
-        "label": "Reason why not on art",
+        "label": "Reason why not on ART",
         "options": [
           {
             "key": "stock_out",
@@ -8466,7 +8466,7 @@
         "edit_type": "name",
         "v_required": {
           "value": true,
-          "err": "Please enter the other reason not on art"
+          "err": "Please enter the other reason not on ART"
         },
         "relevance": {
           "step7:reason_not_on_art": {
@@ -8573,7 +8573,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "on_art",
         "type": "native_radio",
-        "label": "On art",
+        "label": "On ART",
         "options": [
           {
             "key": "yes",
@@ -8596,7 +8596,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "reason_on_art",
         "type": "native_radio",
-        "label": "Reason why not on art",
+        "label": "Reason why not on ART",
         "options": [
           {
             "key": "stock_out",
@@ -8627,7 +8627,7 @@
         "edit_type": "name",
         "v_required": {
           "value": true,
-          "err": "Please enter the other reason not on art"
+          "err": "Please enter the other reason not on ART"
         },
         "relevance": {
           "step8:reason_partner_not_on_art": {

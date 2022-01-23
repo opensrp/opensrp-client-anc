@@ -1275,22 +1275,6 @@
             "openmrs_entity_parent": ""
           },
           {
-            "key": "cough",
-            "text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.cough.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1487AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "fever",
-            "text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.fever.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
             "key": "easily_tired",
             "text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.easily_tired.text}}",
             "value": false,
@@ -1771,22 +1755,6 @@
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "110265AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "cough",
-            "text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.cough.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1487AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "fever",
-            "text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.fever.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
