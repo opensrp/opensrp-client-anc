@@ -1006,14 +1006,14 @@
           "step2:preg_one_dt_unknown": {
             "type": "string",
             "ex": "equalTo(.,\"true\")"
-          }
+
         }
       },
       {
         "key": "preg_one_gestational_age_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Gestational age",
+        "text": "Gestational age (months)",
         "text_color": "#000000",
         "v_required": {
           "value": false
@@ -1402,7 +1402,7 @@
         "key": "pregnancy_two_pregnancy_two_gestational_age_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Gestational age",
+        "text": "Gestational age (months)",
         "text_color": "#000000",
         "v_required": {
           "value": false
@@ -1771,7 +1771,7 @@
         "key": "preg_three_gestational_age_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Gestational age",
+        "text": "Gestational age (months)",
         "text_color": "#000000",
         "v_required": {
           "value": false
@@ -2140,7 +2140,7 @@
         "key": "preg_four_gestational_age_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Gestational age",
+        "text": "Gestational age (months)",
         "text_color": "#000000",
         "v_required": {
           "value": false
@@ -2509,7 +2509,7 @@
         "key": "preg_five_gestational_age_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Gestational age",
+        "text": "Gestational age (months)",
         "text_color": "#000000",
         "v_required": {
           "value": false
@@ -2879,7 +2879,7 @@
         "key": "preg_six_gestational_age_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Gestational age",
+        "text": "Gestational age (months)",
         "text_color": "#000000",
         "v_required": {
           "value": false
@@ -3248,7 +3248,7 @@
         "key": "preg_seven_gestational_age_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Gestational age",
+        "text": "Gestational age (months)",
         "text_color": "#000000",
         "v_required": {
           "value": false
@@ -3637,7 +3637,7 @@
         "key": "preg_eight_gestational_age_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Gestational age",
+        "text": "Gestational age (months)",
         "text_color": "#000000",
         "v_required": {
           "value": false
@@ -4006,7 +4006,7 @@
         "key": "preg_nine_gestational_age_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Gestational age",
+        "text": "Gestational age (months)",
         "text_color": "#000000",
         "v_required": {
           "value": false
@@ -4378,7 +4378,7 @@
         "key": "preg_ten_gestational_age_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Gestational age",
+        "text": "Gestational age (months)",
         "text_color": "#000000",
         "v_required": {
           "value": false
@@ -4749,7 +4749,7 @@
         "key": "preg_eleven_gestational_age_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Gestational age",
+        "text": "Gestational age (months)",
         "text_color": "#000000",
         "v_required": {
           "value": false
@@ -5118,7 +5118,7 @@
         "key": "preg_twelve_gestational_age_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Gestational age",
+        "text": "Gestational age (months)",
         "text_color": "#000000",
         "v_required": {
           "value": false
@@ -5487,7 +5487,7 @@
         "key": "preg_thirteen_gestational_age_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Gestational age",
+        "text": "Gestational age (months)",
         "text_color": "#000000",
         "v_required": {
           "value": false
@@ -5855,7 +5855,7 @@
         "key": "preg_fourteen_gestational_age_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Gestational age",
+        "text": "Gestational age (months)",
         "text_color": "#000000",
         "v_required": {
           "value": false
@@ -6223,7 +6223,7 @@
         "key": "preg_fifteen_gestational_age_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Gestational age",
+        "text": "Gestational age (months)",
         "text_color": "#000000",
         "v_required": {
           "value": false
