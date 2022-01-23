@@ -1795,7 +1795,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Woman has Brabycardia",
+        "text": "Woman has Bradycardia",
         "text_color": "#E20000",
         "toaster_type": "problem",
         "relevance": {
@@ -1812,7 +1812,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Woman has Cachycadia",
+        "text": "Woman has Tachycardia",
         "text_color": "#E20000",
         "toaster_type": "problem",
         "relevance": {
@@ -2944,24 +2944,8 @@
             "openmrs_entity_parent": ""
           },
           {
-            "key": "adverse",
-            "text": "Adverse reproductive outcomes",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          },
-          {
             "key": "depression",
-            "text": "Symptoms of depression and anxiety",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "alcohol",
-            "text": "Alcohol and other substance use",
+            "text": "Signs of depression and anxiety",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "",
@@ -2977,7 +2961,7 @@
           },
           {
             "key": "unexplained",
-            "text": "Unexplained or repeated genitourinary symptoms",
+            "text": "Unexplained or repeated genital ulcers or injuries",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "",

@@ -819,7 +819,7 @@
       {
         "key": "toaster4",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "ALCOHOL COUNSELING",
+        "openmrs_entity": "alcohol_counseling",
         "openmrs_entity_id": "1288",
         "type": "toaster_notes",
         "text": "{{anc_symptoms_follow_up.step2.toaster4.text}}",
@@ -1528,8 +1528,8 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Non-pharma measures to relieve vomiting counseling",
-        "toaster_info_text": "Non-pharma measures to relieve vomiting counseling",
+        "text": "Non-pharma measures to relieve vomiting counselling",
+        "toaster_info_text": "Non-pharma measures to relieve vomiting counselling",
         "text_color": "#4855B3",
         "toaster_type": "info",
         "relevance": {
