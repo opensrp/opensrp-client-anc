@@ -2217,16 +2217,6 @@
               "ex": "equalTo(., \"other\")"
           }
         }
-      },
-      {
-        "key": "prep_toaster",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "{{anc_counselling_treatment.step12.prep_toaster.text}}",
-        "toaster_info_text": "{{anc_counselling_treatment.step12.prep_toaster.toaster_info_text}}",
-        "toaster_type": "info"
       }
 
     ]
