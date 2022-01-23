@@ -444,7 +444,7 @@
       "type": "native_radio",
       "label": "Fetal lie",
       "label_text_style": "bold",
-      "label_info_text": "The position in which the baby is laying",
+      "label_info_text": "The position in which the baby is lying",
       "options": [
         {
           "key": "longitudinal",

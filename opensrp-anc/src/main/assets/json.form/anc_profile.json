@@ -1013,7 +1013,7 @@
         "key": "preg_one_gestational_age_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Gestational age",
+        "text": "Gestational age (months)",
         "text_color": "#000000",
         "v_required": {
           "value": false
@@ -1402,7 +1402,7 @@
         "key": "pregnancy_two_pregnancy_two_gestational_age_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Gestational age",
+        "text": "Gestational age (months)",
         "text_color": "#000000",
         "v_required": {
           "value": false
@@ -1771,7 +1771,7 @@
         "key": "preg_three_gestational_age_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Gestational age",
+        "text": "Gestational age (months)",
         "text_color": "#000000",
         "v_required": {
           "value": false
@@ -2140,7 +2140,7 @@
         "key": "preg_four_gestational_age_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Gestational age",
+        "text": "Gestational age (months)",
         "text_color": "#000000",
         "v_required": {
           "value": false
@@ -2342,7 +2342,7 @@
           }
         ],
         "relevance":{
-          "step2:preg_three_gestational_age": {
+          "step2:preg_four_gestational_age": {
             "type": "string",
             "ex": "greaterThan(., \"6\")"
           }
@@ -2509,7 +2509,7 @@
         "key": "preg_five_gestational_age_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Gestational age",
+        "text": "Gestational age (months)",
         "text_color": "#000000",
         "v_required": {
           "value": false
@@ -2879,7 +2879,7 @@
         "key": "preg_six_gestational_age_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Gestational age",
+        "text": "Gestational age (months)",
         "text_color": "#000000",
         "v_required": {
           "value": false
@@ -3248,7 +3248,7 @@
         "key": "preg_seven_gestational_age_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Gestational age",
+        "text": "Gestational age (months)",
         "text_color": "#000000",
         "v_required": {
           "value": false
@@ -3637,7 +3637,7 @@
         "key": "preg_eight_gestational_age_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Gestational age",
+        "text": "Gestational age (months)",
         "text_color": "#000000",
         "v_required": {
           "value": false
@@ -4006,7 +4006,7 @@
         "key": "preg_nine_gestational_age_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Gestational age",
+        "text": "Gestational age (months)",
         "text_color": "#000000",
         "v_required": {
           "value": false
@@ -4378,7 +4378,7 @@
         "key": "preg_ten_gestational_age_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Gestational age",
+        "text": "Gestational age (months)",
         "text_color": "#000000",
         "v_required": {
           "value": false
@@ -4749,7 +4749,7 @@
         "key": "preg_eleven_gestational_age_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Gestational age",
+        "text": "Gestational age (months)",
         "text_color": "#000000",
         "v_required": {
           "value": false
@@ -5118,7 +5118,7 @@
         "key": "preg_twelve_gestational_age_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Gestational age",
+        "text": "Gestational age (months)",
         "text_color": "#000000",
         "v_required": {
           "value": false
@@ -5487,7 +5487,7 @@
         "key": "preg_thirteen_gestational_age_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Gestational age",
+        "text": "Gestational age (months)",
         "text_color": "#000000",
         "v_required": {
           "value": false
@@ -5855,7 +5855,7 @@
         "key": "preg_fourteen_gestational_age_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Gestational age",
+        "text": "Gestational age (months)",
         "text_color": "#000000",
         "v_required": {
           "value": false
@@ -6223,7 +6223,7 @@
         "key": "preg_fifteen_gestational_age_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Gestational age",
+        "text": "Gestational age (months)",
         "text_color": "#000000",
         "v_required": {
           "value": false
@@ -7175,11 +7175,11 @@
             "openmrs_entity_parent": ""
           },
           {
-            "key": "metformine",
-            "text": "Metformine",
+            "key": "metformin",
+            "text": "Metformin",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "metformine",
+            "openmrs_entity_id": "metformin",
             "openmrs_entity_parent": ""
           },
           {
@@ -8411,7 +8411,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "on_art",
         "type": "native_radio",
-        "label": "On art",
+        "label": "On ART",
         "options": [
           {
             "key": "yes",
@@ -8435,7 +8435,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "reason_on_art",
         "type": "native_radio",
-        "label": "Reason why not on art",
+        "label": "Reason why not on ART",
         "options": [
           {
             "key": "stock_out",
@@ -8466,7 +8466,7 @@
         "edit_type": "name",
         "v_required": {
           "value": true,
-          "err": "Please enter the other reason not on art"
+          "err": "Please enter the other reason not on ART"
         },
         "relevance": {
           "step7:reason_not_on_art": {
@@ -8573,7 +8573,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "on_art",
         "type": "native_radio",
-        "label": "On art",
+        "label": "On ART",
         "options": [
           {
             "key": "yes",
@@ -8596,7 +8596,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "reason_on_art",
         "type": "native_radio",
-        "label": "Reason why not on art",
+        "label": "Reason why not on ART",
         "options": [
           {
             "key": "stock_out",
@@ -8627,7 +8627,7 @@
         "edit_type": "name",
         "v_required": {
           "value": true,
-          "err": "Please enter the other reason not on art"
+          "err": "Please enter the other reason not on ART"
         },
         "relevance": {
           "step8:reason_partner_not_on_art": {

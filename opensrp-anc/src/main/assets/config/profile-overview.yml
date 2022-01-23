@@ -298,7 +298,7 @@ fields:
     isRedFont: "true"
 
 ---
-group: birth_plan_counseling
+group: birth_plan_counselling
 fields:
   - template: "{{profile_overview.birth_plan_counseling.planned_birth_place}}: {delivery_place}"
     relevance: "delivery_place != ''"

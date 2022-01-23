@@ -2217,16 +2217,6 @@
               "ex": "equalTo(., \"other\")"
           }
         }
-      },
-      {
-        "key": "prep_toaster",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "{{anc_counselling_treatment.step12.prep_toaster.text}}",
-        "toaster_info_text": "{{anc_counselling_treatment.step12.prep_toaster.toaster_info_text}}",
-        "toaster_type": "info"
       }
 
     ]
@@ -4981,12 +4971,12 @@
         }
       },
       {
-        "key": "mebendazole",
+        "key": "itn_issued",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "mebendazole",
+        "openmrs_entity_id": "itn_issued",
         "type": "native_radio",
-        "label": "Deworming (Mebendazole or Albendazole)",
+        "label": "ITN Issued?",
         "label_text_style": "bold",
         "options": [
           {
@@ -4997,66 +4987,7 @@
             "key": "no",
             "text": "No"
           }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "reason_mebendazole_no",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "161641AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "select one",
-        "type": "native_radio",
-        "label": "Reasons no mebendazole",
-        "label_text_style": "bold",
-        "hint": "Reasons no mebendazole",
-        "exclusive": [
-          "none"
-        ],
-        "options": [
-          {
-            "key": "expired",
-            "text": "Expired",
-            "value": false
-          },
-          {
-            "key": "out_of_stock",
-            "text": "Out of stock",
-            "value": false
-          },
-          {
-            "key": "other",
-            "text": "Other (specify)",
-            "value": false
-          }
-        ],
-        "relevance": {
-          "step10:mebendazole": {
-            "type": "string",
-            "ex": "equalTo(., \"no\")"
-          }
-        }
-      },
-      {
-        "key": "other_reason_mebendazole_no",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "other_reason_mebendazole_no",
-        "type": "edit_text",
-        "hint": "Other reason(Specify)",
-        "edit_type": "name",
-        "relevance": {
-          "step10:reason_mebendazole_no": {
-            "type": "string",
-            "ex": "equalTo(., \"other\")"
-          }
-        }
+        ]
       },
       {
         "key": "fansidar",
@@ -5064,7 +4995,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "fansidar",
         "type": "native_radio",
-        "label": "Fansidar - IPTp SP",
+        "label": "IPTp SP (Fansidar 525mg X 3 tablets)",
         "label_text_style": "bold",
         "options": [
           {
@@ -5223,12 +5154,12 @@
         }
       },
       {
-        "key": "itn_issued",
+        "key": "mebendazole",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "itn_issued",
+        "openmrs_entity_id": "mebendazole",
         "type": "native_radio",
-        "label": "ITN Issued?",
+        "label": "Deworming (Mebendazole 500mgPOSTAT or Albendazole 400mgPOSTAT)",
         "label_text_style": "bold",
         "options": [
           {
@@ -5239,7 +5170,66 @@
             "key": "no",
             "text": "No"
           }
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "reason_mebendazole_no",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "161641AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "native_radio",
+        "label": "Reasons no mebendazole",
+        "label_text_style": "bold",
+        "hint": "Reasons no mebendazole",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "expired",
+            "text": "Expired",
+            "value": false
+          },
+          {
+            "key": "out_of_stock",
+            "text": "Out of stock",
+            "value": false
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "value": false
+          }
+        ],
+        "relevance": {
+          "step10:mebendazole": {
+            "type": "string",
+            "ex": "equalTo(., \"no\")"
+          }
+        }
+      },
+      {
+        "key": "other_reason_mebendazole_no",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_reason_mebendazole_no",
+        "type": "edit_text",
+        "hint": "Other reason(Specify)",
+        "edit_type": "name",
+        "relevance": {
+          "step10:reason_mebendazole_no": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+        }
       }
     ]
   },
@@ -5815,7 +5805,7 @@
           },
           {
             "key": "already",
-            "text": "Already on art",
+            "text": "Already on ART",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""

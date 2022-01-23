@@ -65,28 +65,28 @@ actions:
 name: step4_toaster17
 description: Hypertension diagnosis
 priority: 1
-condition: "step4_pulse_rate > 0 && (step4_pulse_rate < 60 || step4_pulse_rate > 100)"
+condition: "step4_pulse_rate > 0 && (step4_pulse_rate < 60 || step4_pulse_rate > 99)"
 actions:
   - "isRelevant = true"
 ---
 name: step4_pulse_rate_repeat
 description: Pulse rate measurement
 priority: 1
-condition: "((step4_pulse_rate > 0 && step4_pulse_rate < 60) || (step4_pulse_rate > 90)) "
+condition: "((step4_pulse_rate > 0 && step4_pulse_rate < 60) || (step4_pulse_rate > 99)) "
 actions:
   - "isRelevant = true"
 ---
 name: step4_pulse_rate_repeat_label
 description: Pulse rate measurement
 priority: 1
-condition: "((step4_pulse_rate > 0 && step4_pulse_rate < 60) || (step4_pulse_rate > 90))"
+condition: "((step4_pulse_rate > 0 && step4_pulse_rate < 60) || (step4_pulse_rate > 99))"
 actions:
   - "isRelevant = true"
 ---
 name: step4_toaster18
 description: Pulse rate measurement
 priority: 1
-condition: "step4_pulse_rate_repeat > 0 && (step4_pulse_rate_repeat < 60 || step4_pulse_rate_repeat > 90) "
+condition: "step4_pulse_rate_repeat > 0 && (step4_pulse_rate_repeat < 60 || step4_pulse_rate_repeat > 99) "
 actions:
   - "isRelevant = true"
 ---
@@ -345,7 +345,7 @@ actions:
 name: step4_suspected_anemia_toaster
 description: bpm_repeat
 priority: 1
-condition: "((step4_bpm_repeat > 0 && step4_bpm_repeat < 16) || (step4_bpm_repeat > 24))"
+condition: "((step4_bpm_repeat > 0 && step4_bpm_repeat < 12) || (step4_bpm_repeat > 18))"
 actions:
   - "isRelevant = true"
 ---
@@ -453,6 +453,6 @@ actions:
 name: step4_high_pulse_rate_toaster
 description: high_pulse_rate_toaster
 priority: 1
-condition: "(step4_pulse_rate_repeat > 90)"
+condition: "(step4_pulse_rate_repeat > 99)"
 actions:
   - "isRelevant = true"
