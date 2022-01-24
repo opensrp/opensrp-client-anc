@@ -1551,6 +1551,23 @@
             }
           }
         }
+      },
+      {
+        "key": "test_diabetes_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "test_diabetes_toaster",
+        "type": "toaster_notes",
+        "text": "Test for gestational diabetes mellitus",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
       }
     ]
   },

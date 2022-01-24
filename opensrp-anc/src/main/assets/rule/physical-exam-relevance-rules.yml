@@ -456,3 +456,11 @@ priority: 1
 condition: "(step4_pulse_rate_repeat > 99)"
 actions:
   - "isRelevant = true"
+
+---
+name: step3_test_diabetes_toaster
+description: test_diabetes_toaster
+priority: 1
+condition: "(!step3_bmi.isEmpty()) && (step3_bmi >= 30)"
+actions:
+  - "isRelevant = true"
