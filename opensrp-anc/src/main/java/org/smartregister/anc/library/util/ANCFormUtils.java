@@ -381,10 +381,10 @@ public class ANCFormUtils extends FormUtils {
                 JsonFormConstants.EXPANSION_PANEL.equals(fieldObject.getString(JsonFormConstants.TYPE)) &&
                 fieldObject.has(JsonFormConstants.VALUE)) {
             JSONArray expansionPanelValue = fieldObject.getJSONArray(JsonFormConstants.VALUE);
-
-            for (int j = 0; j < expansionPanelValue.length(); j++) {
+            int length = expansionPanelValue.length();
+            for (int j = 0; j < length; j++) {
                 JSONObject jsonObject = expansionPanelValue.getJSONObject(j);
-               ExpansionPanelItemModel expansionPanelItem = getExpansionPanelItem(
+                ExpansionPanelItemModel expansionPanelItem = getExpansionPanelItem(
                         jsonObject.getString(JsonFormConstants.KEY), expansionPanelValue);
 
                 if (jsonObject.has(JsonFormConstants.TYPE) && (JsonFormConstants.CHECK_BOX.equals(jsonObject.getString(JsonFormConstants.TYPE))
@@ -737,8 +737,9 @@ public class ANCFormUtils extends FormUtils {
 
     /**
      * Update form properties file name according to the test fields populated
-     *  @param taskValue {@link JSONObject}
-     * @param form   {@link JSONObject}
+     *
+     * @param taskValue {@link JSONObject}
+     * @param form      {@link JSONObject}
      */
     public void updateFormPropertiesFileName(JSONObject form, JSONObject taskValue, Context context) {
         try {
@@ -757,8 +758,9 @@ public class ANCFormUtils extends FormUtils {
 
     /**
      * get translated form name according to key
+     *
      * @param formKey {@link String}
-     * @param context   {@link Context}
+     * @param context {@link Context}
      */
     public String getTranslatedFormTitle(String formKey, Context context) {
         try {

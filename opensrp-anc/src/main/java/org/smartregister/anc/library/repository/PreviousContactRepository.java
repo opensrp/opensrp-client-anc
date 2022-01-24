@@ -315,20 +315,29 @@ public class PreviousContactRepository extends BaseRepository {
         Facts previousContactFacts = new Facts();
         try {
             SQLiteDatabase db = getReadableDatabase();
-
             if (StringUtils.isNotBlank(baseEntityId) && StringUtils.isNotBlank(contactNo)) {
                 selection = BASE_ENTITY_ID + " = ? AND " + CONTACT_NO + " = ?";
                 selectionArgs = new String[]{baseEntityId, getContactNo(contactNo, checkNegative)};
             }
-
             mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
             if (mCursor != null && mCursor.getCount() > 0) {
                 while (mCursor.moveToNext()) {
                     Context context = AncLibrary.getInstance().getApplicationContext();
-                    String value = org.smartregister.util.Utils.getProperties(context).getProperty(ConstantsUtils.Properties.NATIVE_WIDGET_TRANSALATED_VALUE, "false");
+                    String value = org.smartregister.util.Utils.getProperties(context).getProperty(ConstantsUtils.Properties.WIDGET_VALUE_TRANSLATED, "false");
                     if (StringUtils.isNotBlank(value) && Boolean.parseBoolean(value)) {
-                        JSONObject dbObject = new JSONObject(mCursor.getString(mCursor.getColumnIndex(VALUE)));
-                        previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), dbObject.get("text").toString());
+                        String previousContactValue = mCursor.getString(mCursor.getColumnIndex(VALUE));
+                        String previousContactKey = mCursor.getString(mCursor.getColumnIndex(KEY));
+                        if (previousContactValue.charAt(0) == '{') {
+                            JSONObject previousContactObject = new JSONObject(previousContactValue);
+                            if (previousContactObject.has("value") && previousContactObject.has("text")) {
+                                previousContactFacts.put(previousContactKey, previousContactObject.get("text"));
+                            } else {
+                                previousContactFacts.put(previousContactKey, previousContactValue);
+                            }
+                        } else {
+                            previousContactFacts.put(previousContactKey, previousContactValue);
+                        }
+
                     } else {
                         previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), mCursor.getString(mCursor.getColumnIndex(VALUE)));
                     }

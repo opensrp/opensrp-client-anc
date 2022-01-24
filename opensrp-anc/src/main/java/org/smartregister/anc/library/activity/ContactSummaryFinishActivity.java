@@ -1,6 +1,7 @@
 package org.smartregister.anc.library.activity;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -36,6 +37,7 @@ import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.util.PermissionUtils;
 
 import java.io.FileNotFoundException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -182,7 +184,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     }
 
     private void saveFinishForm() {
-        new FinalizeContactTask(this, mProfilePresenter, getIntent()).execute();
+        new FinalizeContactTask(new WeakReference<Context>(this), mProfilePresenter, getIntent()).execute();
     }
 
     @Override
