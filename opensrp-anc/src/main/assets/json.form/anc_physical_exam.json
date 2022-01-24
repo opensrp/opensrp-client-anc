@@ -1907,7 +1907,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Woman has Brabycardia",
+        "text": "Woman has Bradycardia",
         "text_color": "#E20000",
         "toaster_type": "problem",
         "relevance": {
@@ -1924,7 +1924,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Woman has Cachycadia",
+        "text": "Woman has Tachycardia",
         "text_color": "#E20000",
         "toaster_type": "problem",
         "relevance": {
