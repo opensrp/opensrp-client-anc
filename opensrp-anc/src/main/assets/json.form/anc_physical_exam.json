@@ -120,6 +120,23 @@
         }
       },
       {
+        "key": "sfh_big_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Big baby or multiple gestation",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "hof_label",
         "type": "label",
         "label_text_style": "bold",
@@ -199,6 +216,23 @@
             "openmrs_entity_id": "undetermined"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "lie_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "If at term, refer",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
