@@ -93,10 +93,15 @@ public class ContactTaskDisplayClickListener implements View.OnClickListener {
             JSONArray taskValues = getExpansionPanelValues(taskValue, task.getKey());
             Map<String, ExpansionPanelValuesModel> secondaryValuesMap = getSecondaryValues(taskValues);
             JSONArray subFormFields = ANCFormUtils.addExpansionPanelFormValues(loadSubFormFields(taskValue, context), secondaryValuesMap);
-            String formTitle = getFormTitle(taskValue);
+            String taskKey = taskValue.optString(JsonFormConstants.KEY);
+            String formTitle = ANCFormUtils.getTranslatedFormTitle(taskKey, context);
             JSONObject form = ANCFormUtils.loadTasksForm(context);
-            updateFormTitle(form, formTitle);
+            if (StringUtils.isNotBlank(formTitle)) {
+                updateFormTitle(form, formTitle);
+            }
             ANCFormUtils.updateFormFields(form, subFormFields);
+            // Update form properties file name according to the test fields populated
+            ANCFormUtils.updateFormPropertiesFileName(form, taskValue, context);
 
             profileTasksFragment.startTaskForm(form, task);
         }

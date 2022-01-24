@@ -210,6 +210,22 @@ public abstract class ConstantsUtils {
         public static final String ACTIVE = "active";
     }
 
+    public static final class PrescriptionUtils{
+        public static final String VITA = "vita";
+        public static final String MAG_CALC = "mag_calc";
+        public static final String NAUSEA_PHARMA = "nausea_pharma";
+        public static final String ALBEN_MEBEN = "alben_meben";
+        public static final String ANTACID = "antacid";
+        public static final String PENICILLIN = "penicillin";
+        public static final String ANTIBIOTIC = "antibiotic";
+        public static final String PREP = "prep";
+        public static final String SP = "sp";
+        public static final String IFA = "ifa";
+        public static final String IFA_MEDICATION = "ifa_medication";
+        public static final String ASPIRIN = "aspirin";
+        public static final String CALCIUM = "calcium";
+    }
+
     public static class FileCategoryUtils {
         public static final String PROFILE_PIC = "profilepic";
 
