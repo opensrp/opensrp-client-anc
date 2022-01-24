@@ -327,6 +327,7 @@ public class PreviousContactRepository extends BaseRepository {
                     if (StringUtils.isNotBlank(value) && Boolean.parseBoolean(value)) {
                         String previousContactValue = mCursor.getString(mCursor.getColumnIndex(VALUE));
                         String previousContactKey = mCursor.getString(mCursor.getColumnIndex(KEY));
+                        //CHeck whether value is null
                         if (previousContactValue.charAt(0) == '{') {
                             JSONObject previousContactObject = new JSONObject(previousContactValue);
                             if (previousContactObject.has("value") && previousContactObject.has("text")) {
