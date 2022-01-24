@@ -2055,7 +2055,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Woman has a problem with respiration. Refer special attention",
+        "text": "Woman has a problem with respiration. Refer for special attention",
         "toaster_info_text": "Woman has a problem with respiration. Refer special attention",
         "text_color": "#E20000",
         "toaster_type": "problem",
