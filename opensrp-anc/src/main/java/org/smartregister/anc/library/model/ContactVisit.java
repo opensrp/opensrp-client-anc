@@ -113,7 +113,7 @@ public class ContactVisit {
         return this;
     }
 
-    /**
+    /**StringUtils.isNotBlank(previousContactValue)
      * Returns a {@link Map} of the tasks keys and task id.  These are used to delete the tasks in case a test with the same key is completed doing the current contact.
      *
      * @param baseEntityId {@link String} Client's base entity id.

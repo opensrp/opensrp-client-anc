@@ -71,7 +71,7 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
                     while (keys.hasNext()) {
                         String key = keys.next();
                         String attentionFlagValue = jsonObject.getString(key);
-                        if (attentionFlagValue.charAt(0) == '{') {
+                        if (attentionFlagValue.trim().charAt(0) == '{') {
                             JSONObject attentionFlagObject = new JSONObject(attentionFlagValue);
                             facts.put(key, attentionFlagObject.get("text"));
                         } else {

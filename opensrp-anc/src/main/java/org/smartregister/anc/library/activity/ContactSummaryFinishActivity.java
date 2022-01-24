@@ -135,7 +135,6 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         }
 
         Iterable<Object> ruleObjects = AncLibrary.getInstance().readYaml(FilePathUtils.FileUtils.CONTACT_SUMMARY);
-
         yamlConfigList = new ArrayList<>();
         for (Object ruleObject : ruleObjects) {
             YamlConfig yamlConfig = (YamlConfig) ruleObject;
