@@ -619,7 +619,7 @@ actions:
 name: step10_fansidar
 description: fansidar
 priority: 1
-condition: "!(global_hiv_positive == 1)"
+condition: "!(global_hiv_positive == 1) && (global_gest_age_openmrs < 13)"
 actions:
   - "isRelevant = true"
 
