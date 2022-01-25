@@ -8210,13 +8210,6 @@
         ],
         "options": [
           {
-            "key": "none",
-            "text": "None",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "none"
-          },
-          {
             "key": "cough_weeks",
             "text": "Cough lasting more than 2 weeks",
             "openmrs_entity_parent": "",
@@ -8243,6 +8236,13 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "157351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "none",
+            "text": "None of the above",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none"
           },
           {
             "key": "other",
