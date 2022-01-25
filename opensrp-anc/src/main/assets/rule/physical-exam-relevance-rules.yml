@@ -458,6 +458,14 @@ actions:
   - "isRelevant = true"
 
 ---
+name: step3_test_diabetes_toaster
+description: test_diabetes_toaster
+priority: 1
+condition: "(!step3_bmi.isEmpty()) && (step3_bmi >= 30)"
+actions:
+  - "isRelevant = true"
+  
+---
 name: step1_lie_toaster
 description: lie_toaster
 priority: 1
