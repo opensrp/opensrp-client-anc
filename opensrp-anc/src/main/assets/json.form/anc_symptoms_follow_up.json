@@ -1766,30 +1766,6 @@
             "openmrs_entity_parent": ""
           },
           {
-            "key": "headache",
-            "text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.headache.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "139084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "vaginal_bleeding",
-            "text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.vaginal_bleeding.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "147232AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "visual_disturbance",
-            "text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.visual_disturbance.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "123074AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
             "key": "other",
             "text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.other.text}}",
             "value": false,

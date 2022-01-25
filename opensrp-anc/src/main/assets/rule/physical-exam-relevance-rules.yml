@@ -464,3 +464,19 @@ priority: 1
 condition: "(!step3_bmi.isEmpty()) && (step3_bmi >= 30)"
 actions:
   - "isRelevant = true"
+  
+---
+name: step1_lie_toaster
+description: lie_toaster
+priority: 1
+condition: "step1_baby_lie.contains('undetermined') || step1_baby_lie.contains('oblique') || step1_baby_lie.contains('transverse')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_sfh_big_toaster
+description: sfh_big_toaster
+priority: 1
+condition: "step1_sfh >= 40"
+actions:
+  - "isRelevant = true"

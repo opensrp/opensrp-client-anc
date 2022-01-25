@@ -8310,10 +8310,10 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "TB Screening Recommended",
+        "text": "TB test recommended",
         "text_color": "#000000",
-        "toaster_info_text": "TB Screening Recommended",
-        "toaster_info_title": "TB screening",
+        "toaster_info_text": "TB test recommended",
+        "toaster_info_title": "TB test recommended",
         "toaster_type": "info",
         "relevance": {
           "step6:tb_screening_history": {
