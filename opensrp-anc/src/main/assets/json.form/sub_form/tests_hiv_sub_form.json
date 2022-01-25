@@ -172,6 +172,7 @@
         {
           "key": "positive",
           "text": "{{tests_hiv_sub_form.step1.hiv_test_result.options.positive.text}}",
+          "translation_text": "option.positive",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -179,6 +180,7 @@
         {
           "key": "negative",
           "text": "{{tests_hiv_sub_form.step1.hiv_test_result.options.negative.text}}",
+          "translation_text": "option.negative",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -186,6 +188,7 @@
         {
           "key": "inconclusive",
           "text": "{{tests_hiv_sub_form.step1.hiv_test_result.options.inconclusive.text}}",
+          "translation_text": "option.inconclusive",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"

@@ -171,6 +171,7 @@
         {
           "key": "hbsag_lab_based",
           "text": "{{tests_hepatitis_b_sub_form.step1.hepb_test_type.options.hbsag_lab_based.text}}",
+          "translation_text": "option.hbsag_lab_based",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "159430AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -178,6 +179,7 @@
         {
           "key": "hbsag_rdt",
           "text": "{{tests_hepatitis_b_sub_form.step1.hepb_test_type.options.hbsag_rdt.text}}",
+          "translation_text": "option.hbsag_rdt",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165301AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -185,6 +187,7 @@
         {
           "key": "hbsag_dbs",
           "text": "{{tests_hepatitis_b_sub_form.step1.hepb_test_type.options.hbsag_dbs.text}}",
+          "translation_text": "option.hbsag_dbs",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "161472AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -214,6 +217,7 @@
         {
           "key": "positive",
           "text": "{{tests_hepatitis_b_sub_form.step1.hbsag_lab_ima.options.positive.text}}",
+          "translation_text": "option.positive",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -221,6 +225,7 @@
         {
           "key": "negative",
           "text": "{{tests_hepatitis_b_sub_form.step1.hbsag_lab_ima.options.negative.text}}",
+          "translation_text": "option.negative",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -250,6 +255,7 @@
         {
           "key": "positive",
           "text": "{{tests_hepatitis_b_sub_form.step1.hbsag_rdt.options.positive.text}}",
+          "translation_text": "option.positive",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -257,6 +263,7 @@
         {
           "key": "negative",
           "text": "{{tests_hepatitis_b_sub_form.step1.hbsag_rdt.options.negative.text}}",
+          "translation_text": "option.negative",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -286,6 +293,7 @@
         {
           "key": "positive",
           "text": "{{tests_hepatitis_b_sub_form.step1.hbsag_dbs.options.positive.text}}",
+          "translation_text": "option.positive",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -293,6 +301,7 @@
         {
           "key": "negative",
           "text": "{{tests_hepatitis_b_sub_form.step1.hbsag_dbs.options.negative.text}}",
+          "translation_text": "option.negative",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
