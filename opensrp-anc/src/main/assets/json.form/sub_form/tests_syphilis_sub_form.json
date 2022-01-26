@@ -205,7 +205,7 @@
         {
           "key": "rapid_syphilis",
           "text": "{{tests_syphilis_sub_form.step1.syph_test_type.options.rapid_syphilis.text}}",
-          "translation_text": "option.rapid_syphilis",
+          "translation_text": "tests_syphilis_sub_form.step1.syph_test_type.options.rapid_syphilis.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165303AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -213,6 +213,7 @@
         {
           "key": "rapid_plasma",
           "text": "{{tests_syphilis_sub_form.step1.syph_test_type.options.rapid_plasma.text}}",
+          "translation_text": "tests_syphilis_sub_form.step1.syph_test_type.options.rapid_plasma.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1619AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -220,6 +221,7 @@
         {
           "key": "off_site_lab",
           "text": "{{tests_syphilis_sub_form.step1.syph_test_type.options.off_site_lab.text}}",
+          "translation_text": "tests_syphilis_sub_form.step1.syph_test_type.options.off_site_lab.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165389AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -248,7 +250,7 @@
         {
           "key": "positive",
           "text": "{{tests_syphilis_sub_form.step1.rapid_syphilis_test.options.positive.text}}",
-          "translation_text": "option.positive",
+          "translation_text": "tests_syphilis_sub_form.step1.rapid_syphilis_test.options.positive.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -256,7 +258,7 @@
         {
           "key": "negative",
           "text": "{{tests_syphilis_sub_form.step1.rapid_syphilis_test.options.negative.text}}",
-          "translation_text": "option.negative",
+          "translation_text": "tests_syphilis_sub_form.step1.rapid_syphilis_test.options.negative.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -285,7 +287,7 @@
         {
           "key": "positive",
           "text": "{{tests_syphilis_sub_form.step1.rpr_syphilis_test.options.positive.text}}",
-          "translation_text": "option.positive",
+          "translation_text": "tests_syphilis_sub_form.step1.rpr_syphilis_test.options.positive.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -293,7 +295,7 @@
         {
           "key": "negative",
           "text": "{{tests_syphilis_sub_form.step1.rpr_syphilis_test.options.negative.text}}",
-          "translation_text": "option.negative",
+          "translation_text": "tests_syphilis_sub_form.step1.rpr_syphilis_test.options.negative.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -322,7 +324,7 @@
         {
           "key": "positive",
           "text": "{{tests_syphilis_sub_form.step1.lab_syphilis_test.options.positive.text}}",
-          "translation_text": "option.positive",
+          "translation_text": "tests_syphilis_sub_form.step1.lab_syphilis_test.options.positive.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -330,7 +332,7 @@
         {
           "key": "negative",
           "text": "{{tests_syphilis_sub_form.step1.lab_syphilis_test.options.negative.text}}",
-          "translation_text": "option.negative",
+          "translation_text": "tests_syphilis_sub_form.step1.lab_syphilis_test.options.negative.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"

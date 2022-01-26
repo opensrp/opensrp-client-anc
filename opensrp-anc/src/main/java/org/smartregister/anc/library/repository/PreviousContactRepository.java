@@ -326,16 +326,17 @@ public class PreviousContactRepository extends BaseRepository {
                     String value = org.smartregister.util.Utils.getProperties(context).getProperty(ConstantsUtils.Properties.WIDGET_VALUE_TRANSLATED, "false");
                     if (StringUtils.isNotBlank(value) && Boolean.parseBoolean(value)) {
                         String previousContactValue = mCursor.getString(mCursor.getColumnIndex(VALUE));
-                        String previousContactKey = mCursor.getString(mCursor.getColumnIndex(KEY));
                         if (StringUtils.isNotBlank(previousContactValue) && previousContactValue.trim().charAt(0) == '{') {
                             JSONObject previousContactObject = new JSONObject(previousContactValue);
                             if (previousContactObject.has("value") && previousContactObject.has("text")) {
-                                previousContactFacts.put(previousContactKey, previousContactObject.get("text"));
+                                String translation_text;
+                                translation_text = !previousContactObject.getString("text").isEmpty() ? "{" + previousContactObject.getString("text") + "}" : "";
+                                previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), translation_text);
                             } else {
-                                previousContactFacts.put(previousContactKey, previousContactValue);
+                                previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), previousContactValue);
                             }
                         } else {
-                            previousContactFacts.put(previousContactKey, previousContactValue);
+                            previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), previousContactValue);
                         }
 
                     } else {

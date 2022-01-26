@@ -112,7 +112,7 @@
         {
           "key": "a",
           "text": "{{tests_blood_type_sub_form.step1.blood_type.options.a.text}}",
-          "translation_text": "{{option.a}}",
+          "translation_text": "tests_blood_type_sub_form.step1.blood_type.options.a.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "163115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -120,7 +120,7 @@
         {
           "key": "b",
           "text": "{{tests_blood_type_sub_form.step1.blood_type.options.b.text}}",
-          "translation_text": "option.b",
+          "translation_text": "tests_blood_type_sub_form.step1.blood_type.options.b.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "163116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -128,7 +128,7 @@
         {
           "key": "ab",
           "text": "{{tests_blood_type_sub_form.step1.blood_type.options.ab.text}}",
-          "translation_text": "option.ab",
+          "translation_text": "tests_blood_type_sub_form.step1.blood_type.options.ab.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "163117AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -136,7 +136,7 @@
         {
           "key": "o",
           "text": "{{tests_blood_type_sub_form.step1.blood_type.options.o.text}}",
-          "translation_text": "option.o",
+          "translation_text": "tests_blood_type_sub_form.step1.blood_type.options.o.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "163118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -166,7 +166,7 @@
         {
           "key": "positive",
           "text": "{{tests_blood_type_sub_form.step1.rh_factor.options.positive.text}}",
-          "translation_text": "{{option.positive}}",
+          "translation_text": "tests_blood_type_sub_form.step1.rh_factor.options.positive.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -174,7 +174,7 @@
         {
           "key": "negative",
           "text": "{{tests_blood_type_sub_form.step1.rh_factor.options.negative.text}}",
-          "translation_text": "{{option.negative}}",
+          "translation_text": "tests_blood_type_sub_form.step1.rh_factor.options.negative.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
