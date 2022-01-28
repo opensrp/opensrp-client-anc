@@ -32,6 +32,7 @@ public abstract class ConstantsUtils {
     public static final String START_CONTACT = "Start Contact";
     public static final String CONTINUE_CONTACT = "Continue Contact";
     public static final String ORIGIN = "origin";
+    public static final String COHABITANTS = "cohabitants";
     public static final String FIRST_NAME = "firstName";
     public static final String LAST_NAME = "lastName";
     public static final String EDD = "edd";
