@@ -8,33 +8,36 @@ import java.util.List;
 public class YamlConfig {
 
     private String group;
-    private String sub_group;
+    private String subGroup;
     private List<YamlConfigItem> fields;
-    private String test_results;
+    private String testResults;
     private String propertiesFileName;
 
     public YamlConfig() {
         this("", "", null, "", "");
     }
 
-    public YamlConfig(String group, String sub_group, List<YamlConfigItem> fields, String test_results) {
-        this(group, sub_group, fields, test_results, "");
+    public YamlConfig(String group, String subGroup, List<YamlConfigItem> fields, String testResults) {
+        this.group = group;
+        this.subGroup = subGroup;
+        this.fields = fields;
+        this.testResults = testResults;
     }
 
-    public YamlConfig(String group, String sub_group, List<YamlConfigItem> fields, String test_results, String properties_file_name) {
+    public YamlConfig(String group, String subGroup, List<YamlConfigItem> fields, String testResults, String propertiesFileName) {
         this.group = group;
-        this.sub_group = sub_group;
+        this.subGroup = subGroup;
         this.fields = fields;
-        this.test_results = test_results;
-        this.propertiesFileName = properties_file_name;
+        this.testResults = testResults;
+        this.propertiesFileName = propertiesFileName;
     }
 
     public String getSubGroup() {
-        return sub_group;
+        return subGroup;
     }
 
     public void setSubGroup(String sub_group) {
-        this.sub_group = sub_group;
+        this.subGroup = sub_group;
     }
 
     public String getGroup() {
@@ -54,11 +57,11 @@ public class YamlConfig {
     }
 
     public String getTestResults() {
-        return test_results;
+        return testResults;
     }
 
     public void setTestResults(String test_results) {
-        this.test_results = test_results;
+        this.testResults = test_results;
     }
 
     public String getPropertiesFileName() {

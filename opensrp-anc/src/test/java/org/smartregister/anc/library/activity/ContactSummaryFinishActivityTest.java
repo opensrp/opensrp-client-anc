@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -24,6 +23,7 @@ import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
+import org.robolectric.annotation.LooperMode;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.ProfileContract;
@@ -56,7 +56,6 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
 
     @Mock
     private Intent intent;
-
     @Mock
     private MenuItem saveFinishMenuItem;
 
@@ -92,98 +91,71 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
     public void testActivityStartedWithIntent() {
         Intent passedIntent = activity.getIntent();
         Assert.assertNotNull(passedIntent);
-
     }
 
     @Test
     public void testNameViewIsInitialized() {
-
         TextView nameView = Whitebox.getInternalState(activity, "nameView");
         Assert.assertNotNull(nameView);
     }
 
     @Test
     public void testAgeViewIsInitialized() {
-
         TextView ageView = Whitebox.getInternalState(activity, "ageView");
         Assert.assertNotNull(ageView);
     }
 
     @Test
     public void testGestationAgeViewIsInitialized() {
-
         TextView gestationAgeView = Whitebox.getInternalState(activity, "gestationAgeView");
         Assert.assertNotNull(gestationAgeView);
     }
 
     @Test
     public void testAncViewIsInitialized() {
-
         TextView ancIdView = Whitebox.getInternalState(activity, "ancIdView");
         Assert.assertNotNull(ancIdView);
     }
 
     @Test
     public void testOnDestroyShouldInvokeOnDestroyMethodOfPresenter() {
-
         ContactSummaryFinishActivity spyActivity = Mockito.spy(activity);
-
         Whitebox.setInternalState(spyActivity, "mProfilePresenter", presenter);
-
         spyActivity.onDestroy();
-
         Mockito.verify(presenter).onDestroy(ArgumentMatchers.anyBoolean());
     }
 
     @Test
     public void testSetProfileNameShouldSetTextViewWithCorrectContent() {
-
         ContactSummaryFinishActivity spyActivity = Mockito.spy(activity);
-
         Whitebox.setInternalState(spyActivity, "nameView", textView);
-
         spyActivity.setProfileName(TEST_STRING);
-
         Mockito.verify(textView).setText(TEST_STRING);
     }
 
     @Test
     public void testSetProfileAgeShouldSetAgeViewWithCorrectContent() {
-
         ContactSummaryFinishActivity spyActivity = Mockito.spy(activity);
-
         Whitebox.setInternalState(spyActivity, "ageView", textView);
-
         spyActivity.setProfileAge(TEST_STRING);
-
         Mockito.verify(textView).setText("AGE " + TEST_STRING);
     }
 
     @Test
     public void testSetProfileGestatonAgeShouldSetGestationAgeViewWithCorrectContent() {
-
         ContactSummaryFinishActivity spyActivity = Mockito.spy(activity);
-
         Whitebox.setInternalState(spyActivity, "gestationAgeView", textView);
-
         spyActivity.setProfileGestationAge(TEST_STRING);
-
         Mockito.verify(textView).setText("GA: " + TEST_STRING + " WEEKS");
-
         spyActivity.setProfileGestationAge(null);
-
         Mockito.verify(textView).setText("GA");
     }
 
     @Test
     public void testSetProfileIDShouldSetAncIdViewWithCorrectContent() {
-
         ContactSummaryFinishActivity spyActivity = Mockito.spy(activity);
-
         Whitebox.setInternalState(spyActivity, "ancIdView", textView);
-
         spyActivity.setProfileID(TEST_STRING);
-
         Mockito.verify(textView).setText("ID: " + TEST_STRING);
     }
 
@@ -195,7 +167,8 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
                 ContactSummaryFinishActivity.class);
         contactSummaryActivityIntent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, DUMMY_BASE_ENTITY_ID);
         contactSummaryActivityIntent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, DUMMY_CONTACT_NO);
-        activityController = Robolectric.buildActivity(ContactSummaryFinishActivity.class, contactSummaryActivityIntent);
+        activityController = Robolectric.buildActivity(ContactSummaryFinishActivity.class,
+                contactSummaryActivityIntent);
         activity = activityController.get();
         Mockito.doReturn(R.id.save_finish_menu_item).when(saveFinishMenuItem).getItemId();
         activity.onOptionsItemSelected(saveFinishMenuItem);
@@ -215,7 +188,7 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
     }
 
     @Test
-    public void testProcessShouldPopulateContactSummaryYamlConfigListCorrectly() {
+    public void testProcessShouldPopulateContactSummaryYamlConfigListCorrectly() throws Exception {
         ContactSummaryFinishActivity spyActivity = Mockito.spy(activity);
         Mockito.doNothing().when(spyActivity).registerEventBus();
         Mockito.doReturn(partialContactRepository).when(spyActivity).getPartialContactRepository();
@@ -240,37 +213,26 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
         partialContactsList.add(partialContact);
         Mockito.doReturn(partialContactsList).when(partialContactRepository).getPartialContacts(DUMMY_BASE_ENTITY_ID, DUMMY_CONTACT_NO);
         ReflectionHelpers.callInstanceMethod(spyActivity, "process");
-        List<YamlConfig> list = spyActivity.getYamlConfigList();
+        List<YamlConfig> list = Whitebox.getInternalState(spyActivity, "yamlConfigList");
         Assert.assertNotNull(list);
-        Assert.assertEquals(1, list.size());
+        Assert.assertEquals(38, list.size());
     }
 
     @Test
     public void testSetProfileImageInvokesImageRenderHelperMethodsWithCorrectParameters() {
-
         ContactSummaryFinishActivity spyActivity = Mockito.spy(activity);
-
         Whitebox.setInternalState(spyActivity, "imageRenderHelper", imageRenderHelper);
-
         spyActivity.setProfileImage(DUMMY_BASE_ENTITY_ID);
-
         ImageView imageView = Whitebox.getInternalState(spyActivity, "imageView");
-
         Mockito.verify(imageRenderHelper).refreshProfileImage(DUMMY_BASE_ENTITY_ID, imageView, R.drawable.ic_woman_with_baby);
-
     }
 
     @Test
     public void testGetIntentStringInvokesGetStringExtraMethodOfIntentWithCorrectParameters() {
-
         ContactSummaryFinishActivity spyActivity = Mockito.spy(activity);
-
         Mockito.doReturn(intent).when(spyActivity).getIntent();
-
         spyActivity.getIntentString(TEST_STRING);
-
         Mockito.verify(intent).getStringExtra(TEST_STRING);
-
     }
 
     @After

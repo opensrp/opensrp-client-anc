@@ -1,5 +1,6 @@
 package org.smartregister.anc.library.model;
 
+import androidx.annotation.VisibleForTesting;
 import androidx.core.util.Pair;
 
 import com.vijay.jsonwizard.utils.FormUtils;
@@ -65,5 +66,10 @@ public class RegisterModel implements RegisterContract.Model {
     @Override
     public String getInitials() {
         return Utils.getUserInitials();
+    }
+
+    @VisibleForTesting
+    protected com.vijay.jsonwizard.utils.FormUtils getFormUtils() {
+        return new com.vijay.jsonwizard.utils.FormUtils();
     }
 }
