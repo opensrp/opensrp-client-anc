@@ -97,7 +97,11 @@
         "accordion_info_title": "{{anc_test.step2.accordion_hiv.accordion_info_title}}",
         "type": "expansion_panel",
         "content_form": "tests_hiv_sub_form",
-        "container": "anc_test"
+        "container": "anc_test",
+        "v_required": {
+          "value": true,
+          "err": "Provide result"
+        }
       },
       {
         "key": "accordion_partner_hiv",

@@ -1282,12 +1282,20 @@
       "label_text_style": "bold",
       "options": [
         {
-          "key": "yes",
-          "text": "Yes"
+          "key": "none",
+          "text": "None"
         },
         {
-          "key": "no",
-          "text": "No"
+          "key": "pph",
+          "text": "Postpartum haemorrhage"
+        },
+        {
+          "key": "rapture",
+          "text": "Raptured uterus"
+        },
+        {
+          "key": "other",
+          "text": "Other (specify)"
         }
       ],
         "relevance":{
@@ -1477,6 +1485,31 @@
         }
       },
       {
+        "key": "c_type_two",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "c_type_two",
+        "type": "native_radio",
+        "label": "Type of C-section",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "planned_elective",
+            "text": "Planned/Elective"
+          },
+          {
+            "key": "emergency",
+            "text": "Emergency"
+          }
+        ],
+        "relevance": {
+          "step2:pregnancy_two_delivery_method": {
+            "type": "string",
+            "ex": "equalTo(., \"c\")"
+          }
+        }
+      },
+      {
         "key": "pregnancy_two_labour_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -1650,12 +1683,20 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "yes",
-            "text": "Yes"
+            "key": "none",
+            "text": "None"
           },
           {
-            "key": "no",
-            "text": "No"
+            "key": "pph",
+            "text": "Postpartum haemorrhage"
+          },
+          {
+            "key": "rapture",
+            "text": "Raptured uterus"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)"
           }
         ],
         "relevance":{
@@ -1846,6 +1887,31 @@
         }
       },
       {
+        "key": "c_type_three",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "c_type_three",
+        "type": "native_radio",
+        "label": "Type of C-section",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "planned_elective",
+            "text": "Planned/Elective"
+          },
+          {
+            "key": "emergency",
+            "text": "Emergency"
+          }
+        ],
+        "relevance": {
+          "step2:preg_three_delivery_method": {
+            "type": "string",
+            "ex": "equalTo(., \"c\")"
+          }
+        }
+      },
+      {
         "key": "preg_three_labour_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -2019,12 +2085,20 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "yes",
-            "text": "Yes"
+            "key": "none",
+            "text": "None"
           },
           {
-            "key": "no",
-            "text": "No"
+            "key": "pph",
+            "text": "Postpartum haemorrhage"
+          },
+          {
+            "key": "rapture",
+            "text": "Raptured uterus"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)"
           }
         ],
         "relevance":{
@@ -2215,6 +2289,31 @@
         }
       },
       {
+        "key": "c_type_four",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "c_type_four",
+        "type": "native_radio",
+        "label": "Type of C-section",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "planned_elective",
+            "text": "Planned/Elective"
+          },
+          {
+            "key": "emergency",
+            "text": "Emergency"
+          }
+        ],
+        "relevance": {
+          "step2:preg_four_delivery_method": {
+            "type": "string",
+            "ex": "equalTo(., \"c\")"
+          }
+        }
+      },
+      {
         "key": "preg_four_labour_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -2388,12 +2487,20 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "yes",
-            "text": "Yes"
+            "key": "none",
+            "text": "None"
           },
           {
-            "key": "no",
-            "text": "No"
+            "key": "pph",
+            "text": "Postpartum haemorrhage"
+          },
+          {
+            "key": "rapture",
+            "text": "Raptured uterus"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)"
           }
         ],
         "relevance":{
@@ -2584,6 +2691,31 @@
         }
       },
       {
+        "key": "c_type_five",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "c_type_five",
+        "type": "native_radio",
+        "label": "Type of C-section",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "planned_elective",
+            "text": "Planned/Elective"
+          },
+          {
+            "key": "emergency",
+            "text": "Emergency"
+          }
+        ],
+        "relevance": {
+          "step2:preg_five_delivery_method": {
+            "type": "string",
+            "ex": "equalTo(., \"c\")"
+          }
+        }
+      },
+      {
         "key": "preg_five_labour_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -2757,12 +2889,20 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "yes",
-            "text": "Yes"
+            "key": "none",
+            "text": "None"
           },
           {
-            "key": "no",
-            "text": "No"
+            "key": "pph",
+            "text": "Postpartum haemorrhage"
+          },
+          {
+            "key": "rapture",
+            "text": "Raptured uterus"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)"
           }
         ],
         "relevance":{
@@ -2954,6 +3094,31 @@
         }
       },
       {
+        "key": "c_type_six",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "c_type_six",
+        "type": "native_radio",
+        "label": "Type of C-section",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "planned_elective",
+            "text": "Planned/Elective"
+          },
+          {
+            "key": "emergency",
+            "text": "Emergency"
+          }
+        ],
+        "relevance": {
+          "step2:preg_six_delivery_method": {
+            "type": "string",
+            "ex": "equalTo(., \"c\")"
+          }
+        }
+      },
+      {
         "key": "preg_six_labour_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -3127,12 +3292,20 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "yes",
-            "text": "Yes"
+            "key": "none",
+            "text": "None"
           },
           {
-            "key": "no",
-            "text": "No"
+            "key": "pph",
+            "text": "Postpartum haemorrhage"
+          },
+          {
+            "key": "rapture",
+            "text": "Raptured uterus"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)"
           }
         ],
         "relevance":{
@@ -3323,6 +3496,31 @@
         }
       },
       {
+        "key": "c_type_seven",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "c_type_seven",
+        "type": "native_radio",
+        "label": "Type of C-section",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "planned_elective",
+            "text": "Planned/Elective"
+          },
+          {
+            "key": "emergency",
+            "text": "Emergency"
+          }
+        ],
+        "relevance": {
+          "step2:preg_seven_delivery_method": {
+            "type": "string",
+            "ex": "equalTo(., \"c\")"
+          }
+        }
+      },
+      {
         "key": "preg_seven_labour_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -3496,12 +3694,20 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "yes",
-            "text": "Yes"
+            "key": "none",
+            "text": "None"
           },
           {
-            "key": "no",
-            "text": "No"
+            "key": "pph",
+            "text": "Postpartum haemorrhage"
+          },
+          {
+            "key": "rapture",
+            "text": "Raptured uterus"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)"
           }
         ],
         "relevance":{
@@ -3712,6 +3918,31 @@
         }
       },
       {
+        "key": "c_type_eight",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "c_type_eight",
+        "type": "native_radio",
+        "label": "Type of C-section",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "planned_elective",
+            "text": "Planned/Elective"
+          },
+          {
+            "key": "emergency",
+            "text": "Emergency"
+          }
+        ],
+        "relevance": {
+          "step2:preg_eight_delivery_method": {
+            "type": "string",
+            "ex": "equalTo(., \"c\")"
+          }
+        }
+      },
+      {
         "key": "preg_eight_labour_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -3885,12 +4116,20 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "yes",
-            "text": "Yes"
+            "key": "none",
+            "text": "None"
           },
           {
-            "key": "no",
-            "text": "No"
+            "key": "pph",
+            "text": "Postpartum haemorrhage"
+          },
+          {
+            "key": "rapture",
+            "text": "Raptured uterus"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)"
           }
         ],
         "relevance":{
@@ -4081,6 +4320,31 @@
         }
       },
       {
+        "key": "c_type_nine",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "c_type_nine",
+        "type": "native_radio",
+        "label": "Type of C-section",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "planned_elective",
+            "text": "Planned/Elective"
+          },
+          {
+            "key": "emergency",
+            "text": "Emergency"
+          }
+        ],
+        "relevance": {
+          "step2:preg_nine_delivery_method": {
+            "type": "string",
+            "ex": "equalTo(., \"c\")"
+          }
+        }
+      },
+      {
         "key": "preg_nine_labour_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -4256,12 +4520,20 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "yes",
-            "text": "Yes"
+            "key": "none",
+            "text": "None"
           },
           {
-            "key": "no",
-            "text": "No"
+            "key": "pph",
+            "text": "Postpartum haemorrhage"
+          },
+          {
+            "key": "rapture",
+            "text": "Raptured uterus"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)"
           }
         ],
         "relevance":{
@@ -4453,6 +4725,31 @@
         }
       },
       {
+        "key": "c_type_ten",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "c_type_ten",
+        "type": "native_radio",
+        "label": "Type of C-section",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "planned_elective",
+            "text": "Planned/Elective"
+          },
+          {
+            "key": "emergency",
+            "text": "Emergency"
+          }
+        ],
+        "relevance": {
+          "step2:preg_ten_delivery_method": {
+            "type": "string",
+            "ex": "equalTo(., \"c\")"
+          }
+        }
+      },
+      {
         "key": "preg_ten_labour_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -4628,12 +4925,20 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "yes",
-            "text": "Yes"
+            "key": "none",
+            "text": "None"
           },
           {
-            "key": "no",
-            "text": "No"
+            "key": "pph",
+            "text": "Postpartum haemorrhage"
+          },
+          {
+            "key": "rapture",
+            "text": "Raptured uterus"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)"
           }
         ],
         "relevance":{
@@ -4824,6 +5129,31 @@
         }
       },
       {
+        "key": "c_type_eleven",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "c_type_eleven",
+        "type": "native_radio",
+        "label": "Type of C-section",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "planned_elective",
+            "text": "Planned/Elective"
+          },
+          {
+            "key": "emergency",
+            "text": "Emergency"
+          }
+        ],
+        "relevance": {
+          "step2:preg_eleven_delivery_method": {
+            "type": "string",
+            "ex": "equalTo(., \"c\")"
+          }
+        }
+      },
+      {
         "key": "preg_eleven_labour_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -4997,12 +5327,20 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "yes",
-            "text": "Yes"
+            "key": "none",
+            "text": "None"
           },
           {
-            "key": "no",
-            "text": "No"
+            "key": "pph",
+            "text": "Postpartum haemorrhage"
+          },
+          {
+            "key": "rapture",
+            "text": "Raptured uterus"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)"
           }
         ],
         "relevance":{
@@ -5193,6 +5531,31 @@
         }
       },
       {
+        "key": "c_type_twelve",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "c_type_twelve",
+        "type": "native_radio",
+        "label": "Type of C-section",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "planned_elective",
+            "text": "Planned/Elective"
+          },
+          {
+            "key": "emergency",
+            "text": "Emergency"
+          }
+        ],
+        "relevance": {
+          "step2:preg_twelve_delivery_method": {
+            "type": "string",
+            "ex": "equalTo(., \"c\")"
+          }
+        }
+      },
+      {
         "key": "preg_twelve_labour_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -5366,12 +5729,20 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "yes",
-            "text": "Yes"
+            "key": "none",
+            "text": "None"
           },
           {
-            "key": "no",
-            "text": "No"
+            "key": "pph",
+            "text": "Postpartum haemorrhage"
+          },
+          {
+            "key": "rapture",
+            "text": "Raptured uterus"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)"
           }
         ],
         "relevance":{
@@ -5562,6 +5933,31 @@
         }
       },
       {
+        "key": "c_type_thirteen",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "c_type_thirteen",
+        "type": "native_radio",
+        "label": "Type of C-section",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "planned_elective",
+            "text": "Planned/Elective"
+          },
+          {
+            "key": "emergency",
+            "text": "Emergency"
+          }
+        ],
+        "relevance": {
+          "step2:preg_thirteen_delivery_method": {
+            "type": "string",
+            "ex": "equalTo(., \"c\")"
+          }
+        }
+      },
+      {
         "key": "preg_thirteen_labour_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -5735,12 +6131,20 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "yes",
-            "text": "Yes"
+            "key": "none",
+            "text": "None"
           },
           {
-            "key": "no",
-            "text": "No"
+            "key": "pph",
+            "text": "Postpartum haemorrhage"
+          },
+          {
+            "key": "rapture",
+            "text": "Raptured uterus"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)"
           }
         ],
         "relevance":{
@@ -5930,6 +6334,31 @@
         }
       },
       {
+        "key": "c_type_fourteen",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "c_type_fourteen",
+        "type": "native_radio",
+        "label": "Type of C-section",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "planned_elective",
+            "text": "Planned/Elective"
+          },
+          {
+            "key": "emergency",
+            "text": "Emergency"
+          }
+        ],
+        "relevance": {
+          "step2:preg_fourteen_delivery_method": {
+            "type": "string",
+            "ex": "equalTo(., \"c\")"
+          }
+        }
+      },
+      {
         "key": "preg_fourteen_labour_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -6103,12 +6532,20 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "yes",
-            "text": "Yes"
+            "key": "none",
+            "text": "None"
           },
           {
-            "key": "no",
-            "text": "No"
+            "key": "pph",
+            "text": "Postpartum haemorrhage"
+          },
+          {
+            "key": "rapture",
+            "text": "Raptured uterus"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)"
           }
         ],
         "relevance":{
@@ -6298,6 +6735,31 @@
         }
       },
       {
+        "key": "c_type_fifteen",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "c_type_fifteen",
+        "type": "native_radio",
+        "label": "Type of C-section",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "planned_elective",
+            "text": "Planned/Elective"
+          },
+          {
+            "key": "emergency",
+            "text": "Emergency"
+          }
+        ],
+        "relevance": {
+          "step2:preg_fifteen_delivery_method": {
+            "type": "string",
+            "ex": "equalTo(., \"c\")"
+          }
+        }
+      },
+      {
         "key": "preg_fifteen_labour_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -6473,12 +6935,20 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "yes",
-            "text": "Yes"
+            "key": "none",
+            "text": "None"
           },
           {
-            "key": "no",
-            "text": "No"
+            "key": "pph",
+            "text": "Postpartum haemorrhage"
+          },
+          {
+            "key": "rapture",
+            "text": "Raptured uterus"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)"
           }
         ],
         "relevance":{

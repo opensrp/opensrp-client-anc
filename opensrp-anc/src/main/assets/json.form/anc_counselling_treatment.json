@@ -5480,10 +5480,17 @@
         "openmrs_entity_parent": "84879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "native_radio",
+        "type": "check_box",
         "label": "{{anc_counselling_treatment.step11.tt_dose_notdone.label}}",
         "label_text_style": "bold",
         "options": [
+          {
+            "key": "expired",
+            "text": "Expired",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "expired"
+          },
           {
             "key": "vaccine_available",
             "text": "{{anc_counselling_treatment.step11.tt_dose_notdone.options.vaccine_available.text}}",
@@ -5542,8 +5549,13 @@
         "edit_type": "name",
         "relevance": {
           "step11:tt_dose_notdone": {
-            "type": "string",
-            "ex": "equalTo(., \"other\")"
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
           }
         }
       },
