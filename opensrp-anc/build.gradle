@@ -255,7 +255,6 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'crea
     def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*', '**/*$ViewBinder*.*']
     def debugTree = fileTree(dir: "$project.buildDir/intermediates/javac/debug/classes", excludes: fileFilter)
     def mainSrc = "$project.projectDir/src/main/java"
-
     sourceDirectories.setFrom(files([mainSrc]))
     classDirectories.setFrom(files([debugTree]))
     executionData.setFrom(fileTree(dir: project.buildDir, includes: [
@@ -283,6 +282,12 @@ task javadoc(type: Javadoc) {
     source = files([mainSrc])
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
     classpath += configurations.compile
+}
+
+def jacocoReportPath,sourceDirs
+task coveralls {
+    jacocoReportPath = "${buildDir}/reports/jacoco/jacocoTestReport/merged.xml"
+    sourceDirs = ["$project.projectDir/src/main/java"]
 }
 
 apply from: '../maven.gradle'
