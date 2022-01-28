@@ -300,7 +300,7 @@ actions:
 name: step2_preg_one_sex_infant
 description: preg_one_sex_infant
 priority: 1
-condition: " !step2_labour_type.isEmpty() "
+condition: " (!step2_labour_type.isEmpty()) || (!step2_c_type.isEmpty()) "
 actions:
   - "isRelevant = true"
 
@@ -354,7 +354,7 @@ actions:
 name: step2_pregnancy_two_sex_infant
 description: pregnancy_two_sex_infant
 priority: 1
-condition: " !step2_pregnancy_two_labour_type.isEmpty() "
+condition: " (!step2_pregnancy_two_labour_type.isEmpty()) || (!step2_c_type_two.isEmpty()) "
 actions:
   - "isRelevant = true"
 
@@ -413,7 +413,7 @@ actions:
 name: step2_preg_three_sex_infant
 description: preg_three_sex_infant
 priority: 1
-condition: " !step2_preg_three_labour_type.isEmpty() "
+condition: " (!step2_preg_three_labour_type.isEmpty()) || (!step2_c_type_three.isEmpty()) "
 actions:
   - "isRelevant = true"
 
@@ -481,7 +481,7 @@ actions:
 name: step2_preg_four_sex_infant
 description: preg_four_sex_infant
 priority: 1
-condition: " !step2_preg_four_labour_type.isEmpty() "
+condition: " (!step2_preg_four_labour_type.isEmpty()) || (!step2_c_type_four.isEmpty()) "
 actions:
   - "isRelevant = true"
 
@@ -537,7 +537,7 @@ actions:
 name: step2_preg_five_sex_infant
 description: preg_five_sex_infant
 priority: 1
-condition: " !step2_preg_five_labour_type.isEmpty() "
+condition: " (!step2_preg_five_labour_type.isEmpty()) || (!step2_c_type_five.isEmpty()) "
 actions:
   - "isRelevant = true"
 
@@ -595,7 +595,7 @@ actions:
 name: step2_preg_six_sex_infant
 description: preg_six_sex_infant
 priority: 1
-condition: " !step2_preg_six_labour_type.isEmpty() "
+condition: " (!step2_preg_six_labour_type.isEmpty()) || (!step2_c_type_six.isEmpty()) "
 actions:
   - "isRelevant = true"
 
@@ -653,7 +653,7 @@ actions:
 name: step2_preg_seven_sex_infant
 description: preg_seven_sex_infant
 priority: 1
-condition: " !step2_preg_seven_labour_type.isEmpty() "
+condition: " (!step2_preg_seven_labour_type.isEmpty()) || (!step2_c_type_seven.isEmpty()) "
 actions:
   - "isRelevant = true"
 
@@ -708,7 +708,7 @@ actions:
 name: step2_preg_eight_sex_infant
 description: preg_eight_sex_infant
 priority: 1
-condition: " !step2_preg_eight_labour_type.isEmpty() "
+condition: " (!step2_preg_eight_labour_type.isEmpty()) || (!step2_c_type_eight.isEmpty()) "
 actions:
   - "isRelevant = true"
 
@@ -763,7 +763,7 @@ actions:
 name: step2_preg_nine_sex_infant
 description: preg_nine_sex_infant
 priority: 1
-condition: " !step2_preg_nine_labour_type.isEmpty() "
+condition: " (!step2_preg_nine_labour_type.isEmpty()) || (!step2_c_type_fourteen.isEmpty()) "
 actions:
   - "isRelevant = true"
 
@@ -818,7 +818,7 @@ actions:
 name: step2_preg_ten_sex_infant
 description: preg_ten_sex_infant
 priority: 1
-condition: " !step2_preg_ten_labour_type.isEmpty() "
+condition: " (!step2_preg_ten_labour_type.isEmpty()) || (!step2_c_type_ten.isEmpty()) "
 actions:
   - "isRelevant = true"
 
@@ -873,7 +873,7 @@ actions:
 name: step2_preg_eleven_sex_infant
 description: preg_eleven_sex_infant
 priority: 1
-condition: " !step2_preg_eleven_labour_type.isEmpty() "
+condition: " (!step2_preg_eleven_labour_type.isEmpty()) || (!step2_c_type_eleven.isEmpty()) "
 actions:
   - "isRelevant = true"
 
@@ -926,7 +926,7 @@ actions:
 name: step2_preg_twelve_sex_infant
 description: preg_twelve_sex_infant
 priority: 1
-condition: " !step2_preg_twelve_labour_type.isEmpty() "
+condition: " (!step2_preg_twelve_labour_type.isEmpty()) || (!step2_c_type_twelve.isEmpty()) "
 actions:
   - "isRelevant = true"
 
@@ -982,7 +982,7 @@ actions:
 name: step2_preg_thirteen_sex_infant
 description: preg_thirteen_sex_infant
 priority: 1
-condition: " !step2_preg_thirteen_labour_type.isEmpty() "
+condition: " (!step2_preg_thirteen_labour_type.isEmpty()) || (!step2_c_type_thirteen.isEmpty()) "
 actions:
   - "isRelevant = true"
 
@@ -1037,7 +1037,7 @@ actions:
 name: step2_preg_fourteen_sex_infant
 description: preg_fourteen_sex_infant
 priority: 1
-condition: " !step2_preg_fourteen_labour_type.isEmpty() "
+condition: " (!step2_preg_fourteen_labour_type.isEmpty()) || (!step2_c_type_fourteen.isEmpty()) "
 actions:
   - "isRelevant = true"
 
@@ -1092,7 +1092,7 @@ actions:
 name: step2_preg_fifteen_sex_infant
 description: preg_fifteen_sex_infant
 priority: 1
-condition: " !step2_preg_fifteen_labour_type.isEmpty() "
+condition: " (!step2_preg_fifteen_labour_type.isEmpty()) || (!step2_c_type_fifteen.isEmpty()) "
 actions:
   - "isRelevant = true"
 
