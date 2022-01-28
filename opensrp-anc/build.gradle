@@ -253,14 +253,14 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'crea
     getReports().getHtml().setDestination(file("${buildDir}/reports/jacoco/jacocoRootReport/html"))
 
     def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*', '**/*$ViewBinder*.*']
-    def debugTree = fileTree(dir: "$project.buildDir/intermediates/javac/debug/classes/", excludes: fileFilter)
+    def debugTree = fileTree(dir: "$project.buildDir/intermediates/javac/debug/classes", excludes: fileFilter)
     def mainSrc = "$project.projectDir/src/main/java"
 
-    getSourceDirectories().setFrom([mainSrc])
-    getClassDirectories().setFrom([debugTree])
-    getExecutionData().setFrom(dir: project.buildDir, includes: [
+    sourceDirectories.setFrom(files([mainSrc]))
+    classDirectories.setFrom(files([debugTree]))
+    executionData.setFrom(fileTree(dir: project.buildDir, includes: [
             'jacoco/testDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec'
-    ])
+    ]))
 }
 
 task printTasks {
