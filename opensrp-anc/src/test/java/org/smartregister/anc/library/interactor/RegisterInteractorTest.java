@@ -3,7 +3,6 @@ package org.smartregister.anc.library.interactor;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.timeout;
-import static org.mockito.Mockito.verify;
 
 import androidx.core.util.Pair;
 
@@ -100,9 +99,9 @@ public class RegisterInteractorTest extends BaseUnitTest {
 
         Mockito.when(uniqueIdRepository.getNextUniqueId()).thenReturn(uniqueId);
         registerInteractor.getNextUniqueId(Triple.of(formName, metadata, currentLocationId), callBack);
-        verify(uniqueIdRepository, timeout(ASYNC_TIMEOUT)).getNextUniqueId();
+        Mockito.verify(uniqueIdRepository, timeout(ASYNC_TIMEOUT)).getNextUniqueId();
 
-        verify(callBack, timeout(ASYNC_TIMEOUT)).onUniqueIdFetched(tripleArgumentCaptor.capture(), stringArgumentCaptor.capture());
+        Mockito.verify(callBack, timeout(ASYNC_TIMEOUT)).onUniqueIdFetched(tripleArgumentCaptor.capture(), stringArgumentCaptor.capture());
 
         Triple<String, String, String> triple = tripleArgumentCaptor.getValue();
         assertEquals(formName, triple.getLeft());
@@ -128,9 +127,9 @@ public class RegisterInteractorTest extends BaseUnitTest {
 
         Mockito.when(uniqueIdRepository.getNextUniqueId()).thenReturn(null);
         registerInteractor.getNextUniqueId(triple, callBack);
-        verify(uniqueIdRepository, timeout(ASYNC_TIMEOUT)).getNextUniqueId();
+        Mockito.verify(uniqueIdRepository, timeout(ASYNC_TIMEOUT)).getNextUniqueId();
 
-        verify(callBack, timeout(ASYNC_TIMEOUT)).onNoUniqueId();
+        Mockito.verify(callBack, timeout(ASYNC_TIMEOUT)).onNoUniqueId();
     }
 
 
@@ -176,25 +175,25 @@ public class RegisterInteractorTest extends BaseUnitTest {
         Mockito.doReturn(repositoryMock).when(drishtiApplication).getRepository();
         ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", drishtiApplication);
         registerInteractor.saveRegistration(pair, jsonString, false, callBack);
-        verify(syncHelper, timeout(ASYNC_TIMEOUT)).addClient(stringArgumentCaptor.capture(), jsonArgumentCaptor.capture());
+        Mockito.verify(syncHelper, timeout(ASYNC_TIMEOUT)).addClient(stringArgumentCaptor.capture(), jsonArgumentCaptor.capture());
         assertEquals(baseEntityId, stringArgumentCaptor.getValue());
         assertEquals(clientObject.get("type"), jsonArgumentCaptor.getValue().get("type"));
         assertEquals(clientObject.get("baseEntityId"), jsonArgumentCaptor.getValue().get("baseEntityId"));
         assertEquals(clientObject.getJSONObject("identifiers").get("anc_id"), jsonArgumentCaptor.getValue().getJSONObject("identifiers").get("anc_id"));
-        verify(syncHelper, timeout(ASYNC_TIMEOUT)).addEvent(stringArgumentCaptor.capture(), jsonArgumentCaptor.capture());
+        Mockito.verify(syncHelper, timeout(ASYNC_TIMEOUT)).addEvent(stringArgumentCaptor.capture(), jsonArgumentCaptor.capture());
         assertEquals(baseEntityId, stringArgumentCaptor.getValue());
         assertEquals(eventObject.get("type"), jsonArgumentCaptor.getValue().get("type"));
         assertEquals(eventObject.getString("baseEntityId"), jsonArgumentCaptor.getValue().getString("baseEntityId"));
         assertEquals(eventObject.getString("duration"), jsonArgumentCaptor.getValue().getString("duration"));
         assertEquals(eventObject.getString("version"), jsonArgumentCaptor.getValue().getString("version"));
 
-        verify(uniqueIdRepository, timeout(ASYNC_TIMEOUT)).close(stringArgumentCaptor.capture());
+        Mockito.verify(uniqueIdRepository, timeout(ASYNC_TIMEOUT)).close(stringArgumentCaptor.capture());
         assertEquals(ancId, stringArgumentCaptor.getValue());
 
-        verify(baseAncClientProcessorForJava, timeout(ASYNC_TIMEOUT)).processClient(eventClientArgumentCaptor.capture());
+        Mockito.verify(baseAncClientProcessorForJava, timeout(ASYNC_TIMEOUT)).processClient(eventClientArgumentCaptor.capture());
         assertEquals(eventClients, eventClientArgumentCaptor.getValue());
 
-        verify(allSharedPreferences, timeout(ASYNC_TIMEOUT)).saveLastUpdatedAtDate(longArgumentCaptor.capture());
+        Mockito.verify(allSharedPreferences, timeout(ASYNC_TIMEOUT)).saveLastUpdatedAtDate(longArgumentCaptor.capture());
         assertEquals(new Long(timestamp), longArgumentCaptor.getValue());
         Mockito.verify(callBack, timeout(ASYNC_TIMEOUT)).onRegistrationSaved(ArgumentMatchers.anyBoolean());
 
@@ -238,15 +237,15 @@ public class RegisterInteractorTest extends BaseUnitTest {
         Mockito.doReturn(syncHelper).when(ancLibrary).getEcSyncHelper();
         ReflectionHelpers.setStaticField(AncLibrary.class, "instance", ancLibrary);
         registerInteractor.saveRegistration(pair, jsonString, true, callBack);
-        verify(syncHelper, timeout(ASYNC_TIMEOUT)).getClient(stringArgumentCaptor.capture());
+        Mockito.verify(syncHelper, timeout(ASYNC_TIMEOUT)).getClient(stringArgumentCaptor.capture());
         assertEquals(baseEntityId, stringArgumentCaptor.getValue());
-        verify(syncHelper, timeout(ASYNC_TIMEOUT)).addClient(stringArgumentCaptor.capture(), jsonArgumentCaptor.capture());
+        Mockito.verify(syncHelper, timeout(ASYNC_TIMEOUT)).addClient(stringArgumentCaptor.capture(), jsonArgumentCaptor.capture());
         assertEquals(baseEntityId, stringArgumentCaptor.getValue());
         assertEquals(orginalClientObject.get("type"), jsonArgumentCaptor.getValue().get("type"));
         assertEquals(orginalClientObject.get("baseEntityId"), jsonArgumentCaptor.getValue().get("baseEntityId"));
         assertEquals(orginalClientObject.getJSONObject("identifiers").get("anc_id"), jsonArgumentCaptor.getValue().getJSONObject("identifiers").get("anc_id"));
         assertEquals(orginalClientObject.get("original"), jsonArgumentCaptor.getValue().get("original"));
-        verify(syncHelper, timeout(ASYNC_TIMEOUT)).addEvent(stringArgumentCaptor.capture(), jsonArgumentCaptor.capture());
+        Mockito.verify(syncHelper, timeout(ASYNC_TIMEOUT)).addEvent(stringArgumentCaptor.capture(), jsonArgumentCaptor.capture());
         assertEquals(baseEntityId, stringArgumentCaptor.getValue());
         assertEquals(eventObject.get("type"), jsonArgumentCaptor.getValue().get("type"));
         assertEquals(eventObject.getString("baseEntityId"), jsonArgumentCaptor.getValue().getString("baseEntityId"));

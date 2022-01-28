@@ -23,8 +23,6 @@ import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
-import org.robolectric.annotation.LooperMode;
-import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.ProfileContract;
 import org.smartregister.anc.library.domain.YamlConfig;
@@ -37,7 +35,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-//@LooperMode(PAUSED)
 public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
 
     private ActivityController<ContactSummaryFinishActivity> activityController;

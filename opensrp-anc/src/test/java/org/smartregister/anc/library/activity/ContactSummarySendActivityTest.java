@@ -67,12 +67,11 @@ public class ContactSummarySendActivityTest extends BaseUnitTest {
         Thread.sleep(ASYNC_TIMEOUT);
         Intent expectedIntent = new Intent(contactSummarySendActivitySpy, ProfileActivity.class);
         Assert.assertNotNull(expectedIntent.getComponent().getClassName());
-        Assert.assertEquals(expectedIntent.getComponent().getClassName(), org.smartregister.anc.library.activity.ProfileActivity.class.getName());
+        Assert.assertEquals(expectedIntent.getComponent().getClassName(), ProfileActivity.class.getName());
     }
 
     @After
     public void tearDown() {
-        // Destroy activity after every test
         activityController
                 .pause()
                 .stop()

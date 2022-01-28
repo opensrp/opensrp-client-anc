@@ -2,8 +2,6 @@ package org.smartregister.anc.library.activity;
 
 import android.content.Context;
 
-import com.vijay.jsonwizard.views.CustomTextView;
-
 import org.json.JSONObject;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
