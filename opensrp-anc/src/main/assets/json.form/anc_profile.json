@@ -1282,12 +1282,20 @@
       "label_text_style": "bold",
       "options": [
         {
-          "key": "yes",
-          "text": "Yes"
+          "key": "none",
+          "text": "None"
         },
         {
-          "key": "no",
-          "text": "No"
+          "key": "pph",
+          "text": "Postpartum haemorrhage"
+        },
+        {
+          "key": "rapture",
+          "text": "Raptured uterus"
+        },
+        {
+          "key": "other",
+          "text": "Other (specify)"
         }
       ],
         "relevance":{
@@ -1675,12 +1683,20 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "yes",
-            "text": "Yes"
+            "key": "none",
+            "text": "None"
           },
           {
-            "key": "no",
-            "text": "No"
+            "key": "pph",
+            "text": "Postpartum haemorrhage"
+          },
+          {
+            "key": "rapture",
+            "text": "Raptured uterus"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)"
           }
         ],
         "relevance":{
@@ -2069,12 +2085,20 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "yes",
-            "text": "Yes"
+            "key": "none",
+            "text": "None"
           },
           {
-            "key": "no",
-            "text": "No"
+            "key": "pph",
+            "text": "Postpartum haemorrhage"
+          },
+          {
+            "key": "rapture",
+            "text": "Raptured uterus"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)"
           }
         ],
         "relevance":{
@@ -2463,12 +2487,20 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "yes",
-            "text": "Yes"
+            "key": "none",
+            "text": "None"
           },
           {
-            "key": "no",
-            "text": "No"
+            "key": "pph",
+            "text": "Postpartum haemorrhage"
+          },
+          {
+            "key": "rapture",
+            "text": "Raptured uterus"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)"
           }
         ],
         "relevance":{
@@ -2857,12 +2889,20 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "yes",
-            "text": "Yes"
+            "key": "none",
+            "text": "None"
           },
           {
-            "key": "no",
-            "text": "No"
+            "key": "pph",
+            "text": "Postpartum haemorrhage"
+          },
+          {
+            "key": "rapture",
+            "text": "Raptured uterus"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)"
           }
         ],
         "relevance":{
@@ -3252,12 +3292,20 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "yes",
-            "text": "Yes"
+            "key": "none",
+            "text": "None"
           },
           {
-            "key": "no",
-            "text": "No"
+            "key": "pph",
+            "text": "Postpartum haemorrhage"
+          },
+          {
+            "key": "rapture",
+            "text": "Raptured uterus"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)"
           }
         ],
         "relevance":{
@@ -3646,12 +3694,20 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "yes",
-            "text": "Yes"
+            "key": "none",
+            "text": "None"
           },
           {
-            "key": "no",
-            "text": "No"
+            "key": "pph",
+            "text": "Postpartum haemorrhage"
+          },
+          {
+            "key": "rapture",
+            "text": "Raptured uterus"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)"
           }
         ],
         "relevance":{
@@ -4060,12 +4116,20 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "yes",
-            "text": "Yes"
+            "key": "none",
+            "text": "None"
           },
           {
-            "key": "no",
-            "text": "No"
+            "key": "pph",
+            "text": "Postpartum haemorrhage"
+          },
+          {
+            "key": "rapture",
+            "text": "Raptured uterus"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)"
           }
         ],
         "relevance":{
@@ -4456,12 +4520,20 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "yes",
-            "text": "Yes"
+            "key": "none",
+            "text": "None"
           },
           {
-            "key": "no",
-            "text": "No"
+            "key": "pph",
+            "text": "Postpartum haemorrhage"
+          },
+          {
+            "key": "rapture",
+            "text": "Raptured uterus"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)"
           }
         ],
         "relevance":{
@@ -4853,12 +4925,20 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "yes",
-            "text": "Yes"
+            "key": "none",
+            "text": "None"
           },
           {
-            "key": "no",
-            "text": "No"
+            "key": "pph",
+            "text": "Postpartum haemorrhage"
+          },
+          {
+            "key": "rapture",
+            "text": "Raptured uterus"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)"
           }
         ],
         "relevance":{
@@ -5247,12 +5327,20 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "yes",
-            "text": "Yes"
+            "key": "none",
+            "text": "None"
           },
           {
-            "key": "no",
-            "text": "No"
+            "key": "pph",
+            "text": "Postpartum haemorrhage"
+          },
+          {
+            "key": "rapture",
+            "text": "Raptured uterus"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)"
           }
         ],
         "relevance":{
@@ -5641,12 +5729,20 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "yes",
-            "text": "Yes"
+            "key": "none",
+            "text": "None"
           },
           {
-            "key": "no",
-            "text": "No"
+            "key": "pph",
+            "text": "Postpartum haemorrhage"
+          },
+          {
+            "key": "rapture",
+            "text": "Raptured uterus"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)"
           }
         ],
         "relevance":{
@@ -6035,12 +6131,20 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "yes",
-            "text": "Yes"
+            "key": "none",
+            "text": "None"
           },
           {
-            "key": "no",
-            "text": "No"
+            "key": "pph",
+            "text": "Postpartum haemorrhage"
+          },
+          {
+            "key": "rapture",
+            "text": "Raptured uterus"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)"
           }
         ],
         "relevance":{
@@ -6428,12 +6532,20 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "yes",
-            "text": "Yes"
+            "key": "none",
+            "text": "None"
           },
           {
-            "key": "no",
-            "text": "No"
+            "key": "pph",
+            "text": "Postpartum haemorrhage"
+          },
+          {
+            "key": "rapture",
+            "text": "Raptured uterus"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)"
           }
         ],
         "relevance":{
@@ -6823,12 +6935,20 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "yes",
-            "text": "Yes"
+            "key": "none",
+            "text": "None"
           },
           {
-            "key": "no",
-            "text": "No"
+            "key": "pph",
+            "text": "Postpartum haemorrhage"
+          },
+          {
+            "key": "rapture",
+            "text": "Raptured uterus"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)"
           }
         ],
         "relevance":{
