@@ -32,4 +32,3 @@ jobs:
         run: ./gradlew opensrp-anc:coveralls --stacktrace
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
-
