@@ -717,3 +717,11 @@ condition: "gest_age_openmrs >= 16"
 actions:
   - "isRelevant = true"
 
+---
+name: step10_started_on_prep
+description: started_on_prep
+priority: 1
+condition: "!(global_hiv_positive == 1) && (global_partner_hiv_status == 'positive')"
+actions:
+  - "isRelevant = true"
+
