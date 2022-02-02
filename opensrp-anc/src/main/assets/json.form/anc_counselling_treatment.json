@@ -5116,7 +5116,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "co_trimoxazole",
         "type": "native_radio",
-        "label": "Co-trimoxazole - CPT (for HIV+ pregnant women)",
+        "label": "CPT (Co-trimoxazole 960mg OD oral)",
         "label_text_style": "bold",
         "options": [
           {
@@ -5198,7 +5198,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "mebendazole",
         "type": "native_radio",
-        "label": "Deworming (Mebendazole 500mgPOSTAT or Albendazole 400mgPOSTAT)",
+        "label": "Deworming (Mebendazole 500mg PO Stat or Albendazole 400mg PO Stat)",
         "label_text_style": "bold",
         "options": [
           {
