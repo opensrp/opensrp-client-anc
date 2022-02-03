@@ -148,7 +148,7 @@
     "title": "{{anc_profile.step1.title}}",
     "next": "step2",
     "fields": [
-     {
+      {
         "key": "headss_toaster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
@@ -406,6 +406,7 @@
           {
             "key": "yes",
             "text": "{{anc_profile.step2.lmp_known.options.yes.text}}",
+            "translation_text": "anc_profile.step2.lmp_known.options.yes.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -418,6 +419,7 @@
           {
             "key": "no",
             "text": "{{anc_profile.step2.lmp_known.options.no.text}}",
+            "translation_text": "anc_profile.step2.lmp_known.options.no.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -496,6 +498,7 @@
           {
             "key": "yes",
             "text": "{{anc_profile.step2.ultrasound_done.options.yes.text}}",
+            "translation_text": "anc_profile.step2.ultrasound_done.options.yes.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -508,6 +511,7 @@
           {
             "key": "no",
             "text": "{{anc_profile.step2.ultrasound_done.options.no.text}}",
+            "translation_text": "anc_profile.step2.ultrasound_done.options.no.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -2385,6 +2389,7 @@
           {
             "key": "3_doses",
             "text": "{{anc_profile.step5.tt_immun_status.options.3_doses.text}}",
+            "translation_text": "anc_profile.step5.tt_immun_status.options.3_doses.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "164134AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -2392,6 +2397,7 @@
           {
             "key": "1-4_doses",
             "text": "{{anc_profile.step5.tt_immun_status.options.1-4_doses.text}}",
+            "translation_text": "anc_profile.step5.tt_immun_status.options.1-4_doses.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165226AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -2399,6 +2405,7 @@
           {
             "key": "ttcv_not_received",
             "text": "{{anc_profile.step5.tt_immun_status.options.ttcv_not_received.text}}",
+            "translation_text": "anc_profile.step5.tt_immun_status.options.ttcv_not_received.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165227AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -2406,6 +2413,7 @@
           {
             "key": "unknown",
             "text": "{{anc_profile.step5.tt_immun_status.options.unknown.text}}",
+            "translation_text": "anc_profile.step5.tt_immun_status.options.unknown.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -2475,6 +2483,7 @@
           {
             "key": "seasonal_flu_dose_given",
             "text": "{{anc_profile.step5.flu_immun_status.options.seasonal_flu_dose_given.text}}",
+            "translation_text": "anc_profile.step5.flu_immun_status.options.seasonal_flu_dose_given.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -2482,6 +2491,7 @@
           {
             "key": "seasonal_flu_dose_missing",
             "text": "{{anc_profile.step5.flu_immun_status.options.seasonal_flu_dose_missing.text}}",
+            "translation_text": "anc_profile.step5.flu_immun_status.options.seasonal_flu_dose_missing.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -2489,6 +2499,7 @@
           {
             "key": "unknown",
             "text": "{{anc_profile.step5.flu_immun_status.options.unknown.text}}",
+            "translation_text": "anc_profile.step5.flu_immun_status.options.unknown.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -3360,7 +3371,6 @@
           "step8:partner_hiv_status": {
             "type": "string",
             "ex": "equalTo(., \"positive\")"
-
           }
         }
       }

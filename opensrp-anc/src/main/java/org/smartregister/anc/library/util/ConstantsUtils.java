@@ -69,10 +69,12 @@ public abstract class ConstantsUtils {
     public static final String ANDROID_SWITCHER = "android:switcher:";
     public static final String IS_FIRST_CONTACT = "is_first_contact";
 
+
     public interface Properties {
         String CAN_SAVE_SITE_INITIAL_SETTING = "CAN_SAVE_INITIAL_SITE_SETTING";
         String MAX_CONTACT_SCHEDULE_DISPLAYED = "MAX_CONTACT_SCHEDULE_DISPLAYED";
         String DUE_CHECK_STRATEGY = "DUE_CHECK_STRATEGY";
+        String WIDGET_VALUE_TRANSLATED = "widget.value.translated";
     }
 
     public interface DueCheckStrategy {

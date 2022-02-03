@@ -69,6 +69,7 @@
           {
             "key": "first_contact",
             "text": "{{anc_quick_check.step1.contact_reason.options.first_contact.text}}",
+            "translation_text": "anc_quick_check.step1.contact_reason.options.first_contact.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165269AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -76,6 +77,7 @@
           {
             "key": "scheduled_contact",
             "text": "{{anc_quick_check.step1.contact_reason.options.scheduled_contact.text}}",
+            "translation_text": "anc_quick_check.step1.contact_reason.options.scheduled_contact.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -83,6 +85,7 @@
           {
             "key": "specific_complaint",
             "text": "{{anc_quick_check.step1.contact_reason.options.specific_complaint.text}}",
+            "translation_text": "anc_quick_check.step1.contact_reason.options.specific_complaint.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"

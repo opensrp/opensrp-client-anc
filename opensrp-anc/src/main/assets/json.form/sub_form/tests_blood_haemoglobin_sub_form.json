@@ -176,6 +176,7 @@
         {
           "key": "complete_blood_count",
           "text": "{{tests_blood_haemoglobin_sub_form.step1.hb_test_type.options.complete_blood_count.text}}",
+          "translation_text": "option.complete_blood_count",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1019AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -183,6 +184,7 @@
         {
           "key": "hb_test_haemoglobinometer",
           "text": "{{tests_blood_haemoglobin_sub_form.step1.hb_test_type.options.hb_test_haemoglobinometer.text}}",
+          "translation_text": "option.hb_test_haemoglobinometer",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -190,6 +192,7 @@
         {
           "key": "hb_test_colour_scale",
           "text": "{{tests_blood_haemoglobin_sub_form.step1.hb_test_type.options.hb_test_colour_scale.text}}",
+          "translation_text": "option.hb_test_colour_scale",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165396AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
