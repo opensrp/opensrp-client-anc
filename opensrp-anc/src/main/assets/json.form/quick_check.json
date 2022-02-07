@@ -442,6 +442,14 @@
             "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
+            "key": "draining",
+            "text": "Draining",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "draining"
+          },
+          {
             "key": "severe_headache",
             "text": "{{anc_quick_check.step1.danger_signs.options.severe_headache.text}}",
             "value": false,
@@ -504,6 +512,14 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "123818AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "other_s",
+            "text": "Other (Specify)",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_s"
           }
         ],
         "v_required": {
@@ -515,6 +531,26 @@
             "ex-rules": {
               "rules-file": "quick_check_relevance_rules.yml"
             }
+          }
+        }
+      },
+      {
+        "key": "other_ds",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_ds",
+        "type": "edit_text",
+        "hint": "Specify",
+        "edit_type": "name",
+        "relevance": {
+          "step1:danger_signs": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other_s"
+                ]
+              }
+            ]
           }
         }
       },
