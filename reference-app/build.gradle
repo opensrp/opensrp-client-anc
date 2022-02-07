@@ -241,7 +241,7 @@ dependencies {
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
 
-    implementation('org.smartregister:opensrp-client-core:4.3.22-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:4.3.24-BETA-2-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'
@@ -254,7 +254,18 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
         exclude group: 'com.rengwuxian.materialedittext', module: 'library'
         exclude group: 'com.ibm.fhir', module: 'fhir-model'
+        exclude group: 'org.smartregister', module: 'android-p2p-sync'
     }
+
+    api("org.smartregister:android-p2p-sync:0.3.8-aplha4-SNAPSHOT") {
+        transitive = true
+        exclude group: 'org.smartregister', module: 'opensrp-client-core'
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
+        exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
+        exclude group: 'com.rengwuxian.materialedittext', module: 'library'
+    }
+
     jarJar 'com.ibm.fhir:fhir-model:4.8.3'
     implementation fileTree(dir: "./build/libs", include: ['*.jar'])
     implementation('org.smartregister:opensrp-client-configurable-views:1.1.5-SNAPSHOT@aar') {

@@ -1,5 +1,8 @@
 package org.smartregister.anc.application;
 
+import static org.smartregister.util.Log.logError;
+import static org.smartregister.util.Log.logInfo;
+
 import android.content.Intent;
 import android.util.Log;
 
@@ -13,11 +16,13 @@ import com.vijay.jsonwizard.NativeFormLibrary;
 
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
+import org.smartregister.P2POptions;
 import org.smartregister.anc.ANCEventBusIndex;
 import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.activity.LoginActivity;
 import org.smartregister.anc.job.AncJobCreator;
 import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.anc.library.sync.AncCoreAuthorizationService;
 import org.smartregister.anc.library.sync.BaseAncClientProcessorForJava;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
@@ -25,6 +30,7 @@ import org.smartregister.anc.repository.AncRepository;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.location.helper.LocationHelper;
+import org.smartregister.receiver.P2pProcessingStatusBroadcastReceiver;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.Repository;
 import org.smartregister.sync.ClientProcessorForJava;
@@ -35,14 +41,12 @@ import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
-import static org.smartregister.util.Log.logError;
-import static org.smartregister.util.Log.logInfo;
-
 /**
  * Created by ndegwamartin on 21/06/2018.
  */
-public class AncApplication extends DrishtiApplication implements TimeChangedBroadcastReceiver.OnTimeChangedListener {
+public class AncApplication extends DrishtiApplication implements TimeChangedBroadcastReceiver.OnTimeChangedListener, P2pProcessingStatusBroadcastReceiver.StatusUpdate {
     private static CommonFtsObject commonFtsObject;
+    private P2pProcessingStatusBroadcastReceiver p2pProcessingStatusBroadcastReceiver;
 
     @Override
     public void onCreate() {
@@ -54,7 +58,9 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         context.updateCommonFtsObject(createCommonFtsObject());
 
         //Initialize Modules
-        CoreLibrary.init(context, new AncSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);
+        P2POptions p2POptions = new P2POptions(true);
+        p2POptions.setAuthorizationService(new AncCoreAuthorizationService());
+        CoreLibrary.init(context, new AncSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP, p2POptions);
         AncLibrary.init(context, BuildConfig.DATABASE_VERSION, new ANCEventBusIndex());
         ConfigurableViewsLibrary.init(context);
         setDefaultLanguage();
@@ -80,6 +86,9 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         NativeFormLibrary
                 .getInstance()
                 .setClientFormDao(CoreLibrary.getInstance().context().getClientFormRepository());
+
+        if (p2pProcessingStatusBroadcastReceiver == null)
+            p2pProcessingStatusBroadcastReceiver = new P2pProcessingStatusBroadcastReceiver(this);
     }
 
     private void setDefaultLanguage() {
@@ -199,5 +208,10 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         Utils.showToast(this, this.getString(org.smartregister.anc.library.R.string.device_timezone_changed));
         context.userService().getAllSharedPreferences().saveForceRemoteLogin(true, context.allSharedPreferences().fetchRegisteredANM());
         logoutCurrentUser();
+    }
+
+    @Override
+    public void onStatusUpdate(boolean b) {
+        Timber.i(this.getClass().getSimpleName(), "onStatusUpdate() by P2P");
     }
 }

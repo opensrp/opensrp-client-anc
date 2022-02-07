@@ -440,5 +440,6 @@
     <string name="contact_summary_data">Contact Summary Data  -  %1$s</string>
     <string name="pdf_saved_successfully">\"Pdf saved successfully to location \"</string>
     <string name="contact_summary_data_file">contactSummaryData.pdf</string>
+    <string name="device_to_device">Device-to-device sync</string>
 
 </resources>
