@@ -1161,7 +1161,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Hypertension diagnosis! Provide counseling.",
+        "text": "Hypertension diagnosis! Provide counseling and/or refer.",
         "toaster_info_text": "Woman has hypertension - SBP of 140 mmHg or higher and/or DBP of 90 mmHg or higher and no proteinuria.\n\nCounseling:\n- Advice to reduce workload and to rest\n- Advise on danger signs\n- Reassess at the next contact or in 1 week if 8 months pregnant\n- If hypertension persists after 1 week or at next contact, refer to hospital or discuss case with the doctor, if available",
         "text_color": "#E20000",
         "toaster_type": "problem",
