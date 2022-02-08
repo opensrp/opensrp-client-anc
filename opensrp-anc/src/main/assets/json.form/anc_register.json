@@ -192,6 +192,7 @@
           {
             "key": "dob_unknown",
             "text": "{{anc_register.step1.dob_unknown.options.dob_unknown.text}}",
+            "translation_text": "anc_register.step1.dob_unknown.options.dob_unknown.text",
             "text_size": "18px",
             "value": "false",
             "openmrs_entity_parent": "",

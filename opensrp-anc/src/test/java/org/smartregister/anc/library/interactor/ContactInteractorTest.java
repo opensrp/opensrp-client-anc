@@ -27,6 +27,7 @@ import org.smartregister.anc.library.contract.ContactContract;
 import org.smartregister.anc.library.helper.AncRulesEngineHelper;
 import org.smartregister.anc.library.helper.ECSyncHelper;
 import org.smartregister.anc.library.model.PartialContact;
+import org.smartregister.anc.library.model.PreviousContact;
 import org.smartregister.anc.library.repository.PartialContactRepository;
 import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.repository.PreviousContactRepository;
@@ -41,6 +42,7 @@ import org.smartregister.repository.DetailsRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.service.UserService;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -94,11 +96,11 @@ public class ContactInteractorTest extends BaseUnitTest {
     @Mock
     private UserService userService;
 
-    private List<PartialContact> partialContactList = new ArrayList<>();
+    private final List<PartialContact> partialContactList = new ArrayList<>();
 
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         interactor = new ContactInteractor(new AppExecutors(Executors.newSingleThreadExecutor(), Executors.newSingleThreadExecutor(), Executors.newSingleThreadExecutor()));
     }
 
@@ -227,5 +229,19 @@ public class ContactInteractorTest extends BaseUnitTest {
         details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, "1");
         details.put(ConstantsUtils.REFERRAL, "-1");
         return details;
+    }
+
+    @Test
+    public void getCurrentContactStateTest() {
+        String baseEntityId = "84333de0-1b2b-4431-b7b8-44457fc9a32a", key = "contact_reason";
+        long id = 7346;
+        String value = "{\"value\":\"first_contact\",\"text\":\"First contact\"}";
+        String contactNo = "1";
+        PreviousContact previousContact = new PreviousContact(baseEntityId, key, value, contactNo);
+        Mockito.doNothing().when(ancLibrary).getPreviousContactRepository().getPreviousContact(previousContact);
+//        getCurrentContactState.setAccessible(true);
+//        getCurrentContactState.invoke(interactor, null);
+
+
     }
 }

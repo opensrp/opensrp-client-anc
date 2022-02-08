@@ -217,8 +217,7 @@ public class Utils extends org.smartregister.util.Utils {
             partialContactRequest.setContactNo(quickCheck.getContactNumber());
             partialContactRequest.setType(quickCheck.getFormName());
 
-            String locationId = AncLibrary.getInstance().getContext().allSharedPreferences()
-                    .getPreference(AllConstants.CURRENT_LOCATION_ID);
+            String locationId = AncLibrary.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
 
             ContactModel baseContactModel = new ContactModel();
             JSONObject form = baseContactModel.getFormAsJson(quickCheck.getFormName(), baseEntityId, locationId);

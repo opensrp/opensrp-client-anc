@@ -115,7 +115,6 @@ public class ContactJsonFormActivity extends FormConfigurationJsonFormActivity {
         synchronized (getmJSONObject()) {
             JSONObject jsonObject = getmJSONObject().getJSONObject(stepName);
             JSONArray fields = fetchFields(jsonObject, popup);
-
             for (int i = 0; i < fields.length(); i++) {
                 JSONObject item = fields.getJSONObject(i);
                 String keyAtIndex = item.getString(JsonFormConstants.KEY);
@@ -124,7 +123,6 @@ public class ContactJsonFormActivity extends FormConfigurationJsonFormActivity {
                     for (int j = 0; j < jsonArray.length(); j++) {
                         JSONObject innerItem = jsonArray.getJSONObject(j);
                         String anotherKeyAtIndex = innerItem.getString(JsonFormConstants.KEY);
-
                         if (childKey.equals(anotherKeyAtIndex)) {
                             innerItem.put(JsonFormConstants.VALUE, value);
                             if (StringUtils.isNotBlank(formName) && formName.equals(ConstantsUtils.JsonFormUtils.ANC_QUICK_CHECK)) {
@@ -201,7 +199,6 @@ public class ContactJsonFormActivity extends FormConfigurationJsonFormActivity {
             for (int i = 0; i < fields.length(); i++) {
                 JSONObject jsonObject = fields.getJSONObject(i);
                 if (jsonObject != null && jsonObject.getString(JsonFormConstants.KEY).equals(ConstantsUtils.DANGER_SIGNS)) {
-
                     JSONArray jsonArray = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
                     for (int k = 0; k < jsonArray.length(); k++) {
                         JSONObject item = jsonArray.getJSONObject(k);

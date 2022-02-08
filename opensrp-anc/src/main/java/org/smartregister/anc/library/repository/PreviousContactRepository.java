@@ -5,6 +5,8 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
@@ -323,14 +325,14 @@ public class PreviousContactRepository extends BaseRepository {
             if (mCursor != null && mCursor.getCount() > 0) {
                 while (mCursor.moveToNext()) {
                     Context context = AncLibrary.getInstance().getApplicationContext();
-                    String value = org.smartregister.util.Utils.getProperties(context).getProperty(ConstantsUtils.Properties.WIDGET_VALUE_TRANSLATED, "false");
+                    String value = Utils.getProperties(context).getProperty(ConstantsUtils.Properties.WIDGET_VALUE_TRANSLATED, "false");
                     if (StringUtils.isNotBlank(value) && Boolean.parseBoolean(value)) {
                         String previousContactValue = mCursor.getString(mCursor.getColumnIndex(VALUE));
                         if (StringUtils.isNotBlank(previousContactValue) && previousContactValue.trim().charAt(0) == '{') {
                             JSONObject previousContactObject = new JSONObject(previousContactValue);
                             if (previousContactObject.has("value") && previousContactObject.has("text")) {
                                 String translation_text;
-                                translation_text = !previousContactObject.getString("text").isEmpty() ? "{" + previousContactObject.getString("text") + "}" : "";
+                                translation_text = !previousContactObject.optString(JsonFormConstants.TEXT, "").isEmpty() ? "{" + previousContactObject.optString(JsonFormConstants.TEXT, "") + "}" : "";
                                 previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), translation_text);
                             } else {
                                 previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), previousContactValue);
