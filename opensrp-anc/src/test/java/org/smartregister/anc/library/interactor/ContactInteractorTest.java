@@ -2,6 +2,7 @@ package org.smartregister.anc.library.interactor;
 
 import android.util.Pair;
 
+import org.jeasy.rules.api.Facts;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,6 +28,7 @@ import org.smartregister.anc.library.contract.ContactContract;
 import org.smartregister.anc.library.helper.AncRulesEngineHelper;
 import org.smartregister.anc.library.helper.ECSyncHelper;
 import org.smartregister.anc.library.model.PartialContact;
+import org.smartregister.anc.library.model.PreviousContactsSummaryModel;
 import org.smartregister.anc.library.repository.PartialContactRepository;
 import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.repository.PreviousContactRepository;
@@ -94,7 +96,7 @@ public class ContactInteractorTest extends BaseUnitTest {
     @Mock
     private UserService userService;
 
-    private List<PartialContact> partialContactList = new ArrayList<>();
+    private final List<PartialContact> partialContactList = new ArrayList<>();
 
     @Before
     public void setUp() {
@@ -214,6 +216,17 @@ public class ContactInteractorTest extends BaseUnitTest {
         } catch (JSONException e) {
             Timber.e(e, this.getClass().getCanonicalName() + " --> testFinalizeContactFormInvokesUpdatesPatientRepositoryWithCorrectParametersWithReferralNotNull()");
         }
+    }
+
+
+    @Test
+    public void getPreviousContactFactsTest() {
+        Facts facts = new Facts();
+        String baseentityId = "eba7895b-96ad-4a35-8a69-27073428532a";
+        String contactNo = "1";
+        List<PreviousContactsSummaryModel> allContactsFacts = new ArrayList<>();
+        Mockito.doReturn(allContactsFacts).when(ancLibrary).getPreviousContactRepository().getPreviousContactsFacts(baseentityId);
+
     }
 
     @NotNull

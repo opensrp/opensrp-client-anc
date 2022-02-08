@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.jeasy.rules.api.Facts;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
@@ -341,4 +342,5 @@ public class ContactTasksRepositoryTest extends BaseUnitTest {
         boolean isBoolean = Whitebox.invokeMethod(contactTasksRepository, "updateBooleanValue", "0");
         Assert.assertFalse(isBoolean);
     }
+
 }
