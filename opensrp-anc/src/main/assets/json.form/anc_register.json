@@ -765,8 +765,8 @@
       {
         "key": "cohabitants",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "cohabitants",
         "label": "{{anc_register.step1.cohabitants.label}}",
         "label_info_text": "{{anc_register.step1.cohabitants.label_info_text}}",
         "type": "check_box",

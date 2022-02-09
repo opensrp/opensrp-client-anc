@@ -50,14 +50,6 @@
           }
         },
         {
-          "column_name": "cohabitants",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        },
-        {
           "column_name": "alt_name",
           "type": "Event",
           "json_mapping": {
@@ -149,6 +141,13 @@
           "type": "Client",
           "json_mapping": {
             "field": "attributes.nrc"
+          }
+        },
+        {
+          "column_name": "cohabitants",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.cohabitants"
           }
         },
         {

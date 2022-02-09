@@ -4937,6 +4937,45 @@
         }
       },
       {
+        "key": "started_on_prep",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Started on PrEP??",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "already_on_prep",
+            "text": "Already on Prep",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "malaria_counsel",
         "openmrs_entity_parent": "164884AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "concept",
@@ -5077,7 +5116,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "co_trimoxazole",
         "type": "native_radio",
-        "label": "Co-trimoxazole - CPT (for HIV+ pregnant women)",
+        "label": "CPT (Co-trimoxazole 960mg OD oral)",
         "label_text_style": "bold",
         "options": [
           {
@@ -5159,7 +5198,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "mebendazole",
         "type": "native_radio",
-        "label": "Deworming (Mebendazole 500mgPOSTAT or Albendazole 400mgPOSTAT)",
+        "label": "Deworming (Mebendazole 500mg PO Stat or Albendazole 400mg PO Stat)",
         "label_text_style": "bold",
         "options": [
           {
@@ -5480,10 +5519,17 @@
         "openmrs_entity_parent": "84879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "native_radio",
+        "type": "check_box",
         "label": "{{anc_counselling_treatment.step11.tt_dose_notdone.label}}",
         "label_text_style": "bold",
         "options": [
+          {
+            "key": "expired",
+            "text": "Expired",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "expired"
+          },
           {
             "key": "vaccine_available",
             "text": "{{anc_counselling_treatment.step11.tt_dose_notdone.options.vaccine_available.text}}",
@@ -5542,8 +5588,13 @@
         "edit_type": "name",
         "relevance": {
           "step11:tt_dose_notdone": {
-            "type": "string",
-            "ex": "equalTo(., \"other\")"
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
           }
         }
       },
@@ -5834,6 +5885,7 @@
           }
         }
       },
+
       {
         "key": "viral_load",
         "openmrs_entity_parent": "",

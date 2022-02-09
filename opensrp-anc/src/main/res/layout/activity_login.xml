@@ -77,6 +77,8 @@
                 android:layout_weight="1"
                 android:contentDescription="ministry of health"
                 android:scaleType="centerInside"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
                 android:src="@mipmap/ic_ministry_of_health" />
 
         </LinearLayout>
