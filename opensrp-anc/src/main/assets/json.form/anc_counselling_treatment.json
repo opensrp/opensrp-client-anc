@@ -4449,7 +4449,7 @@
           }
         ],
         "v_required": {
-          "value": true,
+          "value": false,
           "err": "{{anc_counselling_treatment.step9.calcium_supp.v_required.err}}"
         },
         "relevance": {
