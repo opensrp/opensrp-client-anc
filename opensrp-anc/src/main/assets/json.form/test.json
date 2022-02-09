@@ -98,6 +98,12 @@
         "type": "expansion_panel",
         "content_form": "tests_hiv_sub_form",
         "container": "anc_test",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "tests_expansion_panel_relevance_rules.yml"
+            }
+          }
         "v_required": {
           "value": true,
           "err": "Provide result"
