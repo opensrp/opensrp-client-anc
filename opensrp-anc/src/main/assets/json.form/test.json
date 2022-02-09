@@ -104,6 +104,7 @@
               "rules-file": "tests_expansion_panel_relevance_rules.yml"
             }
           }
+        },
         "v_required": {
           "value": true,
           "err": "Provide result"
