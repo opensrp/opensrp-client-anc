@@ -1,6 +1,7 @@
 {
   "validate_on_submit": true,
   "display_scroll_bars": true,
+  "skip_blank_steps": true,
   "count": "4",
   "encounter_type": "Physical Exam",
   "entity_id": "",
@@ -3223,14 +3224,10 @@
           "value": false
         },
         "relevance": {
-          "step4:no_of_fetuses_unknown": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "no_of_fetuses_unknown"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
           }
         }
       },
@@ -3250,14 +3247,10 @@
           "value": false
         },
         "relevance": {
-          "step4:no_of_fetuses_unknown": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "no_of_fetuses_unknown"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
           }
         }
       },
@@ -3303,7 +3296,14 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165294AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "preeclampsia_risk",
