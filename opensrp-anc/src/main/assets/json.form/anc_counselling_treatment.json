@@ -5035,6 +5035,8 @@
         "openmrs_entity_id": "fansidar",
         "type": "native_radio",
         "label": "IPTp SP (Fansidar 525mg X 3 tablets)",
+        "label_info_title": "IPTpSP",
+        "label_info_text": "IPTpSP is Intermittent Preventive Therapy with Fansidar given as Fansidar 525mg x 3 tablets oral every four weeks in HIV negative women",
         "label_text_style": "bold",
         "options": [
           {
@@ -5118,6 +5120,8 @@
         "type": "native_radio",
         "label": "CPT (Co-trimoxazole 960mg OD oral)",
         "label_text_style": "bold",
+        "label_info_title": "CPT (Co-trimoxazole 960mg OD oral)",
+        "label_info_text": "CTP is Cotrimoxazole Preventive Therapy; given as cotrimoxazole 960mg daily oral in HIV+ women",
         "options": [
           {
             "key": "yes",

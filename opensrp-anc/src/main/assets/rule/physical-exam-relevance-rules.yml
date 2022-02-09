@@ -114,14 +114,14 @@ actions:
 name: step4_no_of_fetuses_label
 description: No of Fetuses Label
 priority: 1
-condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 26) && (step4_no_of_fetuses_unknown != '')"
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 26) && (!step4_no_of_fetuses_unknown.contains('no_of_fetuses_unknown'))"
 actions:
   - "isRelevant = true"
 ---
 name: step4_no_of_fetuses
 description: No of Fetuses
 priority: 1
-condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 26) && (step4_no_of_fetuses_unknown != '')"
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 26) && (!step4_no_of_fetuses_unknown.contains('no_of_fetuses_unknown'))"
 actions:
   - "isRelevant = true"
 ---
