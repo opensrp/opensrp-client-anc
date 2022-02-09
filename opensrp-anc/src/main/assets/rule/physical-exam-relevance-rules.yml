@@ -111,6 +111,27 @@ condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 20)"
 actions:
   - "isRelevant = true"
 ---
+name: step4_no_of_fetuses_label
+description: No of Fetuses Label
+priority: 1
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 26) && (step4_no_of_fetuses_unknown != true)"
+actions:no_of_fetuses
+  - "isRelevant = true"
+---
+name: step4_no_of_fetuses
+description: No of Fetuses
+priority: 1
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 26)"
+actions:
+  - "isRelevant = true"
+---
+name: step4_no_of_fetuses_unknown
+description: No of Fetuses unknown
+priority: 1
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 26)"
+actions:
+  - "isRelevant = true"
+---
 name: step4_fetal_heart_rate_repeat_label
 description: Fetal heart beat rate
 priority: 1
