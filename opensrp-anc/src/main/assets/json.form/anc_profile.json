@@ -8888,7 +8888,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "on_art",
         "type": "native_radio",
-        "label": "On ART",
+        "label": "On ART?",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "yes",
@@ -9050,7 +9051,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "on_art",
         "type": "native_radio",
-        "label": "On ART",
+        "label": "On ART?",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "yes",
