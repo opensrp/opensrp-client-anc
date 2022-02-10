@@ -88,7 +88,7 @@
         "err": "{{cardiac_exam_sub_form.step1.cardiac_exam_abnormal_other.v_regex.err}}"
       },
       "relevance": {
-        "step1:cardiac_exam_abnormal": {
+        "step3:cardiac_exam_abnormal": {
           "ex-checkbox": [
             {
               "or": [
