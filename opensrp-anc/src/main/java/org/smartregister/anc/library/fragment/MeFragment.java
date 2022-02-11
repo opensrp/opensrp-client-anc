@@ -106,9 +106,7 @@ public class MeFragment extends org.smartregister.view.fragment.MeFragment imple
         } else if (viewId == R.id.language_switcher_section) {
             languageSwitcherDialog();
         } else if (viewId == R.id.p2p_section) {
-            if (getContext() != null) {
-                startActivity(new Intent(getContext(), AncP2pModeSelectActivity.class));
-            }
+            startActivity(new Intent(getContext(), AncP2pModeSelectActivity.class));
         }
     }
 

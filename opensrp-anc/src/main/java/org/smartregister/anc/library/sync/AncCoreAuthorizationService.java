@@ -26,8 +26,8 @@ public class AncCoreAuthorizationService implements P2PAuthorizationService {
     @Override
     public void authorizeConnection(@NonNull final Map<String, Object> peerDeviceMap, @NonNull final P2PAuthorizationService.AuthorizationCallback authorizationCallback) {
         getAuthorizationDetails(map -> {
-            Object peerDeviceLocationId = peerDeviceMap.get(CoreP2pConstants.PEER_TO_PEER.LOCATION_ID);
-            Object myLocationId = authorizationDetails.get(CoreP2pConstants.PEER_TO_PEER.LOCATION_ID);
+            Object peerDeviceLocationId = peerDeviceMap.get(CoreP2pConstants.PeerToPeerKeyConstants.LOCATION_ID);
+            Object myLocationId = authorizationDetails.get(CoreP2pConstants.PeerToPeerKeyConstants.LOCATION_ID);
             Object myPeerStatus = authorizationDetails.get(org.smartregister.p2p.util.Constants.AuthorizationKeys.PEER_STATUS);
             Object myCountryId = authorizationDetails.get(CoreP2pConstants.PeerToPeerUtil.COUNTRY_ID);
 
@@ -77,7 +77,7 @@ public class AncCoreAuthorizationService implements P2PAuthorizationService {
         // Load the preferences here
         AllSharedPreferences allSharedPreferences = CoreLibrary.getInstance().context().allSharedPreferences();
         authorizationDetails.put(AllConstants.PeerToPeer.KEY_TEAM_ID, allSharedPreferences.fetchDefaultTeamId(allSharedPreferences.fetchRegisteredANM()));
-        authorizationDetails.put(CoreP2pConstants.PEER_TO_PEER.LOCATION_ID, allSharedPreferences.fetchUserLocalityId(allSharedPreferences.fetchRegisteredANM()));
+        authorizationDetails.put(CoreP2pConstants.PeerToPeerKeyConstants.LOCATION_ID, allSharedPreferences.fetchUserLocalityId(allSharedPreferences.fetchRegisteredANM()));
         authorizationDetails.put(CoreP2pConstants.PeerToPeerUtil.COUNTRY_ID, getCountryId());
         onAuthorizationDetailsProvidedCallback.onAuthorizationDetailsProvided(authorizationDetails);
     }
