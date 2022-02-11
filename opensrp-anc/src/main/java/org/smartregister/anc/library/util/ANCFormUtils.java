@@ -164,7 +164,13 @@ public class ANCFormUtils extends FormUtils {
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             if (jsonObject.has(JsonFormConstants.VALUE) && jsonObject.getBoolean(JsonFormConstants.VALUE)) {
-                keyList.add(jsonObject.getString(JsonFormConstants.KEY));
+                Context context = AncLibrary.getInstance().getApplicationContext();
+                String value = Utils.getProperties(context).getProperty(ConstantsUtils.Properties.WIDGET_VALUE_TRANSLATED, "false");
+                if (StringUtils.isNotBlank(value) && Boolean.parseBoolean(value)) {
+                    keyList.add(generateTranslatableValue(jsonObject.getString(JsonFormConstants.KEY), jsonObject) + "");
+                } else {
+                    keyList.add(jsonObject.getString(JsonFormConstants.KEY));
+                }
                 if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) &&
                         jsonObject.getJSONArray(JsonFormConstants.SECONDARY_VALUE).length() > 0) {
                     getRealSecondaryValue(jsonObject);
@@ -178,6 +184,21 @@ public class ANCFormUtils extends FormUtils {
             widget.put(JsonFormConstants.VALUE, keyList);
             widget.put(getSecondaryKey(widget), getListValuesAsString(valueList));
         }
+    }
+
+    private static JSONObject generateTranslatableValue(String value, JSONObject jsonObject) throws JSONException {
+        JSONObject newValue = new JSONObject();
+        ANCFormUtils formUtils = new ANCFormUtils();
+        if (jsonObject.has(JsonFormConstants.OPTIONS_FIELD_NAME)) {
+            JSONArray options = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+            JSONObject selectedOption = formUtils.getOptionFromOptionsUsingKey(options, value);
+            newValue.put(JsonFormConstants.VALUE, value);
+            newValue.put(JsonFormConstants.TEXT, selectedOption.optString(JsonFormConstants.TRANSLATION_TEXT, ""));
+            return newValue;
+        }
+        newValue.put(JsonFormConstants.VALUE, value);
+        newValue.put(JsonFormConstants.TEXT, jsonObject.optString(JsonFormConstants.TRANSLATION_TEXT, ""));
+        return newValue;
     }
 
     public static void getRealSecondaryValue(JSONObject itemField) throws Exception {
