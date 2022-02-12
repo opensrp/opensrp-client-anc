@@ -1139,6 +1139,53 @@
         }
       },
       {
+        "key": "preg_one_outcome",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "outcome",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "live",
+            "text": "Live birth"
+          },
+          {
+            "key": "still",
+            "text": "Still birth"
+          }
+        ],
+        "relevance":{
+          "step2:gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+      {
+        "key": "preg_one_outcome_early",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "outcome",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "abortion_miscarriage",
+            "text": "Abortion/Miscarriage"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "preg_one_sex_infant",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -1224,59 +1271,11 @@
           }
         }
       },
-
-      {
-        "key": "preg_one_outcome",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "outcome",
-        "type": "native_radio",
-        "label": "Outcome",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "live",
-            "text": "Live birth"
-          },
-          {
-            "key": "still",
-            "text": "Still birth"
-          }
-        ],
-        "relevance":{
-          "step2:gestational_age": {
-            "type": "string",
-            "ex": "greaterThan(., \"6\")"
-          }
-        }
-      },
-      {
-        "key": "preg_one_outcome_early",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "outcome",
-        "type": "native_radio",
-        "label": "Outcome",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "abortion_miscarriage",
-            "text": "Abortion/Miscarriage"
-          }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
-            }
-          }
-        }
-      },
       {
       "key": "preg_one_complications",
       "openmrs_entity_parent": "",
       "openmrs_entity": "concept",
-      "openmrs_entity_id": "complications",
+      "openmrs_entity_id": "preg_one_complications",
       "type": "native_radio",
       "label": "Any complications in child birth",
       "label_text_style": "bold",
@@ -1303,6 +1302,26 @@
             "type": "string",
             "ex": "greaterThan(., \"6\")"
           }
+        }
+      },
+      {
+        "key": "other_com",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_com",
+        "type": "edit_text",
+        "hint": "Specify ",
+        "edit_type": "name",
+        "v_required": {
+          "value": true,
+          "err": "Please specify complications"
+        },
+        "relevance": {
+          "step2:preg_one_complications": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+
         }
       },
       {
@@ -1536,6 +1555,61 @@
         }
       },
       {
+        "key": "pregnancy_two_outcome",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "outcome",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "live",
+            "text": "Live birth"
+          },
+          {
+            "key": "still",
+            "text": "Still birth"
+          }
+        ],
+        "relevance":{
+          "step2:pregnancy_two_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_two_outcome_early",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "outcome",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "abortion_miscarriage",
+            "text": "Abortion/Miscarriage"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "pregnancy_two_spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
         "key": "pregnancy_two_sex_infant",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -1619,65 +1693,10 @@
         }
       },
       {
-        "key": "pregnancy_two_outcome",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "outcome",
-        "type": "native_radio",
-        "label": "Outcome",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "live",
-            "text": "Live birth"
-          },
-          {
-            "key": "still",
-            "text": "Still birth"
-          }
-        ],
-        "relevance":{
-          "step2:pregnancy_two_gestational_age": {
-            "type": "string",
-            "ex": "greaterThan(., \"6\")"
-          }
-        }
-      },
-      {
-        "key": "pregnancy_two_outcome_early",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "outcome",
-        "type": "native_radio",
-        "label": "Outcome",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "abortion_miscarriage",
-            "text": "Abortion/Miscarriage"
-          }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "pregnancy_two_spacer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "spacer",
-        "type": "spacer",
-        "spacer_height": "10sp"
-      },
-      {
         "key": "pregnancy_two_complications",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "complications",
+        "openmrs_entity_id": "pregnancy_two_complications",
         "type": "native_radio",
         "label": "Any complications in child birth",
         "label_text_style": "bold",
@@ -1706,7 +1725,26 @@
           }
         }
       },
+      {
+        "key": "other_two_com",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_two_com",
+        "type": "edit_text",
+        "hint": "Specify ",
+        "edit_type": "name",
+        "v_required": {
+          "value": true,
+          "err": "Please specify complications"
+        },
+        "relevance": {
+          "step2:pregnancy_two_complications": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
 
+        }
+      },
       {
         "key": "preg_three_label",
         "type": "label",
@@ -1938,6 +1976,61 @@
         }
       },
       {
+        "key": "preg_three_outcome",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preg_three_outcome",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "live",
+            "text": "Live birth"
+          },
+          {
+            "key": "still",
+            "text": "Still birth"
+          }
+        ],
+        "relevance":{
+          "step2:preg_three_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+      {
+        "key": "preg_three_outcome_early",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preg_three_outcome_early",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "abortion_miscarriage",
+            "text": "Abortion/Miscarriage"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "pregnancy_two_spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
         "key": "preg_three_sex_infant",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -2021,65 +2114,10 @@
         }
       },
       {
-        "key": "preg_three_outcome",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "preg_three_outcome",
-        "type": "native_radio",
-        "label": "Outcome",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "live",
-            "text": "Live birth"
-          },
-          {
-            "key": "still",
-            "text": "Still birth"
-          }
-        ],
-        "relevance":{
-          "step2:preg_three_gestational_age": {
-            "type": "string",
-            "ex": "greaterThan(., \"6\")"
-          }
-        }
-      },
-      {
-        "key": "preg_three_outcome_early",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "preg_three_outcome_early",
-        "type": "native_radio",
-        "label": "Outcome",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "abortion_miscarriage",
-            "text": "Abortion/Miscarriage"
-          }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "pregnancy_two_spacer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "spacer",
-        "type": "spacer",
-        "spacer_height": "10sp"
-      },
-      {
         "key": "preg_three_complications",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "complications",
+        "openmrs_entity_id": "preg_three_complications",
         "type": "native_radio",
         "label": "Any complications in child birth",
         "label_text_style": "bold",
@@ -2108,7 +2146,26 @@
           }
         }
       },
+      {
+        "key": "other_three_com",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_three_com",
+        "type": "edit_text",
+        "hint": "Specify ",
+        "edit_type": "name",
+        "v_required": {
+          "value": true,
+          "err": "Please specify complications"
+        },
+        "relevance": {
+          "step2:preg_three_complications": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
 
+        }
+      },
       {
         "key": "preg_four_label",
         "type": "label",
@@ -2340,6 +2397,61 @@
         }
       },
       {
+        "key": "preg_four_outcome",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preg_three_outcome",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "live",
+            "text": "Live birth"
+          },
+          {
+            "key": "still",
+            "text": "Still birth"
+          }
+        ],
+        "relevance":{
+          "step2:preg_four_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+      {
+        "key": "preg_four_outcome_early",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preg_four_outcome_early",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "abortion_miscarriage",
+            "text": "Abortion/Miscarriage"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "pregnancy_four_spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
         "key": "preg_four_sex_infant",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -2423,65 +2535,10 @@
         }
       },
       {
-        "key": "preg_four_outcome",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "preg_three_outcome",
-        "type": "native_radio",
-        "label": "Outcome",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "live",
-            "text": "Live birth"
-          },
-          {
-            "key": "still",
-            "text": "Still birth"
-          }
-        ],
-        "relevance":{
-          "step2:preg_four_gestational_age": {
-            "type": "string",
-            "ex": "greaterThan(., \"6\")"
-          }
-        }
-      },
-      {
-        "key": "preg_four_outcome_early",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "preg_four_outcome_early",
-        "type": "native_radio",
-        "label": "Outcome",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "abortion_miscarriage",
-            "text": "Abortion/Miscarriage"
-          }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "pregnancy_four_spacer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "spacer",
-        "type": "spacer",
-        "spacer_height": "10sp"
-      },
-      {
         "key": "preg_four_complications",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "complications",
+        "openmrs_entity_id": "preg_four_complications",
         "type": "native_radio",
         "label": "Any complications in child birth",
         "label_text_style": "bold",
@@ -2510,7 +2567,25 @@
           }
         }
       },
-
+      {
+        "key": "other_four_com",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_four_com",
+        "type": "edit_text",
+        "hint": "Specify ",
+        "edit_type": "name",
+        "v_required": {
+          "value": true,
+          "err": "Please specify complications"
+        },
+        "relevance": {
+          "step2:preg_four_complications": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+        }
+      },
       {
         "key": "preg_five_label",
         "type": "label",
@@ -2742,6 +2817,61 @@
         }
       },
       {
+        "key": "preg_five_outcome",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preg_three_outcome",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "live",
+            "text": "Live birth"
+          },
+          {
+            "key": "still",
+            "text": "Still birth"
+          }
+        ],
+        "relevance":{
+          "step2:preg_five_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+      {
+        "key": "preg_five_outcome_early",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preg_four_outcome_early",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "abortion_miscarriage",
+            "text": "Abortion/Miscarriage"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "pregnancy_five_spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
         "key": "preg_five_sex_infant",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -2825,65 +2955,10 @@
         }
       },
       {
-        "key": "preg_five_outcome",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "preg_three_outcome",
-        "type": "native_radio",
-        "label": "Outcome",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "live",
-            "text": "Live birth"
-          },
-          {
-            "key": "still",
-            "text": "Still birth"
-          }
-        ],
-        "relevance":{
-          "step2:preg_five_gestational_age": {
-            "type": "string",
-            "ex": "greaterThan(., \"6\")"
-          }
-        }
-      },
-      {
-        "key": "preg_five_outcome_early",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "preg_four_outcome_early",
-        "type": "native_radio",
-        "label": "Outcome",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "abortion_miscarriage",
-            "text": "Abortion/Miscarriage"
-          }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "pregnancy_five_spacer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "spacer",
-        "type": "spacer",
-        "spacer_height": "10sp"
-      },
-      {
         "key": "preg_five_complications",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "complications",
+        "openmrs_entity_id": "preg_five_complications",
         "type": "native_radio",
         "label": "Any complications in child birth",
         "label_text_style": "bold",
@@ -2912,8 +2987,25 @@
           }
         }
       },
-
-
+      {
+        "key": "other_five_com",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_five_com",
+        "type": "edit_text",
+        "hint": "Specify ",
+        "edit_type": "name",
+        "v_required": {
+          "value": true,
+          "err": "Please specify complications"
+        },
+        "relevance": {
+          "step2:preg_five_complications": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+        }
+      },
       {
         "key": "preg_six_label",
         "type": "label",
@@ -3145,6 +3237,61 @@
         }
       },
       {
+        "key": "preg_six_outcome",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preg_six_outcome",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "live",
+            "text": "Live birth"
+          },
+          {
+            "key": "still",
+            "text": "Still birth"
+          }
+        ],
+        "relevance":{
+          "step2:preg_six_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+      {
+        "key": "preg_six_outcome_early",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preg_four_outcome_early",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "abortion_miscarriage",
+            "text": "Abortion/Miscarriage"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "pregnancy_six_spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
         "key": "preg_six_sex_infant",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -3228,65 +3375,10 @@
         }
       },
       {
-        "key": "preg_six_outcome",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "preg_six_outcome",
-        "type": "native_radio",
-        "label": "Outcome",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "live",
-            "text": "Live birth"
-          },
-          {
-            "key": "still",
-            "text": "Still birth"
-          }
-        ],
-        "relevance":{
-          "step2:preg_six_gestational_age": {
-            "type": "string",
-            "ex": "greaterThan(., \"6\")"
-          }
-        }
-      },
-      {
-        "key": "preg_six_outcome_early",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "preg_four_outcome_early",
-        "type": "native_radio",
-        "label": "Outcome",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "abortion_miscarriage",
-            "text": "Abortion/Miscarriage"
-          }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "pregnancy_six_spacer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "spacer",
-        "type": "spacer",
-        "spacer_height": "10sp"
-      },
-      {
         "key": "preg_six_complications",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "complications",
+        "openmrs_entity_id": "preg_six_complications",
         "type": "native_radio",
         "label": "Any complications in child birth",
         "label_text_style": "bold",
@@ -3315,7 +3407,25 @@
           }
         }
       },
-
+      {
+        "key": "other_six_com",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_six_com",
+        "type": "edit_text",
+        "hint": "Specify ",
+        "edit_type": "name",
+        "v_required": {
+          "value": true,
+          "err": "Please specify complications"
+        },
+        "relevance": {
+          "step2:preg_six_complications": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+        }
+      },
       {
         "key": "preg_seven_label",
         "type": "label",
@@ -3547,6 +3657,61 @@
         }
       },
       {
+        "key": "preg_seven_outcome",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preg_six_outcome",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "live",
+            "text": "Live birth"
+          },
+          {
+            "key": "still",
+            "text": "Still birth"
+          }
+        ],
+        "relevance":{
+          "step2:preg_seven_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+      {
+        "key": "preg_seven_outcome_early",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preg_four_outcome_early",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "abortion_miscarriage",
+            "text": "Abortion/Miscarriage"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "pregnancy_seven_spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
         "key": "preg_seven_sex_infant",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -3630,65 +3795,10 @@
         }
       },
       {
-        "key": "preg_seven_outcome",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "preg_six_outcome",
-        "type": "native_radio",
-        "label": "Outcome",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "live",
-            "text": "Live birth"
-          },
-          {
-            "key": "still",
-            "text": "Still birth"
-          }
-        ],
-        "relevance":{
-          "step2:preg_seven_gestational_age": {
-            "type": "string",
-            "ex": "greaterThan(., \"6\")"
-          }
-        }
-      },
-      {
-        "key": "preg_seven_outcome_early",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "preg_four_outcome_early",
-        "type": "native_radio",
-        "label": "Outcome",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "abortion_miscarriage",
-            "text": "Abortion/Miscarriage"
-          }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "pregnancy_seven_spacer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "spacer",
-        "type": "spacer",
-        "spacer_height": "10sp"
-      },
-      {
         "key": "preg_seven_complications",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "complications",
+        "openmrs_entity_id": "preg_seven_complications",
         "type": "native_radio",
         "label": "Any complications in child birth",
         "label_text_style": "bold",
@@ -3717,7 +3827,25 @@
           }
         }
       },
-
+      {
+        "key": "other_seven_com",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_seven_com",
+        "type": "edit_text",
+        "hint": "Specify ",
+        "edit_type": "name",
+        "v_required": {
+          "value": true,
+          "err": "Please specify complications"
+        },
+        "relevance": {
+          "step2:preg_seven_complications": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+        }
+      },
       {
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -3969,6 +4097,61 @@
         }
       },
       {
+        "key": "preg_eight_outcome",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preg_six_outcome",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "live",
+            "text": "Live birth"
+          },
+          {
+            "key": "still",
+            "text": "Still birth"
+          }
+        ],
+        "relevance":{
+          "step2:preg_eight_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"7\")"
+          }
+        }
+      },
+      {
+        "key": "preg_eight_outcome_early",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preg_four_outcome_early",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "abortion_miscarriage",
+            "text": "Abortion/Miscarriage"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "pregnancy_eight_spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
         "key": "preg_eight_sex_infant",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -4052,65 +4235,10 @@
         }
       },
       {
-        "key": "preg_eight_outcome",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "preg_six_outcome",
-        "type": "native_radio",
-        "label": "Outcome",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "live",
-            "text": "Live birth"
-          },
-          {
-            "key": "still",
-            "text": "Still birth"
-          }
-        ],
-        "relevance":{
-          "step2:preg_eight_gestational_age": {
-            "type": "string",
-            "ex": "greaterThan(., \"7\")"
-          }
-        }
-      },
-      {
-        "key": "preg_eight_outcome_early",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "preg_four_outcome_early",
-        "type": "native_radio",
-        "label": "Outcome",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "abortion_miscarriage",
-            "text": "Abortion/Miscarriage"
-          }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "pregnancy_eight_spacer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "spacer",
-        "type": "spacer",
-        "spacer_height": "10sp"
-      },
-      {
         "key": "preg_eight_complications",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "complications",
+        "openmrs_entity_id": "preg_eight_complications",
         "type": "native_radio",
         "label": "Any complications in child birth",
         "label_text_style": "bold",
@@ -4139,7 +4267,25 @@
           }
         }
       },
-
+      {
+        "key": "other_eight_com",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_eight_com",
+        "type": "edit_text",
+        "hint": "Specify ",
+        "edit_type": "name",
+        "v_required": {
+          "value": true,
+          "err": "Please specify complications"
+        },
+        "relevance": {
+          "step2:preg_eight_complications": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+        }
+      },
       {
         "key": "preg_nine_label",
         "type": "label",
@@ -4371,6 +4517,61 @@
         }
       },
       {
+        "key": "preg_nine_outcome",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preg_six_outcome",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "live",
+            "text": "Live birth"
+          },
+          {
+            "key": "still",
+            "text": "Still birth"
+          }
+        ],
+        "relevance":{
+          "step2:preg_nine_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"7\")"
+          }
+        }
+      },
+      {
+        "key": "preg_nine_outcome_early",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preg_four_outcome_early",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "abortion_miscarriage",
+            "text": "Abortion/Miscarriage"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "pregnancy_nine_spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
         "key": "preg_nine_sex_infant",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -4454,67 +4655,10 @@
         }
       },
       {
-        "key": "preg_nine_outcome",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "preg_six_outcome",
-        "type": "native_radio",
-        "label": "Outcome",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "live",
-            "text": "Live birth"
-          },
-          {
-            "key": "still",
-            "text": "Still birth"
-          }
-        ],
-        "relevance":{
-          "step2:preg_nine_gestational_age": {
-            "type": "string",
-            "ex": "greaterThan(., \"7\")"
-          }
-        }
-      },
-      {
-        "key": "preg_nine_outcome_early",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "preg_four_outcome_early",
-        "type": "native_radio",
-        "label": "Outcome",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "abortion_miscarriage",
-            "text": "Abortion/Miscarriage"
-          }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "pregnancy_nine_spacer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "spacer",
-        "type": "spacer",
-        "spacer_height": "10sp"
-      },
-      {
         "key": "preg_nine_complications",
-
-
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "complications",
+        "openmrs_entity_id": "preg_nine_complications",
         "type": "native_radio",
         "label": "Any complications in child birth",
         "label_text_style": "bold",
@@ -4543,7 +4687,25 @@
           }
         }
       },
-
+      {
+        "key": "other_nine_com",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_nine_com",
+        "type": "edit_text",
+        "hint": "Specify ",
+        "edit_type": "name",
+        "v_required": {
+          "value": true,
+          "err": "Please specify complications"
+        },
+        "relevance": {
+          "step2:preg_nine_complications": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+        }
+      },
       {
         "key": "preg_ten_label",
         "type": "label",
@@ -4776,6 +4938,61 @@
         }
       },
       {
+        "key": "preg_ten_outcome",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preg_six_outcome",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "live",
+            "text": "Live birth"
+          },
+          {
+            "key": "still",
+            "text": "Still birth"
+          }
+        ],
+        "relevance":{
+          "step2:preg_ten_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"7\")"
+          }
+        }
+      },
+      {
+        "key": "preg_ten_outcome_early",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preg_four_outcome_early",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "abortion_miscarriage",
+            "text": "Abortion/Miscarriage"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "pregnancy_ten_spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
         "key": "preg_ten_sex_infant",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -4859,67 +5076,10 @@
         }
       },
       {
-        "key": "preg_ten_outcome",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "preg_six_outcome",
-        "type": "native_radio",
-        "label": "Outcome",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "live",
-            "text": "Live birth"
-          },
-          {
-            "key": "still",
-            "text": "Still birth"
-          }
-        ],
-        "relevance":{
-          "step2:preg_ten_gestational_age": {
-            "type": "string",
-            "ex": "greaterThan(., \"7\")"
-          }
-        }
-      },
-      {
-        "key": "preg_ten_outcome_early",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "preg_four_outcome_early",
-        "type": "native_radio",
-        "label": "Outcome",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "abortion_miscarriage",
-            "text": "Abortion/Miscarriage"
-          }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "pregnancy_ten_spacer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "spacer",
-        "type": "spacer",
-        "spacer_height": "10sp"
-      },
-      {
         "key": "preg_ten_complications",
-
-
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "complications",
+        "openmrs_entity_id": "preg_ten_complications",
         "type": "native_radio",
         "label": "Any complications in child birth",
         "label_text_style": "bold",
@@ -4948,7 +5108,25 @@
           }
         }
       },
-
+      {
+        "key": "other_ten_com",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_ten_com",
+        "type": "edit_text",
+        "hint": "Specify ",
+        "edit_type": "name",
+        "v_required": {
+          "value": true,
+          "err": "Please specify complications"
+        },
+        "relevance": {
+          "step2:preg_ten_complications": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+        }
+      },
       {
         "key": "preg_eleven_label",
         "type": "label",
@@ -5180,6 +5358,61 @@
         }
       },
       {
+        "key": "preg_eleven_outcome",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preg_six_outcome",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "live",
+            "text": "Live birth"
+          },
+          {
+            "key": "still",
+            "text": "Still birth"
+          }
+        ],
+        "relevance":{
+          "step2:preg_eleven_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"7\")"
+          }
+        }
+      },
+      {
+        "key": "preg_eleven_outcome_early",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preg_four_outcome_early",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "abortion_miscarriage",
+            "text": "Abortion/Miscarriage"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "preg_eleven_spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
         "key": "preg_eleven_sex_infant",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -5263,65 +5496,10 @@
         }
       },
       {
-        "key": "preg_eleven_outcome",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "preg_six_outcome",
-        "type": "native_radio",
-        "label": "Outcome",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "live",
-            "text": "Live birth"
-          },
-          {
-            "key": "still",
-            "text": "Still birth"
-          }
-        ],
-        "relevance":{
-          "step2:preg_eleven_gestational_age": {
-            "type": "string",
-            "ex": "greaterThan(., \"7\")"
-          }
-        }
-      },
-      {
-        "key": "preg_eleven_outcome_early",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "preg_four_outcome_early",
-        "type": "native_radio",
-        "label": "Outcome",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "abortion_miscarriage",
-            "text": "Abortion/Miscarriage"
-          }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "preg_eleven_spacer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "spacer",
-        "type": "spacer",
-        "spacer_height": "10sp"
-      },
-      {
         "key": "preg_eleven_complications",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "complications",
+        "openmrs_entity_id": "preg_eleven_complications",
         "type": "native_radio",
         "label": "Any complications in child birth",
         "label_text_style": "bold",
@@ -5350,7 +5528,25 @@
           }
         }
       },
-
+      {
+        "key": "other_eleven_com",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_eleven_com",
+        "type": "edit_text",
+        "hint": "Specify ",
+        "edit_type": "name",
+        "v_required": {
+          "value": true,
+          "err": "Please specify complications"
+        },
+        "relevance": {
+          "step2:preg_eleven_complications": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+        }
+      },
       {
         "key": "preg_twelve_label",
         "type": "label",
@@ -5582,6 +5778,61 @@
         }
       },
       {
+        "key": "preg_twelve_outcome",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preg_six_outcome",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "live",
+            "text": "Live birth"
+          },
+          {
+            "key": "still",
+            "text": "Still birth"
+          }
+        ],
+        "relevance":{
+          "step2:preg_twelve_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"7\")"
+          }
+        }
+      },
+      {
+        "key": "preg_twelve_outcome_early",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preg_four_outcome_early",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "abortion_miscarriage",
+            "text": "Abortion/Miscarriage"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "pregnancy_twelve_spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
         "key": "preg_twelve_sex_infant",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -5665,65 +5916,10 @@
         }
       },
       {
-        "key": "preg_twelve_outcome",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "preg_six_outcome",
-        "type": "native_radio",
-        "label": "Outcome",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "live",
-            "text": "Live birth"
-          },
-          {
-            "key": "still",
-            "text": "Still birth"
-          }
-        ],
-        "relevance":{
-          "step2:preg_twelve_gestational_age": {
-            "type": "string",
-            "ex": "greaterThan(., \"7\")"
-          }
-        }
-      },
-      {
-        "key": "preg_twelve_outcome_early",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "preg_four_outcome_early",
-        "type": "native_radio",
-        "label": "Outcome",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "abortion_miscarriage",
-            "text": "Abortion/Miscarriage"
-          }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "pregnancy_twelve_spacer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "spacer",
-        "type": "spacer",
-        "spacer_height": "10sp"
-      },
-      {
         "key": "preg_twelve_complications",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "complications",
+        "openmrs_entity_id": "preg_twelve_complications",
         "type": "native_radio",
         "label": "Any complications in child birth",
         "label_text_style": "bold",
@@ -5752,7 +5948,25 @@
           }
         }
       },
-
+      {
+        "key": "other_twelve_com",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_twelve_com",
+        "type": "edit_text",
+        "hint": "Specify ",
+        "edit_type": "name",
+        "v_required": {
+          "value": true,
+          "err": "Please specify complications"
+        },
+        "relevance": {
+          "step2:preg_twelve_complications": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+        }
+      },
       {
         "key": "preg_thirteen_label",
         "type": "label",
@@ -5984,6 +6198,61 @@
         }
       },
       {
+        "key": "preg_thirteen_outcome",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preg_six_outcome",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "live",
+            "text": "Live birth"
+          },
+          {
+            "key": "still",
+            "text": "Still birth"
+          }
+        ],
+        "relevance":{
+          "step2:preg_thirteen_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"7\")"
+          }
+        }
+      },
+      {
+        "key": "preg_thirteen_outcome_early",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preg_four_outcome_early",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "abortion_miscarriage",
+            "text": "Abortion/Miscarriage"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "pregnancy_thirteen_spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
         "key": "preg_thirteen_sex_infant",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -6067,65 +6336,10 @@
         }
       },
       {
-        "key": "preg_thirteen_outcome",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "preg_six_outcome",
-        "type": "native_radio",
-        "label": "Outcome",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "live",
-            "text": "Live birth"
-          },
-          {
-            "key": "still",
-            "text": "Still birth"
-          }
-        ],
-        "relevance":{
-          "step2:preg_thirteen_gestational_age": {
-            "type": "string",
-            "ex": "greaterThan(., \"7\")"
-          }
-        }
-      },
-      {
-        "key": "preg_thirteen_outcome_early",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "preg_four_outcome_early",
-        "type": "native_radio",
-        "label": "Outcome",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "abortion_miscarriage",
-            "text": "Abortion/Miscarriage"
-          }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "pregnancy_thirteen_spacer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "spacer",
-        "type": "spacer",
-        "spacer_height": "10sp"
-      },
-      {
         "key": "preg_thirteen_complications",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "complications",
+        "openmrs_entity_id": "preg_thirteen_complications",
         "type": "native_radio",
         "label": "Any complications in child birth",
         "label_text_style": "bold",
@@ -6151,6 +6365,25 @@
           "step2:preg_thirteen_gestational_age": {
             "type": "string",
             "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+      {
+        "key": "other_thirteen_com",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_thirteen_com",
+        "type": "edit_text",
+        "hint": "Specify ",
+        "edit_type": "name",
+        "v_required": {
+          "value": true,
+          "err": "Please specify complications"
+        },
+        "relevance": {
+          "step2:preg_thirteen_complications": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
           }
         }
       },
@@ -6385,6 +6618,61 @@
         }
       },
       {
+        "key": "preg_fourteen_outcome",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preg_six_outcome",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "live",
+            "text": "Live birth"
+          },
+          {
+            "key": "still",
+            "text": "Still birth"
+          }
+        ],
+        "relevance":{
+          "step2:preg_fourteen_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"7\")"
+          }
+        }
+      },
+      {
+        "key": "preg_fourteen_outcome_early",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preg_four_outcome_early",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "abortion_miscarriage",
+            "text": "Abortion/Miscarriage"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "pregnancy_fourteen_spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
         "key": "preg_fourteen_sex_infant",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -6468,65 +6756,10 @@
         }
       },
       {
-        "key": "preg_fourteen_outcome",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "preg_six_outcome",
-        "type": "native_radio",
-        "label": "Outcome",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "live",
-            "text": "Live birth"
-          },
-          {
-            "key": "still",
-            "text": "Still birth"
-          }
-        ],
-        "relevance":{
-          "step2:preg_fourteen_gestational_age": {
-            "type": "string",
-            "ex": "greaterThan(., \"7\")"
-          }
-        }
-      },
-      {
-        "key": "preg_fourteen_outcome_early",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "preg_four_outcome_early",
-        "type": "native_radio",
-        "label": "Outcome",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "abortion_miscarriage",
-            "text": "Abortion/Miscarriage"
-          }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "pregnancy_fourteen_spacer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "spacer",
-        "type": "spacer",
-        "spacer_height": "10sp"
-      },
-      {
         "key": "preg_fourteen_complications",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "complications",
+        "openmrs_entity_id": "preg_fourteen_complications",
         "type": "native_radio",
         "label": "Any complications in child birth",
         "label_text_style": "bold",
@@ -6552,6 +6785,25 @@
           "step2:preg_fourteen_gestational_age": {
             "type": "string",
             "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+      {
+        "key": "other_fourteen_com",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_fourteen_com",
+        "type": "edit_text",
+        "hint": "Specify ",
+        "edit_type": "name",
+        "v_required": {
+          "value": true,
+          "err": "Please specify complications"
+        },
+        "relevance": {
+          "step2:preg_fourteen_complications": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
           }
         }
       },
@@ -6786,6 +7038,61 @@
         }
       },
       {
+        "key": "preg_fifteen_outcome",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preg_six_outcome",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "live",
+            "text": "Live birth"
+          },
+          {
+            "key": "still",
+            "text": "Still birth"
+          }
+        ],
+        "relevance":{
+          "step2:preg_fifteen_gestational_age": {
+            "type": "string",
+            "ex": "greaterThan(., \"7\")"
+          }
+        }
+      },
+      {
+        "key": "preg_fifteen_outcome_early",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preg_four_outcome_early",
+        "type": "native_radio",
+        "label": "Outcome",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "abortion_miscarriage",
+            "text": "Abortion/Miscarriage"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "pregnancy_fifteen_spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
         "key": "preg_fifteen_sex_infant",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -6869,67 +7176,10 @@
         }
       },
       {
-        "key": "preg_fifteen_outcome",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "preg_six_outcome",
-        "type": "native_radio",
-        "label": "Outcome",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "live",
-            "text": "Live birth"
-          },
-          {
-            "key": "still",
-            "text": "Still birth"
-          }
-        ],
-        "relevance":{
-          "step2:preg_fifteen_gestational_age": {
-            "type": "string",
-            "ex": "greaterThan(., \"7\")"
-          }
-        }
-      },
-      {
-        "key": "preg_fifteen_outcome_early",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "preg_four_outcome_early",
-        "type": "native_radio",
-        "label": "Outcome",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "abortion_miscarriage",
-            "text": "Abortion/Miscarriage"
-          }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "pregnancy_fifteen_spacer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "spacer",
-        "type": "spacer",
-        "spacer_height": "10sp"
-      },
-      {
         "key": "preg_fifteen_complications",
-
-
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "complications",
+        "openmrs_entity_id": "preg_fifteen_complications",
         "type": "native_radio",
         "label": "Any complications in child birth",
         "label_text_style": "bold",
@@ -6955,6 +7205,25 @@
           "step2:preg_fifteen_gestational_age": {
             "type": "string",
             "ex": "greaterThan(., \"6\")"
+          }
+        }
+      },
+      {
+        "key": "other_fifteen_com",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_fifteen_com",
+        "type": "edit_text",
+        "hint": "Specify ",
+        "edit_type": "name",
+        "v_required": {
+          "value": true,
+          "err": "Please specify complications"
+        },
+        "relevance": {
+          "step2:preg_fifteen_complications": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
           }
         }
       },
