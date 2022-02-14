@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
 
 import org.apache.commons.lang3.StringUtils;
@@ -86,6 +87,7 @@ public class MeFragment extends org.smartregister.view.fragment.MeFragment imple
         presenter = new MePresenter(this);
     }
 
+    @VisibleForTesting
     @Override
     protected void onViewClicked(View view) {
         int viewId = view.getId();

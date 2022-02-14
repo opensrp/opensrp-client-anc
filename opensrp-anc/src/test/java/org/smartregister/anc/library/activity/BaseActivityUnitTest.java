@@ -69,7 +69,6 @@ public abstract class BaseActivityUnitTest extends BaseUnitTest {
         Mockito.when(configurableViewsLibrary.getConfigurableViewsHelper()).thenReturn(configurableViewsHelper);
 
         ReflectionHelpers.setStaticField(ConfigurableViewsLibrary.class, "instance", configurableViewsLibrary);
-        ConfigurableViewsHelper configurableViewsHelper = Mockito.mock(ConfigurableViewsHelper.class);
         Mockito.when(configurableViewsLibrary.getConfigurableViewsHelper()).thenReturn(configurableViewsHelper);
 
         DrishtiApplication drishtiApplication = Mockito.mock(DrishtiApplication.class);
