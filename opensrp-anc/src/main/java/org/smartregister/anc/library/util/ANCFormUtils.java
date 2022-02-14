@@ -122,7 +122,6 @@ public class ANCFormUtils extends FormUtils {
         JSONArray jsonArray = widget.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
 
         for (int i = 0; i < jsonArray.length(); i++) {
-
             JSONObject jsonObject = jsonArray.getJSONObject(i);
 
             if (widget.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(widget.getString(JsonFormConstants.VALUE)) &&
@@ -186,7 +185,7 @@ public class ANCFormUtils extends FormUtils {
         }
     }
 
-    private static JSONObject generateTranslatableValue(String value, JSONObject jsonObject) throws JSONException {
+    public static JSONObject generateTranslatableValue(String value, JSONObject jsonObject) throws JSONException {
         JSONObject newValue = new JSONObject();
         ANCFormUtils formUtils = new ANCFormUtils();
         if (jsonObject.has(JsonFormConstants.OPTIONS_FIELD_NAME)) {

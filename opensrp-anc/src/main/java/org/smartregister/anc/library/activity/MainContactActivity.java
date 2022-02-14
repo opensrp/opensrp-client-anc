@@ -169,7 +169,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             setRequiredFields(counsellingAndTreatment);
             counsellingAndTreatment.setFormName(ConstantsUtils.JsonFormUtils.ANC_COUNSELLING_TREATMENT);
             contacts.add(counsellingAndTreatment);
-
             contactAdapter.setContacts(contacts);
             contactAdapter.notifyDataSetChanged();
 

@@ -223,11 +223,22 @@ public class PreviousContactRepository extends BaseRepository {
         try {
             SQLiteDatabase db = getWritableDatabase();
             mCursor = getAllTests(baseEntityId, db);
-
+            Context context = AncLibrary.getInstance().getApplicationContext();
             if (mCursor != null) {
                 while (mCursor.moveToNext()) {
-                    previousContactsTestsFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)),
-                            mCursor.getString(mCursor.getColumnIndex(VALUE)));
+                    String value = Utils.getProperties(context).getProperty(ConstantsUtils.Properties.WIDGET_VALUE_TRANSLATED, "false");
+                    if (StringUtils.isNotBlank(value) && Boolean.parseBoolean(value)) {
+                        String jsonValue = mCursor.getString(mCursor.getColumnIndex(VALUE));
+                        if (jsonValue.charAt(0) == '{') {
+                            JSONObject valueObject = new JSONObject(jsonValue);
+                            previousContactsTestsFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), valueObject.optString(JsonFormConstants.TEXT, ""));
+                        } else {
+                            previousContactsTestsFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), jsonValue);
+                        }
+                    } else {
+                        previousContactsTestsFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)),
+                                mCursor.getString(mCursor.getColumnIndex(VALUE)));
+                    }
 
                 }
                 return previousContactsTestsFacts;
