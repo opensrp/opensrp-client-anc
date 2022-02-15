@@ -177,6 +177,19 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             profile.setFormName(ConstantsUtils.JsonFormUtils.ANC_PROFILE);
             contacts.add(profile);
 
+
+            Contact spaceone = new Contact();
+            spaceone.setName("spacer");
+            contacts.add(spaceone);
+
+
+            Contact spacetwo = new Contact();
+            spacetwo.setName("spacer2");
+            spacetwo.setBackground(R.color.spaceCone);
+            spacetwo.setActionBarBackground(R.color.spaceCone);
+            spacetwo.setNavigationBackground(R.color.spaceCone);
+            contacts.add(spacetwo);
+
             Contact tests = new Contact();
             tests.setName(getString(R.string.tests));
             tests.setContactNumber(contactNo);
