@@ -405,6 +405,13 @@ condition: "global_pop_anaemia_40 == false && (global_anaemic == '' || global_an
 actions:
   - "isRelevant = true"
 ---
+name: step9_calcium_supp
+description: calcium_supp
+priority: 1
+condition: "(global_hypertension == 1) || (global_pop_low_calcium == true)"
+actions:
+  - "isRelevant = true"
+---
 name: step10_deworm
 description: deworm
 priority: 1
@@ -521,13 +528,6 @@ name: step11_woman_immunised_flu_toaster
 description: woman_immunised_flu_toaster
 priority: 1
 condition: "step11_flu_date == 'done_earlier' || step11_flu_date == 'done_today' "
-actions:
-  - "isRelevant = true"
----
-name: step9_calcium_supp
-description: calcium_supp
-priority: 1
-condition: "global_pop_low_calcium == true "
 actions:
   - "isRelevant = true"
 ---
