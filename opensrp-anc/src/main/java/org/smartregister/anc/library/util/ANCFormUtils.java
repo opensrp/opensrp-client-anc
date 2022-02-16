@@ -160,13 +160,13 @@ public class ANCFormUtils extends FormUtils {
             widget.remove(getSecondaryKey(widget));
         }
         JSONArray jsonArray = widget.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+        Context context = AncLibrary.getInstance().getApplicationContext();
+        String value = Utils.getProperties(context).getProperty(ConstantsUtils.Properties.WIDGET_VALUE_TRANSLATED, "false");
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             if (jsonObject.has(JsonFormConstants.VALUE) && jsonObject.getBoolean(JsonFormConstants.VALUE)) {
-                Context context = AncLibrary.getInstance().getApplicationContext();
-                String value = Utils.getProperties(context).getProperty(ConstantsUtils.Properties.WIDGET_VALUE_TRANSLATED, "false");
                 if (StringUtils.isNotBlank(value) && Boolean.parseBoolean(value)) {
-                    keyList.add(generateTranslatableValue(jsonObject.getString(JsonFormConstants.KEY), jsonObject) + "");
+                    keyList.add(Utils.generateTranslatableValue(jsonObject.getString(JsonFormConstants.KEY), jsonObject) + "");
                 } else {
                     keyList.add(jsonObject.getString(JsonFormConstants.KEY));
                 }
@@ -174,7 +174,11 @@ public class ANCFormUtils extends FormUtils {
                         jsonObject.getJSONArray(JsonFormConstants.SECONDARY_VALUE).length() > 0) {
                     getRealSecondaryValue(jsonObject);
                 } else {
-                    valueList.add(jsonObject.getString(JsonFormConstants.TEXT));
+                    if (StringUtils.isNotBlank(value) && Boolean.parseBoolean(value)) {
+                        valueList.add(Utils.generateTranslatableValue(jsonObject.optString(JsonFormConstants.KEY, ""), jsonObject) + "");
+                    } else {
+                        valueList.add(jsonObject.optString(JsonFormConstants.TEXT, ""));
+                    }
                 }
             }
         }
@@ -185,20 +189,6 @@ public class ANCFormUtils extends FormUtils {
         }
     }
 
-    public static JSONObject generateTranslatableValue(String value, JSONObject jsonObject) throws JSONException {
-        JSONObject newValue = new JSONObject();
-        ANCFormUtils formUtils = new ANCFormUtils();
-        if (jsonObject.has(JsonFormConstants.OPTIONS_FIELD_NAME)) {
-            JSONArray options = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
-            JSONObject selectedOption = formUtils.getOptionFromOptionsUsingKey(options, value);
-            newValue.put(JsonFormConstants.VALUE, value);
-            newValue.put(JsonFormConstants.TEXT, selectedOption.optString(JsonFormConstants.TRANSLATION_TEXT, ""));
-            return newValue;
-        }
-        newValue.put(JsonFormConstants.VALUE, value);
-        newValue.put(JsonFormConstants.TEXT, jsonObject.optString(JsonFormConstants.TRANSLATION_TEXT, ""));
-        return newValue;
-    }
 
     public static void getRealSecondaryValue(JSONObject itemField) throws Exception {
         JSONArray secondaryValues = itemField.getJSONArray(JsonFormConstants.SECONDARY_VALUE);
@@ -322,13 +312,24 @@ public class ANCFormUtils extends FormUtils {
                     for (int i = 0; i < stepArray.length(); i++) {
                         JSONObject fieldObject = stepArray.getJSONObject(i);
                         processSpecialWidgets(fieldObject);
-
+                        Context context = AncLibrary.getInstance().getApplicationContext();
                         String fieldKey = getObjectKey(fieldObject);
                         //Do not add to facts values from expansion panels since they are processed separately
                         if (fieldKey != null && fieldObject.has(JsonFormConstants.VALUE) && fieldObject.has(JsonFormConstants.TYPE)
                                 && !JsonFormConstants.EXPANSION_PANEL.equals(fieldObject.getString(JsonFormConstants.TYPE))) {
+                            if (JsonFormConstants.CHECK_BOX.equals(fieldObject.optString(JsonFormConstants.TYPE, ""))) {
+                                String value = Utils.getProperties(context).getProperty(ConstantsUtils.Properties.WIDGET_VALUE_TRANSLATED, "false");
+                                if (StringUtils.isNotBlank(value) && Boolean.parseBoolean(value)) {
+                                    facts.put(fieldKey, Utils.generateTranslatableValue(fieldKey, fieldObject));
+                                } else {
+                                    facts.put(fieldKey, fieldObject.getString(JsonFormConstants.VALUE));
+                                }
 
-                            facts.put(fieldKey, fieldObject.getString(JsonFormConstants.VALUE));
+                            } else {
+                                facts.put(fieldKey, fieldObject.getString(JsonFormConstants.VALUE));
+                            }
+
+
                             processAbnormalValues(facts, fieldObject);
                             String secKey = getSecondaryKey(fieldObject);
 
