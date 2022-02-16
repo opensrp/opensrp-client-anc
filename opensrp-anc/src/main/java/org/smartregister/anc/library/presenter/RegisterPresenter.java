@@ -150,8 +150,8 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
 
     @Override
     public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId) {
-//30010-007-uuid/21
-        String smNumber = "30010007" + "/" +entityId +"/21";
+//30010-007-uuid/22
+        String smNumber = "30010007" + "/" +entityId +"/22";
         try {
             startForm(triple.getLeft(), smNumber, triple.getMiddle(), triple.getRight());
         } catch (Exception e) {
