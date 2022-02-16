@@ -230,3 +230,17 @@ priority: 1
 condition: "true"
 actions:
   - "calculation = step2_gravida + 1 "
+---
+name: step4_underimmunized_doses
+description: underimmunized_doses
+priority: 1
+condition: "!(global_tt1_date == 'not_done')"
+actions:
+  - "calculation = step4_underimmunized_doses + 1 "
+---
+name: step7_hiv_test_result
+description: hiv_test_result
+priority: 1
+condition: "(step3_health_conditions == 'hiv')"
+actions:
+  - "calculation = 'positive' "

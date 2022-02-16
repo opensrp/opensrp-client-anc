@@ -65,28 +65,28 @@ actions:
 name: step3_toaster17
 description: Hypertension diagnosis
 priority: 1
-condition: "step3_pulse_rate > 0 && (step3_pulse_rate < 60 || step3_pulse_rate > 99)"
+condition: "step3_pulse_rate > 0 && (step3_pulse_rate < 60 || step3_pulse_rate > 90)"
 actions:
   - "isRelevant = true"
 ---
 name: step3_pulse_rate_repeat
 description: Pulse rate measurement
 priority: 1
-condition: "((step3_pulse_rate > 0 && step3_pulse_rate < 60) || (step3_pulse_rate > 99)) "
+condition: "((step3_pulse_rate > 0 && step3_pulse_rate < 60) || (step3_pulse_rate > 90)) "
 actions:
   - "isRelevant = true"
 ---
 name: step3_pulse_rate_repeat_label
 description: Pulse rate measurement
 priority: 1
-condition: "((step3_pulse_rate > 0 && step3_pulse_rate < 60) || (step3_pulse_rate > 99))"
+condition: "((step3_pulse_rate > 0 && step3_pulse_rate < 60) || (step3_pulse_rate > 90))"
 actions:
   - "isRelevant = true"
 ---
 name: step3_toaster18
 description: Pulse rate measurement
 priority: 1
-condition: "step3_pulse_rate_repeat > 0 && (step3_pulse_rate_repeat < 60 || step3_pulse_rate_repeat > 99) "
+condition: "step3_pulse_rate_repeat > 0 && (step3_pulse_rate_repeat < 60 || step3_pulse_rate_repeat > 90) "
 actions:
   - "isRelevant = true"
 ---
@@ -474,7 +474,7 @@ actions:
 name: step3_high_pulse_rate_toaster
 description: high_pulse_rate_toaster
 priority: 1
-condition: "(step3_pulse_rate_repeat > 99)"
+condition: "(step3_pulse_rate_repeat > 90)"
 actions:
   - "isRelevant = true"
 

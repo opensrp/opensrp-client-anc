@@ -766,9 +766,10 @@
         "key": "cohabitants",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "cohabitants_home",
-        "label": "{{anc_register.step1.cohabitants.label}}",
-        "label_info_text": "{{anc_register.step1.cohabitants.label_info_text}}",
+        "openmrs_entity_id": "cohabitants",
+        "openmrs_data_type": "select multiple",
+        "label": "Co-habitants",
+        "label_info_text": "Who does the client live with? It is important to know whether client lives with parents, other family members, a partner, friends, etc.",
         "type": "check_box",
         "exclusive": [
           "no_one"
@@ -780,8 +781,8 @@
             "text_size": "18px",
             "value": "false",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "parents"
           },
           {
             "key": "siblings",
@@ -789,8 +790,8 @@
             "text_size": "18px",
             "value": "false",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "siblings"
           },
           {
             "key": "children",
@@ -798,8 +799,8 @@
             "text_size": "18px",
             "value": "false",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "children"
           },
           {
             "key": "extended_family",
@@ -807,8 +808,8 @@
             "text_size": "18px",
             "value": "false",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "extended_family"
           },
           {
             "key": "partner",
@@ -816,8 +817,8 @@
             "text_size": "18px",
             "value": "false",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "partner"
           },
           {
             "key": "friends",
@@ -825,8 +826,8 @@
             "text_size": "18px",
             "value": "false",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "friends"
           },
           {
             "key": "employee",
@@ -834,8 +835,8 @@
             "text_size": "18px",
             "value": "false",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "employee"
           },
           {
             "key": "no_one",
@@ -843,8 +844,8 @@
             "text_size": "18px",
             "value": "false",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no_one"
           }
         ]
       },

@@ -64,6 +64,7 @@
     "total_gravida",
     "lmp_known_date",
     "ultrasound_done",
+    "underimmunized_doses",
     "ultrasound_done_date",
     "ultrasound_gest_age_wks",
     "sfh_gest_age",
@@ -121,6 +122,7 @@
     "allergies",
     "allergies_other",
     "surgeries",
+    "underimmunized_doses",
     "surgeries_other_gyn_proced",
     "surgeries_other",
     "health_conditions",
@@ -146,7 +148,8 @@
   ],
   "global_previous": [
     "age",
-    "discordant"
+    "discordant",
+    "underimmunized_doses"
   ],
   "step1": {
     "title": "{{anc_profile.step2.title}}",

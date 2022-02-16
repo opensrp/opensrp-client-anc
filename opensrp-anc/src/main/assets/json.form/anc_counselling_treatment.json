@@ -4101,17 +4101,24 @@
         "options": [
           {
             "key": "done",
-            "text": "{{anc_counselling_treatment.step9.ifa_high_prev.options.done.text}}",
+            "text": "Given",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "not_done",
-            "text": "{{anc_counselling_treatment.step9.ifa_high_prev.options.not_done.text}}",
+            "text": "Not Given",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "alt_other",
+            "text": "Alternative (other)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "alt_other"
           }
         ],
         "v_required": {
@@ -4123,6 +4130,21 @@
             "ex-rules": {
               "rules-file": "ct_relevance_rules.yml"
             }
+          }
+        }
+      },
+      {
+        "key": "alt_other_text",
+        "openmrs_entity_parent": "165355AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "alt_other_text",
+        "type": "edit_text",
+        "hint": "{{anc_counselling_treatment.step9.ifa_high_prev_notdone_other.hint}}",
+        "edit_type": "name",
+        "relevance": {
+          "step9:ifa_high_prev": {
+            "type": "string",
+            "ex": "equalTo(., \"alt_other\")"
           }
         }
       },

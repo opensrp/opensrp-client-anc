@@ -42,7 +42,7 @@
             android:textStyle="bold"
             android:translationX="8dp"
             android:translationY="260dp"
-            android:visibility="visible"
+            android:visibility="gone"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="270dp" />
 
@@ -63,7 +63,7 @@
             android:textColor="@color/white"
             android:textSize="18dp"
             android:translationY="270dp"
-            android:visibility="visible"
+            android:visibility="gone"
             tools:layout_editor_absoluteY="10dp" />
 
         <LinearLayout
