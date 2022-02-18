@@ -1,6 +1,7 @@
 package org.smartregister.anc.library.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
@@ -389,15 +390,23 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     private void updateFormGlobalValues(JSONObject fieldObject) throws Exception {
         if (globalKeys.contains(fieldObject.getString(JsonFormConstants.KEY)) &&
                 fieldObject.has(JsonFormConstants.VALUE)) {
-            if (fieldObject.optString(JsonFormConstants.VALUE, "").charAt(0) == '{') {
-                JSONObject object = new JSONObject(fieldObject.optString(JsonFormConstants.VALUE));
-                formGlobalValues.put(fieldObject.getString(JsonFormConstants.KEY), object.optString(JsonFormConstants.TEXT, ""));
+            Context context = AncLibrary.getInstance().getApplicationContext();
+            String value = Utils.getProperties(context).getProperty(ConstantsUtils.Properties.WIDGET_VALUE_TRANSLATED, "false");
+            if (StringUtils.isNotBlank(value) && Boolean.parseBoolean(value)) {
+                String valueString = fieldObject.optString(JsonFormConstants.VALUE, "");
+                JSONArray jsonArray = new JSONArray(valueString);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.optJSONObject(i);
+                    formGlobalValues.put(fieldObject.getString(JsonFormConstants.KEY),
+                            jsonObject.optString(JsonFormConstants.TEXT, ""));
+                }
+
             } else {
                 formGlobalValues.put(fieldObject.getString(JsonFormConstants.KEY),
                         fieldObject.getString(JsonFormConstants.VALUE));//Normal value
             }
-            processAbnormalValues(formGlobalValues, fieldObject);
 
+            processAbnormalValues(formGlobalValues, fieldObject);
             String secKey = ANCFormUtils.getSecondaryKey(fieldObject);
             if (fieldObject.has(secKey)) {
                 formGlobalValues.put(secKey, fieldObject.getString(secKey));//Normal value secondary key
@@ -435,8 +444,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 .get(fieldObject.getString(ConstantsUtils.KeyUtils.KEY).replace(ConstantsUtils.SuffixUtils.OTHER, ConstantsUtils.SuffixUtils.VALUE)) !=
                 null) {
 
-            formGlobalValues
-                    .put(ANCFormUtils.getSecondaryKey(fieldObject), fieldObject.getString(JsonFormConstants.VALUE));
+            formGlobalValues.put(ANCFormUtils.getSecondaryKey(fieldObject), fieldObject.getString(JsonFormConstants.VALUE));
             processAbnormalValues(formGlobalValues, fieldObject);
         }
     }

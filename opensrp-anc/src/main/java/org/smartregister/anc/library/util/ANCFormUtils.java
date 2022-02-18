@@ -484,8 +484,7 @@ public class ANCFormUtils extends FormUtils {
         if (fieldKey.endsWith(ConstantsUtils.SuffixUtils.OTHER) && !fieldKeySecondary.isEmpty() &&
                 facts.get(fieldKeySecondary) != null && facts.get(fieldKeyOtherValue) != null) {
 
-            List<String> tempList =
-                    new ArrayList<>(Arrays.asList(facts.get(fieldKeySecondary).toString().split("\\s*,\\s*")));
+            List<String> tempList = new ArrayList<>(Arrays.asList(facts.get(fieldKeySecondary).toString().split("\\s*,\\s*")));
             tempList.remove(tempList.size() - 1);
             tempList.add(StringUtils.capitalize(facts.get(fieldKeyOtherValue).toString()));
             facts.put(fieldKeySecondary, getListValuesAsString(tempList));
