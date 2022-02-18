@@ -6,14 +6,8 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 
-import org.json.JSONObject;
-import org.smartregister.anc.library.R;
-import org.smartregister.anc.library.constants.AncFormConstants;
 import org.smartregister.anc.library.interactor.ANCJsonFormInteractor;
 import org.smartregister.anc.library.presenter.ANCJsonFormFragmentPresenter;
-import org.smartregister.util.JsonFormUtils;
-
-import timber.log.Timber;
 
 public class ANCRegisterFormFragment extends JsonFormFragment {
 

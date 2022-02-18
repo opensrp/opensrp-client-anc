@@ -4,7 +4,7 @@ package org.smartregister.anc.library.interactor;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 
-import org.smartregister.anc.library.view.ANCSpinnerFactory;
+import org.smartregister.anc.library.widget.ANCSpinnerFactory;
 
 
 public class ANCJsonFormInteractor extends JsonFormInteractor {

@@ -1,4 +1,4 @@
-package org.smartregister.anc.library.view;
+package org.smartregister.anc.library.widget;
 
 import static com.vijay.jsonwizard.constants.JsonFormConstants.FIELDS;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.HIDDEN;
@@ -14,15 +14,12 @@ import static org.smartregister.anc.library.constants.AncFormConstants.SpinnerKe
 import static org.smartregister.anc.library.constants.AncFormConstants.SpinnerKeyConstants.PROVINCE;
 import static org.smartregister.anc.library.constants.AncFormConstants.SpinnerKeyConstants.SUB_DISTRICT;
 import static org.smartregister.anc.library.constants.AncFormConstants.SpinnerKeyConstants.VILLAGE;
-import static org.smartregister.anc.library.util.ANCJsonFormUtils.ENCOUNTER_TYPE;
-import static org.smartregister.util.JsonFormUtils.getFieldValue;
 
 import android.content.Context;
 import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
-import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.CommonListener;
 import com.vijay.jsonwizard.widgets.SpinnerFactory;
@@ -48,7 +45,7 @@ import timber.log.Timber;
 
 public class ANCSpinnerFactory extends SpinnerFactory {
 
-    private final HashSet<String> locationSpinners = new HashSet<String>() {
+    public static final HashSet<String> locationSpinners = new HashSet<String>() {
         {
             add(PROVINCE);
             add(DISTRICT);
@@ -57,7 +54,8 @@ public class ANCSpinnerFactory extends SpinnerFactory {
             add(VILLAGE);
         }
     };
-    private final Map<String, List<String>> descendants = new HashMap<String, List<String>>() {
+
+    public static final Map<String, List<String>> descendants = new HashMap<String, List<String>>() {
         {
             put(PROVINCE, Arrays.asList(DISTRICT, SUB_DISTRICT, FACILITY, VILLAGE));
             put(DISTRICT, Arrays.asList(SUB_DISTRICT, FACILITY, VILLAGE));
@@ -66,6 +64,7 @@ public class ANCSpinnerFactory extends SpinnerFactory {
             put(VILLAGE, null);
         }
     };
+
     private final Map<String, String> parents = new HashMap<String, String>() {
         {
             put(DISTRICT, PROVINCE);
@@ -76,10 +75,6 @@ public class ANCSpinnerFactory extends SpinnerFactory {
     };
     private JsonFormFragment formFragment;
     private JsonFormActivity jsonFormView;
-
-    public ANCSpinnerFactory() {
-        super();
-    }
 
     @Override
     public void genericWidgetLayoutHookback(View view, JSONObject jsonObject, JsonFormFragment formFragment) {
@@ -104,7 +99,7 @@ public class ANCSpinnerFactory extends SpinnerFactory {
                     && jsonObject.has(ConstantsUtils.JsonFormKeyUtils.OPTIONS)
                     && jsonObject.getJSONArray(ConstantsUtils.JsonFormKeyUtils.OPTIONS).length() <= 0) {
 
-                String stepTitle = formFragment.getStep(JsonFormConstants.STEP1).get(STEP_TITLE).toString();
+                String stepTitle = formFragment.getStep(STEP1).get(STEP_TITLE).toString();
                 if (stepTitle.equals(ConstantsUtils.EventTypeUtils.REGISTRATION)
                         && StringUtils.endsWithIgnoreCase(jsonObject.getString(KEY), "province")) {
                     populateProvince(jsonObject);
@@ -148,27 +143,13 @@ public class ANCSpinnerFactory extends SpinnerFactory {
     private void populateLocationSpinner(JSONObject jsonObject, String parentLocationId, String spinnerKey,
                                          List<String> controlsToHide) {
         List<Location> locations = Utils.getLocationsByParentId(parentLocationId);
-        String selectedLocation = getCurrentLocation(spinnerKey);
+        String selectedLocation = Utils.getCurrentLocation(spinnerKey, jsonFormView);
 
         try {
             JSONArray spinnerOptions = jsonObject.getJSONArray("options");
 
             for (Location entry : locations) {
-                String id = entry.getProperties().getName().toLowerCase().trim()
-                        .replace(" ", "_")
-                        .replace("(", "")
-                        .replace(")", "")
-                        .replace("-", "_")
-                        .replace(":", "_")
-                        .replace("'", "")
-                        .replace("’", "_");
-
-                int identifier = formFragment.getResources().getIdentifier(id, "string",
-                        jsonFormView.getApplicationContext().getPackageName());
-                String locationName = entry.getProperties().getName();
-                if (identifier != 0) {
-                    locationName = jsonFormView.getResources().getString(identifier);
-                }
+                String locationName = Utils.getLocationLocalizedName(entry, jsonFormView);
 
                 JSONObject option = new JSONObject();
                 option.put(KEY, entry.getId());
@@ -176,13 +157,13 @@ public class ANCSpinnerFactory extends SpinnerFactory {
                 option.put(TEXT, locationName);
 
                 spinnerOptions.put(option);
-
                 jsonObject.put(VALUE, selectedLocation);
             }
 
             JSONObject field = JsonFormUtils.getFieldJSONObject(getFormStep().getJSONArray(FIELDS),
                     jsonObject.getString(KEY));
-            field.put(VALUE, selectedLocation);
+            if (field != null)
+                field.put(VALUE, selectedLocation);
         } catch (JSONException e) {
             Timber.e(e);
         }
@@ -192,8 +173,8 @@ public class ANCSpinnerFactory extends SpinnerFactory {
                 try {
                     JSONObject formField = JsonFormUtils.getFieldJSONObject(getFormStep().getJSONArray(FIELDS),
                             control);
-
-                    formField.put(HIDDEN, true);
+                    if (formField != null)
+                        formField.put(HIDDEN, true);
                 } catch (JSONException e) {
                     Timber.e(e);
                 }
@@ -205,59 +186,4 @@ public class ANCSpinnerFactory extends SpinnerFactory {
         return ((JsonFormFragment) formFragment).getStep(STEP1);
     }
 
-    private String getCurrentLocation(String level) {
-        String villageID = Utils.getAllSharedPreferences()
-                .fetchUserLocalityId(Utils.getAllSharedPreferences().fetchRegisteredANM());
-        String address = "";
-        String currentLocation = "";
-
-        try {
-            JSONObject form = jsonFormView.getmJSONObject();
-            if (form.getString(ENCOUNTER_TYPE)
-                    .equals(ConstantsUtils.EventTypeUtils.UPDATE_REGISTRATION)) {
-                String fieldValue = getFieldValue(form.getJSONObject(STEP1).getJSONArray(FIELDS),
-                        level);
-                if (fieldValue != null && !fieldValue.equals(""))
-                    return fieldValue;
-//                }
-            }
-
-            Location village = Utils.getLocationById(villageID);
-            String facilityID = village != null ? village.getProperties().getParentId() : "";
-            Location facility = Utils.getLocationById(facilityID);
-            Location subDistrict = Utils.getLocationById(facility != null ? facility.getProperties().getParentId() : "");
-            Location district = Utils.getLocationById(subDistrict != null ? subDistrict.getProperties().getParentId() : "");
-            Location province = Utils.getLocationById(district != null ? district.getProperties().getParentId() : "");
-            Location country = Utils.getLocationById(province != null ? province.getProperties().getParentId() : "");
-
-            switch (level.substring(level.lastIndexOf("_") + 1).toUpperCase()) {
-                case "COUNTRY":
-                    currentLocation = country != null ? country.getId() : "";
-                    break;
-                case "PROVINCE":
-                    currentLocation = province != null ? province.getId() : "";
-                    break;
-                case "DISTRICT":
-                    currentLocation = district != null ? district.getId() : "";
-                    break;
-                case "SUBDISTRICT":
-                    currentLocation = subDistrict != null ? subDistrict.getId() : "";
-                    break;
-                case "HEALTH_FACILITY":
-                case "FACILITY":
-                    currentLocation = facility != null ? facility.getId() : "";
-                    break;
-                case "VILLAGE":
-                default:
-                    currentLocation = village != null ? village.getId() : "";
-                    break;
-            }
-        } catch (JSONException e) {
-            Timber.e(e, "Error loading current location");
-        } catch (Exception e) {
-            Timber.e(e, e.getMessage());
-        }
-
-        return currentLocation;
-    }
 }

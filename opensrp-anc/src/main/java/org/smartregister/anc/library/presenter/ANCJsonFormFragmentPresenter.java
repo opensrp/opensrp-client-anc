@@ -10,6 +10,8 @@ import static org.smartregister.anc.library.constants.AncFormConstants.SpinnerKe
 import static org.smartregister.anc.library.constants.AncFormConstants.SpinnerKeyConstants.PROVINCE;
 import static org.smartregister.anc.library.constants.AncFormConstants.SpinnerKeyConstants.SUB_DISTRICT;
 import static org.smartregister.anc.library.constants.AncFormConstants.SpinnerKeyConstants.VILLAGE;
+import static org.smartregister.anc.library.widget.ANCSpinnerFactory.descendants;
+import static org.smartregister.anc.library.widget.ANCSpinnerFactory.locationSpinners;
 
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,7 +20,6 @@ import android.widget.ArrayAdapter;
 import androidx.core.util.Pair;
 
 import com.google.gson.Gson;
-import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.customviews.MaterialSpinner;
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
@@ -26,56 +27,23 @@ import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.CoreLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.AncRegistrationActivity;
 import org.smartregister.anc.library.fragment.ANCRegisterFormFragment;
-import org.smartregister.anc.library.util.ANCJsonFormUtils;
-import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.domain.Location;
 import org.smartregister.util.JsonFormUtils;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 
 import timber.log.Timber;
 
 public class ANCJsonFormFragmentPresenter extends JsonFormFragmentPresenter {
 
     public static final String TAG = ANCJsonFormFragmentPresenter.class.getName();
-    private final HashSet<String> locationSpinners = new HashSet<String>() {
-        {
-            add(PROVINCE);
-            add(DISTRICT);
-            add(SUB_DISTRICT);
-            add(FACILITY);
-            add(VILLAGE);
-        }
-    };
 
-    private final Map<String, String> children = new HashMap<String, String>() {{
-        put(PROVINCE, DISTRICT);
-        put(DISTRICT, SUB_DISTRICT);
-        put(SUB_DISTRICT, FACILITY);
-        put(FACILITY, VILLAGE);
-        put(VILLAGE, null);
-    }};
-
-    private final Map<String, List<String>> descendants = new HashMap<String, List<String>>() {
-        {
-            put(PROVINCE, Arrays.asList(DISTRICT, SUB_DISTRICT, FACILITY, VILLAGE));
-            put(DISTRICT, Arrays.asList(SUB_DISTRICT, FACILITY, VILLAGE));
-            put(SUB_DISTRICT, Arrays.asList(FACILITY, VILLAGE));
-            put(FACILITY, Arrays.asList(VILLAGE));
-            put(VILLAGE, null);
-        }
-    };
-    private AncRegistrationActivity jsonFormView;
-    private ANCRegisterFormFragment formFragment;
+    private final AncRegistrationActivity jsonFormView;
+    private final ANCRegisterFormFragment formFragment;
 
     public ANCJsonFormFragmentPresenter(ANCRegisterFormFragment formFragment, JsonFormInteractor jsonFormInteractor) {
         super(formFragment, jsonFormInteractor);
@@ -91,7 +59,7 @@ public class ANCJsonFormFragmentPresenter extends JsonFormFragmentPresenter {
         String isHumanAction = String.valueOf(parent.getTag(R.id.is_human_action));
 
         try {
-            if (locationSpinners.contains(key) && Boolean.valueOf(isHumanAction)) {
+            if (locationSpinners.contains(key) && Boolean.parseBoolean(isHumanAction)) {
 
                 JSONObject field = JsonFormUtils.getFieldJSONObject(formFragment.getStep(STEP1).getJSONArray(FIELDS), key);
                 String parentLocationId = field.getString(VALUE);
@@ -113,9 +81,9 @@ public class ANCJsonFormFragmentPresenter extends JsonFormFragmentPresenter {
 
     private void populateLocationSpinner(String parentLocationId, String spinnerKey, List<String> controlsToHide) {
         List<Location> locations = Utils.getLocationsByParentId(parentLocationId);
-        String selectedLocation = getCurrentLocation(spinnerKey);
+        String selectedLocation = Utils.getCurrentLocation(spinnerKey, jsonFormView);
 
-        MaterialSpinner spinner = (MaterialSpinner) jsonFormView.getFormDataView(JsonFormConstants.STEP1 + ":" + spinnerKey);
+        MaterialSpinner spinner = (MaterialSpinner) jsonFormView.getFormDataView(STEP1 + ":" + spinnerKey);
         if (spinner != null) {
             if (locations != null && !locations.isEmpty()) {
                 Pair<JSONArray, JSONArray> options = populateLocationOptions(locations);
@@ -131,7 +99,7 @@ public class ANCJsonFormFragmentPresenter extends JsonFormFragmentPresenter {
 
             if (controlsToHide != null && !controlsToHide.isEmpty()) {
                 for (String control : controlsToHide) {
-                    MaterialSpinner spinnerToHide = (MaterialSpinner) jsonFormView.getFormDataView(JsonFormConstants.STEP1 + ":" + control);
+                    MaterialSpinner spinnerToHide = (MaterialSpinner) jsonFormView.getFormDataView(STEP1 + ":" + control);
                     spinnerToHide.setVisibility(View.GONE);
                 }
             }
@@ -146,25 +114,12 @@ public class ANCJsonFormFragmentPresenter extends JsonFormFragmentPresenter {
         JSONArray codes = new JSONArray();
         JSONArray values = new JSONArray();
 
-        for (int i = 0; i < locations.size(); i++) {
-            codes.put(locations.get(i).getId());
+        for (Location location : locations) {
 
-            String id = locations.get(i).getProperties().getName().toLowerCase().trim()
-                    .replace(" ", "_")
-                    .replace("(", "")
-                    .replace(")", "")
-                    .replace("-", "_")
-                    .replace(":", "_")
-                    .replace("'", "")
-                    .replace("’", "_");
+            codes.put(location.getId());
+            String locationName = Utils.getLocationLocalizedName(location, jsonFormView);
 
-            int identifier = formFragment.getResources().getIdentifier(id, "string", jsonFormView.getApplicationContext().getPackageName());
-            String locationName = locations.get(i).getProperties().getName();
-            if (identifier != 0) {
-                locationName = jsonFormView.getResources().getString(identifier);
-            }
-
-            // values.put(locations.get(i).getProperties().getName());
+            // values.put(location.getProperties().getName());
             values.put(locationName);
         }
 
@@ -178,55 +133,4 @@ public class ANCJsonFormFragmentPresenter extends JsonFormFragmentPresenter {
         return new Pair<>(codes, values);
     }
 
-    private String getCurrentLocation(String level) {
-        String villageId = CoreLibrary.getInstance().context().allSharedPreferences().fetchUserLocalityId(CoreLibrary.getInstance().context().allSharedPreferences().fetchRegisteredANM());
-        String currentLocation = "";
-
-        try {
-            JSONObject form = jsonFormView.getmJSONObject();
-            if (form.getString(ANCJsonFormUtils.ENCOUNTER_TYPE).equals(ConstantsUtils.EventTypeUtils.UPDATE_REGISTRATION)) {
-                String fieldValue = JsonFormUtils.getFieldValue(form.getJSONObject(STEP1).getJSONArray(FIELDS), level);
-                if (fieldValue != null && !fieldValue.equals("")) return fieldValue;
-            }
-
-            Location village = Utils.getLocationById(villageId);
-            String facilityID = village != null ? village.getProperties().getParentId() : "";
-            Location facility = Utils.getLocationById(facilityID);
-            Location subDistrict = Utils.getLocationById(facility != null ? facility.getProperties().getParentId() : "");
-            Location district = Utils.getLocationById(subDistrict != null ? subDistrict.getProperties().getParentId() : "");
-            Location province = Utils.getLocationById(district != null ? district.getProperties().getParentId() : "");
-            Location country = Utils.getLocationById(province != null ? province.getProperties().getParentId() : "");
-
-            switch (level.substring(level.lastIndexOf("_") + 1).toUpperCase()) {
-                case "COUNTRY":
-                    currentLocation = country != null ? country.getId() : "";
-                    break;
-                case "PROVINCE":
-                    currentLocation = province != null ? province.getId() : "";
-                    break;
-                case "DISTRICT":
-                    currentLocation = district != null ? district.getId() : "";
-                    break;
-                case "SUBDISTRICT":
-                    currentLocation = subDistrict != null ? subDistrict.getId() : "";
-                    break;
-                case "HEALTH_FACILITY":
-                case "FACILITY":
-                    currentLocation = facility != null ? facility.getId() : "";
-                    break;
-                case "COMMUNE":
-                case "AREA":
-                case "VILLAGE":
-                default:
-                    currentLocation = village != null ? village.getId() : "";
-                    break;
-            }
-        } catch (JSONException e) {
-            Timber.e(e, "Error loading current location");
-        } catch (Exception e) {
-            Timber.e(e, e.getMessage());
-        }
-
-        return currentLocation;
-    }
 }
