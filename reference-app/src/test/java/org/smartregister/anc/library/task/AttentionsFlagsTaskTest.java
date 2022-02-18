@@ -18,7 +18,6 @@ import java.util.Map;
 
 @RunWith(RobolectricTestRunner.class)
 public class AttentionsFlagsTaskTest extends BaseUnitTest {
-    private static boolean called;
     private static BaseHomeRegisterActivity baseHomeRegisterActivity;
     private static CommonPersonObjectClient commonPersonObjectClient;
     private final List<AttentionFlag> attentionFlagList = new ArrayList<>();
@@ -27,8 +26,8 @@ public class AttentionsFlagsTaskTest extends BaseUnitTest {
 
     @Before
     public void setUp() {
-        called = false;
-        String name = "asynctask", caseId = "e34343-343434-67";
+        String name = "asynctask";
+        String caseId = "e34343-343434-67";
         baseHomeRegisterActivity = new BaseHomeRegisterActivity();
         commonPersonObjectClient = new CommonPersonObjectClient(caseId, details, name);
         attentionFlagsTask = new AttentionFlagsTask(baseHomeRegisterActivity, commonPersonObjectClient);
