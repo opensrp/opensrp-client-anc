@@ -3,6 +3,8 @@ package org.smartregister.anc.library.model;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.util.Pair;
 
+import com.vijay.jsonwizard.utils.FormUtils;
+
 import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.RegisterContract;
@@ -63,7 +65,7 @@ public class RegisterModel implements RegisterContract.Model {
     }
 
     @VisibleForTesting
-    protected com.vijay.jsonwizard.utils.FormUtils getFormUtils() {
-        return new com.vijay.jsonwizard.utils.FormUtils();
+    protected FormUtils getFormUtils() {
+        return new FormUtils();
     }
 }

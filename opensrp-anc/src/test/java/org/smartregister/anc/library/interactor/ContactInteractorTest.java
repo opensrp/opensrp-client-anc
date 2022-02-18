@@ -219,6 +219,7 @@ public class ContactInteractorTest extends BaseUnitTest {
     }
 
 
+
     @NotNull
     private Map<String, String> getStringStringMap(String firstName, String lastName) {
         Map<String, String> details = new HashMap<>();

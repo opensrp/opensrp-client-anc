@@ -8,35 +8,35 @@ import java.util.List;
 public class YamlConfig {
 
     private String group;
-    private String subGroup;
+    private String sub_group;
     private List<YamlConfigItem> fields;
-    private String testResults;
-    private String propertiesFileName;
+    private String test_results;
+    private String properties_file_name;
 
     public YamlConfig() {
     }
 
-    public YamlConfig(String group, String subGroup, List<YamlConfigItem> fields, String testResults) {
+    public YamlConfig(String group, String sub_group, List<YamlConfigItem> fields, String test_results) {
         this.group = group;
-        this.subGroup = subGroup;
+        this.sub_group = sub_group;
         this.fields = fields;
-        this.testResults = testResults;
+        this.test_results = test_results;
     }
 
-    public YamlConfig(String group, String subGroup, List<YamlConfigItem> fields, String testResults, String propertiesFileName) {
+    public YamlConfig(String group, String sub_group, List<YamlConfigItem> fields, String test_results, String properties_file_name) {
         this.group = group;
-        this.subGroup = subGroup;
+        this.sub_group = sub_group;
         this.fields = fields;
-        this.testResults = testResults;
-        this.propertiesFileName = propertiesFileName;
+        this.test_results = test_results;
+        this.properties_file_name = properties_file_name;
     }
 
     public String getSubGroup() {
-        return subGroup;
+        return sub_group;
     }
 
     public void setSubGroup(String sub_group) {
-        this.subGroup = sub_group;
+        this.sub_group = sub_group;
     }
 
     public String getGroup() {
@@ -56,19 +56,19 @@ public class YamlConfig {
     }
 
     public String getTestResults() {
-        return testResults;
+        return test_results;
     }
 
     public void setTestResults(String test_results) {
-        this.testResults = test_results;
+        this.test_results = test_results;
     }
 
     public String getPropertiesFileName() {
-        return propertiesFileName;
+        return properties_file_name;
     }
 
     public void setPropertiesFileName(String properties_file_name) {
-        this.propertiesFileName = properties_file_name;
+        this.properties_file_name = properties_file_name;
     }
 
     public static final class KeyUtils {
