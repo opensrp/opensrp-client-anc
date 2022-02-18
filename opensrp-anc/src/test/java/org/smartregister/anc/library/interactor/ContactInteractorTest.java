@@ -219,16 +219,6 @@ public class ContactInteractorTest extends BaseUnitTest {
     }
 
 
-    @Test
-    public void getPreviousContactFactsTest() {
-        Facts facts = new Facts();
-        String baseentityId = "eba7895b-96ad-4a35-8a69-27073428532a";
-        String contactNo = "1";
-        List<PreviousContactsSummaryModel> allContactsFacts = new ArrayList<>();
-        Mockito.doReturn(allContactsFacts).when(ancLibrary).getPreviousContactRepository().getPreviousContactsFacts(baseentityId);
-
-    }
-
     @NotNull
     private Map<String, String> getStringStringMap(String firstName, String lastName) {
         Map<String, String> details = new HashMap<>();
