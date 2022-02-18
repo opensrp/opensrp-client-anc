@@ -13,6 +13,8 @@ import org.smartregister.anc.library.repository.PreviousContactRepository;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.repository.ClientFormRepository;
 import org.smartregister.repository.EventClientRepository;
+import org.smartregister.repository.LocationRepository;
+import org.smartregister.repository.LocationTagRepository;
 import org.smartregister.repository.ManifestRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.repository.SettingsRepository;
@@ -50,6 +52,9 @@ public class AncRepository extends Repository {
         ContactTasksRepository.createTable(database);
         ClientFormRepository.createTable(database);
         ManifestRepository.createTable(database);
+
+        LocationRepository.createTable(database);
+        LocationTagRepository.createTable(database);
     }
 
     @Override

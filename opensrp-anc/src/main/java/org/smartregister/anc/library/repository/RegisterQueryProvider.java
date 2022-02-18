@@ -1,6 +1,7 @@
 package org.smartregister.anc.library.repository;
 
 import org.apache.commons.lang3.StringUtils;
+import org.smartregister.anc.library.constants.AncFormConstants;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
@@ -77,6 +78,9 @@ public class RegisterQueryProvider {
                 getDetailsTable() + "." + DBConstantsUtils.KeyUtils.NEXT_CONTACT, getDetailsTable() + "." + DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE,
                 getDetailsTable() + "." + DBConstantsUtils.KeyUtils.VISIT_START_DATE, getDetailsTable() + "." + DBConstantsUtils.KeyUtils.RED_FLAG_COUNT,
                 getDetailsTable() + "." + DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT, getDetailsTable() + "." + DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE,
-                getDetailsTable() + "." + DBConstantsUtils.KeyUtils.COHABITANTS, getDemographicTable() + "." + DBConstantsUtils.KeyUtils.RELATIONAL_ID};
+                getDetailsTable() + "." + DBConstantsUtils.KeyUtils.COHABITANTS, getDemographicTable() + "." + DBConstantsUtils.KeyUtils.RELATIONAL_ID,
+                getDetailsTable() + "." + AncFormConstants.SpinnerKeyConstants.PROVINCE, getDetailsTable() + "." + AncFormConstants.SpinnerKeyConstants.DISTRICT,
+                getDetailsTable() + "." + AncFormConstants.SpinnerKeyConstants.SUB_DISTRICT, getDetailsTable() + "." + AncFormConstants.SpinnerKeyConstants.FACILITY,
+                getDetailsTable() + "." + AncFormConstants.SpinnerKeyConstants.VILLAGE};
     }
 }

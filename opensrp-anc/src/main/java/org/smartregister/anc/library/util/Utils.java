@@ -64,6 +64,8 @@ import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.rule.AlertRule;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.domain.Location;
+import org.smartregister.domain.LocationTag;
 import org.smartregister.util.JsonFormUtils;
 import org.smartregister.view.activity.DrishtiApplication;
 
@@ -973,5 +975,17 @@ public class Utils extends org.smartregister.util.Utils {
 
     private final void addSubHeading(Document layoutDocument, String text) {
         layoutDocument.add((IBlockElement) ((Paragraph) (new Paragraph(text)).setBold()).setHorizontalAlignment(HorizontalAlignment.LEFT));
+    }
+
+    public static List<LocationTag> getLocationTagsByTagName(String tagName) {
+        return CoreLibrary.getInstance().context().getLocationTagRepository().getLocationTagsByTagName(tagName);
+    }
+
+    public static List<Location> getLocationsByParentId(String parentId) {
+        return CoreLibrary.getInstance().context().getLocationRepository().getLocationsByParentId(parentId);
+    }
+
+    public static Location getLocationById(String locationId) {
+        return CoreLibrary.getInstance().context().getLocationRepository().getLocationById(locationId);
     }
 }
