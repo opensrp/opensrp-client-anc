@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.mockito.Mockito;
+import org.robolectric.RuntimeEnvironment;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.anc.library.activity.BaseUnitTest;
@@ -19,11 +21,15 @@ public class LoginModelTest extends BaseUnitTest {
 
     private BaseLoginContract.Model model;
 
+
     @Before
     public void setUp() {
-        model = new BaseLoginModel();
 
-        CoreLibrary.init(Context.getInstance());
+        model = new BaseLoginModel();
+        Context context = Mockito.spy(Context.getInstance());
+        android.content.Context androidContext = RuntimeEnvironment.application;
+        context.updateApplicationContext(androidContext);
+        CoreLibrary.init(context);
     }
 
     // This test should not be here is requires too much mocking of internal states and AndroidKeyStore
