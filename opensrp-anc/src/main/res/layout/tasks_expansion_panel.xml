@@ -120,6 +120,15 @@
                 android:text="@string/record"
                 android:textAllCaps="true"
                 android:textColor="@color/dialog_button_blue_color" />
+
+            <Button
+                android:id="@+id/new_edit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:text="Edit"
+                android:textAllCaps="true"
+                android:textColor="@color/dialog_button_blue_color" />
         </LinearLayout>
 
     </LinearLayout>

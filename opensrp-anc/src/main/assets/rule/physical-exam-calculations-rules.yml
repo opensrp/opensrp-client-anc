@@ -13,6 +13,13 @@ condition: "(step2_current_weight > 0)"
 actions:
   - "calculation = (step2_current_weight/((step2_height/100)*(step2_height/100)))"
 ---
+name: step2_height
+description: set the height for each contact from the global height
+priority: 1
+condition: "(global_height > 100)"
+actions:
+  - "calculation = global_height"
+---
 name: step2_weight_cat
 description: weight cat tingz
 priority: 1

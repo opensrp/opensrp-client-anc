@@ -96,7 +96,10 @@
     "alcohol_substance_enquiry",
     "alcohol_substance_use",
     "other_substance_use",
-    "partner_hiv_status"
+    "partner_hiv_status",
+    "ttcv_unprotected",
+    "ttcv_protected",
+    "ttcv_full_protected"
   ],
   "default_values": [
     "discordant",
@@ -144,12 +147,18 @@
     "ultrasound_gest_age_selection",
     "sfh_gest_age_selection",
     "lmp_ultrasound_gest_age_selection",
-    "sfh_ultrasound_gest_age_selection"
+    "sfh_ultrasound_gest_age_selection",
+    "ttcv_unprotected",
+    "ttcv_protected",
+    "ttcv_full_protected"
   ],
   "global_previous": [
     "age",
     "discordant",
-    "underimmunized_doses"
+    "underimmunized_doses",
+    "ttcv_unprotected",
+    "ttcv_protected",
+    "ttcv_full_protected"
   ],
   "step1": {
     "title": "{{anc_profile.step2.title}}",
@@ -8337,6 +8346,63 @@
                 ]
               }
             ]
+          }
+        }
+      },
+      {
+        "key": "ttcv_unprotected",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ttcv_unprotected",
+        "type": "edit_text",
+        "edit_type": "name",
+        "value": "Unprotected",
+        "hint": "Unprotected",
+        "type": "hidden",
+        "relevance": {
+          "step4:underimmunized_doses": {
+            "type": "numeric",
+            "ex": "lessThan(.,\"2\")"
+          }
+        }
+      },
+      {
+        "key": "ttcv_protected",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ttcv_protected",
+        "type": "edit_text",
+        "edit_type": "name",
+        "value": "Protected",
+        "hint": "Protected",
+        "type": "hidden",
+        "relevance": {
+          "step4:underimmunized_doses": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"1\")"
+          }
+        }
+      },
+      {
+        "key": "ttcv_full_protected",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ttcv_full_protected",
+        "type": "edit_text",
+        "edit_type": "name",
+        "value": "Fully Protected",
+        "hint": "Fully Protected",
+        "type": "hidden",
+        "relevance": {
+          "step4:underimmunized_doses": {
+            "type": "numeric",
+            "ex": "greaterThan(.,\"1\")"
+          }
+        },
+        "relevance": {
+          "step4:tt_immun_status": {
+            "type": "string",
+            "ex": "equalTo(., \"3_doses\")"
           }
         }
       },

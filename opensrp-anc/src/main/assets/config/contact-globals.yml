@@ -89,6 +89,8 @@ fields:
   - "tt_immun_status_value"
   - "flu_immun_status"
   - "flu_immun_status_value"
+  - "underimmunized_doses"
+  - "underimmunized_doses_value"
   - "prev_preg_comps"
   - "other_symptoms"
   - "gravida"
@@ -117,6 +119,9 @@ fields:
   - "flu_date"
   - "flu_date_value"
   - "ipv_subject"
+  - "ttcv_unprotected"
+  - "ttcv_protected"
+  - "ttcv_full_protected"
 ---
 form: anc_profile
 fields:
@@ -127,6 +132,8 @@ fields:
   - "urine_glucose"
   - "gdm"
   - "dm_in_preg"
+  - "underimmunized_doses"
+  - "underimmunized_doses_value"
   - "hiv_test_result"
   - "hiv_positive"
   - "hiv_test_partner_result"
@@ -136,6 +143,9 @@ fields:
   - "occupation_value"
   - "discordant"
   - "lmp_known_date"
+  - "ttcv_unprotected"
+  - "ttcv_protected"
+  - "ttcv_full_protected"
 ---
 form: anc_physical_exam
 fields:

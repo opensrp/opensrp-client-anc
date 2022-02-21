@@ -85,7 +85,7 @@
         "text": "{{anc_test.step1.accordion_blood_type.text}}",
         "type": "expansion_panel",
         "content_form": "tests_blood_type_sub_form",
-        "container": "anc_test"
+        "container": "test"
       },
       {
         "key": "accordion_hiv",
@@ -97,7 +97,7 @@
         "accordion_info_title": "{{anc_test.step2.accordion_hiv.accordion_info_title}}",
         "type": "expansion_panel",
         "content_form": "tests_hiv_sub_form",
-        "container": "anc_test",
+        "container": "test",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -118,7 +118,7 @@
         "text": "{{anc_test.step2.accordion_partner_hiv.text}}",
         "type": "expansion_panel",
         "content_form": "tests_partner_hiv_sub_form",
-        "container": "anc_test"
+        "container": "test"
       },
       {
         "key": "partner_accordion_hepatitis_b",
@@ -130,7 +130,7 @@
         "accordion_info_title": "Partner Hepatitis B test",
         "type": "expansion_panel",
         "content_form": "partner_tests_hepatitis_b_sub_form",
-        "container": "anc_test"
+        "container": "test"
       },
       {
         "key": "accordion_hepatitis_b",
@@ -142,7 +142,7 @@
         "accordion_info_title": "{{anc_test.step1.accordion_hepatitis_b.accordion_info_title}}",
         "type": "expansion_panel",
         "content_form": "tests_hepatitis_b_sub_form",
-        "container": "anc_test",
+        "container": "test",
         "v_required": {
           "value": "true",
           "err": "Please test for Hepatitis B"
@@ -159,7 +159,7 @@
         "accordion_info_title": "{{anc_test.step1.accordion_tb_screening.accordion_info_title}}",
         "type": "expansion_panel",
         "content_form": "tests_tb_screening_sub_form",
-        "container": "anc_test"
+        "container": "test"
       },
       {
         "key": "accordion_hepatitis_c",
@@ -171,7 +171,7 @@
         "accordion_info_title": "{{anc_test.step1.accordion_hepatitis_c.accordion_info_title}}",
         "type": "expansion_panel",
         "content_form": "tests_hepatitis_c_sub_form",
-        "container": "anc_test",
+        "container": "test",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -190,7 +190,7 @@
         "accordion_info_title": "{{anc_test.step1.accordion_syphilis.accordion_info_title}}",
         "type": "expansion_panel",
         "content_form": "tests_syphilis_sub_form",
-        "container": "anc_test",
+        "container": "test",
         "v_required": {
           "value": "true",
           "err": "Please test for Syphilis"
@@ -206,7 +206,7 @@
         "accordion_info_title": "Partner Syphilis test",
         "type": "expansion_panel",
         "content_form": "partner_tests_syphilis_sub_form",
-        "container": "anc_test"
+        "container": "test"
       },
       {
         "key": "accordion_urine",
@@ -218,7 +218,7 @@
         "accordion_info_title": "{{anc_test.step1.accordion_urine.accordion_info_title}}",
         "type": "expansion_panel",
         "content_form": "tests_urine_sub_form",
-        "container": "anc_test",
+        "container": "test",
         "v_required": {
           "value": "true",
           "err": "Please test Urine"
@@ -234,7 +234,7 @@
         "accordion_info_title": "{{anc_test.step1.accordion_blood_haemoglobin.accordion_info_title}}",
         "type": "expansion_panel",
         "content_form": "tests_blood_haemoglobin_sub_form",
-        "container": "anc_test",
+        "container": "test",
         "v_required": {
           "value": "true",
           "err": "Please test for haemoglobin"
@@ -249,7 +249,7 @@
         "type": "expansion_panel",
         "display_bottom_section": true,
         "content_form": "tests_blood_glucose_sub_form",
-        "container": "anc_test"
+        "container": "test"
       }
     ]
   },
@@ -266,7 +266,7 @@
         "accordion_info_title": "{{anc_test.step1.accordion_ultrasound.accordion_info_title}}",
         "type": "expansion_panel",
         "content_form": "tests_ultrasound_sub_form",
-        "container": "anc_test"
+        "container": "test"
 
       },
       {
@@ -279,7 +279,7 @@
         "accordion_info_title": "{{anc_test.step1.accordion_tb_imaging.accordion_info_title}}",
         "type": "expansion_panel",
         "content_form": "tests_tb_imaging_sub_form",
-        "container": "anc_test"
+        "container": "test"
       },
       {
         "key": "accordion_imaging",
@@ -291,7 +291,7 @@
         "accordion_info_title": "{{anc_test.step2.accordion_tb_screening.accordion_info_title}}",
         "type": "expansion_panel",
         "content_form": "tests_tb_screening_sub_form",
-        "container": "anc_test",
+        "container": "test",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -311,7 +311,7 @@
         "type": "expansion_panel",
         "display_bottom_section": true,
         "content_form": "tests_other_tests_sub_form",
-        "container": "anc_test"
+        "container": "test"
       }
     ]
   },
