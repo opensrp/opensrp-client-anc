@@ -30,7 +30,6 @@ import org.smartregister.anc.repository.AncRepository;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.location.helper.LocationHelper;
-import org.smartregister.receiver.P2pProcessingStatusBroadcastReceiver;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.Repository;
 import org.smartregister.sync.ClientProcessorForJava;
@@ -44,9 +43,8 @@ import timber.log.Timber;
 /**
  * Created by ndegwamartin on 21/06/2018.
  */
-public class AncApplication extends DrishtiApplication implements TimeChangedBroadcastReceiver.OnTimeChangedListener, P2pProcessingStatusBroadcastReceiver.StatusUpdate {
+public class AncApplication extends DrishtiApplication implements TimeChangedBroadcastReceiver.OnTimeChangedListener {
     private static CommonFtsObject commonFtsObject;
-    private P2pProcessingStatusBroadcastReceiver p2pProcessingStatusBroadcastReceiver;
 
     @Override
     public void onCreate() {
@@ -87,8 +85,6 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
                 .getInstance()
                 .setClientFormDao(CoreLibrary.getInstance().context().getClientFormRepository());
 
-        if (p2pProcessingStatusBroadcastReceiver == null)
-            p2pProcessingStatusBroadcastReceiver = new P2pProcessingStatusBroadcastReceiver(this);
     }
 
     private void setDefaultLanguage() {
@@ -208,10 +204,5 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         Utils.showToast(this, this.getString(org.smartregister.anc.library.R.string.device_timezone_changed));
         context.userService().getAllSharedPreferences().saveForceRemoteLogin(true, context.allSharedPreferences().fetchRegisteredANM());
         logoutCurrentUser();
-    }
-
-    @Override
-    public void onStatusUpdate(boolean b) {
-        Timber.i(this.getClass().getSimpleName(), "onStatusUpdate() by P2P");
     }
 }
