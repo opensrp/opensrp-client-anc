@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import timber.log.Timber;
 
@@ -165,7 +166,11 @@ public class ANCFormUtils extends FormUtils {
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             if (jsonObject.has(JsonFormConstants.VALUE) && jsonObject.getBoolean(JsonFormConstants.VALUE)) {
-                keyList.add(jsonObject.getString(JsonFormConstants.KEY));
+                if (StringUtils.isNotBlank(value) && Boolean.parseBoolean(value)) {
+                    keyList.add(Utils.generateTranslatableValue(jsonObject.getString(JsonFormConstants.KEY), jsonObject) + "");
+                } else {
+                    keyList.add(jsonObject.getString(JsonFormConstants.KEY));
+                }
                 if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) &&
                         jsonObject.getJSONArray(JsonFormConstants.SECONDARY_VALUE).length() > 0) {
                     getRealSecondaryValue(jsonObject);
@@ -505,8 +510,14 @@ public class ANCFormUtils extends FormUtils {
 
     public static String keyToValueConverter(String keys) {
         if (keys != null) {
-            String cleanKey = WordUtils.capitalizeFully(cleanValue(keys), ',');
-            if (!TextUtils.isEmpty(keys)) {
+            String cleanKey = "";
+            if (!cleanValue(keys).contains(".") || !cleanValue(keys).contains("text")) {
+                cleanKey = WordUtils.capitalizeFully(cleanValue(keys), ',');
+            } else {
+                cleanKey = cleanValue(keys);
+            }
+
+            if (!TextUtils.isEmpty(keys) && keys.contains("_") && !keys.contains(".")) {
                 return cleanKey.replaceAll("_", " ");
             } else {
                 return cleanKey;
@@ -516,13 +527,79 @@ public class ANCFormUtils extends FormUtils {
         }
     }
 
-    public static String cleanValue(String raw) {
-        if (raw.length() > 0 && raw.charAt(0) == '[') {
-            return raw.substring(1, raw.length() - 1);
-        } else {
-            return raw;
+//    public static String cleanValue(String raw) {
+//        String rawString = "";
+//        if (raw.length() > 0 && raw.charAt(0) == '[') {
+//            rawString = raw.substring(1, raw.length() - 1);
+//        } else {
+//            try {
+//                if (raw.length() > 0 && raw.charAt(0) == '{' && raw.contains(",")) {
+//                    String[] list = raw.split(",");
+//                    for (String value : list) {
+//                        if (value.charAt(0) == '{') {
+//                            JSONObject object = new JSONObject(value);
+//                            String finalOutputString = object.optString(JsonFormConstants.TEXT, "");
+//                            if (!finalOutputString.isEmpty()) {
+//                                List<String> strings = new ArrayList<>();
+//                                strings.add(finalOutputString);
+//                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                                    rawString = strings.stream().collect(Collectors.joining(","));
+//                                }
+//                            }
+//                        }
+//                    }
+//                } else {
+//                    rawString = raw;
+//                }
+//
+//            } catch (Exception e) {
+//                return rawString;
+//            }
+//        }
+//        return rawString;
+//    }
+
+    private static String cleanValue(String value) {
+        String rawString = "";
+        try {
+            if (value.trim().length() > 0 && value.trim().charAt(0) == '[') {
+                for (String jsonString : value.substring(1, value.length() - 1).split(",")) {
+                    if (jsonString.charAt(0) == '{') {
+                        JSONObject object = new JSONObject(jsonString);
+                        if (!object.optString(JsonFormConstants.TEXT, "").trim().isEmpty()) {
+                            List<String> list = Arrays.asList(object.optString(JsonFormConstants.TEXT, ""));
+                            rawString = list.stream().collect(Collectors.joining(","));
+                        }
+
+                    } else {
+                        List<String> list = Arrays.asList(jsonString);
+                        list.add(jsonString);
+                        rawString = list.stream().collect(Collectors.joining(","));
+                    }
+                }
+            } else {
+                if (value.length() > 0 && value.charAt(0) == '{' && value.contains(",") && value.charAt(value.length() - 1) == '}') {
+                    JSONArray jsonArrayString = new JSONArray("[" + value + "]");
+                    for (int i = 0; i < jsonArrayString.length(); i++) {
+                        JSONObject object = jsonArrayString.optJSONObject(i);
+                        String finalOutputString = object.optString(JsonFormConstants.TEXT, "");
+                        if (!finalOutputString.isEmpty()) {
+                            List<String> rawList = new ArrayList<>();
+                            rawList.add(finalOutputString);
+                            rawString = rawList.stream().collect(Collectors.joining(","));
+
+                        }
+                    }
+                } else {
+                    rawString = value;
+                }
+            }
+        } catch (Exception e) {
+            return rawString;
         }
+        return rawString;
     }
+
 
     /**
      * Filters checkbox values based on specified list

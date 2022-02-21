@@ -365,6 +365,7 @@ public class Utils extends org.smartregister.util.Utils {
         List<String> nonEmptyItems = new ArrayList<>();
         for (String item : result.split(",")) {
             if (item.length() > 0 && StringUtils.isNotBlank(item)) {
+                //Adding array items
                 nonEmptyItems.add(item);
             }
         }
