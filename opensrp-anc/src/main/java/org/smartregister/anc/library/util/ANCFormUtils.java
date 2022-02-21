@@ -165,20 +165,17 @@ public class ANCFormUtils extends FormUtils {
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             if (jsonObject.has(JsonFormConstants.VALUE) && jsonObject.getBoolean(JsonFormConstants.VALUE)) {
-                if (StringUtils.isNotBlank(value) && Boolean.parseBoolean(value)) {
-                    keyList.add(Utils.generateTranslatableValue(jsonObject.getString(JsonFormConstants.KEY), jsonObject) + "");
-                } else {
-                    keyList.add(jsonObject.getString(JsonFormConstants.KEY));
-                }
+                keyList.add(jsonObject.getString(JsonFormConstants.KEY));
                 if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) &&
                         jsonObject.getJSONArray(JsonFormConstants.SECONDARY_VALUE).length() > 0) {
                     getRealSecondaryValue(jsonObject);
                 } else {
                     if (StringUtils.isNotBlank(value) && Boolean.parseBoolean(value)) {
-                        valueList.add(Utils.generateTranslatableValue(jsonObject.optString(JsonFormConstants.KEY, ""), jsonObject) + "");
+                        valueList.add(jsonObject.optString(JsonFormConstants.TRANSLATION_TEXT, ""));
                     } else {
                         valueList.add(jsonObject.optString(JsonFormConstants.TEXT, ""));
                     }
+
                 }
             }
         }
