@@ -77,33 +77,6 @@ fields:
     relevance: "hbsag_dbs != ''"
 
 ---
-sub_group: hepatitis_c_test_results
-fields:
-  - template: "{{profile_contact_test.hepatitis_c_test.hepatitis_c_test_status}}: {hepc_test_status}"
-    relevance: "hepc_test_status != ''"
-
-  - template: "{{profile_contact_test.hepatitis_c_test.hepatitis_c_test_done_date}}: {hepc_test_date}"
-    relevance: "hepc_test_date != ''"
-
-  - template: "{{profile_contact_test.hepatitis_c_test.hepatitis_c_test_not_done_reason}}: {hepc_test_notdone}"
-    relevance: "hepc_test_notdone != ''"
-
-  - template: "{{profile_contact_test.hepatitis_c_test.hepatitis_c_test_not_done_other_reason}}: {hepc_test_notdone_other}"
-    relevance: "hepc_test_notdone_other != ''"
-
-  - template: "{{profile_contact_test.hepatitis_c_test.hepatitis_c_test_type}}: {hepc_test_type}"
-    relevance: "hepc_test_type != ''"
-
-  - template: "{{profile_contact_test.hepatitis_c_test.anti_hcv_laboratory_based_immunoassay_result}}: {hcv_lab_ima}"
-    relevance: "hcv_lab_ima != ''"
-
-  - template: "{{profile_contact_test.hepatitis_c_test.anti_hcv_rapid_diagnostic_test_rdt_result}}: {hcv_rdt}"
-    relevance: "hcv_rdt != ''"
-
-  - template: "{{profile_contact_test.hepatitis_c_test.dried_blood_spot_dbs_anti_hcv_test_result}}: {hcv_dbs}"
-    relevance: "hcv_dbs != ''"
-
----
 sub_group: syphilis_test_results
 fields:
   - template: "{{profile_contact_test.syphilis_test.syphilis_test_status}}: {syph_test_status}"

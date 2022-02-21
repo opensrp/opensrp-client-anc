@@ -50,6 +50,19 @@ fields:
 test_results: "['hiv_test_result:hiv_test_date:Hiv tests results']"
 
 ---
+sub_group: partner_hiv_test_results
+fields:
+  - template: "{{profile_contact_test.partner_hiv_test.partner_hiv_test_status}}: {hiv_test_partner_status}"
+    relevance: "hiv_test_partner_status != '' && helper.compareDateAgainstContactDate(hiv_test_partner_date, contact_date)"
+
+  - template: "{{profile_contact_test.partner_hiv_test.partner_hiv_test_done_date}}: {hiv_test_partner_date}"
+    relevance: "hiv_test_partner_date != '' && helper.compareDateAgainstContactDate(hiv_test_partner_date, contact_date)"
+
+  - template: "{{profile_contact_test.partner_hiv_test.partner_hiv_test_result}}: {hiv_test_partner_result}"
+    relevance: "hiv_test_partner_result != '' && helper.compareDateAgainstContactDate(hiv_test_partner_date, contact_date)"
+test_results: "['hiv_test_partner_result:Partner HIV tests results']"
+
+---
 sub_group: hepatitis_b_test_results
 fields:
   - template: "{{profile_contact_test.hepatitis_b_test.hepatitis_b_test_status}}: {hepb_test_status}"
@@ -77,31 +90,31 @@ fields:
     relevance: "hbsag_dbs != '' && helper.compareDateAgainstContactDate(hepb_test_date, contact_date)"
 
 ---
-sub_group: hepatitis_c_test_results
+sub_group: partner_hepatitis_b_test_results
 fields:
-  - template: "{{profile_contact_test.hepatitis_c_test.hepatitis_c_test_status}}: {hepc_test_status}"
-    relevance: "hepc_test_status != '' && helper.compareDateAgainstContactDate(hepc_test_date, contact_date)"
+  - template: "{{profile_contact_test.hepatitis_b_test.hepatitis_b_test_status}}: {hepb_test_status}"
+    relevance: "hepb_test_status != '' && helper.compareDateAgainstContactDate(hepb_test_date, contact_date)"
 
-  - template: "{{profile_contact_test.hepatitis_c_test.hepatitis_c_test_done_date}}: {hepc_test_date}"
-    relevance: "hepc_test_date != '' && helper.compareDateAgainstContactDate(hepc_test_date, contact_date)"
+  - template: "{{profile_contact_test.hepatitis_b_test.hepatitis_b_test_done_date}}: {hepb_test_date}"
+    relevance: "hepb_test_date != '' && helper.compareDateAgainstContactDate(hepb_test_date, contact_date)"
 
-  - template: "{{profile_contact_test.hepatitis_c_test.hepatitis_c_test_not_done_reason}}: {hepc_test_notdone}"
-    relevance: "hepc_test_notdone != '' && helper.compareDateAgainstContactDate(hepc_test_date, contact_date)"
+  - template: "{{profile_contact_test.hepatitis_b_test.hepatitis_b_test_not_done_reason}}: {hepb_test_notdone}"
+    relevance: "hepb_test_notdone != '' && helper.compareDateAgainstContactDate(hepb_test_date, contact_date)"
 
-  - template: "{{profile_contact_test.hepatitis_c_test.hepatitis_c_test_not_done_other_reason}}: {hepc_test_notdone_other}"
-    relevance: "hepc_test_notdone_other != '' && helper.compareDateAgainstContactDate(hepc_test_date, contact_date)"
+  - template: "{{profile_contact_test.hepatitis_b_test.hepatitis_b_test_not_done_other_reason}}: {hepb_test_notdone_other}"
+    relevance: "hepb_test_notdone_other != '' && helper.compareDateAgainstContactDate(hepb_test_date, contact_date)"
 
-  - template: "{{profile_contact_test.hepatitis_c_test.hepatitis_c_test_type}}: {hepc_test_type}"
-    relevance: "hepc_test_type != '' && helper.compareDateAgainstContactDate(hepc_test_date, contact_date)"
+  - template: "{{profile_contact_test.hepatitis_b_test.hepatitis_b_test_type}}: {hepb_test_type}"
+    relevance: "hepb_test_type != '' && helper.compareDateAgainstContactDate(hepb_test_date, contact_date)"
 
-  - template: "{{profile_contact_test.hepatitis_c_test.anti_hcv_laboratory_based_immunoassay_result}}: {hcv_lab_ima}"
-    relevance: "hcv_lab_ima != '' && helper.compareDateAgainstContactDate(hepc_test_date, contact_date)"
+  - template: "{{profile_contact_test.hepatitis_b_test.hbsag_laboratory_based_immunoassay_result}}: {hbsag_lab_ima}"
+    relevance: "hbsag_lab_ima != '' && helper.compareDateAgainstContactDate(hepb_test_date, contact_date)"
 
-  - template: "{{profile_contact_test.hepatitis_c_test.anti_hcv_rapid_diagnostic_test_rdt_result}}: {hcv_rdt}"
-    relevance: "hcv_rdt != '' && helper.compareDateAgainstContactDate(hepc_test_date, contact_date)"
+  - template: "{{profile_contact_test.hepatitis_b_test.hbsag_rapid_diagnostic_test_rdt_result}}: {hbsag_rdt}"
+    relevance: "hbsag_rdt != '' && helper.compareDateAgainstContactDate(hepb_test_date, contact_date)"
 
-  - template: "{{profile_contact_test.hepatitis_c_test.dried_blood_spot_dbs_anti_hcv_test_result}}: {hcv_dbs}"
-    relevance: "hcv_dbs != '' && helper.compareDateAgainstContactDate(hepc_test_date, contact_date)"
+  - template: "{{profile_contact_test.hepatitis_b_test.dried_blood_spot_dbs_hbsag_test_result}}: {hbsag_dbs}"
+    relevance: "hbsag_dbs != '' && helper.compareDateAgainstContactDate(hepb_test_date, contact_date)"
 
 ---
 sub_group: syphilis_test_results
@@ -238,19 +251,6 @@ fields:
   - template: "{{profile_contact_test.tb_screening_test.tb_screening_result}}: {tb_screening_result}"
     relevance: "tb_screening_result != '' && helper.compareDateAgainstContactDate(tb_screening_date, contact_date)"
 test_results: "['tb_screening_result: TB Screening tests results']"
-
----
-sub_group: partner_hiv_test_results
-fields:
-  - template: "{{profile_contact_test.partner_hiv_test.partner_hiv_test_status}}: {hiv_test_partner_status}"
-    relevance: "hiv_test_partner_status != '' && helper.compareDateAgainstContactDate(hiv_test_partner_date, contact_date)"
-
-  - template: "{{profile_contact_test.partner_hiv_test.partner_hiv_test_done_date}}: {hiv_test_partner_date}"
-    relevance: "hiv_test_partner_date != '' && helper.compareDateAgainstContactDate(hiv_test_partner_date, contact_date)"
-
-  - template: "{{profile_contact_test.partner_hiv_test.partner_hiv_test_result}}: {hiv_test_partner_result}"
-    relevance: "hiv_test_partner_result != '' && helper.compareDateAgainstContactDate(hiv_test_partner_date, contact_date)"
-test_results: "['hiv_test_partner_result:Partner HIV tests results']"
 
 ---
 sub_group: other_tests_results
