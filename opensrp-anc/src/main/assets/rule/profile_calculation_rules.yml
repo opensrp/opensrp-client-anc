@@ -241,6 +241,6 @@ actions:
 name: step7_hiv_test_result
 description: hiv_test_result
 priority: 1
-condition: "(step3_health_conditions == 'hiv')"
+condition: " step3_health_conditions.contains('hiv')"
 actions:
   - "calculation = 'positive' "
