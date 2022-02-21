@@ -32,7 +32,8 @@
             android:layout_height="280dp"
             android:background="@drawable/physical_exam_container"
             android:gravity="left|center_vertical"
-            android:scaleX="1.02"
+            android:scaleX="1.04"
+            android:scaleY="1.13"
             android:text="Routine Antenatal Care"
             android:textAllCaps="false"
             android:textAppearance="?android:textAppearanceSmall"
@@ -41,7 +42,7 @@
             android:textSize="18dp"
             android:textStyle="bold"
             android:translationX="8dp"
-            android:translationY="260dp"
+            android:translationY="312dp"
             android:visibility="gone"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="270dp" />
@@ -62,7 +63,7 @@
             android:textAppearance="?android:textAppearanceSmall"
             android:textColor="@color/white"
             android:textSize="18dp"
-            android:translationY="270dp"
+            android:translationY="310dp"
             android:visibility="gone"
             tools:layout_editor_absoluteY="10dp" />
 
