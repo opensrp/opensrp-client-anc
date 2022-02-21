@@ -511,10 +511,11 @@ public class ANCFormUtils extends FormUtils {
     public static String keyToValueConverter(String keys) {
         if (keys != null) {
             String cleanKey = "";
-            if (!cleanValue(keys).contains("[") || !cleanValue(keys).contains("]")) {
-                cleanKey = WordUtils.capitalizeFully(cleanValue(keys), ',');
+            String value = cleanValue(keys);
+            if (!value.contains("text") || !value.contains(".")) {
+                cleanKey = WordUtils.capitalizeFully(value, ',');
             } else {
-                cleanKey = cleanValue(keys);
+                cleanKey = value;
             }
 
             if (!TextUtils.isEmpty(keys) && keys.contains("_") && !keys.contains(".")) {
@@ -527,51 +528,21 @@ public class ANCFormUtils extends FormUtils {
         }
     }
 
-//    public static String cleanValue(String raw) {
-//        String rawString = "";
-//        if (raw.length() > 0 && raw.charAt(0) == '[') {
-//            rawString = raw.substring(1, raw.length() - 1);
-//        } else {
-//            try {
-//                if (raw.length() > 0 && raw.charAt(0) == '{' && raw.contains(",")) {
-//                    String[] list = raw.split(",");
-//                    for (String value : list) {
-//                        if (value.charAt(0) == '{') {
-//                            JSONObject object = new JSONObject(value);
-//                            String finalOutputString = object.optString(JsonFormConstants.TEXT, "");
-//                            if (!finalOutputString.isEmpty()) {
-//                                List<String> strings = new ArrayList<>();
-//                                strings.add(finalOutputString);
-//                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                                    rawString = strings.stream().collect(Collectors.joining(","));
-//                                }
-//                            }
-//                        }
-//                    }
-//                } else {
-//                    rawString = raw;
-//                }
-//
-//            } catch (Exception e) {
-//                return rawString;
-//            }
-//        }
-//        return rawString;
-//    }
 
     private static String cleanValue(String value) {
         String rawString = "";
         try {
             if (value.trim().length() > 0 && value.trim().charAt(0) == '[') {
-                for (String jsonString : value.substring(1, value.length() - 1).split(",")) {
-                    if (jsonString.charAt(0) == '{') {
-                        JSONObject object = new JSONObject(jsonString);
-                        if (!object.optString(JsonFormConstants.TEXT, "").trim().isEmpty()) {
-                            List<String> list = Arrays.asList(object.optString(JsonFormConstants.TEXT, ""));
+                if (Utils.checkJsonArrayString(value)) {
+                    JSONArray jsonArray = new JSONArray(value);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        if (!jsonArray.optJSONObject(i).optString(JsonFormConstants.TEXT, "").trim().isEmpty()) {
+                            List<String> list = Arrays.asList(jsonArray.optJSONObject(i).optString(JsonFormConstants.TEXT, ""));
                             rawString = list.stream().collect(Collectors.joining(","));
                         }
-
-                    } else {
+                    }
+                } else {
+                    for (String jsonString : value.substring(1, value.length() - 1).split(",")) {
                         List<String> list = Arrays.asList(jsonString);
                         list.add(jsonString);
                         rawString = list.stream().collect(Collectors.joining(","));
@@ -598,6 +569,7 @@ public class ANCFormUtils extends FormUtils {
             return rawString;
         }
         return rawString;
+
     }
 
 

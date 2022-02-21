@@ -1821,98 +1821,112 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "dont_know",
-            "text": "{{anc_profile.step4.allergies.options.dont_know.text}}"
+            "text": "{{anc_profile.step4.allergies.options.dont_know.text}}",
+            "translation_text": "anc_profile.step4.allergies.options.dont_know.text"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "70439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "albendazole",
-            "text": "{{anc_profile.step4.allergies.options.albendazole.text}}"
+            "text": "{{anc_profile.step4.allergies.options.albendazole.text}}",
+            "translation_text": "anc_profile.step4.allergies.options.albendazole.text"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "70991AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "aluminium_hydroxide",
-            "text": "{{anc_profile.step4.allergies.options.aluminium_hydroxide.text}}"
+            "text": "{{anc_profile.step4.allergies.options.aluminium_hydroxide.text}}",
+            "translation_text": "anc_profile.step4.allergies.options.aluminium_hydroxide.text"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "72650AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "calcium",
-            "text": "{{anc_profile.step4.allergies.options.calcium.text}}"
+            "text": "{{anc_profile.step4.allergies.options.calcium.text}}",
+            "translation_text": "anc_profile.step4.allergies.options.calcium.text"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "73154AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "chamomile",
-            "text": "{{anc_profile.step4.allergies.options.chamomile.text}}"
+            "text": "{{anc_profile.step4.allergies.options.chamomile.text}}",
+            "translation_text": "anc_profile.step4.allergies.options.chamomile.text"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "76613AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "folic_acid",
-            "text": "{{anc_profile.step4.allergies.options.folic_acid.text}}"
+            "text": "{{anc_profile.step4.allergies.options.folic_acid.text}}",
+            "translation_text": "anc_profile.step4.allergies.options.folic_acid.text"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "77001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "ginger",
-            "text": "{{anc_profile.step4.allergies.options.ginger.text}}"
+            "text": "{{anc_profile.step4.allergies.options.ginger.text}}",
+            "translation_text": "anc_profile.step4.allergies.options.ginger.text"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "78218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "iron",
-            "text": "{{anc_profile.step4.allergies.options.iron.text}}"
+            "text": "{{anc_profile.step4.allergies.options.iron.text}}",
+            "translation_text": "anc_profile.step4.allergies.options.iron.text"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "79229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "magnesium_carbonate",
-            "text": "{{anc_profile.step4.allergies.options.magnesium_carbonate.text}}"
+            "text": "{{anc_profile.step4.allergies.options.magnesium_carbonate.text}}",
+            "translation_text": "anc_profile.step4.allergies.options.magnesium_carbonate.text"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "924AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "malaria_medication",
-            "text": "{{anc_profile.step4.allergies.options.malaria_medication.text}}"
+            "text": "{{anc_profile.step4.allergies.options.malaria_medication.text}}",
+            "translation_text": "anc_profile.step4.allergies.options.malaria_medication.text"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "79413AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "mebendazole",
-            "text": "{{anc_profile.step4.allergies.options.mebendazole.text}}"
+            "text": "{{anc_profile.step4.allergies.options.mebendazole.text}}",
+            "translation_text": "anc_profile.step4.allergies.options.mebendazole.text"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "81724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "penicillin",
-            "text": "{{anc_profile.step4.allergies.options.penicillin.text}}"
+            "text": "{{anc_profile.step4.allergies.options.penicillin.text}}",
+            "translation_text": "anc_profile.step4.allergies.options.penicillin.text"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "84797AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "prep_tenofovir_disoproxil_fumarate",
-            "text": "{{anc_profile.step4.allergies.options.prep_tenofovir_disoproxil_fumarate.text}}"
+            "text": "{{anc_profile.step4.allergies.options.prep_tenofovir_disoproxil_fumarate.text}}",
+            "translation_text": "anc_profile.step4.allergies.options.prep_tenofovir_disoproxil_fumarate.text"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "other",
-            "text": "{{anc_profile.step4.allergies.options.other.text}}"
+            "text": "{{anc_profile.step4.allergies.options.other.text}}",
+            "translation_text": "anc_profile.step4.allergies.options.other.text"
           }
         ],
         "v_required": {
