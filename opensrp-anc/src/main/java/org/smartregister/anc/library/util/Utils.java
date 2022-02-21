@@ -22,7 +22,6 @@ import androidx.annotation.Nullable;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
@@ -71,7 +70,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -352,7 +350,7 @@ public class Utils extends org.smartregister.util.Utils {
             if (value != null && value.endsWith(OTHER_SUFFIX)) {
                 Object otherValue = value.endsWith(OTHER_SUFFIX) ? facts.get(key + ConstantsUtils.SuffixUtils.OTHER) : "";
                 value = otherValue != null ?
-                        value.substring(0, value.lastIndexOf(",")) + ", " + otherValue.toString() + "]" :
+                        value.substring(0, value.lastIndexOf(",")) + ", " + otherValue + "]" :
                         value.substring(0, value.lastIndexOf(",")) + "]";
 
             }
@@ -815,6 +813,22 @@ public class Utils extends org.smartregister.util.Utils {
         return event;
     }
 
+    public static JSONObject generateTranslatableValue(String value, JSONObject jsonObject) throws JSONException {
+        JSONObject newValue = new JSONObject();
+        ANCFormUtils formUtils = new ANCFormUtils();
+        if (jsonObject.has(JsonFormConstants.OPTIONS_FIELD_NAME)) {
+            JSONArray options = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+            JSONObject selectedOption = formUtils.getOptionFromOptionsUsingKey(options, value);
+            newValue.put(JsonFormConstants.VALUE, value);
+            String text = selectedOption.optString(JsonFormConstants.TRANSLATION_TEXT, "").length() != 0 ? selectedOption.optString(JsonFormConstants.TEXT, "") : selectedOption.optString(JsonFormConstants.KEY, "");
+            newValue.put(JsonFormConstants.TEXT, text);
+            return newValue;
+        }
+        newValue.put(JsonFormConstants.VALUE, value);
+        newValue.put(JsonFormConstants.TEXT, jsonObject.optString(JsonFormConstants.TRANSLATION_TEXT, ""));
+        return newValue;
+    }
+
     /**
      * Loads yaml files that contain rules for the profile displays
      *
@@ -975,19 +989,5 @@ public class Utils extends org.smartregister.util.Utils {
 
     private final void addSubHeading(Document layoutDocument, String text) {
         layoutDocument.add((new Paragraph(text)).setBold().setHorizontalAlignment(HorizontalAlignment.LEFT));
-    }
-    public static JSONObject generateTranslatableValue(String value, JSONObject jsonObject) throws JSONException {
-        JSONObject newValue = new JSONObject();
-        ANCFormUtils formUtils = new ANCFormUtils();
-        if (jsonObject.has(JsonFormConstants.OPTIONS_FIELD_NAME)) {
-            JSONArray options = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
-            JSONObject selectedOption = formUtils.getOptionFromOptionsUsingKey(options, value);
-            newValue.put(JsonFormConstants.VALUE, value);
-            newValue.put(JsonFormConstants.TEXT, selectedOption.optString(JsonFormConstants.TRANSLATION_TEXT, ""));
-            return newValue;
-        }
-        newValue.put(JsonFormConstants.VALUE, value);
-        newValue.put(JsonFormConstants.TEXT, jsonObject.optString(JsonFormConstants.TRANSLATION_TEXT, ""));
-        return newValue;
     }
 }
