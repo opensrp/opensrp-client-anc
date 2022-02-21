@@ -138,3 +138,10 @@ priority: 1
 condition: "bp_diastolic_repeat < 20 || bp_systolic_repeat < 60"
 actions:
   - 'calculation = ["bp_unrecordable" : 1]'
+---
+name: step4_hof
+description: HOF
+priority: 1
+condition: "global_sfh_gest_age != null"
+actions:
+  - 'calculation = global_sfh_gest_age'
