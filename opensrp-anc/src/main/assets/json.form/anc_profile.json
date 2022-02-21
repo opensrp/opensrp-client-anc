@@ -9185,6 +9185,13 @@
         "v_required": {
           "value": true,
           "err": "Please select HIV status"
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_rules.yml"
+            }
+          }
         }
       },
       {
