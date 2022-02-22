@@ -529,7 +529,7 @@ public class ANCFormUtils extends FormUtils {
     }
 
 
-    private static String cleanValue(String value) {
+    static String cleanValue(String value) {
         String rawString = "";
         try {
             if (value.trim().length() > 0 && value.trim().charAt(0) == '[') {
