@@ -182,7 +182,3 @@ fields:
 
   - template: "{{attention_flags.red.tb_screening_positive}}"
     relevance: "tb_screening_result == 'positive'"
-
-  #added
-  - template: "{{profile_contact_test.ultrasound_tests.ultrasound_test}}:{{anc_profile.step2.ultrasound_done.options.yes.text}}"
-    relevance: "ultrasound_done!=''"

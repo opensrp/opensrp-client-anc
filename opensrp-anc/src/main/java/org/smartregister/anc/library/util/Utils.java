@@ -831,13 +831,18 @@ public class Utils extends org.smartregister.util.Utils {
 
     public static boolean checkJsonArrayString(String input) {
         try {
-            JSONArray jsonArray = new JSONArray(input);
-            return jsonArray.optJSONObject(0) != null || jsonArray.optJSONObject(0).length() > 0;
+            if (StringUtils.isNotBlank(input)) {
+                JSONArray jsonArray = new JSONArray(input);
+                return jsonArray.optJSONObject(0) != null || jsonArray.optJSONObject(0).length() > 0;
+            }
+            return false;
+
         } catch (Exception e) {
             return false;
         }
 
     }
+
 
     /**
      * Loads yaml files that contain rules for the profile displays

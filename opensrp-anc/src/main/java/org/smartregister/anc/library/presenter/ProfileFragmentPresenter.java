@@ -75,7 +75,7 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
                             JSONObject attentionFlagObject = new JSONObject(attentionFlagValue);
                             if (attentionFlagObject.has("text") && attentionFlagObject.has("key")) {
                                 String translation_text;
-                                translation_text = !attentionFlagObject.getString("text").isEmpty() ? "{" + attentionFlagObject.getString("text") + "}" : "";
+                                translation_text = !attentionFlagObject.getString("text").isEmpty() ? "{{" + attentionFlagObject.getString("text") + "}}" : "";
                                 facts.put(key, translation_text);
                             } else {
                                 facts.put(key, jsonObject.get(key));

@@ -1,7 +1,6 @@
 package org.smartregister.anc.library.repository;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -13,7 +12,6 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
 import org.json.JSONObject;
-import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.model.PreviousContact;
 import org.smartregister.anc.library.model.PreviousContactsSummaryModel;
 import org.smartregister.anc.library.util.ANCFormUtils;
@@ -223,21 +221,14 @@ public class PreviousContactRepository extends BaseRepository {
         try {
             SQLiteDatabase db = getWritableDatabase();
             mCursor = getAllTests(baseEntityId, db);
-            Context context = AncLibrary.getInstance().getApplicationContext();
             if (mCursor != null) {
                 while (mCursor.moveToNext()) {
-                    String value = Utils.getProperties(context).getProperty(ConstantsUtils.Properties.WIDGET_VALUE_TRANSLATED, "false");
-                    if (StringUtils.isNotBlank(value) && Boolean.parseBoolean(value)) {
-                        String jsonValue = mCursor.getString(mCursor.getColumnIndex(VALUE));
-                        if (jsonValue.charAt(0) == '{') {
-                            JSONObject valueObject = new JSONObject(jsonValue);
-                            previousContactsTestsFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), valueObject.optString(JsonFormConstants.TEXT, ""));
-                        } else {
-                            previousContactsTestsFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), jsonValue);
-                        }
+                    String jsonValue = mCursor.getString(mCursor.getColumnIndex(VALUE));
+                    if (StringUtils.isNotBlank(jsonValue) && jsonValue.trim().charAt(0) == '{') {
+                        JSONObject valueObject = new JSONObject(jsonValue);
+                        previousContactsTestsFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), valueObject.optString(JsonFormConstants.TEXT, ""));
                     } else {
-                        previousContactsTestsFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)),
-                                mCursor.getString(mCursor.getColumnIndex(VALUE)));
+                        previousContactsTestsFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), jsonValue);
                     }
 
                 }
@@ -335,28 +326,22 @@ public class PreviousContactRepository extends BaseRepository {
             mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
             if (mCursor != null && mCursor.getCount() > 0) {
                 while (mCursor.moveToNext()) {
-                    Context context = AncLibrary.getInstance().getApplicationContext();
-                    String value = Utils.getProperties(context).getProperty(ConstantsUtils.Properties.WIDGET_VALUE_TRANSLATED, "false");
-                    if (StringUtils.isNotBlank(value) && Boolean.parseBoolean(value)) {
-                        String previousContactValue = mCursor.getString(mCursor.getColumnIndex(VALUE));
-                        if (StringUtils.isNotBlank(previousContactValue) && previousContactValue.trim().charAt(0) == '{') {
-                            JSONObject previousContactObject = new JSONObject(previousContactValue);
-                            if (previousContactObject.has("value") && previousContactObject.has("text")) {
+                    String previousContactValue = mCursor.getString(mCursor.getColumnIndex(VALUE));
+                    if (StringUtils.isNotBlank(previousContactValue) && previousContactValue.trim().charAt(0) == '{') {
+                        JSONObject previousContactObject = new JSONObject(previousContactValue);
+                        if (previousContactObject.has("value") && previousContactObject.has("text")) {
                                 String translation_text;
-                                translation_text = !previousContactObject.optString(JsonFormConstants.TEXT, "").isEmpty() ? "{" + previousContactObject.optString(JsonFormConstants.TEXT, "") + "}" : "";
-                                previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), translation_text);
-                            } else {
-                                previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), previousContactValue);
-                            }
+                            translation_text = !previousContactObject.optString(JsonFormConstants.TEXT, "").isEmpty() ? "{{" + previousContactObject.optString(JsonFormConstants.TEXT, "") + "}}" : "";
+                            previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), translation_text);
                         } else {
                             previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), previousContactValue);
                         }
-
                     } else {
-                        previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), mCursor.getString(mCursor.getColumnIndex(VALUE)));
+                        previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), previousContactValue);
                     }
 
                 }
+
                 previousContactFacts.put(CONTACT_NO, selectionArgs[1]);
                 return previousContactFacts;
             } else if (Integer.parseInt(contactNo) > 0) {

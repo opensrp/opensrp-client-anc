@@ -1,5 +1,6 @@
 package org.smartregister.anc.library.util;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.TextUtils;
 
@@ -175,12 +176,13 @@ public class ANCFormUtils extends FormUtils {
                         jsonObject.getJSONArray(JsonFormConstants.SECONDARY_VALUE).length() > 0) {
                     getRealSecondaryValue(jsonObject);
                 } else {
-                    if (StringUtils.isNotBlank(value) && Boolean.parseBoolean(value)) {
-                        valueList.add(jsonObject.optString(JsonFormConstants.TRANSLATION_TEXT, ""));
+                    if (StringUtils.isNotBlank(value) && Boolean.parseBoolean(value) && (JsonFormConstants.CHECK_BOX.equals(jsonObject.optString(JsonFormConstants.TYPE)) ||
+                            JsonFormConstants.NATIVE_RADIO_BUTTON.equals(jsonObject.optString(JsonFormConstants.TYPE)) || JsonFormConstants.SPINNER.equals(jsonObject.optString(JsonFormConstants.TYPE)) || JsonFormConstants.MULTI_SELECT_LIST.equals(jsonObject.optString(JsonFormConstants.TYPE)))) {
+                        String translation_text = jsonObject.optString(JsonFormConstants.TRANSLATION_TEXT, "") != null ? "{{" + jsonObject.optString(JsonFormConstants.TRANSLATION_TEXT, "") + "}}" : "";
+                        valueList.add(translation_text);
                     } else {
                         valueList.add(jsonObject.optString(JsonFormConstants.TEXT, ""));
                     }
-
                 }
             }
         }
@@ -529,46 +531,28 @@ public class ANCFormUtils extends FormUtils {
     }
 
 
+    @SuppressLint("NewApi")
     static String cleanValue(String value) {
-        String rawString = "";
         try {
             if (value.trim().length() > 0 && value.trim().charAt(0) == '[') {
                 if (Utils.checkJsonArrayString(value)) {
                     JSONArray jsonArray = new JSONArray(value);
+                    List<String> list = new ArrayList<>();
                     for (int i = 0; i < jsonArray.length(); i++) {
-                        if (!jsonArray.optJSONObject(i).optString(JsonFormConstants.TEXT, "").trim().isEmpty()) {
-                            List<String> list = Arrays.asList(jsonArray.optJSONObject(i).optString(JsonFormConstants.TEXT, ""));
-                            rawString = list.stream().collect(Collectors.joining(","));
+                        if (jsonArray.optJSONObject(i).optString(JsonFormConstants.TEXT, "") != null) {
+                            String translatedText = jsonArray.optJSONObject(i).optString(JsonFormConstants.TEXT, "");
+                            list.add(translatedText);
                         }
                     }
+                    return list.size() > 1 ? String.join(",", list) : "";
                 } else {
-                    for (String jsonString : value.substring(1, value.length() - 1).split(",")) {
-                        List<String> list = Arrays.asList(jsonString);
-                        list.add(jsonString);
-                        rawString = list.stream().collect(Collectors.joining(","));
-                    }
+                    return value.substring(1, value.length() - 1);
                 }
-            } else {
-                if (value.length() > 0 && value.charAt(0) == '{' && value.contains(",") && value.charAt(value.length() - 1) == '}') {
-                    JSONArray jsonArrayString = new JSONArray("[" + value + "]");
-                    for (int i = 0; i < jsonArrayString.length(); i++) {
-                        JSONObject object = jsonArrayString.optJSONObject(i);
-                        String finalOutputString = object.optString(JsonFormConstants.TEXT, "");
-                        if (!finalOutputString.isEmpty()) {
-                            List<String> rawList = new ArrayList<>();
-                            rawList.add(finalOutputString);
-                            rawString = rawList.stream().collect(Collectors.joining(","));
-
-                        }
-                    }
-                } else {
-                    rawString = value;
-                }
-            }
+            } else
+                return value;
         } catch (Exception e) {
-            return rawString;
+            return "";
         }
-        return rawString;
 
     }
 
