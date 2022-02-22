@@ -1,7 +1,7 @@
 {
   "content_form": [
     {
-      "key": "tb_screening_status",
+      "key": "tb_test_status",
       "openmrs_entity_parent": "164800AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -57,7 +57,7 @@
       "spacer_height": "10dp"
     },
     {
-      "key": "tb_screening_notdone",
+      "key": "tb_test_notdone",
       "openmrs_entity_parent": "164800AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -128,7 +128,7 @@
       }
     },
     {
-      "key": "tb_screening_notdone_other",
+      "key": "tb_test_notdone_other",
       "openmrs_entity_parent": "164800AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -147,7 +147,7 @@
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
-      "key": "tb_screening_date_today_hidden",
+      "key": "tb_test_date_today_hidden",
       "type": "hidden",
       "label_text_style": "bold",
       "text_color": "#000000",
@@ -160,7 +160,7 @@
       }
     },
     {
-      "key": "tb_screening_date",
+      "key": "tb_test_date",
       "openmrs_entity_parent": "164800AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -188,7 +188,7 @@
       }
     },
     {
-      "key": "tb_screening_result",
+      "key": "tb_test_result",
       "openmrs_entity_parent": "",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "160108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -238,7 +238,7 @@
       }
     },
     {
-      "key": "tb_screening_danger_toaster",
+      "key": "tb_test_danger_toaster",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",

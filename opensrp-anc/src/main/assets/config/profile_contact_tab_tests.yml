@@ -77,6 +77,33 @@ fields:
     relevance: "hbsag_dbs != ''"
 
 ---
+sub_group: partner_hepatitis_b_test_results
+fields:
+  - template: "{{profile_contact_test.partner_hepatitis_b_test.partner_hepatitis_b_test_status}}: {partner_hepb_test_status}"
+    relevance: "partner_hepb_test_status != ''"
+
+  - template: "{{profile_contact_test.partner_hepatitis_b_test.partner_hepatitis_b_test_done_date}}: {partner_hepb_test_date}"
+    relevance: "partner_hepb_test_date != ''"
+
+  - template: "{{profile_contact_test.partner_hepatitis_b_test.partner_hepatitis_b_test_not_done_reason}}: {partner_hepb_test_notdone}"
+    relevance: "partner_hepb_test_notdone != ''"
+
+  - template: "{{profile_contact_test.partner_hepatitis_b_test.partner_hepatitis_b_test_not_done_other_reason}}: {partner_hepb_test_notdone_other}"
+    relevance: "partner_hepb_test_notdone_other != ''"
+
+  - template: "{{profile_contact_test.partner_hepatitis_b_test.partner_hepatitis_b_test_type}}: {partner_hepb_test_type}"
+    relevance: "partner_hepb_test_type != ''"
+
+  - template: "{{profile_contact_test.partner_hepatitis_b_test.partner_hbsag_laboratory_based_immunoassay_result}}: {partner_hbsag_lab_ima}"
+    relevance: "partner_hbsag_lab_ima != ''"
+
+  - template: "{{profile_contact_test.partner_hepatitis_b_test.partner_hbsag_rapid_diagnostic_test_rdt_result}}: {partner_hbsag_rdt}"
+    relevance: "partner_hbsag_rdt != ''"
+
+  - template: "{{profile_contact_test.partner_hepatitis_b_test.partner_dried_blood_spot_dbs_hbsag_test_result}}: {partner_hbsag_dbs}"
+    relevance: "partner_hbsag_dbs != ''"
+
+---
 sub_group: syphilis_test_results
 fields:
   - template: "{{profile_contact_test.syphilis_test.syphilis_test_status}}: {syph_test_status}"
@@ -102,6 +129,33 @@ fields:
 
   - template: "{{profile_contact_test.syphilis_test.Off_site_lab_test_for_syphilis_result}}: {lab_syphilis_test}"
     relevance: "lab_syphilis_test != ''"
+
+---
+sub_group: partner_syphilis_test_results
+fields:
+  - template: "{{profile_contact_test.partner_syphilis_test.partner_syphilis_test_status}}: {partner_syph_test_status}"
+    relevance: "partner_syph_test_status != ''"
+
+  - template: "{{profile_contact_test.partner_syphilis_test.partner_syphilis_test_done_date}}: {partner_syphilis_test_date}"
+    relevance: "partner_syphilis_test_date != ''"
+
+  - template: "{{profile_contact_test.partner_syphilis_test.partner_syphilis_test_not_done_reason}}: {partner_syph_test_notdone}"
+    relevance: "partner_syph_test_notdone != ''"
+
+  - template: "{{profile_contact_test.partner_syphilis_test.partner_syphilis_test_not_done_other_reason}}: {partner_syph_test_notdone_other}"
+    relevance: "partner_syph_test_notdone_other != ''"
+
+  - template: "{{profile_contact_test.partner_syphilis_test.partner_syphilis_test_type}}: {partner_syph_test_type}"
+    relevance: "partner_syph_test_type != ''"
+
+  - template: "{{profile_contact_test.partner_syphilis_test.partner_syphilis_test_type}}: {partner_rapid_syphilis_test}"
+    relevance: "partner_rapid_syphilis_test != ''"
+
+  - template: "{{profile_contact_test.partner_syphilis_test.partner_rapid_plasma_reagin_rpr_test_result}}: {partner_rpr_syphilis_test}"
+    relevance: "partner_rpr_syphilis_test != ''"
+
+  - template: "{{profile_contact_test.partner_syphilis_test.partner_Off_site_lab_test_for_syphilis_result}}: {partner_lab_syphilis_test}"
+    relevance: "partner_lab_syphilis_test != ''"
 
 ---
 sub_group: urine_tests_results
@@ -211,6 +265,25 @@ fields:
   - template: "{{profile_contact_test.tb_screening_test.tb_screening_result}}: {tb_screening_result}"
     relevance: "tb_screening_result != ''"
 test_results: "['tb_screening_result: TB Screening tests results']"
+
+---
+sub_group: tb_test_test_results
+fields:
+  - template: "{{profile_contact_test.tb_test.tb_test_status}}: {tb_test_status}"
+    relevance: "tb_test_status != ''"
+
+  - template: "{{profile_contact_test.tb_test.tb_test_done_date}}: {tb_test_date}"
+    relevance: "tb_test_date != ''"
+
+  - template: "{{profile_contact_test.tb_test.tb_test_not_done_reason}}: {tb_test_notdone}"
+    relevance: "tb_test_notdone != ''"
+
+  - template: "{{profile_contact_test.tb_test.tb_test_not_done_other_reason}}: {tb_test_notdone_other}"
+    relevance: "tb_test_notdone_other != ''"
+
+  - template: "{{profile_contact_test.tb_test.tb_test_result}}: {tb_test_result}"
+    relevance: "tb_test_result != ''"
+test_results: "['tb_test_result: TB tests results']"
 
 ---
 sub_group: partner_hiv_test_results

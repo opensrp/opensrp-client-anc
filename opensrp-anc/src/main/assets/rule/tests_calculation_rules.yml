@@ -34,10 +34,10 @@ condition: "(step1_hbsag_lab_ima == 'positive') || (step1_hbsag_rdt == 'positive
 actions:
   - "calculation = 1"
 ---
-name: step1_hepb_positive
-description: hepb_positive
+name: step1_partner_hepb_positive
+description: partner_hepb_positive
 priority: 1
-condition: "(step1_hbsag_lab_ima == 'positive') || (step1_hbsag_rdt == 'positive') || (step1_hbsag_dbs == 'positive')"
+condition: "(step1_partner_hbsag_lab_ima == 'positive') || (step1_partner_hbsag_rdt == 'positive') || (step1_partner_hbsag_dbs == 'positive')"
 actions:
   - "calculation = 1"
 ---
@@ -62,10 +62,10 @@ condition: "(step1_rapid_syphilis_test == 'positive' && step1_rapid_syphilis_tes
 actions:
   - "calculation = 1"
 ---
-name: step1_syphilis_positive
+name: step1_partner_syphilis_positive
 description: syphilis_positive
 priority: 1
-condition: "(step1_rapid_syphilis_test == 'positive' && step1_rapid_syphilis_test != '' ) || (step1_rpr_syphilis_test == 'positive' && step1_rpr_syphilis_test != '') || (step1_lab_syphilis_test == 'positive' && step1_lab_syphilis_test != '')"
+condition: "(step1_partner_rapid_syphilis_test == 'positive' && step1_partner_rapid_syphilis_test != '' ) || (step1_partner_rpr_syphilis_test == 'positive' && step1_partner_rpr_syphilis_test != '') || (step1_partner_lab_syphilis_test == 'positive' && step1_partner_lab_syphilis_test != '')"
 actions:
   - "calculation = 1"
 ---
@@ -153,10 +153,10 @@ condition: "step1_urine_test_status == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
 ---
-name: step2_tb_screening_date_today_hidden
-description: tb_screening_date
+name: step1_tv_test_date_today_hidden
+description: tb_test_date
 priority: 1
-condition: "step2_tb_screening_status == 'done_today'"
+condition: "step1_tb_test_status == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
 ---
@@ -174,10 +174,10 @@ condition: "step1_syph_test_status == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
 ---
-name: step1_syphilis_test_date_today_hidden
+name: step1_partner_syphilis_test_date_today_hidden
 description: syphilis_test_date
 priority: 1
-condition: "step1_syph_test_status == 'done_today'"
+condition: "step1_partner_syph_test_status == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
 ---
@@ -230,10 +230,10 @@ condition: "step1_hepb_test_status == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
 ---
-name: step1_hepb_test_date_today_hidden
-description: hepb_test_date
+name: step1_partner_hepb_test_date_today_hidden
+description: partner_hepb_test_date
 priority: 1
-condition: "step1_hepb_test_status == 'done_today'"
+condition: "step1_partner_hepb_test_status == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
 ---
