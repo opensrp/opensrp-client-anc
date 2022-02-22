@@ -144,6 +144,33 @@ fields:
     relevance: "lab_syphilis_test != '' && helper.compareDateAgainstContactDate(syphilis_test_date, contact_date)"
 
 ---
+sub_group: partner_syphilis_test_results
+fields:
+  - template: "{{profile_contact_test.syphilis_test.syphilis_test_status}}: {syph_test_status}"
+    relevance: "syph_test_status != '' && helper.compareDateAgainstContactDate(syphilis_test_date, contact_date)"
+
+  - template: "{{profile_contact_test.syphilis_test.syphilis_test_done_date}}: {syphilis_test_date}"
+    relevance: "syphilis_test_date != '' && helper.compareDateAgainstContactDate(syphilis_test_date, contact_date)"
+
+  - template: "{{profile_contact_test.syphilis_test.syphilis_test_not_done_reason}}: {syph_test_notdone}"
+    relevance: "syph_test_notdone != '' && helper.compareDateAgainstContactDate(syphilis_test_date, contact_date)"
+
+  - template: "{{profile_contact_test.syphilis_test.syphilis_test_not_done_other_reason}}: {syph_test_notdone_other}"
+    relevance: "syph_test_notdone_other != '' && helper.compareDateAgainstContactDate(syphilis_test_date, contact_date)"
+
+  - template: "{{profile_contact_test.syphilis_test.syphilis_test_type}}: {syph_test_type}"
+    relevance: "syph_test_type != '' && helper.compareDateAgainstContactDate(syphilis_test_date, contact_date)"
+
+  - template: "{{profile_contact_test.syphilis_test.syphilis_test_type}}: {rapid_syphilis_test}"
+    relevance: "rapid_syphilis_test != '' && helper.compareDateAgainstContactDate(syphilis_test_date, contact_date)"
+
+  - template: "{{profile_contact_test.syphilis_test.rapid_plasma_reagin_rpr_test_result}}: {rpr_syphilis_test}"
+    relevance: "rpr_syphilis_test != '' && helper.compareDateAgainstContactDate(syphilis_test_date, contact_date)"
+
+  - template: "{{profile_contact_test.syphilis_test.Off_site_lab_test_for_syphilis_result}}: {lab_syphilis_test}"
+    relevance: "lab_syphilis_test != '' && helper.compareDateAgainstContactDate(syphilis_test_date, contact_date)"
+
+---
 sub_group: urine_tests_results
 fields:
   - template: "{{profile_contact_test.urine_tests.urine_test_status}}: {urine_test_status}"
@@ -235,6 +262,25 @@ fields:
 
 ---
 sub_group: tb_screening_test_results
+fields:
+  - template: "{{profile_contact_test.tb_screening_test.tb_screening_test_status}}: {tb_screening_status}"
+    relevance: "tb_screening_status != '' && helper.compareDateAgainstContactDate(tb_screening_date, contact_date)"
+
+  - template: "{{profile_contact_test.tb_screening_test.tb_screening_test_done_date}}: {tb_screening_date}"
+    relevance: "tb_screening_date != '' && helper.compareDateAgainstContactDate(tb_screening_date, contact_date)"
+
+  - template: "{{profile_contact_test.tb_screening_test.tb_screening_test_not_done_reason}}: {tb_screening_notdone}"
+    relevance: "tb_screening_notdone != '' && helper.compareDateAgainstContactDate(tb_screening_date, contact_date)"
+
+  - template: "{{profile_contact_test.tb_screening_test.tb_screening_test_not_done_other_reason}}: {tb_screening_notdone_other}"
+    relevance: "tb_screening_notdone_other != '' && helper.compareDateAgainstContactDate(tb_screening_date, contact_date)"
+
+  - template: "{{profile_contact_test.tb_screening_test.tb_screening_result}}: {tb_screening_result}"
+    relevance: "tb_screening_result != '' && helper.compareDateAgainstContactDate(tb_screening_date, contact_date)"
+test_results: "['tb_screening_result: TB Screening tests results']"
+
+---
+sub_group: tb_test_results
 fields:
   - template: "{{profile_contact_test.tb_screening_test.tb_screening_test_status}}: {tb_screening_status}"
     relevance: "tb_screening_status != '' && helper.compareDateAgainstContactDate(tb_screening_date, contact_date)"

@@ -111,10 +111,10 @@ condition: "step1_hepb_test_status == 'not_done'"
 actions:
 - "isRelevant = true"
 ---
-name: step2_hepb_test_notdone
+name: step1_partner_hepb_test_notdone
 description: Reason
 priority: 1
-condition: "step2_hepb_test_status == 'not_done'"
+condition: "step1_partner_hepb_test_status == 'not_done'"
 actions:
 - "isRelevant = true"
 ---
@@ -125,10 +125,10 @@ condition: "!step1_hepb_test_notdone.isEmpty() && step1_hepb_test_notdone.contai
 actions:
 - "isRelevant = true"
 ---
-name: step2_hepb_test_notdone_other
+name: step1_partner_hepb_test_notdone_other
 description: Reason
 priority: 1
-condition: "!step2_hepb_test_notdone.isEmpty() && step2_hepb_test_notdone.contains('other')"
+condition: "!step1_partner_hepb_test_notdone.isEmpty() && step1_partner_hepb_test_notdone.contains('other')"
 actions:
 - "isRelevant = true"
 ---
@@ -139,10 +139,10 @@ condition: "(step1_hepb_test_status == 'done_earlier')"
 actions:
 - "isRelevant = true"
 ---
-name: step2_hepb_test_date
+name: step1_partner_hepb_test_date
 description: Hep B test date
 priority: 1
-condition: "(step2_hepb_test_status == 'done_earlier')"
+condition: "(step1_partner_hepb_test_status == 'done_earlier')"
 actions:
 - "isRelevant = true"
 ---
@@ -153,10 +153,10 @@ condition: "(step1_hepb_test_status == 'done_today' || step1_hepb_test_status ==
 actions:
 - "isRelevant = true"
 ---
-name: step2_hepb_test_type
+name: step1_partner_hepb_test_type
 description: Hep B test type
 priority: 1
-condition: "(step2_hepb_test_status == 'done_today' || step2_hepb_test_status == 'done_earlier')"
+condition: "(step1_partner_hepb_test_status == 'done_today' || step1_partner_hepb_test_status == 'done_earlier')"
 actions:
 - "isRelevant = true"
 ---
@@ -170,7 +170,7 @@ actions:
 name: step2_hbsag_lab_ima
 description: HBsAg laboratory-based immunoassay (recommended)
 priority: 1
-condition: "(step2_hepb_test_type == 'hbsag_lab_based' && step2_hepb_test_status == 'done_today') || (step2_hepb_test_type == 'hbsag_lab_based' && step2_hepb_test_status == 'done_earlier')"
+condition: "(step1_partner_hepb_test_type == 'hbsag_lab_based' && step1_partner_hepb_test_status == 'done_today') || (step1_partner_hepb_test_type == 'hbsag_lab_based' && step1_partner_hepb_test_status == 'done_earlier')"
 actions:
 - "isRelevant = true"
 ---
@@ -184,7 +184,7 @@ actions:
 name: step2_hbsag_rdt
 description: HBsAg rapid diagnostic test (RDT)
 priority: 1
-condition: "(step2_hepb_test_type == 'hbsag_rdt' && step2_hepb_test_status == 'done_today')  || (step2_hepb_test_type == 'hbsag_rdt' && step2_hepb_test_status == 'done_earlier')"
+condition: "(step1_partner_hepb_test_type == 'hbsag_rdt' && step1_partner_hepb_test_status == 'done_today')  || (step1_partner_hepb_test_type == 'hbsag_rdt' && step1_partner_hepb_test_status == 'done_earlier')"
 actions:
 - "isRelevant = true"
 ---
@@ -198,7 +198,7 @@ actions:
 name: step2_hbsag_dbs
 description: Dried Blood Spot (DBS) HBsAg test
 priority: 1
-condition: "(step2_hepb_test_type == 'hbsag_dbs' && step2_hepb_test_status == 'done_today') || (step2_hepb_test_type == 'hbsag_dbs' && step2_hepb_test_status == 'done_earlier')"
+condition: "(step1_partner_hepb_test_type == 'hbsag_dbs' && step1_partner_hepb_test_status == 'done_today') || (step1_partner_hepb_test_type == 'hbsag_dbs' && step1_partner_hepb_test_status == 'done_earlier')"
 actions:
 - "isRelevant = true"
 ---
@@ -212,7 +212,7 @@ actions:
 name: step2_hepatitis_b_danger_toaster
 description: Hep B positive diagnosis!
 priority: 1
-condition: "step2_hepb_positive == 1"
+condition: "step1_partner_hepb_positive == 1"
 actions:
 - "isRelevant = true"
 ---
@@ -226,7 +226,7 @@ actions:
 name: step2_hepatitis_b_info_toaster
 description: Hep B vaccination required
 priority: 1
-condition: "step2_hepb_positive == 0"
+condition: "step1_partner_hepb_positive == 0"
 actions:
 - "isRelevant = true"
 ---
