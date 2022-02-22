@@ -61,9 +61,12 @@
     "hiv_test_result",
     "hiv_test_partner_status",
     "hepb_test_status",
+    "partner_hepb_test_status",
     "hepc_test_status",
     "syph_test_status",
+    "partner_syph_test_status",
     "tb_screening_status",
+    "tb_test_status",
     "hiv_positive",
     "urine_test_status",
     "hb_test_status",
@@ -121,7 +124,7 @@
         "container": "test"
       },
       {
-        "key": "partner_accordion_hepatitis_b",
+        "key": "accordion_partner_hepatitis_b",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -197,7 +200,7 @@
         }
       },
       {
-        "key": "partner_accordion_syphilis",
+        "key": "accordion_partner_syphilis",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
