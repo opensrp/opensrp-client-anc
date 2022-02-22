@@ -1,4 +1,4 @@
-package org.smartregister.anc.library.sync;
+package org.smartregister.anc.library.auth;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,7 +21,7 @@ import java.util.Objects;
 
 public class AncCoreAuthorizationService implements P2PAuthorizationService {
 
-    private Map<String, Object> authorizationDetails = new HashMap<>();
+    private final Map<String, Object> authorizationDetails = new HashMap<>();
 
     @Override
     public void authorizeConnection(@NonNull final Map<String, Object> peerDeviceMap, @NonNull final P2PAuthorizationService.AuthorizationCallback authorizationCallback) {
@@ -56,7 +56,7 @@ public class AncCoreAuthorizationService implements P2PAuthorizationService {
     }
 
     @NonNull
-    private String getCountryId() {
+    protected String getCountryId() {
         LinkedHashMap<String, TreeNode<String, Location>> locationHierarchyMap = getLocationTreeMap();
         if (locationHierarchyMap == null) {
             throw new IllegalStateException("Missing Location Hierarchy");

@@ -22,7 +22,7 @@ import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.activity.LoginActivity;
 import org.smartregister.anc.job.AncJobCreator;
 import org.smartregister.anc.library.AncLibrary;
-import org.smartregister.anc.library.sync.AncCoreAuthorizationService;
+import org.smartregister.anc.library.auth.AncCoreAuthorizationService;
 import org.smartregister.anc.library.sync.BaseAncClientProcessorForJava;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
