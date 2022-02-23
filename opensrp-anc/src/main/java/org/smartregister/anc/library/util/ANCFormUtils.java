@@ -9,6 +9,7 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.ExpansionPanelItemModel;
 import com.vijay.jsonwizard.rules.RuleConstant;
 import com.vijay.jsonwizard.utils.FormUtils;
+import com.vijay.jsonwizard.utils.NativeFormLangUtils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.WordUtils;
@@ -541,7 +542,7 @@ public class ANCFormUtils extends FormUtils {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         if (jsonArray.optJSONObject(i).optString(JsonFormConstants.TEXT, "") != null) {
                             String translatedText = jsonArray.optJSONObject(i).optString(JsonFormConstants.TEXT, "");
-                            list.add(translatedText);
+                            list.add(NativeFormLangUtils.getTranslatedString(translatedText));
                         }
                     }
                     return list.size() > 1 ? String.join(",", list) : "";

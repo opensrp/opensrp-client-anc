@@ -330,8 +330,8 @@ public class PreviousContactRepository extends BaseRepository {
                     if (StringUtils.isNotBlank(previousContactValue) && previousContactValue.trim().charAt(0) == '{') {
                         JSONObject previousContactObject = new JSONObject(previousContactValue);
                         if (previousContactObject.has("value") && previousContactObject.has("text")) {
-                                String translation_text;
-                            translation_text = !previousContactObject.optString(JsonFormConstants.TEXT, "").isEmpty() ? "{{" + previousContactObject.optString(JsonFormConstants.TEXT, "") + "}}" : "";
+                            String translation_text;
+                            translation_text = !previousContactObject.optString(JsonFormConstants.TEXT, "").isEmpty() ? "{" + previousContactObject.optString(JsonFormConstants.TEXT, "") + "}" : "";
                             previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), translation_text);
                         } else {
                             previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), previousContactValue);
