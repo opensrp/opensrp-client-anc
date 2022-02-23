@@ -540,9 +540,11 @@ public class ANCFormUtils extends FormUtils {
                     JSONArray jsonArray = new JSONArray(value);
                     List<String> list = new ArrayList<>();
                     for (int i = 0; i < jsonArray.length(); i++) {
-                        if (jsonArray.optJSONObject(i).optString(JsonFormConstants.TEXT, "") != null) {
-                            String translatedText = jsonArray.optJSONObject(i).optString(JsonFormConstants.TEXT, "");
-                            list.add(NativeFormLangUtils.getTranslatedString(translatedText));
+                        JSONObject jsonObject = jsonArray.optJSONObject(i);
+                        if (jsonObject != null && !jsonObject.optString(JsonFormConstants.TEXT).isEmpty()) {
+                            String text = jsonObject.optString(JsonFormConstants.TEXT), translatedText = "";
+                            translatedText = NativeFormLangUtils.getTranslatedString(text);
+                            list.add(translatedText);
                         }
                     }
                     return list.size() > 1 ? String.join(",", list) : "";

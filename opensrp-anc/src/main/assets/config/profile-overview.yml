@@ -331,9 +331,9 @@ fields:
   - template: "{{profile_overview.immunisation_status.tt_dose_2}}: {tt2_date_value}"
     relevance: "tt2_date == 'done_today' || tt2_date == 'done_earlier'"
 
-#  - template: "{{profile_overview.immunisation_status.flu_immunisation_status}}: {flu_immun_status_value}"
-#    relevance: "flu_immun_status != ''"
-#    isRedFont: "flu_immun_status == 'seasonal_flu_dose_missing' || flu_immun_status == 'unknown'"
+  #  - template: "{{profile_overview.immunisation_status.flu_immunisation_status}}: {flu_immun_status_value}"
+  #    relevance: "flu_immun_status != ''"
+  #    isRedFont: "flu_immun_status == 'seasonal_flu_dose_missing' || flu_immun_status == 'unknown'"
 
   - template: "{{profile_overview.immunisation_status.flu_dose}}: {flu_date_value}"
     relevance: "flu_date == 'done_today' || flu_date == 'done_earlier'"

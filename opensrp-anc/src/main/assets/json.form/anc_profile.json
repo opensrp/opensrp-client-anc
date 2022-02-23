@@ -2117,7 +2117,8 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "none",
-            "text": "{{anc_profile.step4.health_conditions.options.none.text}}"
+            "text": "{{anc_profile.step4.health_conditions.options.none.text}}",
+            "translation_text": "anc_profile.step4.health_conditions.options.none.text"
           },
           {
             "openmrs_entity_parent": "",
