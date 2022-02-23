@@ -977,6 +977,20 @@
         }
       },
       {
+        "key": "referral_feedback",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referral_feedback",
+        "type": "edit_text",
+        "hint": "Referral feedback",
+        "relevance": {
+          "step1:emergency_referal": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
         "key": "date_referral",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
