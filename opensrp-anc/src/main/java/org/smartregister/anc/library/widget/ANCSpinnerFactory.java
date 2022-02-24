@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
+import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interfaces.CommonListener;
 import com.vijay.jsonwizard.widgets.SpinnerFactory;
@@ -114,7 +115,7 @@ public class ANCSpinnerFactory extends SpinnerFactory {
         return super.getViewsFromJson(stepName, context, formFragment, jsonObject, listener, popup);
     }
 
-    private void populateProvince(JSONObject jsonObject) {
+    protected void populateProvince(JSONObject jsonObject) {
         List<LocationTag> tags = Utils.getLocationTagsByTagName("Country");
         // TODO: Remove static country ID, current implementation is only done to select proper country in case of more than one countries (dummy data) in locations
         String countryId = (tags != null && tags.size() > 0) ? ((tags.size() > 1) ? "02ebbc84-5e29-4cd5-9b79-c594058923e9" : tags.get(0).getLocationId()) : "";
@@ -128,7 +129,7 @@ public class ANCSpinnerFactory extends SpinnerFactory {
         }
     }
 
-    private void populateDescendants(JSONObject jsonObject) {
+    protected void populateDescendants(JSONObject jsonObject) {
         try {
             JSONObject parentField = JsonFormUtils.getFieldJSONObject(getFormStep().getJSONArray(FIELDS),
                     parents.get(jsonObject.getString(KEY)));
@@ -146,7 +147,7 @@ public class ANCSpinnerFactory extends SpinnerFactory {
         String selectedLocation = Utils.getCurrentLocation(spinnerKey, jsonFormView);
 
         try {
-            JSONArray spinnerOptions = jsonObject.getJSONArray("options");
+            JSONArray spinnerOptions = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
 
             for (Location entry : locations) {
                 String locationName = Utils.getLocationLocalizedName(entry, jsonFormView);
