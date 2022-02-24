@@ -30,7 +30,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import timber.log.Timber;
 
@@ -543,7 +542,7 @@ public class ANCFormUtils extends FormUtils {
                         JSONObject jsonObject = jsonArray.optJSONObject(i);
                         if (jsonObject != null && !jsonObject.optString(JsonFormConstants.TEXT).isEmpty()) {
                             String text = jsonObject.optString(JsonFormConstants.TEXT), translatedText = "";
-                            translatedText = NativeFormLangUtils.getTranslatedString(text);
+                            translatedText = NativeFormLangUtils.getTranslatedString(text,AncLibrary.getInstance().getApplicationContext());
                             list.add(translatedText);
                         }
                     }

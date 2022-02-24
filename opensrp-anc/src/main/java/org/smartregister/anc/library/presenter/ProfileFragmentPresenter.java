@@ -2,6 +2,8 @@ package org.smartregister.anc.library.presenter;
 
 import android.text.TextUtils;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+
 import org.jeasy.rules.api.Facts;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -73,7 +75,7 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
                         String attentionFlagValue = jsonObject.getString(key);
                         if (attentionFlagValue.length() != 0 && attentionFlagValue.charAt(0) == '{') {
                             JSONObject attentionFlagObject = new JSONObject(attentionFlagValue);
-                            if (attentionFlagObject.has("text") && attentionFlagObject.has("key")) {
+                            if (attentionFlagObject.has(JsonFormConstants.TEXT) && attentionFlagObject.has(JsonFormConstants.KEY)) {
                                 String translation_text;
                                 translation_text = !attentionFlagObject.getString("text").isEmpty() ? "{{" + attentionFlagObject.getString("text") + "}}" : "";
                                 facts.put(key, translation_text);

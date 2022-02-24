@@ -19,7 +19,6 @@ import android.widget.TextView;
 import org.jeasy.rules.api.Facts;
 import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
-import org.smartregister.anc.library.BuildConfig;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.ProfileContract;
 import org.smartregister.anc.library.domain.YamlConfig;
@@ -54,7 +53,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     private TextView ancIdView;
     private ImageView imageView;
     private ImageRenderHelper imageRenderHelper;
-    private Facts facts = new Facts();
+    private final Facts facts = new Facts();
     private List<YamlConfig> yamlConfigList = new ArrayList<>();
     private String baseEntityId;
     private int contactNo;
@@ -105,8 +104,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     @Override
     public void onResume() {
         super.onResume();
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && Environment.isExternalStorageManager())
-        {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && Environment.isExternalStorageManager()) {
             generateFileinStorage();
         }
     }
@@ -236,9 +234,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
         if (isPermissionGranted() && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)) {
             generateFileinStorage();
-        }
-        else if (!isPermissionGranted() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
-        {
+        } else if (!isPermissionGranted() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             Intent intent = new Intent();
             intent.setAction(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
             Uri uri = Uri.fromParts("package", this.getPackageName(), null);
@@ -247,8 +243,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         }
     }
 
-    public void generateFileinStorage()
-    {
+    public void generateFileinStorage() {
         try {
             new Utils().createSavePdf(this, yamlConfigList, facts);
         } catch (FileNotFoundException e) {
@@ -280,15 +275,10 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     }
 
     protected boolean isPermissionGranted() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
-        {
-            if(Environment.isExternalStorageManager())
-                return true;
-            else
-                return false;
-        }
-        else
-        return PermissionUtils.isPermissionGranted(this, Manifest.permission.WRITE_EXTERNAL_STORAGE, PermissionUtils.WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            return Environment.isExternalStorageManager();
+        } else
+            return PermissionUtils.isPermissionGranted(this, Manifest.permission.WRITE_EXTERNAL_STORAGE, PermissionUtils.WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
     }
 
     public List<YamlConfig> getYamlConfigList() {
