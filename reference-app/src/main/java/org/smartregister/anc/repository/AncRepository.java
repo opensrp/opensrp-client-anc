@@ -10,6 +10,8 @@ import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.library.repository.ContactTasksRepository;
 import org.smartregister.anc.library.repository.PartialContactRepository;
 import org.smartregister.anc.library.repository.PreviousContactRepository;
+import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.repository.ClientFormRepository;
 import org.smartregister.repository.EventClientRepository;
@@ -66,6 +68,9 @@ public class AncRepository extends Repository {
             switch (upgradeTo) {
                 case 2:
                     upgradeToVersion2(db);
+                    break;
+                case 3:
+                    upgradeToVersion3(db);
                     break;
                 default:
                     break;
@@ -128,6 +133,18 @@ public class AncRepository extends Repository {
             writableDatabase.close();
         }
         super.close();
+    }
+
+    private void upgradeToVersion3(SQLiteDatabase db) {
+        try {
+            db.execSQL("ALTER TABLE " + DBConstantsUtils.WOMAN_DETAILS_TABLE_NAME + " ADD COLUMN " + ConstantsUtils.SpinnerKeyConstants.PROVINCE + " VARCHAR");
+            db.execSQL("ALTER TABLE " + DBConstantsUtils.WOMAN_DETAILS_TABLE_NAME + " ADD COLUMN " + ConstantsUtils.SpinnerKeyConstants.DISTRICT + " VARCHAR");
+            db.execSQL("ALTER TABLE " + DBConstantsUtils.WOMAN_DETAILS_TABLE_NAME + " ADD COLUMN " + ConstantsUtils.SpinnerKeyConstants.SUB_DISTRICT + " VARCHAR");
+            db.execSQL("ALTER TABLE " + DBConstantsUtils.WOMAN_DETAILS_TABLE_NAME + " ADD COLUMN " + ConstantsUtils.SpinnerKeyConstants.FACILITY + " VARCHAR");
+            db.execSQL("ALTER TABLE " + DBConstantsUtils.WOMAN_DETAILS_TABLE_NAME + " ADD COLUMN " + ConstantsUtils.SpinnerKeyConstants.VILLAGE + " VARCHAR");
+        } catch (Exception e) {
+            Timber.e("upgradeToVersion3 %s", e.getMessage());
+        }
     }
 
 }
