@@ -178,8 +178,10 @@ public class ANCFormUtils extends FormUtils {
                 } else {
                     if (StringUtils.isNotBlank(value) && Boolean.parseBoolean(value) && (JsonFormConstants.CHECK_BOX.equals(jsonObject.optString(JsonFormConstants.TYPE)) ||
                             JsonFormConstants.NATIVE_RADIO_BUTTON.equals(jsonObject.optString(JsonFormConstants.TYPE)) || JsonFormConstants.SPINNER.equals(jsonObject.optString(JsonFormConstants.TYPE)) || JsonFormConstants.MULTI_SELECT_LIST.equals(jsonObject.optString(JsonFormConstants.TYPE)))) {
-                        String translation_text = jsonObject.optString(JsonFormConstants.TRANSLATION_TEXT, "") != null ? "{{" + jsonObject.optString(JsonFormConstants.TRANSLATION_TEXT, "") + "}}" : "";
-                        valueList.add(translation_text);
+                        String translated_text, text;
+                        text = jsonObject.optString(JsonFormConstants.TRANSLATION_TEXT);
+                        translated_text = !text.isEmpty() ? NativeFormLangUtils.getTranslatedANCString(text, AncLibrary.getInstance().getApplicationContext()) : "";
+                        valueList.add(translated_text);
                     } else {
                         valueList.add(jsonObject.optString(JsonFormConstants.TEXT, ""));
                     }
@@ -514,7 +516,7 @@ public class ANCFormUtils extends FormUtils {
         if (keys != null) {
             String cleanKey = "";
             String value = cleanValue(keys);
-            if (!value.contains("text") || !value.contains(".")) {
+            if (!value.contains("text") || !value.contains(".") && !value.isEmpty()) {
                 cleanKey = WordUtils.capitalizeFully(value, ',');
             } else {
                 cleanKey = value;
@@ -542,7 +544,7 @@ public class ANCFormUtils extends FormUtils {
                         JSONObject jsonObject = jsonArray.optJSONObject(i);
                         if (jsonObject != null && !jsonObject.optString(JsonFormConstants.TEXT).isEmpty()) {
                             String text = jsonObject.optString(JsonFormConstants.TEXT), translatedText = "";
-                            translatedText = NativeFormLangUtils.getTranslatedString(text,AncLibrary.getInstance().getApplicationContext());
+                            translatedText = NativeFormLangUtils.getTranslatedANCString(text, AncLibrary.getInstance().getApplicationContext());
                             list.add(translatedText);
                         }
                     }
@@ -553,6 +555,7 @@ public class ANCFormUtils extends FormUtils {
             } else
                 return value;
         } catch (Exception e) {
+            Timber.e(e, "Clean Value in ANCFormUtils");
             return "";
         }
 
