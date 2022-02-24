@@ -96,7 +96,7 @@ public class AncSpinnerFactoryTest extends BaseUnitTest {
         Location location = new Location();
         location.setId("location-id");
         location.setProperties(property);
-        ArrayList<org.smartregister.domain.Location> locations = new ArrayList<>();
+        ArrayList<Location> locations = new ArrayList<>();
         locations.add(location);
 
         JSONObject step1 = new JSONObject("{\"title\":\"{{anc_register.step1.title}}\",\"fields\":[{\"key\":\"province\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"person_attribute\",\"openmrs_entity_id\":\"province\",\"type\":\"spinner\",\"sub_type\":\"location\",\"hint\":\"Select Province\",\"options\":[],\"v_required\":{\"value\":\"true\",\"err\":\"Please Select\"}},{\"key\":\"district\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"person_attribute\",\"openmrs_entity_id\":\"district\",\"type\":\"spinner\",\"sub_type\":\"location\",\"hint\":\"Select District\",\"options\":[],\"v_required\":{\"value\":\"true\",\"err\":\"Please Select\"}},{\"key\":\"subdistrict\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"person_attribute\",\"openmrs_entity_id\":\"subdistrict\",\"type\":\"spinner\",\"sub_type\":\"location\",\"hint\":\"Select Sub-District\",\"options\":[],\"v_required\":{\"value\":\"true\",\"err\":\"Please Select\"}},{\"key\":\"health_facility\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"person_attribute\",\"openmrs_entity_id\":\"health_facility\",\"type\":\"spinner\",\"sub_type\":\"location\",\"hint\":\"Select Health Facility\",\"options\":[],\"v_required\":{\"value\":\"true\",\"err\":\"Please Select\"}},{\"key\":\"village\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"person_attribute\",\"openmrs_entity_id\":\"village\",\"type\":\"spinner\",\"sub_type\":\"location\",\"hint\":\"Select Village\",\"options\":[],\"v_required\":{\"value\":\"true\",\"err\":\"Please Select\"}}]}");
@@ -105,7 +105,7 @@ public class AncSpinnerFactoryTest extends BaseUnitTest {
         PowerMockito.doReturn(locationTags).when(Utils.class, "getLocationTagsByTagName", "Country");
         PowerMockito.doReturn(locations).when(Utils.class, "getLocationsByParentId", Mockito.anyString());
         PowerMockito.doReturn("location-id").when(Utils.class, "getCurrentLocation", Mockito.anyString(), Mockito.any());
-        PowerMockito.doReturn("childLocationName").when(Utils.class, "getLocationLocalizedName",location, jsonFormView);
+        PowerMockito.doReturn("childLocationfName").when(Utils.class, "getLocationLocalizedName",location, jsonFormView);
         PowerMockito.doReturn(step1).when(jsonFormFragment).getStep(JsonFormConstants.STEP1);
 
         spinnerFactory.populateProvince(provinceOnject);
@@ -126,7 +126,7 @@ public class AncSpinnerFactoryTest extends BaseUnitTest {
         Location location = new Location();
         location.setId("subDistrict-location-id");
         location.setProperties(property);
-        ArrayList<org.smartregister.domain.Location> locations = new ArrayList<>();
+        ArrayList<Location> locations = new ArrayList<>();
         locations.add(location);
 
         PowerMockito.mockStatic(Utils.class);
