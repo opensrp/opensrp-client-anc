@@ -1021,16 +1021,16 @@ public class Utils extends org.smartregister.util.Utils {
         Location province = Utils.getLocationById(district != null ? district.getProperties().getParentId() : "");
 
         switch (level.substring(level.lastIndexOf("_") + 1).toUpperCase()) {
-            case "PROVINCE":
+            case ConstantsUtils.LocationConstants.PROVINCE:
                 return province != null ? province.getId() : "";
-            case "DISTRICT":
+            case ConstantsUtils.LocationConstants.DISTRICT:
                 return district != null ? district.getId() : "";
-            case "SUBDISTRICT":
+            case ConstantsUtils.LocationConstants.SUBDISTRICT:
                 return subDistrict != null ? subDistrict.getId() : "";
-            case "HEALTH_FACILITY":
-            case "FACILITY":
+            case ConstantsUtils.LocationConstants.HEALTH_FACILITY:
+            case ConstantsUtils.LocationConstants.FACILITY:
                 return facility != null ? facility.getId() : "";
-            case "VILLAGE":
+            case ConstantsUtils.LocationConstants.VILLAGE:
             default:
                 return village != null ? village.getId() : "";
         }
@@ -1046,7 +1046,8 @@ public class Utils extends org.smartregister.util.Utils {
                 .replace("'", "")
                 .replace("’", "_");
 
-        int identifier = jsonFormView.getResources().getIdentifier(id, "string", jsonFormView.getApplicationContext().getPackageName());
+        int identifier = jsonFormView.getResources().getIdentifier(id, ConstantsUtils.IdentifierUtils.STRING_IDENTIFIEER,
+                jsonFormView.getApplicationContext().getPackageName());
         String locationName = location.getProperties().getName();
         if (identifier != 0) {
             locationName = jsonFormView.getResources().getString(identifier);

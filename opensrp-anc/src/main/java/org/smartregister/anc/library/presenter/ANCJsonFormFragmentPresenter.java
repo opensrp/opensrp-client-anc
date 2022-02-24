@@ -5,11 +5,11 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.KEYS;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.STEP1;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUES;
-import static org.smartregister.anc.library.constants.AncFormConstants.SpinnerKeyConstants.DISTRICT;
-import static org.smartregister.anc.library.constants.AncFormConstants.SpinnerKeyConstants.FACILITY;
-import static org.smartregister.anc.library.constants.AncFormConstants.SpinnerKeyConstants.PROVINCE;
-import static org.smartregister.anc.library.constants.AncFormConstants.SpinnerKeyConstants.SUB_DISTRICT;
-import static org.smartregister.anc.library.constants.AncFormConstants.SpinnerKeyConstants.VILLAGE;
+import static org.smartregister.anc.library.util.ConstantsUtils.SpinnerKeyConstants.DISTRICT;
+import static org.smartregister.anc.library.util.ConstantsUtils.SpinnerKeyConstants.FACILITY;
+import static org.smartregister.anc.library.util.ConstantsUtils.SpinnerKeyConstants.PROVINCE;
+import static org.smartregister.anc.library.util.ConstantsUtils.SpinnerKeyConstants.SUB_DISTRICT;
+import static org.smartregister.anc.library.util.ConstantsUtils.SpinnerKeyConstants.VILLAGE;
 import static org.smartregister.anc.library.widget.ANCSpinnerFactory.descendants;
 import static org.smartregister.anc.library.widget.ANCSpinnerFactory.locationSpinners;
 
@@ -24,6 +24,7 @@ import com.vijay.jsonwizard.customviews.MaterialSpinner;
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -64,13 +65,13 @@ public class ANCJsonFormFragmentPresenter extends JsonFormFragmentPresenter {
                 JSONObject field = JsonFormUtils.getFieldJSONObject(formFragment.getStep(STEP1).getJSONArray(FIELDS), key);
                 String parentLocationId = field.getString(VALUE);
 
-                if (key.equals(PROVINCE)) {
+                if (StringUtils.equals(key, PROVINCE)) {
                     populateLocationSpinner(parentLocationId, DISTRICT, descendants.get(DISTRICT));
-                } else if (key.equals(DISTRICT)) {
+                } else if (StringUtils.equals(key, DISTRICT)) {
                     populateLocationSpinner(parentLocationId, SUB_DISTRICT, descendants.get(SUB_DISTRICT));
-                } else if (key.equals(SUB_DISTRICT)) {
+                } else if (StringUtils.equals(key, SUB_DISTRICT)) {
                     populateLocationSpinner(parentLocationId, FACILITY, descendants.get(FACILITY));
-                } else if (key.equals(FACILITY) && position > -1) {
+                } else if (StringUtils.equals(key, FACILITY) && position > -1) {
                     populateLocationSpinner(parentLocationId, VILLAGE, null);
                 }
             }

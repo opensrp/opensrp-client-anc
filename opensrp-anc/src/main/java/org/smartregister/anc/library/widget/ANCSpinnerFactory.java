@@ -7,13 +7,14 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.STEP1;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.STEP_TITLE;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.TEXT;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
-import static org.smartregister.anc.library.constants.AncFormConstants.FormKeyConstants.LOCATION_SUB_TYPE;
-import static org.smartregister.anc.library.constants.AncFormConstants.FormKeyConstants.SUB_TYPE;
-import static org.smartregister.anc.library.constants.AncFormConstants.SpinnerKeyConstants.DISTRICT;
-import static org.smartregister.anc.library.constants.AncFormConstants.SpinnerKeyConstants.FACILITY;
-import static org.smartregister.anc.library.constants.AncFormConstants.SpinnerKeyConstants.PROVINCE;
-import static org.smartregister.anc.library.constants.AncFormConstants.SpinnerKeyConstants.SUB_DISTRICT;
-import static org.smartregister.anc.library.constants.AncFormConstants.SpinnerKeyConstants.VILLAGE;
+import static org.smartregister.anc.library.util.ConstantsUtils.FormKeyConstants.LOCATION_SUB_TYPE;
+import static org.smartregister.anc.library.util.ConstantsUtils.FormKeyConstants.SUB_TYPE;
+import static org.smartregister.anc.library.util.ConstantsUtils.LocationConstants.COUNTRY;
+import static org.smartregister.anc.library.util.ConstantsUtils.SpinnerKeyConstants.DISTRICT;
+import static org.smartregister.anc.library.util.ConstantsUtils.SpinnerKeyConstants.FACILITY;
+import static org.smartregister.anc.library.util.ConstantsUtils.SpinnerKeyConstants.PROVINCE;
+import static org.smartregister.anc.library.util.ConstantsUtils.SpinnerKeyConstants.SUB_DISTRICT;
+import static org.smartregister.anc.library.util.ConstantsUtils.SpinnerKeyConstants.VILLAGE;
 
 import android.content.Context;
 import android.view.View;
@@ -116,11 +117,11 @@ public class ANCSpinnerFactory extends SpinnerFactory {
     }
 
     protected void populateProvince(JSONObject jsonObject) {
-        List<LocationTag> tags = Utils.getLocationTagsByTagName("Country");
-        // TODO: Remove static country ID, current implementation is only done to select proper country in case of more than one countries (dummy data) in locations
-        String countryId = (tags != null && tags.size() > 0) ? ((tags.size() > 1) ? "02ebbc84-5e29-4cd5-9b79-c594058923e9" : tags.get(0).getLocationId()) : "";
-//        String countryId = (tags != null && tags.size() > 0) ? tags.get(0).getLocationId() : "";
-
+        String countryId = Utils.getProperties(jsonFormView).getProperty(ConstantsUtils.Properties.DEAFAULT_COUNTRY_ID, "");
+        if (StringUtils.isEmpty(countryId)) {
+            List<LocationTag> tags = Utils.getLocationTagsByTagName(COUNTRY);
+            countryId = (tags != null && tags.size() > 0) ? tags.get(0).getLocationId() : "";
+        }
         try {
             populateLocationSpinner(jsonObject, countryId, jsonObject.getString(KEY),
                     descendants.get(jsonObject.getString(KEY)));
@@ -184,7 +185,7 @@ public class ANCSpinnerFactory extends SpinnerFactory {
     }
 
     private JSONObject getFormStep() {
-        return ((JsonFormFragment) formFragment).getStep(STEP1);
+        return formFragment.getStep(STEP1);
     }
 
 }

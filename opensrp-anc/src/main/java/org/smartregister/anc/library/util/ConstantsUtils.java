@@ -73,6 +73,7 @@ public abstract class ConstantsUtils {
         String CAN_SAVE_SITE_INITIAL_SETTING = "CAN_SAVE_INITIAL_SITE_SETTING";
         String MAX_CONTACT_SCHEDULE_DISPLAYED = "MAX_CONTACT_SCHEDULE_DISPLAYED";
         String DUE_CHECK_STRATEGY = "DUE_CHECK_STRATEGY";
+        String DEAFAULT_COUNTRY_ID = "DEFAULT_COUNTRY_ID";
     }
 
     public interface DueCheckStrategy {
@@ -103,6 +104,7 @@ public abstract class ConstantsUtils {
 
     public static class IdentifierUtils {
         public static final String ANC_ID = "ANC_ID";
+        public static final String STRING_IDENTIFIEER = "string";
     }
 
     public static final class EventTypeUtils {
@@ -270,5 +272,28 @@ public abstract class ConstantsUtils {
     public static class SettingsSyncParamsUtils {
         public static final String LOCATION_ID = "locationId";
         public static final String IDENTIFIER = "identifier";
+    }
+
+    public static final class SpinnerKeyConstants {
+        public static final String PROVINCE = "province";
+        public static final String DISTRICT = "district";
+        public static final String SUB_DISTRICT = "subdistrict";
+        public static final String FACILITY = "health_facility";
+        public static final String VILLAGE = "village";
+    }
+
+    public static final class FormKeyConstants {
+        public static final String SUB_TYPE = "sub_type";
+        public static final String LOCATION_SUB_TYPE = "location";
+    }
+
+    public static final class LocationConstants {
+        public static final String COUNTRY = "Country";
+        public static final String PROVINCE = "PROVINCE";
+        public static final String DISTRICT = "DISTRICT";
+        public static final String SUBDISTRICT = "SUBDISTRICT";
+        public static final String HEALTH_FACILITY = "HEALTH_FACILITY";
+        public static final String FACILITY = "FACILITY";
+        public static final String VILLAGE = "VILLAGE";
     }
 }
