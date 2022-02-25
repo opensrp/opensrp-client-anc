@@ -180,7 +180,7 @@ public class ANCFormUtils extends FormUtils {
                             JsonFormConstants.NATIVE_RADIO_BUTTON.equals(jsonObject.optString(JsonFormConstants.TYPE)) || JsonFormConstants.SPINNER.equals(jsonObject.optString(JsonFormConstants.TYPE)) || JsonFormConstants.MULTI_SELECT_LIST.equals(jsonObject.optString(JsonFormConstants.TYPE)))) {
                         String translated_text, text;
                         text = jsonObject.optString(JsonFormConstants.TRANSLATION_TEXT);
-                        translated_text = !text.isEmpty() ? NativeFormLangUtils.getTranslatedANCString(text, AncLibrary.getInstance().getApplicationContext()) : "";
+                        translated_text = !text.isEmpty() ? NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext()) : "";
                         valueList.add(translated_text);
                     } else {
                         valueList.add(jsonObject.optString(JsonFormConstants.TEXT, ""));
@@ -544,7 +544,7 @@ public class ANCFormUtils extends FormUtils {
                         JSONObject jsonObject = jsonArray.optJSONObject(i);
                         if (jsonObject != null && !jsonObject.optString(JsonFormConstants.TEXT).isEmpty()) {
                             String text = jsonObject.optString(JsonFormConstants.TEXT), translatedText = "";
-                            translatedText = NativeFormLangUtils.getTranslatedANCString(text, AncLibrary.getInstance().getApplicationContext());
+                            translatedText = NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext());
                             list.add(translatedText);
                         }
                     }

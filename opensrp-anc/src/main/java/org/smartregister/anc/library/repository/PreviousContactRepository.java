@@ -230,7 +230,7 @@ public class PreviousContactRepository extends BaseRepository {
                         JSONObject valueObject = new JSONObject(jsonValue);
                         String text, translated_text;
                         text = valueObject.optString(JsonFormConstants.TEXT);
-                        translated_text = !text.isEmpty() ? NativeFormLangUtils.getTranslatedANCString(text, AncLibrary.getInstance().getApplicationContext()) : "";
+                        translated_text = !text.isEmpty() ? NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext()) : "";
                         previousContactsTestsFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), translated_text);
                     } else {
                         previousContactsTestsFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), jsonValue);
@@ -337,7 +337,7 @@ public class PreviousContactRepository extends BaseRepository {
                         if (previousContactObject.has(JsonFormConstants.KEY) && previousContactObject.has(JsonFormConstants.TEXT)) {
                             String translated_text, text;
                             text = previousContactObject.optString(JsonFormConstants.TEXT);
-                            translated_text = !text.isEmpty() ? NativeFormLangUtils.getTranslatedANCString(text, AncLibrary.getInstance().getApplicationContext()) : "";
+                            translated_text = !text.isEmpty() ? NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext()) : "";
                             previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), translated_text);
                         } else {
                             previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), previousContactValue);
