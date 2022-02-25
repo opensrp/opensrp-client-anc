@@ -155,7 +155,13 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
 
                         while (keys.hasNext()) {
                             String key = keys.next();
-                            factsToUpdate.put(key, jsonObject.get(key));
+                            String valueObject = jsonObject.optString(key), value;
+                            value = Utils.returnTranslatedStringJoinedValue(valueObject, key);
+                            if (value.length() > 1) {
+                                factsToUpdate.put(key, value);
+                            } else {
+                                factsToUpdate.put(key, "");
+                            }
                         }
                     } catch (JSONException e) {
                         Log.e(TAG, Log.getStackTraceString(e));

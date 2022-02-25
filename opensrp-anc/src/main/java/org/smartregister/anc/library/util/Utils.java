@@ -1,5 +1,6 @@
 package org.smartregister.anc.library.util;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +28,7 @@ import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
+import com.vijay.jsonwizard.utils.NativeFormLangUtils;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
@@ -839,6 +841,64 @@ public class Utils extends org.smartregister.util.Utils {
 
         } catch (Exception e) {
             return false;
+        }
+
+    }
+
+    /**
+     * @param receives iterated keys and values and passes them through transaltion in nativeform
+     *                 to return a string. It checks whether the value is an array, a json object or a normal string separated by ,
+     * @param key
+     * @return
+     */
+    @SuppressLint({"NewApi"})
+    public static String returnTranslatedStringJoinedValue(String value, String key) {
+        try {
+            if (value.startsWith("[")) {
+                if (Utils.checkJsonArrayString(value)) {
+                    JSONArray jsonArray = new JSONArray(value);
+                    List<String> translatedList = new ArrayList<>();
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject object = jsonArray.optJSONObject(i);
+                        String text, translatedText;
+                        text = object.optString(JsonFormConstants.TEXT).trim();
+                        translatedText = StringUtils.isNotBlank(text) ? NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext()) : "";
+                        translatedList.add(translatedText);
+                    }
+                    return String.join(",", translatedList);
+                } else {
+                    List<String> valueList = Arrays.asList(value.trim().split(","));
+                    List<String> translatedList = new ArrayList<>();
+                    for (int i = 0; i < valueList.size(); i++) {
+                        String textToTranslate = valueList.get(i).trim(), translatedText;
+                        translatedText = StringUtils.isNotBlank(textToTranslate) ? NativeFormLangUtils.translateDatabaseString(textToTranslate, AncLibrary.getInstance().getApplicationContext()) : "";
+                        translatedList.add(translatedText);
+                    }
+                    return String.join(",", translatedList);
+                }
+            }
+            if (value.startsWith("{")) {
+                JSONObject attentionFlagObject = new JSONObject(value);
+                String translated_text, text;
+                text = attentionFlagObject.optString(JsonFormConstants.TEXT).trim();
+                translated_text = StringUtils.isNotBlank(text) ? NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext()) : "";
+                return translated_text;
+            }
+            if (key.endsWith(ConstantsUtils.KeyUtils.VALUE) && value.contains(",") && value.contains(JsonFormConstants.TEXT)) {
+                List<String> attentionFlagValueArray = Arrays.asList(value.trim().split(","));
+                List<String> translatedList = new ArrayList<>();
+                for (int i = 0; i < attentionFlagValueArray.size(); i++) {
+                    String textToTranslate = attentionFlagValueArray.get(i).trim(), translatedText;
+                    translatedText = StringUtils.isNotBlank(textToTranslate) ? NativeFormLangUtils.translateDatabaseString(textToTranslate, AncLibrary.getInstance().getApplicationContext()) : "";
+                    translatedList.add(translatedText);
+                }
+                return String.join(",", translatedList);
+            }
+            return value;
+        } catch (Exception e) {
+            e.printStackTrace();
+            Timber.e("Failed to translate String %s", e.toString());
+            return "";
         }
 
     }

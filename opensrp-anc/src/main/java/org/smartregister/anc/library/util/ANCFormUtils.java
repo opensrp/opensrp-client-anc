@@ -180,7 +180,7 @@ public class ANCFormUtils extends FormUtils {
                             JsonFormConstants.NATIVE_RADIO_BUTTON.equals(jsonObject.optString(JsonFormConstants.TYPE)) || JsonFormConstants.SPINNER.equals(jsonObject.optString(JsonFormConstants.TYPE)) || JsonFormConstants.MULTI_SELECT_LIST.equals(jsonObject.optString(JsonFormConstants.TYPE)))) {
                         String translated_text, text;
                         text = jsonObject.optString(JsonFormConstants.TRANSLATION_TEXT);
-                        translated_text = !text.isEmpty() ? NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext()) : "";
+                        translated_text = StringUtils.isNotBlank(text) ? NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext()) : "";
                         valueList.add(translated_text);
                     } else {
                         valueList.add(jsonObject.optString(JsonFormConstants.TEXT, ""));
@@ -516,7 +516,7 @@ public class ANCFormUtils extends FormUtils {
         if (keys != null) {
             String cleanKey = "";
             String value = cleanValue(keys);
-            if (!value.contains("text") || !value.contains(".") && !value.isEmpty()) {
+            if (!value.contains("text") || !value.contains(".") && StringUtils.isNotBlank(value)) {
                 cleanKey = WordUtils.capitalizeFully(value, ',');
             } else {
                 cleanKey = value;
@@ -542,9 +542,9 @@ public class ANCFormUtils extends FormUtils {
                     List<String> list = new ArrayList<>();
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.optJSONObject(i);
-                        if (jsonObject != null && !jsonObject.optString(JsonFormConstants.TEXT).isEmpty()) {
-                            String text = jsonObject.optString(JsonFormConstants.TEXT), translatedText = "";
-                            translatedText = NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext());
+                        if (StringUtils.isNotBlank(jsonObject.toString()) && !jsonObject.optString(JsonFormConstants.TEXT).isEmpty()) {
+                            String text = jsonObject.optString(JsonFormConstants.TEXT).trim(), translatedText = "";
+                            translatedText = StringUtils.isNotBlank(text) ? NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext()) : "";
                             list.add(translatedText);
                         }
                     }
