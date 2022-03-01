@@ -513,7 +513,7 @@ public class ANCFormUtils extends FormUtils {
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).contains(JsonFormConstants.TEXT) || list.get(i).contains("_")) {
                     if (StringUtils.isNotBlank(list.get(i))) {
-                        returnList.add(NativeFormLangUtils.translateDatabaseString(list.get(i), AncLibrary.getInstance().getApplicationContext()));
+                        returnList.add(list.get(i));
                     }
                 } else {
                     returnList.add(list.get(i));
