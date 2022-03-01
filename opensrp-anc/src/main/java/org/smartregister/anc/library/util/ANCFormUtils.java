@@ -176,12 +176,11 @@ public class ANCFormUtils extends FormUtils {
                         jsonObject.getJSONArray(JsonFormConstants.SECONDARY_VALUE).length() > 0) {
                     getRealSecondaryValue(jsonObject);
                 } else {
-                    if (StringUtils.isNotBlank(value) && Boolean.parseBoolean(value) && (JsonFormConstants.CHECK_BOX.equals(jsonObject.optString(JsonFormConstants.TYPE)) ||
-                            JsonFormConstants.NATIVE_RADIO_BUTTON.equals(jsonObject.optString(JsonFormConstants.TYPE)) || JsonFormConstants.SPINNER.equals(jsonObject.optString(JsonFormConstants.TYPE)) || JsonFormConstants.MULTI_SELECT_LIST.equals(jsonObject.optString(JsonFormConstants.TYPE)))) {
+                    if (StringUtils.isNotBlank(value) && Boolean.parseBoolean(value)) {
                         String translated_text, text;
                         text = jsonObject.optString(JsonFormConstants.TRANSLATION_TEXT);
                         translated_text = StringUtils.isNotBlank(text) ? NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext()) : "";
-                        valueList.add(translated_text);
+                        valueList.add(text);
                     } else {
                         valueList.add(jsonObject.optString(JsonFormConstants.TEXT, ""));
                     }
@@ -509,7 +508,20 @@ public class ANCFormUtils extends FormUtils {
      * @return comma separated string of list values
      */
     public static String getListValuesAsString(List<String> list) {
-        return list != null ? list.toString().substring(1, list.toString().length() - 1) : "";
+        List<String> returnList = new ArrayList<>();
+        if (list.size() != 0) {
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).contains(JsonFormConstants.TEXT) || list.get(i).contains("_")) {
+                    if (StringUtils.isNotBlank(list.get(i))) {
+                        returnList.add(NativeFormLangUtils.translateDatabaseString(list.get(i), AncLibrary.getInstance().getApplicationContext()));
+                    }
+                } else {
+                    returnList.add(list.get(i));
+                }
+            }
+
+        }
+        return String.join(",", returnList);
     }
 
     public static String keyToValueConverter(String keys) {
@@ -535,6 +547,7 @@ public class ANCFormUtils extends FormUtils {
 
     @SuppressLint("NewApi")
     static String cleanValue(String value) {
+        String returnValue = "";
         try {
             if (value.trim().length() > 0 && value.trim().charAt(0) == '[') {
                 if (Utils.checkJsonArrayString(value)) {
@@ -542,18 +555,20 @@ public class ANCFormUtils extends FormUtils {
                     List<String> list = new ArrayList<>();
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.optJSONObject(i);
-                        if (StringUtils.isNotBlank(jsonObject.toString()) && !jsonObject.optString(JsonFormConstants.TEXT).isEmpty()) {
+                        if (StringUtils.isNotBlank(jsonObject.toString()) && StringUtils.isNotBlank(jsonObject.optString(JsonFormConstants.TEXT))) {
                             String text = jsonObject.optString(JsonFormConstants.TEXT).trim(), translatedText = "";
                             translatedText = StringUtils.isNotBlank(text) ? NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext()) : "";
                             list.add(translatedText);
                         }
                     }
-                    return list.size() > 1 ? String.join(",", list) : "";
+                    returnValue = list.size() > 1 ? String.join(",", list) : list.get(0);
                 } else {
-                    return value.substring(1, value.length() - 1);
+                    returnValue = value.substring(1, value.length() - 1);
                 }
-            } else
-                return value;
+            } else {
+                returnValue = value;
+            }
+            return returnValue;
         } catch (Exception e) {
             Timber.e(e, "Clean Value in ANCFormUtils");
             return "";

@@ -60,7 +60,6 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
         Facts facts = new Facts();
         try {
             facts = AncLibrary.getInstance().getPreviousContactRepository().getPreviousContactFacts(baseEntityId, contactNo, true);
-
             Map<String, Object> factsAsMap = facts.asMap();
             String attentionFlags = "";
             if (factsAsMap.containsKey(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS)) {

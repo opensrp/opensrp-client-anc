@@ -1375,6 +1375,7 @@
           {
             "key": "none",
             "text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.none.text}}",
+            "translation_text": "anc_symptoms_follow_up.step4.phys_symptoms.options.none.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1383,6 +1384,7 @@
           {
             "key": "nausea_vomiting",
             "text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.nausea_vomiting.text}}",
+            "translation_text": "anc_symptoms_follow_up.step4.phys_symptoms.options.nausea_vomiting.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "133473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1391,6 +1393,7 @@
           {
             "key": "heartburn",
             "text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.heartburn.text}}",
+            "translation_text": "anc_symptoms_follow_up.step4.phys_symptoms.options.heartburn.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "139059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1399,6 +1402,7 @@
           {
             "key": "leg_cramps",
             "text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.leg_cramps.text}}",
+            "translation_text": "anc_symptoms_follow_up.step4.phys_symptoms.options.leg_cramps.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "135969AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1407,6 +1411,7 @@
           {
             "key": "constipation",
             "text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.constipation.text}}",
+            "translation_text": "anc_symptoms_follow_up.step4.phys_symptoms.options.constipation.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "996AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1415,6 +1420,7 @@
           {
             "key": "low_back_pain",
             "text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.low_back_pain.text}}",
+            "translation_text": "anc_symptoms_follow_up.step4.phys_symptoms.options.low_back_pain.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "116225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1423,6 +1429,7 @@
           {
             "key": "pelvic_pain",
             "text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.pelvic_pain.text}}",
+            "translation_text": "anc_symptoms_follow_up.step4.phys_symptoms.options.pelvic_pain.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "131034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1431,6 +1438,7 @@
           {
             "key": "varicose_veins",
             "text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.varicose_veins.text}}",
+            "translation_text": "anc_symptoms_follow_up.step4.phys_symptoms.options.varicose_veins.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "156666AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1439,6 +1447,7 @@
           {
             "key": "oedema",
             "text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.oedema.text}}",
+            "translation_text": "anc_symptoms_follow_up.step4.phys_symptoms.options.oedema.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
