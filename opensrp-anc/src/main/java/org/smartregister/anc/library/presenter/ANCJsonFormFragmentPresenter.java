@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
+import androidx.annotation.VisibleForTesting;
 import androidx.core.util.Pair;
 
 import com.google.gson.Gson;
@@ -56,6 +57,10 @@ public class ANCJsonFormFragmentPresenter extends JsonFormFragmentPresenter {
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         super.onItemSelected(parent, view, position, id);
 
+        performLocationSpinnerAction(parent, position);
+    }
+
+    protected void performLocationSpinnerAction(AdapterView<?> parent, int position) {
         String key = (String) parent.getTag(R.id.key);
         String isHumanAction = String.valueOf(parent.getTag(R.id.is_human_action));
 
@@ -88,7 +93,7 @@ public class ANCJsonFormFragmentPresenter extends JsonFormFragmentPresenter {
         if (spinner != null) {
             if (locations != null && !locations.isEmpty()) {
                 Pair<JSONArray, JSONArray> options = populateLocationOptions(locations);
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(getView().getContext(), R.layout.native_form_simple_list_item_1, new Gson().fromJson(options.second.toString(), String[].class));
+                ArrayAdapter<String> adapter = getAdapter(options);
                 spinner.setAdapter(adapter);
                 spinner.setOnItemSelectedListener(formFragment.getCommonListener());
                 spinner.setTag(R.id.keys, options.first);
@@ -132,6 +137,11 @@ public class ANCJsonFormFragmentPresenter extends JsonFormFragmentPresenter {
         }
 
         return new Pair<>(codes, values);
+    }
+
+    @VisibleForTesting
+    protected ArrayAdapter<String> getAdapter(Pair<JSONArray, JSONArray> options) {
+        return new ArrayAdapter<>(getView().getContext(), R.layout.native_form_simple_list_item_1, new Gson().fromJson(options.second.toString(), String[].class));
     }
 
 }
