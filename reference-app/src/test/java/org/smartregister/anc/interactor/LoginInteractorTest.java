@@ -2,6 +2,7 @@ package org.smartregister.anc.interactor;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -110,6 +111,7 @@ public class LoginInteractorTest extends BaseUnitTest {
     }
 
     @Test
+    @Ignore
     public void testGetUserServiceShouldInvokeUserServiceMethodFromOpensrpContext() {
         LoginPresenter presenter = new LoginPresenter(view);
         LoginPresenter presenterSpy = Mockito.spy(presenter);
@@ -130,6 +132,7 @@ public class LoginInteractorTest extends BaseUnitTest {
     }
 
     @Test
+    @Ignore
     public void testLoginShouldInvokeLoginWithLocalFlagWithCorrectParameters() {
         LoginPresenter presenter = new LoginPresenter(view);
         LoginPresenter presenterSpy = Mockito.spy(presenter);
@@ -144,6 +147,7 @@ public class LoginInteractorTest extends BaseUnitTest {
     }
 
     @Test
+    @Ignore
     public void testLoginWithFetchForceRemoteLoginTrueShouldInvokeLoginWithLocalFlagWithCorrectParameters() {
         LoginPresenter presenter = new LoginPresenter(view);
         LoginPresenter presenterSpy = Mockito.spy(presenter);

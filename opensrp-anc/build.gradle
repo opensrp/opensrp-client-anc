@@ -252,6 +252,7 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'crea
     getReports().getXml().setDestination(file("${buildDir}/reports/jacoco/jacocoRootReport/merged.xml"))
     getReports().getHtml().setDestination(file("${buildDir}/reports/jacoco/jacocoRootReport/html"))
 
+
     def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*', '**/*$ViewBinder*.*']
     def debugTree = fileTree(dir: "$project.buildDir/intermediates/javac/debug/classes", excludes: fileFilter)
     def mainSrc = "$project.projectDir/src/main/java"
@@ -260,6 +261,11 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'crea
     executionData.setFrom(fileTree(dir: project.buildDir, includes: [
             'jacoco/testDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec'
     ]))
+}
+
+task log() {
+    println("$buildDir")
+    println("${project.buildDir}")
 }
 
 task printTasks {
@@ -284,7 +290,7 @@ task javadoc(type: Javadoc) {
     classpath += configurations.compile
 }
 
-def jacocoReportPath,sourceDirs
+def jacocoReportPath, sourceDirs
 task coveralls {
     jacocoReportPath = "${buildDir}/reports/jacoco/jacocoTestReport/merged.xml"
     sourceDirs = ["$project.projectDir/src/main/java"]
