@@ -177,9 +177,7 @@ public class ANCFormUtils extends FormUtils {
                     getRealSecondaryValue(jsonObject);
                 } else {
                     if (StringUtils.isNotBlank(value) && Boolean.parseBoolean(value)) {
-                        String translated_text, text;
-                        text = jsonObject.optString(JsonFormConstants.TRANSLATION_TEXT);
-                        translated_text = StringUtils.isNotBlank(text) ? NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext()) : "";
+                        String text = jsonObject.optString(JsonFormConstants.TRANSLATION_TEXT);
                         valueList.add(text);
                     } else {
                         valueList.add(jsonObject.optString(JsonFormConstants.TEXT, ""));
@@ -507,6 +505,7 @@ public class ANCFormUtils extends FormUtils {
     /**
      * @return comma separated string of list values
      */
+    @SuppressLint("NewApi")
     public static String getListValuesAsString(List<String> list) {
         List<String> returnList = new ArrayList<>();
         if (list.size() != 0) {
@@ -519,9 +518,11 @@ public class ANCFormUtils extends FormUtils {
                     returnList.add(list.get(i));
                 }
             }
+            return String.join(",", returnList);
 
         }
-        return String.join(",", returnList);
+        return "";
+
     }
 
     public static String keyToValueConverter(String keys) {

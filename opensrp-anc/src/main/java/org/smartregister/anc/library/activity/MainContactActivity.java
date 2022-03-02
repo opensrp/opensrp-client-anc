@@ -389,7 +389,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     private void updateFormGlobalValues(JSONObject fieldObject) throws Exception {
         if (globalKeys.contains(fieldObject.getString(JsonFormConstants.KEY)) &&
                 fieldObject.has(JsonFormConstants.VALUE)) {
-
             formGlobalValues.put(fieldObject.getString(JsonFormConstants.KEY), fieldObject.getString(JsonFormConstants.VALUE));//Normal value
             processAbnormalValues(formGlobalValues, fieldObject);
             String secKey = ANCFormUtils.getSecondaryKey(fieldObject);
