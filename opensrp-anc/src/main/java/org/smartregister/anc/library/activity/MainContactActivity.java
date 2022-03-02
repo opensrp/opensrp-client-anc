@@ -65,7 +65,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     private String womanAge = "";
     private String formInvalidFields = null;
 
-    public static void processAbnormalValues(Map<String, String> facts, JSONObject jsonObject) throws Exception {
+    public static void processKeysWithExtensionValues(Map<String, String> facts, JSONObject jsonObject) throws Exception {
         String fieldKey = ANCFormUtils.getObjectKey(jsonObject);
         Object fieldValue = ANCFormUtils.getObjectValue(jsonObject);
         String fieldKeySecondary = fieldKey.contains(ConstantsUtils.SuffixUtils.OTHER) ?
@@ -390,7 +390,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         if (globalKeys.contains(fieldObject.getString(JsonFormConstants.KEY)) &&
                 fieldObject.has(JsonFormConstants.VALUE)) {
             formGlobalValues.put(fieldObject.getString(JsonFormConstants.KEY), fieldObject.getString(JsonFormConstants.VALUE));//Normal value
-            processAbnormalValues(formGlobalValues, fieldObject);
+            processKeysWithExtensionValues(formGlobalValues, fieldObject);
             String secKey = ANCFormUtils.getSecondaryKey(fieldObject);
             if (fieldObject.has(secKey)) {
                 formGlobalValues.put(secKey, fieldObject.getString(secKey));//Normal value secondary key
@@ -402,7 +402,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 JSONArray secondaryValues = fieldObject.getJSONArray(ConstantsUtils.KeyUtils.SECONDARY_VALUES);
                 for (int j = 0; j < secondaryValues.length(); j++) {
                     JSONObject jsonObject = secondaryValues.getJSONObject(j);
-                    processAbnormalValues(formGlobalValues, jsonObject);
+                    processKeysWithExtensionValues(formGlobalValues, jsonObject);
                 }
             }
             checkRequiredForCheckBoxOther(fieldObject);
@@ -429,7 +429,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 null) {
 
             formGlobalValues.put(ANCFormUtils.getSecondaryKey(fieldObject), fieldObject.getString(JsonFormConstants.VALUE));
-            processAbnormalValues(formGlobalValues, fieldObject);
+            processKeysWithExtensionValues(formGlobalValues, fieldObject);
         }
     }
 
