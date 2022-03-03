@@ -1,5 +1,6 @@
 package org.smartregister.anc.library.util;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.TextUtils;
 
@@ -8,6 +9,7 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.ExpansionPanelItemModel;
 import com.vijay.jsonwizard.rules.RuleConstant;
 import com.vijay.jsonwizard.utils.FormUtils;
+import com.vijay.jsonwizard.utils.NativeFormLangUtils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.WordUtils;
@@ -122,7 +124,6 @@ public class ANCFormUtils extends FormUtils {
         JSONArray jsonArray = widget.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
 
         for (int i = 0; i < jsonArray.length(); i++) {
-
             JSONObject jsonObject = jsonArray.getJSONObject(i);
 
             if (widget.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(widget.getString(JsonFormConstants.VALUE)) &&
@@ -161,15 +162,26 @@ public class ANCFormUtils extends FormUtils {
             widget.remove(getSecondaryKey(widget));
         }
         JSONArray jsonArray = widget.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+        Context context = AncLibrary.getInstance().getApplicationContext();
+        String value = Utils.getProperties(context).getProperty(ConstantsUtils.Properties.WIDGET_VALUE_TRANSLATED, "false");
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             if (jsonObject.has(JsonFormConstants.VALUE) && jsonObject.getBoolean(JsonFormConstants.VALUE)) {
-                keyList.add(jsonObject.getString(JsonFormConstants.KEY));
+                if (StringUtils.isNotBlank(value) && Boolean.parseBoolean(value)) {
+                    keyList.add(Utils.generateTranslatableValue(jsonObject.getString(JsonFormConstants.KEY), jsonObject) + "");
+                } else {
+                    keyList.add(jsonObject.getString(JsonFormConstants.KEY));
+                }
                 if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) &&
                         jsonObject.getJSONArray(JsonFormConstants.SECONDARY_VALUE).length() > 0) {
                     getRealSecondaryValue(jsonObject);
                 } else {
-                    valueList.add(jsonObject.getString(JsonFormConstants.TEXT));
+                    if (StringUtils.isNotBlank(value) && Boolean.parseBoolean(value)) {
+                        String text = jsonObject.optString(JsonFormConstants.TRANSLATION_TEXT);
+                        valueList.add(text);
+                    } else {
+                        valueList.add(jsonObject.optString(JsonFormConstants.TEXT, ""));
+                    }
                 }
             }
         }
@@ -179,6 +191,7 @@ public class ANCFormUtils extends FormUtils {
             widget.put(getSecondaryKey(widget), getListValuesAsString(valueList));
         }
     }
+
 
     public static void getRealSecondaryValue(JSONObject itemField) throws Exception {
         JSONArray secondaryValues = itemField.getJSONArray(JsonFormConstants.SECONDARY_VALUE);
@@ -302,13 +315,24 @@ public class ANCFormUtils extends FormUtils {
                     for (int i = 0; i < stepArray.length(); i++) {
                         JSONObject fieldObject = stepArray.getJSONObject(i);
                         processSpecialWidgets(fieldObject);
-
+                        Context context = AncLibrary.getInstance().getApplicationContext();
                         String fieldKey = getObjectKey(fieldObject);
                         //Do not add to facts values from expansion panels since they are processed separately
                         if (fieldKey != null && fieldObject.has(JsonFormConstants.VALUE) && fieldObject.has(JsonFormConstants.TYPE)
                                 && !JsonFormConstants.EXPANSION_PANEL.equals(fieldObject.getString(JsonFormConstants.TYPE))) {
+                            if (JsonFormConstants.CHECK_BOX.equals(fieldObject.optString(JsonFormConstants.TYPE, ""))) {
+                                String value = Utils.getProperties(context).getProperty(ConstantsUtils.Properties.WIDGET_VALUE_TRANSLATED, "false");
+                                if (StringUtils.isNotBlank(value) && Boolean.parseBoolean(value)) {
+                                    facts.put(fieldKey, Utils.generateTranslatableValue(fieldKey, fieldObject));
+                                } else {
+                                    facts.put(fieldKey, fieldObject.getString(JsonFormConstants.VALUE));
+                                }
 
-                            facts.put(fieldKey, fieldObject.getString(JsonFormConstants.VALUE));
+                            } else {
+                                facts.put(fieldKey, fieldObject.getString(JsonFormConstants.VALUE));
+                            }
+
+
                             processAbnormalValues(facts, fieldObject);
                             String secKey = getSecondaryKey(fieldObject);
 
@@ -381,11 +405,12 @@ public class ANCFormUtils extends FormUtils {
                 JsonFormConstants.EXPANSION_PANEL.equals(fieldObject.getString(JsonFormConstants.TYPE)) &&
                 fieldObject.has(JsonFormConstants.VALUE)) {
             JSONArray expansionPanelValue = fieldObject.getJSONArray(JsonFormConstants.VALUE);
-
-            for (int j = 0; j < expansionPanelValue.length(); j++) {
+            int length = expansionPanelValue.length();
+            for (int j = 0; j < length; j++) {
                 JSONObject jsonObject = expansionPanelValue.getJSONObject(j);
                 ExpansionPanelItemModel expansionPanelItem = getExpansionPanelItem(
                         jsonObject.getString(JsonFormConstants.KEY), expansionPanelValue);
+
 
                 if (jsonObject.has(JsonFormConstants.TYPE) && (JsonFormConstants.CHECK_BOX.equals(jsonObject.getString(JsonFormConstants.TYPE))
                         || JsonFormConstants.NATIVE_RADIO_BUTTON.equals(jsonObject.getString(JsonFormConstants.TYPE)) ||
@@ -462,8 +487,7 @@ public class ANCFormUtils extends FormUtils {
         if (fieldKey.endsWith(ConstantsUtils.SuffixUtils.OTHER) && !fieldKeySecondary.isEmpty() &&
                 facts.get(fieldKeySecondary) != null && facts.get(fieldKeyOtherValue) != null) {
 
-            List<String> tempList =
-                    new ArrayList<>(Arrays.asList(facts.get(fieldKeySecondary).toString().split("\\s*,\\s*")));
+            List<String> tempList = new ArrayList<>(Arrays.asList(facts.get(fieldKeySecondary).toString().split("\\s*,\\s*")));
             tempList.remove(tempList.size() - 1);
             tempList.add(StringUtils.capitalize(facts.get(fieldKeyOtherValue).toString()));
             facts.put(fieldKeySecondary, getListValuesAsString(tempList));
@@ -481,14 +505,37 @@ public class ANCFormUtils extends FormUtils {
     /**
      * @return comma separated string of list values
      */
+    @SuppressLint("NewApi")
     public static String getListValuesAsString(List<String> list) {
-        return list != null ? list.toString().substring(1, list.toString().length() - 1) : "";
+        List<String> returnList = new ArrayList<>();
+        if (list.size() != 0) {
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).contains(JsonFormConstants.TEXT) || list.get(i).contains("_")) {
+                    if (StringUtils.isNotBlank(list.get(i))) {
+                        returnList.add(list.get(i));
+                    }
+                } else {
+                    returnList.add(list.get(i));
+                }
+            }
+            return String.join(",", returnList);
+
+        }
+        return "";
+
     }
 
     public static String keyToValueConverter(String keys) {
         if (keys != null) {
-            String cleanKey = WordUtils.capitalizeFully(cleanValue(keys), ',');
-            if (!TextUtils.isEmpty(keys)) {
+            String cleanKey = "";
+            String value = cleanValue(keys);
+            if (!value.contains("text") || !value.contains(".") && StringUtils.isNotBlank(value)) {
+                cleanKey = WordUtils.capitalizeFully(value, ',');
+            } else {
+                cleanKey = value;
+            }
+
+            if (!TextUtils.isEmpty(keys) && keys.contains("_") && !keys.contains(".")) {
                 return cleanKey.replaceAll("_", " ");
             } else {
                 return cleanKey;
@@ -498,13 +545,38 @@ public class ANCFormUtils extends FormUtils {
         }
     }
 
-    public static String cleanValue(String raw) {
-        if (raw.length() > 0 && raw.charAt(0) == '[') {
-            return raw.substring(1, raw.length() - 1);
-        } else {
-            return raw;
+
+    @SuppressLint("NewApi")
+    static String cleanValue(String value) {
+        String returnValue = "";
+        try {
+            if (value.trim().length() > 0 && value.trim().charAt(0) == '[') {
+                if (Utils.checkJsonArrayString(value)) {
+                    JSONArray jsonArray = new JSONArray(value);
+                    List<String> list = new ArrayList<>();
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.optJSONObject(i);
+                        if (StringUtils.isNotBlank(jsonObject.toString()) && StringUtils.isNotBlank(jsonObject.optString(JsonFormConstants.TEXT))) {
+                            String text = jsonObject.optString(JsonFormConstants.TEXT).trim(), translatedText = "";
+                            translatedText = StringUtils.isNotBlank(text) ? NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext()) : "";
+                            list.add(translatedText);
+                        }
+                    }
+                    returnValue = list.size() > 1 ? String.join(",", list) : list.get(0);
+                } else {
+                    returnValue = value.substring(1, value.length() - 1);
+                }
+            } else {
+                returnValue = value;
+            }
+            return returnValue;
+        } catch (Exception e) {
+            Timber.e(e, "Clean Value in ANCFormUtils");
+            return "";
         }
+
     }
+
 
     /**
      * Filters checkbox values based on specified list
@@ -737,8 +809,9 @@ public class ANCFormUtils extends FormUtils {
 
     /**
      * Update form properties file name according to the test fields populated
-     *  @param taskValue {@link JSONObject}
-     * @param form   {@link JSONObject}
+     *
+     * @param taskValue {@link JSONObject}
+     * @param form      {@link JSONObject}
      */
     public void updateFormPropertiesFileName(JSONObject form, JSONObject taskValue, Context context) {
         try {
@@ -757,8 +830,9 @@ public class ANCFormUtils extends FormUtils {
 
     /**
      * get translated form name according to key
+     *
      * @param formKey {@link String}
-     * @param context   {@link Context}
+     * @param context {@link Context}
      */
     public String getTranslatedFormTitle(String formKey, Context context) {
         try {

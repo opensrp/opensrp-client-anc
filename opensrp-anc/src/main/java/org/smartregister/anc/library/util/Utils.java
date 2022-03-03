@@ -1,5 +1,6 @@
 package org.smartregister.anc.library.util;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -28,6 +29,7 @@ import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
+import com.vijay.jsonwizard.utils.NativeFormLangUtils;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
@@ -217,8 +219,7 @@ public class Utils extends org.smartregister.util.Utils {
             partialContactRequest.setContactNo(quickCheck.getContactNumber());
             partialContactRequest.setType(quickCheck.getFormName());
 
-            String locationId = AncLibrary.getInstance().getContext().allSharedPreferences()
-                    .getPreference(AllConstants.CURRENT_LOCATION_ID);
+            String locationId = AncLibrary.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
 
             ContactModel baseContactModel = new ContactModel();
             JSONObject form = baseContactModel.getFormAsJson(quickCheck.getFormName(), baseEntityId, locationId);
@@ -346,14 +347,20 @@ public class Utils extends org.smartregister.util.Utils {
         String value = "";
         if (facts.get(key) instanceof String) {
             value = facts.get(key);
-            if((key.equals(ConstantsUtils.PrescriptionUtils.NAUSEA_PHARMA) || key.equals(ConstantsUtils.PrescriptionUtils.ANTACID) || key.equals(ConstantsUtils.PrescriptionUtils.PENICILLIN) || key.equals(ConstantsUtils.PrescriptionUtils.ANTIBIOTIC) || key.equals(ConstantsUtils.PrescriptionUtils.IFA_MEDICATION) || key.equals(ConstantsUtils.PrescriptionUtils.VITA)
-             || key.equals(ConstantsUtils.PrescriptionUtils.MAG_CALC) || key.equals(ConstantsUtils.PrescriptionUtils.ALBEN_MEBEN) || key.equals(ConstantsUtils.PrescriptionUtils.PREP) || key.equals(ConstantsUtils.PrescriptionUtils.SP) || key.equals(ConstantsUtils.PrescriptionUtils.IFA) || key.equals(ConstantsUtils.PrescriptionUtils.ASPIRIN) || key.equals(ConstantsUtils.PrescriptionUtils.CALCIUM)) && (value!= null && value.equals("0")))
+            if ((key.equals(ConstantsUtils.PrescriptionUtils.NAUSEA_PHARMA) || key.equals(ConstantsUtils.PrescriptionUtils.ANTACID) || key.equals(ConstantsUtils.PrescriptionUtils.PENICILLIN) || key.equals(ConstantsUtils.PrescriptionUtils.ANTIBIOTIC) || key.equals(ConstantsUtils.PrescriptionUtils.IFA_MEDICATION) || key.equals(ConstantsUtils.PrescriptionUtils.VITA)
+                    || key.equals(ConstantsUtils.PrescriptionUtils.MAG_CALC) || key.equals(ConstantsUtils.PrescriptionUtils.ALBEN_MEBEN) || key.equals(ConstantsUtils.PrescriptionUtils.PREP) || key.equals(ConstantsUtils.PrescriptionUtils.SP) || key.equals(ConstantsUtils.PrescriptionUtils.IFA) || key.equals(ConstantsUtils.PrescriptionUtils.ASPIRIN) || key.equals(ConstantsUtils.PrescriptionUtils.CALCIUM)) && (value != null && value.equals("0"))) {
+                Context context = AncLibrary.getInstance().getApplicationContext();
+                String translationIsOn = org.smartregister.util.Utils.getProperties(context).getProperty(ConstantsUtils.Properties.WIDGET_VALUE_TRANSLATED, "false");
+                if (StringUtils.isNotBlank(value) && Boolean.parseBoolean(translationIsOn)) {
+                    return ANCFormUtils.keyToValueConverter(value);
+                }
                 return ANCFormUtils.keyToValueConverter("");
+            }
 
             if (value != null && value.endsWith(OTHER_SUFFIX)) {
                 Object otherValue = value.endsWith(OTHER_SUFFIX) ? facts.get(key + ConstantsUtils.SuffixUtils.OTHER) : "";
                 value = otherValue != null ?
-                        value.substring(0, value.lastIndexOf(",")) + ", " + otherValue.toString() + "]" :
+                        value.substring(0, value.lastIndexOf(",")) + ", " + otherValue + "]" :
                         value.substring(0, value.lastIndexOf(",")) + "]";
 
             }
@@ -374,19 +381,20 @@ public class Utils extends org.smartregister.util.Utils {
         if (!nonEmptyItems.isEmpty() && nonEmptyItems.get(0).contains(":")) {
             String[] separatedLabel = nonEmptyItems.get(0).split(":");
             itemLabel = separatedLabel[0];
-            if (separatedLabel.length > 1 ) {
+            if (separatedLabel.length > 1) {
                 nonEmptyItems.set(0, nonEmptyItems.get(0).split(":")[1]);
                 if (StringUtils.isBlank(nonEmptyItems.get(0)))
                     nonEmptyItems.remove(0);
             }//replace with extracted value
         }
-        if(!itemLabel.equals(StringUtils.join(nonEmptyItems.toArray(),",").replace(":","")))
-         return itemLabel + (!TextUtils.isEmpty(itemLabel) ? ": " : "") + StringUtils.join(nonEmptyItems.toArray(), ",");
+        if (!itemLabel.equals(StringUtils.join(nonEmptyItems.toArray(), ",").replace(":", "")))
+            return itemLabel + (!TextUtils.isEmpty(itemLabel) ? ": " : "") + StringUtils.join(nonEmptyItems.toArray(), ",");
         else
-            return itemLabel+":";
+            return itemLabel + ":";
     }
 
-    public static void navigateToHomeRegister(Context context, boolean isRemote, Class<? extends BaseHomeRegisterActivity> homeRegisterActivityClass) {
+    public static void navigateToHomeRegister(Context context, boolean isRemote, Class<? extends
+            BaseHomeRegisterActivity> homeRegisterActivityClass) {
         Intent intent = new Intent(context, homeRegisterActivityClass);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra(ConstantsUtils.IntentKeyUtils.IS_REMOTE_LOGIN, isRemote);
@@ -408,7 +416,8 @@ public class Utils extends org.smartregister.util.Utils {
         return (new LocalDate()).toString(SQLITE_DATE_DF);
     }
 
-    public static ButtonAlertStatus getButtonAlertStatus(Map<String, String> details, Context context, boolean isProfile) {
+    public static ButtonAlertStatus getButtonAlertStatus
+            (Map<String, String> details, Context context, boolean isProfile) {
         String contactStatus = details.get(DBConstantsUtils.KeyUtils.CONTACT_STATUS);
 
         String nextContactDate = details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE);
@@ -451,7 +460,7 @@ public class Utils extends org.smartregister.util.Utils {
 
     public static int getGestationAgeFromEDDate(String expectedDeliveryDate) {
         try {
-            if (!"0".equals(expectedDeliveryDate)) {
+            if (!"0".equals(expectedDeliveryDate) && expectedDeliveryDate.length() > 0) {
                 LocalDate date = SQLITE_DATE_DF.withOffsetParsed().parseLocalDate(expectedDeliveryDate);
                 LocalDate lmpDate = date.minusWeeks(ConstantsUtils.DELIVERY_DATE_WEEKS);
                 Weeks weeks = Weeks.weeksBetween(lmpDate, LocalDate.now());
@@ -476,7 +485,8 @@ public class Utils extends org.smartregister.util.Utils {
         return "";
     }
 
-    private static String getDisplayTemplate(Context context, String alertStatus, boolean isProfile) {
+    private static String getDisplayTemplate(Context context, String alertStatus,
+                                             boolean isProfile) {
         String displayTemplate;
         if (StringUtils.isNotBlank(alertStatus) && !isProfile) {
             switch (alertStatus) {
@@ -520,11 +530,13 @@ public class Utils extends org.smartregister.util.Utils {
         return result;
     }
 
-    public static void processButtonAlertStatus(Context context, Button dueButton, ButtonAlertStatus buttonAlertStatus) {
+    public static void processButtonAlertStatus(Context context, Button
+            dueButton, ButtonAlertStatus buttonAlertStatus) {
         Utils.processButtonAlertStatus(context, dueButton, null, buttonAlertStatus);
     }
 
-    public static void processButtonAlertStatus(Context context, Button dueButton, TextView contactTextView,
+    public static void processButtonAlertStatus(Context context, Button dueButton, TextView
+            contactTextView,
                                                 ButtonAlertStatus buttonAlertStatus) {
         if (dueButton != null) {
             dueButton.setVisibility(View.VISIBLE);
@@ -635,7 +647,8 @@ public class Utils extends org.smartregister.util.Utils {
      * @param tableName
      * @return
      */
-    public static boolean isTableExists(@NonNull SQLiteDatabase sqliteDatabase, @NonNull String tableName) {
+    public static boolean isTableExists(@NonNull SQLiteDatabase sqliteDatabase, @NonNull String
+            tableName) {
         Cursor cursor = sqliteDatabase.rawQuery(
                 "SELECT name FROM sqlite_master WHERE type='table' AND name='" + tableName + "'",
                 null
@@ -665,71 +678,6 @@ public class Utils extends org.smartregister.util.Utils {
         return AncLibrary.getInstance().getProperties().getPropertyBoolean(AncAppPropertyConstants.KeyUtils.LANGUAGE_SWITCHING_ENABLED);
     }
 
-    /**
-     * Loads yaml files that contain rules for the profile displays
-     *
-     * @param filename {@link String}
-     * @return
-     * @throws IOException
-     */
-    public Iterable<Object> loadRulesFiles(String filename) throws IOException {
-        return AncLibrary.getInstance().readYaml(filename);
-    }
-
-    /**
-     * Creates the {@link Task} partial contact form.  This is done any time we update tasks.
-     *
-     * @param baseEntityId {@link String} - The patient base entity id
-     * @param context      {@link Context} - application context
-     * @param contactNo    {@link Integer} - the contact that the partial contact belongs in.
-     * @param doneTasks    {@link List<Task>} - A list of all the done/completed tasks.
-     */
-    public void createTasksPartialContainer(String baseEntityId, Context context, int contactNo, List<Task> doneTasks) {
-        try {
-            if (contactNo > 0 && doneTasks != null && doneTasks.size() > 0) {
-                JSONArray fields = createFieldsArray(doneTasks);
-
-                ANCFormUtils ANCFormUtils = new ANCFormUtils();
-                JSONObject jsonForm = ANCFormUtils.loadTasksForm(context);
-                if (jsonForm != null) {
-                    ANCFormUtils.updateFormFields(jsonForm, fields);
-                }
-
-                createAndPersistPartialContact(baseEntityId, contactNo, jsonForm);
-            }
-        } catch (JSONException e) {
-            Timber.e(e, " --> createTasksPartialContainer");
-        }
-    }
-
-    @NotNull
-    private JSONArray createFieldsArray(List<Task> doneTasks) throws JSONException {
-        JSONArray fields = new JSONArray();
-        for (Task task : doneTasks) {
-            JSONObject field = new JSONObject(task.getValue());
-            fields.put(field);
-        }
-        return fields;
-    }
-
-    private void createAndPersistPartialContact(String baseEntityId, int contactNo, JSONObject jsonForm) {
-        Contact contact = new Contact();
-        contact.setJsonForm(String.valueOf(jsonForm));
-        contact.setContactNumber(contactNo);
-        contact.setFormName(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS);
-
-        ANCFormUtils.persistPartial(baseEntityId, contact);
-    }
-
-    /**
-     * Returns the Contact Tasks Repository {@link ContactTasksRepository}
-     *
-     * @return contactTasksRepository
-     */
-    public ContactTasksRepository getContactTasksRepositoryHelper() {
-        return AncLibrary.getInstance().getContactTasksRepository();
-    }
-
     public static String getDueCheckStrategy() {
         return getProperties(AncLibrary.getInstance().getApplicationContext()).getProperty(ConstantsUtils.Properties.DUE_CHECK_STRATEGY, "");
     }
@@ -741,7 +689,8 @@ public class Utils extends org.smartregister.util.Utils {
      * @return {@link HashMap}
      * @throws JSONException
      */
-    public static HashMap<String, HashMap<String, String>> buildRepeatingGroupValues(@NonNull JSONArray fields, @NonNull String fieldName) throws JSONException {
+    public static HashMap<String, HashMap<String, String>> buildRepeatingGroupValues
+    (@NonNull JSONArray fields, @NonNull String fieldName) throws JSONException {
         ArrayList<String> keysArrayList = new ArrayList<>();
         JSONObject jsonObject = JsonFormUtils.getFieldJSONObject(fields, fieldName);
         HashMap<String, HashMap<String, String>> repeatingGroupMap = new LinkedHashMap<>();
@@ -825,7 +774,8 @@ public class Utils extends org.smartregister.util.Utils {
      * @param baseEntityId {@link String}
      * @throws JSONException
      */
-    public static void createPreviousVisitFromGroup(@NonNull String strGroup, @NonNull String baseEntityId) throws JSONException {
+    public static void createPreviousVisitFromGroup(@NonNull String strGroup, @NonNull String
+            baseEntityId) throws JSONException {
         JSONObject jsonObject = new JSONObject(strGroup);
         Iterator<String> repeatingGroupKeys = jsonObject.keys();
         List<String> currentFormSubmissionIds = new ArrayList<>();
@@ -871,7 +821,6 @@ public class Utils extends org.smartregister.util.Utils {
         }
     }
 
-
     public static Event addContactVisitDetails(String attentionFlagsString, Event event,
                                                String referral, String currentContactState) {
         event.addDetails(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS, attentionFlagsString);
@@ -879,6 +828,155 @@ public class Utils extends org.smartregister.util.Utils {
             event.addDetails(ConstantsUtils.DetailsKeyUtils.PREVIOUS_CONTACTS, currentContactState);
         }
         return event;
+    }
+
+    public static JSONObject generateTranslatableValue(String value, JSONObject jsonObject) throws JSONException {
+        JSONObject newValue = new JSONObject();
+        ANCFormUtils formUtils = new ANCFormUtils();
+        if (jsonObject.has(JsonFormConstants.OPTIONS_FIELD_NAME)) {
+            JSONArray options = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+            JSONObject selectedOption = formUtils.getOptionFromOptionsUsingKey(options, value);
+            newValue.put(JsonFormConstants.VALUE, value);
+            String text = selectedOption.optString(JsonFormConstants.TRANSLATION_TEXT, "").length() != 0 ? selectedOption.optString(JsonFormConstants.TEXT, "") : selectedOption.optString(JsonFormConstants.KEY, "");
+            newValue.put(JsonFormConstants.TEXT, text);
+            return newValue;
+        }
+        newValue.put(JsonFormConstants.VALUE, value);
+        newValue.put(JsonFormConstants.TEXT, jsonObject.optString(JsonFormConstants.TRANSLATION_TEXT, ""));
+        return newValue;
+    }
+
+    public static boolean checkJsonArrayString(String input) {
+        try {
+            if (StringUtils.isNotBlank(input)) {
+                JSONArray jsonArray = new JSONArray(input);
+                return jsonArray.optJSONObject(0) != null || jsonArray.optJSONObject(0).length() > 0;
+            }
+            return false;
+
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
+    /**
+     * @param receives iterated keys and values and passes them through translation in nativeform
+     *                 to return a string. It checks whether the value is an array, a json object or a normal string separated by ,
+     * @param key
+     * @return
+     */
+    @SuppressLint({"NewApi"})
+    public static String returnTranslatedStringJoinedValue(String value, String key) {
+        try {
+            if (value.startsWith("[")) {
+                if (Utils.checkJsonArrayString(value)) {
+                    JSONArray jsonArray = new JSONArray(value);
+                    List<String> translatedList = new ArrayList<>();
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject object = jsonArray.optJSONObject(i);
+                        String text, translatedText;
+                        text = object.optString(JsonFormConstants.TEXT).trim();
+                        translatedText = StringUtils.isNotBlank(text) ? NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext()) : "";
+                        translatedList.add(translatedText);
+                    }
+                    return translatedList.size() > 1 ? String.join(",", translatedList) : translatedList.get(0);
+                } else {
+                    return value;
+                }
+            }
+            if (value.startsWith("{")) {
+                JSONObject attentionFlagObject = new JSONObject(value);
+                String translated_text, text;
+                text = attentionFlagObject.optString(JsonFormConstants.TEXT).trim();
+                translated_text = StringUtils.isNotBlank(text) ? NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext()) : "";
+                return translated_text;
+            }
+            if (key.endsWith(ConstantsUtils.KeyUtils.VALUE) && value.contains(",") && value.contains(JsonFormConstants.TEXT)) {
+                List<String> attentionFlagValueArray = Arrays.asList(value.trim().split(","));
+                List<String> translatedList = new ArrayList<>();
+                for (int i = 0; i < attentionFlagValueArray.size(); i++) {
+                    String textToTranslate = attentionFlagValueArray.get(i).trim(), translatedText;
+                    translatedText = StringUtils.isNotBlank(textToTranslate) ? NativeFormLangUtils.translateDatabaseString(textToTranslate, AncLibrary.getInstance().getApplicationContext()) : "";
+                    translatedList.add(translatedText);
+                }
+                return translatedList.size() > 1 ? String.join(",", translatedList) : translatedList.get(0);
+            }
+            return value;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Timber.e("Failed to translate String %s", e.toString());
+            return "";
+        }
+
+    }
+
+    /**
+     * Loads yaml files that contain rules for the profile displays
+     *
+     * @param filename {@link String}
+     * @return
+     * @throws IOException
+     */
+    public Iterable<Object> loadRulesFiles(String filename) throws IOException {
+        return AncLibrary.getInstance().readYaml(filename);
+    }
+
+    /**
+     * Creates the {@link Task} partial contact form.  This is done any time we update tasks.
+     *
+     * @param baseEntityId {@link String} - The patient base entity id
+     * @param context      {@link Context} - application context
+     * @param contactNo    {@link Integer} - the contact that the partial contact belongs in.
+     * @param doneTasks    {@link List<Task>} - A list of all the done/completed tasks.
+     */
+    public void createTasksPartialContainer(String baseEntityId, Context context,
+                                            int contactNo, List<Task> doneTasks) {
+        try {
+            if (contactNo > 0 && doneTasks != null && doneTasks.size() > 0) {
+                JSONArray fields = createFieldsArray(doneTasks);
+
+                ANCFormUtils ANCFormUtils = new ANCFormUtils();
+                JSONObject jsonForm = ANCFormUtils.loadTasksForm(context);
+                if (jsonForm != null) {
+                    ANCFormUtils.updateFormFields(jsonForm, fields);
+                }
+
+                createAndPersistPartialContact(baseEntityId, contactNo, jsonForm);
+            }
+        } catch (JSONException e) {
+            Timber.e(e, " --> createTasksPartialContainer");
+        }
+    }
+
+    @NotNull
+    private JSONArray createFieldsArray(List<Task> doneTasks) throws JSONException {
+        JSONArray fields = new JSONArray();
+        for (Task task : doneTasks) {
+            JSONObject field = new JSONObject(task.getValue());
+            fields.put(field);
+        }
+        return fields;
+    }
+
+    private void createAndPersistPartialContact(String baseEntityId, int contactNo, JSONObject
+            jsonForm) {
+        Contact contact = new Contact();
+        contact.setJsonForm(String.valueOf(jsonForm));
+        contact.setContactNumber(contactNo);
+        contact.setFormName(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS);
+
+        ANCFormUtils.persistPartial(baseEntityId, contact);
+    }
+
+    /**
+     * Returns the Contact Tasks Repository {@link ContactTasksRepository}
+     *
+     * @return contactTasksRepository
+     */
+    public ContactTasksRepository getContactTasksRepositoryHelper() {
+        return AncLibrary.getInstance().getContactTasksRepository();
     }
 
     @Nullable
@@ -890,7 +988,8 @@ public class Utils extends org.smartregister.util.Utils {
         }
     }
 
-    public void createSavePdf(Context context, List<YamlConfig> yamlConfigList, Facts facts) throws FileNotFoundException {
+    public void createSavePdf(Context context, List<YamlConfig> yamlConfigList, Facts facts) throws
+            FileNotFoundException {
 
         String FILENAME = context.getResources().getString(R.string.contact_summary_data_file);
         String filePath = getAppPath(context) + FILENAME;
@@ -948,12 +1047,13 @@ public class Utils extends org.smartregister.util.Utils {
         }
     }
 
-    private void addParagraph(Document layoutDocument, HorizontalAlignment horizontalAlignment, String headerDetails) {
+    private void addParagraph(Document layoutDocument, HorizontalAlignment
+            horizontalAlignment, String headerDetails) {
         layoutDocument.add((IBlockElement) (new Paragraph(headerDetails).setHorizontalAlignment(horizontalAlignment)));
     }
 
     private final String getAppPath(Context context) {
-        File dir = new File(Environment.getExternalStorageDirectory()+ File.separator + context.getResources().getString(R.string.app_name) + File.separator);
+        File dir = new File(Environment.getExternalStorageDirectory() + File.separator + context.getResources().getString(R.string.app_name) + File.separator);
         if (!dir.exists()) {
             dir.mkdir();
         }
