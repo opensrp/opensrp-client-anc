@@ -290,6 +290,7 @@
     <string name="undo">Undo</string>
     <string name="save_and_finish">SAVE + FINISH</string>
     <string name="reason_for_visit">REASON FOR VISIT</string>
+    <string name="device_to_device">Device-to-device sync</string>
     <string name="reason_for_referral">REASON FOR REFERRAL</string>
     <string name="contact_recorded_today">CONTACT %1$d\n DONE TODAY</string>
     <string name="contact_recorded_today_no_break"> CONTACT %1$d &#183; DONE TODAY</string>

@@ -13,6 +13,7 @@ import com.vijay.jsonwizard.NativeFormLibrary;
 
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
+import org.smartregister.P2POptions;
 import org.smartregister.anc.ANCEventBusIndex;
 import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.activity.LoginActivity;
@@ -48,13 +49,17 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     public void onCreate() {
         super.onCreate();
 
+
         mInstance = this;
         context = Context.getInstance();
         context.updateApplicationContext(getApplicationContext());
         context.updateCommonFtsObject(createCommonFtsObject());
 
+
         //Initialize Modules
-        CoreLibrary.init(context, new AncSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);
+        P2POptions p2POptions = new P2POptions(true);
+        //p2POptions.setAuthorizationService(new AncCoreAuthorizationService());
+        CoreLibrary.init(context, new AncSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP, p2POptions);
         AncLibrary.init(context, BuildConfig.DATABASE_VERSION, new ANCEventBusIndex());
         ConfigurableViewsLibrary.init(context);
         setDefaultLanguage();
