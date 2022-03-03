@@ -306,7 +306,7 @@ public class PreviousContactRepository extends BaseRepository {
     public Facts getPreviousContactFacts(String baseEntityId, String contactNo, boolean checkNegative) {
         Cursor mCursor = null;
         String selection = "";
-        String orderBy = "created_at DESC";
+        String orderBy = ID + " DESC";
         String[] selectionArgs = null;
         Facts previousContactFacts = new Facts();
         try {
@@ -317,7 +317,7 @@ public class PreviousContactRepository extends BaseRepository {
                 selectionArgs = new String[]{baseEntityId, getContactNo(contactNo, checkNegative)};
             }
 
-            mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
+            mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, KEY, null, orderBy, null);
 
             if (mCursor != null && mCursor.getCount() > 0) {
                 while (mCursor.moveToNext()) {
