@@ -405,6 +405,13 @@ condition: "global_pop_anaemia_40 == false && (global_anaemic == '' || global_an
 actions:
   - "isRelevant = true"
 ---
+name: step9_calcium_supp
+description: calcium_supp
+priority: 1
+condition: "(global_hypertension == 1) || (global_pop_low_calcium == true)"
+actions:
+  - "isRelevant = true"
+---
 name: step10_deworm
 description: deworm
 priority: 1
@@ -456,6 +463,13 @@ actions:
 ---
 name: step11_tt1_date
 description: tt1_date
+priority: 1
+condition: "(global_tt_immun_status != '' && global_tt_immun_status != '3_doses') && (global_contact_no == 1 || (global_contact_no > 1 && (global_previous_tt1_date == '' || global_previous_tt1_date == 'not_done')))"
+actions:
+  - "isRelevant = true"
+---
+name: step11_tt1_dose_no
+description: tt1_dose_no
 priority: 1
 condition: "(global_tt_immun_status != '' && global_tt_immun_status != '3_doses') && (global_contact_no == 1 || (global_contact_no > 1 && (global_previous_tt1_date == '' || global_previous_tt1_date == 'not_done')))"
 actions:
@@ -514,13 +528,6 @@ name: step11_woman_immunised_flu_toaster
 description: woman_immunised_flu_toaster
 priority: 1
 condition: "step11_flu_date == 'done_earlier' || step11_flu_date == 'done_today' "
-actions:
-  - "isRelevant = true"
----
-name: step9_calcium_supp
-description: calcium_supp
-priority: 1
-condition: "global_pop_low_calcium == true "
 actions:
   - "isRelevant = true"
 ---
@@ -607,3 +614,114 @@ priority: 1
 condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care.contains('referred')"
 actions:
   - "isRelevant = true"
+
+---
+name: step10_fansidar
+description: fansidar
+priority: 1
+condition: "!(global_hiv_positive == 1) && (global_gest_age_openmrs < 13)"
+actions:
+  - "isRelevant = true"
+
+---
+name: step10_co_trimoxazole
+description: co_trimoxazole
+priority: 1
+condition: "global_hiv_positive == 1"
+actions:
+  - "isRelevant = true"
+
+---
+name: step12_initiate_ctx
+description: initiate_ctx
+priority: 1
+condition: "global_hiv_positive == 1"
+actions:
+  - "isRelevant = true"
+
+---
+name: step12_started_art
+description: started_art
+priority: 1
+condition: "global_hiv_positive == 1"
+actions:
+  - "isRelevant = true"
+
+---
+name: step12_art_number
+description: art_number
+priority: 1
+condition: "global_hiv_positive == 1"
+actions:
+  - "isRelevant = true"
+
+---
+name: step12_viral_load_testdate
+description: viral_load_testdate
+priority: 1
+condition: "global_hiv_positive == 1"
+actions:
+  - "isRelevant = true"
+
+---
+name: step12_viral_load
+description: art_number
+priority: 1
+condition: "global_hiv_positive == 1"
+actions:
+  - "isRelevant = true"
+
+---
+name: step12_viral_load_testdate
+description: viral_load_testdate
+priority: 1
+condition: "step12_viral_load != null && !step12_viral_load.isEmpty()"
+actions:
+  - "isRelevant = true"
+
+---
+name: step12_woman_hiv_negative_toaster
+description: woman_hiv_negative_toaster
+priority: 1
+condition: "!(global_hiv_positive == 1)"
+actions:
+  - "isRelevant = true"
+
+---
+name: step12_viral_load_testdate_toaster
+description: viral_load_testdate_toaster
+priority: 1
+condition: "global_gest_age_openmrs>35"
+actions:
+  - "isRelevant = true"
+---
+name: step4_body_mass_toaster
+description: step4_body_mass_toaster
+priority: 1
+condition: "(global_contact_no > 1) && (!global_bmi.isEmpty())"
+actions:
+  - "isRelevant = true"
+---
+name: step4_body_mass_toaster
+description: step4_body_mass_toaster
+priority: 1
+condition: "(global_contact_no > 1) && (!global_bmi.isEmpty())"
+actions:
+  - "isRelevant = true"
+
+---
+name: step10_mebendazole
+description: mebendazole
+priority: 1
+condition: "gest_age_openmrs >= 16"
+actions:
+  - "isRelevant = true"
+
+---
+name: step10_started_on_prep
+description: started_on_prep
+priority: 1
+condition: "!(global_hiv_positive == 1) && (global_partner_hiv_status == 'positive')"
+actions:
+  - "isRelevant = true"
+

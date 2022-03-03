@@ -143,7 +143,7 @@ public abstract class BaseUnitTest {
             "               {\n" +
             "                  \"key\": \"blood_type_test_date\",\n" +
             "                  \"type\": \"date_picker\",\n" +
-            "                  \"label\": \"Blood type test date\",\n" +
+            "                  \"label\": \"Blood group test date\",\n" +
             "                  \"index\": 2,\n" +
             "                  \"values\": [\n" +
             "                     \"08-04-2019\"\n" +
@@ -258,7 +258,7 @@ public abstract class BaseUnitTest {
             "            \"openmrs_entity_parent\": \"\",\n" +
             "            \"openmrs_entity\": \"\",\n" +
             "            \"openmrs_entity_id\": \"\",\n" +
-            "            \"text\": \"Blood Type test\",\n" +
+            "            \"text\": \"Blood Group test\",\n" +
             "            \"type\": \"expansion_panel\",\n" +
             "            \"display_bottom_section\": true,\n" +
             "            \"content_form\": \"tests_blood_type_sub_form\",\n" +

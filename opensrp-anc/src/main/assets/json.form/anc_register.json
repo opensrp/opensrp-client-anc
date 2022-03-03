@@ -154,14 +154,6 @@
         }
       },
       {
-        "key": "gender",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "gender",
-        "type": "hidden",
-        "value": "F"
-      },
-      {
         "key": "dob",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
@@ -304,6 +296,284 @@
         }
       },
       {
+        "key": "gender",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "gender",
+        "type": "hidden",
+        "value": "F"
+      },
+      {
+        "key": "educ_level",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "educ_level",
+        "type": "native_radio",
+        "label": "Level of education",
+        "options": [
+          {
+            "key": "none",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none",
+            "text": "None"
+          },
+          {
+            "key": "primary",
+            "text": "Primary",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "primary"
+          },
+          {
+            "key": "secondary",
+            "text": "Secondary",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "secondary"
+          },
+          {
+            "key": "tertiary",
+            "text": "Tertiary",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tertiary"
+          }
+        ],
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "marital_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "marital_status",
+        "type": "native_radio",
+        "label": "Marital Status",
+        "options": [
+          {
+            "key": "single",
+            "text": "Single",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "single"
+          },
+          {
+            "key": "cohabiting",
+            "text": "Living with a partner(Cohabiting)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "cohabiting"
+          },
+          {
+            "key": "married",
+            "text": "Married",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "married"
+          },
+          {
+            "key": "separated",
+            "text": "Separated",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "separated"
+          },
+          {
+            "key": "divorced",
+            "text": "Divorced",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "divorced"
+          },
+          {
+            "key": "widowed",
+            "text": "Widowed",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "widowed"
+          }
+        ],
+        "v_required": {
+          "value": false
+        }
+      },
+      {
+        "key": "occupation",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "occupation",
+        "type": "native_radio",
+        "label": "Occupation",
+        "hint": "Occupation",
+        "options": [
+          {
+            "key": "student",
+            "text": "Student",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "student"
+          },
+          {
+            "key": "unemployed",
+            "text": "Unemployed",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "unemployed"
+          },
+          {
+            "key": "formal_employment",
+            "text": "Formal Employment",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "formal_employment"
+          },
+          {
+            "key": "informal_employment_other",
+            "text": "Informal employment",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "informal_employment_other"
+          },
+          {
+            "key": "other",
+            "text": "Other",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other"
+          }
+        ],
+        "v_required": {
+          "value": false
+        },
+        "relevance": {
+          "step1:educ_level": {
+            "type": "string",
+            "ex": "notEqualTo(.,\"none\")"
+          }
+        }
+      },
+      {
+        "key": "occupation_redacted",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "occupation_redacted",
+        "type": "native_radio",
+        "label": "Occupation",
+        "hint": "Occupation",
+        "options": [
+          {
+            "key": "unemployed_redacted",
+            "text": "Unemployed",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "unemployed_reducted"
+          },
+          {
+            "key": "formal_employment_redacted",
+            "text": "Formal employment",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "formal_employment_redacted"
+          },
+          {
+            "key": "informal_employment_other_redacted",
+            "text": "Informal employment",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "informal_employment_other_redacted"
+          },
+          {
+            "key": "other_redacted",
+            "text": "Other",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_redacted"
+          }
+        ],
+        "v_required": {
+          "value": false
+        },
+        "relevance": {
+          "step1:educ_level": {
+            "type": "string",
+            "ex": "equalTo(.,\"none\")"
+          }
+        }
+      },
+      {
+        "key": "occupation_other",
+        "openmrs_entity_parent": "occupation_other",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "occupation_other",
+        "type": "edit_text",
+        "hint": "Other",
+        "edit_type": "name",
+        "relevance": {
+          "step1:occupation": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+        },
+        "v_required": {
+          "value": false
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\s\\.\\-]*"
+        }
+      },
+      {
+        "key": "occupation_other_redacted",
+        "openmrs_entity_parent": "occupation_other_redacted",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "occupation_other_redacted",
+        "type": "edit_text",
+        "hint": "Other",
+        "edit_type": "name",
+        "relevance": {
+          "step1:occupation_redacted": {
+            "type": "string",
+            "ex": "equalTo(., \"other_redacted\")"
+          }
+        },
+        "v_required": {
+          "value": false
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\s\\.\\-]*"
+        }
+      },
+      {
+        "key": "couple",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "couple",
+        "type": "native_radio",
+        "label": "Came as couple to ANC?",
+        "label_info_text": "Came as couple to ANC?",
+        "label_text_style": "normal",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "yes",
+            "text": "{{anc_register.step1.reminders.options.yes.text}}",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no",
+            "text": "{{anc_register.step1.reminders.options.no.text}}",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": false,
+          "err": "{{anc_register.step1.reminders.v_required.err}}"
+        }
+      },
+      {
         "key": "home_address",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_address",
@@ -411,30 +681,6 @@
         }
       },
       {
-        "key": "origin",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "origin",
-        "type": "native_radio",
-        "label": "Origin ",
-        "options": [
-          {
-            "key": "catchment_area",
-            "text": "Catchment area",
-            "text_color": "#000000"
-          },
-          {
-            "key": "outside_catchment_area",
-            "text": "Outside catchment area",
-            "text_color": "#000000"
-          }
-        ],
-        "v_required": {
-          "value": true,
-          "err": "Please select origin"
-        },
-        "value": "catchment_area"
-      },{
         "key": "relation_NK",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
@@ -513,16 +759,17 @@
           "step1:relation_NK": {
             "type": "string",
             "ex": "equalTo(., \"other_relations\")"
-
-      }
-      }},
+          }
+        }
+      },
       {
         "key": "cohabitants",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "label": "{{anc_register.step1.cohabitants.label}}",
-        "label_info_text": "{{anc_register.step1.cohabitants.label_info_text}}",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "cohabitants",
+        "openmrs_data_type": "select multiple",
+        "label": "Co-habitants",
+        "label_info_text": "Who does the client live with? It is important to know whether client lives with parents, other family members, a partner, friends, etc.",
         "type": "check_box",
         "exclusive": [
           "no_one"
@@ -534,8 +781,8 @@
             "text_size": "18px",
             "value": "false",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "parents"
           },
           {
             "key": "siblings",
@@ -543,8 +790,17 @@
             "text_size": "18px",
             "value": "false",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "siblings"
+          },
+          {
+            "key": "children",
+            "text": "Child(ren)",
+            "text_size": "18px",
+            "value": "false",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "children"
           },
           {
             "key": "extended_family",
@@ -552,8 +808,8 @@
             "text_size": "18px",
             "value": "false",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "extended_family"
           },
           {
             "key": "partner",
@@ -561,8 +817,8 @@
             "text_size": "18px",
             "value": "false",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "partner"
           },
           {
             "key": "friends",
@@ -570,8 +826,17 @@
             "text_size": "18px",
             "value": "false",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "friends"
+          },
+          {
+            "key": "employee",
+            "text": "Employee(s)",
+            "text_size": "18px",
+            "value": "false",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "employee"
           },
           {
             "key": "no_one",
@@ -579,10 +844,35 @@
             "text_size": "18px",
             "value": "false",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no_one"
           }
         ]
+      },
+      {
+        "key": "origin",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "origin",
+        "type": "native_radio",
+        "label": "Origin ",
+        "options": [
+          {
+            "key": "catchment_area",
+            "text": "Catchment area",
+            "text_color": "#000000"
+          },
+          {
+            "key": "outside_catchment_area",
+            "text": "Outside catchment area",
+            "text_color": "#000000"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select origin"
+        },
+        "value": "catchment_area"
       },
       {
         "key": "next_contact",

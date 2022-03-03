@@ -120,6 +120,7 @@
                 android:text="@string/record"
                 android:textAllCaps="true"
                 android:textColor="@color/dialog_button_blue_color" />
+
         </LinearLayout>
 
     </LinearLayout>

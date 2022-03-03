@@ -1,11 +1,11 @@
 {
   "content_form": [
     {
-      "key": "syph_test_status",
+      "key": "partner_syph_test_status",
       "openmrs_entity_parent": "161476AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-      "label": "{{tests_syphilis_sub_form.step1.syph_test_status.label}}",
+      "label": "Partner Syphilis test",
       "label_text_style": "bold",
       "text_color": "#000000",
       "type": "extended_radio_button",
@@ -56,7 +56,7 @@
       "spacer_height": "10dp"
     },
     {
-      "key": "syphilis_greater_5_toaster",
+      "key": "partner_syphilis_greater_5_toaster",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
@@ -74,7 +74,7 @@
       }
     },
     {
-      "key": "syphilis_below_5_toaster",
+      "key": "partner_syphilis_below_5_toaster",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
@@ -92,7 +92,7 @@
       }
     },
     {
-      "key": "syph_test_notdone",
+      "key": "partner_syph_test_notdone",
       "openmrs_entity_parent": "161476AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -134,7 +134,7 @@
       }
     },
     {
-      "key": "syph_test_notdone_other",
+      "key": "partner_syph_test_notdone_other",
       "openmrs_entity_parent": "161476AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -153,7 +153,7 @@
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
-      "key": "syphilis_test_date_today_hidden",
+      "key": "partner_syphilis_test_date_today_hidden",
       "type": "hidden",
       "label_text_style": "bold",
       "text_color": "#000000",
@@ -166,7 +166,7 @@
       }
     },
     {
-      "key": "syphilis_test_date",
+      "key": "partner_syphilis_test_date",
       "openmrs_entity_parent": "161476AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -194,7 +194,7 @@
       }
     },
     {
-      "key": "syph_test_type",
+      "key": "partner_syph_test_type",
       "openmrs_entity_parent": "",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165422AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -236,7 +236,7 @@
       }
     },
     {
-      "key": "rapid_syphilis_test",
+      "key": "partner_rapid_syphilis_test",
       "openmrs_entity_parent": "",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165303AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -271,7 +271,7 @@
       }
     },
     {
-      "key": "rpr_syphilis_test",
+      "key": "partner_rpr_syphilis_test",
       "openmrs_entity_parent": "161476AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "1619AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -306,7 +306,7 @@
       }
     },
     {
-      "key": "lab_syphilis_test",
+      "key": "partner_lab_syphilis_test",
       "openmrs_entity_parent": "",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165389AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -344,7 +344,7 @@
       "openmrs_entity_parent": "",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "112493AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-      "key": "syphilis_positive",
+      "key": "partner_syphilis_positive",
       "type": "hidden",
       "label_text_style": "bold",
       "text_color": "#000000",
@@ -357,7 +357,7 @@
       }
     },
     {
-      "key": "syphilis_danger_toaster",
+      "key": "partner_syphilis_danger_toaster",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",

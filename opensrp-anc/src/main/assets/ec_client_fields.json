@@ -50,14 +50,6 @@
           }
         },
         {
-          "column_name": "cohabitants",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        },
-        {
           "column_name": "alt_name",
           "type": "Event",
           "json_mapping": {
@@ -149,6 +141,48 @@
           "type": "Client",
           "json_mapping": {
             "field": "attributes.nrc"
+          }
+        },
+        {
+          "column_name": "cohabitants",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.cohabitants"
+          }
+        },
+        {
+          "column_name": "educ_level",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.educ_level"
+          }
+        },
+        {
+          "column_name": "marital_status",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.marital_status"
+          }
+        },
+        {
+          "column_name": "couple",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.couple"
+          }
+        },
+        {
+          "column_name": "occupation",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.occupation"
+          }
+        },
+        {
+          "column_name": "occupation_redacted",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.occupation_redacted"
           }
         },
         {

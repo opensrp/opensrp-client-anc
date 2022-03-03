@@ -1,11 +1,11 @@
 {
   "content_form": [
     {
-      "key": "tb_test_status",
+      "key": "tb_screening_status",
       "openmrs_entity_parent": "164800AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-      "label": "TB test",
+      "label": "TB Imaging  (Chest X-ray)",
       "label_text_style": "bold",
       "text_color": "#000000",
       "type": "extended_radio_button",
@@ -57,7 +57,7 @@
       "spacer_height": "10dp"
     },
     {
-      "key": "tb_test_notdone",
+      "key": "tb_screening_notdone",
       "openmrs_entity_parent": "164800AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -66,46 +66,11 @@
       "label_text_style": "bold",
       "options": [
         {
-          "key": "sputum_smear",
-          "text": "{{tests_tb_screening_sub_form.step1.tb_screening_notdone.options.sputum_smear.text}}",
+          "key": "xray_machine",
+          "text": "{{tests_tb_screening_sub_form.step1.tb_screening_notdone.options.xray_machine.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
-          "openmrs_entity_id": "165401AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        {
-          "key": "sputum_culture",
-          "text": "{{tests_tb_screening_sub_form.step1.tb_screening_notdone.options.sputum_culture.text}}",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "165402AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        {
-          "key": "genexpert_machine",
-          "text": "{{tests_tb_screening_sub_form.step1.tb_screening_notdone.options.genexpert_machine.text}}",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "165403AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        {
-          "key": "no_sputum_supplies",
-          "text": "{{tests_tb_screening_sub_form.step1.tb_screening_notdone.options.no_sputum_supplies.text}}",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "165183AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        {
-          "key": "machine_not_functioning",
-          "text": "{{tests_tb_screening_sub_form.step1.tb_screening_notdone.options.machine_not_functioning.text}}",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "165179AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        {
-          "key": "technician_not_available",
-          "text": "{{tests_tb_screening_sub_form.step1.tb_screening_notdone.options.technician_not_available.text}}",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "165400AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "openmrs_entity_id": "165404AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "other",
@@ -128,7 +93,7 @@
       }
     },
     {
-      "key": "tb_test_notdone_other",
+      "key": "tb_screening_notdone_other",
       "openmrs_entity_parent": "164800AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -147,7 +112,7 @@
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
-      "key": "tb_test_date_today_hidden",
+      "key": "tb_screening_date_today_hidden",
       "type": "hidden",
       "label_text_style": "bold",
       "text_color": "#000000",
@@ -160,7 +125,7 @@
       }
     },
     {
-      "key": "tb_test_date",
+      "key": "tb_screening_date",
       "openmrs_entity_parent": "164800AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -188,7 +153,7 @@
       }
     },
     {
-      "key": "tb_test_result",
+      "key": "tb_screening_result",
       "openmrs_entity_parent": "",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "160108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -197,15 +162,15 @@
       "label_text_style": "bold",
       "options": [
         {
-          "key": "positive",
-          "text": "{{tests_tb_screening_sub_form.step1.tb_screening_result.options.positive.text}}",
+          "key": "suggestive",
+          "text": "Suggestive TB",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
-          "key": "negative",
-          "text": "{{tests_tb_screening_sub_form.step1.tb_screening_result.options.negative.text}}",
+          "key": "no_signs",
+          "text": "No signs of TB",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -216,13 +181,6 @@
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        {
-          "key": "incomplete",
-          "text": "{{tests_tb_screening_sub_form.step1.tb_screening_result.options.incomplete.text}}",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "163339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
       "relevance": {
@@ -238,7 +196,7 @@
       }
     },
     {
-      "key": "tb_test_danger_toaster",
+      "key": "tb_screening_danger_toaster",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",

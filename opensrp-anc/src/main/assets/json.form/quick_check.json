@@ -1,8 +1,8 @@
 {
-  "validate_on_submit": true,
+  "validate_on_submit": false,
   "display_scroll_bars": true,
   "count": "1",
-  "encounter_type": "Quick Check",
+  "encounter_type": "Rapid Assessment and Management",
   "entity_id": "",
   "relational_id": "",
   "metadata": {
@@ -101,11 +101,37 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "additional_contact",
+            "text": "Additional non-scheduled contact",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "additional_contact"
           }
         ],
         "v_required": {
           "value": "true",
           "err": "{{anc_quick_check.step1.contact_reason.v_required.err}}"
+        }
+      },
+      {
+        "key": "additional_contact",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "additional_contact",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "hint": "Reason for additional contact (Specify)",
+        "v_regex": {
+          "value": "[A-Za-z\\s\\.\\-]*",
+          "err": "Specify reason for additional contact"
+        },
+        "relevance": {
+          "step1:contact_reason": {
+            "type": "string",
+            "ex": "equalTo(.,\"additional_contact\")"
+          }
         }
       },
       {
@@ -127,36 +153,12 @@
             "openmrs_entity_id": "123395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "changes_in_bp",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.changes_in_bp.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "changes_in_bp_down",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.changes_in_bp_down.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
             "key": "constipation",
             "text": "{{anc_quick_check.step1.specific_complaint.options.constipation.text}}",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "996AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "contractions",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.contractions.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "163750AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "cough",
@@ -255,62 +257,6 @@
             "openmrs_entity_id": "141814AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "altered_skin_color",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.altered_skin_color.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "leg_cramps",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.leg_cramps.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "135969AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "leg_redness",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.leg_redness.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165215AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "anxiety",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.anxiety.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "121543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "depression",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.depression.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "119537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "mania_violent",
-            "text": "Mental Health - Mania/Violent",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "119537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "other_psychological_symptoms",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.other_psychological_symptoms.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "160198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
             "key": "nausea_vomiting_diarrhea",
             "text": "{{anc_quick_check.step1.specific_complaint.options.nausea_vomiting_diarrhea.text}}",
             "value": false,
@@ -325,30 +271,6 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "other_bleeding",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.other_bleeding.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "147241AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "other_skin_disorder",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.other_skin_disorder.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "119022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "other_types_of_violence",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.other_types_of_violence.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "158358AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "full_abdominal_pain",
@@ -367,14 +289,6 @@
             "openmrs_entity_id": "118771AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "extreme_pelvic_pain",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.extreme_pelvic_pain.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165270AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
             "key": "leg_pain",
             "text": "Leg pain",
             "value": false,
@@ -391,28 +305,12 @@
             "openmrs_entity_id": "116225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "other_pain",
-            "text": "Other pain",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "114403AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
             "key": "pelvic_pain",
             "text": "Pelvic pain",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "131034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "pruritus",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.pruritus.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "shortness_of_breath",
@@ -528,16 +426,6 @@
             "openmrs_entity_id": "150802AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "central_cyanosis",
-            "text": "{{anc_quick_check.step1.danger_signs.options.central_cyanosis.text}}",
-            "label_info_text": "Bluish discolouration around the mucous membranes in the mouth, lips and tongue",
-            "label_info_title": "Central cyanosis",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165216AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
             "key": "convulsing",
             "text": "{{anc_quick_check.step1.danger_signs.options.convulsing.text}}",
             "value": false,
@@ -552,6 +440,14 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "draining",
+            "text": "Draining",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "draining"
           },
           {
             "key": "severe_headache",
@@ -602,14 +498,6 @@
             "openmrs_entity_id": "118477AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "severe_pain",
-            "text": "{{anc_quick_check.step1.danger_signs.options.severe_pain.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "163477AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
             "key": "severe_abdominal_pain",
             "text": "{{anc_quick_check.step1.danger_signs.options.severe_abdominal_pain.text}}",
             "value": false,
@@ -624,6 +512,14 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "123818AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "other_s",
+            "text": "Other (Specify)",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_s"
           }
         ],
         "v_required": {
@@ -639,74 +535,343 @@
         }
       },
       {
-        "key": "reasons_label",
-        "type": "label",
-        "label_text_style": "bold",
-        "text": "Reasons for referral",
-        "text_color": "#000000",
-        "v_required": {
-          "value": false
+        "key": "other_ds",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_ds",
+        "type": "edit_text",
+        "hint": "Specify",
+        "edit_type": "name",
+        "relevance": {
+          "step1:danger_signs": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other_s"
+                ]
+              }
+            ]
+          }
         }
       },
       {
-        "key": "reasons",
+        "key": "emergency_referal",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "reasons",
+        "openmrs_entity_id": "emergency_referal",
         "type": "native_radio",
-        "label": "Family planning?",
+        "label": "Emergency referral",
+        "label_text_style": "bold",
         "options": [
           {
-            "key": "injectable",
-            "text": "Injectable contraceptives",
+            "key": "yes",
+            "text": "Yes",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "injectable"
+            "openmrs_entity_id": "165269AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "implant",
-            "text": "Implant insertion or removal",
+            "key": "no",
+            "text": "No",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "implant"
-          },
-          {
-            "key": "iud",
-            "text": "IUD insertion or removal",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "iud"
-          },
-          {
-            "key": "sterilization",
-            "text": "Sterilization",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "sterilization"
+            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
         "v_required": {
-          "value": "false",
+          "value": "true",
           "err": "{{anc_quick_check.step1.contact_reason.v_required.err}}"
+        },
+        "relevance": {
+          "step1:danger_signs": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "unconscious",
+                  "severe_abdominal_pain",
+                  "severe_vomiting",
+                  "looks_very_ill",
+                  "labour",
+                  "imminent_delivery",
+                  "visual_disturbance",
+                  "severe_headache",
+                  "danger_fever",
+                  "convulsing",
+                  "central_cyanosis",
+                  "danger_bleeding"
+                ]
+              }
+            ]
+          }
         }
       },
       {
-        "key": "diagnostics",
+        "key": "referal_reason",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "diagnostics",
-        "type": "edit_text",
-        "hint": "Diagnostics and tests(specify)",
-        "edit_type": "name"
+        "openmrs_entity_id": "referal_reason",
+        "type": "native_radio",
+        "label": "Reasons for referral",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "pre_existing_medical",
+            "text": "Pregnant woman with pre-existing medical condition",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165269AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "preclampisa_other_comp",
+            "text": "Preeclampsia or Eclampsia with other complications",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "placenta_praevia",
+            "text": "Placenta praevia",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "abruptio_placenta",
+            "text": "Abruptio placenta",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "diagnostic_tests",
+            "text": "Diagnostic tests",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "other",
+            "text": "Other (Specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_quick_check.step1.contact_reason.v_required.err}}"
+        },
+        "relevance": {
+          "step1:emergency_referal": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
       },
       {
-        "key": "other_services",
+        "key": "other_reason",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "other_services",
+        "openmrs_entity_id": "other_reason",
         "type": "edit_text",
-        "hint": "Other general services(specify)",
-        "edit_type": "name"
+        "hint": "Specify",
+        "edit_type": "name",
+        "relevance": {
+          "step1:referal_reason": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+        }
+      },
+      {
+        "key": "pre_existing_medic",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "pre_existing_medic",
+        "type": "check_box",
+        "label": "Pre-existing medical conditions",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "asthma",
+            "text": "Asthma",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165269AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "cardiac_condition",
+            "text": " Cardiac condition",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "diabetes_mellitus",
+            "text": "Diabetes mellitus",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "renal_failure",
+            "text": "Renal failure",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "epilepsy",
+            "text": "Epilepsy",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "hypertension",
+            "text": "Hypertension",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "hyperthyroidism",
+            "text": "Hyperthyroidism",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "moderate_anaemia",
+            "text": "Moderate to severe anaemia (< 8g/dl)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "previous_coagulopathy",
+            "text": "Previous or current coagulopathy (eg. DVT)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "renal disease",
+            "text": "Renal disease",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "sickle_cell_disease",
+            "text": "Sickle cell disease",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "rh_negative",
+            "text": "RH negative",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_quick_check.step1.contact_reason.v_required.err}}"
+        },
+        "relevance": {
+          "step1:referal_reason": {
+            "type": "string",
+            "ex": "equalTo(., \"pre_existing_medical\")"
+          }
+        }
+      },
+      {
+        "key": "other_complications",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_complications",
+        "type": "check_box",
+        "label": "Other complications",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "none_comp",
+            "text": "None",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none_comp"
+          },
+          {
+            "key": "abruptio_placenta",
+            "text": "Abruptio Placenta",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165269AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": " coagulopathy",
+            "text": " Coagulopathy",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "help_syndrome",
+            "text": "HELLP syndrome",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "renal_failure",
+            "text": "Renal failure",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "thrombocytopenia",
+            "text": "Thrombocytopenia",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "unconscious_patient",
+            "text": "Unconscious patient",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_quick_check.step1.contact_reason.v_required.err}}"
+        },
+        "relevance": {
+          "step1:referal_reason": {
+            "type": "string",
+            "ex": "equalTo(., \"preclampisa_other_comp\")"
+          }
+        }
+      },
+      {
+        "key": "diagnostics_specify",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "diagnostics_specify",
+        "type": "edit_text",
+        "hint": "Diagnostics and tests(specify)",
+        "edit_type": "name",
+        "relevance": {
+          "step1:referal_reason": {
+            "type": "string",
+            "ex": "equalTo(., \"diagnostic_tests\")"
+          }
+        }
       },
       {
         "key": "treatment",
@@ -714,7 +879,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "treatment",
         "type": "native_radio",
-        "label": "Any treatment given before referral?",
+        "label": "Any treatment given before referral",
         "options": [
           {
             "key": "yes",
@@ -734,6 +899,12 @@
         "v_required": {
           "value": "false",
           "err": "{{anc_quick_check.step1.contact_reason.v_required.err}}"
+        },
+        "relevance": {
+          "step1:emergency_referal": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
         }
       },
       {
@@ -742,8 +913,14 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "receiving",
         "type": "edit_text",
-        "hint": "Receiving Facility?",
-        "edit_type": "name"
+        "hint": "Receiving Facility",
+        "edit_type": "name",
+        "relevance": {
+          "step1:emergency_referal": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
       },
       {
         "key": "provider_name",
@@ -751,10 +928,16 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "provider_name",
         "type": "edit_text",
-        "hint": "Providers name?",
+        "hint": "Providers name",
         "edit_type": "name",
         "read_only": "true",
-        "value": "James"
+        "value": "James",
+        "relevance": {
+          "step1:emergency_referal": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
       },
       {
         "key": "provider_phone_number",
@@ -762,7 +945,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "provider_phone_number",
         "type": "edit_text",
-        "hint": "Providers phone number?",
+        "hint": "Providers phone number",
         "v_numeric": {
           "value": "true",
           "err": "Enter number"
@@ -770,6 +953,12 @@
         "v_regex": {
           "value": "(0([9]{1}[5-7]{1}|[7]{1}[6/7]{1})[0-9]{7})|s*",
           "err": "Number must must be a total of 10 digits in length"
+        },
+        "relevance": {
+          "step1:emergency_referal": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
         }
       },
       {
@@ -778,8 +967,28 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "referral_notes",
         "type": "edit_text",
-        "hint": "Referral notes?",
-        "edit_type": "name"
+        "hint": "Referral notes",
+        "edit_type": "name",
+        "relevance": {
+          "step1:emergency_referal": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "referral_feedback",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referral_feedback",
+        "type": "edit_text",
+        "hint": "Referral feedback",
+        "relevance": {
+          "step1:emergency_referal": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
       },
       {
         "key": "date_referral",
@@ -795,6 +1004,12 @@
         "v_required": {
           "value": "true",
           "err": "Please specify date of referral"
+        },
+        "relevance": {
+          "step1:emergency_referal": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
         }
       },
       {
@@ -806,11 +1021,224 @@
         "value": "today",
         "hint": "Date of scheduled referral",
         "expanded": false,
-        "min_date": "today-20y",
-        "max_date": "today",
+        "min_date": "today-5y",
+        "max_date": "today+5y",
         "v_required": {
           "value": "true",
           "err": "Please specify date of schedule"
+        },
+        "relevance": {
+          "step1:emergency_referal": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "client_history_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Client History",
+        "text_color": "#000000",
+        "relevance": {
+          "step1:emergency_referal": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "no_of_prev_pregnancies",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "No. of previous pregnancies",
+        "text_color": "#000000",
+        "v_required": {
+          "value": false
+        },
+        "relevance": {
+          "step1:emergency_referal": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "no_of_prev_preg",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "no_of_prev_preg",
+        "type": "numbers_selector",
+        "number_of_selectors": "5",
+        "start_number": "0",
+        "max_value": "8",
+        "text_size": "16px",
+        "text_color": "#000000",
+        "selected_text_color": "#ffffff",
+        "v_required": {
+          "value": false
+        },
+        "relevance": {
+          "step1:emergency_referal": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "live_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "No. of live births",
+        "text_color": "#000000",
+        "v_required": {
+          "value": true
+        },
+        "relevance": {
+          "step1:emergency_referal": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "live_births",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "live_births",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_required": {
+          "value": "true",
+          "err": "Enter number of live births"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "cannot be less than 0"
+        },
+        "v_max": {
+          "value": "10",
+          "err": "can not be more than 10"
+        },
+        "relevance": {
+          "step1:emergency_referal": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "still_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "No. of Still  births",
+        "text_color": "#000000",
+        "v_required": {
+          "value": true
+        },
+        "relevance": {
+          "step1:emergency_referal": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "still_births",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "still_births",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_required": {
+          "value": "true",
+          "err": "Enter number of still births"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "cannot be less than 0"
+        },
+        "v_max": {
+          "value": "10",
+          "err": "can not be more than 10"
+        },
+        "relevance": {
+          "step1:emergency_referal": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "miscarriage_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": " No. of Miscarriage",
+        "text_color": "#000000",
+        "v_required": {
+          "value": true
+        },
+        "relevance": {
+          "step1:emergency_referal": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "miscarriage",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "miscarriage",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_required": {
+          "value": "true",
+          "err": "Enter number of Miscarriages/ Abortions"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "cannot be less than 0"
+        },
+        "v_max": {
+          "value": "10",
+          "err": "can not be more than 10"
+        },
+        "relevance": {
+          "step1:emergency_referal": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "pregnancy_comp",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "pregnancy_comp",
+        "type": "edit_text",
+        "hint": "Any pregnancy complications",
+        "edit_type": "name",
+        "relevance": {
+          "step1:emergency_referal": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
         }
       }
     ]

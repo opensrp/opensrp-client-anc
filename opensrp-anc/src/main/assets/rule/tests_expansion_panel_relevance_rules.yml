@@ -1,15 +1,15 @@
 ---
-name: step1_accordion_hiv
-description: HIV test
-priority: 1
-condition: "(global_pop_hiv_generalized == true || global_pop_hiv_generalized == true && (global_health_conditions.isEmpty() || !global_health_conditions.contains('hiv'))) && (global_contact_no == 1 || (global_contact_no  > 1 && (global_gest_age_openmrs != '' && global_gest_age_openmrs == 29)) || ((global_previous_hiv_test_status == '' || global_previous_hiv_test_status == 'ordered' || global_previous_hiv_test_status == 'not_done') && global_contact_no  > 1 && (global_gest_age_openmrs != '' && global_gest_age_openmrs > 29)))"
-actions:
-  - "isRelevant = true"
----
 name: step2_accordion_hiv
 description: HIV test
 priority: 1
-condition: "global_contact_no > 1 && global_previous_hiv_test_result != '' && (global_previous_hiv_test_result == 'negative' || global_previous_hiv_test_result == 'inconclusive') && (global_gest_age_openmrs != '' && global_gest_age_openmrs != 29) "
+condition: "(global_pop_hiv_generalized == true || global_pop_hiv_generalized == true && (global_health_conditions.isEmpty() || !global_health_conditions.contains('hiv'))) && (global_contact_no == 1 || (global_contact_no  > 1 && (global_gest_age_openmrs != '' && global_gest_age_openmrs == 29)) || ((global_previous_hiv_test_status == '' || global_previous_hiv_test_status == 'ordered' || global_previous_hiv_test_status == 'not_done') && global_contact_no  > 1 && (global_gest_age_openmrs != '' && global_gest_age_openmrs > 29)) && (global_hiv_test_result == 'positive'))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_accordion_hiv
+description: HIV test
+priority: 1
+condition: " global_hiv_test_result != 'positive' "
 actions:
   - "isRelevant = true"
 ---
@@ -76,7 +76,7 @@ condition: "(helper.getValueFromAccordion('accordion_hiv', 'step1_hiv_positive')
 actions:
   - "isRelevant = true"
 ---
-name: step2_accordion_tb_screening
+name: step1_accordion_tb_screening
 description: tb_screening_status
 priority: 1
 condition: "(global_contact_no > 1 && (global_previous_tb_screening_status != '' && (global_previous_tb_screening_status == 'done_earlier' || global_previous_tb_screening_status == 'done_today')))"

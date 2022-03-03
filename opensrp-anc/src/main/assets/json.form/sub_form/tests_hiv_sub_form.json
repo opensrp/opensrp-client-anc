@@ -5,7 +5,7 @@
       "openmrs_entity_parent": "1356AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-      "label": "{{tests_hiv_sub_form.step1.hiv_test_status.label}}",
+      "label": "Hiv test",
       "label_text_style": "bold",
       "label_info_text": "{{tests_hiv_sub_form.step1.hiv_test_status.label_info_text}}",
       "text_color": "#000000",
@@ -79,6 +79,27 @@
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "declined",
+          "text": "Declined",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "declined"
+        },
+        {
+          "key": "not_available",
+          "text": "Not available",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "not_available"
+        },
+        {
+          "key": "counsellor_not_available",
+          "text": "Counsellor not available",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "counsellor_not_available"
         },
         {
           "key": "other",
@@ -200,6 +221,24 @@
           "ex-rules": {
             "rules-file": "tests_relevance_rules.yml"
           }
+        }
+      }
+    },
+    {
+      "key": "test_every_three_months_toaster",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "toaster_notes",
+      "text": "Test for HIV every 3 months",
+      "text_color": "#000000",
+      "toaster_info_text": "Test for HIV every 3 months",
+      "toaster_info_title": "Test for HIV every 3 months",
+      "toaster_type": "info",
+      "relevance": {
+        "step1:hiv_test_result": {
+          "type": "string",
+          "ex": "equalTo(., \"negative\")"
         }
       }
     },

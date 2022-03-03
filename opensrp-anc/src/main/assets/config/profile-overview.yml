@@ -298,7 +298,7 @@ fields:
     isRedFont: "true"
 
 ---
-group: birth_plan_counseling
+group: birth_plan_counselling
 fields:
   - template: "{{profile_overview.birth_plan_counseling.planned_birth_place}}: {delivery_place}"
     relevance: "delivery_place != ''"
@@ -324,6 +324,18 @@ fields:
   - template: "{{profile_overview.immunisation_status.tt_immunisation_status}}: {tt_immun_status_value}"
     relevance: "tt_immun_status != ''"
     isRedFont: "tt_immun_status == 'ttcv_not_received' || tt_immun_status == 'unknown'"
+
+  - template: "{{profile_overview.immunisation_status.tt_immunisation_number}}: {underimmunized_doses}"
+    relevance: "underimmunized_doses != ''"
+
+  - template: "{{profile_overview.immunisation_status.tt_fully_protected}}: {ttcv_full_protected}"
+    relevance: "tt_immun_status == '3_doses'"
+
+  - template: "{{profile_overview.immunisation_status.tt_unprotected}}: {ttcv_unprotected}"
+    relevance: "underimmunized_doses < '2'"
+
+  - template: "{{profile_overview.immunisation_status.tt_protected}}: {ttcv_protected}"
+    relevance: "underimmunized_doses > '1'"
 
   - template: "{{profile_overview.immunisation_status.tt_dose_1}}: {tt1_date_value}"
     relevance: "tt1_date == 'done_today' || tt1_date == 'done_earlier'"

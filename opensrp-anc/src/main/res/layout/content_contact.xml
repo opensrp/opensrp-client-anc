@@ -15,13 +15,57 @@
         android:paddingBottom="@dimen/contact_drawable_padding"
         android:paddingTop="@dimen/contact_drawable_padding">
 
-         <androidx.recyclerview.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/contact_layout_margin"
             android:clipToPadding="false"
-            android:scrollbars="vertical" />
+            android:scrollbars="vertical"
+            tools:layout_editor_absoluteX="4dp"
+            tools:layout_editor_absoluteY="10dp" />
+
+        <Button
+            android:id="@+id/routineButton"
+            style="@style/P2pModeSelect.Buttons.MyBorderlessButton"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:background="@drawable/physical_exam_container"
+            android:gravity="left|center_vertical"
+            android:scaleX="1.04"
+            android:scaleY="1.13"
+            android:text="Routine Antenatal Care"
+            android:textAllCaps="false"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:textColor="@color/white"
+            android:textColorLink="#00FFFFFF"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:translationX="8dp"
+            android:translationY="312dp"
+            android:visibility="gone"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="270dp" />
+
+        <Button
+            android:id="@+id/containerBack"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/rounded_routine"
+            android:drawablePadding="10dp"
+            android:paddingTop="@dimen/contact_drawable_padding"
+            android:paddingBottom="@dimen/contact_drawable_padding"
+            android:scaleX="0.95"
+            android:text="Back"
+            android:textAllCaps="false"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            android:translationY="310dp"
+            android:visibility="gone"
+            tools:layout_editor_absoluteY="10dp" />
 
         <LinearLayout
             android:id="@+id/view_history_layout"

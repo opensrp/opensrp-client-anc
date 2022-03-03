@@ -2,209 +2,260 @@
 name: step1_hiv_risk
 description: HIV Risk
 priority: 1
-condition: "(step4_hiv_positive != 1 && (step8_partner_hiv_positive == 1 || step7_alcohol_substance_use.contains('injectable_drugs') || step1_occupation.contains('informal_employment_sex_worker')))"
+condition: "(step3_hiv_positive != 1 && (step7_partner_hiv_positive == 1 || step6_alcohol_substance_use.contains('injectable_drugs') || step1_occupation.contains('informal_employment_sex_worker')))"
 actions:
   - "calculation = 1"
 ---
-name: step2_lmp_edd
+name: step1_lmp_edd
 description: LMP EDD
 priority: 1
-condition: "step2_lmp_known == 'yes' && !step2_lmp_known_date.isEmpty()"
+condition: "step1_lmp_known == 'yes' && !step1_lmp_known_date.isEmpty()"
 actions:
-  - "calculation = helper.addDuration(helper.getSecondaryValue(step2_lmp_known_date),'280d')"
+  - "calculation = helper.addDuration(helper.getSecondaryValue(step1_lmp_known_date),'280d')"
 ---
-name: step2_lmp_gest_age
+name: step1_lmp_gest_age
 description: LMP Gest age
 priority: 1
-condition: "step2_lmp_known == 'yes'"
+condition: "step1_lmp_known == 'yes'"
 actions:
-  - "calculation = helper.getWeeksAndDaysFromDays(helper.getDifferenceDays(helper.getSecondaryValue(step2_lmp_known_date)))"
+  - "calculation = helper.getWeeksAndDaysFromDays(helper.getDifferenceDays(helper.getSecondaryValue(step1_lmp_known_date)))"
 ---
-name: step2_ultrasound_gest_age_concept
+name: step1_ultrasound_gest_age_concept
 description: Ultrasound  Gest age concept
 priority: 1
-condition: "step2_ultrasound_done== 'yes' && step2_ultrasound_gest_age_days != ''"
+condition: "step1_ultrasound_done== 'yes' && step1_ultrasound_gest_age_days != ''"
 actions:
-  - "calculation = Math.ceil(((step2_ultrasound_gest_age_wks * 7) + new Integer(step2_ultrasound_gest_age_days)) / 7)"
+  - "calculation = Math.ceil(((step1_ultrasound_gest_age_wks * 7) + new Integer(step1_ultrasound_gest_age_days)) / 7)"
 ---
-name: step2_ultrasound_edd
+name: step1_ultrasound_edd
 description: Ultrasound edd
 priority: 1
-condition: "step2_ultrasound_gest_age_wks != ''"
+condition: "step1_ultrasound_gest_age_wks != ''"
 actions:
-  - "calculation = helper.addDuration(helper.getSecondaryValue(step2_ultrasound_done_date), ( (280 - ( (new Integer(step2_ultrasound_gest_age_wks) * 7) +  new Integer(step2_ultrasound_gest_age_days != '' ? step2_ultrasound_gest_age_days : 0)) ) +'d'))"
+  - "calculation = helper.addDuration(helper.getSecondaryValue(step1_ultrasound_done_date), ( (280 - ( (new Integer(step1_ultrasound_gest_age_wks) * 7) +  new Integer(step1_ultrasound_gest_age_days != '' ? step1_ultrasound_gest_age_days : 0)) ) +'d'))"
 ---
-name: step2_ultrasound_gest_age
+name: step1_ultrasound_gest_age
 description: Ultrasound  Gest age
 priority: 1
-condition: "step2_ultrasound_done== 'yes'"
+condition: "step1_ultrasound_done== 'yes'"
 actions:
-  - "calculation =  helper.getWeeksAndDaysFromDays( 280 - helper.getDifferenceDays(helper.getSecondaryValue(step2_ultrasound_edd)) - 1 )"
+  - "calculation =  helper.getWeeksAndDaysFromDays( 280 - helper.getDifferenceDays(helper.getSecondaryValue(step1_ultrasound_edd)) - 1 )"
 ---
-name: step2_sfh_edd
+name: step1_sfh_edd
 description: SFH edd
 priority: 1
-condition: "step2_sfh_gest_age > 0"
+condition: "step1_sfh_gest_age > 0"
 actions:
-  - "calculation = helper.addDuration((280 - (step2_sfh_gest_age * 7)) + 'd')"
+  - "calculation = helper.addDuration((280 - (step1_sfh_gest_age * 7)) + 'd')"
 ---
-name: step2_sfh_ga_hidden
+name: step1_sfh_ga_hidden
 description: SFH edd
 priority: 1
 condition: "true"
 actions:
-  - "calculation = step2_sfh_gest_age > 0 ? step2_sfh_gest_age + ' weeks' : 0"
+  - "calculation = step1_sfh_gest_age > 0 ? step1_sfh_gest_age + ' weeks' : 0"
 ---
-name: step2_lmp_gest_age_selection
+name: step1_lmp_gest_age_selection
 description: Gest age
 priority: 1
 condition: "true"
 actions:
-  - "calculation = ['lmp_gest_age': step2_lmp_gest_age,'lmp_edd':step2_lmp_edd]"
+  - "calculation = ['lmp_gest_age': step1_lmp_gest_age,'lmp_edd':step1_lmp_edd]"
 ---
-name: step2_ultrasound_gest_age_selection
+name: step1_ultrasound_gest_age_selection
 description: Gest age
 priority: 1
 condition: "true"
 actions:
-  - "calculation = ['ultrasound_gest_age':step2_ultrasound_gest_age,'ultrasound_edd':step2_ultrasound_edd]"
+  - "calculation = ['ultrasound_gest_age':step1_ultrasound_gest_age,'ultrasound_edd':step1_ultrasound_edd]"
 ---
-name: step2_sfh_gest_age_selection
+name: step1_sfh_gest_age_selection
 description: Gest age
 priority: 1
 condition: "true"
 actions:
-  - "calculation = ['sfh_gest_age':step2_sfh_ga_hidden,'sfh_edd':step2_sfh_edd]"
+  - "calculation = ['sfh_gest_age':step1_sfh_ga_hidden,'sfh_edd':step1_sfh_edd]"
 ---
-name: step2_lmp_ultrasound_gest_age_selection
+name: step1_lmp_ultrasound_gest_age_selection
 description: Gest age
 priority: 1
 condition: "true"
 actions:
-  - "calculation = ['lmp_gest_age': step2_lmp_gest_age,'lmp_edd':step2_lmp_edd, 'ultrasound_gest_age':step2_ultrasound_gest_age,'ultrasound_edd':step2_ultrasound_edd]"
+  - "calculation = ['lmp_gest_age': step1_lmp_gest_age,'lmp_edd':step1_lmp_edd, 'ultrasound_gest_age':step1_ultrasound_gest_age,'ultrasound_edd':step1_ultrasound_edd]"
 ---
-name: step2_sfh_ultrasound_gest_age_selection
+name: step1_sfh_ultrasound_gest_age_selection
 description: Gest age
 priority: 1
 condition: "true"
 actions:
-  - "calculation = ['ultrasound_gest_age':step2_ultrasound_gest_age,'ultrasound_edd':step2_ultrasound_edd,'sfh_gest_age':step2_sfh_ga_hidden,'sfh_edd':step2_sfh_edd]"
+  - "calculation = ['ultrasound_gest_age':step1_ultrasound_gest_age,'ultrasound_edd':step1_ultrasound_edd,'sfh_gest_age':step1_sfh_ga_hidden,'sfh_edd':step1_sfh_edd]"
 ---
-name: step2_select_gest_age_edd_sfh_ultrasound
+name: step1_select_gest_age_edd_sfh_ultrasound
 description: select_gest_age_edd_sfh_ultrasound
 priority: 1
-condition: "step2_sfh_ultrasound_gest_age_selection != ''"
+condition: "step1_sfh_ultrasound_gest_age_selection != ''"
 actions:
-  - "calculation = step2_sfh_ultrasound_gest_age_selection"
+  - "calculation = step1_sfh_ultrasound_gest_age_selection"
 ---
-name: step2_select_gest_age_edd_lmp_ultrasound
+name: step1_select_gest_age_edd_lmp_ultrasound
 description: select_gest_age_edd_lmp_ultrasound
 priority: 1
-condition: "step2_lmp_ultrasound_gest_age_selection != ''"
+condition: "step1_lmp_ultrasound_gest_age_selection != ''"
 actions:
-  - "calculation = step2_lmp_ultrasound_gest_age_selection"
+  - "calculation = step1_lmp_ultrasound_gest_age_selection"
 ---
-name: step2_select_gest_age_edd_all_values
+name: step1_select_gest_age_edd_all_values
 description: select_gest_age_edd_all_values
 priority: 1
 condition: "true"
 actions:
-  - "calculation = (step2_lmp_known == 'yes' && step2_ultrasound_done == 'no') ? step2_lmp_gest_age_selection : (step2_lmp_known == 'no' && step2_ultrasound_done == 'yes' && (step2_ultrasound_gest_age_wks == '' || step2_ultrasound_gest_age_wks < 24)) ? step2_ultrasound_gest_age_selection : step2_sfh_gest_age_selection"
+  - "calculation = (step1_lmp_known == 'yes' && step1_ultrasound_done == 'no') ? step1_lmp_gest_age_selection : (step1_lmp_known == 'no' && step1_ultrasound_done == 'yes' && (step1_ultrasound_gest_age_wks == '' || step1_ultrasound_gest_age_wks < 24)) ? step1_ultrasound_gest_age_selection : step1_sfh_gest_age_selection"
 ---
-name: step2_select_gest_age_edd
+name: step1_select_gest_age_edd
 description: Gest age
 priority: 1
 condition: "true"
 actions:
-  - "calculation = (step2_sfh_ultrasound_gest_age_selection != '' && step2_sfh_ultrasound_gest_age_selection != 0) ? step2_sfh_ultrasound_gest_age_selection : (step2_select_gest_age_edd_lmp_ultrasound != '' && step2_select_gest_age_edd_lmp_ultrasound != 0) ? step2_select_gest_age_edd_lmp_ultrasound : step2_select_gest_age_edd_all_values"
+  - "calculation = (step1_sfh_ultrasound_gest_age_selection != '' && step1_sfh_ultrasound_gest_age_selection != 0) ? step1_sfh_ultrasound_gest_age_selection : (step1_select_gest_age_edd_lmp_ultrasound != '' && step1_select_gest_age_edd_lmp_ultrasound != 0) ? step1_select_gest_age_edd_lmp_ultrasound : step1_select_gest_age_edd_all_values"
 ---
-name: step2_edd
+name: step1_edd
 description: Selected EDD
 priority: 1
-condition: "step2_select_gest_age_edd != ''"
+condition: "step1_select_gest_age_edd != ''"
 actions:
-  - "calculation = step2_select_gest_age_edd == 'lmp' ? step2_lmp_edd : step2_select_gest_age_edd == 'ultrasound' ? step2_ultrasound_edd : step2_sfh_edd"
+  - "calculation = step1_select_gest_age_edd == 'lmp' ? step1_lmp_edd : step1_select_gest_age_edd == 'ultrasound' ? step1_ultrasound_edd : step1_sfh_edd"
 ---
-name: step2_gest_age
+name: step1_gest_age
 description: Selected Gest Age
 priority: 1
-condition: "step2_select_gest_age_edd != ''"
+condition: "step1_select_gest_age_edd != ''"
 actions:
-  - "calculation = step2_select_gest_age_edd == 'lmp' ? step2_lmp_gest_age : step2_select_gest_age_edd == 'ultrasound' ? step2_ultrasound_gest_age : step2_sfh_gest_age"
+  - "calculation = step1_select_gest_age_edd == 'lmp' ? step1_lmp_gest_age : step1_select_gest_age_edd == 'ultrasound' ? step1_ultrasound_gest_age : step1_sfh_gest_age"
 ---
-name: step2_gest_age_openmrs
+name: step1_gest_age_openmrs
 description: Ga to send to openmrs
 priority: 1
-condition: "step2_select_gest_age_edd != ''"
+condition: "step1_select_gest_age_edd != ''"
 actions:
-  - "calculation = step2_select_gest_age_edd == 'lmp' ? helper.stripGaNumber(step2_lmp_gest_age) : step2_select_gest_age_edd == 'ultrasound' ? helper.stripGaNumber(step2_ultrasound_gest_age) : helper.stripGaNumber(step2_sfh_gest_age)"
+  - "calculation = step1_select_gest_age_edd == 'lmp' ? helper.stripGaNumber(step1_lmp_gest_age) : step1_select_gest_age_edd == 'ultrasound' ? helper.stripGaNumber(step1_ultrasound_gest_age) : helper.stripGaNumber(step1_sfh_gest_age)"
 ---
-name: step3_previous_pregnancies
+name: step2_previous_pregnancies
 description: Previous pregnancies
 priority: 1
-condition: "step3_gravida > 0"
+condition: "step2_gravida > 0"
 actions:
-  - "calculation = step3_gravida - 1 "
+  - "calculation = step2_gravida + 1 "
 ---
-name: step3_parity
+name: step2_parity
 description: Parity calculation
 priority: 1
 condition: "true"
 actions:
-  - "calculation = step3_live_births + step3_stillbirths"
+  - "calculation = step2_live_births + step2_stillbirths"
+---
+name: step2_preeclampsia_risk
+description: preeclampsia_risk
+priority: 1
+condition: "((global_no_of_fetuses != null && global_no_of_fetuses != '' && global_no_of_fetuses >= 2) || (!step2_prev_preg_comps.isEmpty() && (step2_prev_preg_comps.contains('pre_eclampsia') || step2_prev_preg_comps.contains('eclampsia') || step2_prev_preg_comps.contains('convulsions'))) || (!step3_health_conditions.isEmpty() && (step3_health_conditions.contains('autoimmune_disease') || step3_health_conditions.contains('diabetes') || step3_health_conditions.contains('gest_diabetes') || step3_health_conditions.contains('diabetes_other') || step3_health_conditions.contains('diabetes_type2') || step3_health_conditions.contains('hypertension') || step3_health_conditions.contains('kidney_disease'))))"
+actions:
+  - "calculation = 1"
+---
+name: step2_gdm_risk
+description: gdm_risk
+priority: 1
+condition: "(global_bmi != null && global_bmi != '' && global_bmi >= 30) || (!step2_prev_preg_comps.isEmpty() && (step2_prev_preg_comps.contains('gestational_diabetes') || step2_prev_preg_comps.contains('macrosomia'))) || (global_urine_glucose != null && global_urine_glucose != '' && (global_urine_glucose == '++' || global_urine_glucose == '+++' ||  global_urine_glucose == '++++'))"
+actions:
+  - "calculation = 1"
 ---
 name: step3_preeclampsia_risk
 description: preeclampsia_risk
 priority: 1
-condition: "((global_no_of_fetuses != null && global_no_of_fetuses != '' && global_no_of_fetuses >= 2) || (!step3_prev_preg_comps.isEmpty() && (step3_prev_preg_comps.contains('pre_eclampsia') || step3_prev_preg_comps.contains('eclampsia') || step3_prev_preg_comps.contains('convulsions'))) || (!step4_health_conditions.isEmpty() && (step4_health_conditions.contains('autoimmune_disease') || step4_health_conditions.contains('diabetes') || step4_health_conditions.contains('gest_diabetes') || step4_health_conditions.contains('diabetes_other') || step4_health_conditions.contains('diabetes_type2') || step4_health_conditions.contains('hypertension') || step4_health_conditions.contains('kidney_disease'))))"
+condition: "((global_no_of_fetuses != null && global_no_of_fetuses != '' && global_no_of_fetuses >= 2) || (!step2_prev_preg_comps.isEmpty() && (step2_prev_preg_comps.contains('pre_eclampsia') || step2_prev_preg_comps.contains('eclampsia') || step2_prev_preg_comps.contains('convulsions'))) || (!step3_health_conditions.isEmpty() && (step3_health_conditions.contains('autoimmune_disease') || step3_health_conditions.contains('diabetes') || step3_health_conditions.contains('gest_diabetes') || step3_health_conditions.contains('diabetes_other') || step3_health_conditions.contains('diabetes_type2') || step3_health_conditions.contains('hypertension') || step3_health_conditions.contains('kidney_disease'))))"
 actions:
   - "calculation = 1"
 ---
-name: step3_gdm_risk
-description: gdm_risk
-priority: 1
-condition: "(global_bmi != null && global_bmi != '' && global_bmi >= 30) || (!step3_prev_preg_comps.isEmpty() && (step3_prev_preg_comps.contains('gestational_diabetes') || step3_prev_preg_comps.contains('macrosomia'))) || (global_urine_glucose != null && global_urine_glucose != '' && (global_urine_glucose == '++' || global_urine_glucose == '+++' ||  global_urine_glucose == '++++'))"
-actions:
-  - "calculation = 1"
----
-name: step4_preeclampsia_risk
-description: preeclampsia_risk
-priority: 1
-condition: "((global_no_of_fetuses != null && global_no_of_fetuses != '' && global_no_of_fetuses >= 2) || (!step3_prev_preg_comps.isEmpty() && (step3_prev_preg_comps.contains('pre_eclampsia') || step3_prev_preg_comps.contains('eclampsia') || step3_prev_preg_comps.contains('convulsions'))) || (!step4_health_conditions.isEmpty() && (step4_health_conditions.contains('autoimmune_disease') || step4_health_conditions.contains('diabetes') || step4_health_conditions.contains('gest_diabetes') || step4_health_conditions.contains('diabetes_other') || step4_health_conditions.contains('diabetes_type2') || step4_health_conditions.contains('hypertension') || step4_health_conditions.contains('kidney_disease'))))"
-actions:
-  - "calculation = 1"
----
-name: step4_hiv_positive
+name: step3_hiv_positive
 description: hiv_positive
 priority: 1
-condition: "(global_hiv_test_result != null && global_hiv_test_result != '' && global_hiv_test_result == 'positive') || (step4_health_conditions.contains('hiv'))"
+condition: "(global_hiv_test_result != null && global_hiv_test_result != '' && global_hiv_test_result == 'positive') || (step3_health_conditions.contains('hiv'))"
+actions:
+  - "calculation = 1"
+---
+name: step6_hiv_risk
+description: HIV Risk
+priority: 1
+condition: "((global_hiv_positive == null || global_hiv_positive == '' || global_hiv_positive == 0) && step3_hiv_positive != 1 && (global_site_anc_hiv == true || step7_partner_hiv_positive == 1 || step6_alcohol_substance_use.contains('injectable_drugs') || step1_occupation.contains('informal_employment_sex_worker')))"
 actions:
   - "calculation = 1"
 ---
 name: step7_hiv_risk
 description: HIV Risk
 priority: 1
-condition: "((global_hiv_positive == null || global_hiv_positive == '' || global_hiv_positive == 0) && step4_hiv_positive != 1 && (global_site_anc_hiv == true || step8_partner_hiv_positive == 1 || step7_alcohol_substance_use.contains('injectable_drugs') || step1_occupation.contains('informal_employment_sex_worker')))"
+condition: "((global_hiv_positive == null || global_hiv_positive == '' || global_hiv_positive == 0) && step3_hiv_positive != 1 && (global_site_anc_hiv == true || step7_partner_hiv_positive == 1 || step6_alcohol_substance_use.contains('injectable_drugs') || step1_occupation.contains('informal_employment_sex_worker')))"
 actions:
   - "calculation = 1"
 ---
-name: step8_hiv_risk
+name: step7_partner_hiv_positive
 description: HIV Risk
 priority: 1
-condition: "((global_hiv_positive == null || global_hiv_positive == '' || global_hiv_positive == 0) && step4_hiv_positive != 1 && (global_site_anc_hiv == true || step8_partner_hiv_positive == 1 || step7_alcohol_substance_use.contains('injectable_drugs') || step1_occupation.contains('informal_employment_sex_worker')))"
+condition: "(step7_partner_hiv_status == 'positive') || (global_hiv_test_partner_result != null && global_hiv_test_partner_result != '' && global_hiv_test_partner_result == 'positive')"
 actions:
   - "calculation = 1"
 ---
-name: step8_partner_hiv_positive
-description: HIV Risk
-priority: 1
-condition: "(step8_partner_hiv_status == 'positive') || (global_hiv_test_partner_result != null && global_hiv_test_partner_result != '' && global_hiv_test_partner_result == 'positive')"
-actions:
-  - "calculation = 1"
----
-name: step4_discordant
+name: step3_discordant
 description: discordant
 priority: 1
-condition: "(step1_hiv_test_result == 'positive') || (step1_partner_hiv_status == 'positive')"
+condition: "(global_hiv_test_result == 'positive')"
 actions:
-  - "calculation = 1"
+  - "calculation = 'yes' "
+---
+name: step2_delivery_termination
+description: delivery_termination
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = helper.formatDate("19-12-2020","y")'
+---
+name: step2_gravida
+description: gravida
+priority: 1
+condition: "(step2_gravida > '0.5')"
+actions:
+  - "calculation = ['global_gravida': step2_gravida + 1]"
+---
+name: step2_total_gravida
+description: total_gravida
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step2_gravida + 1 "
+---
+name: step4_underimmunized_doses
+description: underimmunized_doses
+priority: 1
+condition: "!(global_tt1_date == 'not_done')"
+actions:
+  - "calculation = global_underimmunized_doses + 1"
+---
+name: step7_hiv_test_result
+description: hiv_test_result
+priority: 3
+condition: " step3_health_conditions.contains('hiv')"
+actions:
+  - "calculation = 'positive' "
+
+---
+name: step7_hiv_test_result
+description: hiv_test_result
+priority: 2
+condition: " global_hiv_test_result == 'negative'"
+actions:
+  - "calculation = 'negative' "
+
+---
+name: step7_hiv_test_result
+description: hiv_test_result
+priority: 1
+condition: " global_hiv_test_result == 'positive'"
+actions:
+  - "calculation = 'positive' "

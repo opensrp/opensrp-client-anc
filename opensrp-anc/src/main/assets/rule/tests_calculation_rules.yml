@@ -6,24 +6,24 @@ condition: "(step1_hiv_test_result == 'positive') || (!global_health_conditions.
 actions:
   - "calculation = 1"
 ---
-name: step2_hiv_positive
+name: step1_hiv_positive
 description: hiv_positive
 priority: 1
-condition: "(step2_hiv_test_result == 'positive') || (!global_health_conditions.isEmpty() && global_health_conditions.contains('hiv'))"
+condition: "(step1_hiv_test_result == 'positive') || (!global_health_conditions.isEmpty() && global_health_conditions.contains('hiv'))"
 actions:
   - "calculation = 1"
 ---
-name: step2_partner_hiv_positive
+name: step1_partner_hiv_positive
 description: partner_hiv_positive
 priority: 1
-condition: "global_partner_hiv_status == 'positive' || step2_hiv_test_partner_result == 'positive'"
+condition: "global_partner_hiv_status == 'positive' || step1_hiv_test_partner_result == 'positive'"
 actions:
   - "calculation = 1"
 ---
-name: step2_hiv_risk
+name: step1_hiv_risk
 description: hiv_risk
 priority: 1
-condition: "((global_hiv_positive == ''  || global_hiv_positive == 0) && (step2_partner_hiv_positive == 1 || global_alcohol_substance_use.contains('injectable_drugs') || global_occupation.contains('informal_employment_sex_worker') || global_site_anc_hiv == true))"
+condition: "((global_hiv_positive == ''  || global_hiv_positive == 0) && (step1_partner_hiv_positive == 1 || global_alcohol_substance_use.contains('injectable_drugs') || global_occupation.contains('informal_employment_sex_worker') || global_site_anc_hiv == true))"
 actions:
   - "calculation = 1"
 ---
@@ -34,10 +34,10 @@ condition: "(step1_hbsag_lab_ima == 'positive') || (step1_hbsag_rdt == 'positive
 actions:
   - "calculation = 1"
 ---
-name: step2_hepb_positive
-description: hepb_positive
+name: step1_partner_hepb_positive
+description: partner_hepb_positive
 priority: 1
-condition: "(step2_hbsag_lab_ima == 'positive') || (step2_hbsag_rdt == 'positive') || (step2_hbsag_dbs == 'positive')"
+condition: "(step1_partner_hbsag_lab_ima == 'positive') || (step1_partner_hbsag_rdt == 'positive') || (step1_partner_hbsag_dbs == 'positive')"
 actions:
   - "calculation = 1"
 ---
@@ -48,10 +48,10 @@ condition: "(step1_hcv_lab_ima != '' && step1_hcv_lab_ima == 'positive') || (ste
 actions:
   - "calculation = 1"
 ---
-name: step2_hepc_positive
+name: step1_hepc_positive
 description: hepc_positive
 priority: 1
-condition: "(step2_hcv_lab_ima != '' && step2_hcv_lab_ima == 'positive') || (step2_hcv_rdt != '' && step2_hcv_rdt == 'positive') || (step2_hcv_dbs != '' && step2_hcv_dbs == 'positive')"
+condition: "(step1_hcv_lab_ima != '' && step1_hcv_lab_ima == 'positive') || (step1_hcv_rdt != '' && step1_hcv_rdt == 'positive') || (step1_hcv_dbs != '' && step1_hcv_dbs == 'positive')"
 actions:
   - "calculation = 1"
 ---
@@ -62,10 +62,10 @@ condition: "(step1_rapid_syphilis_test == 'positive' && step1_rapid_syphilis_tes
 actions:
   - "calculation = 1"
 ---
-name: step2_syphilis_positive
+name: step1_partner_syphilis_positive
 description: syphilis_positive
 priority: 1
-condition: "(step2_rapid_syphilis_test == 'positive' && step2_rapid_syphilis_test != '' ) || (step2_rpr_syphilis_test == 'positive' && step2_rpr_syphilis_test != '') || (step2_lab_syphilis_test == 'positive' && step2_lab_syphilis_test != '')"
+condition: "(step1_partner_rapid_syphilis_test == 'positive' && step1_partner_rapid_syphilis_test != '' ) || (step1_partner_rpr_syphilis_test == 'positive' && step1_partner_rpr_syphilis_test != '') || (step1_partner_lab_syphilis_test == 'positive' && step1_partner_lab_syphilis_test != '')"
 actions:
   - "calculation = 1"
 ---
@@ -76,10 +76,10 @@ condition: "(global_bmi != '' && global_bmi >= 30) || !global_prev_preg_comps.is
 actions:
   - "calculation = 1"
 ---
-name: step2_gdm_risk
+name: step1_gdm_risk
 description: gdm_risk
 priority: 1
-condition: "(global_bmi != '' && global_bmi >= 30) || !global_prev_preg_comps.isEmpty() && (global_prev_preg_comps.contains('macrosomia') || global_prev_preg_comps.contains('gestational_diabetes')) || (step2_urine_glucose == '++' || step2_urine_glucose == '+++' || step2_urine_glucose == '++++')"
+condition: "(global_bmi != '' && global_bmi >= 30) || !global_prev_preg_comps.isEmpty() && (global_prev_preg_comps.contains('macrosomia') || global_prev_preg_comps.contains('gestational_diabetes')) || (step1_urine_glucose == '++' || step1_urine_glucose == '+++' || step1_urine_glucose == '++++')"
 actions:
   - "calculation = 1"
 ---
@@ -90,24 +90,24 @@ condition: "(step1_urine_culture == 'positive_any') || (step1_urine_culture == '
 actions:
   - "calculation = 1"
 ---
-name: step2_asb_positive
+name: step1_asb_positive
 description: asb_positive
 priority: 1
-condition: "(step2_urine_culture == 'positive_any') || (step2_urine_culture == 'positive_gbs') || step2_urine_gram_stain == 'positive' || (step2_urine_nitrites != 'none' && step2_urine_nitrites != '') || (step2_urine_leukocytes != 'none' && step2_urine_leukocytes  != '')"
+condition: "(step1_urine_culture == 'positive_any') || (step1_urine_culture == 'positive_gbs') || step1_urine_gram_stain == 'positive' || (step1_urine_nitrites != 'none' && step1_urine_nitrites != '') || (step1_urine_leukocytes != 'none' && step1_urine_leukocytes  != '')"
 actions:
   - "calculation = 1"
 ---
-name: step2_gdm
+name: step1_gdm
 description: gdm
 priority: 1
-condition: "(step2_fasting_plasma_gluc >= 92 && step2_fasting_plasma_gluc < 126 ) || (step2_ogtt_fasting >= 92 && step2_ogtt_fasting < 126) || (step2_ogtt_1 >= 180 && step2_ogtt_1 < 200 ) || (step2_ogtt_2 >= 153 && step2_ogtt_2 < 200)"
+condition: "(step1_fasting_plasma_gluc >= 92 && step1_fasting_plasma_gluc < 126 ) || (step1_ogtt_fasting >= 92 && step1_ogtt_fasting < 126) || (step1_ogtt_1 >= 180 && step1_ogtt_1 < 200 ) || (step1_ogtt_2 >= 153 && step1_ogtt_2 < 200)"
 actions:
   - "calculation = 1"
 ---
-name: step2_dm_in_preg
+name: step1_dm_in_preg
 description: dm_in_preg
 priority: 1
-condition: "(step2_fasting_plasma_gluc >= 7) || (step2_ogtt_fasting >= 7) || (step2_ogtt_1 >= 7) || (step2_ogtt_2 >= 7) || (step2_random_plasma >= 7)"
+condition: "(step1_fasting_plasma_gluc >= 7) || (step1_ogtt_fasting >= 7) || (step1_ogtt_1 >= 7) || (step1_ogtt_2 >= 7) || (step1_random_plasma >= 7)"
 actions:
   - "calculation = 1"
 ---
@@ -118,12 +118,12 @@ condition: "true"
 actions:
   - "calculation = (step1_hb_test_type == 'complete_blood_count' && step1_hb_test_type != '' && step1_cbc != '') ? step1_cbc : (step1_hb_test_type == 'hb_test_haemoglobinometer' && step1_hb_test_type != '' && step1_hb_gmeter != '') ? step1_hb_gmeter :  (step1_hb_test_type == 'hb_test_colour_scale' && step1_hb_test_type != '' && step1_hb_colour != '') ? step1_hb_colour : '' "
 ---
-name: step2_hb_result
+name: step1_hb_result
 description: hb_result
 priority: 1
 condition: "true"
 actions:
-  - "calculation = (step2_hb_test_type == 'complete_blood_count' && step2_hb_test_type != '' && step2_cbc != '') ? step2_cbc : (step2_hb_test_type == 'hb_test_haemoglobinometer' && step2_hb_test_type != '' && step2_hb_gmeter != '') ? step2_hb_gmeter :  (step2_hb_test_type == 'hb_test_colour_scale' && step2_hb_test_type != '' &&  step2_hb_colour != '') ? step2_hb_colour : '' "
+  - "calculation = (step1_hb_test_type == 'complete_blood_count' && step1_hb_test_type != '' && step1_cbc != '') ? step1_cbc : (step1_hb_test_type == 'hb_test_haemoglobinometer' && step1_hb_test_type != '' && step1_hb_gmeter != '') ? step1_hb_gmeter :  (step1_hb_test_type == 'hb_test_colour_scale' && step1_hb_test_type != '' &&  step1_hb_colour != '') ? step1_hb_colour : '' "
 ---
 name: step1_anaemic
 description: anaemic
@@ -132,10 +132,10 @@ condition: "((step1_hb_result == '' || step1_hb_result == 0) && global_pallor ==
 actions:
   - "calculation = 1"
 ---
-name: step2_anaemic
+name: step1_anaemic
 description: anaemic
 priority: 1
-condition: "((step2_hb_result == '' || step2_hb_result == 0) && global_pallor == 'yes') || ((step2_hb_result != '' && step2_hb_result > 0 && step2_hb_result < 11) && global_gest_age_openmrs != '' && (global_gest_age_openmrs <= 12 || global_gest_age_openmrs >= 28)) || ((step2_hb_result != '' && step2_hb_result > 0 && step2_hb_result < 10.5) && global_gest_age_openmrs != '' && (global_gest_age_openmrs > 12 && global_gest_age_openmrs < 28))"
+condition: "((step1_hb_result == '' || step1_hb_result == 0) && global_pallor == 'yes') || ((step1_hb_result != '' && step1_hb_result > 0 && step1_hb_result < 11) && global_gest_age_openmrs != '' && (global_gest_age_openmrs <= 12 || global_gest_age_openmrs >= 28)) || ((step1_hb_result != '' && step1_hb_result > 0 && step1_hb_result < 10.5) && global_gest_age_openmrs != '' && (global_gest_age_openmrs > 12 && global_gest_age_openmrs < 28))"
 actions:
   - "calculation = 1"
 ---
@@ -146,17 +146,17 @@ condition: "step1_urine_test_status == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
 ---
-name: step2_urine_test_date_today_hidden
+name: step1_urine_test_date_today_hidden
 description: urine_test_date
 priority: 1
-condition: "step2_urine_test_status == 'done_today'"
+condition: "step1_urine_test_status == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
 ---
-name: step1_tb_screening_date_today_hidden
-description: tb_screening_date
+name: step1_tv_test_date_today_hidden
+description: tb_test_date
 priority: 1
-condition: "step1_tb_screening_status == 'done_today'"
+condition: "step1_tb_test_status == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
 ---
@@ -174,17 +174,17 @@ condition: "step1_syph_test_status == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
 ---
-name: step2_syphilis_test_date_today_hidden
+name: step1_partner_syphilis_test_date_today_hidden
 description: syphilis_test_date
 priority: 1
-condition: "step2_syph_test_status == 'done_today'"
+condition: "step1_partner_syph_test_status == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
 ---
-name: step2_hiv_test_partner_date_today_hidden
+name: step1_hiv_test_partner_date_today_hidden
 description: hiv_test_partner_date
 priority: 1
-condition: "step2_hiv_test_partner_status == 'done_today'"
+condition: "step1_hiv_test_partner_status == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
 ---
@@ -202,10 +202,10 @@ condition: "step1_hiv_test_status == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
 ---
-name: step2_hiv_test_date_today_hidden
+name: step1_hiv_test_date_today_hidden
 description: hiv_test_date
 priority: 1
-condition: "step2_hiv_test_status == 'done_today'"
+condition: "step1_hiv_test_status == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
 ---
@@ -216,10 +216,10 @@ condition: "step1_hepc_test_status == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
 ---
-name: step2_hepc_test_date_today_hidden
+name: step1_hepc_test_date_today_hidden
 description: hepc_test_date
 priority: 1
-condition: "step2_hepc_test_status == 'done_today'"
+condition: "step1_hepc_test_status == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
 ---
@@ -230,10 +230,10 @@ condition: "step1_hepb_test_status == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
 ---
-name: step2_hepb_test_date_today_hidden
-description: hepb_test_date
+name: step1_partner_hepb_test_date_today_hidden
+description: partner_hepb_test_date
 priority: 1
-condition: "step2_hepb_test_status == 'done_today'"
+condition: "step1_partner_hepb_test_status == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
 ---
@@ -244,17 +244,17 @@ condition: "step1_blood_type_test_status != '' && step1_blood_type_test_status =
 actions:
   - "calculation = helper.getDateToday()"
 ---
-name: step2_blood_type_test_date_today_hidden
+name: step1_blood_type_test_date_today_hidden
 description: blood_type_test_date
 priority: 1
-condition: "step2_blood_type_test_status != '' && step2_blood_type_test_status == 'done_today'"
+condition: "step1_blood_type_test_status != '' && step1_blood_type_test_status == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
 ---
-name: step2_glucose_test_date_today_hidden
+name: step1_glucose_test_date_today_hidden
 description: glucose_test_date
 priority: 1
-condition: "step2_glucose_test_status != '' && step2_glucose_test_status == 'done_today'"
+condition: "step1_glucose_test_status != '' && step1_glucose_test_status == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
 ---
@@ -265,38 +265,38 @@ condition: "step1_hb_test_status != '' && step1_hb_test_status == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
 ---
-name: step2_hb_test_date_today_hidden
+name: step1_hb_test_date_today_hidden
 description: hb_test_date
 priority: 1
-condition: "step2_hb_test_status != '' && step2_hb_test_status == 'done_today'"
+condition: "step1_hb_test_status != '' && step1_hb_test_status == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
 
 ---
-name: step2_fasting_plasma_gluc_mmol
+name: step1_fasting_plasma_gluc_mmol
 description: fasting_plasma_gluc_mmol
 priority: 1
-condition: "step2_fasting_plasma_gluc > 30"
+condition: "step1_fasting_plasma_gluc > 30"
 actions:
-  - "calculation = step2_fasting_plasma_gluc / 18 "
+  - "calculation = step1_fasting_plasma_gluc / 18 "
 ---
-name: step2_ogtt_fasting_mmol
+name: step1_ogtt_fasting_mmol
 description: ogtt_fasting_mmol
 priority: 1
-condition: "step2_ogtt_fasting > 30"
+condition: "step1_ogtt_fasting > 30"
 actions:
-  - "calculation = step2_ogtt_fasting/ 18  "
+  - "calculation = step1_ogtt_fasting/ 18  "
 ---
-name: step2_ogtt_1_mmol
-description:  step2_ogtt_1_mmol
+name: step1_ogtt_1_mmol
+description:  step1_ogtt_1_mmol
 priority: 1
-condition: " step2_ogtt_1 > 30"
+condition: " step1_ogtt_1 > 30"
 actions:
-  - "calculation =  step2_ogtt_1 / 18 "
+  - "calculation =  step1_ogtt_1 / 18 "
 ---
-name: step2_ogtt_2_mmol
-description:  step2_ogtt_2_mmol
+name: step1_ogtt_2_mmol
+description:  step1_ogtt_2_mmol
 priority: 1
-condition: " step2_ogtt_2 > 30"
+condition: " step1_ogtt_2 > 30"
 actions:
-  - "calculation =  step2_ogtt_2 / 18 "
+  - "calculation =  step1_ogtt_2 / 18 "

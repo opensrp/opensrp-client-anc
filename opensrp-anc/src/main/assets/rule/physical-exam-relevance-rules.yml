@@ -1,78 +1,78 @@
 ---
-name: step2_toaster7
+name: step1_toaster7
 description: BP measurement warning toaster
 priority: 1
-condition: "(((step2_bp_diastolic >= 90) || (step2_bp_diastolic < 60 && step2_bp_diastolic > 0)) || ((step2_bp_systolic >= 140) || (step2_bp_systolic < 90 && step2_bp_systolic > 0)))"
+condition: "(((step1_bp_diastolic >= 90) || (step1_bp_diastolic < 60 && step1_bp_diastolic > 0)) || ((step1_bp_systolic >= 140) || (step1_bp_systolic < 90 && step1_bp_systolic > 0)))"
 actions:
   - "isRelevant = true"
 ---
-name: step2_bp_systolic_repeat_label
+name: step1_bp_systolic_repeat_label
 description: BP measurement
 priority: 1
-condition: "((step2_bp_systolic >= 140) || (step2_bp_systolic < 90 && step2_bp_systolic > 0))"
+condition: "((step1_bp_systolic >= 140) || (step1_bp_systolic < 90 && step1_bp_systolic > 0))"
 actions:
   - "isRelevant = true"
 ---
-name: step2_bp_systolic_repeat
+name: step1_bp_systolic_repeat
 description: BP measurement
 priority: 1
-condition: "((step2_bp_systolic >= 140) || (step2_bp_systolic < 90 && step2_bp_systolic > 0))"
+condition: "((step1_bp_systolic >= 140) || (step1_bp_systolic < 90 && step1_bp_systolic > 0))"
 actions:
   - "isRelevant = true"
 ---
-name: step2_bp_diastolic_repeat_label
+name: step1_bp_diastolic_repeat_label
 description: BP measurement
 priority: 1
-condition: "((step2_bp_diastolic >= 90) || (step2_bp_diastolic < 60 && step2_bp_diastolic > 0))"
+condition: "((step1_bp_diastolic >= 90) || (step1_bp_diastolic < 60 && step1_bp_diastolic > 0))"
 actions:
   - "isRelevant = true"
 ---
-name: step2_bp_diastolic_repeat
+name: step1_bp_diastolic_repeat
 description: BP measurement
 priority: 1
-condition: "((step2_bp_diastolic >= 90) || (step2_bp_diastolic < 60 && step2_bp_diastolic > 0))"
+condition: "((step1_bp_diastolic >= 90) || (step1_bp_diastolic < 60 && step1_bp_diastolic > 0))"
 actions:
   - "isRelevant = true"
 ---
-name: step2_toaster8
+name: step1_toaster8
 description: BP measurement warning toaster8
 priority: 1
-condition: "(((step2_bp_diastolic >= 90) || (step2_bp_diastolic < 60 && step2_bp_diastolic > 0)) || ((step2_bp_systolic >= 140) || (step2_bp_systolic < 90 && step2_bp_systolic > 0)))"
+condition: "(((step1_bp_diastolic >= 90) || (step1_bp_diastolic < 60 && step1_bp_diastolic > 0)) || ((step1_bp_systolic >= 140) || (step1_bp_systolic < 90 && step1_bp_systolic > 0)))"
 actions:
   - "isRelevant = true"
 ---
-name: step2_symp_sev_preeclampsia
+name: step1_symp_sev_preeclampsia
 description: Check if the woman has any of the following symptoms of severe pre-eclampsia.
 priority: 1
-condition: "step2_bp_systolic_repeat >= 140 || step2_bp_diastolic_repeat >= 90"
+condition: "step1_bp_systolic_repeat >= 140 || step1_bp_diastolic_repeat >= 90"
 actions:
   - "isRelevant = true"
 ---
-name: step2_urine_protein
+name: step1_urine_protein
 description: Enter the result for the dipstick test - protein.
 priority: 1
-condition: "step2_bp_systolic_repeat >= 140 || step2_bp_diastolic_repeat >= 90"
+condition: "step1_bp_systolic_repeat >= 140 || step1_bp_diastolic_repeat >= 90"
 actions:
   - "isRelevant = true"
 ---
-name: step2_toaster9
+name: step1_toaster9
 description: Hypertension diagnosis
 priority: 1
-condition: "step2_hypertension == 1"
+condition: "step1_hypertension == 1"
 actions:
   - "isRelevant = true"
 ---
 name: step3_toaster17
 description: Hypertension diagnosis
 priority: 1
-condition: "step3_pulse_rate > 0 && (step3_pulse_rate < 60 || step3_pulse_rate > 100)"
+condition: "step3_pulse_rate > 0 && (step3_pulse_rate < 60 || step3_pulse_rate > 90)"
 actions:
   - "isRelevant = true"
 ---
 name: step3_pulse_rate_repeat
 description: Pulse rate measurement
 priority: 1
-condition: "((step3_pulse_rate > 0 && step3_pulse_rate < 60) || (step3_pulse_rate > 60)) "
+condition: "((step3_pulse_rate > 0 && step3_pulse_rate < 60) || (step3_pulse_rate > 90)) "
 actions:
   - "isRelevant = true"
 ---
@@ -111,6 +111,27 @@ condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 20)"
 actions:
   - "isRelevant = true"
 ---
+name: step4_no_of_fetuses_label
+description: No of Fetuses Label
+priority: 1
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 26) && (!step4_no_of_fetuses_unknown.contains('no_of_fetuses_unknown'))"
+actions:
+  - "isRelevant = true"
+---
+name: step4_no_of_fetuses
+description: No of Fetuses
+priority: 1
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 26) && (!step4_no_of_fetuses_unknown.contains('no_of_fetuses_unknown'))"
+actions:
+  - "isRelevant = true"
+---
+name: step4_no_of_fetuses_unknown
+description: No of Fetuses unknown
+priority: 1
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 26)"
+actions:
+  - "isRelevant = true"
+---
 name: step4_fetal_heart_rate_repeat_label
 description: Fetal heart beat rate
 priority: 1
@@ -139,52 +160,52 @@ condition: "(step4_fetal_heart_rate_repeat > 0 && step4_fetal_heart_rate_repeat 
 actions:
   - "isRelevant = true"
 ---
-name: step1_toaster3
+name: step4_toaster3
 description: Note displaying that the woman is at risk of developing pre-eclampsia.
 priority: 1
-condition: "(step1_gdm_risk == 1) && (global_gdm != 1 && global_dm_in_preg != 1)"
+condition: "(step4_gdm_risk == 1)"
 actions:
   - "isRelevant = true"
 ---
-name: step1_toaster5
+name: step2_toaster5
 description: Note displaying that counseling on increasing daily energy and protein intake should be given.
 priority: 1
-condition: "global_pop_undernourish == true && step1_weight_cat == 'Underweight'"
+condition: "global_pop_undernourish == true && step2_weight_cat == 'Underweight'"
 actions:
   - "isRelevant = true"
 ---
-name: step1_toaster6
+name: step2_toaster6
 description: Note displaying that counseling on balanced energy and protein dietary supplementation should be given.
 priority: 1
-condition: "global_pop_undernourish == true && step1_weight_cat == 'Underweight'"
+condition: "global_pop_undernourish == true && step2_weight_cat == 'Underweight'"
 actions:
   - "isRelevant = true"
 ---
-name: step2_toaster10
+name: step1_toaster10
 description: Severe hypertension toaster`
 priority: 1
-condition: "step2_severe_hypertension == 1"
+condition: "step1_severe_hypertension == 1"
 actions:
   - "isRelevant = true"
 ---
-name: step2_toaster11
+name: step1_toaster11
 description: Note displaying that the woman has severe pre-eclampsia.
 priority: 1
-condition: "(step2_hypertension == 1 && !step2_symp_sev_preeclampsia.isEmpty() && !step2_symp_sev_preeclampsia.contains('none'))"
+condition: "(step1_hypertension == 1 && !step1_symp_sev_preeclampsia.isEmpty() && !step1_symp_sev_preeclampsia.contains('none'))"
 actions:
   - "isRelevant = true"
 ---
-name: step2_toaster13
+name: step1_toaster13
 description: Note displaying that the woman has severe pre-eclampsia.
 priority: 1
-condition: "(step2_severe_preeclampsia == 1)"
+condition: "(step1_severe_preeclampsia == 1)"
 actions:
   - "isRelevant = true"
 ---
-name: step2_toaster14
+name: step1_toaster14
 description: Note displaying that the woman has severe pre-eclampsia.
 priority: 1
-condition: "(step2_preeclampsia == 1)"
+condition: "(step1_preeclampsia == 1)"
 actions:
   - "isRelevant = true"
 ---
@@ -199,13 +220,6 @@ name: step4_toaster30
 description: Note displaying that preeclampsia risk
 priority: 1
 condition: "(step4_preeclampsia_risk == 1)"
-actions:
-  - "isRelevant = true"
----
-name: step4_fetal_presentation
-description: Fetal movement
-priority: 1
-condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 28)"
 actions:
   - "isRelevant = true"
 ---
@@ -293,17 +307,17 @@ condition: "step3_ipv_subject == 'yes'"
 actions:
   - "isRelevant = true"
 ---
-name: step2_unrecordable_bp
+name: step1_unrecordable_bp
 description: unrecordable_bp
 priority: 1
-condition: "((step2_bp_diastolic_repeat > 0 && step2_bp_diastolic_repeat < 20 ) || (bp_systolic_repeat > 0 && bp_systolic_repeat < 60))"
+condition: "((step1_bp_diastolic_repeat > 0 && step1_bp_diastolic_repeat < 20 ) || (bp_systolic_repeat > 0 && bp_systolic_repeat < 60))"
 actions:
   - "isRelevant = true"
 ---
-name: step2_cant_record_bp
+name: step1_cant_record_bp
 description: cant_record_bp
 priority: 1
-condition: "((step2_bp_diastolic_repeat > 0 && step2_bp_diastolic_repeat < 20 ) || (bp_systolic_repeat > 0 && bp_systolic_repeat < 60))"
+condition: "((step1_bp_diastolic_repeat > 0 && step1_bp_diastolic_repeat < 20 ) || (bp_systolic_repeat > 0 && bp_systolic_repeat < 60))"
 actions:
   - "isRelevant = true"
 ---
@@ -381,5 +395,109 @@ name: step3_hypothermia_toaster
 description: hypothermia_toaster
 priority: 1
 condition: " step3_body_temp_repeat > 0 && step3_body_temp_repeat < 36"
+actions:
+  - "isRelevant = true"
+---
+name: step4_fetal_heartbeat
+description: Fetal heartbeat
+priority: 1
+condition: "global_gest_age_openmrs >= 26"
+actions:
+  - "isRelevant = true"
+---
+name: step4_sfh_label
+description: SFH label
+priority: 1
+condition: "(global_gest_age_openmrs >= 22 && global_gest_age_openmrs <= 45)"
+actions:
+  - "isRelevant = true"
+---
+name: step4_sfh
+description: SFH
+priority: 1
+condition: "(global_gest_age_openmrs >= 22 && global_gest_age_openmrs <= 45)"
+actions:
+  - "isRelevant = true"
+---
+name: step4_hof
+description: HOF
+priority: 1
+condition: " (global_gest_age_openmrs >= 12)"
+actions:
+  - "isRelevant = true"
+---
+name: step4_hof_label
+description: HOF label
+priority: 1
+condition: "(global_gest_age_openmrs >= 12)"
+actions:
+  - "isRelevant = true"
+---
+name: step4_fetal_presentation
+description: Fetal movement
+priority: 1
+condition: "global_gest_age_openmrs >= 26"
+actions:
+  - "isRelevant = true"
+---
+name: step4_descent
+description: Descent
+priority: 1
+condition: "(global_gest_age_openmrs >= 26)"
+actions:
+  - "isRelevant = true"
+---
+name: step4_baby_lie
+description: Baby lie
+priority: 1
+condition: "(global_gest_age_openmrs >= 26)"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_toaster1
+description: toaster1
+priority: 1
+condition: "(!step2_bmi.isEmpty()) && (step2_current_weight != '')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step3_low_pulse_rate_toaster
+description: low_pulse_rate_toaster
+priority: 1
+condition: "(step3_pulse_rate_repeat > 0 && step3_pulse_rate_repeat < 60)"
+actions:
+  - "isRelevant = true"
+
+---
+name: step3_high_pulse_rate_toaster
+description: high_pulse_rate_toaster
+priority: 1
+condition: "(step3_pulse_rate_repeat > 90)"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_test_diabetes_toaster
+description: test_diabetes_toaster
+priority: 1
+condition: "(!step2_bmi.isEmpty()) && (step2_bmi >= 30)"
+actions:
+  - "isRelevant = true"
+  
+---
+name: step4_lie_toaster
+description: lie_toaster
+priority: 1
+condition: "step4_baby_lie.contains('undetermined') || step4_baby_lie.contains('oblique') || step4_baby_lie.contains('transverse')"
+actions:
+  - "isRelevant = true"
+
+---
+name: step4_sfh_big_toaster
+description: sfh_big_toaster
+priority: 1
+condition: "step4_sfh >= 40"
 actions:
   - "isRelevant = true"

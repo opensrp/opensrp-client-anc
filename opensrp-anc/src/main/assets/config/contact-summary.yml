@@ -11,6 +11,48 @@ fields:
 - template: "{{contact_summary.hospital_referral.danger_signs}}: {danger_signs_value}"
   relevance: "!danger_signs.isEmpty() && !danger_signs.contains('danger_none')"
 
+- template: "{{contact_summary.hospital_referral.additional_contact}}: {additional_contact_value}"
+  relevance: "!additional_contact.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.emergency_referal}}: {emergency_referal_value}"
+  relevance: "!emergency_referal.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.referal_reason}}: {referal_reason}"
+  relevance: "!referal_reason.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.other_reason}}: {other_reason}"
+  relevance: "!other_reason.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.pre_existing_medic}}: {pre_existing_medic_value}"
+  relevance: "!pre_existing_medic.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.other_complications}}: {other_complications_value}"
+  relevance: "!other_complications.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.diagnostics_specify}}: {diagnostics_specify_value}"
+  relevance: "!diagnostics_specify.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.treatment}}: {treatment}"
+  relevance: "!treatment.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.receiving}}: {receiving}"
+  relevance: "!receiving.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.provider_name}}: {provider_name}"
+  relevance: "!provider_name.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.provider_phone_number}}: {provider_phone_number}"
+  relevance: "!provider_phone_number.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.treatment}}: {referral_notes}"
+  relevance: "!referral_notes.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.date_referral}}: {date_referral}"
+  relevance: "!date_referral.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.date_scheduled}}: {date_scheduled}"
+  relevance: "!date_scheduled.isEmpty()"
+
 - template: "{{contact_summary.hospital_referral.severe_hypertension}}: {bp_systolic_repeat}/{bp_diastolic_repeat} mmHg"
   relevance: "severe_hypertension == 1"
 
@@ -54,24 +96,6 @@ fields:
   relevance: "fetal_heart_rate_repeat < 100 || fetal_heart_rate_repeat > 180"
 
 ---
-group: reason_for_visit
-fields:
-- template: "{{contact_summary.reasons.reason_for_coming_to_facility}}: {contact_reason_value}"
-  relevance: "contact_reason_value != ''"
-
-- template: "{{contact_summary.reason_for_visit.health_complaint}}: {specific_complaint_value}"
-  relevance: "specific_complaint_value != ''"
-
----
-group: reason_for_referral
-fields:
-- template: "{{contact_summary.reason_for_visit.reason_for_coming_to_facility}}: {reasons_value}"
-  relevance: "contact_reason_value != ''"
-
-- template: "{{contact_summary.reason_for_visit.reason_for_coming_to_facility}}: {treatment_value}"
-  relevance: "specific_complaint_value != ''"
-
----
 group: demographic_info
 fields:
 - template: "{{contact_summary.demographic_info.educ_level}}: {educ_level_value}"
@@ -83,6 +107,8 @@ fields:
 - template: "{{contact_summary.demographic_info.occupation}}: {occupation_value}"
   relevance: "occupation_value != ''"
 
+- template: "Discordant: {hiv_test_result_value}"
+  relevance: "discordant != ''"
 ---
 group: current_pregnancy
 fields:
@@ -110,14 +136,29 @@ fields:
 ---
 group: obstetric_history
 fields:
-- template: "{{contact_summary.obstetric_history.gravida}} = {gravida + 1}, {{contact_summary.obstetric_history.parity}} = {parity}"
-  relevance: "gravida !='' || parity != ''"
+- template: "{{contact_summary.hospital_referral.no_of_prev_preg}}: {no_of_prev_preg}"
+  relevance: "!no_of_prev_preg.isEmpty()"
+
+- template: "{{contact_summary.obstetric_history.gravida}} : {total_gravida} "
+  relevance: "gravida >0"
+
+- template: "{{contact_summary.obstetric_history.parity}} = {parity}"
+  relevance: "parity > 0"
 
 - template: "{{contact_summary.obstetric_history.no_of_pregnancies_lost_ended}}: {miscarriages_abortions}"
   relevance: "miscarriages_abortions > 0"
 
 - template: "{{contact_summary.obstetric_history.no_of_live_births}}: {live_births}"
   relevance: "live_births > 0"
+
+- template: "{{contact_summary.hospital_referral.still_births}}: {still_births}"
+  relevance: "!still_births.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.miscarriage}}: {miscarriage}"
+  relevance: "!miscarriage.isEmpty()"
+
+- template: "{{contact_summary.hospital_referral.pregnancy_comp}}: {pregnancy_comp}"
+  relevance: "!pregnancy_comp.isEmpty()"
 
 - template: "{{contact_summary.obstetric_history.no_of_stillbirths}}: {stillbirths}"
   relevance: "stillbirths > 0"
@@ -154,6 +195,18 @@ fields:
 
 - template: "{{contact_summary.immunisation_status.tt_immunisation_status}}: {tt_immun_status_value}"
   relevance: "tt_immun_status_value != ''"
+
+- template: "{{contact_summary.immunisation_status.tt_immunisation_number}}: {underimmunized_doses}"
+  relevance: "underimmunized_doses != ''"
+
+- template: "{{contact_summary.immunisation_status.tt_fully_protected}}: {ttcv_full_protected}"
+  relevance: "tt_immun_status == '3_doses'"
+
+- template: "{{contact_summary.immunisation_status.tt_unprotected}}: {ttcv_unprotected}"
+  relevance: "underimmunized_doses <= '1' || tt_immun_status == 'ttcv_not_received' || tt_immun_status == 'unknown'"
+
+- template: "{{contact_summary.immunisation_status.tt_protected}}: {ttcv_protected}"
+  relevance: "underimmunized_doses >= '2'"
 
 - template: "{{contact_summary.immunisation_status.tt_dose_1}}: {tt1_date_done_date_today_hidden} {tt1_date_done}"
   relevance: "tt1_date == 'done_today' || tt1_date == 'done_earlier'"
@@ -420,7 +473,7 @@ fields:
 - template: "{{contact_summary.blood_pressure.severe_pre_eclampsia_diagnosis}}"
   relevance: "severe_preeclampsia == 1"
 ---
-group: maternal_exam
+group: speculum_exam
 fields:
 
 - template: "{{contact_summary.maternal_exam.temperature}}: {body_temp}ºC"
@@ -924,7 +977,7 @@ fields:
 - template: "{{contact_summary.anaemia_prevention.dont_changed_prescription_folic_acid}}: {ifa_weekly_notdone_value}"
   relevance: "ifa_weekly == 'not_done'"
 ---
-group: deworming_and_malaria_prophylaxis
+group: preventive_therapy
 fields:
 
 - template: "{{contact_summary.deworming_and_malaria_prophylaxis.single_dose_prescribed}}"

@@ -5,7 +5,7 @@
       "openmrs_entity_parent": "161474AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-      "label": "{{tests_hepatitis_c_sub_form.step1.hepc_test_status.label}}",
+      "label": "Hepatitis C test",
       "label_text_style": "bold",
       "text_color": "#000000",
       "type": "extended_radio_button",

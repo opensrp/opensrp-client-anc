@@ -5,7 +5,7 @@
       "openmrs_entity_parent": "161557AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-      "label": "{{tests_partner_hiv_sub_form.step1.hiv_test_partner_status.label}}",
+      "label": "Partner HIV test",
       "label_text_style": "bold",
       "text_color": "#000000",
       "type": "extended_radio_button",
@@ -54,6 +54,85 @@
       "openmrs_entity_id": "spacer",
       "type": "spacer",
       "spacer_height": "10dp"
+    },
+    {
+      "key": "partner_hiv_not_done",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "partner_hiv_not_done",
+      "type": "check_box",
+      "label": "Reason",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "p_stock_out",
+          "text": "Stock out",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "p_stock_out"
+        },
+        {
+          "key": "p_expired_stock",
+          "text": "Expired stock",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "p_expired_stock"
+        },
+        {
+          "key": "p_declined",
+          "text": "Declined",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "p_declined"
+        },
+        {
+          "key": "p_not_available",
+          "text": "Not available",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "p_not_available"
+        },
+        {
+          "key": "p_counsellor_not_available",
+          "text": "Counsellor not available",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "p_counsellor_not_available"
+        },
+        {
+          "key": "p_other",
+          "text": "Other(specify)",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "p_other"
+        }
+      ],
+      "relevance": {
+        "step1:hiv_test_partner_status": {
+          "type": "string",
+          "ex": "equalTo(., \"not_done\")"
+        }
+      }
+    },
+    {
+      "key": "p_hiv_not_done_other",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "p_hiv_not_done_other",
+      "type": "edit_text",
+      "hint": "Specify",
+      "edit_type": "name",
+      "relevance": {
+        "step1:partner_hiv_not_done": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "p_other"
+              ]
+            }
+          ]
+        }
+      }
     },
     {
       "openmrs_entity_parent": "",
@@ -165,7 +244,7 @@
       "text": "{{tests_partner_hiv_sub_form.step1.partner_hiv_positive_toaster.text}}",
       "toaster_type": "warning",
       "relevance": {
-        "step2:hiv_test_partner_result": {
+        "step1:hiv_test_partner_result": {
           "type": "string",
           "ex": "equalTo(., \"inconclusive\")"
         }
