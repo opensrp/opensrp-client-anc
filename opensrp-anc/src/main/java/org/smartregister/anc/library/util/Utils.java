@@ -348,7 +348,7 @@ public class Utils extends org.smartregister.util.Utils {
             if ((key.equals(ConstantsUtils.PrescriptionUtils.NAUSEA_PHARMA) || key.equals(ConstantsUtils.PrescriptionUtils.ANTACID) || key.equals(ConstantsUtils.PrescriptionUtils.PENICILLIN) || key.equals(ConstantsUtils.PrescriptionUtils.ANTIBIOTIC) || key.equals(ConstantsUtils.PrescriptionUtils.IFA_MEDICATION) || key.equals(ConstantsUtils.PrescriptionUtils.VITA)
                     || key.equals(ConstantsUtils.PrescriptionUtils.MAG_CALC) || key.equals(ConstantsUtils.PrescriptionUtils.ALBEN_MEBEN) || key.equals(ConstantsUtils.PrescriptionUtils.PREP) || key.equals(ConstantsUtils.PrescriptionUtils.SP) || key.equals(ConstantsUtils.PrescriptionUtils.IFA) || key.equals(ConstantsUtils.PrescriptionUtils.ASPIRIN) || key.equals(ConstantsUtils.PrescriptionUtils.CALCIUM)) && (value != null && value.equals("0"))) {
                 Context context = AncLibrary.getInstance().getApplicationContext();
-                String translationIsOn = org.smartregister.util.Utils.getProperties(context).getProperty(ConstantsUtils.Properties.WIDGET_VALUE_TRANSLATED, "false");
+                String translationIsOn = Utils.getProperties(context).getProperty(ConstantsUtils.Properties.WIDGET_VALUE_TRANSLATED, "false");
                 if (StringUtils.isNotBlank(value) && Boolean.parseBoolean(translationIsOn)) {
                     return ANCFormUtils.keyToValueConverter(value);
                 }
@@ -853,13 +853,12 @@ public class Utils extends org.smartregister.util.Utils {
     /**
      * @param receives iterated keys and values and passes them through translation in nativeform
      *                 to return a string. It checks whether the value is an array, a json object or a normal string separated by ,
-     * @param key
      * @return
      */
     @SuppressLint({"NewApi"})
-    public static String returnTranslatedStringJoinedValue(String value, String key) {
+    public static String returnTranslatedStringJoinedValue(String value) {
         try {
-            if (value.startsWith("[")) {
+            if (value.charAt(0) == '[') {
                 if (Utils.checkJsonArrayString(value)) {
                     JSONArray jsonArray = new JSONArray(value);
                     List<String> translatedList = new ArrayList<>();
@@ -870,19 +869,19 @@ public class Utils extends org.smartregister.util.Utils {
                         translatedText = StringUtils.isNotBlank(text) ? NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext()) : "";
                         translatedList.add(translatedText);
                     }
-                    return translatedList.size() > 1 ? String.join(",", translatedList) : translatedList.get(0);
+                    return translatedList.size() > 1 ? String.join(",", translatedList) : translatedList.size() == 1 ? translatedList.get(0) : "";
                 } else {
-                    return value;
+                    return value.substring(1, value.length() - 1);
                 }
             }
-            if (value.startsWith("{")) {
+            if (value.charAt(0) == '{') {
                 JSONObject attentionFlagObject = new JSONObject(value);
                 String translated_text, text;
                 text = attentionFlagObject.optString(JsonFormConstants.TEXT).trim();
                 translated_text = StringUtils.isNotBlank(text) ? NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext()) : "";
                 return translated_text;
             }
-            if (key.endsWith(ConstantsUtils.KeyUtils.VALUE) && value.contains(",") && value.contains(JsonFormConstants.TEXT)) {
+            if (value.contains(",") && value.contains(".") && value.contains(JsonFormConstants.TEXT)) {
                 List<String> attentionFlagValueArray = Arrays.asList(value.trim().split(","));
                 List<String> translatedList = new ArrayList<>();
                 for (int i = 0; i < attentionFlagValueArray.size(); i++) {
@@ -890,7 +889,10 @@ public class Utils extends org.smartregister.util.Utils {
                     translatedText = StringUtils.isNotBlank(textToTranslate) ? NativeFormLangUtils.translateDatabaseString(textToTranslate, AncLibrary.getInstance().getApplicationContext()) : "";
                     translatedList.add(translatedText);
                 }
-                return translatedList.size() > 1 ? String.join(",", translatedList) : translatedList.get(0);
+                return translatedList.size() > 1 ? String.join(",", translatedList) : translatedList.size() == 1 ? translatedList.get(0) : "";
+            }
+            if (value.contains(".") && !value.contains(",")&& value.charAt(0) != '[' && !value.contains("{") && value.contains(JsonFormConstants.TEXT)) {
+                return NativeFormLangUtils.translateDatabaseString(value.trim(), AncLibrary.getInstance().getApplicationContext());
             }
             return value;
 

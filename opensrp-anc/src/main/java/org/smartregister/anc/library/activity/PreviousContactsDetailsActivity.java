@@ -155,7 +155,7 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
                         while (keys.hasNext()) {
                             String key = keys.next();
                             String valueObject = jsonObject.optString(key), value;
-                            value = Utils.returnTranslatedStringJoinedValue(valueObject, key);
+                            value = Utils.returnTranslatedStringJoinedValue(valueObject);
                             if (value.length() > 1) {
                                 factsToUpdate.put(key, value);
                             } else {

@@ -546,35 +546,8 @@ public class ANCFormUtils extends FormUtils {
     }
 
 
-    @SuppressLint("NewApi")
-    static String cleanValue(String value) {
-        String returnValue = "";
-        try {
-            if (value.trim().length() > 0 && value.trim().charAt(0) == '[') {
-                if (Utils.checkJsonArrayString(value)) {
-                    JSONArray jsonArray = new JSONArray(value);
-                    List<String> list = new ArrayList<>();
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject jsonObject = jsonArray.optJSONObject(i);
-                        if (StringUtils.isNotBlank(jsonObject.toString()) && StringUtils.isNotBlank(jsonObject.optString(JsonFormConstants.TEXT))) {
-                            String text = jsonObject.optString(JsonFormConstants.TEXT).trim(), translatedText = "";
-                            translatedText = StringUtils.isNotBlank(text) ? NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext()) : "";
-                            list.add(translatedText);
-                        }
-                    }
-                    returnValue = list.size() > 1 ? String.join(",", list) : list.get(0);
-                } else {
-                    returnValue = value.substring(1, value.length() - 1);
-                }
-            } else {
-                returnValue = value;
-            }
-            return returnValue;
-        } catch (Exception e) {
-            Timber.e(e, "Clean Value in ANCFormUtils");
-            return "";
-        }
-
+    public static String cleanValue(String value) {
+        return Utils.returnTranslatedStringJoinedValue(value);
     }
 
 
@@ -584,7 +557,8 @@ public class ANCFormUtils extends FormUtils {
      * @param mainJsonObject Main json object with all fields
      * @throws JSONException Capture Json Form errors
      */
-    public static void processCheckboxFilteredItems(JSONObject mainJsonObject) throws JSONException {
+    public static void processCheckboxFilteredItems(JSONObject mainJsonObject) throws
+            JSONException {
 
         if (!mainJsonObject.has(ConstantsUtils.FILTERED_ITEMS) || mainJsonObject.getJSONArray(ConstantsUtils.FILTERED_ITEMS).length() < 1) {
             return;
@@ -617,21 +591,26 @@ public class ANCFormUtils extends FormUtils {
         return widgetKey.replace(prefix + "_", "");
     }
 
-    private static void getOptionsMap(Map<String, JSONObject> optionsMap, JSONArray checkboxOptions) throws JSONException {
+    private static void getOptionsMap(Map<String, JSONObject> optionsMap, JSONArray
+            checkboxOptions) throws JSONException {
         for (int i = 0; i < checkboxOptions.length(); i++) {
             JSONObject item = checkboxOptions.getJSONObject(i);
             optionsMap.put(item.getString(JsonFormConstants.KEY), item);
         }
     }
 
-    private static void setUpNoneForSpecialTreatment(ArrayList<JSONObject> newOptionsList, Map<String, JSONObject> optionsMap, boolean none, String none2) {
+    private static void setUpNoneForSpecialTreatment
+            (ArrayList<JSONObject> newOptionsList, Map<String, JSONObject> optionsMap,
+             boolean none, String none2) {
         //Treat none option as special.
         if (none) {
             newOptionsList.add(optionsMap.get(none2));
         }
     }
 
-    private static boolean checkForFilterSources(JSONObject mainJsonObject, JSONObject checkBoxField, ArrayList<JSONObject> newOptionsList, Map<String, JSONObject> optionsMap) throws JSONException {
+    private static boolean checkForFilterSources(JSONObject mainJsonObject, JSONObject
+            checkBoxField, ArrayList<JSONObject> newOptionsList, Map<String, JSONObject> optionsMap) throws
+            JSONException {
         if (checkBoxField.has(ConstantsUtils.FILTER_OPTIONS_SOURCE)) {
             return getFilteredItemsWithSource(mainJsonObject, checkBoxField, newOptionsList, optionsMap);
         } else {
@@ -639,7 +618,9 @@ public class ANCFormUtils extends FormUtils {
         }
     }
 
-    private static boolean getFilteredItemsWithSource(JSONObject mainJsonObject, JSONObject checkBoxField, ArrayList<JSONObject> newOptionsList, Map<String, JSONObject> optionsMap) throws JSONException {
+    private static boolean getFilteredItemsWithSource(JSONObject mainJsonObject, JSONObject
+            checkBoxField, ArrayList<JSONObject> newOptionsList, Map<String, JSONObject> optionsMap) throws
+            JSONException {
         String filterOptionsSource = checkBoxField.getString(ConstantsUtils.FILTER_OPTIONS_SOURCE);
         if (!filterOptionsSource.startsWith("global_")) {
             return true;
@@ -659,7 +640,10 @@ public class ANCFormUtils extends FormUtils {
         return false;
     }
 
-    private static boolean getFilteredItemsWithoutFilteredSource(JSONObject mainJsonObject, JSONObject checkBoxField, ArrayList<JSONObject> newOptionsList, Map<String, JSONObject> optionsMap) throws JSONException {
+    private static boolean getFilteredItemsWithoutFilteredSource(JSONObject
+                                                                         mainJsonObject, JSONObject
+                                                                         checkBoxField, ArrayList<JSONObject> newOptionsList, Map<String, JSONObject> optionsMap) throws
+            JSONException {
         if (checkBoxField.has(ConstantsUtils.FILTER_OPTIONS)) {
             JSONArray filterOptions = checkBoxField.getJSONArray(ConstantsUtils.FILTER_OPTIONS);
             if (filterOptions.length() > 0) {
@@ -732,7 +716,8 @@ public class ANCFormUtils extends FormUtils {
      * @param valueItem    {@link String} - expansion panel value object
      * @throws JSONException
      */
-    public void saveExpansionPanelValues(String baseEntityId, String contactNo, JSONObject valueItem) throws JSONException {
+    public void saveExpansionPanelValues(String baseEntityId, String contactNo, JSONObject
+            valueItem) throws JSONException {
         String result = "";
         if (valueItem.has(JsonFormConstants.TYPE) && valueItem.has(JsonFormConstants.VALUES)) {
             String type = valueItem.optString(JsonFormConstants.TYPE);
@@ -759,7 +744,8 @@ public class ANCFormUtils extends FormUtils {
      * @param fieldObject  {@link JSONObject}
      * @throws JSONException
      */
-    public void savePreviousContactItem(String baseEntityId, JSONObject fieldObject) throws JSONException {
+    public void savePreviousContactItem(String baseEntityId, JSONObject fieldObject) throws
+            JSONException {
         PreviousContact previousContact = new PreviousContact();
         previousContact.setKey(fieldObject.getString(JsonFormConstants.KEY));
         previousContact.setValue(fieldObject.getString(JsonFormConstants.VALUE));
@@ -813,7 +799,8 @@ public class ANCFormUtils extends FormUtils {
      * @param taskValue {@link JSONObject}
      * @param form      {@link JSONObject}
      */
-    public void updateFormPropertiesFileName(JSONObject form, JSONObject taskValue, Context context) {
+    public void updateFormPropertiesFileName(JSONObject form, JSONObject taskValue, Context
+            context) {
         try {
             if (taskValue != null && taskValue.has(JsonFormConstants.CONTENT_FORM)) {
                 String subFormName = taskValue.getString(JsonFormConstants.CONTENT_FORM);
