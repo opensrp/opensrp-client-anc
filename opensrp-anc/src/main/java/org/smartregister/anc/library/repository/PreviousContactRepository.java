@@ -246,7 +246,7 @@ public class PreviousContactRepository extends BaseRepository {
      */
     private Cursor getAllTests(String baseEntityId, SQLiteDatabase database) {
         String selection = "";
-        String orderBy = ID + " DESC";
+        String orderBy = "MAX("+ ID + ") DESC";
         String[] selectionArgs = null;
 
         if (StringUtils.isNotBlank(baseEntityId)) {
@@ -306,7 +306,7 @@ public class PreviousContactRepository extends BaseRepository {
     public Facts getPreviousContactFacts(String baseEntityId, String contactNo, boolean checkNegative) {
         Cursor mCursor = null;
         String selection = "";
-        String orderBy = ID + " DESC";
+        String orderBy = "MAX("+ ID + ") DESC";
         String[] selectionArgs = null;
         Facts previousContactFacts = new Facts();
         try {
