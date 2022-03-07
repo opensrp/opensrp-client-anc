@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
@@ -346,14 +345,14 @@ public class Utils extends org.smartregister.util.Utils {
         String value = "";
         if (facts.get(key) instanceof String) {
             value = facts.get(key);
-            if((key.equals(ConstantsUtils.PrescriptionUtils.NAUSEA_PHARMA) || key.equals(ConstantsUtils.PrescriptionUtils.ANTACID) || key.equals(ConstantsUtils.PrescriptionUtils.PENICILLIN) || key.equals(ConstantsUtils.PrescriptionUtils.ANTIBIOTIC) || key.equals(ConstantsUtils.PrescriptionUtils.IFA_MEDICATION) || key.equals(ConstantsUtils.PrescriptionUtils.VITA)
-             || key.equals(ConstantsUtils.PrescriptionUtils.MAG_CALC) || key.equals(ConstantsUtils.PrescriptionUtils.ALBEN_MEBEN) || key.equals(ConstantsUtils.PrescriptionUtils.PREP) || key.equals(ConstantsUtils.PrescriptionUtils.SP) || key.equals(ConstantsUtils.PrescriptionUtils.IFA) || key.equals(ConstantsUtils.PrescriptionUtils.ASPIRIN) || key.equals(ConstantsUtils.PrescriptionUtils.CALCIUM)) && (value!= null && value.equals("0")))
+            if ((key.equals(ConstantsUtils.PrescriptionUtils.NAUSEA_PHARMA) || key.equals(ConstantsUtils.PrescriptionUtils.ANTACID) || key.equals(ConstantsUtils.PrescriptionUtils.PENICILLIN) || key.equals(ConstantsUtils.PrescriptionUtils.ANTIBIOTIC) || key.equals(ConstantsUtils.PrescriptionUtils.IFA_MEDICATION) || key.equals(ConstantsUtils.PrescriptionUtils.VITA)
+                    || key.equals(ConstantsUtils.PrescriptionUtils.MAG_CALC) || key.equals(ConstantsUtils.PrescriptionUtils.ALBEN_MEBEN) || key.equals(ConstantsUtils.PrescriptionUtils.PREP) || key.equals(ConstantsUtils.PrescriptionUtils.SP) || key.equals(ConstantsUtils.PrescriptionUtils.IFA) || key.equals(ConstantsUtils.PrescriptionUtils.ASPIRIN) || key.equals(ConstantsUtils.PrescriptionUtils.CALCIUM)) && (value != null && value.equals("0")))
                 return ANCFormUtils.keyToValueConverter("");
 
             if (value != null && value.endsWith(OTHER_SUFFIX)) {
                 Object otherValue = value.endsWith(OTHER_SUFFIX) ? facts.get(key + ConstantsUtils.SuffixUtils.OTHER) : "";
                 value = otherValue != null ?
-                        value.substring(0, value.lastIndexOf(",")) + ", " + otherValue.toString() + "]" :
+                        value.substring(0, value.lastIndexOf(",")) + ", " + otherValue + "]" :
                         value.substring(0, value.lastIndexOf(",")) + "]";
 
             }
@@ -374,16 +373,13 @@ public class Utils extends org.smartregister.util.Utils {
         if (!nonEmptyItems.isEmpty() && nonEmptyItems.get(0).contains(":")) {
             String[] separatedLabel = nonEmptyItems.get(0).split(":");
             itemLabel = separatedLabel[0];
-            if (separatedLabel.length > 1 ) {
+            if (separatedLabel.length > 1) {
                 nonEmptyItems.set(0, nonEmptyItems.get(0).split(":")[1]);
                 if (StringUtils.isBlank(nonEmptyItems.get(0)))
                     nonEmptyItems.remove(0);
             }//replace with extracted value
         }
-        if(!itemLabel.equals(StringUtils.join(nonEmptyItems.toArray(),",").replace(":","")))
-         return itemLabel + (!TextUtils.isEmpty(itemLabel) ? ": " : "") + StringUtils.join(nonEmptyItems.toArray(), ",");
-        else
-            return itemLabel+":";
+        return itemLabel + (!TextUtils.isEmpty(itemLabel) ? ": " : "") + StringUtils.join(nonEmptyItems.toArray(), ",");
     }
 
     public static void navigateToHomeRegister(Context context, boolean isRemote, Class<? extends BaseHomeRegisterActivity> homeRegisterActivityClass) {
@@ -665,71 +661,6 @@ public class Utils extends org.smartregister.util.Utils {
         return AncLibrary.getInstance().getProperties().getPropertyBoolean(AncAppPropertyConstants.KeyUtils.LANGUAGE_SWITCHING_ENABLED);
     }
 
-    /**
-     * Loads yaml files that contain rules for the profile displays
-     *
-     * @param filename {@link String}
-     * @return
-     * @throws IOException
-     */
-    public Iterable<Object> loadRulesFiles(String filename) throws IOException {
-        return AncLibrary.getInstance().readYaml(filename);
-    }
-
-    /**
-     * Creates the {@link Task} partial contact form.  This is done any time we update tasks.
-     *
-     * @param baseEntityId {@link String} - The patient base entity id
-     * @param context      {@link Context} - application context
-     * @param contactNo    {@link Integer} - the contact that the partial contact belongs in.
-     * @param doneTasks    {@link List<Task>} - A list of all the done/completed tasks.
-     */
-    public void createTasksPartialContainer(String baseEntityId, Context context, int contactNo, List<Task> doneTasks) {
-        try {
-            if (contactNo > 0 && doneTasks != null && doneTasks.size() > 0) {
-                JSONArray fields = createFieldsArray(doneTasks);
-
-                ANCFormUtils ANCFormUtils = new ANCFormUtils();
-                JSONObject jsonForm = ANCFormUtils.loadTasksForm(context);
-                if (jsonForm != null) {
-                    ANCFormUtils.updateFormFields(jsonForm, fields);
-                }
-
-                createAndPersistPartialContact(baseEntityId, contactNo, jsonForm);
-            }
-        } catch (JSONException e) {
-            Timber.e(e, " --> createTasksPartialContainer");
-        }
-    }
-
-    @NotNull
-    private JSONArray createFieldsArray(List<Task> doneTasks) throws JSONException {
-        JSONArray fields = new JSONArray();
-        for (Task task : doneTasks) {
-            JSONObject field = new JSONObject(task.getValue());
-            fields.put(field);
-        }
-        return fields;
-    }
-
-    private void createAndPersistPartialContact(String baseEntityId, int contactNo, JSONObject jsonForm) {
-        Contact contact = new Contact();
-        contact.setJsonForm(String.valueOf(jsonForm));
-        contact.setContactNumber(contactNo);
-        contact.setFormName(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS);
-
-        ANCFormUtils.persistPartial(baseEntityId, contact);
-    }
-
-    /**
-     * Returns the Contact Tasks Repository {@link ContactTasksRepository}
-     *
-     * @return contactTasksRepository
-     */
-    public ContactTasksRepository getContactTasksRepositoryHelper() {
-        return AncLibrary.getInstance().getContactTasksRepository();
-    }
-
     public static String getDueCheckStrategy() {
         return getProperties(AncLibrary.getInstance().getApplicationContext()).getProperty(ConstantsUtils.Properties.DUE_CHECK_STRATEGY, "");
     }
@@ -871,7 +802,6 @@ public class Utils extends org.smartregister.util.Utils {
         }
     }
 
-
     public static Event addContactVisitDetails(String attentionFlagsString, Event event,
                                                String referral, String currentContactState) {
         event.addDetails(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS, attentionFlagsString);
@@ -879,6 +809,73 @@ public class Utils extends org.smartregister.util.Utils {
             event.addDetails(ConstantsUtils.DetailsKeyUtils.PREVIOUS_CONTACTS, currentContactState);
         }
         return event;
+    }
+
+
+
+    /**
+     * Loads yaml files that contain rules for the profile displays
+     *
+     * @param filename {@link String}
+     * @return
+     * @throws IOException
+     */
+    public Iterable<Object> loadRulesFiles(String filename) throws IOException {
+        return AncLibrary.getInstance().readYaml(filename);
+    }
+
+    /**
+     * Creates the {@link Task} partial contact form.  This is done any time we update tasks.
+     *
+     * @param baseEntityId {@link String} - The patient base entity id
+     * @param context      {@link Context} - application context
+     * @param contactNo    {@link Integer} - the contact that the partial contact belongs in.
+     * @param doneTasks    {@link List<Task>} - A list of all the done/completed tasks.
+     */
+    public void createTasksPartialContainer(String baseEntityId, Context context, int contactNo, List<Task> doneTasks) {
+        try {
+            if (contactNo > 0 && doneTasks != null && doneTasks.size() > 0) {
+                JSONArray fields = createFieldsArray(doneTasks);
+
+                ANCFormUtils ANCFormUtils = new ANCFormUtils();
+                JSONObject jsonForm = ANCFormUtils.loadTasksForm(context);
+                if (jsonForm != null) {
+                    ANCFormUtils.updateFormFields(jsonForm, fields);
+                }
+
+                createAndPersistPartialContact(baseEntityId, contactNo, jsonForm);
+            }
+        } catch (JSONException e) {
+            Timber.e(e, " --> createTasksPartialContainer");
+        }
+    }
+
+    @NotNull
+    private JSONArray createFieldsArray(List<Task> doneTasks) throws JSONException {
+        JSONArray fields = new JSONArray();
+        for (Task task : doneTasks) {
+            JSONObject field = new JSONObject(task.getValue());
+            fields.put(field);
+        }
+        return fields;
+    }
+
+    private void createAndPersistPartialContact(String baseEntityId, int contactNo, JSONObject jsonForm) {
+        Contact contact = new Contact();
+        contact.setJsonForm(String.valueOf(jsonForm));
+        contact.setContactNumber(contactNo);
+        contact.setFormName(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS);
+
+        ANCFormUtils.persistPartial(baseEntityId, contact);
+    }
+
+    /**
+     * Returns the Contact Tasks Repository {@link ContactTasksRepository}
+     *
+     * @return contactTasksRepository
+     */
+    public ContactTasksRepository getContactTasksRepositoryHelper() {
+        return AncLibrary.getInstance().getContactTasksRepository();
     }
 
     @Nullable
@@ -953,7 +950,7 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     private final String getAppPath(Context context) {
-        File dir = new File(Environment.getExternalStorageDirectory()+ File.separator + context.getResources().getString(R.string.app_name) + File.separator);
+        File dir = new File(context.getExternalFilesDir("") + File.separator + context.getResources().getString(R.string.app_name) + File.separator);
         if (!dir.exists()) {
             dir.mkdir();
         }
