@@ -51,7 +51,6 @@ public class AttentionFlagsTask extends AsyncTask<Void, Void, Void> {
             }
 
             Iterable<Object> ruleObjects = AncLibrary.getInstance().readYaml(FilePathUtils.FileUtils.ATTENTION_FLAGS);
-
             for (Object ruleObject : ruleObjects) {
                 YamlConfig attentionFlagConfig = (YamlConfig) ruleObject;
                 if (attentionFlagConfig != null && attentionFlagConfig.getFields() != null) {
