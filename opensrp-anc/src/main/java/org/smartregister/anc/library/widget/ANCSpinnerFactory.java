@@ -155,7 +155,6 @@ public class ANCSpinnerFactory extends SpinnerFactory {
 
                 JSONObject option = new JSONObject();
                 option.put(KEY, entry.getId());
-                // option.put(TEXT, entry.getProperties().getName());
                 option.put(TEXT, locationName);
 
                 spinnerOptions.put(option);

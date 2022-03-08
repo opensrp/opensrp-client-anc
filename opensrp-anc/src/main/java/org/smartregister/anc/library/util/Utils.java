@@ -990,6 +990,11 @@ public class Utils extends org.smartregister.util.Utils {
         return CoreLibrary.getInstance().context().getLocationRepository().getLocationById(locationId);
     }
 
+    /*
+     * Returns current location
+     * in case of edit it will return the saved location, otherwise
+     * the default location based on user's current location hierarchy
+     */
     public static String getCurrentLocation(String level, JsonFormActivity jsonFormView) {
         String villageId = CoreLibrary.getInstance().context().allSharedPreferences().fetchUserLocalityId(CoreLibrary.getInstance().context().allSharedPreferences().fetchRegisteredANM());
         String currentLocation = "";
@@ -1013,6 +1018,9 @@ public class Utils extends org.smartregister.util.Utils {
         return currentLocation;
     }
 
+    /*
+     * Returns default location id based on the level passed
+     */
     private static String getDefaultLocation(String level, String villageId) {
         Location village = Utils.getLocationById(villageId);
         Location facility = Utils.getLocationById(village != null ? village.getProperties().getParentId() : "");
@@ -1036,6 +1044,9 @@ public class Utils extends org.smartregister.util.Utils {
         }
     }
 
+    /*
+     * Returns thee localized location name declared in strings.xml file
+     */
     public static String getLocationLocalizedName(Location location, JsonFormActivity jsonFormView) {
         String id = location.getProperties().getName().toLowerCase().trim()
                 .replace(" ", "_")
