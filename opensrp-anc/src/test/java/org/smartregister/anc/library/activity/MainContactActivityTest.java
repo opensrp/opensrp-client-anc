@@ -80,7 +80,6 @@ public class MainContactActivityTest extends BaseActivityUnitTest {
             activityController = Robolectric.buildActivity(MainContactActivity.class, intent);
             activity = activityController.create().resume().get();
             Assert.assertNotNull(activity);
-
             Map<String, Integer> requiredFieldsMap = new HashMap<>();
             requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_PROFILE, 3);
             requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS, 4);

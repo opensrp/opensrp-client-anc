@@ -21,9 +21,9 @@ import java.util.List;
 import timber.log.Timber;
 
 public class AttentionFlagsTask extends AsyncTask<Void, Void, Void> {
-    private BaseHomeRegisterActivity baseHomeRegisterActivity;
-    private List<AttentionFlag> attentionFlagList = new ArrayList<>();
-    private CommonPersonObjectClient pc;
+    private final BaseHomeRegisterActivity baseHomeRegisterActivity;
+    private final List<AttentionFlag> attentionFlagList = new ArrayList<>();
+    private final CommonPersonObjectClient pc;
 
     public AttentionFlagsTask(BaseHomeRegisterActivity baseHomeRegisterActivity, CommonPersonObjectClient pc) {
         this.baseHomeRegisterActivity = baseHomeRegisterActivity;
@@ -44,7 +44,6 @@ public class AttentionFlagsTask extends AsyncTask<Void, Void, Void> {
             }
 
             Iterable<Object> ruleObjects = AncLibrary.getInstance().readYaml(FilePathUtils.FileUtils.ATTENTION_FLAGS);
-
             for (Object ruleObject : ruleObjects) {
                 YamlConfig attentionFlagConfig = (YamlConfig) ruleObject;
                 if (attentionFlagConfig != null && attentionFlagConfig.getFields() != null) {
