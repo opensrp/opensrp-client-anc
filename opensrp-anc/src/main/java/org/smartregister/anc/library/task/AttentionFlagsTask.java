@@ -2,6 +2,7 @@ package org.smartregister.anc.library.task;
 
 import android.os.AsyncTask;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
 import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
@@ -41,8 +42,8 @@ public class AttentionFlagsTask extends AsyncTask<Void, Void, Void> {
             while (keys.hasNext()) {
                 String key = keys.next();
                 String ValueObject = jsonObject.optString(key);
-                String value = Utils.returnTranslatedStringJoinedValue(ValueObject, key);
-                if (value.length() > 1) {
+                String value = Utils.returnTranslatedStringJoinedValue(ValueObject);
+                if (StringUtils.isNotBlank(value)) {
                     facts.put(key, value);
                 } else {
                     facts.put(key, "");

@@ -13,6 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -156,8 +157,8 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
                         while (keys.hasNext()) {
                             String key = keys.next();
                             String valueObject = jsonObject.optString(key), value;
-                            value = Utils.returnTranslatedStringJoinedValue(valueObject, key);
-                            if (value.length() > 1) {
+                            value = Utils.returnTranslatedStringJoinedValue(valueObject);
+                            if (StringUtils.isNotBlank(value)) {
                                 factsToUpdate.put(key, value);
                             } else {
                                 factsToUpdate.put(key, "");
