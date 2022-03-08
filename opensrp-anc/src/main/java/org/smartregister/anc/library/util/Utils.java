@@ -858,7 +858,7 @@ public class Utils extends org.smartregister.util.Utils {
     @SuppressLint({"NewApi"})
     public static String returnTranslatedStringJoinedValue(String value) {
         try {
-            if (value.charAt(0) == '[') {
+            if (StringUtils.isNotBlank(value) && value.charAt(0) == '[') {
                 if (Utils.checkJsonArrayString(value)) {
                     JSONArray jsonArray = new JSONArray(value);
                     List<String> translatedList = new ArrayList<>();
@@ -874,7 +874,7 @@ public class Utils extends org.smartregister.util.Utils {
                     return value.substring(1, value.length() - 1);
                 }
             }
-            if (value.charAt(0) == '{') {
+            if (StringUtils.isNotBlank(value) && value.charAt(0) == '{') {
                 JSONObject attentionFlagObject = new JSONObject(value);
                 String translated_text, text;
                 text = attentionFlagObject.optString(JsonFormConstants.TEXT).trim();
@@ -891,7 +891,7 @@ public class Utils extends org.smartregister.util.Utils {
                 }
                 return translatedList.size() > 1 ? String.join(",", translatedList) : translatedList.size() == 1 ? translatedList.get(0) : "";
             }
-            if (value.contains(".") && !value.contains(",")&& value.charAt(0) != '[' && !value.contains("{") && value.contains(JsonFormConstants.TEXT)) {
+            if (StringUtils.isNotBlank(value) && value.contains(".") && !value.contains(",") && value.charAt(0) != '[' && !value.contains("{") && value.contains(JsonFormConstants.TEXT)) {
                 return NativeFormLangUtils.translateDatabaseString(value.trim(), AncLibrary.getInstance().getApplicationContext());
             }
             return value;

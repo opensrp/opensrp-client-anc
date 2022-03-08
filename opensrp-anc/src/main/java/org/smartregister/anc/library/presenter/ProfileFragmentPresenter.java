@@ -3,6 +3,7 @@ package org.smartregister.anc.library.presenter;
 import android.annotation.SuppressLint;
 import android.text.TextUtils;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -74,7 +75,7 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
                         String key = keys.next();
                         String valueObject = jsonObject.optString(key), value;
                         value = Utils.returnTranslatedStringJoinedValue(valueObject);
-                        if (value.length() > 1) {
+                        if (StringUtils.isNotBlank(value)) {
                             facts.put(key, value);
                         } else {
                             facts.put(key, "");
