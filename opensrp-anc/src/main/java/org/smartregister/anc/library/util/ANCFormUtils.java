@@ -518,7 +518,7 @@ public class ANCFormUtils extends FormUtils {
                     returnList.add(list.get(i));
                 }
             }
-            return String.join(",", returnList);
+            return String.join(",", returnList).trim();
 
         }
         return "";
