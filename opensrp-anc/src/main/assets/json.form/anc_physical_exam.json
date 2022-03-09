@@ -476,6 +476,7 @@
           {
             "key": "optibp",
             "text": "{{anc_physical_exam.step2.bp_measurement_method.options.optibp.text}}",
+            "translation_text": "anc_physical_exam.step2.bp_measurement_method.options.optibp.text",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -484,6 +485,7 @@
           {
             "key": "manually",
             "text": "{{anc_physical_exam.step2.bp_measurement_method.options.manually.text}}",
+            "translation_text": "anc_physical_exam.step2.bp_measurement_method.options.manually.text",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "",

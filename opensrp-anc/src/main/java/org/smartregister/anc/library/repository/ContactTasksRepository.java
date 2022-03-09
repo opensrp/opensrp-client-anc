@@ -63,6 +63,13 @@ public class ContactTasksRepository extends BaseRepository {
         database.execSQL(INDEX_BASE_ENTITY_ID);
         database.execSQL(INDEX_KEY);
     }
+    public void deleteAllTasks(String baseEntityID)
+    {
+        if(baseEntityID != null) {
+            String deleteQuery = BASE_ENTITY_ID + " = ? ";
+            getWritableDatabase().delete(TABLE_NAME, deleteQuery, new String[]{baseEntityID});
+        }
+    }
 
     /**
      * Inserts or updates the tasks into the contact_tasks table. Returns a boolean which is used to refresh the tasks view on the profile pages
@@ -79,6 +86,13 @@ public class ContactTasksRepository extends BaseRepository {
                 getWritableDatabase().update(TABLE_NAME, createValuesFor(task), sqlQuery, new String[]{String.valueOf(task.getId())});
                 return true;
             } else {
+                Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM "+TABLE_NAME+" where key = ? AND base_entity_id = ?",new String[]{task.getKey(),task.getBaseEntityId()});
+                if(cursor != null && cursor.getCount()>0)
+                {
+                    String updateLatestQuery = KEY + " = ? AND " + BASE_ENTITY_ID + " = ? ";
+                    getWritableDatabase().delete(TABLE_NAME, updateLatestQuery,new String[]{task.getKey(),task.getBaseEntityId()});
+                }
+
                 getWritableDatabase().insert(TABLE_NAME, null, createValuesFor(task));
                 return false;
             }

@@ -2132,7 +2132,8 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "none",
-            "text": "{{anc_profile.step4.health_conditions.options.none.text}}"
+            "text": "{{anc_profile.step4.health_conditions.options.none.text}}",
+            "translation_text": "anc_profile.step4.health_conditions.options.none.text"
           },
           {
             "openmrs_entity_parent": "",
@@ -3154,6 +3155,7 @@
           {
             "key": "none",
             "text": "{{anc_profile.step7.alcohol_substance_use.options.none.text}}",
+            "translation_text": "anc_profile.step7.alcohol_substance_use.options.none.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -3161,6 +3163,7 @@
           {
             "key": "alcohol",
             "text": "{{anc_profile.step7.alcohol_substance_use.options.alcohol.text}}",
+            "translation_text": "anc_profile.step7.alcohol_substance_use.options.alcohol.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "143098AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -3168,6 +3171,7 @@
           {
             "key": "marijuana",
             "text": "{{anc_profile.step7.alcohol_substance_use.options.marijuana.text}}",
+            "translation_text": "anc_profile.step7.alcohol_substance_use.options.marijuana.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165221AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -3175,6 +3179,7 @@
           {
             "key": "cocaine",
             "text": "{{anc_profile.step7.alcohol_substance_use.options.cocaine.text}}",
+            "translation_text": "anc_profile.step7.alcohol_substance_use.options.cocaine.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "155793AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -3182,6 +3187,7 @@
           {
             "key": "injectable_drugs",
             "text": "{{anc_profile.step7.alcohol_substance_use.options.injectable_drugs.text}}",
+            "translation_text": "anc_profile.step7.alcohol_substance_use.options.injectable_drugs.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "157351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -3189,6 +3195,7 @@
           {
             "key": "other",
             "text": "{{anc_profile.step7.alcohol_substance_use.options.other.text}}",
+            "translation_text": "anc_profile.step7.alcohol_substance_use.options.other.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -3305,6 +3312,7 @@
           {
             "key": "dont_know",
             "text": "{{anc_profile.step8.partner_hiv_status.options.dont_know.text}}",
+            "translation_text": "anc_profile.step8.partner_hiv_status.options.dont_know.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -3312,6 +3320,7 @@
           {
             "key": "positive",
             "text": "{{anc_profile.step8.partner_hiv_status.options.positive.text}}",
+            "translation_text": "anc_profile.step8.partner_hiv_status.options.positive.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -3319,6 +3328,7 @@
           {
             "key": "negative",
             "text": "{{anc_profile.step8.partner_hiv_status.options.negative.text}}",
+            "translation_text": "anc_profile.step8.partner_hiv_status.options.negative.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"

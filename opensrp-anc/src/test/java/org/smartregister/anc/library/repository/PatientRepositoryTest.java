@@ -169,14 +169,6 @@ public class PatientRepositoryTest {
         Assert.assertNull(result.get(DBConstantsUtils.KeyUtils.VISIT_START_DATE));
     }
 
-//    @Test
-//    public void isFirstVisitTest() {
-//        String baseEntityId="4faf5afa-fa7f-4d98-b4cd-4ee39c8d1eb1";
-//        PatientRepository patientRepositoryHelper = new PatientRepository();
-//        Assert.assertNotNull(patientRepositoryHelper);
-//        boolean isfistVisit = PatientRepository.isFirstVisit(baseEntityId);
-//        Assert.assertTrue(isfistVisit);
-//    }
 
     @After
     public void tearDown() {

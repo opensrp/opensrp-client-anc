@@ -6,7 +6,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.3'
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.3'
-        classpath 'com.google.gms:google-services:4.3.9'
+        classpath 'com.google.gms:google-services:4.3.10'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.7.1'
         classpath 'org.smartregister:gradle-jarjar-plugin:1.0.0-SNAPSHOT'
     }
@@ -25,7 +25,7 @@ jacoco {
 // This variables are used by the version code & name generators
 ext.versionMajor = 1
 ext.versionMinor = 6
-ext.versionPatch = 11
+ext.versionPatch = 12
 ext.versionClassifier = null
 ext.isSnapshot = false
 ext.minimumSdkVersion = androidMinSdkVersion
@@ -229,7 +229,7 @@ dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
     def powerMockVersion = '2.0.7'
     implementation project(":opensrp-anc")
-    implementation('org.smartregister:opensrp-client-native-form:2.1.15-dev-3-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:2.1.16-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -241,7 +241,7 @@ dependencies {
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
 
-    implementation('org.smartregister:opensrp-client-core:4.3.22-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:4.3.26-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'
@@ -285,7 +285,7 @@ dependencies {
     }
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
     implementation group: 'org.yaml', name: 'snakeyaml', version: '1.27'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'org.jeasy:easy-rules-core:3.3.0'
@@ -350,6 +350,6 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'crea
 
 
 jarJar {
-    // Dependencies and related JarJar rules
+    // Dependencies and related Jar rules
     remove = ['fhir-model-4.8.3.jar': 'com.ibm.fhir.model.visitor.CopyingVisitor*']
 }

@@ -26,7 +26,6 @@ import org.smartregister.anc.library.util.FilePathUtils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.util.JsonFormUtils;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -39,23 +38,23 @@ import java.util.Map;
 import timber.log.Timber;
 
 public class ContactVisit {
-    private Map<String, String> details;
-    private String referral;
-    private String baseEntityId;
-    private int nextContact;
-    private String nextContactVisitDate;
-    private PartialContactRepository partialContactRepository;
-    private List<PartialContact> partialContactList;
+    private final Map<String, String> details;
+    private final String referral;
+    private final String baseEntityId;
+    private final int nextContact;
+    private final String nextContactVisitDate;
+    private final PartialContactRepository partialContactRepository;
+    private final List<PartialContact> partialContactList;
     private Facts facts;
     private List<String> formSubmissionIDs;
     private WomanDetail womanDetail;
-    private Map<String, Integer> attentionFlagCountMap = new HashMap<>();
-    private List<String> parsableFormsList =
+    private final Map<String, Integer> attentionFlagCountMap = new HashMap<>();
+    private final List<String> parsableFormsList =
             Arrays.asList(ConstantsUtils.JsonFormUtils.ANC_QUICK_CHECK, ConstantsUtils.JsonFormUtils.ANC_PROFILE,
                     ConstantsUtils.JsonFormUtils.ANC_SYMPTOMS_FOLLOW_UP, ConstantsUtils.JsonFormUtils.ANC_PHYSICAL_EXAM,
                     ConstantsUtils.JsonFormUtils.ANC_TEST, ConstantsUtils.JsonFormUtils.ANC_COUNSELLING_TREATMENT);
     private Map<String, Long> currentClientTasks = new HashMap<>();
-    private ANCFormUtils ancFormUtils = new ANCFormUtils();
+    private final ANCFormUtils ancFormUtils = new ANCFormUtils();
 
     public ContactVisit(Map<String, String> details, String referral, String baseEntityId, int nextContact,
                         String nextContactVisitDate, PartialContactRepository partialContactRepository,
@@ -113,7 +112,8 @@ public class ContactVisit {
         return this;
     }
 
-    /**StringUtils.isNotBlank(previousContactValue)
+    /**
+     * StringUtils.isNotBlank(previousContactValue)
      * Returns a {@link Map} of the tasks keys and task id.  These are used to delete the tasks in case a test with the same key is completed doing the current contact.
      *
      * @param baseEntityId {@link String} Client's base entity id.
@@ -178,7 +178,7 @@ public class ContactVisit {
         return womanDetail;
     }
 
-    private void processAttentionFlags(WomanDetail patientDetail, Facts facts) throws IOException {
+    private void processAttentionFlags(WomanDetail patientDetail, Facts facts) {
         Iterable<Object> ruleObjects = AncLibrary.getInstance().readYaml(FilePathUtils.FileUtils.ATTENTION_FLAGS);
 
         for (Object ruleObject : ruleObjects) {
@@ -332,6 +332,10 @@ public class ContactVisit {
         return currentClientTasks;
     }
 
+    public void setCurrentClientTasks(Map<String, Long> currentClientTasks) {
+        this.currentClientTasks = currentClientTasks;
+    }
+
     private void saveTasks(JSONObject field) {
         if (field != null) {
             String key = field.optString(JsonFormConstants.KEY);
@@ -377,10 +381,6 @@ public class ContactVisit {
         task.setComplete(ANCJsonFormUtils.checkIfTaskIsComplete(field));
         task.setCreatedAt(Calendar.getInstance().getTimeInMillis());
         return task;
-    }
-
-    public void setCurrentClientTasks(Map<String, Long> currentClientTasks) {
-        this.currentClientTasks = currentClientTasks;
     }
 
     protected PreviousContactRepository getPreviousContactRepository() {
