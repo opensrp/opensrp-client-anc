@@ -94,7 +94,7 @@ public class ContactInteractorTest extends BaseUnitTest {
     @Mock
     private UserService userService;
 
-    private List<PartialContact> partialContactList = new ArrayList<>();
+    private final List<PartialContact> partialContactList = new ArrayList<>();
 
     @Before
     public void setUp() {
@@ -215,6 +215,8 @@ public class ContactInteractorTest extends BaseUnitTest {
             Timber.e(e, this.getClass().getCanonicalName() + " --> testFinalizeContactFormInvokesUpdatesPatientRepositoryWithCorrectParametersWithReferralNotNull()");
         }
     }
+
+
 
     @NotNull
     private Map<String, String> getStringStringMap(String firstName, String lastName) {
