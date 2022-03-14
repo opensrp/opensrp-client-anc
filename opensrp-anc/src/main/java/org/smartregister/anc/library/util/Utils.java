@@ -26,6 +26,7 @@ import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
+import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
 
@@ -64,6 +65,8 @@ import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.rule.AlertRule;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.domain.Location;
+import org.smartregister.domain.LocationTag;
 import org.smartregister.util.JsonFormUtils;
 import org.smartregister.view.activity.DrishtiApplication;
 
@@ -977,5 +980,93 @@ public class Utils extends org.smartregister.util.Utils {
 
     private final void addSubHeading(Document layoutDocument, String text) {
         layoutDocument.add((IBlockElement) ((Paragraph) (new Paragraph(text)).setBold()).setHorizontalAlignment(HorizontalAlignment.LEFT));
+    }
+
+    public static List<LocationTag> getLocationTagsByTagName(String tagName) {
+        return CoreLibrary.getInstance().context().getLocationTagRepository().getLocationTagsByTagName(tagName);
+    }
+
+    public static List<Location> getLocationsByParentId(String parentId) {
+        return CoreLibrary.getInstance().context().getLocationRepository().getLocationsByParentId(parentId);
+    }
+
+    public static Location getLocationById(String locationId) {
+        return CoreLibrary.getInstance().context().getLocationRepository().getLocationById(locationId);
+    }
+
+    /*
+     * Returns current location
+     * in case of edit it will return the saved location, otherwise
+     * the default location based on user's current location hierarchy
+     */
+    public static String getCurrentLocation(String level, JsonFormActivity jsonFormView) {
+        String villageId = CoreLibrary.getInstance().context().allSharedPreferences().fetchUserLocalityId(CoreLibrary.getInstance().context().allSharedPreferences().fetchRegisteredANM());
+        String currentLocation = "";
+
+        try {
+            JSONObject form = jsonFormView.getmJSONObject();
+            // If the form is in edit mode return the
+            if (form.getString(ANCJsonFormUtils.ENCOUNTER_TYPE).equals(ConstantsUtils.EventTypeUtils.UPDATE_REGISTRATION)) {
+                String fieldValue = JsonFormUtils.getFieldValue(form.getJSONObject(ConstantsUtils.JsonFormKeyUtils.STEP1).getJSONArray(ConstantsUtils.JsonFormKeyUtils.FIELDS), level);
+                if (fieldValue != null && !fieldValue.equals("")) return fieldValue;
+            }
+
+            currentLocation = getDefaultLocation(level, villageId);
+
+        } catch (JSONException e) {
+            Timber.e(e, "Error loading current location");
+        } catch (Exception e) {
+            Timber.e(e, e.getMessage());
+        }
+
+        return currentLocation;
+    }
+
+    /*
+     * Returns default location id based on the level passed
+     */
+    private static String getDefaultLocation(String level, String villageId) {
+        Location village = Utils.getLocationById(villageId);
+        Location facility = Utils.getLocationById(village != null ? village.getProperties().getParentId() : "");
+        Location subDistrict = Utils.getLocationById(facility != null ? facility.getProperties().getParentId() : "");
+        Location district = Utils.getLocationById(subDistrict != null ? subDistrict.getProperties().getParentId() : "");
+        Location province = Utils.getLocationById(district != null ? district.getProperties().getParentId() : "");
+
+        switch (level.substring(level.lastIndexOf("_") + 1).toUpperCase()) {
+            case ConstantsUtils.LocationConstants.PROVINCE:
+                return province != null ? province.getId() : "";
+            case ConstantsUtils.LocationConstants.DISTRICT:
+                return district != null ? district.getId() : "";
+            case ConstantsUtils.LocationConstants.SUBDISTRICT:
+                return subDistrict != null ? subDistrict.getId() : "";
+            case ConstantsUtils.LocationConstants.HEALTH_FACILITY:
+            case ConstantsUtils.LocationConstants.FACILITY:
+                return facility != null ? facility.getId() : "";
+            case ConstantsUtils.LocationConstants.VILLAGE:
+            default:
+                return village != null ? village.getId() : "";
+        }
+    }
+
+    /*
+     * Returns thee localized location name declared in strings.xml file
+     */
+    public static String getLocationLocalizedName(Location location, JsonFormActivity jsonFormView) {
+        String id = location.getProperties().getName().toLowerCase().trim()
+                .replace(" ", "_")
+                .replace("(", "")
+                .replace(")", "")
+                .replace("-", "_")
+                .replace(":", "_")
+                .replace("'", "")
+                .replace("’", "_");
+
+        int identifier = jsonFormView.getResources().getIdentifier(id, ConstantsUtils.IdentifierUtils.STRING_IDENTIFIEER,
+                jsonFormView.getApplicationContext().getPackageName());
+        String locationName = location.getProperties().getName();
+        if (identifier != 0) {
+            locationName = jsonFormView.getResources().getString(identifier);
+        }
+        return locationName;
     }
 }

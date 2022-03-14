@@ -7,10 +7,12 @@ import static org.smartregister.anc.library.util.Utils.isEmptyMap;
 import static org.smartregister.anc.library.util.Utils.processButtonAlertStatus;
 import static org.smartregister.anc.library.util.Utils.reverseHyphenSeperatedValues;
 
+import android.content.res.Resources;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
@@ -46,7 +48,10 @@ import org.smartregister.anc.library.helper.ECSyncHelper;
 import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.repository.RegisterQueryProvider;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.domain.Location;
+import org.smartregister.domain.LocationProperty;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.repository.LocationRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 
 import java.util.ArrayList;
@@ -521,5 +526,56 @@ public class UtilsTest extends BaseUnitTest {
         Mockito.verify(allSharedPreferences).saveLastUpdatedAtDate(Mockito.eq(date.getTime()));
 
     }
+
+    @Test
+    public void testGetLocationLocalizedName() {
+        LocationProperty property = new LocationProperty();
+        property.setName("locationName");
+        Location location = new Location();
+        location.setProperties(property);
+
+        JsonFormActivity jsonFormActivity = Mockito.mock(JsonFormActivity.class);
+        android.content.Context context = Mockito.mock(android.content.Context.class);
+        Resources resources = Mockito.mock(Resources.class);
+        Mockito.doReturn(resources).when(jsonFormActivity).getResources();
+        Mockito.doReturn(context).when(jsonFormActivity).getApplicationContext();
+        Mockito.doReturn("").when(context).getPackageName();
+        Mockito.doReturn(0).when(resources).getIdentifier(Mockito.anyString(), Mockito.anyString(), Mockito.anyString());
+
+
+        String locName = Utils.getLocationLocalizedName(location, jsonFormActivity);
+        Assert.assertEquals("locationName", locName);
+    }
+
+    @Test
+    @PrepareForTest(CoreLibrary.class)
+    public void testGetCurrentLocation() throws Exception {
+        LocationProperty property = new LocationProperty();
+        property.setName("defaultLocationName");
+        Location location = new Location();
+        location.setId("village-id");
+        location.setProperties(property);
+
+        JsonFormActivity jsonFormActivity = Mockito.mock(JsonFormActivity.class);
+        PowerMockito.mockStatic(CoreLibrary.class);
+        CoreLibrary coreLibrary = Mockito.mock(CoreLibrary.class);
+
+        PowerMockito.doReturn(coreLibrary).when(CoreLibrary.class, "getInstance");
+        Mockito.doReturn(opensrpContext).when(coreLibrary).context();
+        Mockito.doReturn(allSharedPreferences).when(opensrpContext).allSharedPreferences();
+        Mockito.doReturn("demo").when(allSharedPreferences).fetchRegisteredANM();
+        Mockito.when(allSharedPreferences.fetchUserLocalityId(Mockito.anyString())).thenReturn("default-location-id");
+
+        String form = "{\"count\":\"1\",\"encounter_type\":\"ANC Registration\",\"entity_id\":\"\",\"relational_id\":\"\",\"step1\":{\"title\":\"{{anc_register.step1.title}}\",\"fields\":[{\"key\":\"province\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"person_attribute\",\"openmrs_entity_id\":\"province\",\"type\":\"spinner\",\"sub_type\":\"location\",\"hint\":\"Select Province\",\"options\":[],\"v_required\":{\"value\":\"true\",\"err\":\"Please Select\"}},{\"key\":\"district\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"person_attribute\",\"openmrs_entity_id\":\"district\",\"type\":\"spinner\",\"sub_type\":\"location\",\"hint\":\"Select District\",\"options\":[],\"v_required\":{\"value\":\"true\",\"err\":\"Please Select\"}},{\"key\":\"subdistrict\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"person_attribute\",\"openmrs_entity_id\":\"subdistrict\",\"type\":\"spinner\",\"sub_type\":\"location\",\"hint\":\"Select Sub-District\",\"options\":[],\"v_required\":{\"value\":\"true\",\"err\":\"Please Select\"}},{\"key\":\"health_facility\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"person_attribute\",\"openmrs_entity_id\":\"health_facility\",\"type\":\"spinner\",\"sub_type\":\"location\",\"hint\":\"Select Health Facility\",\"options\":[],\"v_required\":{\"value\":\"true\",\"err\":\"Please Select\"}},{\"key\":\"village\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"person_attribute\",\"openmrs_entity_id\":\"village\",\"type\":\"spinner\",\"sub_type\":\"location\",\"hint\":\"Select Village\",\"options\":[],\"v_required\":{\"value\":\"true\",\"err\":\"Please Select\"}}]},\"properties_file_name\":\"anc_register\"}";
+        Mockito.doReturn(new JSONObject(form)).when(jsonFormActivity).getmJSONObject();
+
+        LocationRepository locationRepository = Mockito.mock(LocationRepository.class);
+        Mockito.doReturn(locationRepository).when(opensrpContext).getLocationRepository();
+        Mockito.when(locationRepository.getLocationById(Mockito.anyString())).thenReturn(location);
+
+        String locationId = Utils.getCurrentLocation("village", jsonFormActivity);
+        Assert.assertEquals("village-id", locationId);
+    }
+
 
 }
