@@ -168,7 +168,7 @@ public class ANCFormUtils extends FormUtils {
         Context context = AncLibrary.getInstance().getApplicationContext();
         String value = Utils.getProperties(context).getProperty(ConstantsUtils.Properties.WIDGET_VALUE_TRANSLATED, "false");
         for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            JSONObject jsonObject = jsonArray.optJSONObject(i);
             if(jsonObject != null) {
                 if (jsonObject.length() > 0 && jsonObject.has(JsonFormConstants.VALUE) && jsonObject.getBoolean(JsonFormConstants.VALUE)) {
                     if (StringUtils.isNotBlank(value) && Boolean.parseBoolean(value)) {
@@ -549,8 +549,35 @@ public class ANCFormUtils extends FormUtils {
     }
 
 
-    public static String cleanValue(String value) {
-        return Utils.returnTranslatedStringJoinedValue(value);
+    @SuppressLint("NewApi")
+    static String cleanValue(String value) {
+        String returnValue = "";
+        try {
+            if (value.trim().length() > 0 && value.trim().charAt(0) == '[') {
+                if (Utils.checkJsonArrayString(value)) {
+                    JSONArray jsonArray = new JSONArray(value);
+                    List<String> list = new ArrayList<>();
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.optJSONObject(i);
+                        if (StringUtils.isNotBlank(jsonObject.toString()) && StringUtils.isNotBlank(jsonObject.optString(JsonFormConstants.TEXT))) {
+                            String text = jsonObject.optString(JsonFormConstants.TEXT).trim(), translatedText = "";
+                            translatedText = StringUtils.isNotBlank(text) ? NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext()) : "";
+                            list.add(translatedText);
+                        }
+                    }
+                    returnValue = list.size() > 1 ? String.join(",", list) : list.get(0);
+                } else {
+                    returnValue = value.substring(1, value.length() - 1);
+                }
+            } else {
+                returnValue = value;
+            }
+            return returnValue;
+        } catch (Exception e) {
+            Timber.e(e, "Clean Value in ANCFormUtils");
+            return "";
+        }
+
     }
 
 
@@ -560,8 +587,7 @@ public class ANCFormUtils extends FormUtils {
      * @param mainJsonObject Main json object with all fields
      * @throws JSONException Capture Json Form errors
      */
-    public static void processCheckboxFilteredItems(JSONObject mainJsonObject) throws
-            JSONException {
+    public static void processCheckboxFilteredItems(JSONObject mainJsonObject) throws JSONException {
 
         if (!mainJsonObject.has(ConstantsUtils.FILTERED_ITEMS) || mainJsonObject.getJSONArray(ConstantsUtils.FILTERED_ITEMS).length() < 1) {
             return;
@@ -594,17 +620,14 @@ public class ANCFormUtils extends FormUtils {
         return widgetKey.replace(prefix + "_", "");
     }
 
-    private static void getOptionsMap(Map<String, JSONObject> optionsMap, JSONArray
-            checkboxOptions) throws JSONException {
+    private static void getOptionsMap(Map<String, JSONObject> optionsMap, JSONArray checkboxOptions) throws JSONException {
         for (int i = 0; i < checkboxOptions.length(); i++) {
             JSONObject item = checkboxOptions.getJSONObject(i);
             optionsMap.put(item.getString(JsonFormConstants.KEY), item);
         }
     }
 
-    private static void setUpNoneForSpecialTreatment
-            (ArrayList<JSONObject> newOptionsList, Map<String, JSONObject> optionsMap,
-             boolean none, String none2) {
+    private static void setUpNoneForSpecialTreatment(ArrayList<JSONObject> newOptionsList, Map<String, JSONObject> optionsMap, boolean none, String none2) {
         //Treat none option as special.
         if (none) {
             newOptionsList.add(optionsMap.get(none2));
@@ -789,8 +812,9 @@ public class ANCFormUtils extends FormUtils {
 
     /**
      * Update form properties file name according to the test fields populated
-     *  @param taskValue {@link JSONObject}
-     * @param form   {@link JSONObject}
+     *
+     * @param taskValue {@link JSONObject}
+     * @param form      {@link JSONObject}
      */
     public void updateFormPropertiesFileName(JSONObject form, JSONObject taskValue, Context context) {
         try {
@@ -809,8 +833,9 @@ public class ANCFormUtils extends FormUtils {
 
     /**
      * get translated form name according to key
+     *
      * @param formKey {@link String}
-     * @param context   {@link Context}
+     * @param context {@link Context}
      */
     public String getTranslatedFormTitle(String formKey, Context context) {
         try {

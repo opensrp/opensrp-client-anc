@@ -13,6 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,6 +43,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 //import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -149,14 +151,14 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
 
                 if (factsToUpdate.asMap().get(ConstantsUtils.ATTENTION_FLAG_FACTS) != null) {
                     try {
-                        JSONObject jsonObject = new JSONObject((String) factsToUpdate.asMap().get(ConstantsUtils.ATTENTION_FLAG_FACTS));
+                        JSONObject jsonObject = new JSONObject((String) Objects.requireNonNull(factsToUpdate.asMap().get(ConstantsUtils.ATTENTION_FLAG_FACTS)));
                         Iterator<String> keys = jsonObject.keys();
 
                         while (keys.hasNext()) {
                             String key = keys.next();
                             String valueObject = jsonObject.optString(key), value;
-                            value = Utils.returnTranslatedStringJoinedValue(valueObject);
-                            if (value.length() > 1) {
+                            value = Utils.returnTranslatedStringJoinedValue(valueObject, key);
+                            if (StringUtils.isNotBlank(value)) {
                                 factsToUpdate.put(key, value);
                             } else {
                                 factsToUpdate.put(key, "");
