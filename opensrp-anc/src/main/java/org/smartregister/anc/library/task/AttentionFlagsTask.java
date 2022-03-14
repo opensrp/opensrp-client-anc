@@ -40,7 +40,13 @@ public class AttentionFlagsTask extends AsyncTask<Void, Void, Void> {
 
             while (keys.hasNext()) {
                 String key = keys.next();
-                facts.put(key, jsonObject.get(key));
+                String ValueObject = jsonObject.optString(key);
+                String value = Utils.returnTranslatedStringJoinedValue(ValueObject, key);
+                if (value.length() > 1) {
+                    facts.put(key, value);
+                } else {
+                    facts.put(key, "");
+                }
             }
 
             Iterable<Object> ruleObjects = AncLibrary.getInstance().readYaml(FilePathUtils.FileUtils.ATTENTION_FLAGS);

@@ -73,6 +73,7 @@ public abstract class ConstantsUtils {
         String CAN_SAVE_SITE_INITIAL_SETTING = "CAN_SAVE_INITIAL_SITE_SETTING";
         String MAX_CONTACT_SCHEDULE_DISPLAYED = "MAX_CONTACT_SCHEDULE_DISPLAYED";
         String DUE_CHECK_STRATEGY = "DUE_CHECK_STRATEGY";
+        String WIDGET_VALUE_TRANSLATED = "widget.value.translated";
         String DEAFAULT_COUNTRY_ID = "DEFAULT_COUNTRY_ID";
     }
 

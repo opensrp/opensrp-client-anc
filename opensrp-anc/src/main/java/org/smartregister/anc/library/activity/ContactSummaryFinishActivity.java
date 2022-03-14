@@ -1,6 +1,7 @@
 package org.smartregister.anc.library.activity;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -36,6 +37,7 @@ import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.util.PermissionUtils;
 
 import java.io.FileNotFoundException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,8 +46,6 @@ import timber.log.Timber;
 /**
  * Created by ndegwamartin on 10/07/2018.
  */
-
-
 public class ContactSummaryFinishActivity extends BaseProfileActivity implements ProfileContract.View {
     public MenuItem saveFinishMenuItem;
     private TextView nameView;
@@ -186,8 +186,8 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
     }
 
-    public void saveFinishForm() {
-        new FinalizeContactTask(this, mProfilePresenter, getIntent()).execute();
+    private void saveFinishForm() {
+        new FinalizeContactTask(new WeakReference<Context>(this), mProfilePresenter, getIntent()).execute();
     }
 
     @Override
