@@ -479,6 +479,76 @@
         "openmrs_entity_id": "last_contact_record_date",
         "type": "hidden",
         "value": ""
+      },
+      {
+        "key": "province",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "province",
+        "type": "spinner",
+        "sub_type": "location",
+        "hint": "Select Province",
+        "options" : [],
+        "v_required": {
+          "value": "true",
+          "err": "Please Select"
+        }
+      },
+      {
+        "key": "district",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "district",
+        "type": "spinner",
+        "sub_type": "location",
+        "hint": "Select District",
+        "options" : [],
+        "v_required": {
+          "value": "true",
+          "err": "Please Select"
+        }
+      },
+      {
+        "key": "subdistrict",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "subdistrict",
+        "type": "spinner",
+        "sub_type": "location",
+        "hint": "Select Sub-District",
+        "options" : [],
+        "v_required": {
+          "value": "true",
+          "err": "Please Select"
+        }
+      },
+      {
+        "key": "health_facility",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "health_facility",
+        "type": "spinner",
+        "sub_type": "location",
+        "hint": "Select Health Facility",
+        "options" : [],
+        "v_required": {
+          "value": "true",
+          "err": "Please Select"
+        }
+      },
+      {
+        "key": "village",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "village",
+        "type": "spinner",
+        "sub_type": "location",
+        "hint": "Select Village",
+        "options" : [],
+        "v_required": {
+          "value": "true",
+          "err": "Please Select"
+        }
       }
     ]
   },
