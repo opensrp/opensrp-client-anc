@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
@@ -373,7 +374,7 @@ public class Utils extends org.smartregister.util.Utils {
         if (!nonEmptyItems.isEmpty() && nonEmptyItems.get(0).contains(":")) {
             String[] separatedLabel = nonEmptyItems.get(0).split(":");
             itemLabel = separatedLabel[0];
-            if (separatedLabel.length > 1 ) {
+            if (separatedLabel.length > 1) {
                 nonEmptyItems.set(0, nonEmptyItems.get(0).split(":")[1]);
                 if (StringUtils.isBlank(nonEmptyItems.get(0)))
                     nonEmptyItems.remove(0);
