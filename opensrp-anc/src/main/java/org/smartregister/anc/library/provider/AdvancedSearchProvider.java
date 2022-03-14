@@ -174,7 +174,13 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
 
         if(!StringUtils.isBlank(edd))
         {
-            fillValue(viewHolder.ga,String.format(context.getString(R.string.ga_text), Utils.getGestationAgeFromEDDate(edd)));
+            if(Utils.getGestationAgeFromEDDate(edd) <= 40) {
+                fillValue(viewHolder.ga, String.format(context.getString(R.string.ga_text), Utils.getGestationAgeFromEDDate(edd)));
+            }
+            else
+            {
+                fillValue(viewHolder.ga,"");
+            }
         }
         else
             fillValue(viewHolder.ga,"");

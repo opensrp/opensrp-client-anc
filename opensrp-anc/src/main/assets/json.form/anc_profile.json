@@ -712,7 +712,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "label_info_text": "If LMP is unknown and ultrasound wasn't done or it wasn't done early (before 24 weeks), then assess GA based on Symphysis Fundal Height (SFH) or abdominal palpation. Compare this GA against ultrasound GA (if done).",
+        "label_info_text": "If LMP is unknown and ultrasound wasn\u0027t done or it wasn\u0027t done early (before 24 weeks), then assess GA based on Symphysis Fundal Height (SFH) or abdominal palpation. Compare this GA against ultrasound GA (if done).",
         "label_info_title": "GA from SFH or abdominal palpation - weeks",
         "hint": "{{anc_profile.step2.sfh_gest_age.hint}}",
         "v_required": {
@@ -798,7 +798,7 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "text": "{{anc_profile.step2.lmp_gest_age_selection.options.lmp.text}}",
-            "extra_info": "GA: {lmp_gest_age}<br/>EDD: {lmp_edd}"
+            "extra_info": "GA: {lmp_gest_age}\u003cbr/\u003eEDD: {lmp_edd}"
           }
         ],
         "v_required": {
@@ -833,7 +833,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159618AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "extra_info": "GA: {ultrasound_gest_age} <br/> EDD: {ultrasound_edd}"
+            "extra_info": "GA: {ultrasound_gest_age} \u003cbr/\u003e EDD: {ultrasound_edd}"
           }
         ],
         "v_required": {
@@ -868,7 +868,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "extra_info": "GA: {sfh_gest_age} <br/> EDD: {sfh_edd}"
+            "extra_info": "GA: {sfh_gest_age} \u003cbr/\u003e EDD: {sfh_edd}"
           }
         ],
         "v_required": {
@@ -903,7 +903,7 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "text": "{{anc_profile.step2.lmp_ultrasound_gest_age_selection.options.lmp.text}}",
-            "extra_info": "GA: {lmp_gest_age}<br/>EDD: {lmp_edd}"
+            "extra_info": "GA: {lmp_gest_age}\u003cbr/\u003eEDD: {lmp_edd}"
           },
           {
             "key": "ultrasound",
@@ -911,7 +911,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159618AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "extra_info": "GA: {ultrasound_gest_age} <br/> EDD: {ultrasound_edd}"
+            "extra_info": "GA: {ultrasound_gest_age} \u003cbr/\u003e EDD: {ultrasound_edd}"
           }
         ],
         "v_required": {
@@ -946,7 +946,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159618AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "extra_info": "GA: {ultrasound_gest_age} <br/> EDD: {ultrasound_edd}"
+            "extra_info": "GA: {ultrasound_gest_age} \u003cbr/\u003e EDD: {ultrasound_edd}"
           },
           {
             "key": "sfh",
@@ -954,7 +954,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "extra_info": "GA: {sfh_gest_age} <br/> EDD: {sfh_edd}"
+            "extra_info": "GA: {sfh_gest_age} \u003cbr/\u003e EDD: {sfh_edd}"
           }
         ],
         "v_required": {

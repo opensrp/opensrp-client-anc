@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.google.gson.reflect.TypeToken;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
+import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
@@ -16,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
+import org.smartregister.anc.library.constants.ANCJsonFormConstants;
 import org.smartregister.anc.library.contract.ContactContract;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.model.PartialContact;
@@ -55,6 +57,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     private List<String> globalValueFields = new ArrayList<>();
     private List<String> editableFields = new ArrayList<>();
     private String baseEntityId;
+    private String womanOpenSRPId;
     private String womanAge = "";
     private final List<String> invisibleRequiredFields = new ArrayList<>();
     private final String[] contactForms = new String[]{ConstantsUtils.JsonFormUtils.ANC_QUICK_CHECK, ConstantsUtils.JsonFormUtils.ANC_PROFILE,
@@ -72,6 +75,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 (Map<String, String>) getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
         if (womanDetails != null && womanDetails.size() > 0) {
             womanAge = String.valueOf(Utils.getAgeFromDate(womanDetails.get(DBConstantsUtils.KeyUtils.DOB)));
+            womanOpenSRPId = womanDetails.get(DBConstantsUtils.KeyUtils.ANC_ID);
         }
         if (!presenter.baseEntityIdExists()) {
             presenter.setBaseEntityId(baseEntityId);
@@ -657,6 +661,15 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 }
             }
         }
+
+        if (fieldObject.getString(JsonFormConstants.KEY).equals(ANCJsonFormConstants.KeyConstants.OPTIBP_BUTTON)
+                || fieldObject.getString(JsonFormConstants.KEY).equals(ANCJsonFormConstants.KeyConstants.OPTIBP_BUTTON_SECOND)) {
+            if (fieldObject.has(JsonFormConstants.OptibpConstants.OPTIBP_KEY_DATA)) {
+                fieldObject.remove(JsonFormConstants.OptibpConstants.OPTIBP_KEY_DATA);
+            }
+            JSONObject optiBPData = FormUtils.createOptiBPDataObject(baseEntityId, womanOpenSRPId);
+            fieldObject.put(JsonFormConstants.OptibpConstants.OPTIBP_KEY_DATA, optiBPData);
+        }
     }
 
     private void getValueMap(JSONObject object) throws JSONException {
@@ -722,7 +735,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             map.put(ConstantsUtils.KeyUtils.CONTACT_NO, contactNo.toString());
             map.put(ConstantsUtils.PREVIOUS_CONTACT_NO, contactNo > 1 ? String.valueOf(contactNo - 1) : "0");
             map.put(ConstantsUtils.AGE, womanAge);
-
             updateFirstContactFlag(map);
             addGAWhenNotCalculated(map);
             addLastContactDate(map);
@@ -796,6 +808,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && data != null) {
             formInvalidFields = data.getStringExtra("formInvalidFields");
         }

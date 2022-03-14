@@ -124,7 +124,6 @@ public class LoginPresenterTest extends BaseUnitTest {
         presenter.setLoginInteractor(interactor); //set mocked interactor
 
         Mockito.doReturn(true).when(view).isAppVersionAllowed();
-
         presenter.attemptLogin(null, DUMMY_PASSWORD.toCharArray());
         String NULL_USERNAME = null;
         Mockito.verify(view).setUsernameError(R.string.error_field_required);
