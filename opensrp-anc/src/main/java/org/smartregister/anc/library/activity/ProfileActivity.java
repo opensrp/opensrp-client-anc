@@ -154,6 +154,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
 
             if (StringUtils.isNotBlank(baseEntityId)) {
                 Utils.proceedToContact(baseEntityId, detailMap, getActivity());
+                finish();
             }
 
         } else {
