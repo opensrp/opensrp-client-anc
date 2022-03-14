@@ -341,4 +341,5 @@ public class ContactTasksRepositoryTest extends BaseUnitTest {
         boolean isBoolean = Whitebox.invokeMethod(contactTasksRepository, "updateBooleanValue", "0");
         Assert.assertFalse(isBoolean);
     }
+
 }

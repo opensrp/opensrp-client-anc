@@ -74,21 +74,27 @@ public class ProfileOverviewFragment extends BaseProfileFragment implements Prof
     @Override
     protected void onCreation() {
         if (getActivity() != null && getActivity().getIntent() != null) {
-            clientDetails = (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
-            if (clientDetails != null) {
-                buttonAlertStatus = Utils.getButtonAlertStatus(clientDetails, getActivity(), true);
-                contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
-            }
-            yamlConfigListGlobal = new ArrayList<>();
-            baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
+           fetchContactAndAlertStatus();
         } else {
             Timber.d("getIntent or getActivity might be null");
         }
     }
 
+    private void fetchContactAndAlertStatus()
+    {
+        clientDetails = (HashMap<String, String>) getActivity().getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
+        if (clientDetails != null) {
+            buttonAlertStatus = Utils.getButtonAlertStatus(clientDetails, getActivity(), true);
+            contactNo = String.valueOf(Utils.getTodayContact(clientDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
+        }
+        yamlConfigListGlobal = new ArrayList<>();
+        baseEntityId = getActivity().getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
+    }
+
     @Override
     protected void onResumption() {
         try {
+            fetchContactAndAlertStatus();
             yamlConfigListGlobal = new ArrayList<>(); //This makes sure no data duplication happens
             Facts facts = presenter.getImmediatePreviousContact(clientDetails, baseEntityId, contactNo);
             Iterable<Object> ruleObjects = utils.loadRulesFiles(FilePathUtils.FileUtils.PROFILE_OVERVIEW);

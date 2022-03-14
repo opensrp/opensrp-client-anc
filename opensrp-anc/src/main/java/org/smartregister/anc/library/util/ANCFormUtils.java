@@ -29,6 +29,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.json.JsonObject;
+
 import timber.log.Timber;
 
 public class ANCFormUtils extends FormUtils {
@@ -162,16 +164,18 @@ public class ANCFormUtils extends FormUtils {
         }
         JSONArray jsonArray = widget.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
         for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject jsonObject = jsonArray.getJSONObject(i);
-            if (jsonObject.has(JsonFormConstants.VALUE) && jsonObject.getBoolean(JsonFormConstants.VALUE)) {
-                keyList.add(jsonObject.getString(JsonFormConstants.KEY));
-                if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) &&
-                        jsonObject.getJSONArray(JsonFormConstants.SECONDARY_VALUE).length() > 0) {
-                    getRealSecondaryValue(jsonObject);
-                } else {
-                    valueList.add(jsonObject.getString(JsonFormConstants.TEXT));
+                JSONObject jsonObject = jsonArray.optJSONObject(i);
+                if(jsonObject != null){
+                if (jsonObject.length() > 0 && jsonObject.has(JsonFormConstants.VALUE) && jsonObject.getBoolean(JsonFormConstants.VALUE)) {
+                    keyList.add(jsonObject.getString(JsonFormConstants.KEY));
+                    if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) &&
+                            jsonObject.getJSONArray(JsonFormConstants.SECONDARY_VALUE).length() > 0) {
+                        getRealSecondaryValue(jsonObject);
+                    } else {
+                        valueList.add(jsonObject.getString(JsonFormConstants.TEXT));
+                    }
+                 }
                 }
-            }
         }
 
         if (keyList.size() > 0) {
