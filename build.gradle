@@ -95,6 +95,7 @@ coveralls {
     jacocoReportPath = "${buildDir}/reports/jacoco/jacocoFullReport/jacocoFullReport.xml"
     sourceDirs += ["opensrp-anc/src/main/java/", "reference-app/src/main/java"]
 }
+
 apply plugin: 'io.codearte.nexus-staging'
 
 def isReleaseBuild() {

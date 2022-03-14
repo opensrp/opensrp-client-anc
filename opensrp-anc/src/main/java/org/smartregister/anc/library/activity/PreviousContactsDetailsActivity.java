@@ -149,13 +149,18 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
 
                 if (factsToUpdate.asMap().get(ConstantsUtils.ATTENTION_FLAG_FACTS) != null) {
                     try {
-                        JSONObject jsonObject = new JSONObject(
-                                (String) factsToUpdate.asMap().get(ConstantsUtils.ATTENTION_FLAG_FACTS));
+                        JSONObject jsonObject = new JSONObject((String) factsToUpdate.asMap().get(ConstantsUtils.ATTENTION_FLAG_FACTS));
                         Iterator<String> keys = jsonObject.keys();
 
                         while (keys.hasNext()) {
                             String key = keys.next();
-                            factsToUpdate.put(key, jsonObject.get(key));
+                            String valueObject = jsonObject.optString(key), value;
+                            value = Utils.returnTranslatedStringJoinedValue(valueObject);
+                            if (value.length() > 1) {
+                                factsToUpdate.put(key, value);
+                            } else {
+                                factsToUpdate.put(key, "");
+                            }
                         }
                     } catch (JSONException e) {
                         Log.e(TAG, Log.getStackTraceString(e));

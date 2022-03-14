@@ -1,5 +1,6 @@
 package org.smartregister.anc.library.presenter;
 
+import android.annotation.SuppressLint;
 import android.text.TextUtils;
 
 import org.jeasy.rules.api.Facts;
@@ -10,6 +11,7 @@ import org.smartregister.anc.library.contract.ProfileFragmentContract;
 import org.smartregister.anc.library.interactor.ProfileFragmentInteractor;
 import org.smartregister.anc.library.model.Task;
 import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.Utils;
 
 import java.lang.ref.WeakReference;
 import java.util.Iterator;
@@ -52,12 +54,12 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
         }
     }
 
+    @SuppressLint("NewApi")
     @Override
     public Facts getImmediatePreviousContact(Map<String, String> clientDetails, String baseEntityId, String contactNo) {
         Facts facts = new Facts();
         try {
             facts = AncLibrary.getInstance().getPreviousContactRepository().getPreviousContactFacts(baseEntityId, contactNo, true);
-
             Map<String, Object> factsAsMap = facts.asMap();
             String attentionFlags = "";
             if (factsAsMap.containsKey(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS)) {
@@ -68,10 +70,15 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
                 JSONObject jsonObject = new JSONObject(attentionFlags);
                 if (jsonObject.length() > 0) {
                     Iterator<String> keys = jsonObject.keys();
-
                     while (keys.hasNext()) {
                         String key = keys.next();
-                        facts.put(key, jsonObject.get(key));
+                        String valueObject = jsonObject.optString(key), value;
+                        value = Utils.returnTranslatedStringJoinedValue(valueObject);
+                        if (value.length() > 1) {
+                            facts.put(key, value);
+                        } else {
+                            facts.put(key, "");
+                        }
                     }
                 }
             }

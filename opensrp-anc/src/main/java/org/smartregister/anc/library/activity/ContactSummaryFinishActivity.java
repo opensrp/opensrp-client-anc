@@ -1,6 +1,7 @@
 package org.smartregister.anc.library.activity;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -18,7 +19,6 @@ import android.widget.TextView;
 import org.jeasy.rules.api.Facts;
 import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
-import org.smartregister.anc.library.BuildConfig;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.ProfileContract;
 import org.smartregister.anc.library.domain.YamlConfig;
@@ -36,6 +36,7 @@ import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.util.PermissionUtils;
 
 import java.io.FileNotFoundException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,8 +45,6 @@ import timber.log.Timber;
 /**
  * Created by ndegwamartin on 10/07/2018.
  */
-
-
 public class ContactSummaryFinishActivity extends BaseProfileActivity implements ProfileContract.View {
     public MenuItem saveFinishMenuItem;
     private TextView nameView;
@@ -186,8 +185,8 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
     }
 
-    public void saveFinishForm() {
-        new FinalizeContactTask(this, mProfilePresenter, getIntent()).execute();
+    private void saveFinishForm() {
+        new FinalizeContactTask(new WeakReference<Context>(this), mProfilePresenter, getIntent()).execute();
     }
 
     @Override
@@ -284,15 +283,10 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     }
 
     protected boolean isPermissionGranted() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
-        {
-            if(Environment.isExternalStorageManager())
-                return true;
-            else
-                return false;
-        }
-        else
-        return PermissionUtils.isPermissionGranted(this, Manifest.permission.WRITE_EXTERNAL_STORAGE, PermissionUtils.WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            return Environment.isExternalStorageManager();
+        } else
+            return PermissionUtils.isPermissionGranted(this, Manifest.permission.WRITE_EXTERNAL_STORAGE, PermissionUtils.WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
     }
 
     public List<YamlConfig> getYamlConfigList() {

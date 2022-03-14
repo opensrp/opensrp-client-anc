@@ -192,6 +192,7 @@
           {
             "key": "dob_unknown",
             "text": "{{anc_register.step1.dob_unknown.options.dob_unknown.text}}",
+            "translation_text": "anc_register.step1.dob_unknown.options.dob_unknown.text",
             "text_size": "18px",
             "value": "false",
             "openmrs_entity_parent": "",
@@ -295,7 +296,7 @@
         },
         "v_max_length": {
           "value": "12",
-          "err": "Phone number input cannot exceed 12 Characters"
+          "err": "Phone number characters cannot exceed 12 characters"
         }
       },
       {

@@ -1,5 +1,6 @@
 package org.smartregister.anc.library.util;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -22,13 +23,13 @@ import androidx.annotation.Nullable;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
+import com.vijay.jsonwizard.utils.NativeFormLangUtils;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
@@ -74,7 +75,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -350,9 +350,14 @@ public class Utils extends org.smartregister.util.Utils {
         if (facts.get(key) instanceof String) {
             value = facts.get(key);
             if ((key.equals(ConstantsUtils.PrescriptionUtils.NAUSEA_PHARMA) || key.equals(ConstantsUtils.PrescriptionUtils.ANTACID) || key.equals(ConstantsUtils.PrescriptionUtils.PENICILLIN) || key.equals(ConstantsUtils.PrescriptionUtils.ANTIBIOTIC) || key.equals(ConstantsUtils.PrescriptionUtils.IFA_MEDICATION) || key.equals(ConstantsUtils.PrescriptionUtils.VITA)
-                    || key.equals(ConstantsUtils.PrescriptionUtils.MAG_CALC) || key.equals(ConstantsUtils.PrescriptionUtils.ALBEN_MEBEN) || key.equals(ConstantsUtils.PrescriptionUtils.PREP) || key.equals(ConstantsUtils.PrescriptionUtils.SP) || key.equals(ConstantsUtils.PrescriptionUtils.IFA) || key.equals(ConstantsUtils.PrescriptionUtils.ASPIRIN) || key.equals(ConstantsUtils.PrescriptionUtils.CALCIUM)) && (value != null && value.equals("0")))
+                    || key.equals(ConstantsUtils.PrescriptionUtils.MAG_CALC) || key.equals(ConstantsUtils.PrescriptionUtils.ALBEN_MEBEN) || key.equals(ConstantsUtils.PrescriptionUtils.PREP) || key.equals(ConstantsUtils.PrescriptionUtils.SP) || key.equals(ConstantsUtils.PrescriptionUtils.IFA) || key.equals(ConstantsUtils.PrescriptionUtils.ASPIRIN) || key.equals(ConstantsUtils.PrescriptionUtils.CALCIUM)) && (value != null && value.equals("0"))) {
+                Context context = AncLibrary.getInstance().getApplicationContext();
+                String translationIsOn = Utils.getProperties(context).getProperty(ConstantsUtils.Properties.WIDGET_VALUE_TRANSLATED, "false");
+                if (StringUtils.isNotBlank(value) && Boolean.parseBoolean(translationIsOn)) {
+                    return ANCFormUtils.keyToValueConverter(value);
+                }
                 return ANCFormUtils.keyToValueConverter("");
-
+            }
             if (value != null && value.endsWith(OTHER_SUFFIX)) {
                 Object otherValue = value.endsWith(OTHER_SUFFIX) ? facts.get(key + ConstantsUtils.SuffixUtils.OTHER) : "";
                 value = otherValue != null ?
@@ -377,7 +382,7 @@ public class Utils extends org.smartregister.util.Utils {
         if (!nonEmptyItems.isEmpty() && nonEmptyItems.get(0).contains(":")) {
             String[] separatedLabel = nonEmptyItems.get(0).split(":");
             itemLabel = separatedLabel[0];
-            if (separatedLabel.length > 1) {
+            if (separatedLabel.length > 1 ) {
                 nonEmptyItems.set(0, nonEmptyItems.get(0).split(":")[1]);
                 if (StringUtils.isBlank(nonEmptyItems.get(0)))
                     nonEmptyItems.remove(0);
@@ -454,7 +459,7 @@ public class Utils extends org.smartregister.util.Utils {
 
     public static int getGestationAgeFromEDDate(String expectedDeliveryDate) {
         try {
-            if (!"0".equals(expectedDeliveryDate)) {
+            if (!"0".equals(expectedDeliveryDate) && expectedDeliveryDate.length() > 0) {
                 LocalDate date = SQLITE_DATE_DF.withOffsetParsed().parseLocalDate(expectedDeliveryDate);
                 LocalDate lmpDate = date.minusWeeks(ConstantsUtils.DELIVERY_DATE_WEEKS);
                 Weeks weeks = Weeks.weeksBetween(lmpDate, LocalDate.now());
@@ -809,6 +814,7 @@ public class Utils extends org.smartregister.util.Utils {
         }
     }
 
+
     public static Event addContactVisitDetails(String attentionFlagsString, Event event,
                                                String referral, String currentContactState) {
         event.addDetails(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS, attentionFlagsString);
@@ -818,6 +824,89 @@ public class Utils extends org.smartregister.util.Utils {
         return event;
     }
 
+    public static JSONObject generateTranslatableValue(String value, JSONObject jsonObject) throws JSONException {
+        JSONObject newValue = new JSONObject();
+        ANCFormUtils formUtils = new ANCFormUtils();
+        if (jsonObject.has(JsonFormConstants.OPTIONS_FIELD_NAME)) {
+            JSONArray options = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+            JSONObject selectedOption = formUtils.getOptionFromOptionsUsingKey(options, value);
+            newValue.put(JsonFormConstants.VALUE, value);
+            String text = selectedOption.optString(JsonFormConstants.TRANSLATION_TEXT, "").length() != 0 ? selectedOption.optString(JsonFormConstants.TEXT, "") : selectedOption.optString(JsonFormConstants.KEY, "");
+            newValue.put(JsonFormConstants.TEXT, text);
+            return newValue;
+        }
+        newValue.put(JsonFormConstants.VALUE, value);
+        newValue.put(JsonFormConstants.TEXT, jsonObject.optString(JsonFormConstants.TRANSLATION_TEXT, ""));
+        return newValue;
+    }
+
+    public static boolean checkJsonArrayString(String input) {
+        try {
+            if (StringUtils.isNotBlank(input)) {
+                JSONArray jsonArray = new JSONArray(input);
+                return jsonArray.optJSONObject(0) != null || jsonArray.optJSONObject(0).length() > 0;
+            }
+            return false;
+
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
+    /**
+     * @param receives iterated keys and values and passes them through translation in nativeform
+     *                 to return a string. It checks whether the value is an array, a json object or a normal string separated by ,
+     * @return
+     */
+    @SuppressLint({"NewApi"})
+    public static String returnTranslatedStringJoinedValue(String value) {
+        try {
+            if (value.charAt(0) == '[') {
+                if (Utils.checkJsonArrayString(value)) {
+                    JSONArray jsonArray = new JSONArray(value);
+                    List<String> translatedList = new ArrayList<>();
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject object = jsonArray.optJSONObject(i);
+                        String text, translatedText;
+                        text = object.optString(JsonFormConstants.TEXT).trim();
+                        translatedText = StringUtils.isNotBlank(text) ? NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext()) : "";
+                        translatedList.add(translatedText);
+                    }
+                    return translatedList.size() > 1 ? String.join(",", translatedList) : translatedList.size() == 1 ? translatedList.get(0) : "";
+                } else {
+                    return value.substring(1, value.length() - 1);
+                }
+            }
+            if (value.charAt(0) == '{') {
+                JSONObject attentionFlagObject = new JSONObject(value);
+                String translated_text, text;
+                text = attentionFlagObject.optString(JsonFormConstants.TEXT).trim();
+                translated_text = StringUtils.isNotBlank(text) ? NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext()) : "";
+                return translated_text;
+            }
+            if (value.contains(",") && value.contains(".") && value.contains(JsonFormConstants.TEXT)) {
+                List<String> attentionFlagValueArray = Arrays.asList(value.trim().split(","));
+                List<String> translatedList = new ArrayList<>();
+                for (int i = 0; i < attentionFlagValueArray.size(); i++) {
+                    String textToTranslate = attentionFlagValueArray.get(i).trim(), translatedText;
+                    translatedText = StringUtils.isNotBlank(textToTranslate) ? NativeFormLangUtils.translateDatabaseString(textToTranslate, AncLibrary.getInstance().getApplicationContext()) : "";
+                    translatedList.add(translatedText);
+                }
+                return translatedList.size() > 1 ? String.join(",", translatedList) : translatedList.size() == 1 ? translatedList.get(0) : "";
+            }
+            if (value.contains(".") && !value.contains(",")&& value.charAt(0) != '[' && !value.contains("{") && value.contains(JsonFormConstants.TEXT)) {
+                return NativeFormLangUtils.translateDatabaseString(value.trim(), AncLibrary.getInstance().getApplicationContext());
+            }
+            return value;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Timber.e("Failed to translate String %s", e.toString());
+            return "";
+        }
+
+    }
 
 
     /**
@@ -827,9 +916,34 @@ public class Utils extends org.smartregister.util.Utils {
      * @return
      * @throws IOException
      */
-    public Iterable<Object> loadRulesFiles(String filename) throws IOException {
+    public Iterable<Object> loadRulesFiles(String filename) {
         return AncLibrary.getInstance().readYaml(filename);
     }
+
+
+    @NotNull
+    private JSONArray createFieldsArray(List<Task> doneTasks) throws JSONException {
+        JSONArray fields = new JSONArray();
+        for (Task task : doneTasks) {
+            JSONObject field = new JSONObject(task.getValue());
+            fields.put(field);
+        }
+        return fields;
+    }
+
+    private void createAndPersistPartialContact(String baseEntityId, int contactNo, JSONObject jsonForm) {
+        Contact contact = new Contact();
+        contact.setJsonForm(String.valueOf(jsonForm));
+        contact.setContactNumber(contactNo);
+        contact.setFormName(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS);
+
+        ANCFormUtils.persistPartial(baseEntityId, contact);
+    }
+
+
+
+
+
 
     /**
      * Creates the {@link Task} partial contact form.  This is done any time we update tasks.
@@ -857,24 +971,6 @@ public class Utils extends org.smartregister.util.Utils {
         }
     }
 
-    @NotNull
-    private JSONArray createFieldsArray(List<Task> doneTasks) throws JSONException {
-        JSONArray fields = new JSONArray();
-        for (Task task : doneTasks) {
-            JSONObject field = new JSONObject(task.getValue());
-            fields.put(field);
-        }
-        return fields;
-    }
-
-    private void createAndPersistPartialContact(String baseEntityId, int contactNo, JSONObject jsonForm) {
-        Contact contact = new Contact();
-        contact.setJsonForm(String.valueOf(jsonForm));
-        contact.setContactNumber(contactNo);
-        contact.setFormName(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS);
-
-        ANCFormUtils.persistPartial(baseEntityId, contact);
-    }
 
     /**
      * Returns the Contact Tasks Repository {@link ContactTasksRepository}
@@ -903,7 +999,7 @@ public class Utils extends org.smartregister.util.Utils {
             (new File(filePath)).delete();
         }
         FileOutputStream fOut = new FileOutputStream(filePath);
-        PdfWriter pdfWriter = new PdfWriter((OutputStream) fOut);
+        PdfWriter pdfWriter = new PdfWriter(fOut);
         PdfDocument pdfDocument = new PdfDocument(pdfWriter);
         Document layoutDocument = new Document(pdfDocument);
 
@@ -953,7 +1049,7 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     private void addParagraph(Document layoutDocument, HorizontalAlignment horizontalAlignment, String headerDetails) {
-        layoutDocument.add((IBlockElement) (new Paragraph(headerDetails).setHorizontalAlignment(horizontalAlignment)));
+        layoutDocument.add(new Paragraph(headerDetails).setHorizontalAlignment(horizontalAlignment));
     }
 
     private final String getAppPath(Context context) {
@@ -966,20 +1062,20 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     private final void addTitle(Document layoutDocument, String text) {
-        layoutDocument.add((IBlockElement) ((Paragraph) ((Paragraph) (new Paragraph(text)).setBold()).setUnderline()).setTextAlignment(TextAlignment.CENTER));
+        layoutDocument.add((new Paragraph(text)).setBold().setUnderline().setTextAlignment(TextAlignment.CENTER));
     }
 
     private final void addEmptyLine(Document layoutDocument, int number) {
         int i = 0;
 
         for (int j = number; i < j; ++i) {
-            layoutDocument.add((IBlockElement) (new Paragraph(" ")));
+            layoutDocument.add(new Paragraph(" "));
         }
 
     }
 
     private final void addSubHeading(Document layoutDocument, String text) {
-        layoutDocument.add((IBlockElement) ((Paragraph) (new Paragraph(text)).setBold()).setHorizontalAlignment(HorizontalAlignment.LEFT));
+        layoutDocument.add((new Paragraph(text)).setBold().setHorizontalAlignment(HorizontalAlignment.LEFT));
     }
 
     public static List<LocationTag> getLocationTagsByTagName(String tagName) {

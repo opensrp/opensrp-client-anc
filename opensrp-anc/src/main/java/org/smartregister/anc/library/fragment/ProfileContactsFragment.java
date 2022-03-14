@@ -224,13 +224,11 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
         }
     }
 
-    private void addAttentionFlagsRuleObjects(Facts facts) throws IOException {
+    private void addAttentionFlagsRuleObjects(Facts facts) {
         Iterable<Object> attentionFlagsRuleObjects = AncLibrary.getInstance().readYaml(FilePathUtils.FileUtils.ATTENTION_FLAGS);
-
         for (Object ruleObject : attentionFlagsRuleObjects) {
             YamlConfig attentionFlagConfig = (YamlConfig) ruleObject;
             for (YamlConfigItem yamlConfigItem : attentionFlagConfig.getFields()) {
-
                 if (AncLibrary.getInstance().getAncRulesEngineHelper()
                         .getRelevance(facts, yamlConfigItem.getRelevance())) {
                     lastContactDetails.add(new YamlConfigWrapper(null, null, yamlConfigItem));

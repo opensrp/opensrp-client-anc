@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
 
 import org.apache.commons.lang3.StringUtils;
@@ -30,11 +31,11 @@ import java.util.Map;
 import timber.log.Timber;
 
 public class MeFragment extends org.smartregister.view.fragment.MeFragment implements MeContract.View {
+    private final Map<String, Locale> locales = new HashMap<>();
     private RelativeLayout mePopCharacteristicsSection;
     private RelativeLayout siteCharacteristicsSection;
     private RelativeLayout languageSwitcherSection;
     private TextView languageSwitcherText;
-    private Map<String, Locale> locales = new HashMap<>();
     private String[] languages;
 
     @Nullable
@@ -86,6 +87,7 @@ public class MeFragment extends org.smartregister.view.fragment.MeFragment imple
         presenter = new MePresenter(this);
     }
 
+    @VisibleForTesting
     @Override
     protected void onViewClicked(View view) {
         int viewId = view.getId();
@@ -169,6 +171,7 @@ public class MeFragment extends org.smartregister.view.fragment.MeFragment imple
         locales.put(getString(R.string.english_language), Locale.ENGLISH);
         //locales.put(getString(R.string.french_language), Locale.FRENCH);
         locales.put(getString(R.string.portuguese_brazil_language), new Locale("pt"));
+        locales.put(getString(R.string.bahasa_indonesia_language), new Locale("ind"));
     }
 
 }
