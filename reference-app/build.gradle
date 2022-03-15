@@ -6,7 +6,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.3'
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.3'
-        classpath 'com.google.gms:google-services:4.3.9'
+        classpath 'com.google.gms:google-services:4.3.10'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.7.1'
         classpath 'org.smartregister:gradle-jarjar-plugin:1.0.0-SNAPSHOT'
     }
@@ -25,7 +25,7 @@ jacoco {
 // This variables are used by the version code & name generators
 ext.versionMajor = 1
 ext.versionMinor = 6
-ext.versionPatch = 13
+ext.versionPatch = 14
 ext.versionClassifier = null
 ext.isSnapshot = false
 ext.minimumSdkVersion = androidMinSdkVersion
@@ -350,6 +350,6 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'crea
 
 
 jarJar {
-    // Dependencies and related JarJar rules
+    // Dependencies and related Jar rules
     remove = ['fhir-model-4.8.3.jar': 'com.ibm.fhir.model.visitor.CopyingVisitor*']
 }

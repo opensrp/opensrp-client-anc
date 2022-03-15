@@ -1,5 +1,6 @@
 package org.smartregister.anc.library.task;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 
 import org.apache.commons.lang3.StringUtils;
@@ -18,6 +19,7 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 import timber.log.Timber;
 
@@ -32,22 +34,22 @@ public class AttentionFlagsTask extends AsyncTask<Void, Void, Void> {
     }
 
     @Override
+    @SuppressLint("NewApi")
     protected Void doInBackground(Void... voids) {
         try {
-            JSONObject jsonObject = new JSONObject(AncLibrary.getInstance().getDetailsRepository().getAllDetailsForClient(pc.getCaseId()).get(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS));
-
+            JSONObject jsonObject = new JSONObject(Objects.requireNonNull(AncLibrary.getInstance().getDetailsRepository().getAllDetailsForClient(pc.getCaseId()).get(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS)));
             Facts facts = new Facts();
             Iterator<String> keys = jsonObject.keys();
-
             while (keys.hasNext()) {
                 String key = keys.next();
                 String ValueObject = jsonObject.optString(key);
-                String value = Utils.returnTranslatedStringJoinedValue(ValueObject, key);
+                String value = Utils.returnTranslatedStringJoinedValue(ValueObject);
                 if (StringUtils.isNotBlank(value)) {
                     facts.put(key, value);
                 } else {
                     facts.put(key, "");
                 }
+
             }
 
             Iterable<Object> ruleObjects = AncLibrary.getInstance().readYaml(FilePathUtils.FileUtils.ATTENTION_FLAGS);
@@ -68,6 +70,7 @@ public class AttentionFlagsTask extends AsyncTask<Void, Void, Void> {
 
         return null;
     }
+
 
     @Override
     protected void onPostExecute(Void result) {
