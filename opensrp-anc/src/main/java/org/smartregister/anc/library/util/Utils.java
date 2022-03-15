@@ -23,7 +23,6 @@ import androidx.annotation.Nullable;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
@@ -76,7 +75,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -359,7 +357,6 @@ public class Utils extends org.smartregister.util.Utils {
                 }
                 return ANCFormUtils.keyToValueConverter("");
             }
-
             if (value != null && value.endsWith(OTHER_SUFFIX)) {
                 Object otherValue = value.endsWith(OTHER_SUFFIX) ? facts.get(key + ConstantsUtils.SuffixUtils.OTHER) : "";
                 value = otherValue != null ?
@@ -384,19 +381,20 @@ public class Utils extends org.smartregister.util.Utils {
         if (!nonEmptyItems.isEmpty() && nonEmptyItems.get(0).contains(":")) {
             String[] separatedLabel = nonEmptyItems.get(0).split(":");
             itemLabel = separatedLabel[0];
-            if (separatedLabel.length > 1 ) {
+            if (separatedLabel.length > 1) {
                 nonEmptyItems.set(0, nonEmptyItems.get(0).split(":")[1]);
                 if (StringUtils.isBlank(nonEmptyItems.get(0)))
                     nonEmptyItems.remove(0);
             }//replace with extracted value
         }
-        if(!itemLabel.equals(StringUtils.join(nonEmptyItems.toArray(),",").replace(":","")))
-         return itemLabel + (!TextUtils.isEmpty(itemLabel) ? ": " : "") + StringUtils.join(nonEmptyItems.toArray(), ",");
+        if (!itemLabel.equals(StringUtils.join(nonEmptyItems.toArray(), ",").replace(":", "")))
+            return itemLabel + (!TextUtils.isEmpty(itemLabel) ? ": " : "") + StringUtils.join(nonEmptyItems.toArray(), ",");
         else
-            return itemLabel+":";
+            return itemLabel + ":";
     }
 
-    public static void navigateToHomeRegister(Context context, boolean isRemote, Class<? extends BaseHomeRegisterActivity> homeRegisterActivityClass) {
+    public static void navigateToHomeRegister(Context context, boolean isRemote, Class<? extends
+            BaseHomeRegisterActivity> homeRegisterActivityClass) {
         Intent intent = new Intent(context, homeRegisterActivityClass);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra(ConstantsUtils.IntentKeyUtils.IS_REMOTE_LOGIN, isRemote);
@@ -418,7 +416,8 @@ public class Utils extends org.smartregister.util.Utils {
         return (new LocalDate()).toString(SQLITE_DATE_DF);
     }
 
-    public static ButtonAlertStatus getButtonAlertStatus(Map<String, String> details, Context context, boolean isProfile) {
+    public static ButtonAlertStatus getButtonAlertStatus
+            (Map<String, String> details, Context context, boolean isProfile) {
         String contactStatus = details.get(DBConstantsUtils.KeyUtils.CONTACT_STATUS);
 
         String nextContactDate = details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE);
@@ -486,7 +485,8 @@ public class Utils extends org.smartregister.util.Utils {
         return "";
     }
 
-    private static String getDisplayTemplate(Context context, String alertStatus, boolean isProfile) {
+    private static String getDisplayTemplate(Context context, String alertStatus,
+                                             boolean isProfile) {
         String displayTemplate;
         if (StringUtils.isNotBlank(alertStatus) && !isProfile) {
             switch (alertStatus) {
@@ -530,11 +530,13 @@ public class Utils extends org.smartregister.util.Utils {
         return result;
     }
 
-    public static void processButtonAlertStatus(Context context, Button dueButton, ButtonAlertStatus buttonAlertStatus) {
+    public static void processButtonAlertStatus(Context context, Button
+            dueButton, ButtonAlertStatus buttonAlertStatus) {
         Utils.processButtonAlertStatus(context, dueButton, null, buttonAlertStatus);
     }
 
-    public static void processButtonAlertStatus(Context context, Button dueButton, TextView contactTextView,
+    public static void processButtonAlertStatus(Context context, Button dueButton, TextView
+            contactTextView,
                                                 ButtonAlertStatus buttonAlertStatus) {
         if (dueButton != null) {
             dueButton.setVisibility(View.VISIBLE);
@@ -645,7 +647,8 @@ public class Utils extends org.smartregister.util.Utils {
      * @param tableName
      * @return
      */
-    public static boolean isTableExists(@NonNull SQLiteDatabase sqliteDatabase, @NonNull String tableName) {
+    public static boolean isTableExists(@NonNull SQLiteDatabase sqliteDatabase, @NonNull String
+            tableName) {
         Cursor cursor = sqliteDatabase.rawQuery(
                 "SELECT name FROM sqlite_master WHERE type='table' AND name='" + tableName + "'",
                 null
@@ -835,7 +838,8 @@ public class Utils extends org.smartregister.util.Utils {
      * @param baseEntityId {@link String}
      * @throws JSONException
      */
-    public static void createPreviousVisitFromGroup(@NonNull String strGroup, @NonNull String baseEntityId) throws JSONException {
+    public static void createPreviousVisitFromGroup(@NonNull String strGroup, @NonNull String
+            baseEntityId) throws JSONException {
         JSONObject jsonObject = new JSONObject(strGroup);
         Iterator<String> repeatingGroupKeys = jsonObject.keys();
         List<String> currentFormSubmissionIds = new ArrayList<>();
@@ -881,7 +885,6 @@ public class Utils extends org.smartregister.util.Utils {
         }
     }
 
-
     public static Event addContactVisitDetails(String attentionFlagsString, Event event,
                                                String referral, String currentContactState) {
         event.addDetails(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS, attentionFlagsString);
@@ -924,13 +927,12 @@ public class Utils extends org.smartregister.util.Utils {
     /**
      * @param receives iterated keys and values and passes them through translation in nativeform
      *                 to return a string. It checks whether the value is an array, a json object or a normal string separated by ,
-     * @param key
      * @return
      */
     @SuppressLint({"NewApi"})
-    public static String returnTranslatedStringJoinedValue(String value, String key) {
+    public static String returnTranslatedStringJoinedValue(String value) {
         try {
-            if (value.startsWith("[")) {
+            if (StringUtils.isNotBlank(value) && value.charAt(0) == '[') {
                 if (Utils.checkJsonArrayString(value)) {
                     JSONArray jsonArray = new JSONArray(value);
                     List<String> translatedList = new ArrayList<>();
@@ -941,19 +943,19 @@ public class Utils extends org.smartregister.util.Utils {
                         translatedText = StringUtils.isNotBlank(text) ? NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext()) : "";
                         translatedList.add(translatedText);
                     }
-                    return translatedList.size() > 1 ? String.join(",", translatedList) : translatedList.get(0);
+                    return translatedList.size() > 1 ? String.join(",", translatedList) : translatedList.size() == 1 ? translatedList.get(0) : "";
                 } else {
-                    return value;
+                    return value.substring(1, value.length() - 1);
                 }
             }
-            if (value.startsWith("{")) {
+            if (StringUtils.isNotBlank(value) && value.charAt(0) == '{') {
                 JSONObject attentionFlagObject = new JSONObject(value);
                 String translated_text, text;
                 text = attentionFlagObject.optString(JsonFormConstants.TEXT).trim();
                 translated_text = StringUtils.isNotBlank(text) ? NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext()) : "";
                 return translated_text;
             }
-            if (key.endsWith(ConstantsUtils.KeyUtils.VALUE) && value.contains(",") && value.contains(JsonFormConstants.TEXT)) {
+            if (StringUtils.isNotBlank(value) && value.contains(",") && value.contains(".") && value.contains(JsonFormConstants.TEXT)) {
                 List<String> attentionFlagValueArray = Arrays.asList(value.trim().split(","));
                 List<String> translatedList = new ArrayList<>();
                 for (int i = 0; i < attentionFlagValueArray.size(); i++) {
@@ -961,7 +963,10 @@ public class Utils extends org.smartregister.util.Utils {
                     translatedText = StringUtils.isNotBlank(textToTranslate) ? NativeFormLangUtils.translateDatabaseString(textToTranslate, AncLibrary.getInstance().getApplicationContext()) : "";
                     translatedList.add(translatedText);
                 }
-                return translatedList.size() > 1 ? String.join(",", translatedList) : translatedList.get(0);
+                return translatedList.size() > 1 ? String.join(",", translatedList) : translatedList.size() == 1 ? translatedList.get(0) : "";
+            }
+            if (StringUtils.isNotBlank(value) && value.contains(".") && !value.contains(",") && value.charAt(0) != '[' && !value.contains("{") && value.contains(JsonFormConstants.TEXT)) {
+                return NativeFormLangUtils.translateDatabaseString(value.trim(), AncLibrary.getInstance().getApplicationContext());
             }
             return value;
 
@@ -972,6 +977,9 @@ public class Utils extends org.smartregister.util.Utils {
         }
 
     }
+
+
+
 
     @Nullable
     public String getManifestVersion(Context context) {
@@ -991,7 +999,7 @@ public class Utils extends org.smartregister.util.Utils {
             (new File(filePath)).delete();
         }
         FileOutputStream fOut = new FileOutputStream(filePath);
-        PdfWriter pdfWriter = new PdfWriter((OutputStream) fOut);
+        PdfWriter pdfWriter = new PdfWriter(fOut);
         PdfDocument pdfDocument = new PdfDocument(pdfWriter);
         Document layoutDocument = new Document(pdfDocument);
 
@@ -1020,7 +1028,7 @@ public class Utils extends org.smartregister.util.Utils {
 
 
         layoutDocument.close();
-        Toast.makeText(context, (CharSequence) (context.getResources().getString(R.string.pdf_saved_successfully) + filePath), Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, context.getResources().getString(R.string.pdf_saved_successfully) + filePath, Toast.LENGTH_SHORT).show();
     }
 
     private String processUnderscores(String string) {
@@ -1041,7 +1049,7 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     private void addParagraph(Document layoutDocument, HorizontalAlignment horizontalAlignment, String headerDetails) {
-        layoutDocument.add((IBlockElement) (new Paragraph(headerDetails).setHorizontalAlignment(horizontalAlignment)));
+        layoutDocument.add(new Paragraph(headerDetails).setHorizontalAlignment(horizontalAlignment));
     }
 
     private final String getAppPath(Context context) {
@@ -1054,20 +1062,20 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     private final void addTitle(Document layoutDocument, String text) {
-        layoutDocument.add((IBlockElement) ((Paragraph) ((Paragraph) (new Paragraph(text)).setBold()).setUnderline()).setTextAlignment(TextAlignment.CENTER));
+        layoutDocument.add((new Paragraph(text)).setBold().setUnderline().setTextAlignment(TextAlignment.CENTER));
     }
 
     private final void addEmptyLine(Document layoutDocument, int number) {
         int i = 0;
 
         for (int j = number; i < j; ++i) {
-            layoutDocument.add((IBlockElement) (new Paragraph(" ")));
+            layoutDocument.add(new Paragraph(" "));
         }
 
     }
 
     private final void addSubHeading(Document layoutDocument, String text) {
-        layoutDocument.add((IBlockElement) ((Paragraph) (new Paragraph(text)).setBold()).setHorizontalAlignment(HorizontalAlignment.LEFT));
+        layoutDocument.add((new Paragraph(text)).setBold().setHorizontalAlignment(HorizontalAlignment.LEFT));
     }
 
     public static List<LocationTag> getLocationTagsByTagName(String tagName) {

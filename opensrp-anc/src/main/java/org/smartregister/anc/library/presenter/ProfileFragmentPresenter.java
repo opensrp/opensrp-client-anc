@@ -73,7 +73,7 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
                     while (keys.hasNext()) {
                         String key = keys.next();
                         String valueObject = jsonObject.optString(key), value;
-                        value = Utils.returnTranslatedStringJoinedValue(valueObject, key);
+                        value = Utils.returnTranslatedStringJoinedValue(valueObject);
                         if (StringUtils.isNotBlank(value)) {
                             facts.put(key, value);
                         } else {
