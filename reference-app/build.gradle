@@ -217,7 +217,7 @@ private String generateVersionName() {
     if (ext.versionClassifier != null) {
         versionName += "-" + ext.versionClassifier
     }
-    return versionName
+    return versionName;
 }
 
 tasks.withType(Test) {
@@ -291,6 +291,7 @@ dependencies {
     implementation 'org.jeasy:easy-rules-core:3.3.0'
     implementation 'org.jeasy:easy-rules-mvel:3.3.0'
     implementation 'com.flurry.android:analytics:11.6.0@aar'
+    implementation 'com.flurry.android:analytics:11.6.0@aar'
     implementation 'androidx.multidex:multidex:2.0.1'
 // Import the BoM for the Firebase platform
     implementation platform('com.google.firebase:firebase-bom:28.3.1')
@@ -339,6 +340,7 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'crea
     def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*', '**/*$ViewBinder*.*']
     def debugTree = fileTree(dir: "$project.buildDir/intermediates/javac/debug/classes/", excludes: fileFilter)
     def mainSrc = "$project.projectDir/src/main/java"
+
     getSourceDirectories().setFrom([mainSrc])
     getClassDirectories().setFrom([debugTree])
     getExecutionData().setFrom(dir: project.buildDir, includes: [
