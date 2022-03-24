@@ -29,7 +29,7 @@ import org.smartregister.anc.library.helper.ECSyncHelper;
 import org.smartregister.anc.library.model.PartialContact;
 import org.smartregister.anc.library.repository.PartialContactRepository;
 import org.smartregister.anc.library.repository.PatientRepository;
-import org.smartregister.anc.library.repository.PreviousContactRepository;
+import org.smartregister.anc.library.repository.PreviousContactRepositoryTest;
 import org.smartregister.anc.library.repository.RegisterQueryProvider;
 import org.smartregister.anc.library.rule.ContactRule;
 import org.smartregister.anc.library.util.AppExecutors;
@@ -52,7 +52,7 @@ import java.util.concurrent.Executors;
 import timber.log.Timber;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({PatientRepository.class, AncLibrary.class, PreviousContactRepository.class, PartialContactRepository.class, EventClientRepository.class, LocationHelper.class, Pair.class})
+@PrepareForTest({PatientRepository.class, AncLibrary.class, PreviousContactRepositoryTest.class, PartialContactRepository.class, EventClientRepository.class, LocationHelper.class, Pair.class})
 @PowerMockIgnore({"org.powermock.*", "org.mockito.*",})
 public class ContactInteractorTest extends BaseUnitTest {
 
@@ -74,7 +74,7 @@ public class ContactInteractorTest extends BaseUnitTest {
     private DetailsRepository detailsRepository;
 
     @Mock
-    private PreviousContactRepository previousContactRepository;
+    private PreviousContactRepositoryTest previousContactRepository;
 
     @Mock
     private EventClientRepository eventClientRepository;
@@ -179,7 +179,7 @@ public class ContactInteractorTest extends BaseUnitTest {
 
 
             PowerMockito.mockStatic(AncLibrary.class);
-            PowerMockito.mockStatic(PreviousContactRepository.class);
+            PowerMockito.mockStatic(PreviousContactRepositoryTest.class);
             PowerMockito.mockStatic(PartialContactRepository.class);
             PowerMockito.mockStatic(EventClientRepository.class);
             PowerMockito.mockStatic(LocationHelper.class);
