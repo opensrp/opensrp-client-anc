@@ -25,6 +25,7 @@ import org.smartregister.anc.library.domain.LastContactDetailsWrapper;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.helper.AncRulesEngineHelper;
+import org.smartregister.anc.library.repository.PreviousContactRepository;
 import org.smartregister.anc.library.repository.PreviousContactRepositoryTest;
 import org.smartregister.anc.library.util.FilePathUtils;
 
@@ -63,7 +64,7 @@ public class PreviousContactTestsPresenterTest extends BaseUnitTest {
     private AncRulesEngineHelper rulesEngineHelper;
 
     @Mock
-    private PreviousContactRepositoryTest previousContactRepository;
+    private PreviousContactRepository previousContactRepository;
 
     @Captor
     private ArgumentCaptor<List<LastContactDetailsWrapper>> listArgumentCaptor;

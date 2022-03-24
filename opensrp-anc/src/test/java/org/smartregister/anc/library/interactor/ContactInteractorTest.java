@@ -29,6 +29,7 @@ import org.smartregister.anc.library.helper.ECSyncHelper;
 import org.smartregister.anc.library.model.PartialContact;
 import org.smartregister.anc.library.repository.PartialContactRepository;
 import org.smartregister.anc.library.repository.PatientRepository;
+import org.smartregister.anc.library.repository.PreviousContactRepository;
 import org.smartregister.anc.library.repository.PreviousContactRepositoryTest;
 import org.smartregister.anc.library.repository.RegisterQueryProvider;
 import org.smartregister.anc.library.rule.ContactRule;
@@ -74,7 +75,7 @@ public class ContactInteractorTest extends BaseUnitTest {
     private DetailsRepository detailsRepository;
 
     @Mock
-    private PreviousContactRepositoryTest previousContactRepository;
+    private PreviousContactRepository previousContactRepository;
 
     @Mock
     private EventClientRepository eventClientRepository;

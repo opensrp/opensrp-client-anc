@@ -26,6 +26,7 @@ import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.contract.PreviousContactsDetails;
 import org.smartregister.anc.library.model.ContactSummaryModel;
 import org.smartregister.anc.library.model.PreviousContactsSummaryModel;
+import org.smartregister.anc.library.repository.PreviousContactRepository;
 import org.smartregister.anc.library.repository.PreviousContactRepositoryTest;
 import org.smartregister.anc.library.util.ConstantsUtils;
 
@@ -52,7 +53,7 @@ public class PreviousContactDetailsPresenterTest extends BaseUnitTest {
     private Context context;
 
     @Mock
-    private PreviousContactRepositoryTest previousContactRepository;
+    private PreviousContactRepository previousContactRepository;
 
     @Captor
     private ArgumentCaptor<List<ContactSummaryModel>> schedulesArgs;
