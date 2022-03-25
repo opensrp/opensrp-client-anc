@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.vijay.jsonwizard.utils.DateUtil;
+
 import org.jeasy.rules.api.Facts;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,6 +22,7 @@ import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.domain.YamlConfigWrapper;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.FilePathUtils;
+import org.smartregister.anc.library.util.Utils;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -89,7 +92,13 @@ public class PreviousContactsAdapter extends RecyclerView.Adapter<PreviousContac
         Date lastContactDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                 .parse(String.valueOf(contactFacts.asMap().get(ConstantsUtils.CONTACT_DATE)));
 
-        String displayContactDate = new SimpleDateFormat("dd MMM " + "yyyy", Locale.getDefault()).format(lastContactDate);
+        String displayContactDate;
+        if(Utils.isBikramSAmbatDate())
+        {
+            displayContactDate = DateUtil.convertADtoBSDAte(new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(lastContactDate));
+        }
+        else
+        displayContactDate = new SimpleDateFormat("dd MMM " + "yyyy", Locale.getDefault()).format(lastContactDate);
 
         lastContactDetailsWrapperList
                 .add(new LastContactDetailsWrapper(contactNo, displayContactDate, lastContactDetails, facts));

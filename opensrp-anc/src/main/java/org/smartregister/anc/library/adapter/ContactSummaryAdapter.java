@@ -8,11 +8,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.vijay.jsonwizard.utils.DateUtil;
+
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.model.ContactSummaryModel;
+import org.smartregister.anc.library.util.Utils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class ContactSummaryAdapter extends RecyclerView.Adapter<ContactSummaryAdapter.ViewHolder> {
     private List<ContactSummaryModel> contactDates;
@@ -36,6 +42,20 @@ public class ContactSummaryAdapter extends RecyclerView.Adapter<ContactSummaryAd
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ContactSummaryModel model = contactDates.get(position);
+        if(Utils.isBikramSAmbatDate())
+        {
+            try {
+                Date date = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).parse(model.getContactDate());
+                holder.contactDate.setText(DateUtil.convertADtoBSDAte(com.vijay.jsonwizard.utils.Utils.getStringFromDate(date)));
+
+            }
+            catch (Exception e)
+            {
+
+                e.printStackTrace();
+            }
+        }
+        else
         holder.contactDate.setText(model.getContactDate());
         holder.contactName.setText(model.getContactName());
 

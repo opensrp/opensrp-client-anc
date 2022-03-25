@@ -15,6 +15,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.vijay.jsonwizard.utils.DateUtil;
+
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
 import org.smartregister.anc.library.AncLibrary;
@@ -174,6 +176,11 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
                 String displayContactDate = "";
                 if (!TextUtils.isEmpty(contactDate)) {
                     Date lastContactDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(contactDate);
+                    if(utils.isBikramSAmbatDate())
+                    {
+                        displayContactDate = DateUtil.convertADtoBSDAte(new SimpleDateFormat("dd-MM-" + "yyyy", Locale.getDefault()).format(lastContactDate));
+                    }
+                    else
                     displayContactDate = new SimpleDateFormat("dd MMM " + "yyyy", Locale.getDefault())
                             .format(lastContactDate);
                 }

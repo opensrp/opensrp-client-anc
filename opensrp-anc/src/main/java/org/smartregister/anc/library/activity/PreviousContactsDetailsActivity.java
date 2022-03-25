@@ -13,6 +13,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.vijay.jsonwizard.utils.DateUtil;
+
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
 import org.json.JSONException;
@@ -84,8 +86,12 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
             if (!clientDetails.isEmpty()) {
                 if (!TextUtils.isEmpty(edd)) {
                     Date eddDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(edd);
-                    String eddDisplayDate =
-                            new SimpleDateFormat("MMMM dd" + ", " + "yyyy", Locale.getDefault()).format(eddDate);
+
+                    String eddDisplayDate;
+                    if(!Utils.isBikramSAmbatDate())
+                   eddDisplayDate = new SimpleDateFormat("MMMM dd" + ", " + "yyyy", Locale.getDefault()).format(eddDate);
+                    else
+                        eddDisplayDate = DateUtil.convertADtoBSDAte(com.vijay.jsonwizard.utils.Utils.getStringFromDate(eddDate));
                     if (!TextUtils.isEmpty(eddDisplayDate)) {
                         deliveryDate.setText(eddDisplayDate);
                     }

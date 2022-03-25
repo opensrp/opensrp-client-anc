@@ -343,7 +343,7 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
             if (view.getId() == com.vijay.jsonwizard.R.id.next || view.getId() == com.vijay.jsonwizard.R.id.next_icon) {
                 Object tag = view.getTag(com.vijay.jsonwizard.R.id.NEXT_STATE);
                 if (tag == null) {
-                    getJsonApi().getAppExecutors().diskIO().execute(new Runnable() {
+                    getJsonApi().getAppExecutors().mainThread().execute(new Runnable() {
                         @Override
                         public void run() {
                             next();
@@ -353,7 +353,7 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
                 } else {
                     boolean next = (boolean) tag;
                     if (next) {
-                        getJsonApi().getAppExecutors().diskIO().execute(new Runnable() {
+                        getJsonApi().getAppExecutors().mainThread().execute(new Runnable() {
                             @Override
                             public void run() {
                                 next();

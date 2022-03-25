@@ -30,6 +30,7 @@ import com.itextpdf.layout.property.TextAlignment;
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
+import com.vijay.jsonwizard.utils.DateUtil;
 import com.vijay.jsonwizard.utils.NativeFormLangUtils;
 
 import net.sqlcipher.database.SQLiteDatabase;
@@ -368,6 +369,10 @@ public class Utils extends org.smartregister.util.Utils {
 
             }
         }
+        if(Utils.isBikramSAmbatDate() && FormattedDateMatcher.matches(value))
+        {
+            value = DateUtil.convertADtoBSDAte(value);
+        }
 
         return ANCFormUtils.keyToValueConverter(value);
     }
@@ -444,6 +449,10 @@ public class Utils extends org.smartregister.util.Utils {
 
         nextContactDate =
                 StringUtils.isNotBlank(nextContactDate) ? Utils.reverseHyphenSeperatedValues(nextContactDate, "/") : null;
+        if(nextContactDate!= null && Utils.isBikramSAmbatDate())
+        {
+            nextContactDate = DateUtil.convertADtoBSDAte(nextContactDate.replace("/","-")).replace("-","/");
+        }
 
         buttonAlertStatus.buttonText = String.format(getDisplayTemplate(context, alertStatus, isProfile), nextContact, (nextContactDate != null ? nextContactDate :
                 Utils.convertDateFormat(Calendar.getInstance().getTime(), Utils.CONTACT_DF)));
@@ -673,6 +682,10 @@ public class Utils extends org.smartregister.util.Utils {
 
     public static Boolean enableLanguageSwitching() {
         return AncLibrary.getInstance().getProperties().getPropertyBoolean(AncAppPropertyConstants.KeyUtils.LANGUAGE_SWITCHING_ENABLED);
+    }
+
+    public static Boolean isBikramSAmbatDate() {
+        return AncLibrary.getInstance().getProperties().getPropertyBoolean(AncAppPropertyConstants.KeyUtils.WIDGET_DATEPICKER_IS_NEPAL);
     }
 
     /**

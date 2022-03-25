@@ -2,6 +2,10 @@ package org.smartregister.anc.library.presenter;
 
 import android.text.TextUtils;
 
+import com.vijay.jsonwizard.fragments.JsonFormFragment;
+import com.vijay.jsonwizard.utils.DateUtil;
+import com.vijay.jsonwizard.utils.NativeFormsProperties;
+
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
 import org.json.JSONException;
@@ -11,6 +15,7 @@ import org.smartregister.anc.library.contract.ProfileFragmentContract;
 import org.smartregister.anc.library.interactor.ProfileFragmentInteractor;
 import org.smartregister.anc.library.model.Task;
 import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.FormattedDateMatcher;
 import org.smartregister.anc.library.util.Utils;
 
 import java.lang.ref.WeakReference;
@@ -74,6 +79,10 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
                         String key = keys.next();
                         String valueObject = jsonObject.optString(key), value;
                         value = Utils.returnTranslatedStringJoinedValue(valueObject, key);
+                        if(Utils.isBikramSAmbatDate() && FormattedDateMatcher.matches(value.trim()))
+                        {
+                            value = DateUtil.convertADtoBSDAte(value.trim());
+                        }
                         if (StringUtils.isNotBlank(value)) {
                             facts.put(key, value);
                         } else {

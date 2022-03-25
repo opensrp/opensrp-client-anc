@@ -10,10 +10,13 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.vijay.jsonwizard.utils.DateUtil;
+
 import org.joda.time.DateTime;
 import org.joda.time.Weeks;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.model.ContactSummaryModel;
+import org.smartregister.anc.library.util.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -53,6 +56,12 @@ public class ContactScheduleAdapter extends RecyclerView.Adapter<ContactSchedule
                 Date locateDate = contactSummaryModel.getLocalDate();
 
                 viewHolder.gaWeeksDisplay.setText(String.format(context.getResources().getString(R.string.ga_weeks), ga));
+                if(Utils.isBikramSAmbatDate())
+                {
+                    viewHolder.nextContactDate
+                            .setText(DateUtil.convertADtoBSDAte(new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(locateDate)));
+                }
+                else
                 viewHolder.nextContactDate
                         .setText(new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(locateDate));
                 String formattedEdd = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(locateDate);

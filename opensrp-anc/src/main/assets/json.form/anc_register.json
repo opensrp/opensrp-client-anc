@@ -129,6 +129,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "birthdate",
         "type": "hidden",
+        "isDate": true,
         "value": "",
         "calculation": {
           "rules-engine": {
