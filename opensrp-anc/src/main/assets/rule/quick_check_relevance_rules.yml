@@ -1,7 +1,0 @@
----
-name: step1_danger_signs
-description: danger_signs
-priority: 1
-condition: "!step1_contact_reason.isEmpty()"
-actions:
-  - "isRelevant = true"
