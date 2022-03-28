@@ -1,5 +1,6 @@
 *.iml
 .gradle
+/local.properties
 /.idea/libraries
 /.idea/modules.xml
 /.idea/workspace.xml
@@ -30,3 +31,5 @@ jacoco.exec
 ~                 
 /build/
 *.log
+/google-services.json
+local.properties
