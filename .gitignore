@@ -32,4 +32,6 @@ jacoco.exec
 /build/
 *.log
 /google-services.json
+/local.properties
 local.properties
+reference-app/google-services.json
