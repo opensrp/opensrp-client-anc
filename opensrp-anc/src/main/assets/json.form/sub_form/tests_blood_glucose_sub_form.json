@@ -1,0 +1,392 @@
+{
+  "content_form": [
+    {
+      "key": "glucose_test_status",
+      "openmrs_entity_parent": "887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "label": "{{tests_blood_glucose_sub_form.step1.glucose_test_status.label}}",
+      "label_text_style": "bold",
+      "text_color": "#000000",
+      "type": "extended_radio_button",
+      "options": [
+        {
+          "key": "done_today",
+          "text": "{{tests_blood_glucose_sub_form.step1.glucose_test_status.options.done_today.text}}",
+          "type": "done_today",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165383AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "done_earlier",
+          "text": "{{tests_blood_glucose_sub_form.step1.glucose_test_status.options.done_earlier.text}}",
+          "type": "done_earlier",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165385AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "ordered",
+          "text": "{{tests_blood_glucose_sub_form.step1.glucose_test_status.options.ordered.text}}",
+          "type": "ordered",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165384AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "not_done",
+          "text": "{{tests_blood_glucose_sub_form.step1.glucose_test_status.options.not_done.text}}",
+          "type": "not_done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ],
+      "v_required": {
+        "value": true
+      }
+    },
+    {
+      "key": "spacer",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "spacer",
+      "type": "spacer",
+      "spacer_height": "10dp"
+    },
+    {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "glucose_test_date_today_hidden",
+      "type": "hidden",
+      "label_text_style": "bold",
+      "text_color": "#000000",
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "glucose_test_date",
+      "openmrs_entity_parent": "887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "163724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "date_picker",
+      "hint": "{{tests_blood_glucose_sub_form.step1.glucose_test_date.hint}}",
+      "expanded": "false",
+      "max_date": "today",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
+      },
+      "v_required": {
+        "value": true,
+        "err": "{{tests_blood_glucose_sub_form.step1.glucose_test_date.v_required.err}}"
+      }
+    },
+    {
+      "key": "glucose_test_type",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165394AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "native_radio",
+      "label": "{{tests_blood_glucose_sub_form.step1.glucose_test_type.label}}",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "fasting_plasma",
+          "text": "{{tests_blood_glucose_sub_form.step1.glucose_test_type.options.fasting_plasma.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "160053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "ogtt_75",
+          "text": "{{tests_blood_glucose_sub_form.step1.glucose_test_type.options.ogtt_75.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "163594AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "random_plasma",
+          "text": "{{tests_blood_glucose_sub_form.step1.glucose_test_type.options.random_plasma.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ],
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      },
+      "v_required": {
+        "value": true
+      }
+    },
+    {
+      "key": "fasting_plasma_gluc",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "160053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "edit_text",
+      "hint": "{{tests_blood_glucose_sub_form.step1.fasting_plasma_gluc.hint}}",
+      "edit_type": "number",
+      "v_min": {
+        "value": "30",
+        "err": "{{tests_blood_glucose_sub_form.step1.fasting_plasma_gluc.v_min.err}}"
+      },
+      "v_max": {
+        "value": "500",
+        "err": "{{tests_blood_glucose_sub_form.step1.fasting_plasma_gluc.v_max.err}}"
+      },
+      "v_numeric": {
+        "value": "true",
+        "err": "{{tests_blood_glucose_sub_form.step1.fasting_plasma_gluc.v_numeric.err}}"
+      },
+      "v_required": {
+        "value": true,
+        "err": "{{tests_blood_glucose_sub_form.step1.fasting_plasma_gluc.v_required.err}}"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "ogtt_fasting",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "163594AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "edit_text",
+      "hint": "{{tests_blood_glucose_sub_form.step1.ogtt_fasting.hint}}",
+      "edit_type": "number",
+      "v_min": {
+        "value": "30",
+        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_fasting.v_min.err}}"
+      },
+      "v_max": {
+        "value": "500",
+        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_fasting.v_max.err}}"
+      },
+      "v_numeric": {
+        "value": "true",
+        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_fasting.v_numeric.err}}"
+      },
+      "v_required": {
+        "value": true,
+        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_fasting.v_required.err}}"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "ogtt_1",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "163704AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "edit_text",
+      "hint": "{{tests_blood_glucose_sub_form.step1.ogtt_1.hint}}",
+      "edit_type": "number",
+      "v_min": {
+        "value": "30",
+        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_1.v_min.err}}"
+      },
+      "v_max": {
+        "value": "500",
+        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_1.v_max.err}}"
+      },
+      "v_numeric": {
+        "value": "true",
+        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_1.v_numeric.err}}"
+      },
+      "v_required": {
+        "value": true,
+        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_1.v_required.err}}"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "ogtt_2",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "163705AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "edit_text",
+      "hint": "{{tests_blood_glucose_sub_form.step1.ogtt_2.hint}}",
+      "edit_type": "number",
+      "v_min": {
+        "value": "30",
+        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_2.v_min.err}}"
+      },
+      "v_max": {
+        "value": "500",
+        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_2.v_max.err}}"
+      },
+      "v_numeric": {
+        "value": "true",
+        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_2.v_numeric.err}}"
+      },
+      "v_required": {
+        "value": true,
+        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_2.v_required.err}}"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "random_plasma",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "edit_text",
+      "hint": "{{tests_blood_glucose_sub_form.step1.random_plasma.hint}}",
+      "edit_type": "number",
+      "v_min": {
+        "value": "30",
+        "err": "{{tests_blood_glucose_sub_form.step1.random_plasma.v_min.err}}"
+      },
+      "v_max": {
+        "value": "500",
+        "err": "{{tests_blood_glucose_sub_form.step1.random_plasma.v_max.err}}"
+      },
+      "v_numeric": {
+        "value": "true",
+        "err": "{{tests_blood_glucose_sub_form.step1.random_plasma.v_numeric.err}}"
+      },
+      "v_required": {
+        "value": true,
+        "err": "{{tests_blood_glucose_sub_form.step1.random_plasma.v_required.err}}"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "117807AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "key": "gdm",
+      "type": "hidden",
+      "label_text_style": "bold",
+      "text_color": "#000000",
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "119477AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "key": "dm_in_preg",
+      "type": "hidden",
+      "label_text_style": "bold",
+      "text_color": "#000000",
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "gestational_diabetes_danger_toaster",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "toaster_notes",
+      "text": "{{tests_blood_glucose_sub_form.step1.gestational_diabetes_danger_toaster.text}}",
+      "toaster_info_text": "{{tests_blood_glucose_sub_form.step1.gestational_diabetes_danger_toaster.toaster_info_text}}",
+      "toaster_info_title": "{{tests_blood_glucose_sub_form.step1.gestational_diabetes_danger_toaster.toaster_info_title}}",
+      "toaster_type": "problem",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "diabetes_mellitus_danger_toaster",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "toaster_notes",
+      "text": "{{tests_blood_glucose_sub_form.step1.diabetes_mellitus_danger_toaster.text}}",
+      "toaster_info_text": "{{tests_blood_glucose_sub_form.step1.diabetes_mellitus_danger_toaster.toaster_info_text}}",
+      "toaster_info_title": "{{tests_blood_glucose_sub_form.step1.diabetes_mellitus_danger_toaster.toaster_info_title}}",
+      "toaster_type": "problem",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "dietary_intervention_danger_toaster",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "toaster_notes",
+      "text": "{{tests_blood_glucose_sub_form.step1.dietary_intervention_danger_toaster.text}}",
+      "toaster_info_text": "{{tests_blood_glucose_sub_form.step1.dietary_intervention_danger_toaster.toaster_info_text}}",
+      "toaster_type": "problem",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
+    }
+  ],
+  "count": 1,
+  "properties_file_name": "tests_blood_glucose_sub_form"
+}

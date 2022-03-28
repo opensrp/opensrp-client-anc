@@ -1,0 +1,106 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/profile_name_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#218CC5"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingTop="36dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imageview_profile"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/ic_woman_with_baby"
+        android:layout_marginTop="@dimen/avatar_margin"
+        app:civ_border_color="#FFFFFFFF"
+        app:civ_border_width="0dp" />
+
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/textview_name"
+        style="@style/CustomFontTextViewStyle.ClientList.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="0dp"
+        android:text=""
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/activity_title_size" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/textview_anc_id"
+            style="@style/CustomFontTextViewStyle.ClientList.Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingLeft="0dp"
+            android:text=""
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/profile_dot_separator_margin"
+            android:layout_marginRight="@dimen/profile_dot_separator_margin"
+            android:text="\u00b7"
+            android:textColor="@color/white" />
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/textview_age"
+            style="@style/CustomFontTextViewStyle.ClientList.Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:paddingLeft="0dp"
+            android:text=""
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/profile_dot_separator_margin"
+            android:layout_marginRight="@dimen/profile_dot_separator_margin"
+            android:text="\u00b7"
+            android:textColor="@color/white" />
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/textview_gestation_age"
+            style="@style/CustomFontTextViewStyle.ClientList.Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingLeft="0dp"
+            android:text=""
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_profile_registration_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/transparent_white_button"
+        android:paddingLeft="@dimen/profile_btn_registration_info_padding"
+        android:paddingTop="0dp"
+        android:paddingRight="@dimen/profile_btn_registration_info_padding"
+        android:paddingBottom="0dp"
+        android:text="@string/registration_info"
+        android:textAllCaps="false" />
+</LinearLayout>

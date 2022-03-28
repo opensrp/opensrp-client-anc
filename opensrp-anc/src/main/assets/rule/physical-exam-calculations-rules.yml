@@ -1,0 +1,126 @@
+---
+name: step1_first_weight
+description: This is a calculated field for purposes of making weight calculations simpler. It fixes which weight to use as pre-gestational weight.
+priority: 1
+condition: "true"
+actions:
+  - "calculation = ((!step1_pregest_weight_unknown.isEmpty() && step1_pregest_weight_unknown.contains('pregest_weight_unknown')) ? step1_current_weight : step1_pregest_weight)"
+---
+name: step1_bmi
+description: This is a calculated field for purposes of making weight calculations simpler. It fixes which weight to use as pre-gestational weight.
+priority: 1
+condition: "(step1_first_weight > 0)"
+actions:
+  - "calculation = (step1_first_weight/((step1_height/100)*(step1_height/100)))"
+---
+name: step1_weight_cat
+description: weight cat tingz
+priority: 1
+condition: "true"
+actions:
+  - "calculation = (step1_bmi < 18.5 ? 'Underweight' : ((step1_bmi >= 18.5 && step1_bmi < 25) ?  'Normal Weight' : ((step1_bmi >= 25 && step1_bmi < 30) ? 'Overweight' : 'Obese')))"
+---
+name: step1_exp_weight_gain
+description: weight gain tingz
+priority: 1
+condition: "true"
+actions:
+  - "calculation = (step1_weight_cat == 'Underweight' ? '12.5 - 18': (step1_weight_cat == 'Normal Weight' ? '11.5 - 16' : (step1_weight_cat == 'Overweight' ? '7 - 11.5' : '5 - 9')))"
+---
+name: step1_gdm_risk
+description: gdm risk
+priority: 1
+condition: "step1_bmi >= 30 || (!global_prev_preg_comps.isEmpty() && (global_prev_preg_comps.contains('gestational_diabetes') || global_prev_preg_comps.contains('macrosomia'))) || (global_urine_glucose != '' && (global_urine_glucose == '++' || global_urine_glucose == '+++' ||  global_urine_glucose == '++++'))"
+actions:
+  - "calculation = 1"
+---
+name: step1_toaster1
+description: Note displaying the woman's BMI, her weight category, and how much weight she should put on during pregnancy for her weight category.
+priority: 1
+condition: "true"
+actions:
+  - "calculation = ['bmi' : step1_bmi, 'weight_cat' : step1_weight_cat, 'exp_weight_gain' : step1_exp_weight_gain]"
+---
+name: step1_weight_gain_duration
+description: Todays date
+priority: 1
+condition: "global_contact_no > 1 && global_last_contact_date != ''"
+actions:
+  - "calculation = helper.getDifferenceDays(global_last_contact_date)"
+---
+name: step1_weight_gain
+description: Average weight gain per week since last contact (in kg).
+priority: 1
+condition: "global_contact_no > 1 && step1_weight_gain_duration >= 7 "
+actions:
+  - "calculation = ((step1_current_weight - global_previous_current_weight) / (step1_weight_gain_duration / 7))"
+---
+name: step1_tot_weight_gain
+description: Total weight gain in pregnancy so far (in kg).
+priority: 1
+condition: "true"
+actions:
+  - "calculation = (step1_current_weight - step1_first_weight)"
+---
+name: step1_toaster2
+description: Note displaying the woman's BMI, her weight category, and how much weight she should put on during pregnancy for her weight category.
+priority: 1
+condition: "true"
+actions:
+  - "calculation = ['weight_gain' : step1_weight_gain,'tot_weight_gain' : step1_tot_weight_gain]"
+---
+name: step2_hypertension
+description: Hypertension Diognosis
+priority: 1
+condition: "step2_urine_protein == 'none' ||  step2_urine_protein == '+'"
+actions:
+  - "calculation = 1"
+---
+name: step2_severe_hypertension
+description: Severe hypertension
+priority: 1
+condition: "(step2_hypertension == 1 && (step2_bp_systolic_repeat >= 160  || step2_bp_diastolic_repeat >= 110))"
+actions:
+  - "calculation = 1"
+---
+name: step2_severe_preeclampsia
+description: Severe preeclampsia
+priority: 1
+condition: "((step2_bp_systolic_repeat >= 160 || step2_bp_diastolic_repeat >= 110) && (step2_urine_protein == '++' || step2_urine_protein == '+++' || step2_urine_protein == '++++'))  || ((step2_urine_protein == '++' || step2_urine_protein == '+++' || step2_urine_protein == '++++') && (!step2_symp_sev_preeclampsia.isEmpty() && !step2_symp_sev_preeclampsia.contains('none')))"
+actions:
+  - "calculation = 1"
+---
+name: step2_preeclampsia
+description: preeclampsia
+priority: 1
+condition: "((step2_urine_protein == '++' || step2_urine_protein == '+++' || step2_urine_protein == '++++')  && (!step2_symp_sev_preeclampsia.isEmpty() && step2_symp_sev_preeclampsia.contains('none')) && (step2_bp_systolic_repeat < 160 && step2_bp_diastolic_repeat < 110))"
+actions:
+  - "calculation = 1"
+---
+name: step3_anaemic
+description: Anaemic
+priority: 1
+condition: "(global_hb_result != '' && global_hb_result < 11 && (global_gest_age_openmrs <= 12 || global_gest_age_openmrs >= 28)) || (global_hb_result != '' && global_hb_result < 10.5 && (global_gest_age_openmrs > 12 && global_gest_age_openmrs < 28)) || (global_hb_result == '' && step3_pallor == 'yes')"
+actions:
+  - "calculation = 1"
+---
+name: step4_preeclampsia_risk
+description: Preeclampsia_risk
+priority: 1
+condition: "((global_prev_preg_comps != null && !global_prev_preg_comps.isEmpty() && (global_prev_preg_comps.contains('convulsions') || global_prev_preg_comps.contains('pre_eclampsia'))) || (global_health_conditions != null && !global_health_conditions.isEmpty() && (global_health_conditions.contains('autoimmune_disease') || global_health_conditions.contains('diabetes') || global_health_conditions.contains('gest_diabetes') || global_health_conditions.contains('diabetes_other') || global_health_conditions.contains('diabetes_type2') || global_health_conditions.contains('Hypertension') || global_health_conditions.contains('kidney_disease'))) || (step4_no_of_fetuses != null && step4_no_of_fetuses != '' && step4_no_of_fetuses >= 2))"
+actions:
+  - "calculation = 1"
+---
+name: step3_toaster26_hidden
+description: toaster
+priority: 1
+condition: "step3_dilation_cm > 2"
+actions:
+  - 'calculation = step3_dilation_cm'
+---
+name: step3_ipv_suspect
+description: ipv_suspect
+priority: 1
+condition: "(global_ipv_signs_symptoms != null && !global_ipv_signs_symptoms.isEmpty() && !global_ipv_signs_symptoms.contains('none')) || (step3_ipv_physical_signs_symptoms != null && !step3_ipv_physical_signs_symptoms.isEmpty() && !step3_ipv_physical_signs_symptoms.contains('none'))"
+actions:
+  - "calculation = 1"

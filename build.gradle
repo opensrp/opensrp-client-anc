@@ -1,0 +1,102 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+        maven { url 'https://maven.fabric.io/public' }
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.1.2'
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.3'
+        classpath 'com.palantir:jacoco-coverage:0.4.0'
+        classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.11.0"
+        classpath 'com.google.gms:google-services:4.3.5'
+        classpath 'io.fabric.tools:gradle:1.31.2'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.5.0'
+        classpath 'com.google.firebase:perf-plugin:1.3.4'
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+//apply plugin: 'com.palantir.jacoco-full-report'
+apply plugin: 'com.github.kt3k.coveralls'
+
+configure(allprojects) { project ->
+
+    version = VERSION_NAME
+    group = GROUP
+    buildscript {
+        repositories {
+            google()
+            mavenCentral()
+            jcenter()
+            maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+            mavenLocal()
+        }
+    }
+}
+
+
+allprojects {
+    repositories {
+        maven { url 'https://maven.google.com' }
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+        mavenLocal()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+        maven { url "https://acra.googlecode.com/svn/repository/releases" }
+        maven { url "https://repo.maven.apache.org/maven2" }
+        maven { url "https://cloudant.github.io/cloudant-sync-eap/repository" }
+        maven { url "https://s3.amazonaws.com/repo.commonsware.com" }
+        //maven { url "https://dl.bintray.com/ibm-watson-health/ibm-fhir-server-releases" }
+        google()
+        jcenter()
+    }
+}
+
+project.ext.preDexLibs = !project.hasProperty('disablePreDex')
+
+subprojects {
+    group = 'org.smartregister'
+
+    ext.androidToolsBuildGradle = '30.0.3'
+    ext.androidBuildToolsVersion = '30.0.3'
+    ext.androidMinSdkVersion = 18
+    ext.androidCompileSdkVersion = 30
+    ext.androidTargetSdkVersion = 30
+    ext.androidAnnotationsVersion = '3.0.1'
+    ext.androidAnnotationsAPIVersion = '3.0.1'
+    ext.jacocoVersion = "0.8.5"
+
+    // Improve build server performance by allowing disabling of pre-dexing
+    // (see http://tools.android.com/tech-docs/new-build-system/tips#TOC-Improving-Build-Server-performance.)
+    project.plugins.whenPluginAdded { plugin ->
+        if ("com.android.build.gradle.AppPlugin".equals(plugin.class.name)) {
+            project.android.dexOptions.preDexLibraries = rootProject.ext.preDexLibs
+        } else if ("com.android.build.gradle.LibraryPlugin".equals(plugin.class.name)) {
+            project.android.dexOptions.preDexLibraries = rootProject.ext.preDexLibs
+        }
+    }
+}
+
+/*task clean(type: Delete) {
+    delete rootProject.buildDir
+}*/
+
+//jacocoFull {
+//    excludeProject ":sample", ":opensrp-client-anc"
+//}
+
+coveralls {
+    jacocoReportPath = "${buildDir}/reports/jacoco/jacocoFullReport/jacocoFullReport.xml"
+    sourceDirs += ["opensrp-anc/src/main/java/", "reference-app/src/main/java"]
+}
+apply plugin: 'io.codearte.nexus-staging'
+
+def isReleaseBuild() {
+    return version.contains("SNAPSHOT") == false
+}

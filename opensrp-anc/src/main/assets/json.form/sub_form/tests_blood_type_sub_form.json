@@ -1,0 +1,216 @@
+{
+  "content_form": [
+    {
+      "key": "blood_type_test_status",
+      "openmrs_entity_parent": "300AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "label": "{{tests_blood_type_sub_form.step1.blood_type_test_status.label}}",
+      "label_text_style": "bold",
+      "text_color": "#000000",
+      "type": "extended_radio_button",
+      "options": [
+        {
+          "key": "done_today",
+          "text": "{{tests_blood_type_sub_form.step1.blood_type_test_status.options.done_today.text}}",
+          "type": "done_today",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165383AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "done_earlier",
+          "text": "{{tests_blood_type_sub_form.step1.blood_type_test_status.options.done_earlier.text}}",
+          "type": "done_earlier",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165385AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "ordered",
+          "text": "{{tests_blood_type_sub_form.step1.blood_type_test_status.options.ordered.text}}",
+          "type": "ordered",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165384AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "not_done",
+          "text": "{{tests_blood_type_sub_form.step1.blood_type_test_status.options.not_done.text}}",
+          "type": "not_done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ],
+      "v_required": {
+        "value": true,
+        "err": "{{tests_blood_type_sub_form.step1.blood_type_test_status.v_required.err}}"
+      }
+    },
+    {
+      "key": "spacer",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "spacer",
+      "type": "spacer",
+      "spacer_height": "10dp"
+    },
+    {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "blood_type_test_date_today_hidden",
+      "type": "hidden",
+      "label_text_style": "bold",
+      "text_color": "#000000",
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "blood_type_test_date",
+      "openmrs_entity_parent": "300AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "163724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "date_picker",
+      "hint": "{{tests_blood_type_sub_form.step1.blood_type_test_date.hint}}",
+      "expanded": "false",
+      "max_date": "today",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_calculation_rules.yml"
+          }
+        }
+      },
+      "v_required": {
+        "value": true,
+        "err": "{{tests_blood_type_sub_form.step1.blood_type_test_date.v_required.err}}"
+      }
+    },
+    {
+      "key": "blood_type",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "163126AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "native_radio",
+      "label": "{{tests_blood_type_sub_form.step1.blood_type.label}}",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "a",
+          "text": "{{tests_blood_type_sub_form.step1.blood_type.options.a.text}}",
+          "translation_text": "tests_blood_type_sub_form.step1.blood_type.options.a.text",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "163115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "b",
+          "text": "{{tests_blood_type_sub_form.step1.blood_type.options.b.text}}",
+          "translation_text": "tests_blood_type_sub_form.step1.blood_type.options.b.text",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "163116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "ab",
+          "text": "{{tests_blood_type_sub_form.step1.blood_type.options.ab.text}}",
+          "translation_text": "tests_blood_type_sub_form.step1.blood_type.options.ab.text",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "163117AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "o",
+          "text": "{{tests_blood_type_sub_form.step1.blood_type.options.o.text}}",
+          "translation_text": "tests_blood_type_sub_form.step1.blood_type.options.o.text",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "163118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ],
+      "v_required": {
+        "value": true,
+        "err": "{{tests_blood_type_sub_form.step1.blood_type.v_required.err}}"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "rh_factor",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "160232AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "native_radio",
+      "label": "{{tests_blood_type_sub_form.step1.rh_factor.label}}",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "positive",
+          "text": "{{tests_blood_type_sub_form.step1.rh_factor.options.positive.text}}",
+          "translation_text": "tests_blood_type_sub_form.step1.rh_factor.options.positive.text",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "negative",
+          "text": "{{tests_blood_type_sub_form.step1.rh_factor.options.negative.text}}",
+          "translation_text": "tests_blood_type_sub_form.step1.rh_factor.options.negative.text",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ],
+      "v_required": {
+        "value": true,
+        "err": "{{tests_blood_type_sub_form.step1.rh_factor.v_required.err}}"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "rh_factor_toaster",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "toaster_notes",
+      "text": "{{tests_blood_type_sub_form.step1.rh_factor_toaster.text}}",
+      "toaster_info_text": "{{tests_blood_type_sub_form.step1.rh_factor_toaster.toaster_info_text}}",
+      "toaster_info_title": "{{tests_blood_type_sub_form.step1.rh_factor_toaster.toaster_info_title}}",
+      "toaster_type": "warning",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
+      }
+    }
+  ],
+  "count": 1,
+  "properties_file_name": "tests_blood_type_sub_form"
+}

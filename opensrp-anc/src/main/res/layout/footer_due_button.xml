@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/patient_detail_button_footer"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentBottom="true"
+    android:orientation="horizontal"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:layout_marginBottom="5dp">
+
+    <Button
+        android:id="@+id/profile_overview_due_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/bg_shadow_button_blue"
+        android:hapticFeedbackEnabled="true"
+        android:inputType="textCapCharacters"
+        android:minHeight="32dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:text="@string/contact_number_due"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:textColor="@color/status_bar_text_almost_white"
+        android:textSize="15sp"
+        app:textAllCaps="true" />
+
+
+</RelativeLayout>

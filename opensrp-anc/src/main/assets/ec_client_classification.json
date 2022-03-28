@@ -1,0 +1,42 @@
+{
+  "case_classification_rules": [
+    {
+      "comment": "Patient: This rule checks whether a given case belongs to register and creates or updates it if it don't exist",
+      "rule": {
+        "type": "event",
+        "fields": [
+          {
+            "field": "eventType",
+            "field_value": "ANC Close",
+            "closes_case": [
+              "ec_client"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "ANC Registration",
+            "creates_case": [
+              "ec_client",
+              "ec_mother_details"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Update ANC Registration",
+            "creates_case": [
+              "ec_client",
+              "ec_mother_details"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Visit",
+            "creates_case": [
+              "ec_mother_details"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

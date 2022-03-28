@@ -1,0 +1,2223 @@
+{
+  "validate_on_submit": true,
+  "display_scroll_bars": true,
+  "skip_blank_steps": true,
+  "count": "4",
+  "encounter_type": "Symptoms and Follow-up",
+  "entity_id": "",
+  "relational_id": "",
+  "form_version": "0.0.1",
+  "filtered_items": [
+    "step2_behaviour_persist",
+    "step3_phys_symptoms_persist",
+    "step3_other_symptoms_persist"
+  ],
+  "default_values": [
+    "medications",
+    "medications_other",
+    "phys_symptoms_persist",
+    "other_sym_lbpp",
+    "other_sym_vvo",
+    "other_symptoms_persist",
+    "ipv_physical_signs_symptoms"
+  ],
+  "global_previous": [
+    "caffeine_intake",
+    "tobacco_user",
+    "shs_exposure",
+    "condom_use",
+    "alcohol_substance_use",
+    "phys_symptoms",
+    "other_symptoms",
+    "calcium_supp",
+    "vita_supp",
+    "syphilis_positive",
+    "pe_risk_aspirin_calcium",
+    "pe_risk_aspirin",
+    "ifa_high_prev",
+    "ifa_low_prev",
+    "ifa_weekly",
+    "ifa_anaemia",
+    "ipv_physical_signs_symptoms"
+  ],
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "{{anc_symptoms_follow_up.step1.title}}",
+    "next": "step2",
+    "fields": [
+      {
+        "key": "medications",
+        "openmrs_entity_parent": "160741AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "159367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "label": "{{anc_symptoms_follow_up.step1.medications.label}}",
+        "label_info_text": "The woman reported taking these medications in the previous contact. Un-select the medications that she has stopped taking. If still taking, leave them selected.",
+        "label_info_title": "Medication follow-up",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "exclusive": [
+          "dont_know",
+          "none"
+        ],
+        "options": [
+          {
+            "key": "none",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.none.text}}",
+            "value": false,
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept"
+          },
+          {
+            "key": "dont_know",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.dont_know.text}}",
+            "value": false,
+            "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept"
+          },
+          {
+            "key": "antacids",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.antacids.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "944AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "aspirin",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.aspirin.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "71617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "calcium",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.calcium.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "72650AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "doxylamine",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.doxylamine.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "75229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "folic_acid",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.folic_acid.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "76613AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "iron",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.iron.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "78218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "magnesium",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.magnesium.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "79224AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "metoclopramide",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.metoclopramide.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "79755AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "vitamina",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.vitamina.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "86339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "analgesic",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.analgesic.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165231AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "anti_convulsive",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.anti_convulsive.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165230AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "anti_diabetic",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.anti_diabetic.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "159460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "anthelmintic",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.anthelmintic.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "anti_hypertensive",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.anti_hypertensive.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165237AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "anti_malarials",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.anti_malarials.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5839AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "antivirals",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.antivirals.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165236AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "arvs",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.arvs.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "prep_hiv",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.prep_hiv.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "antitussive",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.antitussive.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165235AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "asthma",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.asthma.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165234AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "cotrimoxazole",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.cotrimoxazole.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "105281AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "antibiotics",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.antibiotics.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1195AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "hematinic",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.hematinic.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165233AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "hemorrhoidal",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.hemorrhoidal.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165255AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "multivitamin",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.multivitamin.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "461AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "thyroid",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.thyroid.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165232AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "other",
+            "text": "{{anc_symptoms_follow_up.step1.medications.options.other.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_symptoms_follow_up.step1.medications.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "medications_other",
+        "openmrs_entity_parent": "159367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "{{anc_symptoms_follow_up.step1.medications_other.hint}}",
+        "v_regex": {
+          "value": "[A-Za-z\\s\\.\\-]*",
+          "err": "{{anc_symptoms_follow_up.step1.medications_other.v_regex.err}}"
+        },
+        "relevance": {
+          "step1:medications": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "calcium_comply",
+        "openmrs_entity_parent": "72650AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "{{anc_symptoms_follow_up.step1.calcium_comply.label}}",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "yes",
+            "text": "{{anc_symptoms_follow_up.step1.calcium_comply.options.yes.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no",
+            "text": "{{anc_symptoms_follow_up.step1.calcium_comply.options.no.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "calcium_effects",
+        "openmrs_entity_parent": "72650AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165273AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "{{anc_symptoms_follow_up.step1.calcium_effects.label}}",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "yes",
+            "text": "{{anc_symptoms_follow_up.step1.calcium_effects.options.yes.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no",
+            "text": "{{anc_symptoms_follow_up.step1.calcium_effects.options.no.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "ifa_comply",
+        "openmrs_entity_parent": "104677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "{{anc_symptoms_follow_up.step1.ifa_comply.label}}",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "yes",
+            "text": "{{anc_symptoms_follow_up.step1.ifa_comply.options.yes.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no",
+            "text": "{{anc_symptoms_follow_up.step1.ifa_comply.options.no.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "ifa_effects",
+        "openmrs_entity_parent": "104677AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165273AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "{{anc_symptoms_follow_up.step1.ifa_effects.label}}",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "yes",
+            "text": "{{anc_symptoms_follow_up.step1.ifa_effects.options.yes.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no",
+            "text": "{{anc_symptoms_follow_up.step1.ifa_effects.options.no.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "aspirin_comply",
+        "openmrs_entity_parent": "71617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "{{anc_symptoms_follow_up.step1.aspirin_comply.label}}",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "yes",
+            "text": "{{anc_symptoms_follow_up.step1.aspirin_comply.options.yes.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no",
+            "text": "{{anc_symptoms_follow_up.step1.aspirin_comply.options.no.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "vita_comply",
+        "openmrs_entity_parent": "86339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "{{anc_symptoms_follow_up.step1.vita_comply.label}}",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "yes",
+            "text": "{{anc_symptoms_follow_up.step1.vita_comply.options.yes.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no",
+            "text": "{{anc_symptoms_follow_up.step1.vita_comply.options.no.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "penicillin_comply",
+        "openmrs_entity_parent": "81724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "{{anc_symptoms_follow_up.step1.penicillin_comply.label}}",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "label_info_text": "{{anc_symptoms_follow_up.step1.penicillin_comply.label_info_text}}",
+        "label_info_title": "{{anc_symptoms_follow_up.step1.penicillin_comply.label_info_title}}",
+        "options": [
+          {
+            "key": "yes",
+            "text": "{{anc_symptoms_follow_up.step1.penicillin_comply.options.yes.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no",
+            "text": "{{anc_symptoms_follow_up.step1.penicillin_comply.options.no.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step2": {
+    "title": "{{anc_symptoms_follow_up.step2.title}}",
+    "next": "step3",
+    "fields": [
+      {
+        "key": "behaviour_persist",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165251AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "label": "{{anc_symptoms_follow_up.step2.behaviour_persist.label}}",
+        "label_info_text": "These behaviours were reported in the previous contact. Select the ones that are still occurring or select \"None\".",
+        "label_info_title": "Previous behaviours",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "filter_options": [
+          {
+            "key": "global_previous_tobacco_user",
+            "value": "[yes, recently_quit]"
+          },
+          {
+            "key": "global_previous_condom_use",
+            "value": "no"
+          },
+          {
+            "key": "global_previous_shs_exposure",
+            "value": "yes"
+          },
+          {
+            "key": "global_previous_alcohol_substance_use",
+            "value": "!none",
+            "options": [
+              "alcohol_use",
+              "substance_use"
+            ]
+          },
+          {
+            "key": "global_previous_caffeine_intake",
+            "value": "!none"
+          }
+        ],
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "none",
+            "text": "{{anc_symptoms_follow_up.step2.behaviour_persist.options.none.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "caffeine_intake",
+            "text": "{{anc_symptoms_follow_up.step2.behaviour_persist.options.caffeine_intake.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165249AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "label_info_text": "High caffeine intake means consuming more than 300 mg of caffeine per day. Each of the following represents 300 mg of caffeine:\n - More than 2 cups of coffee (brewed, filtered, instant or espresso)\n - More than 4 cups of tea\n - More than 12 bars (50 g) of chocolate\n - More than one can of soda or energy drink\n\nPlease indicate if the woman consumes more than these amounts per day.",
+            "label_info_title": "High caffeine intake",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "tobacco_user",
+            "text": "{{anc_symptoms_follow_up.step2.behaviour_persist.options.tobacco_user.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "152722AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "shs_exposure",
+            "text": "{{anc_symptoms_follow_up.step2.behaviour_persist.options.shs_exposure.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "152721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "condom_use",
+            "text": "{{anc_symptoms_follow_up.step2.behaviour_persist.options.condom_use.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165250AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "alcohol_use",
+            "text": "{{anc_symptoms_follow_up.step2.behaviour_persist.options.alcohol_use.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "143098AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "substance_use",
+            "text": "{{anc_symptoms_follow_up.step2.behaviour_persist.options.substance_use.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "160246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_symptoms_follow_up.step2.behaviour_persist.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toaster0",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_symptoms_follow_up.step2.toaster0.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step2.toaster0.toaster_info_text}}",
+        "toaster_info_title": "{{anc_symptoms_follow_up.step2.toaster0.toaster_info_title}}",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "step2:behaviour_persist": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "caffeine_intake"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "toaster1",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "TOBACCO USE COUNSELLING",
+        "openmrs_entity_id": "1455",
+        "type": "toaster_notes",
+        "text": "{{anc_symptoms_follow_up.step2.toaster1.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step2.toaster1.toaster_info_text}}",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
+        "relevance": {
+          "step2:behaviour_persist": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "tobacco_user"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "toaster2",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_symptoms_follow_up.step2.toaster2.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step2.toaster2.toaster_info_text}}",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "step2:behaviour_persist": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "shs_exposure"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "toaster3",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "Counseling regarding condom",
+        "openmrs_entity_id": "161594",
+        "type": "toaster_notes",
+        "text": "{{anc_symptoms_follow_up.step2.toaster3.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step2.toaster3.toaster_info_text}}",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
+        "relevance": {
+          "step2:behaviour_persist": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "condom_use"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "toaster4",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "ALCOHOL COUNSELING",
+        "openmrs_entity_id": "1288",
+        "type": "toaster_notes",
+        "text": "{{anc_symptoms_follow_up.step2.toaster4.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step2.toaster4.toaster_info_text}}",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
+        "relevance": {
+          "step2:behaviour_persist": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "alcohol_use",
+                  "substance_use"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "step3": {
+    "title": "{{anc_symptoms_follow_up.step3.title}}",
+    "next": "step4",
+    "fields": [
+      {
+        "key": "phys_symptoms_persist",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.label}}",
+        "label_info_text": "These symptoms were reported in the previous contact. Select the ones that are still occurring or select \"None\".",
+        "label_info_title": "Previous Symptoms",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "filter_options_source": "global_previous_phys_symptoms",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "none",
+            "text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.none.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "nausea_vomiting",
+            "text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.nausea_vomiting.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "133473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "heartburn",
+            "text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.heartburn.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "139059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "leg_cramps",
+            "text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.leg_cramps.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "135969AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "constipation",
+            "text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.constipation.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "996AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "low_back_pain",
+            "text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.low_back_pain.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "116225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "pelvic_pain",
+            "text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.pelvic_pain.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "131034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "varicose_veins",
+            "text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.varicose_veins.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "156666AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "oedema",
+            "text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.oedema.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_sym_lbpp",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "{{anc_symptoms_follow_up.step3.other_sym_lbpp.label}}",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "none",
+            "text": "{{anc_symptoms_follow_up.step3.other_sym_lbpp.options.none.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "contractions",
+            "text": "{{anc_symptoms_follow_up.step3.other_sym_lbpp.options.contractions.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "163750AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "dysuria",
+            "text": "{{anc_symptoms_follow_up.step3.other_sym_lbpp.options.dysuria.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "118771AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "pelvic_pains",
+            "text": "{{anc_symptoms_follow_up.step3.other_sym_lbpp.options.pelvic_pains.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165270AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_symptoms_follow_up.step3.other_sym_lbpp.v_required.err}}"
+        },
+        "relevance": {
+          "step3:phys_symptoms_persist": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "low_back_pain",
+                  "pelvic_pain"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "other_sym_vvo",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "{{anc_symptoms_follow_up.step3.other_sym_vvo.label}}",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "none",
+            "text": "{{anc_symptoms_follow_up.step3.other_sym_vvo.options.none.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "leg_pain",
+            "text": "{{anc_symptoms_follow_up.step3.other_sym_vvo.options.leg_pain.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "114395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "leg_redness",
+            "text": "{{anc_symptoms_follow_up.step3.other_sym_vvo.options.leg_redness.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165215AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_symptoms_follow_up.step3.other_sym_vvo.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toaster5",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_symptoms_follow_up.step3.toaster5.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step3.toaster5.toaster_info_text}}",
+        "text_color": "#4855B3",
+        "toaster_type": "info",
+        "relevance": {
+          "step3:phys_symptoms_persist": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "nausea_vomiting"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "toaster6",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_symptoms_follow_up.step3.toaster6.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step3.toaster6.toaster_info_text}}",
+        "text_color": "#4855B3",
+        "toaster_type": "info",
+        "relevance": {
+          "step3:phys_symptoms_persist": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "heartburn"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "toaster7",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_symptoms_follow_up.step3.toaster7.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step3.toaster7.toaster_info_text}}",
+        "text_color": "#4855B3",
+        "toaster_type": "info",
+        "relevance": {
+          "step3:phys_symptoms_persist": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "leg_cramps"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "toaster8",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_symptoms_follow_up.step3.toaster8.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step3.toaster8.toaster_info_text}}",
+        "text_color": "#4855B3",
+        "toaster_type": "info",
+        "relevance": {
+          "step3:phys_symptoms_persist": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "constipation"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "toaster9",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_symptoms_follow_up.step3.toaster9.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step3.toaster9.toaster_info_text}}",
+        "text_color": "#4855B3",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toaster10",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_symptoms_follow_up.step3.toaster10.text}}",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "step3:other_sym_lbpp": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "contractions",
+                  "pelvic_pains"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "toaster11",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_symptoms_follow_up.step3.toaster11.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step3.toaster11.toaster_info_text}}",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "step3:other_sym_lbpp": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "dysuria"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "toaster12",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_symptoms_follow_up.step3.toaster12.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step3.toaster12.toaster_info_text}}",
+        "text_color": "#4855B3",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toaster13",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_symptoms_follow_up.step3.toaster13.text}}",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "step3:other_sym_vvo": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "leg_pain",
+                  "leg_redness"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "other_symptoms_persist",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.label}}",
+        "label_text_style": "bold",
+        "label_info_text": "These symptoms were reported in the previous contact. Select the ones that are still occurring or select \"None\".",
+        "label_info_title": "Previous Symptoms",
+        "text_color": "#000000",
+        "filter_options_source": "global_previous_other_symptoms",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "none",
+            "text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.none.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "abnormal_vaginal_discharge",
+            "text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.abnormal_vaginal_discharge.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "123395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "breathing_difficulty",
+            "text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.breathing_difficulty.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "breathless",
+            "text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.breathless.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "110265AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "cough",
+            "text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.cough.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1487AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "fever",
+            "text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.fever.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "easily_tired",
+            "text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.easily_tired.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "140501AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "headache",
+            "text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.headache.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "139084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "vaginal_bleeding",
+            "text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.vaginal_bleeding.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "147232AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "visual_disturbance",
+            "text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.visual_disturbance.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "123074AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step4": {
+    "title": "{{anc_symptoms_follow_up.step4.title}}",
+    "fields": [
+      {
+        "key": "phys_symptoms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "{{anc_symptoms_follow_up.step4.phys_symptoms.label}}",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "none",
+            "text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.none.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "nausea_vomiting",
+            "text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.nausea_vomiting.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "133473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "heartburn",
+            "text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.heartburn.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "139059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "leg_cramps",
+            "text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.leg_cramps.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "135969AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "constipation",
+            "text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.constipation.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "996AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "low_back_pain",
+            "text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.low_back_pain.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "116225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "pelvic_pain",
+            "text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.pelvic_pain.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "131034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "varicose_veins",
+            "text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.varicose_veins.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "156666AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "oedema",
+            "text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.oedema.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_symptoms_follow_up.step4.phys_symptoms.v_required.err}}"
+        }
+      },
+      {
+        "key": "other_sym_lbpp",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "{{anc_symptoms_follow_up.step4.other_sym_lbpp.label}}",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "none",
+            "text": "{{anc_symptoms_follow_up.step4.other_sym_lbpp.options.none.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "contractions",
+            "text": "{{anc_symptoms_follow_up.step4.other_sym_lbpp.options.contractions.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "163750AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "dysuria",
+            "text": "{{anc_symptoms_follow_up.step4.other_sym_lbpp.options.dysuria.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "118771AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "pelvic_pains",
+            "text": "{{anc_symptoms_follow_up.step4.other_sym_lbpp.options.pelvic_pains.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165270AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_symptoms_follow_up.step4.other_sym_lbpp.v_required.err}}"
+        },
+        "relevance": {
+          "step4:phys_symptoms": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "low_back_pain",
+                  "pelvic_pain"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "other_sym_vvo",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "{{anc_symptoms_follow_up.step4.other_sym_vvo.label}}",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "none",
+            "text": "{{anc_symptoms_follow_up.step4.other_sym_vvo.options.none.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "leg_pain",
+            "text": "{{anc_symptoms_follow_up.step4.other_sym_vvo.options.leg_pain.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "114395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "leg_redness",
+            "text": "{{anc_symptoms_follow_up.step4.other_sym_vvo.options.leg_redness.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165215AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_symptoms_follow_up.step4.other_sym_vvo.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toaster14",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_symptoms_follow_up.step4.toaster14.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step4.toaster14.toaster_info_text}}",
+        "text_color": "#4855B3",
+        "toaster_type": "info",
+        "relevance": {
+          "step4:phys_symptoms": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "nausea_vomiting"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "toaster15",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_symptoms_follow_up.step4.toaster15.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step4.toaster15.toaster_info_text}}",
+        "text_color": "#4855B3",
+        "toaster_type": "info",
+        "relevance": {
+          "step4:phys_symptoms": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "heartburn"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "toaster16",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_symptoms_follow_up.step4.toaster16.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step4.toaster16.toaster_info_text}}",
+        "text_color": "#4855B3",
+        "toaster_type": "info",
+        "relevance": {
+          "step4:phys_symptoms": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "leg_cramps"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "toaster17",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_symptoms_follow_up.step4.toaster17.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step4.toaster17.toaster_info_text}}",
+        "text_color": "#4855B3",
+        "toaster_type": "info",
+        "relevance": {
+          "step4:phys_symptoms": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "constipation"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "toaster18",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_symptoms_follow_up.step4.toaster18.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step4.toaster18.toaster_info_text}}",
+        "text_color": "#4855B3",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toaster19",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_symptoms_follow_up.step4.toaster19.text}}",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "step4:other_sym_lbpp": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "contractions",
+                  "pelvic_pains"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "toaster20",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_symptoms_follow_up.step4.toaster20.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step4.toaster20.toaster_info_text}}",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "step4:other_sym_lbpp": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "dysuria"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "toaster21",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_symptoms_follow_up.step4.toaster21.text}}",
+        "toaster_info_text": "{{anc_symptoms_follow_up.step4.toaster21.toaster_info_text}}",
+        "text_color": "#4855B3",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toaster22",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_symptoms_follow_up.step4.toaster22.text}}",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "step4:other_sym_vvo": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "leg_pain",
+                  "leg_redness"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "other_symptoms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "{{anc_symptoms_follow_up.step4.other_symptoms.label}}",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "none",
+            "text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.none.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "abnormal_vaginal_discharge",
+            "text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.abnormal_vaginal_discharge.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "123395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "breathing_difficulty",
+            "text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.breathing_difficulty.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "breathless",
+            "text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.breathless.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "110265AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "cough",
+            "text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.cough.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1487AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "fever",
+            "text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.fever.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "easily_tired",
+            "text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.easily_tired.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "140501AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "headache",
+            "text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.headache.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "139084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "vaginal_bleeding",
+            "text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.vaginal_bleeding.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "147232AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "visual_disturbance",
+            "text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.visual_disturbance.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "123074AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "other",
+            "text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.other.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_symptoms_follow_up.step4.other_symptoms.v_required.err}}"
+        }
+      },
+      {
+        "key": "other_symptoms_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "{{anc_symptoms_follow_up.step4.other_symptoms_other.hint}}",
+        "v_regex": {
+          "value": "[A-Za-z\\s\\.\\-]*",
+          "err": "{{anc_symptoms_follow_up.step4.other_symptoms_other.v_regex.err}}"
+        },
+        "relevance": {
+          "step4:other_symptoms": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "ipv_signs_symptoms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.label}}",
+        "label_info_text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.label_info_text}}",
+        "label_info_title": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.label_info_title}}",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "none",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.none.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "stress",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.stress.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "anxiety",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.anxiety.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "depression",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.depression.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "emotional_health_issues",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.emotional_health_issues.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "alcohol_misuse",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.alcohol_misuse.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "drugs_misuse",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.drugs_misuse.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "harmful_behaviour",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.harmful_behaviour.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "suicide_thoughts",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.suicide_thoughts.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "suicide_plans",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.suicide_plans.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "suicide_acts",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.suicide_acts.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "repeat_stis",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.repeat_stis.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "unwanted_pregnancies",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.unwanted_pregnancies.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "chronic_pain",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.chronic_pain.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "gastro_symptoms",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.gastro_symptoms.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "genitourinary_symptoms",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.genitourinary_symptoms.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "adverse_repro_outcomes",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.adverse_repro_outcomes.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "unexplained_repro_symptoms",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.unexplained_repro_symptoms.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "repeat_vaginal_bleeding",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.repeat_vaginal_bleeding.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "injury_abdomen",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.injury_abdomen.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "injury_other",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.injury_other.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "problems_cns",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.problems_cns.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "repeat_health_consultations",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.repeat_health_consultations.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "intrusive_partner",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.intrusive_partner.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "misses_appointments",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.misses_appointments.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "children_emotional_problems",
+            "text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.children_emotional_problems.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "ipv_signs_symptoms_injury_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms_injury_other.hint}}",
+        "v_regex": {
+          "value": "[A-Za-z\\s\\.\\-]*",
+          "err": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms_injury_other.v_regex.err}}"
+        },
+        "relevance": {
+          "step4:ipv_signs_symptoms": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "injury_other"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "ipv_suspect",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "value": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_calculation_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toaster23",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_symptoms_follow_up.step4.toaster23.text}}",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "mat_percept_fetal_move",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "162107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "{{anc_symptoms_follow_up.step4.mat_percept_fetal_move.label}}",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "normal_fetal_move",
+            "text": "{{anc_symptoms_follow_up.step4.mat_percept_fetal_move.options.normal_fetal_move.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "162108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "reduced_fetal_move",
+            "text": "{{anc_symptoms_follow_up.step4.mat_percept_fetal_move.options.reduced_fetal_move.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "113377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "no_fetal_move",
+            "text": "{{anc_symptoms_follow_up.step4.mat_percept_fetal_move.options.no_fetal_move.text}}",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1452AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_symptoms_follow_up.step4.mat_percept_fetal_move.v_required.err}}"
+        }
+      }
+    ]
+  },
+  "properties_file_name": "anc_symptoms_follow_up"
+}

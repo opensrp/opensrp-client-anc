@@ -1,0 +1,44 @@
+{
+  "content_form": [
+    {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "dilation_cm_label",
+      "type": "label",
+      "label_text_style": "bold",
+      "text": "{{cervical_exam_sub_form.step1.dilation_cm_label.text}}",
+      "text_color": "#000000",
+      "v_required": {
+        "value": false
+      }
+    },
+    {
+      "key": "dilation_cm",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "162261AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "normal_edit_text",
+      "edit_text_style": "bordered",
+      "edit_type": "number",
+      "v_numeric_integer": {
+        "value": "true",
+        "err": "Enter valid cervical dilation in cm"
+      },
+      "v_min": {
+        "value": "0",
+        "err": "Cervical dilation must be greater than or equal to 0"
+      },
+      "v_max": {
+        "value": "10",
+        "err": "Cervical dilation must be equal to or less than 10"
+      },
+      "v_required": {
+        "value": false,
+        "err": "{{cervical_exam_sub_form.step1.dilation_cm.v_required.err}}"
+      }
+    }
+  ],
+  "count": 1,
+  "properties_file_name": "cervical_exam_sub_form"
+}

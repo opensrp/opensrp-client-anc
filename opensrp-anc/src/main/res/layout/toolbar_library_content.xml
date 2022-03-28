@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/actionBarSize"
+    android:background="@color/customAppThemeBlue">
+
+    <TextView
+        android:id="@+id/library_toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="15dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/characteristics_drawable_padding"
+        android:gravity="center_vertical"
+        android:text="@string/library"
+        android:textColor="@color/white"
+        android:textSize="@dimen/characteristics_text_size" />
+
+</RelativeLayout>

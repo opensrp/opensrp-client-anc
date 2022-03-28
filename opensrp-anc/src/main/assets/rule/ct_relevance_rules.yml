@@ -1,0 +1,644 @@
+---
+name: step1_danger_signs_toaster
+description: Danger sign problem toaster
+priority: 1
+condition: "!global_danger_signs.isEmpty() && !global_danger_signs.contains('danger_none') && global_danger_signs_value != 'None'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_severe_hypertension_toaster
+description: Severe hypertension toaster
+priority: 1
+condition: "global_severe_hypertension != '' && global_severe_hypertension == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step1_hypertension_pre_eclampsia_toaster
+description: Hypertension and symptom of severe
+priority: 1
+condition: "(global_hypertension != '' && global_hypertension == 1) && (!global_symp_sev_preeclampsia.isEmpty() && !global_symp_sev_preeclampsia.contains('none'))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_pre_eclampsia_dialog_toaster
+description: Pre-eclampsia diagnosis
+priority: 1
+condition: "global_preeclampsia == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step1_severe_pre_eclampsia_dialog_toaster
+description: Severe pre-eclampsia diagnosis
+priority: 1
+condition: "global_severe_preeclampsia == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step1_fever_toaster
+description: Fever temp
+priority: 1
+condition: "global_body_temp_repeat >= 38"
+actions:
+  - "isRelevant = true"
+---
+name: step1_abnormal_pulse_rate_toaster
+description: Abnormal pulse rate
+priority: 1
+condition: "global_pulse_rate_repeat < 60 || global_pulse_rate_repeat > 100"
+actions:
+  - "isRelevant = true"
+---
+name: step1_resp_distress_toaster
+description: Respiratory distress
+priority: 1
+condition: "global_respiratory_exam == 3"
+actions:
+  - "isRelevant = true"
+---
+name: step1_low_oximetry_toaster
+description: Low oximetry
+priority: 1
+condition: "global_oximetry < 92"
+actions:
+  - "isRelevant = true"
+---
+name: step1_abn_cardiac_exam_toaster
+description: Abnormal cardiac exam
+priority: 1
+condition: "global_cardiac_exam == 3"
+actions:
+  - "isRelevant = true"
+---
+name: step1_abn_breast_exam_toaster
+description: Abnormal breast exam
+priority: 1
+condition: "global_breast_exam == 3"
+actions:
+  - "isRelevant = true"
+---
+name: step1_abn_abdominal_exam_toaster
+description: Abnormal abdominal exam
+priority: 1
+condition: "global_abdominal_exam == 3"
+actions:
+  - "isRelevant = true"
+---
+name: step1_abn_pelvic_exam_toaster
+description: Abnormal pelvic exam
+priority: 1
+condition: "global_pelvic_exam == 3"
+actions:
+  - "isRelevant = true"
+---
+name: step1_no_fetal_heartbeat_toaster
+description: No fetal heartbeat observed
+priority: 1
+condition: "global_fetal_heartbeat != '' && global_fetal_heartbeat == 'no' && global_gest_age_openmrs > 20 "
+actions:
+  - "isRelevant = true"
+---
+name: step1_abn_feat_heart_rate_toaster
+description: Abnormal fetal heart rate
+priority: 1
+condition: "global_fetal_heart_rate_repeat < 100 || global_fetal_heart_rate_repeat > 180"
+actions:
+  - "isRelevant = true"
+---
+name: step1_referred_hosp
+description: Referred to hospital
+priority: 1
+condition: "(global_severe_hypertension != '' && global_severe_hypertension == 1) || (!global_danger_signs.isEmpty() && !global_danger_signs.contains('danger_none') && global_danger_signs_value != 'None') || (global_hypertension != '' && global_hypertension == 1 && !global_symp_sev_preeclampsia.isEmpty() && !global_symp_sev_preeclampsia.contains('none')) || (global_preeclampsia != '' && global_preeclampsia == 1) || (global_severe_preeclampsia != ''  && global_severe_preeclampsia == 1) || (global_body_temp_repeat != '' && global_body_temp_repeat >= 38) || global_pulse_rate_repeat != '' && (global_pulse_rate_repeat < 60 || global_pulse_rate_repeat > 100) || global_respiratory_exam == 3 || global_cardiac_exam == 3 || global_breast_exam == 3 || global_abdominal_exam == 3 || global_pelvic_exam == 3 || (global_fetal_heartbeat == 'no' && global_gest_age_openmrs > 20) || global_fetal_heart_rate_repeat != '' && (global_fetal_heart_rate_repeat < 110 || global_fetal_heart_rate_repeat > 160)"
+actions:
+  - "isRelevant = true"
+---
+name: step2_caffeine_counsel
+description: Caffeine reduction counseling
+priority: 1
+condition: "(global_behaviour_persist != null && global_behaviour_persist.contains('caffeine_intake')) || (!global_caffeine_intake.isEmpty() && !global_caffeine_intake.contains('none'))"
+actions:
+  - "isRelevant = true"
+---
+name: step2_tobacco_counsel
+description: Tobacco cessation counseling
+priority: 1
+condition: "global_behaviour_persist.contains('tobacco_user') || global_tobacco_user.contains('yes') || global_tobacco_user.contains('recently_quit')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_shs_counsel
+description: Second-hand smoke counseling
+priority: 1
+condition: "global_behaviour_persist.contains('shs_exposure') || global_shs_exposure == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_condom_counsel
+description: Condom counseling
+priority: 1
+condition: "global_behaviour_persist.contains('condom_use') || global_condom_use == 'no'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_alcohol_substance_counsel
+description: Alcohol / substance use counseling
+priority: 1
+condition: "(!global_behaviour_persist.isEmpty()  && (global_behaviour_persist.contains('alcohol_use') || global_behaviour_persist.contains('substance_use'))) || (!global_alcohol_substance_use.contains('none') && !global_alcohol_substance_use.isEmpty())"
+actions:
+  - "isRelevant = true"
+---
+name: step3_nausea_counsel
+description: Non-pharma measures to relieve nausea and vomiting counseling
+priority: 1
+condition: "(global_phys_symptoms != null && !global_phys_symptoms.isEmpty() && global_phys_symptoms.contains('nausea_vomiting'))"
+actions:
+  - "isRelevant = true"
+---
+name: step3_nausea_not_relieved_counsel
+description: Pharmacological treatments for nausea and vomiting counseling
+priority: 1
+condition: "(global_phys_symptoms != null && !global_phys_symptoms.isEmpty() && global_phys_symptoms_persist.contains('nausea_vomiting'))"
+actions:
+  - "isRelevant = true"
+---
+name: step3_back_pelvic_pain_counsel
+description: Regular exercise, physiotherapy, support belts and acupuncture to relieve low back and pelvic pain counseling
+priority: 1
+condition: "((!global_phys_symptoms.isEmpty() && (global_phys_symptoms.contains('low_back_pain') || global_phys_symptoms.contains('pelvic_pain'))) || (!global_phys_symptoms_persist.isEmpty() && (global_phys_symptoms_persist.contains('low_back_pain') || global_phys_symptoms_persist.contains('pelvic_pain')))) && (!global_other_sym_lbpp.isEmpty() && global_other_sym_lbpp.contains('none'))"
+actions:
+  - "isRelevant = true"
+---
+name: step3_varicose_oedema_counsel
+description: Non-pharmacological options for varicose veins and oedema counseling
+priority: 1
+condition: "((!global_phys_symptoms.isEmpty() && (global_phys_symptoms.contains('varicose_veins') || global_phys_symptoms.contains('oedema'))) || (!global_phys_symptoms_persist.isEmpty() && (global_phys_symptoms_persist.contains('varicose_veins') || global_phys_symptoms_persist.contains('oedema')))) && (!global_other_sym_vvo.isEmpty() && global_other_sym_vvo.contains('none'))"
+actions:
+  - "isRelevant = true"
+---
+name: step3_heartburn_counsel
+description: Diet and lifestyle changes to prevent and relieve heartburn counseling
+priority: 1
+condition: "global_phys_symptoms.contains('heartburn')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_heartburn_not_relieved_counsel
+description: Antacid preparations to relieve heartburn counseling
+priority: 1
+condition: "global_phys_symptoms_persist.contains('heartburn')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_leg_cramp_counsel
+description: Non-pharmacological treatment for the relief of leg cramps counseling
+priority: 1
+condition: "global_phys_symptoms.contains('leg_cramps')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_leg_cramp_not_relieved_counsel
+description: Magnesium and calcium to relieve leg cramps counseling
+priority: 1
+condition: "global_phys_symptoms_persist.contains('leg_cramps')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_constipation_counsel
+description: Dietary modifications to relieve constipation counseling
+priority: 1
+condition: "global_phys_symptoms.contains('constipation')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_constipation_not_relieved_counsel
+description: Wheat bran or other fiber supplements to relieve constipation counseling
+priority: 1
+condition: "global_phys_symptoms_persist.contains('constipation')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_back_pelvic_pain_toaster
+description: warning
+priority: 1
+condition: "!global_other_sym_lbpp.isEmpty() && (global_other_sym_lbpp.contains('contractions') || global_other_sym_lbpp.contains('pelvic_pains'))"
+actions:
+  - "isRelevant = true"
+---
+name: step3_varicose_vein_toaster
+description: Warning
+priority: 1
+condition: "!global_other_sym_vvo.isEmpty() && (global_other_sym_vvo.contains('leg_pain') || global_other_sym_vvo.contains('leg_redness'))"
+actions:
+  - "isRelevant = true"
+---
+name: step4_increase_energy_counsel
+description: Increase daily energy and protein intake counseling
+priority: 1
+condition: "global_pop_undernourish == true && global_weight_cat == 'Underweight'"
+actions:
+  - "isRelevant = true"
+---
+name: step4_balanced_energy_counsel
+description: Balanced energy and protein dietary supplementation counseling
+priority: 1
+condition: "global_pop_undernourish == true && global_weight_cat == 'Underweight'"
+actions:
+  - "isRelevant = true"
+---
+name: step5_hypertension_counsel
+description: Hypertension counseling
+priority: 1
+condition: "global_hypertension == 1 || global_health_conditions.contains('hypertension')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_hiv_positive_counsel
+description: HIV positive counseling
+priority: 1
+condition: "global_hiv_positive == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_hepb_positive_counsel
+description: Hepatitis B positive counseling
+priority: 1
+condition: "global_hepb_positive == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_hepc_positive_counsel
+description: Hepatitis C positive counseling
+priority: 1
+condition: "global_hepc_positive == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_syphilis_low_prev_counsel
+description: Syphilis counselling and treatment
+priority: 1
+condition: "global_syphilis_positive == 1 && global_pop_syphilis == false"
+actions:
+  - "isRelevant = true"
+---
+name: step5_low_prev_allergy_toaster
+description: prep_toaster
+priority: 1
+condition: "(global_syphilis_positive == 1 && global_pop_syphilis == false) && !global_allergies.isEmpty() && !global_allergies.contains('none')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_syphilis_high_prev_counsel
+description: Syphilis counselling and treatment
+priority: 1
+condition: "global_syphilis_positive == 1 && global_pop_syphilis == true"
+actions:
+  - "isRelevant = true"
+---
+name: step5_high_prev_allergy_toaster
+description: prep_toaster
+priority: 1
+condition: "(global_syphilis_positive == 1 && global_pop_syphilis == true) && !global_allergies.isEmpty() && !global_allergies.contains('none')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_asb_positive_counsel
+description: Seven-day antibiotic regimen for asymptomatic bacteriuria (ASB)
+priority: 1
+condition: "global_asb_positive == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_diabetes_counsel
+description: Diabetes counseling
+priority: 1
+condition: "global_gdm == 1 || global_dm_in_preg == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_ifa_anaemia
+description: Prescribe daily dose of 120 mg iron and 2.8 mg folic acid
+priority: 1
+condition: "global_anaemic == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_tb_positive_counseling
+description: TB screening positive counseling
+priority: 1
+condition: "global_tb_screening_result == 'positive'"
+actions:
+  - "isRelevant = true"
+---
+name: step6_pe_risk_aspirin
+description: pe_risk_aspirin
+priority: 1
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 12) && global_preeclampsia_risk == 1 && global_pop_low_calcium == false"
+actions:
+  - "isRelevant = true"
+---
+name: step6_pe_risk_aspirin_calcium
+description: pe_risk_aspirin_calcium
+priority: 1
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 12) && global_preeclampsia_risk == 1 && global_pop_low_calcium == true"
+actions:
+  - "isRelevant = true"
+---
+name: step6_hiv_risk_counsel
+description: hiv_risk_counsel
+priority: 1
+condition: "global_hiv_risk == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step6_prep_toaster
+description: prep_toaster
+priority: 1
+condition: "global_partner_hiv_status == 'dont_know' && (global_hiv_test_partner_status == '' || global_hiv_test_partner_status == 'not_done') "
+actions:
+  - "isRelevant = true"
+---
+name: step6_hiv_prep
+description: hiv_prep
+priority: 1
+condition: "global_pop_hiv_incidence == true"
+actions:
+  - "isRelevant = true"
+---
+name: step6_gdm_risk_counsel
+description: gdm_risk_counsel
+priority: 1
+condition: "global_gdm_risk == 1 && global_gdm != 1 && global_dm_in_preg != 1"
+actions:
+  - "isRelevant = true"
+---
+name: step7_birth_plan_toaster
+description: birth_plan_toaster
+priority: 1
+condition: "(!global_other_symptoms.isEmpty() && global_other_symptoms.contains('vaginal_bleeding')) || (global_gravida != '' && global_gravida == 1) || (global_parity != '' && global_parity > 5) || (global_hiv_positive != '' && global_hiv_positive == 1) || (!global_prev_preg_comps.isEmpty() && (global_prev_preg_comps.contains('3rd_degree_tear') || global_prev_preg_comps.contains('heavy_bleeding') || global_prev_preg_comps.contains('vacuum_delivery') || global_prev_preg_comps.contains('vacuum') || global_prev_preg_comps.contains('convulsions'))) || global_fetal_presentation != '' && (global_fetal_presentation == 'transverse' || global_fetal_presentation == 'other') || (global_age != '' && global_age <= 17) || (global_c_sections != '' && global_c_sections > 0) || (global_no_of_fetuses != '' && global_no_of_fetuses > 1) || 'step7_family_planning_type' == 'iud' || 'step7_family_planning_type' == 'tubal_ligation'"
+actions:
+  - "isRelevant = true"
+---
+name: step7_rh_negative_counsel
+description: rh_negative_counsel
+priority: 1
+condition: "global_rh_factor == 'negative'"
+actions:
+  - "isRelevant = true"
+---
+name: step7_gbs_agent_counsel
+description: gbs_agent_counsel
+priority: 1
+condition: "global_urine_culture != '' && global_urine_culture == 'positive_gbs'"
+actions:
+  - "isRelevant = true"
+---
+name: step7_breastfeed_counsel
+description: breastfeed_counsel
+priority: 1
+condition: "global_gest_age_openmrs != '' && global_gest_age_openmrs >= 32"
+actions:
+  - "isRelevant = true"
+---
+name: step9_ifa_high_prev
+description: ifa_high_prev
+priority: 1
+condition: "global_pop_anaemia_40 == true && (global_anaemic == '' || global_anaemic == 0)"
+actions:
+  - "isRelevant = true"
+---
+name: step9_ifa_high_prev_toaster
+description: ifa_high_prev_toaster
+priority: 1
+condition: "global_pop_anaemia_40 == true && (global_anaemic == '' || global_anaemic == 0) && !global_allergies.isEmpty() && !global_allergies.contains('none')"
+actions:
+  - "isRelevant = true"
+---
+name: step9_ifa_low_prev
+description: ifa_low_prev
+priority: 1
+condition: "global_pop_anaemia_40 == false && (global_anaemic == '' || global_anaemic == 0)"
+actions:
+  - "isRelevant = true"
+---
+name: step9_ifa_low_prev_toaster
+description: ifa_low_prev_toaster
+priority: 1
+condition: "global_pop_anaemia_40 == false && (global_anaemic == '' || global_anaemic == 0) && !global_allergies.isEmpty() && !global_allergies.isEmpty('none')"
+actions:
+  - "isRelevant = true"
+---
+name: step9_ifa_weekly
+description: ifa_weekly
+priority: 1
+condition: "global_pop_anaemia_40 == false && (global_anaemic == '' || global_anaemic == 0) && global_pop_anaemia_20 == true && global_ifa_effects == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step10_deworm
+description: deworm
+priority: 1
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13 ) && (global_pop_anaemia_40 == true || global_pop_helminth == true) && (global_contact_no == 1 || (global_contact_no > 1 && global_previous_deworm == '')) "
+actions:
+  - "isRelevant = true"
+---
+name: step10_deworm_toaster
+description: deworm_toaster
+priority: 1
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13 ) && (global_pop_anaemia_40 == true || global_pop_helminth == true) && (global_contact_no == 1 || (global_contact_no > 1 && global_previous_deworm == '') && !global_allergies.isEmpty() && !global_allergies.contains('none')) "
+actions:
+  - "isRelevant = true"
+---
+name: step10_malaria_counsel
+description: malaria prevention counsel
+priority: 1
+condition: "global_pop_malaria == true"
+actions:
+  - "isRelevant = true"
+---
+name: step10_iptp_sp1
+description: iptsp
+priority: 1
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13) && (global_pop_malaria == true && (global_medications.isEmpty() || !global_medications.contains('cotrimoxazole'))) && (global_contact_no == 1 || (global_contact_no > 1 && (global_previous_iptp_sp1 == '' || global_previous_iptp_sp1 == 'not_done')))"
+actions:
+  - "isRelevant = true"
+---
+name: step10_iptp_sp2
+description: iptp_sp2
+priority: 1
+condition: "global_contact_no > 1 && (helper.compareDateWithDurationsAddedAgainstToday(helper.getDateToday(),'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(helper.getDateToday(),'4w') == -1) && (global_previous_iptp_sp2 == '' || global_previous_iptp_sp2 == 'not_done')"
+actions:
+  - "isRelevant = true"
+---
+name: step10_iptp_sp3
+description: iptp_sp3
+priority: 1
+condition: "global_contact_no > 1 && (helper.compareDateWithDurationsAddedAgainstToday(helper.getDateToday(),'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(helper.getDateToday(),'4w') == -1) && (global_previous_iptp_sp3 == '' || global_previous_iptp_sp3 == 'not_done')"
+actions:
+  - "isRelevant = true"
+---
+name: step10iptp_sp_toaster
+description: iptp_sp_toaster
+priority: 1
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13 ) && global_pop_malaria == true && !global_medications.isEmpty() && global_medications.contains('cotrimoxazole')"
+actions:
+  - "isRelevant = true"
+---
+name: step10_iptp_sp_notdone
+description: iptp_sp_notdone
+priority: 1
+condition: "(step8_iptp_sp1 == 'not_done' ||  step8_iptp_sp2 == 'not_done' || step8_iptp_sp3 == 'not_done')"
+actions:
+  - "isRelevant = true"
+---
+name: step11_tt1_date
+description: tt1_date
+priority: 1
+condition: "(global_tt_immun_status != '' && global_tt_immun_status != '3_doses') && (global_contact_no == 1 || (global_contact_no > 1 && (global_previous_tt1_date == '' || global_previous_tt1_date == 'not_done')))"
+actions:
+  - "isRelevant = true"
+---
+name: step11_tt2_date
+description: tt1_date
+priority: 1
+condition: "global_contact_no > 1 && (helper.compareDateWithDurationsAddedAgainstToday(global_previous_tt1_date_done,'28d') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_tt1_date_done,'28d') == -1) && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38) && (global_previous_tt2_date == '' || global_previous_tt2_date == 'not_done')"
+actions:
+  - "isRelevant = true"
+---
+name: step11_tt3_date
+description: tt1_date
+priority: 1
+condition: "global_contact_no > 1 && (helper.compareDateWithDurationsAddedAgainstToday(global_previous_tt2_date_done,'140d') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_tt2_date_done,'140d') == -1) && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38) && (global_previous_tt3_date == '' || global_previous_tt3_date == 'not_done')"
+actions:
+  - "isRelevant = true"
+---
+name: step11_tt1_date_done
+description: Date tt1 dose given
+priority: 1
+condition: "(step11_tt1_date != '') && (step11_tt1_date == 'done_earlier')"
+actions:
+  - "isRelevant = true"
+---
+name: step11_tt2_date_done
+description: Date tt2 dose given
+priority: 1
+condition: "(step11_tt2_date != '') && (step11_tt2_date == 'done_earlier')"
+actions:
+  - "isRelevant = true"
+---
+name: step11_tt3_date_done
+description: Date tt3 dose given
+priority: 1
+condition: "(step11_tt3_date != '') && (step11_tt3_date == 'done_earlier')"
+actions:
+  - "isRelevant = true"
+---
+name: step11_tt_dose_notdone
+description: tt_dose_notdone
+priority: 1
+condition: "step11_tt1_date == 'not_done' || step11_tt2_date == 'not_done'"
+actions:
+  - "isRelevant = true"
+---
+name: step11_flu_date
+description: flu_date
+priority: 1
+condition: "global_flu_immun_status != '' && global_flu_immun_status != 'seasonal_flu_dose_given'"
+actions:
+  - "isRelevant = true"
+---
+name: step11_woman_immunised_flu_toaster
+description: woman_immunised_flu_toaster
+priority: 1
+condition: "step11_flu_date == 'done_earlier' || step11_flu_date == 'done_today' "
+actions:
+  - "isRelevant = true"
+---
+name: step9_calcium_supp
+description: calcium_supp
+priority: 1
+condition: "global_pop_low_calcium == true "
+actions:
+  - "isRelevant = true"
+---
+name: step9_vita_supp
+description: vita_supp
+priority: 1
+condition: "global_pop_vita == true "
+actions:
+  - "isRelevant = true"
+---
+name: step11_flu_date_done
+description: flu_date_done
+priority: 1
+condition: "step11_flu_date != '' && step11_flu_date == 'done_earlier'"
+actions:
+  - "isRelevant = true"
+---
+name: step8_ipv_support
+description: ipv_support
+priority: 1
+condition: "global_ipv_subject == 'yes' "
+actions:
+  - "isRelevant = true"
+---
+name: step8_ipv_support_notdone
+description: ipv_support_notdone
+priority: 1
+condition: "step8_ipv_support == 'no' "
+actions:
+  - "isRelevant = true"
+---
+name: step8_ipv_care
+description: ipv_care
+priority: 1
+condition: "global_ipv_subject == 'yes' "
+actions:
+  - "isRelevant = true"
+---
+name: step8_phys_violence_worse
+description: ipv_care
+priority: 1
+condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care.contains('safety_assessment')"
+actions:
+  - "isRelevant = true"
+---
+name: step8_used_weapon
+description: ipv_care
+priority: 1
+condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care.contains('safety_assessment')"
+actions:
+  - "isRelevant = true"
+---
+name: step8_strangle
+description: ipv_care
+priority: 1
+condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care.contains('safety_assessment')"
+actions:
+  - "isRelevant = true"
+---
+name: step8_beaten
+description: ipv_care
+priority: 1
+condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care.contains('safety_assessment')"
+actions:
+  - "isRelevant = true"
+---
+name: step8_jealous
+description: ipv_care
+priority: 1
+condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care.contains('safety_assessment')"
+actions:
+  - "isRelevant = true"
+---
+name: step8_believe_kill
+description: ipv_care
+priority: 1
+condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care.contains('safety_assessment')"
+actions:
+  - "isRelevant = true"
+---
+name: step8_ipv_referrals
+description: ipv_care
+priority: 1
+condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care.contains('referred')"
+actions:
+  - "isRelevant = true"

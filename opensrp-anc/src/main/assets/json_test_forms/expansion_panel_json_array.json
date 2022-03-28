@@ -1,0 +1,112 @@
+{
+  "expansion_values": [
+    {
+      "key": "hepc_test_status",
+      "type": "extended_radio_button",
+      "label": "Hepatitis C test",
+      "index": 0,
+      "values": [
+        "done_today:Done today"
+      ],
+      "openmrs_attributes": {
+        "openmrs_entity_parent": "161474AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      },
+      "value_openmrs_attributes": [
+        {
+          "key": "hepc_test_status",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165383AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ]
+    },
+    {
+      "key": "hepc_test_date_today_hidden",
+      "type": "hidden",
+      "label": "",
+      "index": 4,
+      "values": [
+        "28-05-2019"
+      ],
+      "openmrs_attributes": {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": ""
+      }
+    },
+    {
+      "key": "hepc_test_date",
+      "type": "date_picker",
+      "label": "Hep C test date",
+      "index": 5,
+      "values": [
+        "28-05-2019"
+      ],
+      "openmrs_attributes": {
+        "openmrs_entity_parent": "161474AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "163724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      }
+    },
+    {
+      "key": "hepc_test_type",
+      "type": "native_radio",
+      "label": "Hep C test type",
+      "index": 6,
+      "values": [
+        "anti_hcv_rdt:Anti-HCV rapid diagnostic test (RDT)"
+      ],
+      "openmrs_attributes": {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165437AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      },
+      "value_openmrs_attributes": [
+        {
+          "key": "hepc_test_type",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165302AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ]
+    },
+    {
+      "key": "hcv_rdt",
+      "type": "native_radio",
+      "label": "Anti-HCV rapid diagnostic test (RDT)",
+      "index": 8,
+      "values": [
+        "positive:Positive"
+      ],
+      "openmrs_attributes": {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165302AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      },
+      "value_openmrs_attributes": [
+        {
+          "key": "hcv_rdt",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ]
+    },
+    {
+      "key": "hepc_positive",
+      "type": "hidden",
+      "label": "",
+      "index": 10,
+      "values": [
+        "1"
+      ],
+      "openmrs_attributes": {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "28AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      }
+    }
+  ]
+}

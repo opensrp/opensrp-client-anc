@@ -1,0 +1,97 @@
+{
+  "content_form": [
+    {
+      "key": "breast_exam_abnormal",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "159780AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "check_box",
+      "label": "{{breast_exam_sub_form.step1.breast_exam_abnormal.label}}",
+      "label_text_style": "bold",
+      "text_color": "#000000",
+      "options": [
+        {
+          "key": "nodule",
+          "text": "{{breast_exam_sub_form.step1.breast_exam_abnormal.options.nodule.text}}",
+          "value": false,
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "146931AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "165369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "discharge",
+          "text": "{{breast_exam_sub_form.step1.breast_exam_abnormal.options.discharge.text}}",
+          "value": false,
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "142248AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "165369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "flushing",
+          "text": "{{breast_exam_sub_form.step1.breast_exam_abnormal.options.flushing.text}}",
+          "value": false,
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "140039AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "165369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "local_pain",
+          "text": "{{breast_exam_sub_form.step1.breast_exam_abnormal.options.local_pain.text}}",
+          "value": false,
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "131021AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "165369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "bleeding",
+          "text": "{{breast_exam_sub_form.step1.breast_exam_abnormal.options.bleeding.text}}",
+          "value": false,
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "147236AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "165369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "increased_temperature",
+          "text": "{{breast_exam_sub_form.step1.breast_exam_abnormal.options.increased_temperature.text}}",
+          "value": false,
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "165369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "other",
+          "text": "{{breast_exam_sub_form.step1.breast_exam_abnormal.options.other.text}}",
+          "value": false,
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "159780AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ]
+    },
+    {
+      "key": "breast_exam_abnormal_other",
+      "openmrs_entity_parent": "159780AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "edit_text",
+      "hint": "{{breast_exam_sub_form.step1.breast_exam_abnormal_other.hint}}",
+      "v_regex": {
+        "value": "[A-Za-z\\s\\.\\-]*",
+        "err": "{{breast_exam_sub_form.step1.breast_exam_abnormal_other.v_regex.err}}"
+      },
+      "relevance": {
+        "step3:breast_exam_abnormal": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "other"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "count": 1,
+  "properties_file_name": "breast_exam_sub_form"
+}

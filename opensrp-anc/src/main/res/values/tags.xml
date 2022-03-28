@@ -1,0 +1,18 @@
+<resources>
+    <item name="VIEW_ID" type="id" />
+    <item name="Settings" type="id" />
+    <item name="CLIENT_ID" type="id" />
+    <item name="CLIENT" type="id" />
+    <item name="CHARACTERISTIC_DESC" type="id" />
+    <item name="GESTATION_AGE" type="id" />
+    <item name="NEXT_STATE" type="id" />
+
+    <item name="accordion_jsonObject" type="id" />
+    <item name="accordion_step_name" type="id"/>
+    <item name="accordion_listener" type="id"/>
+    <item name="accordion_context" type="id"/>
+    <item name="accordion_info_text" type="id"/>
+    <item name="accordion_info_title" type="id"/>
+    <item name="test_results" type="id"/>
+    <item name="task_object" type="id"/>
+</resources>

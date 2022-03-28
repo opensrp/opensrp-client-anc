@@ -1,0 +1,3 @@
+include ':reference-app', ':sample', ':opensrp-anc'
+//include ':android-json-form-wizard'
+//project(":android-json-form-wizard").projectDir = new File("../opensrp-client-native-form/android-json-form-wizard")

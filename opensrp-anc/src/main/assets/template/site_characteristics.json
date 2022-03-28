@@ -1,0 +1,26 @@
+{
+  "identifier": "site_characteristics",
+  "settings": [
+    {
+      "description": "\"Are all of the following in place at your facility: \r\n1. A protocol or standard operating procedure for Intimate Partner Violence (IPV); \r\n2. A health worker trained on how to ask about IPV and how to provide the minimum response or beyond;\r\n3. A private setting; \r\n4. A way to ensure confidentiality; \r\n5. Time to allow for appropriate disclosure; and\r\n6. A system for referral in place. \"",
+      "label": "Minimum requirements for IPV assessment",
+      "key": "site_ipv_assess"
+    },
+    {
+      "description": "Is the HIV prevalence consistently > 1% in pregnant women attending antenatal clinics at your facility?",
+      "label": "Generalized HIV epidemic",
+      "key": "site_anc_hiv"
+    },
+    {
+      "description": "Is an ultrasound machine available and functional at your facility and a trained health worker available to use it?",
+      "label": "Ultrasound available",
+      "key": "site_ultrasound"
+    },
+    {
+      "description": "Does your facility use an automated blood pressure (BP) measurement tool?",
+      "label": "Automated BP measurement tool",
+      "key": "site_bp_tool"
+    }
+  ],
+  "type": "SettingConfiguration"
+  }

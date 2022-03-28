@@ -1,0 +1,486 @@
+{
+  "content_form": [
+    {
+      "key": "ultrasound",
+      "openmrs_entity_parent": "159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "label": "{{tests_ultrasound_sub_form.step1.ultrasound.label}}",
+      "label_text_style": "bold",
+      "text_color": "#000000",
+      "type": "extended_radio_button",
+      "options": [
+        {
+          "key": "done_today",
+          "text": "{{tests_ultrasound_sub_form.step1.ultrasound.options.done_today.text}}",
+          "type": "done_today",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165383AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "done_earlier",
+          "text": "{{tests_ultrasound_sub_form.step1.ultrasound.options.done_earlier.text}}",
+          "type": "done_earlier",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165385AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "ordered",
+          "text": "{{tests_ultrasound_sub_form.step1.ultrasound.options.ordered.text}}",
+          "type": "ordered",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165384AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "not_done",
+          "text": "{{tests_ultrasound_sub_form.step1.ultrasound.options.not_done.text}}",
+          "type": "not_done",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ],
+      "v_required": {
+        "value": true
+      }
+    },
+    {
+      "key": "spacer",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "spacer",
+      "type": "spacer",
+      "spacer_height": "10dp"
+    },
+    {
+      "key": "ultrasound_notdone",
+      "openmrs_entity_parent": "159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "native_radio",
+      "label": "{{tests_ultrasound_sub_form.step1.ultrasound_notdone.label}}",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "delayed",
+          "text": "{{tests_ultrasound_sub_form.step1.ultrasound_notdone.options.delayed.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165295AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "not_available",
+          "text": "{{tests_ultrasound_sub_form.step1.ultrasound_notdone.options.not_available.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165386AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "other",
+          "text": "{{tests_ultrasound_sub_form.step1.ultrasound_notdone.options.other.text}}",
+          "openmrs_entity_parent": "159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ],
+      "v_required": {
+        "value": true,
+        "err": "{{tests_ultrasound_sub_form.step1.ultrasound_notdone.v_required.err}}"
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "ultrasound_notdone_other",
+      "openmrs_entity_parent": "159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "edit_text",
+      "hint": "{{tests_ultrasound_sub_form.step1.ultrasound_notdone_other.hint}}",
+      "edit_type": "edit_text",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+          }
+        }
+      },
+      "v_required": {
+        "value": false,
+        "err": "{{tests_ultrasound_sub_form.step1.ultrasound_notdone_other.v_required.err}}"
+      }
+    },
+    {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "ultrasound_date_today_hidden",
+      "type": "hidden",
+      "label_text_style": "bold",
+      "text_color": "#000000",
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "ultrasound_date",
+      "openmrs_entity_parent": "159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "163724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "date_picker",
+      "hint": "{{tests_ultrasound_sub_form.step1.ultrasound_date.hint}}",
+      "expanded": "false",
+      "max_date": "today",
+      "min_date": "today-9m",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+          }
+        }
+      },
+      "v_required": {
+        "value": true,
+        "err": "{{tests_ultrasound_sub_form.step1.ultrasound_date.v_required.err}}"
+      },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "ultrasound_info_toaster",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "toaster_notes",
+      "text": "{{tests_ultrasound_sub_form.step1.ultrasound_info_toaster.text}}",
+      "toaster_type": "info",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "ultrasound_done_early_toaster",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "toaster_notes",
+      "text": "{{tests_ultrasound_sub_form.step1.ultrasound_done_early_toaster.text}}",
+      "toaster_info_text": "{{tests_ultrasound_sub_form.step1.ultrasound_done_early_toaster.toaster_info_text}}",
+      "toaster_info_title": "{{tests_ultrasound_sub_form.step1.ultrasound_done_early_toaster.toaster_info_title}}",
+      "toaster_type": "positive",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "spacer",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "spacer",
+      "type": "spacer",
+      "spacer_height": "10dp"
+    },
+    {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "key": "no_of_fetuses_hidden",
+      "type": "hidden",
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "no_of_fetuses_label",
+      "type": "label",
+      "label_text_style": "bold",
+      "text": "{{tests_ultrasound_sub_form.step1.no_of_fetuses_label.text}}",
+      "text_color": "#000000",
+      "v_required": {
+        "value": true
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "no_of_fetuses",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165387AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "numbers_selector",
+      "label": "{{tests_ultrasound_sub_form.step1.no_of_fetuses.label}}",
+      "number_of_selectors": "5",
+      "start_number": "1",
+      "max_value": "15",
+      "text_size": "16px",
+      "text_color": "#000000",
+      "selected_text_color": "#ffffff",
+      "v_required": {
+        "value": true
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+          }
+        }
+      },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "key": "preeclampsia_risk",
+      "type": "hidden",
+      "label_text_style": "bold",
+      "text_color": "#FF0000",
+      "v_required": {
+        "value": false
+      },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "spacer",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "spacer",
+      "type": "spacer",
+      "spacer_height": "10dp"
+    },
+    {
+      "key": "pre_eclampsia_toaster",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "toaster_notes",
+      "text": "{{tests_ultrasound_sub_form.step1.pre_eclampsia_toaster.text}}",
+      "toaster_info_text": "{{tests_ultrasound_sub_form.step1.pre_eclampsia_toaster.toaster_info_text}}",
+      "toaster_info_title": "{{tests_ultrasound_sub_form.step1.pre_eclampsia_toaster.toaster_info_title}}",
+      "toaster_type": "warning",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "spacer",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "spacer",
+      "type": "spacer",
+      "spacer_height": "10dp"
+    },
+    {
+      "key": "fetal_presentation",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "160090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "native_radio",
+      "label": "{{tests_ultrasound_sub_form.step1.fetal_presentation.label}}",
+      "label_text_style": "bold",
+      "label_info_text": "{{tests_ultrasound_sub_form.step1.fetal_presentation.label_info_text}}",
+      "options": [
+        {
+          "key": "cephalic",
+          "text": "{{tests_ultrasound_sub_form.step1.fetal_presentation.options.cephalic.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "160091AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "pelvic",
+          "text": "{{tests_ultrasound_sub_form.step1.fetal_presentation.options.pelvic.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "146922AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "transverse",
+          "text": "{{tests_ultrasound_sub_form.step1.fetal_presentation.options.transverse.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "112259AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "other",
+          "text": "{{tests_ultrasound_sub_form.step1.fetal_presentation.options.other.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ],
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+          }
+        }
+      },
+      "calculation": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "amniotic_fluid",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165388AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "native_radio",
+      "label": "{{tests_ultrasound_sub_form.step1.amniotic_fluid.label}}",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "normal",
+          "text": "{{tests_ultrasound_sub_form.step1.amniotic_fluid.options.normal.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "reduced",
+          "text": "{{tests_ultrasound_sub_form.step1.amniotic_fluid.options.reduced.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "162648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "increased",
+          "text": "{{tests_ultrasound_sub_form.step1.amniotic_fluid.options.increased.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "164471AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ],
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "placenta_location",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165296AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "native_radio",
+      "label": "{{tests_ultrasound_sub_form.step1.placenta_location.label}}",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "praevia",
+          "text": "{{tests_ultrasound_sub_form.step1.placenta_location.options.praevia.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "114127AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "low",
+          "text": "{{tests_ultrasound_sub_form.step1.placenta_location.options.low.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165297AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "anterior",
+          "text": "{{tests_ultrasound_sub_form.step1.placenta_location.options.anterior.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "540AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "posterior",
+          "text": "{{tests_ultrasound_sub_form.step1.placenta_location.options.posterior.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "right_side",
+          "text": "{{tests_ultrasound_sub_form.step1.placenta_location.options.right_side.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "5141AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "left_side",
+          "text": "{{tests_ultrasound_sub_form.step1.placenta_location.options.left_side.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "5139AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "fundal",
+          "text": "{{tests_ultrasound_sub_form.step1.placenta_location.options.fundal.text}}",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165298AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ],
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+          }
+        }
+      }
+    }
+  ],
+  "count": 1,
+  "properties_file_name": "tests_ultrasound_sub_form"
+}

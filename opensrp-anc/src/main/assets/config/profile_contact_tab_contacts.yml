@@ -1,0 +1,8 @@
+---
+properties_file_name: "profile_contact_tab_contacts"
+fields:
+-   template: "{{profile_contact_tab_contacts.physiological_symptoms}}: {phys_symptoms}"
+    relevance: "phys_symptoms != ''"
+
+-   template: "{{profile_contact_tab_contacts.average_weight_gain_per_week_since_last_contact}}: {weight_gain} kg"
+    relevance: "weight_gain != ''"

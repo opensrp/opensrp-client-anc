@@ -1,0 +1,1071 @@
+---
+name: step1_hiv_test_date
+description: Date that the ultrasound was done.
+priority: 1
+condition: "step1_hiv_test_status != '' && step1_hiv_test_status == 'done_earlier' "
+actions:
+- "isRelevant = true"
+---
+name: step2_hiv_test_date
+description: Date that the ultrasound was done.
+priority: 1
+condition: "step2_hiv_test_status != '' && step2_hiv_test_status == 'done_earlier' "
+actions:
+- "isRelevant = true"
+---
+name: step1_hiv_test_notdone
+description: HIV not done
+priority: 1
+condition: "step1_hiv_test_status != '' && step1_hiv_test_status == 'not_done' "
+actions:
+- "isRelevant = true"
+---
+name: step2_hiv_test_notdone
+description: HIV not done.
+priority: 1
+condition: "step2_hiv_test_status != '' && step2_hiv_test_status == 'not_done' "
+actions:
+- "isRelevant = true"
+---
+name: step1_hiv_test_notdone_other
+description: Reason
+priority: 1
+condition: "!step1_hiv_test_notdone.isEmpty() && step1_hiv_test_notdone.contains('other')"
+actions:
+- "isRelevant = true"
+---
+name: step2_hiv_test_notdone_other
+description: Reason
+priority: 1
+condition: "!step2_hiv_test_notdone.isEmpty() && step2_hiv_test_notdone.contains('other')"
+actions:
+- "isRelevant = true"
+---
+name: step1_hiv_inconclusive_toaster
+description: HIV test resupt
+priority: 1
+condition: "step1_hiv_test_result != '' && step1_hiv_test_result == 'inconclusive'"
+actions:
+- "isRelevant = true"
+---
+name: step2_hiv_inconclusive_toaster
+description: HIV test resupt
+priority: 1
+condition: "step2_hiv_test_result != '' && step2_hiv_test_result == 'inconclusive'"
+actions:
+- "isRelevant = true"
+---
+name: step1_hiv_test_result
+description: HIV test result
+priority: 1
+condition: "step1_hiv_test_status != '' && (step1_hiv_test_status == 'done_today' || step1_hiv_test_status == 'done_earlier') "
+actions:
+- "isRelevant = true"
+---
+name: step2_hiv_test_result
+description: HIV test result
+priority: 1
+condition: "step2_hiv_test_status != '' && (step2_hiv_test_status == 'done_today' || step2_hiv_test_status == 'done_earlier') "
+actions:
+- "isRelevant = true"
+---
+name: step1_hiv_positive_toaster
+description: HIV positive counseling
+priority: 1
+condition: "(step1_hiv_positive == 1)"
+actions:
+- "isRelevant = true"
+---
+name: step2_hiv_positive_toaster
+description: HIV positive counseling
+priority: 1
+condition: "(step2_hiv_positive == 1)"
+actions:
+- "isRelevant = true"
+---
+name: step2_hiv_test_partner_date
+description: Partner HIV test date
+priority: 1
+condition: "(step2_hiv_test_partner_status != '' && step2_hiv_test_partner_status == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step2_hiv_test_partner_result
+description:  partner HIV result
+priority: 1
+condition: "step2_hiv_test_partner_status != '' && (step2_hiv_test_partner_status == 'done_today'  || step2_hiv_test_partner_status == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step2_hiv_risk_toaster
+description: hiv_risk_toaster
+priority: 1
+condition: "step2_hiv_risk == 1"
+actions:
+- "isRelevant = true"
+---
+name: step1_hepb_test_notdone
+description: Reason
+priority: 1
+condition: "step1_hepb_test_status == 'not_done'"
+actions:
+- "isRelevant = true"
+---
+name: step2_hepb_test_notdone
+description: Reason
+priority: 1
+condition: "step2_hepb_test_status == 'not_done'"
+actions:
+- "isRelevant = true"
+---
+name: step1_hepb_test_notdone_other
+description: Reason
+priority: 1
+condition: "!step1_hepb_test_notdone.isEmpty() && step1_hepb_test_notdone.contains('other')"
+actions:
+- "isRelevant = true"
+---
+name: step2_hepb_test_notdone_other
+description: Reason
+priority: 1
+condition: "!step2_hepb_test_notdone.isEmpty() && step2_hepb_test_notdone.contains('other')"
+actions:
+- "isRelevant = true"
+---
+name: step1_hepb_test_date
+description: Hep B test date
+priority: 1
+condition: "(step1_hepb_test_status == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step2_hepb_test_date
+description: Hep B test date
+priority: 1
+condition: "(step2_hepb_test_status == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step1_hepb_test_type
+description: Hep B test type
+priority: 1
+condition: "(step1_hepb_test_status == 'done_today' || step1_hepb_test_status == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step2_hepb_test_type
+description: Hep B test type
+priority: 1
+condition: "(step2_hepb_test_status == 'done_today' || step2_hepb_test_status == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step1_hbsag_lab_ima
+description: HBsAg laboratory-based immunoassay (recommended)
+priority: 1
+condition: "(step1_hepb_test_type == 'hbsag_lab_based' && step1_hepb_test_status == 'done_today') || (step1_hepb_test_type == 'hbsag_lab_based' && step1_hepb_test_status == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step2_hbsag_lab_ima
+description: HBsAg laboratory-based immunoassay (recommended)
+priority: 1
+condition: "(step2_hepb_test_type == 'hbsag_lab_based' && step2_hepb_test_status == 'done_today') || (step2_hepb_test_type == 'hbsag_lab_based' && step2_hepb_test_status == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step1_hbsag_rdt
+description: HBsAg rapid diagnostic test (RDT)
+priority: 1
+condition: "(step1_hepb_test_type == 'hbsag_rdt' && step1_hepb_test_status == 'done_today')  || (step1_hepb_test_type == 'hbsag_rdt' && step1_hepb_test_status == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step2_hbsag_rdt
+description: HBsAg rapid diagnostic test (RDT)
+priority: 1
+condition: "(step2_hepb_test_type == 'hbsag_rdt' && step2_hepb_test_status == 'done_today')  || (step2_hepb_test_type == 'hbsag_rdt' && step2_hepb_test_status == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step1_hbsag_dbs
+description: Dried Blood Spot (DBS) HBsAg test
+priority: 1
+condition: "(step1_hepb_test_type == 'hbsag_dbs' && step1_hepb_test_status == 'done_today') || (step1_hepb_test_type == 'hbsag_dbs' && step1_hepb_test_status == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step2_hbsag_dbs
+description: Dried Blood Spot (DBS) HBsAg test
+priority: 1
+condition: "(step2_hepb_test_type == 'hbsag_dbs' && step2_hepb_test_status == 'done_today') || (step2_hepb_test_type == 'hbsag_dbs' && step2_hepb_test_status == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step1_hepatitis_b_danger_toaster
+description: Hep B positive diagnosis!
+priority: 1
+condition: "step1_hepb_positive == 1"
+actions:
+- "isRelevant = true"
+---
+name: step2_hepatitis_b_danger_toaster
+description: Hep B positive diagnosis!
+priority: 1
+condition: "step2_hepb_positive == 1"
+actions:
+- "isRelevant = true"
+---
+name: step1_hepatitis_b_info_toaster
+description: Hep B vaccination required
+priority: 1
+condition: "step1_hepb_positive == 0"
+actions:
+- "isRelevant = true"
+---
+name: step2_hepatitis_b_info_toaster
+description: Hep B vaccination required
+priority: 1
+condition: "step2_hepb_positive == 0"
+actions:
+- "isRelevant = true"
+---
+name: step1_hepc_test_notdone
+description: Reason
+priority: 1
+condition: "step1_hepc_test_status == 'not_done'"
+actions:
+- "isRelevant = true"
+---
+name: step2_hepc_test_notdone
+description: Reason
+priority: 1
+condition: "step2_hepc_test_status == 'not_done'"
+actions:
+- "isRelevant = true"
+---
+name: step1_hepc_test_date
+description: Hep C test date
+priority: 1
+condition: "(step1_hepc_test_status == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step2_hepc_test_date
+description: Hep C test date
+priority: 1
+condition: "(step2_hepc_test_status == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step1_hepc_test_type
+description: Hep C test type
+priority: 1
+condition: "(step1_hepc_test_status == 'done_today' || step1_hepc_test_status == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step2_hepc_test_type
+description: Hep C test type
+priority: 1
+condition: "(step2_hepc_test_status == 'done_today' || step2_hepc_test_status == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step1_hcv_lab_ima
+description: Anti-HCV laboratory-based immunoassay (recommended)
+priority: 1
+condition: "(step1_hepc_test_type == 'anti_hcv_lab_based' && step1_hepc_test_status == 'done_today') || (step1_hepc_test_type == 'anti_hcv_lab_based' && step1_hepc_test_status == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step2_hcv_lab_ima
+description: Anti-HCV laboratory-based immunoassay (recommended)
+priority: 1
+condition: "(step2_hepc_test_type == 'anti_hcv_lab_based' && step2_hepc_test_status == 'done_today') || (step2_hepc_test_type == 'anti_hcv_lab_based' && step2_hepc_test_status == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step1_hcv_rdt
+description: Anti-HCV rapid diagnostic test (RDT)
+priority: 1
+condition: "(step1_hepc_test_type == 'anti_hcv_rdt' && step1_hepc_test_status == 'done_today')  || (step1_hepc_test_type == 'anti_hcv_rdt' && step1_hepc_test_status == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step2_hcv_rdt
+description: Anti-HCV rapid diagnostic test (RDT)
+priority: 1
+condition: "(step2_hepc_test_type == 'anti_hcv_rdt' && step2_hepc_test_status == 'done_today')  || (step2_hepc_test_type == 'anti_hcv_rdt' && step2_hepc_test_status == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step1_hcv_dbs
+description: Dried Blood Spot (DBS) anti-HCV test
+priority: 1
+condition: "(step1_hepc_test_type == 'anti_hcv_dbs' && step1_hepc_test_status == 'done_today') || (step1_hepc_test_type == 'anti_hcv_dbs' && step1_hepc_test_status == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step2_hcv_dbs
+description: Dried Blood Spot (DBS) anti-HCV test
+priority: 1
+condition: "(step2_hepc_test_type == 'anti_hcv_dbs' && step2_hepc_test_status == 'done_today') || (step2_hepc_test_type == 'anti_hcv_dbs' && step2_hepc_test_status == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step1_hepc_test_notdone_other
+description: Reason
+priority: 1
+condition: "!step1_hepc_test_notdone.isEmpty() && step1_hepc_test_notdone.contains('other')"
+actions:
+- "isRelevant = true"
+---
+name: step2_hepc_test_notdone_other
+description: Reason
+priority: 1
+condition: "!step1_hepc_test_notdone.isEmpty() && step1_hepc_test_notdone.contains('other')"
+actions:
+- "isRelevant = true"
+---
+name: step1_hepatitis_c_danger_toaster
+description: Counselling and referral required.
+priority: 1
+condition: "step1_hepc_positive == 1"
+actions:
+- "isRelevant = true"
+---
+name: step2_hepatitis_c_danger_toaster
+description: Counselling and referral required.
+priority: 1
+condition: "step2_hepc_positive == 1"
+actions:
+- "isRelevant = true"
+---
+name: step1_syphilis_greater_5_toaster
+description: syphilis_greater_5_toaster
+priority: 1
+condition: "global_pop_syphilis == true && global_pop_syphilis != ''"
+actions:
+- "isRelevant = true"
+---
+name: step2_syphilis_greater_5_toaster
+description: syphilis_greater_5_toaster
+priority: 1
+condition: "global_pop_syphilis == true && global_pop_syphilis != ''"
+actions:
+- "isRelevant = true"
+---
+name: step1_syphilis_below_5_toaster
+description: syphilis_below_5_toaster
+priority: 1
+condition: "global_pop_syphilis == false && global_pop_syphilis != ''"
+actions:
+- "isRelevant = true"
+---
+name: step2_syphilis_below_5_toaster
+description: syphilis_below_5_toaster
+priority: 1
+condition: "global_pop_syphilis == false && global_pop_syphilis != ''"
+actions:
+- "isRelevant = true"
+---
+name: step1_syph_test_notdone
+description: Reason
+priority: 1
+condition: "step1_syph_test_status == 'not_done'"
+actions:
+- "isRelevant = true"
+---
+name: step2_syph_test_notdone
+description: Reason
+priority: 1
+condition: "step2_syph_test_status == 'not_done'"
+actions:
+- "isRelevant = true"
+---
+name: step1_syph_test_notdone_other
+description: Specify
+priority: 1
+condition: "step1_syph_test_notdone.contains('other')"
+actions:
+- "isRelevant = true"
+---
+name: step2_syph_test_notdone_other
+description: Specify
+priority: 1
+condition: "step2_syph_test_notdone.contains('other')"
+actions:
+- "isRelevant = true"
+---
+name: step1_syphilis_test_date
+description: Syphilis test date
+priority: 1
+condition: "step1_syph_test_status == 'done_earlier'"
+actions:
+- "isRelevant = true"
+---
+name: step2_syphilis_test_date
+description: Syphilis test date
+priority: 1
+condition: "step2_syph_test_status == 'done_earlier'"
+actions:
+- "isRelevant = true"
+---
+name: step1_syph_test_type
+description: Syphilis test type
+priority: 1
+condition: "step1_syph_test_status == 'done_today' || step1_syph_test_status == 'done_earlier'"
+actions:
+- "isRelevant = true"
+---
+name: step2_syph_test_type
+description: Syphilis test type
+priority: 1
+condition: "step2_syph_test_status == 'done_today' || step2_syph_test_status == 'done_earlier'"
+actions:
+- "isRelevant = true"
+---
+name: step1_rapid_syphilis_test
+description: Rapid syphilis test (RST)
+priority: 1
+condition: "((step1_syph_test_status == 'done_today' || step1_syph_test_status == 'done_earlier') && step1_syph_test_type == 'rapid_syphilis')"
+actions:
+- "isRelevant = true"
+---
+name: step2_rapid_syphilis_test
+description: Rapid syphilis test (RST)
+priority: 1
+condition: "((step2_syph_test_status == 'done_today' || step2_syph_test_status == 'done_earlier') && step2_syph_test_type == 'rapid_syphilis')"
+actions:
+- "isRelevant = true"
+---
+name: step1_rpr_syphilis_test
+description: Rapid plasma reagin (RPR) test
+priority: 1
+condition: "((step1_syph_test_status == 'done_today' || step1_syph_test_status == 'done_earlier') && step1_syph_test_type == 'rapid_plasma')"
+actions:
+- "isRelevant = true"
+---
+name: step2_rpr_syphilis_test
+description: Rapid plasma reagin (RPR) test
+priority: 1
+condition: "((step2_syph_test_status == 'done_today' || step2_syph_test_status == 'done_earlier') && step2_syph_test_type == 'rapid_plasma')"
+actions:
+- "isRelevant = true"
+---
+name: step1_lab_syphilis_test
+description: Off-site lab test for syphilis
+priority: 1
+condition: "((step1_syph_test_status == 'done_today' || step1_syph_test_status == 'done_earlier') && step1_syph_test_type == 'off_site_lab')"
+actions:
+- "isRelevant = true"
+---
+name: step2_lab_syphilis_test
+description: Off-site lab test for syphilis
+priority: 1
+condition: "((step2_syph_test_status == 'done_today' || step2_syph_test_status == 'done_earlier') && step2_syph_test_type == 'off_site_lab')"
+actions:
+- "isRelevant = true"
+---
+name: step1_syphilis_danger_toaster
+description: Syphilis test positive
+priority: 1
+condition: "step1_syphilis_positive == 1"
+actions:
+- "isRelevant = true"
+---
+name: step2_syphilis_danger_toaster
+description: Syphilis test positive
+priority: 1
+condition: "step2_syphilis_positive == 1"
+actions:
+- "isRelevant = true"
+---
+name: step1_urine_test_notdone
+description: Reason
+priority: 1
+condition: "step1_urine_test_status == 'not_done'"
+actions:
+- "isRelevant = true"
+---
+name: step2_urine_test_notdone
+description: Reason
+priority: 1
+condition: "step2_urine_test_status == 'not_done'"
+actions:
+- "isRelevant = true"
+---
+name: step1_urine_test_notdone_other
+description: Specify
+priority: 1
+condition: "step1_urine_test_notdone.contains('other')"
+actions:
+- "isRelevant = true"
+---
+name: step2_urine_test_notdone_other
+description: Specify
+priority: 1
+condition: "step2_urine_test_notdone.contains('other')"
+actions:
+- "isRelevant = true"
+---
+name: step1_urine_test_date
+description: Urine test date
+priority: 1
+condition: "step1_urine_test_status == 'done_earlier'"
+actions:
+- "isRelevant = true"
+---
+name: step2_urine_test_date
+description: Urine test date
+priority: 1
+condition: "step2_urine_test_status == 'done_earlier'"
+actions:
+- "isRelevant = true"
+---
+name: step1_urine_test_type
+description: Urine test type
+priority: 1
+condition: "step1_urine_test_status == 'done_today' || step1_urine_test_status == 'done_earlier' || step1_urine_test_status == 'ordered'"
+actions:
+- "isRelevant = true"
+---
+name: step2_urine_test_type
+description: Urine test type
+priority: 1
+condition: "step2_urine_test_status == 'done_today' || step2_urine_test_status == 'done_earlier' || step2_urine_test_status == 'ordered'"
+actions:
+- "isRelevant = true"
+---
+name: step1_urine_culture
+description: Midstream urine culture (recommended)
+priority: 1
+condition: "(step1_urine_test_status == 'done_today' || step1_urine_test_status == 'done_earlier') && step1_urine_test_type.contains('midstream_urine_culture')"
+actions:
+- "isRelevant = true"
+---
+name: step2_urine_culture
+description: Midstream urine culture (recommended)
+priority: 1
+condition: "(step2_urine_test_status == 'done_today' || step2_urine_test_status == 'done_earlier') && step2_urine_test_type.contains('midstream_urine_culture')"
+actions:
+- "isRelevant = true"
+---
+name: step1_urine_gram_stain
+description: Midstream urine Gram-staining
+priority: 1
+condition: "(step1_urine_test_status == 'done_today' || step1_urine_test_status == 'done_earlier') && step1_urine_test_type.contains('midstream_urine_gram')"
+actions:
+- "isRelevant = true"
+---
+name: step2_urine_gram_stain
+description: Midstream urine Gram-staining
+priority: 1
+condition: "(step2_urine_test_status == 'done_today' || step2_urine_test_status == 'done_earlier') && step2_urine_test_type.contains('midstream_urine_gram')"
+actions:
+- "isRelevant = true"
+---
+name: step1_urine_nitrites
+description: Urine dipstick result - nitrites
+priority: 1
+condition: "(step1_urine_test_status == 'done_today' || step1_urine_test_status == 'done_earlier') && step1_urine_test_type.contains('urine_dipstick')"
+actions:
+- "isRelevant = true"
+---
+name: step2_urine_nitrites
+description: Urine dipstick result - nitrites
+priority: 1
+condition: "(step2_urine_test_status == 'done_today' || step2_urine_test_status == 'done_earlier') && step2_urine_test_type.contains('urine_dipstick')"
+actions:
+- "isRelevant = true"
+---
+name: step1_urine_leukocytes
+description: Urine dipstick result - leukocytes
+priority: 1
+condition: "(step1_urine_test_status == 'done_today' || step1_urine_test_status == 'done_earlier') && step1_urine_test_type.contains('urine_dipstick')"
+actions:
+- "isRelevant = true"
+---
+name: step2_urine_leukocytes
+description: Urine dipstick result - leukocytes
+priority: 1
+condition: "(step2_urine_test_status == 'done_today' || step2_urine_test_status == 'done_earlier') && step2_urine_test_type.contains('urine_dipstick')"
+actions:
+- "isRelevant = true"
+---
+name: step1_urine_protein
+description: Urine dipstick result - protein
+priority: 1
+condition: "(step1_urine_test_status == 'done_today' || step1_urine_test_status == 'done_earlier') && step1_urine_test_type.contains('urine_dipstick')"
+actions:
+- "isRelevant = true"
+---
+name: step2_urine_protein
+description: Urine dipstick result - protein
+priority: 1
+condition: "(step2_urine_test_status == 'done_today' || step2_urine_test_status == 'done_earlier') && step2_urine_test_type.contains('urine_dipstick')"
+actions:
+- "isRelevant = true"
+---
+name: step1_urine_glucose
+description: Urine dipstick result - glucose
+priority: 1
+condition: "(step1_urine_test_status == 'done_today' || step1_urine_test_status == 'done_earlier') && step1_urine_test_type.contains('urine_dipstick')"
+actions:
+- "isRelevant = true"
+---
+name: step2_urine_glucose
+description: Urine dipstick result - glucose
+priority: 1
+condition: "(step2_urine_test_status == 'done_today' || step2_urine_test_status == 'done_earlier') && step2_urine_test_type.contains('urine_dipstick')"
+actions:
+- "isRelevant = true"
+---
+name: step1_gdm_risk_toaster
+description: Gestational diabetes mellitus (GDM) risk counseling
+priority: 1
+condition: "step1_gdm_risk == 1 && helper.getValueFromAccordion('accordion_blood_glucose', 'step2_gdm') != '1' && helper.getValueFromAccordion('accordion_blood_glucose', 'step2_dm_in_preg')  != '1'"
+actions:
+- "isRelevant = true"
+---
+name: step2_gdm_risk_toaster
+description: Gestational diabetes mellitus (GDM) risk counseling
+priority: 1
+condition: "step2_gdm_risk == 1 && helper.getValueFromAccordion('accordion_blood_glucose', 'step2_gdm') != '1' && helper.getValueFromAccordion('accordion_blood_glucose', 'step2_dm_in_preg')  != '1'"
+actions:
+- "isRelevant = true"
+---
+name: step1_asb_positive_toaster
+description: asb_positive_toaster
+priority: 1
+condition: "step1_asb_positive == 1"
+actions:
+- "isRelevant = true"
+---
+name: step2_asb_positive_toaster
+description: asb_positive_toaster
+priority: 1
+condition: "step2_asb_positive == 1"
+actions:
+- "isRelevant = true"
+---
+name: step1_gbs_agent_note
+description: gbs_agent_note
+priority: 1
+condition: "step1_urine_culture == 'positive_gbs'"
+actions:
+- "isRelevant = true"
+---
+name: step2_gbs_agent_note
+description: gbs_agent_note
+priority: 1
+condition: "step2_urine_culture == 'positive_gbs'"
+actions:
+- "isRelevant = true"
+---
+name: step2_glucose_test_date
+description: Blood glucose test date.
+priority: 1
+condition: "step2_glucose_test_status == 'done_earlier'"
+actions:
+- "isRelevant = true"
+---
+name: step2_glucose_test_type
+description: Blood glucose test.
+priority: 1
+condition: "step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier' || step2_glucose_test_status == 'ordered'"
+actions:
+- "isRelevant = true"
+---
+name: step2_fasting_plasma_gluc
+description: Fasting plasma glucose results (mg/dl)
+priority: 1
+condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'fasting_plasma'"
+actions:
+- "isRelevant = true"
+---
+name: step2_ogtt_fasting
+description: 75g OGTT - fasting glucose results (mg/dl)
+priority: 1
+condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'ogtt_75'"
+actions:
+- "isRelevant = true"
+---
+name: step2_ogtt_1
+description: 75g OGTT - 1 hr results (mg/dl)
+priority: 1
+condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'ogtt_75'"
+actions:
+- "isRelevant = true"
+---
+name: step2_ogtt_2
+description: 75g OGTT - 2 hrs results (mg/dl)
+priority: 1
+condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'ogtt_75'"
+actions:
+- "isRelevant = true"
+---
+name: step2_random_plasma
+description: Random plasma glucose results (mg/dl)
+priority: 1
+condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'random_plasma'"
+actions:
+- "isRelevant = true"
+---
+name: step2_gestational_diabetes_danger_toaster
+description: gestational_diabetes_danger_toaster
+priority: 1
+condition: "step2_gdm == 1"
+actions:
+- "isRelevant = true"
+---
+name: step2_diabetes_mellitus_danger_toaster
+description: diabetes_mellitus_danger_toaster
+priority: 1
+condition: "step2_dm_in_preg == 1"
+actions:
+- "isRelevant = true"
+---
+name: step2_dietary_intervention_danger_toaster
+description: dietary_intervention_danger_toaster
+priority: 1
+condition: "step2_gdm == 1 || step2_dm_in_preg == 1"
+actions:
+- "isRelevant = true"
+---
+name: step1_hb_test_notdone
+description: hb_test_notdone
+priority: 1
+condition: "step1_hb_test_status == 'not_done'"
+actions:
+- "isRelevant = true"
+---
+name: step2_hb_test_notdone
+description: hb_test_notdone
+priority: 1
+condition: "step2_hb_test_status == 'not_done'"
+actions:
+- "isRelevant = true"
+---
+name: step1_hb_test_notdone_other
+description: hb_test_notdone_other
+priority: 1
+condition: "step1_hb_test_notdone.contains('other')"
+actions:
+- "isRelevant = true"
+---
+name: step2_hb_test_notdone_other
+description: hb_test_notdone_other
+priority: 1
+condition: "step2_hb_test_notdone.contains('other')"
+actions:
+- "isRelevant = true"
+---
+name: step1_hb_test_date
+description: hb_test_date
+priority: 1
+condition: "step1_hb_test_status == 'done_earlier'"
+actions:
+- "isRelevant = true"
+---
+name: step2_hb_test_date
+description: hb_test_date
+priority: 1
+condition: "step2_hb_test_status == 'done_earlier'"
+actions:
+- "isRelevant = true"
+---
+name: step1_hb_test_type
+description: hb_test_type
+priority: 1
+condition: "step1_hb_test_status == 'done_today' || step1_hb_test_status == 'done_earlier' || step1_hb_test_status == 'ordered'"
+actions:
+- "isRelevant = true"
+---
+name: step2_hb_test_type
+description: hb_test_type
+priority: 1
+condition: "step2_hb_test_status == 'done_today' || step2_hb_test_status == 'done_earlier' || step2_hb_test_status == 'ordered'"
+actions:
+- "isRelevant = true"
+---
+name: step1_cbc
+description: cbc
+priority: 1
+condition: "(step1_hb_test_status == 'done_today' || step1_hb_test_status == 'done_earlier') && step1_hb_test_type == 'complete_blood_count'"
+actions:
+- "isRelevant = true"
+---
+name: step2_cbc
+description: cbc
+priority: 1
+condition: "(step2_hb_test_status == 'done_today' || step2_hb_test_status == 'done_earlier') && step2_hb_test_type == 'complete_blood_count'"
+actions:
+- "isRelevant = true"
+---
+name: step1_hb_gmeter
+description: hb_gmeter
+priority: 1
+condition: "(step1_hb_test_status == 'done_today' || step1_hb_test_status == 'done_earlier') && step1_hb_test_type == 'hb_test_haemoglobinometer'"
+actions:
+- "isRelevant = true"
+---
+name: step2_hb_gmeter
+description: hb_gmeter
+priority: 1
+condition: "(step2_hb_test_status == 'done_today' || step2_hb_test_status == 'done_earlier') && step2_hb_test_type == 'hb_test_haemoglobinometer'"
+actions:
+- "isRelevant = true"
+---
+name: step1_hb_colour
+description: hb_test_type
+priority: 1
+condition: "(step1_hb_test_status == 'done_today' || step1_hb_test_status == 'done_earlier') && step1_hb_test_type == 'hb_test_colour_scale'"
+actions:
+- "isRelevant = true"
+---
+name: step2_hb_colour
+description: hb_test_type
+priority: 1
+condition: "(step2_hb_test_status == 'done_today' || step2_hb_test_status == 'done_earlier') && step2_hb_test_type == 'hb_test_colour_scale'"
+actions:
+- "isRelevant = true"
+---
+name: step1_anaemia_diagnosis_danger_toaster
+description: anaemia_diagnosis_danger_toaster
+priority: 1
+condition: "step1_anaemic == 1"
+actions:
+- "isRelevant = true"
+---
+name: step2_anaemia_diagnosis_danger_toaster
+description: anaemia_diagnosis_danger_toaster
+priority: 1
+condition: "step2_anaemic == 1"
+actions:
+- "isRelevant = true"
+---
+name: step1_ht
+description: ht
+priority: 1
+condition: "(step1_hb_test_status == 'done_today' || step1_hb_test_status == 'done_earlier') && step1_hb_test_type == 'complete_blood_count'"
+actions:
+- "isRelevant = true"
+---
+name: step2_ht
+description: ht
+priority: 1
+condition: "(step2_hb_test_status == 'done_today' || step2_hb_test_status == 'done_earlier') && step2_hb_test_type == 'complete_blood_count'"
+actions:
+- "isRelevant = true"
+---
+name: step1_hematocrit_danger_toaster
+description: hematocrit_danger_toaster
+priority: 1
+condition: "step1_ht > 0 && step1_ht < 20"
+actions:
+- "isRelevant = true"
+---
+name: step2_hematocrit_danger_toaster
+description: hematocrit_danger_toaster
+priority: 1
+condition: "step2_ht > 0 && step2_ht < 20"
+actions:
+- "isRelevant = true"
+---
+name: step1_wbc
+description: wbc
+priority: 1
+condition: "(step1_hb_test_status == 'done_today' || step1_hb_test_status == 'done_earlier') && step1_hb_test_type == 'complete_blood_count'"
+actions:
+- "isRelevant = true"
+---
+name: step2_wbc
+description: wbc
+priority: 1
+condition: "(step2_hb_test_status == 'done_today' || step2_hb_test_status == 'done_earlier') && step2_hb_test_type == 'complete_blood_count'"
+actions:
+- "isRelevant = true"
+---
+name: step1_wbc_danger_toaster
+description: wbc_danger_toaster
+priority: 1
+condition: "step1_wbc > 16000"
+actions:
+- "isRelevant = true"
+---
+name: step2_wbc_danger_toaster
+description: wbc_danger_toaster
+priority: 1
+condition: "step2_wbc > 16000"
+actions:
+- "isRelevant = true"
+---
+name: step1_platelets
+description: platelets
+priority: 1
+condition: "(step1_hb_test_status == 'done_today' || step1_hb_test_status == 'done_earlier') && step1_hb_test_type == 'complete_blood_count'"
+actions:
+- "isRelevant = true"
+---
+name: step2_platelets
+description: platelets
+priority: 1
+condition: "(step2_hb_test_status == 'done_today' || step2_hb_test_status == 'done_earlier') && step2_hb_test_type == 'complete_blood_count'"
+actions:
+- "isRelevant = true"
+---
+name: step1_paltelets_danger_toaster
+description: paltelets_danger_toaster
+priority: 1
+condition: "step1_platelets > 0 && step1_platelets < 100000"
+actions:
+- "isRelevant = true"
+---
+name: step2_paltelets_danger_toaster
+description: paltelets_danger_toaster
+priority: 1
+condition: "step2_platelets > 0 && step2_platelets < 100000"
+actions:
+- "isRelevant = true"
+---
+name: step1_tb_screening_notdone
+description: tb_screening_status
+priority: 1
+condition: "step1_tb_screening_status != '' && step1_tb_screening_status == 'not_done'"
+actions:
+- "isRelevant = true"
+---
+name: step2_tb_screening_notdone
+description: tb_screening_status
+priority: 1
+condition: "step2_tb_screening_status != ''  && step2_tb_screening_status == 'not_done'"
+actions:
+- "isRelevant = true"
+---
+name: step1_tb_screening_date
+description: tb date
+priority: 1
+condition: "step1_tb_screening_status != '' && step1_tb_screening_status == 'done_earlier'"
+actions:
+- "isRelevant = true"
+---
+name: step2_tb_screening_date
+description: tb date
+priority: 1
+condition: "step2_tb_screening_status != ''  && step2_tb_screening_status == 'done_earlier'"
+actions:
+- "isRelevant = true"
+---
+name: step1_tb_screening_danger_toaster
+description: tb toaster
+priority: 1
+condition: "step1_tb_screening_result != '' && step1_tb_screening_result == 'positive'"
+actions:
+- "isRelevant = true"
+---
+name: step2_tb_screening_danger_toaster
+description: tb toaster
+priority: 1
+condition: "step2_tb_screening_result!= ''  && step2_tb_screening_result == 'positive'"
+actions:
+- "isRelevant = true"
+---
+name: step1_tb_screening_notdone_other
+description: tb_screening_status
+priority: 1
+condition: "!step1_tb_screening_notdone.isEmpty() && step1_tb_screening_notdone.contains('other')"
+actions:
+- "isRelevant = true"
+---
+name: step2_tb_screening_notdone_other
+description: tb_screening_status
+priority: 1
+condition: "!step2_tb_screening_notdone.isEmpty() && step2_tb_screening_notdone.contains('other')"
+actions:
+- "isRelevant = true"
+---
+name: step1_tb_screening_result
+description: tb_screening_result
+priority: 1
+condition: "step1_tb_screening_status != '' && (step1_tb_screening_status == 'done_today' || step1_tb_screening_status == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step2_tb_screening_result
+description: tb_screening_result
+priority: 1
+condition: "step2_tb_screening_status != '' && (step2_tb_screening_status == 'done_today' || step2_tb_screening_status == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step1_blood_type_test_date
+description: blood_type_test_date
+priority: 1
+condition: "(step1_blood_type_test_status == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step2_blood_type_test_date
+description: blood_type_test_date
+priority: 1
+condition: "(step2_blood_type_test_status == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step1_blood_type
+description: blood_type
+priority: 1
+condition: "(step1_blood_type_test_status == 'done_today' || step1_blood_type_test_status == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step2_blood_type
+description: blood_type
+priority: 1
+condition: "(step2_blood_type_test_status == 'done_today' || step2_blood_type_test_status == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step1_rh_factor
+description: rh_factor
+priority: 1
+condition: "(step1_blood_type_test_status == 'done_today' || step1_blood_type_test_status == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step2_rh_factor
+description: rh_factor
+priority: 1
+condition: "(step2_blood_type_test_status == 'done_today' || step2_blood_type_test_status == 'done_earlier')"
+actions:
+- "isRelevant = true"
+---
+name: step1_rh_factor_toaster
+description: rh_factor
+priority: 1
+condition: "(step1_rh_factor != '' && step1_rh_factor == 'negative')"
+actions:
+- "isRelevant = true"
+---
+name: step2_rh_factor_toaster
+description: rh_factor
+priority: 1
+condition: "(step2_rh_factor != '' && step2_rh_factor == 'negative')"
+actions:
+- "isRelevant = true"
+---
+name: step2_other_test_name
+description: other_test_name
+priority: 1
+condition: "step2_other_test == 'done_earlier' || step2_other_test == 'done_today'"
+actions:
+- "isRelevant = true"
+---
+name: step2_other_test_result
+description: other_test_result
+priority: 1
+condition: "step2_other_test == 'done_earlier' || step2_other_test == 'done_today'"
+actions:
+- "isRelevant = true"

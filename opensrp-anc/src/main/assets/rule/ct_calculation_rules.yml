@@ -1,0 +1,294 @@
+---
+name: step1_danger_signs_toaster
+description: Displays the womans danger signs.
+priority: 1
+condition: "!global_danger_signs.isEmpty() && !global_danger_signs.contains('danger_none')"
+actions:
+ - 'calculation = ["danger_signs" : global_danger_signs_value]'
+---
+name: step1_severe_hypertension_toaster
+description: Severe hypertension toaster
+priority: 1
+condition: "global_severe_hypertension == 1"
+actions:
+ - 'calculation = ["bp_systolic_repeat" : global_bp_systolic_repeat, "bp_diastolic_repeat" : global_bp_diastolic_repeat]'
+---
+name: step1_hypertension_pre_eclampsia_toaster
+description: Hypertension and symptom of severe
+priority: 1
+condition: "global_hypertension == 1 && !global_symp_sev_preeclampsia.isEmpty() && !global_symp_sev_preeclampsia.contains('none')"
+actions:
+  - 'calculation = ["symp_sev_preeclampsia" : global_symp_sev_preeclampsia_value]'
+---
+name: step1_fever_toaster
+description: Fever temp
+priority: 1
+condition: "global_body_temp_repeat >= 38"
+actions:
+  - 'calculation = ["body_temp_repeat" : global_body_temp_repeat]'
+---
+name: step1_abnormal_pulse_rate_toaster
+description: Abnormal pulse rate
+priority: 1
+condition: "global_pulse_rate_repeat < 60 || global_pulse_rate_repeat > 100"
+actions:
+  - 'calculation = ["pulse_rate_repeat" : global_pulse_rate_repeat]'
+---
+name: step1_resp_distress_toaster
+description: Respiratory distress
+priority: 1
+condition: "global_respiratory_exam == 3"
+actions:
+  - 'calculation = ["respiratory_exam_abnormal" : global_respiratory_exam_abnormal_value]'
+---
+name: step1_low_oximetry_toaster
+description: Low oximetry
+priority: 1
+condition: "global_oximetry < 92"
+actions:
+  - 'calculation = ["oximetry" : global_oximetry]'
+---
+name: step1_abn_cardiac_exam_toaster
+description: Abnormal cardiac exam
+priority: 1
+condition: "global_cardiac_exam == 3"
+actions:
+  - 'calculation = ["cardiac_exam_abnormal" : global_cardiac_exam_abnormal_value, "cardiac_exam_abnormal_other": global_cardiac_exam_abnormal_other]'
+---
+name: step1_abn_breast_exam_toaster
+description: Abnormal breast exam
+priority: 1
+condition: "global_breast_exam == 3"
+actions:
+  - 'calculation = ["breast_exam_abnormal" : global_breast_exam_abnormal_value, "breast_exam_abnormal_other": global_breast_exam_abnormal_other]'
+---
+name: step1_abn_abdominal_exam_toaster
+description: Abnormal abdominal exam
+priority: 1
+condition: "global_abdominal_exam == 3"
+actions:
+  - 'calculation = ["abdominal_exam_abnormal" : global_abdominal_exam_abnormal_value, "abdominal_exam_abnormal_other": global_abdominal_exam_abnormal_other]'
+---
+name: step1_abn_pelvic_exam_toaster
+description: Abnormal pelvic exam
+priority: 1
+condition: "global_pelvic_exam == 3"
+actions:
+  - 'calculation = ["pelvic_exam_abnormal" : global_pelvic_exam_abnormal_value, "pelvic_exam_abnormal_other": global_pelvic_exam_abnormal_other]'
+---
+name: step1_abn_feat_heart_rate_toaster
+description: Abnormal fetal heart rate
+priority: 1
+condition: "global_fetal_heart_rate_repeat < 110 || global_fetal_heart_rate_repeat > 160"
+actions:
+  - 'calculation = ["fetal_heart_rate_repeat" : global_fetal_heart_rate_repeat]'
+---
+name: step4_body_mass_toaster
+description: Information
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = ["bmi" : global_bmi, "weight_cat" : global_weight_cat, "exp_weight_gain" : global_exp_weight_gain]'
+---
+name: step4_average_weight_toaster
+description: Information
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = ["weight_gain" : global_weight_gain, "tot_weight_gain" : global_tot_weight_gain]'
+---
+name: step3_mag_calc
+description: mag_calc
+priority: 1
+condition: "true"
+actions:
+  - 'calculation =   (step3_leg_cramp_not_relieved_counsel == "done" ? "Magnesium and calcium for persistent leg cramps" : "")'
+---
+name: step3_nausea_pharma
+description: nausea_pharma
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = (step3_nausea_not_relieved_counsel == "done" ? "Pharmacologicals for persistent nausea and vomiting" : "")'
+---
+name: step3_antacid
+description: antacid
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = (step3_heartburn_not_relieved_counsel == "done" ? "Antacids for persistent heartburn" : "")'
+---
+name: step5_penicillin
+description: penicillin
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = (step5_syphilis_high_prev_counsel == "done" || step5_syphilis_low_prev_counsel == "done"  ?  ((!global_allergies.isEmpty() && global_allergies.contains("penicillin")) ? "Erythromycin 500 mg orally four times daily for 14 days or Azithromycin 2 g once orally." : "Penicillin for syphilis") : "") '
+---
+name: step5_ifa_medication
+description: ifa_medication
+priority: 1
+condition: "true"
+actions:
+ - 'calculation = (step5_ifa_anaemia == "done" ? "Iron & folic acid for anaemia treatment" : "") '
+---
+name: step5_antibiotic
+description: antibiotic
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = (step5_asb_positive_counsel == "done" ? "Seven-day antibiotic for ASB" : "") '
+---
+name: step5_low_prev_allergy_toaster
+description: Displays the womans allergies .
+priority: 1
+condition: "!global_allergies.isEmpty()"
+actions:
+ - 'calculation = ["allergies_values":global_allergies]'
+---
+name: step5_high_prev_allergy_toaster
+description: Displays the womans allergies .
+priority: 1
+condition: "!global_allergies.isEmpty()"
+actions:
+ - 'calculation = ["allergies_values":global_allergies_value]'
+---
+name: step6_aspirin
+description: aspirin
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = ((step6_pe_risk_aspirin == "done" || step6_pe_risk_aspirin_calcium == "done") ? "Aspirin for pre-eclampsia risk" : "") '
+---
+name: step6_prep
+description: prep
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = (step6_hiv_prep == "done" ? "HIV Pre-exposure prophylaxis (PrEP)" : "") '
+---
+name: step9_ifa
+description: ifa
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = ((step9_ifa_high_prev == "done" || step9_ifa_low_prev == "done") ? "Iron & folic acid supplement" : "") '
+---
+name: step9_ifa_high_prev_toaster
+description: Displays the womans allergies .
+priority: 1
+condition: "!global_allergies.isEmpty()"
+actions:
+ - 'calculation = ["allergies_values":global_allergies_value]'
+---
+name: step9_ifa_low_prev_toaster
+description: Displays the womans allergies .
+priority: 1
+condition: "!global_allergies.isEmpty()"
+actions:
+ - 'calculation = ["allergies_values":global_allergies_value]'
+---
+name: step10_alben_meben
+description: alben_meben
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = (step10_deworm == "done" ? "Albendazole/mebendazole for deworming" : "")'
+---
+name: step10_deworm_toaster
+description: Displays the womans allergies .
+priority: 1
+condition: "!global_allergies.isEmpty()"
+actions:
+ - 'calculation = ["allergies_values":global_allergies_value]'
+---
+name: step10_sp
+description: sp
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = (step10_iptp_sp1 == "done" ? "Sulfadoxine-pyrimethamine (SP) for malaria prevention" : "") '
+---
+name: step9_calcium
+description: calcium
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = (step9_calcium_supp == "done" ? "Calcium supplement" : "") '
+---
+name: step9_vita
+description: vita
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = (step9_vita_supp == "done" ? "Vitamin A supplement" : "") '
+---
+name: step10_iptp_sp1_dose_number
+description: iptp_sp1_dose_number
+priority: 1
+condition: "step10_iptp_sp1 != '' && step10_iptp_sp1 == 'done'"
+actions:
+  - "calculation = 1"
+---
+name: step10_iptp_sp2_dose_number
+description: iptp_sp2_dose_number
+priority: 1
+condition: "step10_iptp_sp2 != '' && step10_iptp_sp2 == 'done'"
+actions:
+  - "calculation = 2"
+---
+name: step10_iptp_sp3_dose_number
+description: iptp_sp3_dose_number
+priority: 1
+condition: "step10_iptp_sp3 != '' && step10_iptp_sp3 == 'done'"
+actions:
+  - "calculation = 3"
+---
+name: step11_tt1_date_done_date_today_hidden
+description: tt1_date_done_today
+priority: 1
+condition: "step11_tt1_date != '' && step11_tt1_date == 'done_today'"
+actions:
+  - "calculation = helper.getDateToday()"
+---
+name: step11_tt1_dose_number
+description: tt1_dose_number
+priority: 1
+condition: "step11_tt1_date != '' && step11_tt1_date != 'not_done'"
+actions:
+  - "calculation = 1"
+---
+name: step11_tt2_date_done_date_today_hidden
+description: tt2_date_done
+priority: 1
+condition: "step11_tt2_date != '' && step11_tt2_date == 'done_today'"
+actions:
+  - "calculation = helper.getDateToday()"
+---
+name: step11_tt2_dose_number
+description: tt2_dose_number
+priority: 1
+condition: "step11_tt2_date != '' && step11_tt2_date != 'not_done'"
+actions:
+  - "calculation = 2"
+---
+name: step11_tt3_date_done_date_today_hidden
+description: tt3_date_done_today
+priority: 1
+condition: "step11_tt3_date != '' && step11_tt3_date == 'done_today'"
+actions:
+  - "calculation = helper.getDateToday()"
+---
+name: step11_tt3_dose_number
+description: tt3_dose_number
+priority: 1
+condition: "step11_tt3_date != '' && step11_tt3_date != 'not_done'"
+actions:
+  - "calculation = 3"
+---
+name: step11_flu_date_done_date_today_hidden
+description: Date flu dose was given
+priority: 1
+condition: "step11_flu_date != '' && step11_flu_date == 'done_today'"
+actions:
+  - "calculation = helper.getDateToday()"

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<org.smartregister.anc.library.view.SquareCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:layout_margin="@dimen/contact_layout_margin"
+    card_view:cardCornerRadius="@dimen/contact_default_padding"
+    card_view:cardElevation="@dimen/contact_elevation">
+
+    <RelativeLayout
+        android:id="@+id/card_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/contact_drawable_padding"
+        android:paddingEnd="@dimen/contact_drawable_padding"
+        android:paddingStart="0dp"
+        android:paddingTop="@dimen/contact_medium_padding">
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/container_name"
+            style="@style/CustomFontTextViewStyle.ClientList.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:gravity="center_vertical"
+            android:maxLines="2"
+            android:paddingRight="@dimen/contact_drawable_padding"
+            android:text="@string/quick_check"
+            android:textColor="@color/white"
+            android:textSize="@dimen/contact_name_text_size" />
+
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/required_fields"
+            style="@style/CustomFontTextViewStyle.ClientList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/container_name"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:paddingRight="@dimen/contact_drawable_padding"
+            android:singleLine="true"
+            android:text="@string/required_fields"
+            android:textColor="@color/translucent_white"
+            android:textSize="@dimen/contact_detail_text_size" />
+
+
+        <LinearLayout
+            android:id="@+id/complete_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/required_fields"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/contact_drawable_padding"
+                android:paddingRight="2dp"
+                android:src="@drawable/ic_checked_white" />
+
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/complete"
+                style="@style/CustomFontTextViewStyle.ClientList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/container_name"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/transparent"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:paddingLeft="0dp"
+                android:paddingRight="@dimen/contact_drawable_padding"
+                android:singleLine="true"
+                android:text="@string/complete"
+                android:textColor="@color/translucent_white"
+                android:textSize="@dimen/contact_detail_text_size" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</org.smartregister.anc.library.view.SquareCardView>

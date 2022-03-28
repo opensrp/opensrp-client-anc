@@ -1,0 +1,8 @@
+/build
+/build/
+/release/
+<<<<<<< HEAD
+!/google-services.json
+=======
+/google-services.json
+>>>>>>> 55c127186cdb8f0bd7bdf739e374a1fbf041bf94

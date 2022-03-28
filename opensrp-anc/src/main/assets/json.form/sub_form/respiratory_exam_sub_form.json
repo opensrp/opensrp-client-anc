@@ -1,0 +1,97 @@
+{
+  "content_form": [
+    {
+      "key": "respiratory_exam_abnormal",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "1123AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "check_box",
+      "label": "{{respiratory_exam_sub_form.step1.respiratory_exam_abnormal.label}}",
+      "label_text_style": "bold",
+      "text_color": "#000000",
+      "options": [
+        {
+          "key": "dyspnoea",
+          "text": "{{respiratory_exam_sub_form.step1.respiratory_exam_abnormal.options.dyspnoea.text}}",
+          "value": false,
+          "openmrs_entity_parent": "165367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "122496AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "cough",
+          "text": "{{respiratory_exam_sub_form.step1.respiratory_exam_abnormal.options.cough.text}}",
+          "value": false,
+          "openmrs_entity_parent": "165367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "143264AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "rapid_breathing",
+          "text": "{{respiratory_exam_sub_form.step1.respiratory_exam_abnormal.options.rapid_breathing.text}}",
+          "value": false,
+          "openmrs_entity_parent": "165367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "125061AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "slow_breathing",
+          "text": "{{respiratory_exam_sub_form.step1.respiratory_exam_abnormal.options.slow_breathing.text}}",
+          "value": false,
+          "openmrs_entity_parent": "165367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "126356AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "wheezing",
+          "text": "{{respiratory_exam_sub_form.step1.respiratory_exam_abnormal.options.wheezing.text}}",
+          "value": false,
+          "openmrs_entity_parent": "165367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "5209AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "rales",
+          "text": "{{respiratory_exam_sub_form.step1.respiratory_exam_abnormal.options.rales.text}}",
+          "value": false,
+          "openmrs_entity_parent": "165367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "127640AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "other",
+          "text": "{{respiratory_exam_sub_form.step1.respiratory_exam_abnormal.options.other.text}}",
+          "value": false,
+          "openmrs_entity_parent": "1123AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ]
+    },
+    {
+      "key": "respiratory_exam_abnormal_other",
+      "openmrs_entity_parent": "1123AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "edit_text",
+      "hint": "{{respiratory_exam_sub_form.step1.respiratory_exam_abnormal_other.hint}}",
+      "v_regex": {
+        "value": "[A-Za-z\\s\\.\\-]*",
+        "err": "{{respiratory_exam_sub_form.step1.respiratory_exam_abnormal_other.v_regex.err}}"
+      },
+      "relevance": {
+        "step3:respiratory_exam_abnormal": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "other"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "count": 1,
+  "properties_file_name": "respiratory_exam_sub_form"
+}

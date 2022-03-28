@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/all_tests_results_dialog_row"
+    android:layout_marginBottom="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/all_tests_content_title"
+        style="@style/CustomFontTextViewStyle.ClientList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginBottom="15dp"
+        android:maxLines="3"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/referral_dialog_title_text_size"
+        android:textStyle="bold" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/all_tests_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/all_tests_content_title"
+        android:layout_marginLeft="@dimen/all_test_margin"
+        android:layout_marginRight="@dimen/all_test_margin" >
+    </androidx.recyclerview.widget.RecyclerView>
+
+</RelativeLayout>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/AncAppTheme.AppBarOverlay">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/register_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/customAppThemeBlue"
+        app:contentInsetLeft="10dp"
+        app:contentInsetStart="10dp"
+        app:popupTheme="@style/AncAppTheme.PopupOverlay">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/customAppThemeBlue"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/undo_button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/transparent"
+                android:paddingLeft="@dimen/contact_small_padding"
+                android:paddingRight="@dimen/contact_drawable_padding"
+                android:src="@drawable/ic_clear" />
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/top_patient_name"
+                style="@style/CustomFontTextViewStyle.Anc.ClientList"
+                android:layout_toStartOf="@+id/finalize_contact"
+                android:layout_marginEnd="@dimen/patients_name_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/undo_button"
+                android:background="@android:color/transparent"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:paddingEnd="@dimen/contact_drawable_padding"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/contact_toolbar_text_size" />
+
+
+            <Button
+                android:id="@+id/finalize_contact"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="end"
+                android:background="@color/transparent"
+                android:enabled="false"
+                android:paddingLeft="@dimen/contact_drawable_padding"
+                android:paddingRight="@dimen/contact_default_padding"
+                android:text="@string/finalize"
+                android:textAllCaps="true"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/finalize_color"
+                android:textSize="@dimen/contact_toolbar_text_size" />
+
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+</com.google.android.material.appbar.AppBarLayout>

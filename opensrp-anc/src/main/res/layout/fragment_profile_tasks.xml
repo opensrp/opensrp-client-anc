@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_constraintBottom_toTopOf="@+id/status_button"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/no_health_data_recorded_profile_task_layout"
+        layout="@layout/no_health_data_record"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/test_tasks_sub_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/overview_sub_header_bg"
+        android:gravity="start"
+        android:paddingStart="@dimen/contact_drawable_padding"
+        android:paddingTop="@dimen/contact_drawable_padding"
+        android:paddingEnd="@dimen/contact_drawable_padding"
+        android:paddingBottom="@dimen/contact_drawable_padding"
+        android:singleLine="true"
+        android:text="@string/tests_tasks_header"
+        android:textAllCaps="true"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textColor="@color/dark_grey"
+        android:visibility="visible" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/tasks_display_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:foregroundGravity="top"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+</LinearLayout>

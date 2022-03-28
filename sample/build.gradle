@@ -1,0 +1,74 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 31
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        applicationId "org.smartregister.sample.anc"
+        minSdkVersion 18
+        targetSdkVersion 31
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        if (project.rootProject.file("local.properties").exists()) {
+            Properties properties = new Properties()
+            properties.load(project.rootProject.file("local.properties").newDataInputStream())
+            if (properties != null && properties.containsKey("flurry.api.key")) {
+                buildConfigField "String", "FLURRY_API_KEY", properties["flurry.api.key"]
+            } else {
+                println("Flurry Analytics API key config variables is not set in your local.properties")
+                buildConfigField "String", "FLURRY_API_KEY", "\"sample_key\""
+            }
+
+            if (properties != null && properties.containsKey("oauth.client.id")) {
+                buildConfigField "String", "OAUTH_CLIENT_ID", properties["oauth.client.id"]
+
+            } else {
+                project.logger.error("oauth.client.id variable is not set in your local.properties")
+                buildConfigField "String", "OAUTH_CLIENT_ID", "\"sample_client_id\""
+            }
+
+
+            if (properties != null && properties.containsKey("oauth.client.secret")) {
+                buildConfigField "String", "OAUTH_CLIENT_SECRET", properties["oauth.client.secret"]
+
+            } else {
+                project.logger.error("oauth.client.secret variable is not set in your local.properties")
+                buildConfigField "String", "OAUTH_CLIENT_SECRET", "\"sample_client_secret\""
+            }
+        } else {
+            println("local.properties does not exist")
+            buildConfigField "String", "FLURRY_API_KEY", "\"sample_key\""
+            buildConfigField "String", "OAUTH_CLIENT_ID", "\"sample_client_id\""
+            buildConfigField "String", "OAUTH_CLIENT_SECRET", "\"sample_client_secret\""
+        }
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+    testImplementation 'junit:junit:4.13.1'
+    testImplementation 'com.ibm.fhir:fhir-model:4.8.3'
+    // https://mvnrepository.com/artifact/org.hamcrest/hamcrest
+    testImplementation group: 'org.hamcrest', name: 'hamcrest', version: '2.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+}

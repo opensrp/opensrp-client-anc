@@ -1,0 +1,369 @@
+---
+name: step2_bp_systolic_label
+description: BP Systolic Label
+priority: 1
+condition: "(step2_bp_measurement_method.contains('manually') || step2_bp_measurement_method.contains('optibp'))
+      && !step2_cant_record_bp.contains('cant_record_bp')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_bp_systolic
+description: BP Systolic Value
+priority: 1
+condition: "(step2_bp_measurement_method.contains('manually') || step2_bp_measurement_method.contains('optibp'))
+      && !step2_cant_record_bp.contains('cant_record_bp')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_bp_diastolic_label
+description: BP Diastolic Label
+priority: 1
+condition: "(step2_bp_measurement_method.contains('manually') || step2_bp_measurement_method.contains('optibp'))
+      && !step2_cant_record_bp.contains('cant_record_bp')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_bp_diastolic
+description: BP Diastolic Value
+priority: 1
+condition: "(step2_bp_measurement_method.contains('manually') || step2_bp_measurement_method.contains('optibp'))
+      && !step2_cant_record_bp.contains('cant_record_bp')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_cant_record_bp
+description: BP Diastolic Value
+priority: 1
+condition: "step2_bp_measurement_method.contains('manually') || step2_bp_measurement_method.contains('optibp')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_record_bp_using_optibp_button
+description: BP Measurement Widget
+priority: 1
+condition: "!(step2_bp_systolic >= 140 || step2_bp_diastolic >= 90) && step2_bp_measurement_method.contains('optibp') && !step2_cant_record_bp.contains('cant_record_bp')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_cant_record_bp_reason
+description: Cant record BP reason
+priority: 1
+condition: "step2_bp_measurement_method.contains('manually') && step2_cant_record_bp.contains('cant_record_bp')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_cant_record_bp_reason_opt
+description: Cant record BP reason via OptiBP
+priority: 1
+condition: "step2_bp_measurement_method.contains('optibp') && step2_cant_record_bp.contains('cant_record_bp')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_toaster7
+description: BP measurement warning toaster
+priority: 1
+condition: "(step2_bp_systolic >= 140 || step2_bp_diastolic >= 90)
+        && (step2_bp_measurement_method.contains('optibp') || step2_bp_measurement_method.contains('manually'))"
+actions:
+  - "isRelevant = true"
+---
+name: step2_bp_systolic_repeat_label
+description: BP measurement
+priority: 1
+condition: "(step2_bp_systolic >= 140 || step2_bp_diastolic >= 90)
+        && (step2_bp_measurement_method.contains('optibp') || step2_bp_measurement_method.contains('manually'))"
+actions:
+  - "isRelevant = true"
+---
+name: step2_bp_systolic_repeat
+description: BP measurement
+priority: 1
+condition: "(step2_bp_systolic >= 140 || step2_bp_diastolic >= 90)
+        && (step2_bp_measurement_method.contains('optibp') || step2_bp_measurement_method.contains('manually'))"
+actions:
+  - "isRelevant = true"
+---
+name: step2_bp_diastolic_repeat_label
+description: BP measurement
+priority: 1
+condition: "(step2_bp_systolic >= 140 || step2_bp_diastolic >= 90)
+        && (step2_bp_measurement_method.contains('optibp') || step2_bp_measurement_method.contains('manually'))"
+actions:
+  - "isRelevant = true"
+---
+name: step2_bp_diastolic_repeat
+description: BP measurement
+priority: 1
+condition: "(step2_bp_systolic >= 140 || step2_bp_diastolic >= 90)
+        && (step2_bp_measurement_method.contains('optibp') || step2_bp_measurement_method.contains('manually'))"
+actions:
+  - "isRelevant = true"
+---
+name: step2_record_bp_using_optibp_2nd_reading_button
+description: BP measurement method 2
+priority: 1
+condition: "(step2_bp_systolic >= 140 || step2_bp_diastolic >= 90) && step2_bp_measurement_method.contains('optibp')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_toaster8
+description: BP measurement warning toaster8
+priority: 1
+condition: "(step2_bp_systolic_repeat >= 140 || step2_bp_diastolic_repeat >= 90)
+         && (step2_bp_measurement_method.contains('optibp') || step2_bp_measurement_method.contains('manually'))"
+actions:
+  - "isRelevant = true"
+---
+name: step2_symp_sev_preeclampsia
+description: Check if the woman has any of the following symptoms of severe pre-eclampsia.
+priority: 1
+condition: "(step2_bp_systolic_repeat >= 140 || step2_bp_diastolic_repeat >= 90)
+         && (step2_bp_measurement_method.contains('optibp') || step2_bp_measurement_method.contains('manually'))"
+actions:
+  - "isRelevant = true"
+---
+name: step2_urine_protein
+description: Enter the result for the dipstick test - protein.
+priority: 1
+condition: "(step2_bp_systolic_repeat >= 140 || step2_bp_diastolic_repeat >= 90)
+         && (step2_bp_measurement_method.contains('optibp') || step2_bp_measurement_method.contains('manually'))"
+actions:
+  - "isRelevant = true"
+---
+name: step2_toaster9
+description: Hypertension diagnosis
+priority: 1
+condition: "step2_hypertension == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step3_toaster17
+description: Hypertension diagnosis
+priority: 1
+condition: "step3_pulse_rate > 0 && (step3_pulse_rate < 60 || step3_pulse_rate > 100)"
+actions:
+  - "isRelevant = true"
+---
+name: step3_pulse_rate_repeat
+description: Pulse rate measurement
+priority: 1
+condition: "step3_pulse_rate > 0 && (step3_pulse_rate < 60 || step3_pulse_rate > 100)"
+actions:
+  - "isRelevant = true"
+---
+name: step3_pulse_rate_repeat_label
+description: Pulse rate measurement
+priority: 1
+condition: "step3_pulse_rate > 0 && (step3_pulse_rate < 60 || step3_pulse_rate > 100) "
+actions:
+  - "isRelevant = true"
+---
+name: step3_toaster18
+description: Pulse rate measurement
+priority: 1
+condition: "step3_pulse_rate_repeat > 0 && (step3_pulse_rate_repeat < 60 || step3_pulse_rate_repeat > 100) "
+actions:
+  - "isRelevant = true"
+---
+name: step3_toaster21
+description: Oxymetry Entry
+priority: 1
+condition: "step3_oximetry > 0 && step3_oximetry < 92"
+actions:
+  - "isRelevant = true"
+---
+name: step4_toaster28
+description: Fetal heart beat rate
+priority: 1
+condition: "(step4_fetal_heart_rate > 0 && (step4_fetal_heart_rate < 100 || step4_fetal_heart_rate > 180))"
+actions:
+  - "isRelevant = true"
+---
+name: step4_fetal_movement
+description: Fetal movement
+priority: 1
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs > 20)"
+actions:
+  - "isRelevant = true"
+---
+name: step4_fetal_heart_rate_repeat_label
+description: Fetal heart beat rate
+priority: 1
+condition: "(step4_fetal_heart_rate > 0 && (step4_fetal_heart_rate < 100 || step4_fetal_heart_rate > 180))"
+actions:
+  - "isRelevant = true"
+---
+name: step4_fetal_heart_rate_repeat
+description: Fetal heart beat rate
+priority: 1
+condition: "(step4_fetal_heart_rate > 0 && (step4_fetal_heart_rate < 100 || step4_fetal_heart_rate > 180))"
+actions:
+  - "isRelevant = true"
+---
+name: step4_toaster27
+description: No fetal heartbeat observed. Refer to hospital.
+priority: 1
+condition: "(step4_fetal_heartbeat == 'no' && (global_gest_age_openmrs != '' && global_gest_age_openmrs > 20))"
+actions:
+  - "isRelevant = true"
+---
+name: step4_toaster29
+description: Fetal heart beat rate repeat toaster
+priority: 1
+condition: "(step4_fetal_heart_rate_repeat > 0 && (step4_fetal_heart_rate_repeat < 100 || step4_fetal_heart_rate_repeat > 180))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_toaster3
+description: Note displaying that the woman is at risk of developing pre-eclampsia.
+priority: 1
+condition: "(step1_gdm_risk == 1) && (global_gdm != 1 && global_dm_in_preg != 1)"
+actions:
+  - "isRelevant = true"
+---
+name: step1_toaster5
+description: Note displaying that counseling on increasing daily energy and protein intake should be given.
+priority: 1
+condition: "global_pop_undernourish == true && step1_weight_cat == 'Underweight'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_toaster6
+description: Note displaying that counseling on balanced energy and protein dietary supplementation should be given.
+priority: 1
+condition: "global_pop_undernourish == true && step1_weight_cat == 'Underweight'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_toaster10
+description: Severe hypertension toaster`
+priority: 1
+condition: "step2_severe_hypertension == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step2_toaster11
+description: Note displaying that the woman has severe pre-eclampsia.
+priority: 1
+condition: "(step2_hypertension == 1 && !step2_symp_sev_preeclampsia.isEmpty() && !step2_symp_sev_preeclampsia.contains('none'))"
+actions:
+  - "isRelevant = true"
+---
+name: step2_toaster13
+description: Note displaying that the woman has severe pre-eclampsia.
+priority: 1
+condition: "(step2_severe_preeclampsia == 1)"
+actions:
+  - "isRelevant = true"
+---
+name: step2_toaster14
+description: Note displaying that the woman has severe pre-eclampsia.
+priority: 1
+condition: "(step2_preeclampsia == 1)"
+actions:
+  - "isRelevant = true"
+---
+name: step3_toaster19
+description: Note displaying that anaemic
+priority: 1
+condition: "(step3_anaemic == 1)"
+actions:
+  - "isRelevant = true"
+---
+name: step4_toaster30
+description: Note displaying that preeclampsia risk
+priority: 1
+condition: "(step4_preeclampsia_risk == 1)"
+actions:
+  - "isRelevant = true"
+---
+name: step4_fetal_presentation
+description: Fetal movement
+priority: 1
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 28)"
+actions:
+  - "isRelevant = true"
+---
+name: step3_toaster22
+description: toaster22
+priority: 1
+condition: "step3_cardiac_exam == 3"
+actions:
+  - "isRelevant = true"
+---
+name: step3_toaster23
+description: toaster23
+priority: 1
+condition: "step3_breast_exam == 3"
+actions:
+  - "isRelevant = true"
+---
+name: step3_toaster24
+description: toaster24
+priority: 1
+condition: "step3_abdominal_exam == 3"
+actions:
+  - "isRelevant = true"
+---
+name: step3_toaster25
+description: toaster25
+priority: 1
+condition: "step3_pelvic_exam == 3"
+actions:
+  - "isRelevant = true"
+---
+name: step3_toaster26
+description: toaster26
+priority: 1
+condition: "step3_toaster26_hidden > 2"
+actions:
+  - "isRelevant = true"
+---
+name: step3_evaluate_labour_toaster
+description: evaluate_labour_toaster
+priority: 1
+condition: "!step3_pelvic_exam_abnormal.isEmpty() && step3_pelvic_exam_abnormal.contains('amniotic_fluid_evidence')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_ipv_physical_signs_symptoms
+description: ipv_physical_signs_symptoms
+priority: 1
+condition: "global_site_ipv_assess == true"
+actions:
+  - "isRelevant = true"
+---
+name: step3_toaster31
+description: toaster31
+priority: 1
+condition: "step3_ipv_suspect == 1 "
+actions:
+  - "isRelevant = true"
+---
+name: step3_ipv_clinical_enquiry
+description: ipv_clinical_enquiry
+priority: 1
+condition: "step3_ipv_suspect == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step3_ipv_clinical_enquiry_not_done_reason
+description: ipv_clinical_enquiry_not_done_reason
+priority: 1
+condition: "step3_ipv_clinical_enquiry == 'no'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_ipv_subject
+description: ipv_subject
+priority: 1
+condition: "step3_ipv_clinical_enquiry == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_ipv_subject_violence_types
+description: ipv_subject
+priority: 1
+condition: "step3_ipv_subject == 'yes'"
+actions:
+  - "isRelevant = true"

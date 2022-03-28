@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/overview_summary_row"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="2dp"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/ga_weeks"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center"
+        android:paddingLeft="@dimen/contact_default_padding"
+        android:paddingRight="@dimen/contact_default_padding"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:textSize="17sp"
+        android:text="@string/ga_weeks"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:textColor="@color/black_text_color"
+        android:gravity="center_horizontal|center_vertical"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/contact_date"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/contact_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|center_vertical"
+        android:paddingLeft="@dimen/contact_drawable_padding"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:textSize="17sp"
+        android:text="14 Apr 2018"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:textColor="@color/black_text_color"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@+id/ga_weeks"
+        app:layout_constraintRight_toLeftOf="@+id/schedule_weeks_away"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/schedule_weeks_away"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|center_vertical"
+        android:paddingRight="@dimen/contact_default_padding"
+        android:paddingLeft="@dimen/contact_default_padding"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:textSize="14sp"
+        android:text="@string/timeline_away"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:textColor="@color/black_text_color"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@+id/contact_date"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

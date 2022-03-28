@@ -1,0 +1,50 @@
+{
+  "content_form": [
+    {
+      "key": "oedema_type",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "165292AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "check_box",
+      "label": "{{oedema_present_sub_form.step1.oedema_type.label}}",
+      "label_text_style": "bold",
+      "text_color": "#000000",
+      "options": [
+        {
+          "key": "ankle_oedema",
+          "text": "{{oedema_present_sub_form.step1.oedema_type.options.ankle_oedema.text}}",
+          "value": false,
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "155113AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "hands_feet_oedema",
+          "text": "{{oedema_present_sub_form.step1.oedema_type.options.hands_feet_oedema.text}}",
+          "value": false,
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165375AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "lower_back_oedema",
+          "text": "{{oedema_present_sub_form.step1.oedema_type.options.lower_back_oedema.text}}",
+          "value": false,
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165291AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "leg_swelling",
+          "text": "{{oedema_present_sub_form.step1.oedema_type.options.leg_swelling.text}}",
+          "value": false,
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "141478AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ]
+    }
+  ],
+  "count": 1,
+  "properties_file_name": "oedema_present_sub_form"
+}
