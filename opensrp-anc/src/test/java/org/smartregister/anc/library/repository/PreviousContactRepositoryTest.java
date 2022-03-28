@@ -10,21 +10,30 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.internal.verification.Times;
 import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.util.ReflectionHelpers;
+import org.robolectric.util.Util;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.model.PreviousContact;
 import org.smartregister.anc.library.model.PreviousContactsSummaryModel;
 import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.FileUtil;
+import org.smartregister.anc.library.util.Utils;
+import org.smartregister.helper.ImageRenderHelper;
+import org.smartregister.repository.Repository;
 import org.smartregister.view.activity.DrishtiApplication;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({DrishtiApplication.class,Utils.class,PreviousContactRepository.class})
 public class PreviousContactRepositoryTest extends BaseUnitTest {
 
     public static final String TABLE_NAME = "previous_contact";
@@ -39,16 +48,58 @@ public class PreviousContactRepositoryTest extends BaseUnitTest {
     private DrishtiApplication drishtiApplication;
     @Mock
     private AncLibrary ancLibrary;
+
+    private PreviousContactRepository previousContactRepository = new PreviousContactRepository();
     @Mock
-    private PreviousContactRepository previousContactRepository;
+    private Repository repository;
     private List<PreviousContactsSummaryModel> previousContactFacts = new ArrayList<>();
 
     @Before
     public void setUp() {
-        MockitoAnnotations.openMocks(this);
-        ReflectionHelpers.setStaticField(AncLibrary.class, "instance", ancLibrary);
-        PowerMockito.when(ancLibrary.getRegisterQueryProvider()).thenReturn(new RegisterQueryProvider());
+        PowerMockito.mockStatic(DrishtiApplication.class);
+        PowerMockito.mockStatic(Utils.class);
 
+        MockitoAnnotations.openMocks(this);
+
+        ReflectionHelpers.setStaticField(AncLibrary.class, "instance", ancLibrary);
+
+        PowerMockito.when(DrishtiApplication.getInstance()).thenReturn(drishtiApplication);
+
+        PowerMockito.when(ancLibrary.getRegisterQueryProvider()).thenReturn(new RegisterQueryProvider());
+       // PowerMockito.when(previousContactRepository.getWritableDatabase()).thenReturn(sqLiteDatabase);
+        ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", drishtiApplication);
+        PowerMockito.when(drishtiApplication.getRepository()).thenReturn(repository);
+        PowerMockito.when(repository.getWritableDatabase()).thenReturn(sqLiteDatabase);
+
+//        PowerMockito.when(DrishtiApplication.getInstance().getRepository().getWritableDatabase()).thenReturn(sqLiteDatabase);
+
+
+    }
+
+    @Test
+    public void testCreateTable()
+    {
+        PreviousContactRepository.createTable(sqLiteDatabase);
+        Mockito.verify(sqLiteDatabase, Mockito.times(5)).execSQL(Mockito.anyString());
+
+    }
+
+    @Test
+    public void savePreviousContactTest()
+    {
+        PreviousContactRepository spyRepository = Mockito.spy(previousContactRepository);
+
+        PowerMockito.mockStatic(Utils.class);
+        PowerMockito.when(Utils.getDBDateToday()).thenReturn("12-2-2012");
+
+        PowerMockito.mockStatic(DrishtiApplication.class);
+        PowerMockito.when(DrishtiApplication.getInstance()).thenReturn(drishtiApplication);
+        PowerMockito.when(drishtiApplication.getRepository()).thenReturn(repository);
+        PowerMockito.when(repository.getWritableDatabase()).thenReturn(sqLiteDatabase);
+
+
+        spyRepository.savePreviousContact(new PreviousContact());
+        Mockito.verify(sqLiteDatabase,Mockito.times(1)).insert(Mockito.anyString(), Mockito.isNull(), Mockito.any());
     }
 
     @Test
@@ -64,7 +115,7 @@ public class PreviousContactRepositoryTest extends BaseUnitTest {
         PowerMockito.when(cursor.moveToFirst()).thenReturn(true);
         PowerMockito.when(cursor.getColumnName(1)).thenReturn(ConstantsUtils.CONTACT_NO);
         PowerMockito.when(cursor.getColumnName(2)).thenReturn(ConstantsUtils.KeyUtils.VALUE);
-        previousContactFacts =ancLibrary.getPreviousContactRepository().getPreviousContactsFacts(DUMMY_BASE_ENTITY_ID);
+        previousContactFacts =previousContactRepository.getPreviousContactsFacts(DUMMY_BASE_ENTITY_ID);
         Assert.assertNotNull(previousContactFacts);
 
 
