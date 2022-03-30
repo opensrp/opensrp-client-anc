@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import android.content.Context;
+
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import net.sqlcipher.database.SQLiteDatabase;
@@ -17,9 +19,9 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.robolectric.util.ReflectionHelpers;
-import org.smartregister.Context;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.domain.Contact;
@@ -47,13 +49,16 @@ public class ANCFormUtilsTest extends BaseUnitTest {
     @Mock
     private Context context;
     @Mock
+    private org.smartregister.Context context1;
+    @Mock
     private PartialContactRepository partialContactRepository;
 
     @Before
     public void setUp() {
+
         MockitoAnnotations.openMocks(this);
-        AncLibrary.init(context, 1);
-        mockedAncFormUtils = Mockito.mock(ANCFormUtils.class);
+        AncLibrary.init(org.smartregister.Context.getInstance(), 1);
+        mockedAncFormUtils = Mockito.spy(ANCFormUtils.class);
         try {
             accordionValuesJson = new JSONArray("[{\"key\":\"ultrasound\",\"type\":\"extended_radio_button\",\"label\":\"Ultrasound test\",\"values\":[\"done_today:Done today\"]," +
                     "\"openmrs_attributes\":{\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"\",\"openmrs_entity_id\":\"\"},\"value_openmrs_attributes\":[{\"key\":\"ultrasound\"," +
@@ -376,6 +381,8 @@ public class ANCFormUtilsTest extends BaseUnitTest {
                 "      }\n" +
                 "    }\n" +
                 "  ]");
+        PowerMockito.when(AncLibrary.getInstance()).thenReturn(ancLibrary);
+        PowerMockito.when(ancLibrary.getContext()).thenReturn(context1);
         Mockito.verify(mockedAncFormUtils, Mockito.times(0));
         ANCFormUtils.persistPartial(DUMMY_BASE_ENTITY_ID, contact);
 
