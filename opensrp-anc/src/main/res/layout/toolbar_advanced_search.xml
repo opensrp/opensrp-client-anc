@@ -54,7 +54,7 @@
                         android:layout_toEndOf="@+id/imageButton"
                         android:layout_toRightOf="@+id/imageButton"
                         android:gravity="center_vertical"
-                        android:text="@string/advanced_search"
+                        android:text="@string/search_advanced"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/white" />
 

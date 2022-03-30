@@ -175,7 +175,7 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
         if(!StringUtils.isBlank(edd))
         {
             if(Utils.getGestationAgeFromEDDate(edd) <= 40) {
-                fillValue(viewHolder.ga, String.format(context.getString(R.string.ga_text), Utils.getGestationAgeFromEDDate(edd)));
+                fillValue(viewHolder.ga, String.format(context.getString(R.string.client_ga), Utils.getGestationAgeFromEDDate(edd)));
             }
             else
             {
@@ -190,7 +190,7 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
 
         String dobString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.DOB, false));
         dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
-        fillValue((viewHolder.age), String.format(context.getString(R.string.age_text), dobString));
+        fillValue((viewHolder.age), String.format(context.getString(R.string.client_age), dobString));
 
         View patient = viewHolder.patientColumn;
         attachPatientOnclickListener(patient, client);
@@ -198,7 +198,7 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
 
     private void populateIdentifierColumn(CommonPersonObjectClient pc, AdvancedSearchViewHolder viewHolder) {
         String ancId = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.ANC_ID, false);
-        fillValue(viewHolder.ancId, String.format(context.getString(R.string.anc_id_text), ancId));
+        fillValue(viewHolder.ancId, String.format(context.getString(R.string.client_id), ancId));
     }
 
     private void populateLastColumn(CommonPersonObjectClient pc, AdvancedSearchViewHolder viewHolder) {
