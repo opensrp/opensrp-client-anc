@@ -123,7 +123,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     protected void updateTasksTabTitle() {
         ConstraintLayout taskTabTitleLayout = (ConstraintLayout) LayoutInflater.from(this).inflate(R.layout.tasks_tab_title, null);
         TextView taskTabTitle = taskTabTitleLayout.findViewById(R.id.tasks_title);
-        taskTabTitle.setText(this.getString(R.string.tasks));
+        taskTabTitle.setText(this.getString(R.string.profile_tab_tasks).toUpperCase());
         taskTabCount = taskTabTitleLayout.findViewById(R.id.tasks_count);
 
         getTabLayout().getTabAt(2).setCustomView(taskTabTitleLayout);
@@ -137,9 +137,9 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         ProfileContactsFragment profileContactsFragment = ProfileContactsFragment.newInstance(this.getIntent().getExtras());
         ProfileTasksFragment profileTasksFragment = ProfileTasksFragment.newInstance(this.getIntent().getExtras());
 
-        adapter.addFragment(profileOverviewFragment, this.getString(R.string.overview));
-        adapter.addFragment(profileContactsFragment, this.getString(R.string.contacts));
-        adapter.addFragment(profileTasksFragment, this.getString(R.string.tasks));
+        adapter.addFragment(profileOverviewFragment, this.getString(R.string.profile_tab_overview).toUpperCase());
+        adapter.addFragment(profileContactsFragment, this.getString(R.string.profile_tab_contacts).toUpperCase());
+        adapter.addFragment(profileTasksFragment, this.getString(R.string.profile_tab_tasks).toUpperCase());
 
         viewPager.setAdapter(adapter);
         return viewPager;
@@ -218,7 +218,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         if (itemId == android.R.id.home) {
             Utils.navigateToHomeRegister(this, false, AncLibrary.getInstance().getActivityConfiguration().getHomeRegisterActivityClass());
         } else {
-            String contactButtonText = getString(R.string.start_contact);
+            String contactButtonText = getString(R.string.profile_start_contact);
 
             if (buttonAlertStatus.equals(ConstantsUtils.AlertStatusUtils.TODAY)) {
                 contactButtonText = String.format(getString(R.string.contact_recorded_today_no_break), Utils.getTodayContact(detailMap.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
@@ -235,9 +235,9 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
 
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
-        arrayAdapter.add(getString(R.string.call));
+        arrayAdapter.add(getString(R.string.profile_call));
         arrayAdapter.add(contactButtonText);
-        arrayAdapter.add(getString(R.string.close_anc_record));
+        arrayAdapter.add(getString(R.string.profile_close));
 
         builderSingle.setAdapter(arrayAdapter, (dialog, which) -> {
             switch (which) {
@@ -338,18 +338,20 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
 
     @Override
     public void setProfileID(String ancId) {
-        ancIdView.setText("ID: " + ancId);
+        ancIdView.setText(getString(R.string.client_id, ancId));
     }
 
     @Override
     public void setProfileAge(String age) {
-        ageView.setText("AGE " + age);
+        ageView.setText(getString(R.string.client_age, age));
 
     }
 
     @Override
     public void setProfileGestationAge(String gestationAge) {
-        gestationAgeView.setText(gestationAge != null ? "GA: " + gestationAge + " WEEKS" : "GA");
+        if (gestationAge != null) {
+            gestationAgeView.setText(getString(R.string.client_ga, Integer.parseInt(gestationAge)));
+        }
     }
 
     @Override

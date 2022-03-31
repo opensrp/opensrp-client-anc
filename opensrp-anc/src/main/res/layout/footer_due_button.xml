@@ -17,7 +17,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_centerVertical="true"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
@@ -29,9 +28,11 @@
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
         android:text="@string/contact_number_due"
+        android:textAllCaps="true"
         android:textAppearance="?android:textAppearanceSmall"
         android:textColor="@color/status_bar_text_almost_white"
         android:textSize="15sp"
+        android:textStyle="bold"
         app:textAllCaps="true" />
 
 
