@@ -192,11 +192,9 @@ public class ANCFormUtilsTest extends BaseUnitTest {
 
     @Test
     public void testObtainValueFromHiddenValues() throws JSONException {
-        ANCFormUtils mockedAncFormUtils = Mockito.mock(ANCFormUtils.class);
         String actual = "39 weeks 6 days";
         String result = ANCFormUtils.obtainValue("ultrasound_gest_age", accordionValuesJson);
         ANCFormUtils.obtainValue("ultrasound_gest_age", accordionValuesJson);
-        Mockito.doReturn(result).when(mockedAncFormUtils);
         assertEquals(result, actual);
     }
 
@@ -245,7 +243,7 @@ public class ANCFormUtilsTest extends BaseUnitTest {
     @Test
     public void testGetFormJsonCoreShouldReturnSameFormPassed() throws JSONException {
         PartialContact partialContact = new PartialContact();
-        Mockito.when(partialContactRepository.getPartialContact(partialContact)).thenReturn(null);
+        Mockito.when(partialContactRepository.getPartialContact(partialContact)).thenReturn(partialContact);
         Mockito.when(ancLibrary.getPartialContactRepository()).thenReturn(partialContactRepository);
         ReflectionHelpers.setStaticField(AncLibrary.class, "instance", ancLibrary);
         JSONObject form = new JSONObject(quickCheckForm);
@@ -294,10 +292,9 @@ public class ANCFormUtilsTest extends BaseUnitTest {
         String baseEnitityId = "29f324e8-8984-4977-bb68-b54ec1972d6e";
         SQLiteDatabase database = Mockito.mock(SQLiteDatabase.class);
         DrishtiApplication drishtiApplication = Mockito.mock(DrishtiApplication.class);
+        ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", drishtiApplication);
         PartialContactRepository partialContactRepository = Mockito.mock(PartialContactRepository.class);
         Repository repository = Mockito.mock(Repository.class);
-        Mockito.when(DrishtiApplication.getInstance()).thenReturn(drishtiApplication);
-        PowerMockito.mockStatic(DrishtiApplication.class);
         Mockito.when(drishtiApplication.getRepository()).thenReturn(repository);
         Mockito.when(repository.getWritableDatabase()).thenReturn(database);
         CoreLibrary coreLibrary = PowerMockito.mock(CoreLibrary.class);
@@ -402,7 +399,6 @@ public class ANCFormUtilsTest extends BaseUnitTest {
         partialContact.setFormJson(contact.getJsonForm());
         partialContact.setBaseEntityId(baseEnitityId);
         partialContactRepository.savePartialContact(partialContact);
-
 
 
     }

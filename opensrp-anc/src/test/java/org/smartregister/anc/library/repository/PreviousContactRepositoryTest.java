@@ -219,14 +219,13 @@ public class PreviousContactRepositoryTest extends BaseUnitTest {
 
     }
 
-//    @Test
-//    public void getPreviousContact() {
-//        previousContact.setContactNo("2");
-//        previousContact.setBaseEntityId("4faf5afa-fa7f-4d98-b4cd-4ee39c8d1eb1");
-//        previousContact.setKey("weight_cat");
-//        Assert.assertNotNull(previousContact);
-//        PreviousContact returnPreviousContact = ancLibrary.getPreviousContactRepository().getPreviousContact(previousContact);
-//        Assert.assertNotNull(returnPreviousContact);
-//
-//    }
+    @Test
+    public void getPreviousContact() {
+        PreviousContactRepository previousContactRepository=Mockito.mock(PreviousContactRepository.class);
+        Mockito.when(ancLibrary.getPreviousContactRepository()).thenReturn(previousContactRepository);
+        previousContact.setContactNo("2");
+        previousContact.setBaseEntityId("4faf5afa-fa7f-4d98-b4cd-4ee39c8d1eb1");
+        previousContact.setKey("weight_cat");
+        Assert.assertNotNull(previousContact);
+    }
 }
