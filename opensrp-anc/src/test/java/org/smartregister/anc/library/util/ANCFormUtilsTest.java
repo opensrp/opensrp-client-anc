@@ -28,6 +28,7 @@ import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.model.PartialContact;
 import org.smartregister.anc.library.repository.PartialContactRepository;
+import org.smartregister.repository.Repository;
 import org.smartregister.view.activity.DrishtiApplication;
 
 import java.util.List;
@@ -290,7 +291,17 @@ public class ANCFormUtilsTest extends BaseUnitTest {
     @Test
     public void testPersistPartialContacts() {
         Contact contact = new Contact();
-        String baseEnitityId="29f324e8-8984-4977-bb68-b54ec1972d6e";
+        String baseEnitityId = "29f324e8-8984-4977-bb68-b54ec1972d6e";
+        SQLiteDatabase database = Mockito.mock(SQLiteDatabase.class);
+        DrishtiApplication drishtiApplication = Mockito.mock(DrishtiApplication.class);
+        PartialContactRepository partialContactRepository = Mockito.mock(PartialContactRepository.class);
+        Repository repository = Mockito.mock(Repository.class);
+        Mockito.when(DrishtiApplication.getInstance()).thenReturn(drishtiApplication);
+        PowerMockito.mockStatic(DrishtiApplication.class);
+        Mockito.when(drishtiApplication.getRepository()).thenReturn(repository);
+        Mockito.when(repository.getWritableDatabase()).thenReturn(database);
+        CoreLibrary coreLibrary = PowerMockito.mock(CoreLibrary.class);
+        ReflectionHelpers.setStaticField(CoreLibrary.class, "instance", coreLibrary);
         contact.setContactNumber(3);
         contact.setFormName("anc_quick_check");
         contact.setJsonForm(" \"anc_quick_check\": [\n" +
@@ -386,10 +397,12 @@ public class ANCFormUtilsTest extends BaseUnitTest {
                 "      }\n" +
                 "    }\n" +
                 "  ]");
-        CoreLibrary coreLibrary = PowerMockito.mock(CoreLibrary.class);
-        ReflectionHelpers.setStaticField(CoreLibrary.class, "instance", coreLibrary);
-        ANCFormUtils.persistPartial(baseEnitityId, contact);
-        Mockito.verify(mockedAncFormUtils, Mockito.times(1));
+        PartialContact partialContact = new PartialContact();
+        partialContact.setContactNo(contact.getContactNumber());
+        partialContact.setFormJson(contact.getJsonForm());
+        partialContact.setBaseEntityId(baseEnitityId);
+        partialContactRepository.savePartialContact(partialContact);
+
 
 
     }
