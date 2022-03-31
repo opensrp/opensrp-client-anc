@@ -22,6 +22,7 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.robolectric.util.ReflectionHelpers;
+import org.smartregister.CoreLibrary;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.domain.Contact;
@@ -33,7 +34,7 @@ import java.util.List;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
 
-@PrepareForTest({AncLibrary.class, SQLiteDatabase.class, DrishtiApplication.class})
+@PrepareForTest({AncLibrary.class, SQLiteDatabase.class, DrishtiApplication.class, CoreLibrary.class, Context.class})
 public class ANCFormUtilsTest extends BaseUnitTest {
 
     private final String quickCheckForm = "{\"validate_on_submit\":true,\"display_scroll_bars\":true,\"count\":\"1\",\"encounter_type\":\"Quick Check\",\"entity_id\":\"\",\"relational_id\":\"\",\"form_version\":\"0.0.1\",\"step1\":{\"title\":\"Quick Check\",\"fields\":" +
@@ -190,8 +191,11 @@ public class ANCFormUtilsTest extends BaseUnitTest {
 
     @Test
     public void testObtainValueFromHiddenValues() throws JSONException {
+        ANCFormUtils mockedAncFormUtils = Mockito.mock(ANCFormUtils.class);
         String actual = "39 weeks 6 days";
         String result = ANCFormUtils.obtainValue("ultrasound_gest_age", accordionValuesJson);
+        ANCFormUtils.obtainValue("ultrasound_gest_age", accordionValuesJson);
+        Mockito.doReturn(result).when(mockedAncFormUtils);
         assertEquals(result, actual);
     }
 
@@ -286,9 +290,10 @@ public class ANCFormUtilsTest extends BaseUnitTest {
     @Test
     public void testPersistPartialContacts() {
         Contact contact = new Contact();
-        contact.setContactNumber(1);
-        contact.setFormName("Malaria Tests");
-        contact.setJsonForm(" \"content_form\": [\n" +
+        String baseEnitityId="29f324e8-8984-4977-bb68-b54ec1972d6e";
+        contact.setContactNumber(3);
+        contact.setFormName("anc_quick_check");
+        contact.setJsonForm(" \"anc_quick_check\": [\n" +
                 "    {\n" +
                 "      \"key\": \"breast_exam_abnormal\",\n" +
                 "      \"openmrs_entity_parent\": \"\",\n" +
@@ -381,10 +386,11 @@ public class ANCFormUtilsTest extends BaseUnitTest {
                 "      }\n" +
                 "    }\n" +
                 "  ]");
-        PowerMockito.when(AncLibrary.getInstance()).thenReturn(ancLibrary);
-        PowerMockito.when(ancLibrary.getContext()).thenReturn(context1);
-        Mockito.verify(mockedAncFormUtils, Mockito.times(0));
-        ANCFormUtils.persistPartial(DUMMY_BASE_ENTITY_ID, contact);
+        CoreLibrary coreLibrary = PowerMockito.mock(CoreLibrary.class);
+        ReflectionHelpers.setStaticField(CoreLibrary.class, "instance", coreLibrary);
+        ANCFormUtils.persistPartial(baseEnitityId, contact);
+        Mockito.verify(mockedAncFormUtils, Mockito.times(1));
+
 
     }
 }
