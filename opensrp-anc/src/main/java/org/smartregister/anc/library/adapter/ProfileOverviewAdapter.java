@@ -28,6 +28,7 @@ import org.smartregister.anc.library.domain.TestResults;
 import org.smartregister.anc.library.domain.TestResultsDialog;
 import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.domain.YamlConfigWrapper;
+import org.smartregister.anc.library.helper.ContactHelper;
 import org.smartregister.anc.library.util.Utils;
 
 import java.util.ArrayList;
@@ -46,6 +47,7 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
     private PreviousContactsTests.Presenter presenter;
     private String baseEntityId;
     private String contactNo;
+    private ContactHelper contactHelper;
 
     // data is passed into the constructor
     public ProfileOverviewAdapter(Context context, List<YamlConfigWrapper> data, Facts facts) {
@@ -53,6 +55,7 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
         this.mData = data;
         this.facts = facts;
         this.context = context;
+        this.contactHelper = new ContactHelper(this.context);
     }
 
     public ProfileOverviewAdapter(Context context, List<YamlConfigWrapper> data, Facts facts,
@@ -64,6 +67,7 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
         this.presenter = presenter;
         this.baseEntityId = baseEntityId;
         this.contactNo = contactNo;
+        this.contactHelper = new ContactHelper(this.context);
     }
 
     // inflates the row layout from xml when needed
@@ -79,7 +83,7 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
 
         if (!TextUtils.isEmpty(mData.get(position).getGroup())) {
 
-            holder.sectionHeader.setText(processUnderscores(mData.get(position).getGroup()));
+            holder.sectionHeader.setText(this.contactHelper.getContactString(mData.get(position).getGroup()));
             holder.sectionHeader.setVisibility(View.VISIBLE);
 
         } else {
@@ -88,7 +92,7 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
         }
 
         if (!TextUtils.isEmpty(mData.get(position).getSubGroup())) {
-            holder.subSectionHeader.setText(processUnderscores(mData.get(position).getSubGroup()));
+            holder.subSectionHeader.setText(this.contactHelper.getContactString(mData.get(position).getSubGroup()));
             holder.subSectionHeader.setVisibility(View.VISIBLE);
         } else {
             holder.subSectionHeader.setVisibility(View.GONE);
