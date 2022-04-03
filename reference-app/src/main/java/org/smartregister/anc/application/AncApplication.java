@@ -41,9 +41,6 @@ import timber.log.Timber;
 import static org.smartregister.util.Log.logError;
 import static org.smartregister.util.Log.logInfo;
 
-/**
- * Created by ndegwamartin on 21/06/2018.
- */
 public class AncApplication extends DrishtiApplication implements TimeChangedBroadcastReceiver.OnTimeChangedListener {
 	private static CommonFtsObject commonFtsObject;
 
@@ -56,33 +53,38 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 		context.updateApplicationContext(getApplicationContext());
 		context.updateCommonFtsObject(createCommonFtsObject());
 
-		//Initialize Modules
+		// Initialize modules
 		CoreLibrary.init(context, new AncSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);
 		AncLibrary.init(context, BuildConfig.DATABASE_VERSION, new ANCEventBusIndex());
 		ConfigurableViewsLibrary.init(context);
-		setDefaultLanguage("en");
 
+		// Set application and form language
+		setDefaultLanguage("ind");
+
+		// Utilities
 		SyncStatusBroadcastReceiver.init(this);
 		TimeChangedBroadcastReceiver.init(this);
 		TimeChangedBroadcastReceiver.getInstance().addOnTimeChangedListener(this);
 		LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.DEFAULT_LOCATION_LEVEL);
 		Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
 
-		//init Job Manager
+		// Initialize Job Manager
 		JobManager.create(this).addJobCreator(new AncJobCreator());
 
-		//Only integrate Flurry Analytics for  production. Remove negation to test in debug
+		// Flurry Analytics setup
 		if (!BuildConfig.DEBUG) {
 			new FlurryAgent.Builder()
-					.withLogEnabled(true)
-					.withCaptureUncaughtExceptions(true)
-					.withContinueSessionMillis(10000)
-					.withLogLevel(Log.VERBOSE)
-					.build(this, BuildConfig.FLURRY_API_KEY);
+				.withLogEnabled(true)
+				.withCaptureUncaughtExceptions(true)
+				.withContinueSessionMillis(10000)
+				.withLogLevel(Log.VERBOSE)
+				.build(this, BuildConfig.FLURRY_API_KEY);
 		}
+
+
 		NativeFormLibrary
-				.getInstance()
-				.setClientFormDao(CoreLibrary.getInstance().context().getClientFormRepository());
+			.getInstance()
+			.setClientFormDao(CoreLibrary.getInstance().context().getClientFormRepository());
 	}
 
 	/**
