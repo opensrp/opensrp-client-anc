@@ -2,7 +2,7 @@ package org.smartregister.anc.library.activity;
 
 import android.app.ProgressDialog;
 
-import com.vijay.jsonwizard.constants.JsonFormConstants;
+import org.smartregister.anc.library.constants.ANCJsonFormConstants;
 import com.vijay.jsonwizard.customviews.ExpansionPanelGenericPopupDialog;
 import com.vijay.jsonwizard.domain.Form;
 
@@ -144,7 +144,7 @@ public class ContactJsonFormActivityTest extends BaseUnitTest {
         Assert.assertNotNull(formActivity);
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put(JsonFormConstants.FIELDS, new JSONArray());
+        jsonObject.put(ANCJsonFormConstants.FIELDS, new JSONArray());
 
         JSONArray jsonArray = new JSONArray();
         try {
@@ -173,10 +173,10 @@ public class ContactJsonFormActivityTest extends BaseUnitTest {
 
         JSONArray parentArray = new JSONArray();
         JSONObject itemObject = new JSONObject();
-        itemObject.put(JsonFormConstants.KEY, "parent_keys_expansion");
-        itemObject.put(JsonFormConstants.CONTENT_FORM, "content_form");
+        itemObject.put(ANCJsonFormConstants.KEY, "parent_keys_expansion");
+        itemObject.put(ANCJsonFormConstants.CONTENT_FORM, "content_form");
         parentArray.put(itemObject);
-        jsonObject.put(JsonFormConstants.FIELDS, parentArray);
+        jsonObject.put(ANCJsonFormConstants.FIELDS, parentArray);
 
         JSONArray jsonArray = new JSONArray();
         try {

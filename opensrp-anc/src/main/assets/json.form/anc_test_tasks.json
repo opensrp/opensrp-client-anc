@@ -56,9 +56,8 @@
   },
   "step1": {
     "display_back_button": "true",
-    "title": "Due",
-    "fields": [
-    ]
+    "title": "{{anc_test.step1.title}}",
+    "fields": []
   },
   "properties_file_name": "anc_test"
 }

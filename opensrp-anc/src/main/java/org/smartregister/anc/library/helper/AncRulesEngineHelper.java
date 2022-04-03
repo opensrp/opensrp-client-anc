@@ -3,7 +3,7 @@ package org.smartregister.anc.library.helper;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.vijay.jsonwizard.constants.JsonFormConstants;
+import org.smartregister.anc.library.constants.ANCJsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
 import com.vijay.jsonwizard.rules.RulesEngineHelper;
 import com.vijay.jsonwizard.utils.FormUtils;
@@ -169,12 +169,12 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
             String key = ANCFormUtils.removeKeyPrefix(widget, step);
             if (mJsonObject.has(step)) {
                 JSONObject stepsObject = mJsonObject.getJSONObject(step);
-                JSONArray fields = stepsObject.getJSONArray(JsonFormConstants.FIELDS);
+                JSONArray fields = stepsObject.getJSONArray(ANCJsonFormConstants.FIELDS);
                 if (fields.length() > 1)
                     for (int i = 0; i < fields.length(); i++) {
                         JSONObject accordionObject = fields.getJSONObject(i);
-                        if (accordionObject.getString(JsonFormConstants.KEY).equals(accordion)) {
-                            JSONArray value = accordionObject.optJSONArray(JsonFormConstants.VALUE);
+                        if (accordionObject.getString(ANCJsonFormConstants.KEY).equals(accordion)) {
+                            JSONArray value = accordionObject.optJSONArray(ANCJsonFormConstants.VALUE);
                             if (value == null) {
                                 return result;
                             }

@@ -4,7 +4,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
-import com.vijay.jsonwizard.constants.JsonFormConstants;
+import org.smartregister.anc.library.constants.ANCJsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 import com.vijay.jsonwizard.presenters.JsonWizardFormFragmentPresenter;
@@ -73,9 +73,9 @@ public class ContactWizardJsonFormFragmentPresenter extends JsonWizardFormFragme
         String type = (String) view.getTag(com.vijay.jsonwizard.R.id.specify_type);
         String specifyWidget = (String) view.getTag(com.vijay.jsonwizard.R.id.specify_widget);
         Log.i(TAG, "The dialog content widget is this: " + specifyWidget);
-        if (JsonFormConstants.CONTENT_INFO.equals(type) && specifyWidget.equals(JsonFormConstants.DATE_PICKER)) {
+        if (ANCJsonFormConstants.CONTENT_INFO.equals(type) && specifyWidget.equals(ANCJsonFormConstants.DATE_PICKER)) {
             NativeRadioButtonFactory.showDateDialog(view);
-        } else if (JsonFormConstants.CONTENT_INFO.equals(type) && !specifyWidget.equals(JsonFormConstants.DATE_PICKER)) {
+        } else if (ANCJsonFormConstants.CONTENT_INFO.equals(type) && !specifyWidget.equals(ANCJsonFormConstants.DATE_PICKER)) {
             ANCFormUtils formUtils = new ANCFormUtils();
             formUtils.showGenericDialog(view);
         } else if (view.getId() == com.vijay.jsonwizard.R.id.label_edit_button) {

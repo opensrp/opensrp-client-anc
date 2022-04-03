@@ -1,0 +1,81 @@
+{
+  "identifier": "population_characteristics",
+  "settings": [
+    {
+      "description": "Proporsi wanita dalam populasi orang dewasa (18 tahun atau lebih), dengan BMI kurang dari 18,5, adalah 20% atau lebih tinggi.",
+      "label": "Prevalensi kekurangan gizi sebesar 20% atau lebih tinggi",
+      "key": "pop_undernourish"
+    },
+    {
+      "description": "Proporsi ibu hamil pada populasi dengan anemia (kadar hemoglobin kurang dari 11 g/dl) adalah 40% atau lebih.",
+      "label": "Prevalensi anemia sebesar 40% atau lebih tinggi",
+      "key": "pop_anaemia_40"
+    },
+    {
+      "description": "Proporsi ibu hamil pada populasi dengan anemia (kadar hemoglobin kurang dari 11 g/dl) adalah 20% atau lebih rendah.",
+      "label": "Prevalensi anemia sebesar 20% atau lebih rendah",
+      "key": "pop_anaemia_20"
+    },
+    {
+      "description": "Wanita dalam populasi cenderung memiliki asupan kalsium makanan rendah (kurang dari 900 mg kalsium per hari).",
+      "label": "Asupan kalsium diet rendah",
+      "key": "pop_low_calcium"
+    },
+    {
+      "description": "Prevalensi tuberkulosis pada populasi umum adalah 100 kasus per 100.000 orang atau lebih.",
+      "label": "Prevalensi TB 100/100.000 atau lebih tinggi",
+      "key": "pop_tb"
+    },
+    {
+      "description": "Prevalensi rabun senja adalah 5% atau lebih tinggi pada wanita hamil atau 5% atau lebih tinggi pada anak-anak usia 24-59 bulan, atau proporsi wanita hamil dengan kadar serum retinol kurang dari 0,7 mol/L adalah 20% atau lebih tinggi.",
+      "label": "Kekurangan vitamin A 5% atau lebih tinggi",
+      "key": "pop_vita"
+    },
+    {
+      "description": "Persentase individu dalam populasi umum yang terinfeksi setidaknya satu spesies cacing yang ditularkan melalui tanah adalah 20% atau lebih tinggi.",
+      "label": "Prevalensi infeksi cacing yang ditularkan melalui tanah (SFH) 20% atau lebih tinggi",
+      "key": "pop_helminth"
+    },
+    {
+      "description": "Perempuan dalam populasi memiliki risiko besar infeksi HIV. Risiko substansial infeksi HIV sementara didefinisikan sebagai kejadian HIV lebih besar dari 3 per 100 orang-tahun tanpa adanya profilaksis pra pajanan (PrPP).",
+      "label": "Insiden HIV lebih besar dari 3 per 100 orang-tahun tanpa adanya PrEP",
+      "key": "pop_hiv_incidence"
+    },
+    {
+      "description": "Apakah prevalensi HIV secara konsisten > 1% pada ibu hamil yang datang ke klinik antenatal?",
+      "label": "Epidemi HIV umum",
+      "key": "pop_hiv_generalized"
+    },
+    {
+      "description": "HIV menyebar dengan cepat di populasi kunci (laki-laki yang berhubungan seks dengan laki-laki, orang di penjara atau lingkungan tertutup lainnya, orang yang menyuntikkan narkoba, pekerja seks dan waria), yaitu prevalensi HIV secara konsisten lebih dari 5% di setidaknya satu populasi kunci yang ditentukan .",
+      "label": "Epidemi HIV terkonsentrasi",
+      "key": "pop_hiv_concentrated"
+    },
+    {
+      "description": "Ini adalah pengaturan endemik malaria.",
+      "label": "Lokasi endemik malaria",
+      "key": "pop_malaria"
+    },
+    {
+      "description": "Prevalensi sifilis pada wanita hamil dalam populasi adalah 5% atau lebih tinggi.",
+      "label": "Prevalensi sifilis 5% atau lebih tinggi",
+      "key": "pop_syphilis"
+    },
+    {
+      "description": "Proporsi seroprevalansi antigen permukaan Hepatitis B (HBsAg) pada populasi umum adalah 2% atau lebih tinggi.",
+      "label": "Prevalensi Hepatitis B sedang (2% atau lebih tinggi) atau tinggi (5% atau lebih tinggi)",
+      "key": "pop_hepb"
+    },
+    {
+      "description": "Ada program skrining rutin ANC Hepatitis B nasional.",
+      "label": "Program skrining rutin Hepatitis B ANC Nasional tersedia",
+      "key": "pop_hepb_screening"
+    },
+    {
+      "description": "Proporsi seroprevalensi antibodi virus Hepatitis C (HCV) pada populasi umum adalah 2% atau lebih tinggi.",
+      "label": "Prevalensi Hepatitis C sedang (2% atau lebih tinggi) atau tinggi (5% atau lebih tinggi)",
+      "key": "pop_hepc"
+    }
+  ],
+  "type": "SettingConfiguration"
+}

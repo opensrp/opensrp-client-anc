@@ -8,7 +8,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import androidx.core.util.Pair;
 
-import com.vijay.jsonwizard.constants.JsonFormConstants;
+import org.smartregister.anc.library.constants.ANCJsonFormConstants;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
@@ -704,12 +704,12 @@ public class ANCJsonFormUtilsTest {
         Mockito.when(LocationHelper.getInstance()).thenReturn(locationHelper);
         Mockito.doReturn("232-121").when(locationHelper).getOpenMrsLocationId("locationA");
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put(JsonFormConstants.TYPE, JsonFormConstants.TREE);
-        jsonObject.put(JsonFormConstants.VALUE, "[locationA]");
+        jsonObject.put(ANCJsonFormConstants.TYPE, ANCJsonFormConstants.TREE);
+        jsonObject.put(ANCJsonFormConstants.VALUE, "[locationA]");
         JSONArray jsonArray = new JSONArray();
         jsonArray.put(jsonObject);
         ANCJsonFormUtils.processLocationFields(jsonArray);
-        Assert.assertEquals("232-121", jsonArray.optJSONObject(0).optString(JsonFormConstants.VALUE));
+        Assert.assertEquals("232-121", jsonArray.optJSONObject(0).optString(ANCJsonFormConstants.VALUE));
     }
 
     @Test
@@ -746,11 +746,11 @@ public class ANCJsonFormUtilsTest {
         JSONObject jsonObject = new JSONObject();
         WhiteboxImpl.invokeMethod(ANCJsonFormUtils.class, "reverseLocationTree", jsonObject, entity);
         Assert.assertTrue(jsonObject.has(ANCJsonFormUtils.VALUE));
-        Assert.assertTrue(jsonObject.has(JsonFormConstants.TREE));
+        Assert.assertTrue(jsonObject.has(ANCJsonFormConstants.TREE));
         String expectedTree = "[{\"nodes\":[{\"level\":\"Province\",\"name\":\"Central\",\"key\":\"1\"}],\"level\":\"Country\",\"name\":\"Kenya\",\"key\":\"0\"}]";
         String expectedValue = "[\"Kenya\",\"Central\"]";
         Assert.assertEquals(expectedValue, jsonObject.optString(ANCJsonFormUtils.VALUE));
-        Assert.assertEquals(expectedTree, jsonObject.optString(JsonFormConstants.TREE));
+        Assert.assertEquals(expectedTree, jsonObject.optString(ANCJsonFormConstants.TREE));
         ReflectionHelpers.setStaticField(AncLibrary.class, "instance", null);
     }
 
@@ -758,7 +758,7 @@ public class ANCJsonFormUtilsTest {
     public void testUpdateLocationStringShouldPopulateTreeAndDefaultAttribute() throws Exception {
         JSONArray jsonArray = new JSONArray();
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put(JsonFormConstants.KEY, "village");
+        jsonObject.put(ANCJsonFormConstants.KEY, "village");
         jsonArray.put(jsonObject);
         String hierarchyString = "[\"Kenya\",\"Central\"]";
         String entireTree = "[{\"nodes\":[{\"level\":\"Province\",\"name\":\"Central\",\"key\":\"1\"}],\"level\":\"Country\",\"name\":\"Kenya\",\"key\":\"0\"}]";
@@ -767,10 +767,10 @@ public class ANCJsonFormUtilsTest {
         Mockito.when(ancLibrary.getAncMetadata()).thenReturn(ancMetadata);
         ReflectionHelpers.setStaticField(AncLibrary.class, "instance", ancLibrary);
         WhiteboxImpl.invokeMethod(ANCJsonFormUtils.class, "updateLocationTree", jsonArray, hierarchyString, hierarchyString, entireTree);
-        Assert.assertTrue(jsonObject.has(JsonFormConstants.TREE));
-        Assert.assertTrue(jsonObject.has(JsonFormConstants.DEFAULT));
-        Assert.assertEquals(hierarchyString, jsonObject.optString(JsonFormConstants.DEFAULT));
-        Assert.assertEquals(entireTree, jsonObject.optString(JsonFormConstants.TREE));
+        Assert.assertTrue(jsonObject.has(ANCJsonFormConstants.TREE));
+        Assert.assertTrue(jsonObject.has(ANCJsonFormConstants.DEFAULT));
+        Assert.assertEquals(hierarchyString, jsonObject.optString(ANCJsonFormConstants.DEFAULT));
+        Assert.assertEquals(entireTree, jsonObject.optString(ANCJsonFormConstants.TREE));
         ReflectionHelpers.setStaticField(AncLibrary.class, "instance", null);
     }
 
@@ -795,7 +795,7 @@ public class ANCJsonFormUtilsTest {
         Assert.assertEquals(DUMMY_BASE_ENTITY_ID, resultEvent.getBaseEntityId());
         Assert.assertEquals("2323-22-loc", resultEvent.getLocationId());
         Assert.assertEquals(DUMMY_LOCATION_ID, resultEvent.getChildLocationId());
-        Assert.assertEquals(coJsonObject.optString(JsonFormConstants.ENCOUNTER_TYPE), resultEvent.getEventType());
+        Assert.assertEquals(coJsonObject.optString(ANCJsonFormConstants.ENCOUNTER_TYPE), resultEvent.getEventType());
         Assert.assertEquals("demo", resultEvent.getProviderId());
     }
 
@@ -804,13 +804,13 @@ public class ANCJsonFormUtilsTest {
     public void testInitializeFirstContactValuesForDefaultStrategy() throws Exception {
         PowerMockito.mockStatic(Utils.class);
         PowerMockito.when(Utils.class, "getDueCheckStrategy").thenReturn("");
-        JSONArray fields = new JSONObject(registerFormJsonString).optJSONObject(JsonFormConstants.STEP1)
-                .optJSONArray(JsonFormConstants.FIELDS);
+        JSONArray fields = new JSONObject(registerFormJsonString).optJSONObject(ANCJsonFormConstants.STEP1)
+                .optJSONArray(ANCJsonFormConstants.FIELDS);
         String result = Whitebox.invokeMethod(ANCJsonFormUtils.class, "initializeFirstContactValues", fields);
         JSONObject nextContactJsonObject = ANCJsonFormUtils.getFieldJSONObject(fields, DBConstantsUtils.KeyUtils.NEXT_CONTACT);
         JSONObject nextContactDateJsonObject = ANCJsonFormUtils.getFieldJSONObject(fields, DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE);
-        Assert.assertEquals(String.valueOf(1), nextContactJsonObject.optString(JsonFormConstants.VALUE));
-        Assert.assertTrue(nextContactDateJsonObject.optString(JsonFormConstants.VALUE).isEmpty());
+        Assert.assertEquals(String.valueOf(1), nextContactJsonObject.optString(ANCJsonFormConstants.VALUE));
+        Assert.assertTrue(nextContactDateJsonObject.optString(ANCJsonFormConstants.VALUE).isEmpty());
         Assert.assertNull(result);
     }
 
@@ -820,11 +820,11 @@ public class ANCJsonFormUtilsTest {
         PowerMockito.mockStatic(Utils.class);
         PowerMockito.when(Utils.class, "getDueCheckStrategy").thenReturn(ConstantsUtils.DueCheckStrategy.CHECK_FOR_FIRST_CONTACT);
 
-        JSONArray fields = new JSONObject(registerFormJsonString).optJSONObject(JsonFormConstants.STEP1)
-                .optJSONArray(JsonFormConstants.FIELDS);
+        JSONArray fields = new JSONObject(registerFormJsonString).optJSONObject(ANCJsonFormConstants.STEP1)
+                .optJSONArray(ANCJsonFormConstants.FIELDS);
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put(JsonFormConstants.KEY, DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE);
+        jsonObject.put(ANCJsonFormConstants.KEY, DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE);
         fields.put(jsonObject);
 
         HashMap<String, String> groupItem = new LinkedHashMap<>();
@@ -839,9 +839,9 @@ public class ANCJsonFormUtilsTest {
         JSONObject nextContactDateJsonObject = ANCJsonFormUtils.getFieldJSONObject(fields, DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE);
         JSONObject lastContactDateJsonObject = ANCJsonFormUtils.getFieldJSONObject(fields, DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE);
 
-        Assert.assertEquals(String.valueOf(2), nextContactJsonObject.optString(JsonFormConstants.VALUE));
-        Assert.assertTrue(nextContactDateJsonObject.optString(JsonFormConstants.VALUE).isEmpty());
-        Assert.assertEquals("2020-04-04", lastContactDateJsonObject.optString(JsonFormConstants.VALUE));
+        Assert.assertEquals(String.valueOf(2), nextContactJsonObject.optString(ANCJsonFormConstants.VALUE));
+        Assert.assertTrue(nextContactDateJsonObject.optString(ANCJsonFormConstants.VALUE).isEmpty());
+        Assert.assertEquals("2020-04-04", lastContactDateJsonObject.optString(ANCJsonFormConstants.VALUE));
         Assert.assertNotNull(result);
     }
 

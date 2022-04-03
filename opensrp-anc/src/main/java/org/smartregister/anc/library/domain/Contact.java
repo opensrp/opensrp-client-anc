@@ -1,24 +1,45 @@
 package org.smartregister.anc.library.domain;
 
+import android.content.Context;
+
 import com.vijay.jsonwizard.domain.Form;
+
+import org.checkerframework.checker.units.qual.C;
+import org.smartregister.anc.library.helper.ContactHelper;
 
 import java.io.Serializable;
 import java.util.Map;
 
 public class Contact extends Form implements Serializable {
 
+    private String id;
     private int background;
-
     private Integer requiredFields;
-
     private String formName;
-
     private int contactNumber;
-
     private String jsonForm;
-
-
     private Map<String, String> globals;
+
+    private ContactHelper contactHelper;
+
+    // --- Initialization
+
+    // Initialize contact data
+    public void init(Context context, String id, String formName) {
+        this.id = id;
+        this.contactHelper = new ContactHelper(context);
+        // Contact name
+        this.setName(this.contactHelper.getContactString(this.id));
+        // Form
+        this.setFormName(formName);
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+
+    // --- Background
 
     public int getBackground() {
         return background;
@@ -28,6 +49,8 @@ public class Contact extends Form implements Serializable {
         this.background = background;
     }
 
+    // --- Required Fields
+
     public Integer getRequiredFields() {
         return requiredFields;
     }
@@ -35,6 +58,8 @@ public class Contact extends Form implements Serializable {
     public void setRequiredFields(int requiredFields) {
         this.requiredFields = requiredFields;
     }
+
+    // --- Form Name
 
     public String getFormName() {
         return formName;
@@ -44,6 +69,8 @@ public class Contact extends Form implements Serializable {
         this.formName = formName;
     }
 
+    // --- Globals
+
     public Map<String, String> getGlobals() {
         return globals;
     }
@@ -52,6 +79,8 @@ public class Contact extends Form implements Serializable {
         this.globals = globals;
     }
 
+    // --- Contact Number
+
     public int getContactNumber() {
         return contactNumber;
     }
@@ -59,6 +88,8 @@ public class Contact extends Form implements Serializable {
     public void setContactNumber(int contactNumber) {
         this.contactNumber = contactNumber;
     }
+
+    // --- JSON Form
 
     public String getJsonForm() {
         return jsonForm;

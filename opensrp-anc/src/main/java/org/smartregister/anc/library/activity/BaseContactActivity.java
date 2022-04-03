@@ -15,7 +15,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.vijay.jsonwizard.constants.JsonFormConstants;
+import org.smartregister.anc.library.constants.ANCJsonFormConstants;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -97,13 +97,13 @@ public abstract class BaseContactActivity extends SecuredActivity {
     private void formStartActions(JSONObject form, Contact contact, Intent intent) {
         try {
             intent.putExtra(ConstantsUtils.JsonFormExtraUtils.JSON, getUpdatedForm(form, contact, getPartialContact(contact)));
-            intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, contact);
+            intent.putExtra(ANCJsonFormConstants.JSON_FORM_KEY.FORM, contact);
             intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID,
                     getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
             intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP));
             intent.putExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME, contact.getFormName());
             intent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, contactNo);
-            intent.putExtra(JsonFormConstants.PERFORM_FORM_TRANSLATION, true);
+            intent.putExtra(ANCJsonFormConstants.PERFORM_FORM_TRANSLATION, true);
             startActivityForResult(intent, ANCJsonFormUtils.REQUEST_CODE_GET_JSON);
         } catch (JSONException e) {
             Timber.e(e, " --> formStartActions");
@@ -134,21 +134,21 @@ public abstract class BaseContactActivity extends SecuredActivity {
         JSONObject form = new JSONObject();
         try {
             Map<String, JSONObject> keys = taskHashMap(taskList);
-            if (formObject != null && taskList != null && taskList.size() > 0 && formObject.has(JsonFormConstants.STEP1)) {
-                JSONObject dueStep = formObject.getJSONObject(JsonFormConstants.STEP1);
-                if (dueStep.has(JsonFormConstants.FIELDS)) {
-                    JSONArray fields = dueStep.getJSONArray(JsonFormConstants.FIELDS);
+            if (formObject != null && taskList != null && taskList.size() > 0 && formObject.has(ANCJsonFormConstants.STEP1)) {
+                JSONObject dueStep = formObject.getJSONObject(ANCJsonFormConstants.STEP1);
+                if (dueStep.has(ANCJsonFormConstants.FIELDS)) {
+                    JSONArray fields = dueStep.getJSONArray(ANCJsonFormConstants.FIELDS);
                     for (int i = 0; i < fields.length(); i++) {
                         JSONObject field = fields.getJSONObject(i);
-                        if (field != null && field.has(JsonFormConstants.KEY)) {
-                            String fieldKey = field.getString(JsonFormConstants.KEY);
+                        if (field != null && field.has(ANCJsonFormConstants.KEY)) {
+                            String fieldKey = field.getString(ANCJsonFormConstants.KEY);
                             if (keys.containsKey(fieldKey) && ANCJsonFormUtils.checkIfTaskIsComplete(keys.get(fieldKey))) {
                                 fields.remove(i);
                             }
                         }
                     }
 
-                    dueStep.put(JsonFormConstants.FIELDS, fields);
+                    dueStep.put(ANCJsonFormConstants.FIELDS, fields);
                     form = formObject;
                 }
             } else {

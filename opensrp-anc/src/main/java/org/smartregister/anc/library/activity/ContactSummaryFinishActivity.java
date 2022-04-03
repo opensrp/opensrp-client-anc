@@ -88,7 +88,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
             actionBar.setTitle(String.format(this.getString(R.string.contact_number),
                     getIntent().getExtras().getInt(ConstantsUtils.IntentKeyUtils.CONTACT_NO)));
         } else {
-            actionBar.setTitle(R.string.back);
+            actionBar.setTitle(R.string.action_back);
         }
     }
 
@@ -202,18 +202,17 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
     @Override
     public void setProfileID(String ancId) {
-        ancIdView.setText("ID: " + ancId);
+        ancIdView.setText(getString(R.string.mother_id_number, ancId));
     }
 
     @Override
     public void setProfileAge(String age) {
-        ageView.setText("AGE " + age);
-
+        ageView.setText(getString(R.string.mother_age_number, age));
     }
 
     @Override
     public void setProfileGestationAge(String gestationAge) {
-        gestationAgeView.setText(gestationAge != null ? "GA: " + gestationAge + " WEEKS" : "GA");
+        gestationAgeView.setText(gestationAge != null ? getString(R.string.mother_ga_weeks, gestationAge) : getString(R.string.mother_ga));
     }
 
     @Override

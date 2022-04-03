@@ -19,7 +19,7 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 import com.google.android.material.navigation.NavigationBarView;
 import com.vijay.jsonwizard.activities.FormConfigurationJsonFormActivity;
-import com.vijay.jsonwizard.constants.JsonFormConstants;
+import org.smartregister.anc.library.constants.ANCJsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
@@ -204,7 +204,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
     public void startFormActivity(JSONObject form) {
         Intent intent = new Intent(this, FormConfigurationJsonFormActivity.class);
         intent.putExtra(ConstantsUtils.JsonFormExtraUtils.JSON, form.toString());
-        intent.putExtra(JsonFormConstants.PERFORM_FORM_TRANSLATION, true);
+        intent.putExtra(ANCJsonFormConstants.PERFORM_FORM_TRANSLATION, true);
         startActivityForResult(intent, ANCJsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
@@ -346,11 +346,11 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
     @NonNull
     protected AlertDialog createAlertDialog() {
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setTitle(getString(R.string.record_birth) + "?");
+        alertDialog.setTitle(getString(R.string.contact_record_birth) + "?");
 
-        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.cancel).toUpperCase(),
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.action_cancel).toUpperCase(),
                 (dialog, which) -> dialog.dismiss());
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.record_birth).toUpperCase(),
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.contact_record_birth).toUpperCase(),
                 (dialog, which) -> ANCJsonFormUtils.launchANCCloseForm(BaseHomeRegisterActivity.this));
         return alertDialog;
     }
@@ -487,7 +487,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
         getIntent()
                 .putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, client.getColumnmaps().get(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID));
 
-        recordBirthAlertDialog.setMessage(String.format(this.getString(R.string.record_birth_popup_message),
+        recordBirthAlertDialog.setMessage(String.format(this.getString(R.string.contact_record_birth_popup_message),
                 Utils.getGestationAgeFromEDDate(client.getColumnmaps().get(DBConstantsUtils.KeyUtils.EDD)),
                 Utils.convertDateFormat(Utils.dobStringToDate(client.getColumnmaps().get(DBConstantsUtils.KeyUtils.EDD)),
                         dateFormatter), Utils.getDuration(client.getColumnmaps().get(DBConstantsUtils.KeyUtils.EDD)),

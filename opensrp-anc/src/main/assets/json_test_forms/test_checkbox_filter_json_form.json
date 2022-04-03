@@ -90,9 +90,9 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165251AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
-        "label": "Which of the following behaviours persist?",
-        "label_info_text": "These behaviours were reported in the previous contact. Select the ones that are still occurring or select \"None\".",
-        "label_info_title": "Previous behaviours",
+        "label": "Manakah dari perilaku berikut yang bertahan?",
+        "label_info_text": "Perilaku ini dilaporkan dalam kunjungan sebelumnya. Pilih yang masih terjadi atau pilih \"Tidak Ada\".",
+        "label_info_title": "Perilaku sebelumnya",
         "label_text_style": "bold",
         "text_color": "#000000",
         "filter_options": [
@@ -127,7 +127,7 @@
         "options": [
           {
             "key": "none",
-            "text": "None",
+            "text": "Tidak ada",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -135,17 +135,17 @@
           },
           {
             "key": "caffeine_intake",
-            "text": "High caffeine intake",
+            "text": "Asupan kafein yang tinggi",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165249AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "label_info_text": "High caffeine intake means consuming more than 300 mg of caffeine per day. Each of the following represents 300 mg of caffeine:\n - 2 cups (200ml) of filtered or commercially brewed coffee\n - 2 small cups (50 ml) of espresso\n - 3 cups (300ml) of instant coffee\n - 48 pieces (squares) of chocolate\n\nPlease indicate if the woman consumes more than these amounts per day.",
-            "label_info_title": "High caffeine intake",
+            "label_info_text": "Asupan kafein yang tinggi berarti mengonsumsi lebih dari 300 mg kafein per hari. Masing-masing dari berikut ini mewakili 300 mg kafein:\n  - 2 cangkir (200ml) kopi yang disaring atau diseduh secara komersial\n  - 2 cangkir kecil (50 ml) espresso\n  - 3 cangkir (300ml) kopi instan\n  - 48 buah (kotak) cokelat\n\nTolong tunjukkan jika wanita tersebut mengkonsumsi lebih dari jumlah ini per hari.",
+            "label_info_title": "Asupan kafein yang tinggi",
             "openmrs_entity_parent": ""
           },
           {
             "key": "tobacco_user",
-            "text": "Current tobacco use or recently quit",
+            "text": "Penggunaan tembakau saat ini atau baru saja berhenti",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "152722AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -153,7 +153,7 @@
           },
           {
             "key": "shs_exposure",
-            "text": "Exposure to second-hand smoke in the home",
+            "text": "Paparan asap rokok di rumah",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "152721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -161,7 +161,7 @@
           },
           {
             "key": "condom_use",
-            "text": "No condom use during sex",
+            "text": "Tidak menggunakan kondom saat berhubungan seks",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165250AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -169,7 +169,7 @@
           },
           {
             "key": "alcohol_use",
-            "text": "Alcohol use",
+            "text": "Penggunaan alkohol",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "143098AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -177,7 +177,7 @@
           },
           {
             "key": "substance_use",
-            "text": "Substance use",
+            "text": "Penggunaan zat",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "160246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -186,7 +186,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Previous persisting behaviour is required"
+          "err": "Diperlukan perilaku persisten sebelumnya"
         },
         "relevance": {
           "rules-engine": {
@@ -200,7 +200,7 @@
         "key": "height_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Height (cm)",
+        "text": "tinggi (cm)",
         "text_color": "#000000",
         "v_required": {
           "value": true
@@ -216,7 +216,7 @@
         "edit_type": "number",
         "v_required": {
           "value": "true",
-          "err": "Please enter the height"
+          "err": "Silakan masukkan tinggi"
         },
         "v_numeric": {
           "value": "true",
@@ -224,11 +224,11 @@
         },
         "v_min": {
           "value": "100",
-          "err": "Height must be equal or greater than 100"
+          "err": "Tinggi harus sama atau lebih besar dari 100"
         },
         "v_max": {
           "value": "200",
-          "err": "Height must be equal or less than 200"
+          "err": "Tinggi harus sama atau kurang dari 200"
         },
         "value": "178",
         "editable": true,
@@ -248,11 +248,11 @@
         "key": "pregest_weight_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Pre-gestational weight (kg)",
+        "text": "Berat badan sebelum hamil (kg)",
         "text_color": "#000000",
         "v_required": {
           "value": "true",
-          "err": "Please enter pre-gestational weight"
+          "err": "Harap masukkan berat badan pra-kehamilan"
         },
         "relevance": {
           "step1:pregest_weight_unknown": {
@@ -292,15 +292,15 @@
         },
         "v_min": {
           "value": "30",
-          "err": "Weight must be equal or greater than 30"
+          "err": "Berat harus sama atau lebih besar dari 30"
         },
         "v_max": {
           "value": "180",
-          "err": "Weight must be equal or less than 180"
+          "err": "Berat harus sama atau kurang dari 180"
         },
         "v_required": {
           "value": "true",
-          "err": "Pre-gestational weight is required"
+          "err": "Berat badan pra-kehamilan diperlukan"
         },
         "is_visible": false,
         "step": "step1",
@@ -315,7 +315,7 @@
         "options": [
           {
             "key": "pregest_weight_unknown",
-            "text": "Pre-gestational weight unknown",
+            "text": "Berat badan pra-kehamilan tidak diketahui",
             "value": "true"
           }
         ],
@@ -337,7 +337,7 @@
         "key": "current_weight_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Current weight (kg)",
+        "text": "Berat saat ini (kg)",
         "text_color": "#000000",
         "v_required": {
           "value": true
@@ -357,15 +357,15 @@
         },
         "v_min": {
           "value": "30",
-          "err": "Weight must be equal or greater than 30"
+          "err": "Berat harus sama atau lebih besar dari 30"
         },
         "v_max": {
           "value": "180",
-          "err": "Weight must be equal or less than 180"
+          "err": "Berat harus sama atau kurang dari 180"
         },
         "v_required": {
           "value": "true",
-          "err": "Please enter the current weight"
+          "err": "Berat harus sama atau kurang dari 180"
         },
         "step": "step1",
         "is-rule-check": true
@@ -514,7 +514,7 @@
         "openmrs_entity": "Body mass Index",
         "openmrs_entity_id": "1432",
         "type": "toaster_notes",
-        "text": "Body mass index (BMI) = {bmi}\n\nWoman is {weight_cat}. Weight gain during pregnancy should be {exp_weight_gain} kg.",
+        "text": "Indeks massa tubuh (BMI) = {bmi}\n\nWanita adalah {weight_cat}. Kenaikan berat badan selama kehamilan harus {exp_weight_gain} kg.",
         "text_color": "#1199F9",
         "toaster_type": "info",
         "calculation": {
@@ -531,7 +531,7 @@
         "openmrs_entity": "Weight gain finding",
         "openmrs_entity_id": "122887",
         "type": "toaster_notes",
-        "text": "Average weight gain per week since last contact: {weight_gain} kg\n\nTotal weight gain in pregnancy so far: {tot_weight_gain} kg",
+        "text": "Kenaikan berat badan rata-rata per minggu sejak kunjungan terakhir: {weight_gain} kg\n\nTotal pertambahan berat badan selama kehamilan sejauh ini: {tot_weight_gain} kg",
         "text_color": "#1199F9",
         "toaster_type": "info",
         "calculation": {
@@ -548,9 +548,9 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Gestational diabetes mellitus (GDM) risk counseling",
+        "text": "Konseling risiko diabetes mellitus (GDM) gestasional",
         "text_color": "#D56900",
-        "toaster_info_text": "Please provide appropriate counseling for GDM risk mitigation, including:\n- Reasserting dietary interventions\n- Reasserting physical activity during pregnancy",
+        "toaster_info_text": "Harap berikan konseling yang sesuai untuk mitigasi risiko GDM, termasuk:\n- Menegaskan kembali intervensi diet\n- Menegaskan kembali aktivitas fisik selama kehamilan",
         "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
@@ -579,7 +579,7 @@
         "openmrs_entity": "Weight gain finding",
         "openmrs_entity_id": "122887",
         "type": "toaster_notes",
-        "text": "Increase daily energy and protein intake counseling",
+        "text": "Tingkatkan konseling asupan energi dan protein harian",
         "text_color": "#1199F9",
         "toaster_type": "info",
         "toaster_info_text": "Increase daily energy and protein intake to reduce the risk of low-birth-weight neonates.",
@@ -599,11 +599,11 @@
         "openmrs_entity": "Weight gain finding",
         "openmrs_entity_id": "122887",
         "type": "toaster_notes",
-        "text": "Balanced energy and protein dietary supplementation counseling",
+        "text": "Konseling suplementasi makanan berenergi dan protein seimbang",
         "text_color": "#1199F9",
         "toaster_type": "info",
         "toaster_info_text": "Balanced energy and protein dietary supplementation is recommended for pregnant women to reduce the risk of stillbirths and small-for-gestational-age neonates.",
-        "toaster_info_title": "Balanced energy and protein dietary supplementation counseling",
+        "toaster_info_title": "Konseling suplementasi makanan berenergi dan protein seimbang",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -625,9 +625,9 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165251AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
-        "label": "Which of the following behaviours persist?",
-        "label_info_text": "These behaviours were reported in the previous contact. Select the ones that are still occurring or select \"None\".",
-        "label_info_title": "Previous behaviours",
+        "label": "Manakah dari perilaku berikut yang bertahan?",
+        "label_info_text": "Perilaku ini dilaporkan dalam kunjungan sebelumnya. Pilih yang masih terjadi atau pilih \"Tidak Ada\".",
+        "label_info_title": "Perilaku sebelumnya",
         "label_text_style": "bold",
         "text_color": "#000000",
         "filter_options": [
@@ -674,13 +674,13 @@
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165249AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "label_info_text": "High caffeine intake means consuming more than 300 mg of caffeine per day. Each of the following represents 300 mg of caffeine:\n - 2 cups (200ml) of filtered or commercially brewed coffee\n - 2 small cups (50 ml) of espresso\n - 3 cups (300ml) of instant coffee\n - 48 pieces (squares) of chocolate\n\nPlease indicate if the woman consumes more than these amounts per day.",
-            "label_info_title": "High caffeine intake",
+            "label_info_text": "Asupan kafein yang tinggi berarti mengonsumsi lebih dari 300 mg kafein per hari. Masing-masing dari berikut ini mewakili 300 mg kafein:\n  - 2 cangkir (200ml) kopi yang disaring atau diseduh secara komersial\n  - 2 cangkir kecil (50 ml) espresso\n  - 3 cangkir (300ml) kopi instan\n  - 48 buah (kotak) cokelat\n\nTolong tunjukkan jika wanita tersebut mengkonsumsi lebih dari jumlah ini per hari.",
+            "label_info_title": "Asupan kafein yang tinggi",
             "openmrs_entity_parent": ""
           },
           {
             "key": "tobacco_user",
-            "text": "Current tobacco use or recently quit",
+            "text": "Penggunaan tembakau saat ini atau baru saja berhenti",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "152722AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -688,7 +688,7 @@
           },
           {
             "key": "shs_exposure",
-            "text": "Exposure to second-hand smoke in the home",
+            "text": "Paparan asap rokok di rumah",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "152721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -696,7 +696,7 @@
           },
           {
             "key": "condom_use",
-            "text": "No condom use during sex",
+            "text": "Tidak menggunakan kondom saat berhubungan seks",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165250AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -704,7 +704,7 @@
           },
           {
             "key": "alcohol_use",
-            "text": "Alcohol use",
+            "text": "Penggunaan alkohol",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "143098AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -712,7 +712,7 @@
           },
           {
             "key": "substance_use",
-            "text": "Substance use",
+            "text": "Penggunaan zat",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "160246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -721,7 +721,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Previous persisting behaviour is required"
+          "err": "Diperlukan perilaku bertahan sebelumnya"
         },
         "relevance": {
           "rules-engine": {
@@ -735,7 +735,7 @@
         "key": "bp_systolic_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Systolic blood pressure (SBP) (mmHg)",
+        "text": "Tekanan darah sistolik (SBP) (mmHg)",
         "text_color": "#000000",
         "v_required": {
           "value": true
@@ -755,15 +755,15 @@
         },
         "v_min": {
           "value": "60",
-          "err": "SBP must be equal or greater than 60"
+          "err": "SBP harus sama atau lebih besar dari 60"
         },
         "v_max": {
           "value": "260",
-          "err": "SBP must be equal or less than 260"
+          "err": "SBP harus sama atau kurang dari 260"
         },
         "v_required": {
           "value": "true",
-          "err": "Field systolic is required"
+          "err": "Field sistolik wajib di isi"
         },
         "step": "step2",
         "is-rule-check": true,
@@ -781,7 +781,7 @@
         "key": "bp_diastolic_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Diastolic blood pressure (DBP) (mmHg)",
+        "text": "Tekanan darah diastolik (DBP) (mmHg)",
         "text_color": "#000000",
         "v_required": {
           "value": true
@@ -801,11 +801,11 @@
         },
         "v_min": {
           "value": "60",
-          "err": "DBP must be equal to or greater than 60"
+          "err": "DBP harus sama dengan atau lebih besar dari 60"
         },
         "v_max": {
           "value": "260",
-          "err": "DBP must be equal to or less than 260"
+          "err": "DBP harus sama dengan atau kurang dari 260"
         },
         "v_required": {
           "value": "true",
@@ -1680,7 +1680,7 @@
           },
           {
             "key": "no",
-            "text": "No"
+            "text": "Tidak"
           }
         ],
         "step": "step3",
@@ -2208,7 +2208,7 @@
           },
           {
             "key": "no",
-            "text": "No"
+            "text": "Tidak"
           }
         ],
         "is-rule-check": false,
@@ -2278,7 +2278,7 @@
         "type": "check_box",
         "label": "Which of the following behaviours persist?",
         "label_info_text": "These behaviours were reported in the previous contact. Select the ones that are still occurring or select \"None\".",
-        "label_info_title": "Previous behaviours",
+        "label_info_title": "Perilaku sebelumnya",
         "label_text_style": "bold",
         "text_color": "#000000",
         "filter_options": [
@@ -2437,7 +2437,7 @@
           },
           {
             "key": "no",
-            "text": "No",
+            "text": "Tidak",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
@@ -2474,7 +2474,7 @@
           },
           {
             "key": "no",
-            "text": "No",
+            "text": "Tidak",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""

@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.vijay.jsonwizard.constants.JsonFormConstants;
+import org.smartregister.anc.library.constants.ANCJsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hamcrest.Matchers;
@@ -456,7 +456,7 @@ public class UtilsTest extends BaseUnitTest {
                 ":[{\"key\":\"visit_date\"}]}," +
                 "{\"key\":\"visit_date_128040f1b4034311b34b6ea65a81d3aa\",\"value\":\"2020-09-09\"}]}";
         JSONObject step1JsonObject = new JSONObject(strStep1JsonObject);
-        HashMap<String, HashMap<String, String>> repeatingGroupNum = Utils.buildRepeatingGroupValues(step1JsonObject.optJSONArray(JsonFormConstants.FIELDS), ConstantsUtils.JsonFormKeyUtils.PREVIOUS_VISITS);
+        HashMap<String, HashMap<String, String>> repeatingGroupNum = Utils.buildRepeatingGroupValues(step1JsonObject.optJSONArray(ANCJsonFormConstants.FIELDS), ConstantsUtils.JsonFormKeyUtils.PREVIOUS_VISITS);
         Assert.assertEquals(1, repeatingGroupNum.size());
     }
 

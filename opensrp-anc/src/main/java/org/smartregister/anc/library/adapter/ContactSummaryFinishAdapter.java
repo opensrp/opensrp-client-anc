@@ -13,6 +13,7 @@ import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.domain.YamlConfigItem;
+import org.smartregister.anc.library.helper.ContactHelper;
 import org.smartregister.anc.library.util.Utils;
 
 import java.util.List;
@@ -25,12 +26,14 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
     private List<YamlConfig> mData;
     private LayoutInflater mInflater;
     private Facts facts;
+    private ContactHelper contactHelper;
 
     // data is passed into the constructor
     public ContactSummaryFinishAdapter(Context context, List<YamlConfig> data, Facts facts) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.facts = facts;
+        this.contactHelper = new ContactHelper(context);
     }
 
     // inflates the row layout from xml when needed
@@ -43,7 +46,8 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.sectionHeader.setText(processUnderscores(mData.get(position).getGroup()));
+        String header = this.contactHelper.getContactString(mData.get(position).getGroup());
+        holder.sectionHeader.setText(header);
 
         List<YamlConfigItem> fields = mData.get(position).getFields();
         StringBuilder outputBuilder = new StringBuilder();

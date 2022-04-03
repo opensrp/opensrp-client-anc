@@ -12,7 +12,7 @@ import android.widget.ScrollView;
 
 import androidx.appcompat.app.ActionBar;
 
-import com.vijay.jsonwizard.constants.JsonFormConstants;
+import org.smartregister.anc.library.constants.ANCJsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
 import com.vijay.jsonwizard.mvp.MvpBasePresenter;
 import com.vijay.jsonwizard.mvp.ViewState;
@@ -89,7 +89,7 @@ public class ContactWizardJsonFormFragmentTest extends BaseUnitTest {
     @Test
     public void testGetFormFragmentShouldCreateAValidFragmentInstance() throws JSONException {
 
-        JsonWizardFormFragment formFragment = ContactWizardJsonFormFragment.getFormFragment(JsonFormConstants.FIRST_STEP_NAME);
+        JsonWizardFormFragment formFragment = ContactWizardJsonFormFragment.getFormFragment(ANCJsonFormConstants.FIRST_STEP_NAME);
         Assert.assertNotNull(formFragment);
 
         formFragment.onOptionsItemSelected(menuItem);
@@ -118,13 +118,13 @@ public class ContactWizardJsonFormFragmentTest extends BaseUnitTest {
         formFragmentSpy.onCreateView(layoutInflater, viewGroup, bundle);
 
         Bundle fragmentArgs = formFragmentSpy.getArguments();
-        Assert.assertEquals(JsonFormConstants.FIRST_STEP_NAME, fragmentArgs.get(DBConstantsUtils.KeyUtils.STEPNAME));
+        Assert.assertEquals(ANCJsonFormConstants.FIRST_STEP_NAME, fragmentArgs.get(DBConstantsUtils.KeyUtils.STEPNAME));
     }
 
     @Test
     public void testCreateViewStateShouldCreateAValidViewState() {
 
-        JsonWizardFormFragment formFragment = ContactWizardJsonFormFragment.getFormFragment(JsonFormConstants.FIRST_STEP_NAME);
+        JsonWizardFormFragment formFragment = ContactWizardJsonFormFragment.getFormFragment(ANCJsonFormConstants.FIRST_STEP_NAME);
         Assert.assertNotNull(formFragment);
 
         JsonWizardFormFragment fragmentSpy = Mockito.spy(formFragment);
@@ -139,7 +139,7 @@ public class ContactWizardJsonFormFragmentTest extends BaseUnitTest {
     @Ignore
     public void testCreatePresenterShouldCreateAValidPresenter() {
 
-        ContactWizardJsonFormFragment formFragment = (ContactWizardJsonFormFragment) ContactWizardJsonFormFragment.getFormFragment(JsonFormConstants.FIRST_STEP_NAME);
+        ContactWizardJsonFormFragment formFragment = (ContactWizardJsonFormFragment) ContactWizardJsonFormFragment.getFormFragment(ANCJsonFormConstants.FIRST_STEP_NAME);
         Assert.assertNotNull(formFragment);
         ContactWizardJsonFormFragment fragmentSpy = Mockito.spy(formFragment);
         MvpBasePresenter presenter = fragmentSpy.createPresenter();

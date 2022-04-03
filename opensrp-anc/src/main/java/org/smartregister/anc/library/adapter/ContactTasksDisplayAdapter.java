@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.vijay.jsonwizard.constants.JsonFormConstants;
+import org.smartregister.anc.library.constants.ANCJsonFormConstants;
 import com.vijay.jsonwizard.utils.Utils;
 
 import org.apache.commons.lang3.StringUtils;
@@ -53,7 +53,7 @@ public class ContactTasksDisplayAdapter extends RecyclerView.Adapter<ContactTask
             if (taskList != null && taskList.size() > 0) {
                 Task task = taskList.get(position);
                 JSONObject taskValue = new JSONObject(task.getValue());
-                String taskKey = taskValue.optString(JsonFormConstants.KEY);
+                String taskKey = taskValue.optString(ANCJsonFormConstants.KEY);
                 String testName= ANCFormUtils.getTranslatedFormTitle(taskKey, context);
                 if (StringUtils.isNotBlank(testName)) {
                     contactTasksViewHolder.topBarTextView.setText(testName);
@@ -83,18 +83,18 @@ public class ContactTasksDisplayAdapter extends RecyclerView.Adapter<ContactTask
      */
     private void updateStatusIcon(JSONObject taskValue, ContactTasksViewHolder contactTasksViewHolder) {
         try {
-            if (taskValue.has(JsonFormConstants.VALUE)) {
-                JSONArray values = taskValue.getJSONArray(JsonFormConstants.VALUE);
+            if (taskValue.has(ANCJsonFormConstants.VALUE)) {
+                JSONArray values = taskValue.getJSONArray(ANCJsonFormConstants.VALUE);
                 for (int i = 0; i < values.length(); i++) {
                     JSONObject valueObject = values.getJSONObject(i);
-                    if (valueObject != null && valueObject.has(JsonFormConstants.VALUES) && valueObject.has(JsonFormConstants.INDEX) && valueObject.getInt(JsonFormConstants.INDEX) == 0) {
-                        JSONArray jsonArray = valueObject.getJSONArray(JsonFormConstants.VALUES);
+                    if (valueObject != null && valueObject.has(ANCJsonFormConstants.VALUES) && valueObject.has(ANCJsonFormConstants.INDEX) && valueObject.getInt(ANCJsonFormConstants.INDEX) == 0) {
+                        JSONArray jsonArray = valueObject.getJSONArray(ANCJsonFormConstants.VALUES);
                         String status = jsonArray.getString(0);
-                        if (status.contains(JsonFormConstants.AncRadioButtonOptionTypesUtils.NOT_DONE)) {
+                        if (status.contains(ANCJsonFormConstants.AncRadioButtonOptionTypesUtils.NOT_DONE)) {
                             contactTasksViewHolder.statusImageView.setImageResource(R.drawable.not_done);
-                        } else if (status.contains(JsonFormConstants.AncRadioButtonOptionTypesUtils.ORDERED)) {
+                        } else if (status.contains(ANCJsonFormConstants.AncRadioButtonOptionTypesUtils.ORDERED)) {
                             contactTasksViewHolder.statusImageView.setImageResource(R.drawable.ordered);
-                        } else if (status.contains(JsonFormConstants.AncRadioButtonOptionTypesUtils.DONE_TODAY) || status.contains(JsonFormConstants.AncRadioButtonOptionTypesUtils.DONE_EARLIER)) {
+                        } else if (status.contains(ANCJsonFormConstants.AncRadioButtonOptionTypesUtils.DONE_TODAY) || status.contains(ANCJsonFormConstants.AncRadioButtonOptionTypesUtils.DONE_EARLIER)) {
                             contactTasksViewHolder.statusImageView.setImageResource(R.drawable.done_today);
                         }
                     }
@@ -113,9 +113,9 @@ public class ContactTasksDisplayAdapter extends RecyclerView.Adapter<ContactTask
      */
     private void showInfoIcon(JSONObject taskValue, ContactTasksViewHolder contactTasksViewHolder) {
         try {
-            if (taskValue.has(JsonFormConstants.ACCORDION_INFO_TEXT)) {
-                String infoText = taskValue.getString(JsonFormConstants.ACCORDION_INFO_TEXT);
-                String infoTextTitle = taskValue.getString(JsonFormConstants.ACCORDION_INFO_TITLE);
+            if (taskValue.has(ANCJsonFormConstants.ACCORDION_INFO_TEXT)) {
+                String infoText = taskValue.getString(ANCJsonFormConstants.ACCORDION_INFO_TEXT);
+                String infoTextTitle = taskValue.getString(ANCJsonFormConstants.ACCORDION_INFO_TITLE);
                 if (StringUtils.isNotBlank(infoText)) {
                     contactTasksViewHolder.accordionInfoIcon.setVisibility(View.VISIBLE);
                     contactTasksViewHolder.accordionInfoIcon.setTag(R.id.accordion_context, context);
@@ -137,8 +137,8 @@ public class ContactTasksDisplayAdapter extends RecyclerView.Adapter<ContactTask
      */
     private void attachContent(JSONObject taskValue, ContactTasksViewHolder viewHolder) throws JSONException {
         JSONArray values = new JSONArray();
-        if (taskValue.has(JsonFormConstants.VALUE)) {
-            values = taskValue.optJSONArray(JsonFormConstants.VALUE);
+        if (taskValue.has(ANCJsonFormConstants.VALUE)) {
+            values = taskValue.optJSONArray(ANCJsonFormConstants.VALUE);
             if (values != null && ANCFormUtils.checkValuesContent(values)) {
                 viewHolder.contentLayout.setVisibility(View.VISIBLE);
                 viewHolder.contentView.setVisibility(View.VISIBLE);

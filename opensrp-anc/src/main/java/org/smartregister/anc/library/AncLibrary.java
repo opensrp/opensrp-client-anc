@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.gson.Gson;
-import com.vijay.jsonwizard.constants.JsonFormConstants;
+import org.smartregister.anc.library.constants.ANCJsonFormConstants;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.EventBusBuilder;
@@ -16,6 +16,7 @@ import org.smartregister.AllConstants;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.anc.library.activity.ActivityConfiguration;
+import org.smartregister.anc.library.constants.ANCJsonFormConstants;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.helper.AncRulesEngineHelper;
@@ -290,12 +291,12 @@ public class AncLibrary {
                 if (settingArray != null) {
                     for (int i = 0; i < settingArray.length(); i++) {
                         JSONObject jsonObject = settingArray.getJSONObject(i);
-                        Boolean value = jsonObject.optBoolean(JsonFormConstants.VALUE);
+                        Boolean value = jsonObject.optBoolean(ANCJsonFormConstants.VALUE);
                         JSONObject nullObject = null;
                         if (value != null && !value.equals(nullObject)) {
-                            defaultContactFormGlobals.put(jsonObject.getString(JsonFormConstants.KEY), value);
+                            defaultContactFormGlobals.put(jsonObject.getString(ANCJsonFormConstants.KEY), value);
                         } else {
-                            defaultContactFormGlobals.put(jsonObject.getString(JsonFormConstants.KEY), false);
+                            defaultContactFormGlobals.put(jsonObject.getString(ANCJsonFormConstants.KEY), false);
                         }
                     }
 

@@ -30,7 +30,7 @@
         android:padding="@dimen/characteristics_padding"
         android:text="No"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/text_black" />
+        android:textColor="@color/text_black"/>
 
     <ImageView
         android:id="@+id/info"

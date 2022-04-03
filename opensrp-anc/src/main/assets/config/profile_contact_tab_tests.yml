@@ -2,13 +2,13 @@
 properties_file_name: "profile_contact_test"
 sub_group: ultrasound_tests_results
 fields:
-  - template: "{{profile_contact_test.ultrasound_tests.ultrasound_test}}: {ultrasound}"
+  - template: "{{profile_contact_test.ultrasound_tests.ultrasound_test}}: {ultrasound_value}"
     relevance: "ultrasound != ''"
 
-  - template: "{{profile_contact_test.ultrasound_tests.ultrasound_not_done_reason}}: {ultrasound_notdone}"
+  - template: "{{profile_contact_test.ultrasound_tests.ultrasound_not_done_reason}}: {ultrasound_notdone_value}"
     relevance: "ultrasound_notdone != ''"
 
-  - template: "{{profile_contact_test.ultrasound_tests.ultrasound_not_done_other_reason}}: {ultrasound_notdone_other}"
+  - template: "{{profile_contact_test.ultrasound_tests.ultrasound_not_done_other_reason}}: {ultrasound_notdone_other_value}"
     relevance: "ultrasound_notdone_other != ''"
 
   - template: "{{profile_contact_test.ultrasound_tests.ultrasound_done_date}}: {ultrasound_date}"
@@ -17,253 +17,253 @@ fields:
 ---
 sub_group: blood_type_test_results
 fields:
-  - template: "{{profile_contact_test.blood_type_test.blood_type_test_status}}: {blood_type_test_status}"
+  - template: "{{profile_contact_test.blood_type_test.blood_type_test_status}}: {blood_type_test_status_value}"
     relevance: "blood_type_test_status != ''"
 
   - template: "{{profile_contact_test.blood_type_test.blood_type_test_done_date}}: {blood_type_test_date}"
     relevance: "blood_type_test_date != ''"
 
-  - template: "{{profile_contact_test.blood_type_test.blood_type}}: {blood_type}"
+  - template: "{{profile_contact_test.blood_type_test.blood_type}}: {blood_type_value}"
     relevance: "blood_type != ''"
 
-  - template: "{{profile_contact_test.blood_type_test.rh_factor}}: {rh_factor}"
+  - template: "{{profile_contact_test.blood_type_test.rh_factor}}: {rh_factor_value}"
     relevance: "rh_factor != ''"
 test_results: "['blood_type:Blood type tests results','other_tests:Test multiple tests','other_tests:Test multiple tests three']"
 
 ---
 sub_group: hiv_tests_results
 fields:
-  - template: "{{profile_contact_test.hiv_tests.hiv_test_status}}: {hiv_test_status}"
+  - template: "{{profile_contact_test.hiv_tests.hiv_test_status}}: {hiv_test_status_value}"
     relevance: "hiv_test_status != ''"
 
   - template: "{{profile_contact_test.hiv_tests.hiv_test_done_date}}: {hiv_test_date}"
     relevance: "hiv_test_date != ''"
 
-  - template: "{{profile_contact_test.hiv_tests.hiv_test_not_done_reason}}: {hiv_test_notdone}"
+  - template: "{{profile_contact_test.hiv_tests.hiv_test_not_done_reason}}: {hiv_test_notdone_value}"
     relevance: "hiv_test_notdone != ''"
 
-  - template: "{{profile_contact_test.hiv_tests.hiv_test_not_done_other_reason}}: {hiv_test_notdone_other}"
+  - template: "{{profile_contact_test.hiv_tests.hiv_test_not_done_other_reason}}: {hiv_test_notdone_other_value}"
     relevance: "hiv_test_notdone_other != ''"
 
-  - template: "{{profile_contact_test.hiv_tests.hiv_test_result}}: {hiv_test_result}"
+  - template: "{{profile_contact_test.hiv_tests.hiv_test_result}}: {hiv_test_result_value}"
     relevance: "hiv_test_result != ''"
 test_results: "['hiv_test_result:hiv_test_date:Hiv tests results']"
 
 ---
 sub_group: hepatitis_b_test_results
 fields:
-  - template: "{{profile_contact_test.hepatitis_b_test.hepatitis_b_test_status}}: {hepb_test_status}"
+  - template: "{{profile_contact_test.hepatitis_b_test.hepatitis_b_test_status}}: {hepb_test_status_value}"
     relevance: "hepb_test_status != ''"
 
   - template: "{{profile_contact_test.hepatitis_b_test.hepatitis_b_test_done_date}}: {hepb_test_date}"
     relevance: "hepb_test_date != ''"
 
-  - template: "{{profile_contact_test.hepatitis_b_test.hepatitis_b_test_not_done_reason}}: {hepb_test_notdone}"
+  - template: "{{profile_contact_test.hepatitis_b_test.hepatitis_b_test_not_done_reason}}: {hepb_test_notdone_value}"
     relevance: "hepb_test_notdone != ''"
 
-  - template: "{{profile_contact_test.hepatitis_b_test.hepatitis_b_test_not_done_other_reason}}: {hepb_test_notdone_other}"
+  - template: "{{profile_contact_test.hepatitis_b_test.hepatitis_b_test_not_done_other_reason}}: {hepb_test_notdone_other_value}"
     relevance: "hepb_test_notdone_other != ''"
 
-  - template: "{{profile_contact_test.hepatitis_b_test.hepatitis_b_test_type}}: {hepb_test_type}"
+  - template: "{{profile_contact_test.hepatitis_b_test.hepatitis_b_test_type}}: {hepb_test_type_value}"
     relevance: "hepb_test_type != ''"
 
-  - template: "{{profile_contact_test.hepatitis_b_test.hbsag_laboratory_based_immunoassay_result}}: {hbsag_lab_ima}"
+  - template: "{{profile_contact_test.hepatitis_b_test.hbsag_laboratory_based_immunoassay_result}}: {hbsag_lab_ima_value}"
     relevance: "hbsag_lab_ima != ''"
 
-  - template: "{{profile_contact_test.hepatitis_b_test.hbsag_rapid_diagnostic_test_rdt_result}}: {hbsag_rdt}"
+  - template: "{{profile_contact_test.hepatitis_b_test.hbsag_rapid_diagnostic_test_rdt_result}}: {hbsag_rdt_value}"
     relevance: "hbsag_rdt != ''"
 
-  - template: "{{profile_contact_test.hepatitis_b_test.dried_blood_spot_dbs_hbsag_test_result}}: {hbsag_dbs}"
+  - template: "{{profile_contact_test.hepatitis_b_test.dried_blood_spot_dbs_hbsag_test_result}}: {hbsag_dbs_value}"
     relevance: "hbsag_dbs != ''"
 
 ---
 sub_group: hepatitis_c_test_results
 fields:
-  - template: "{{profile_contact_test.hepatitis_c_test.hepatitis_c_test_status}}: {hepc_test_status}"
+  - template: "{{profile_contact_test.hepatitis_c_test.hepatitis_c_test_status}}: {hepc_test_status_value}"
     relevance: "hepc_test_status != ''"
 
   - template: "{{profile_contact_test.hepatitis_c_test.hepatitis_c_test_done_date}}: {hepc_test_date}"
     relevance: "hepc_test_date != ''"
 
-  - template: "{{profile_contact_test.hepatitis_c_test.hepatitis_c_test_not_done_reason}}: {hepc_test_notdone}"
+  - template: "{{profile_contact_test.hepatitis_c_test.hepatitis_c_test_not_done_reason}}: {hepc_test_notdone_value}"
     relevance: "hepc_test_notdone != ''"
 
-  - template: "{{profile_contact_test.hepatitis_c_test.hepatitis_c_test_not_done_other_reason}}: {hepc_test_notdone_other}"
+  - template: "{{profile_contact_test.hepatitis_c_test.hepatitis_c_test_not_done_other_reason}}: {hepc_test_notdone_other_value}"
     relevance: "hepc_test_notdone_other != ''"
 
-  - template: "{{profile_contact_test.hepatitis_c_test.hepatitis_c_test_type}}: {hepc_test_type}"
+  - template: "{{profile_contact_test.hepatitis_c_test.hepatitis_c_test_type}}: {hepc_test_type_value}"
     relevance: "hepc_test_type != ''"
 
-  - template: "{{profile_contact_test.hepatitis_c_test.anti_hcv_laboratory_based_immunoassay_result}}: {hcv_lab_ima}"
+  - template: "{{profile_contact_test.hepatitis_c_test.anti_hcv_laboratory_based_immunoassay_result}}: {hcv_lab_ima_value}"
     relevance: "hcv_lab_ima != ''"
 
-  - template: "{{profile_contact_test.hepatitis_c_test.anti_hcv_rapid_diagnostic_test_rdt_result}}: {hcv_rdt}"
+  - template: "{{profile_contact_test.hepatitis_c_test.anti_hcv_rapid_diagnostic_test_rdt_result}}: {hcv_rdt_value}"
     relevance: "hcv_rdt != ''"
 
-  - template: "{{profile_contact_test.hepatitis_c_test.dried_blood_spot_dbs_anti_hcv_test_result}}: {hcv_dbs}"
+  - template: "{{profile_contact_test.hepatitis_c_test.dried_blood_spot_dbs_anti_hcv_test_result}}: {hcv_dbs_value}"
     relevance: "hcv_dbs != ''"
 
 ---
 sub_group: syphilis_test_results
 fields:
-  - template: "{{profile_contact_test.syphilis_test.syphilis_test_status}}: {syph_test_status}"
+  - template: "{{profile_contact_test.syphilis_test.syphilis_test_status}}: {syph_test_status_value}"
     relevance: "syph_test_status != ''"
 
   - template: "{{profile_contact_test.syphilis_test.syphilis_test_done_date}}: {syphilis_test_date}"
     relevance: "syphilis_test_date != ''"
 
-  - template: "{{profile_contact_test.syphilis_test.syphilis_test_not_done_reason}}: {syph_test_notdone}"
+  - template: "{{profile_contact_test.syphilis_test.syphilis_test_not_done_reason}}: {syph_test_notdone_value}"
     relevance: "syph_test_notdone != ''"
 
-  - template: "{{profile_contact_test.syphilis_test.syphilis_test_not_done_other_reason}}: {syph_test_notdone_other}"
+  - template: "{{profile_contact_test.syphilis_test.syphilis_test_not_done_other_reason}}: {syph_test_notdone_other_value}"
     relevance: "syph_test_notdone_other != ''"
 
-  - template: "{{profile_contact_test.syphilis_test.syphilis_test_type}}: {syph_test_type}"
+  - template: "{{profile_contact_test.syphilis_test.syphilis_test_type}}: {syph_test_type_value}"
     relevance: "syph_test_type != ''"
 
-  - template: "{{profile_contact_test.syphilis_test.syphilis_test_type}}: {rapid_syphilis_test}"
+  - template: "{{profile_contact_test.syphilis_test.syphilis_test_type}}: {rapid_syphilis_test_value}"
     relevance: "rapid_syphilis_test != ''"
 
-  - template: "{{profile_contact_test.syphilis_test.rapid_plasma_reagin_rpr_test_result}}: {rpr_syphilis_test}"
+  - template: "{{profile_contact_test.syphilis_test.rapid_plasma_reagin_rpr_test_result}}: {rpr_syphilis_test_value}"
     relevance: "rpr_syphilis_test != ''"
 
-  - template: "{{profile_contact_test.syphilis_test.Off_site_lab_test_for_syphilis_result}}: {lab_syphilis_test}"
+  - template: "{{profile_contact_test.syphilis_test.Off_site_lab_test_for_syphilis_result}}: {lab_syphilis_test_value}"
     relevance: "lab_syphilis_test != ''"
 
 ---
 sub_group: urine_tests_results
 fields:
-  - template: "{{profile_contact_test.urine_tests.urine_test_status}}: {urine_test_status}"
+  - template: "{{profile_contact_test.urine_tests.urine_test_status}}: {urine_test_status_value}"
     relevance: "urine_test_status != ''"
 
   - template: "{{profile_contact_test.urine_tests.urine_test_done_date}}: {urine_test_date}"
     relevance: "urine_test_date != ''"
 
-  - template: "{{profile_contact_test.urine_tests.urine_test_type}}: {urine_test_type}"
+  - template: "{{profile_contact_test.urine_tests.urine_test_type}}: {urine_test_type_value}"
     relevance: "urine_test_type != ''"
 
-  - template: "{{profile_contact_test.urine_tests.urine_culture}}: {urine_culture}"
+  - template: "{{profile_contact_test.urine_tests.urine_culture}}: {urine_culture_value}"
     relevance: "urine_culture != ''"
 
-  - template: "{{profile_contact_test.urine_tests.urine_gram_stain}}: {urine_gram_stain}"
+  - template: "{{profile_contact_test.urine_tests.urine_gram_stain}}: {urine_gram_stain_value}"
     relevance: "urine_gram_stain != ''"
 
-  - template: "{{profile_contact_test.urine_tests.urine_nitrites}}: {urine_nitrites}"
+  - template: "{{profile_contact_test.urine_tests.urine_nitrites}}: {urine_nitrites_value}"
     relevance: "urine_nitrites != ''"
 
-  - template: "{{profile_contact_test.urine_tests.urine_leukocytes}}: {urine_leukocytes}"
+  - template: "{{profile_contact_test.urine_tests.urine_leukocytes}}: {urine_leukocytes_value}"
     relevance: "urine_leukocytes != ''"
 
-  - template: "{{profile_contact_test.urine_tests.urine_glucose}}: {urine_glucose}"
+  - template: "{{profile_contact_test.urine_tests.urine_glucose}}: {urine_glucose_value}"
     relevance: "urine_glucose != ''"
 
 ---
 sub_group: blood_glucose_tests_results
 fields:
-  - template: "{{profile_contact_test.blood_glucose_tests.blood_glucose_test_status}}: {glucose_test_status}"
+  - template: "{{profile_contact_test.blood_glucose_tests.blood_glucose_test_status}}: {glucose_test_status_value}"
     relevance: "glucose_test_status != ''"
 
-  - template: "{{profile_contact_test.blood_glucose_tests.blood_glucose_test_date}}: {glucose_test_date}"
+  - template: "{{profile_contact_test.blood_glucose_tests.blood_glucose_test_date}}: {glucose_test_date_value}"
     relevance: "glucose_test_date != ''"
 
-  - template: "{{profile_contact_test.blood_glucose_tests.blood_glucose_test_type}}: {glucose_test_type}"
+  - template: "{{profile_contact_test.blood_glucose_tests.blood_glucose_test_type}}: {glucose_test_type_value}"
     relevance: "glucose_test_type != ''"
 
-  - template: "{{profile_contact_test.blood_glucose_tests.fasting_plasma_glucose_results_mg_dl}}: {fasting_plasma_gluc}"
+  - template: "{{profile_contact_test.blood_glucose_tests.fasting_plasma_glucose_results_mg_dl}}: {fasting_plasma_gluc_value}"
     relevance: "fasting_plasma_gluc != ''"
 
-  - template: "{{profile_contact_test.blood_glucose_tests.75g_ogtt_fasting_glucose_results_mg_dl}}: {ogtt_fasting}"
+  - template: "{{profile_contact_test.blood_glucose_tests.75g_ogtt_fasting_glucose_results_mg_dl}}: {ogtt_fasting_value}"
     relevance: "ogtt_fasting != ''"
 
-  - template: "{{profile_contact_test.blood_glucose_tests.75g_ogtt_1_hr_results_mg_dl}}: {ogtt_1}"
+  - template: "{{profile_contact_test.blood_glucose_tests.75g_ogtt_1_hr_results_mg_dl}}: {ogtt_1_value}"
     relevance: "ogtt_1 != ''"
 
-  - template: "{{profile_contact_test.blood_glucose_tests.75g_ogtt_2_hrs_results_mg_dl}}: {ogtt_2}"
+  - template: "{{profile_contact_test.blood_glucose_tests.75g_ogtt_2_hrs_results_mg_dl}}: {ogtt_2_value}"
     relevance: "ogtt_2 != ''"
 
-  - template: "{{profile_contact_test.blood_glucose_tests.random_plasma_glucose_results_mg_dl}}: {random_plasma}"
+  - template: "{{profile_contact_test.blood_glucose_tests.random_plasma_glucose_results_mg_dl}}: {random_plasma_value}"
     relevance: "random_plasma != ''"
 
 ---
 sub_group: blood_haemoglobin_test_results
 fields:
-  - template: "{{profile_contact_test.blood_haemoglobin_test.blood_haemoglobin_test_status}}: {hb_test_status}"
+  - template: "{{profile_contact_test.blood_haemoglobin_test.blood_haemoglobin_test_status}}: {hb_test_status_value}"
     relevance: "hb_test_status != ''"
 
   - template: "{{profile_contact_test.blood_haemoglobin_test.blood_haemoglobin_test_done_date}}: {hb_test_date}"
     relevance: "hb_test_date != ''"
 
-  - template: "{{profile_contact_test.blood_haemoglobin_test.blood_haemoglobin_test_not_done_reason}}: {hb_test_notdone}"
+  - template: "{{profile_contact_test.blood_haemoglobin_test.blood_haemoglobin_test_not_done_reason}}: {hb_test_notdone_value}"
     relevance: "hb_test_notdone != ''"
 
-  - template: "{{profile_contact_test.blood_haemoglobin_test.blood_haemoglobin_test_not_done_other_reason}}: {hb_test_notdone_other}"
+  - template: "{{profile_contact_test.blood_haemoglobin_test.blood_haemoglobin_test_not_done_other_reason}}: {hb_test_notdone_other_value}"
     relevance: "hb_test_notdone_other != ''"
 
-  - template: "{{profile_contact_test.blood_haemoglobin_test.blood_haemoglobin_test_type}}: {hb_test_type}"
+  - template: "{{profile_contact_test.blood_haemoglobin_test.blood_haemoglobin_test_type}}: {hb_test_type_value}"
     relevance: "hb_test_type != ''"
 
-  - template: "{{profile_contact_test.blood_haemoglobin_test.complete_blood_count_test_result_g_dl}}: {cbc}"
+  - template: "{{profile_contact_test.blood_haemoglobin_test.complete_blood_count_test_result_g_dl}}: {cbc_value}"
     relevance: "cbc != ''"
 
-  - template: "{{profile_contact_test.blood_haemoglobin_test.rhb_test_result_haemoglobinometer_g_dl}}: {hb_gmeter}"
+  - template: "{{profile_contact_test.blood_haemoglobin_test.rhb_test_result_haemoglobinometer_g_dl}}: {hb_gmeter_value}"
     relevance: "hb_gmeter != ''"
 
-  - template: "{{profile_contact_test.blood_haemoglobin_test.hb_test_result_haemoglobin_colour_scale_g_dl}}: {hb_colour}"
+  - template: "{{profile_contact_test.blood_haemoglobin_test.hb_test_result_haemoglobin_colour_scale_g_dl}}: {hb_colour_value}"
     relevance: "hb_colour != ''"
 
-  - template: "{{profile_contact_test.blood_haemoglobin_test.hematocrit_ht}}: {ht}"
+  - template: "{{profile_contact_test.blood_haemoglobin_test.hematocrit_ht}}: {ht_value}"
     relevance: "ht != ''"
 
-  - template: "{{profile_contact_test.blood_haemoglobin_test.white_blood_cell_wbc_count}}: {wbc}"
+  - template: "{{profile_contact_test.blood_haemoglobin_test.white_blood_cell_wbc_count}}: {wbc_value}"
     relevance: "wbc != ''"
 
-  - template: "{{profile_contact_test.blood_haemoglobin_test.platelet_count}}: {platelets}"
+  - template: "{{profile_contact_test.blood_haemoglobin_test.platelet_count}}: {platelets_value}"
     relevance: "platelets != ''"
 
 ---
 sub_group: tb_screening_test_results
 fields:
-  - template: "{{profile_contact_test.tb_screening_test.tb_screening_test_status}}: {tb_screening_status}"
+  - template: "{{profile_contact_test.tb_screening_test.tb_screening_test_status}}: {tb_screening_status_value}"
     relevance: "tb_screening_status != ''"
 
   - template: "{{profile_contact_test.tb_screening_test.tb_screening_test_done_date}}: {tb_screening_date}"
     relevance: "tb_screening_date != ''"
 
-  - template: "{{profile_contact_test.tb_screening_test.tb_screening_test_not_done_reason}}: {tb_screening_notdone}"
+  - template: "{{profile_contact_test.tb_screening_test.tb_screening_test_not_done_reason}}: {tb_screening_notdone_value}"
     relevance: "tb_screening_notdone != ''"
 
-  - template: "{{profile_contact_test.tb_screening_test.tb_screening_test_not_done_other_reason}}: {tb_screening_notdone_other}"
+  - template: "{{profile_contact_test.tb_screening_test.tb_screening_test_not_done_other_reason}}: {tb_screening_notdone_other_value}"
     relevance: "tb_screening_notdone_other != ''"
 
-  - template: "{{profile_contact_test.tb_screening_test.tb_screening_result}}: {tb_screening_result}"
+  - template: "{{profile_contact_test.tb_screening_test.tb_screening_result}}: {tb_screening_result_value}"
     relevance: "tb_screening_result != ''"
 test_results: "['tb_screening_result: TB Screening tests results']"
 
 ---
 sub_group: partner_hiv_test_results
 fields:
-  - template: "{{profile_contact_test.partner_hiv_test.partner_hiv_test_status}}: {hiv_test_partner_status}"
+  - template: "{{profile_contact_test.partner_hiv_test.partner_hiv_test_status}}: {hiv_test_partner_status_value}"
     relevance: "hiv_test_partner_status != ''"
 
   - template: "{{profile_contact_test.partner_hiv_test.partner_hiv_test_done_date}}: {hiv_test_partner_date}"
     relevance: "hiv_test_partner_date != ''"
 
-  - template: "{{profile_contact_test.partner_hiv_test.partner_hiv_test_result}}: {hiv_test_partner_result}"
+  - template: "{{profile_contact_test.partner_hiv_test.partner_hiv_test_result}}: {hiv_test_partner_result_value}"
     relevance: "hiv_test_partner_result != ''"
 test_results: "['hiv_test_partner_result:Partner HIV tests results']"
 
 ---
 sub_group: other_tests_results
 fields:
-  - template: "{{profile_contact_test.other_tests.other_test_test_status}}: {other_test}"
+  - template: "{{profile_contact_test.other_tests.other_test_test_status}}: {other_test_value}"
     relevance: "other_test != ''"
 
   - template: "{{profile_contact_test.other_tests.other_test_done_date}}: {other_test_date}"
     relevance: "other_test_date != ''"
 
-  - template: "{{profile_contact_test.other_tests.other_test_name}}: {other_test_name}"
+  - template: "{{profile_contact_test.other_tests.other_test_name}}: {other_test_name_value}"
     relevance: "other_test_name != ''"
 
-  - template: "{{profile_contact_test.other_tests.other_test_result}}: {other_test_result}"
+  - template: "{{profile_contact_test.other_tests.other_test_result}}: {other_test_result_value}"
     relevance: "other_test_result != ''"
 test_results: "['other_test_result:Other tests results']"

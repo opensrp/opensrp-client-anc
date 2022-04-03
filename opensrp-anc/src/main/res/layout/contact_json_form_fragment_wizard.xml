@@ -46,10 +46,11 @@
                     android:paddingEnd="@dimen/form_container_start_end_navigation_padding"
                     android:paddingStart="@dimen/form_container_start_end_navigation_padding"
                     android:paddingTop="@dimen/form_container_top_bottom_navigation_padding"
-                    android:text="@string/previous"
+                    android:text="@string/contact_previous"
                     android:textAllCaps="true"
                     android:textAppearance="?android:textAppearanceMedium"
                     android:textColor="@color/button_navy_blue"
+                    android:textStyle="bold"
                     android:textSize="@dimen/form_container_navigation_text_size" />
 
                 <Button
@@ -63,10 +64,11 @@
                     android:paddingEnd="@dimen/form_container_start_end_navigation_padding"
                     android:paddingStart="@dimen/form_container_start_end_navigation_padding"
                     android:paddingTop="@dimen/form_container_top_bottom_navigation_padding"
-                    android:text="@string/next"
+                    android:text="@string/contact_next"
                     android:textAllCaps="true"
                     android:textAppearance="?android:textAppearanceMedium"
                     android:textColor="@color/button_navy_blue"
+                    android:textStyle="bold"
                     android:textSize="@dimen/form_container_navigation_text_size" />
             </RelativeLayout>
 
@@ -95,10 +97,11 @@
             android:background="@drawable/refer_close_background"
             android:paddingEnd="@dimen/quick_check_padding"
             android:paddingStart="@dimen/quick_check_padding"
-            android:text="@string/refer_and_close_contact"
+            android:text="@string/contact_refer_and_close"
             android:textAllCaps="true"
             android:textAppearance="?android:textAppearanceSmall"
             android:textColor="@color/white"
+            android:textStyle="bold"
             android:textSize="@dimen/quick_check_text_size"
             android:visibility="gone" />
 
@@ -114,10 +117,11 @@
             android:background="@color/transparent"
             android:paddingEnd="@dimen/quick_check_drawable_padding"
             android:paddingStart="@dimen/quick_check_drawable_padding"
-            android:text="@string/proceed_to_normal_contact"
+            android:text="@string/contact_proceed_to_normal"
             android:textAllCaps="true"
             android:textAppearance="?android:textAppearanceSmall"
             android:textColor="@color/button_navy_blue"
+            android:textStyle="bold"
             android:textSize="@dimen/quick_check_text_size" />
     </LinearLayout>
 

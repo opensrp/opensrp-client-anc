@@ -224,14 +224,14 @@ actions:
 name: step1_toaster5
 description: Note displaying that counseling on increasing daily energy and protein intake should be given.
 priority: 1
-condition: "global_pop_undernourish == true && step1_weight_cat == 'Underweight'"
+condition: "global_pop_undernourish == true && step1_weight_cat == helper.weightIMT('Underweight')"
 actions:
   - "isRelevant = true"
 ---
 name: step1_toaster6
 description: Note displaying that counseling on balanced energy and protein dietary supplementation should be given.
 priority: 1
-condition: "global_pop_undernourish == true && step1_weight_cat == 'Underweight'"
+condition: "global_pop_undernourish == true && step1_weight_cat == helper.weightIMT('Underweight')"
 actions:
   - "isRelevant = true"
 ---
@@ -315,7 +315,7 @@ actions:
 name: step3_toaster26
 description: toaster26
 priority: 1
-condition: "step3_toaster26_hidden > 2"
+condition: "step3_toaster26_hidden > 2 && step3_cervical_exam == '1'"
 actions:
   - "isRelevant = true"
 ---

@@ -26,7 +26,7 @@ import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
-import com.vijay.jsonwizard.constants.JsonFormConstants;
+import org.smartregister.anc.library.constants.ANCJsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
 
 import net.sqlcipher.database.SQLiteDatabase;
@@ -233,12 +233,12 @@ public class Utils extends org.smartregister.util.Utils {
 
             if (hasPendingRequiredFields(new JSONObject(processedForm))) {
                 intent.putExtra(ConstantsUtils.JsonFormExtraUtils.JSON, processedForm);
-                intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, quickCheck);
+                intent.putExtra(ANCJsonFormConstants.JSON_FORM_KEY.FORM, quickCheck);
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, partialContactRequest.getBaseEntityId());
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, personObjectClient);
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME, partialContactRequest.getType());
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, partialContactRequest.getContactNo());
-                intent.putExtra(JsonFormConstants.PERFORM_FORM_TRANSLATION, true);
+                intent.putExtra(ANCJsonFormConstants.PERFORM_FORM_TRANSLATION, true);
                 Activity activity = (Activity) context;
                 activity.startActivityForResult(intent, ANCJsonFormUtils.REQUEST_CODE_GET_JSON);
             } else {
@@ -248,7 +248,7 @@ public class Utils extends org.smartregister.util.Utils {
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME, partialContactRequest.getType());
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO,
                         Integer.valueOf(personObjectClient.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
-                intent.putExtra(JsonFormConstants.PERFORM_FORM_TRANSLATION, true);
+                intent.putExtra(ANCJsonFormConstants.PERFORM_FORM_TRANSLATION, true);
                 context.startActivity(intent);
             }
 
@@ -274,7 +274,7 @@ public class Utils extends org.smartregister.util.Utils {
             while (keys.hasNext()) {
                 String key = keys.next();
                 if (key.startsWith(RuleConstant.STEP)) {
-                    JSONArray stepArray = object.getJSONObject(key).getJSONArray(JsonFormConstants.FIELDS);
+                    JSONArray stepArray = object.getJSONObject(key).getJSONArray(ANCJsonFormConstants.FIELDS);
 
                     for (int i = 0; i < stepArray.length(); i++) {
                         JSONObject fieldObject = stepArray.getJSONObject(i);
@@ -282,12 +282,12 @@ public class Utils extends org.smartregister.util.Utils {
 
                         boolean isRequiredField = ANCJsonFormUtils.isFieldRequired(fieldObject);
                         //Do not check for required for fields that are invisible
-                        if (fieldObject.has(JsonFormConstants.IS_VISIBLE) && !fieldObject.getBoolean(JsonFormConstants.IS_VISIBLE)) {
+                        if (fieldObject.has(ANCJsonFormConstants.IS_VISIBLE) && !fieldObject.getBoolean(ANCJsonFormConstants.IS_VISIBLE)) {
                             isRequiredField = false;
                         }
 
-                        if (isRequiredField && ((fieldObject.has(JsonFormConstants.VALUE) && TextUtils.isEmpty(
-                                fieldObject.getString(JsonFormConstants.VALUE))) || !fieldObject.has(JsonFormConstants.VALUE))) {
+                        if (isRequiredField && ((fieldObject.has(ANCJsonFormConstants.VALUE) && TextUtils.isEmpty(
+                                fieldObject.getString(ANCJsonFormConstants.VALUE))) || !fieldObject.has(ANCJsonFormConstants.VALUE))) {
                             //TO DO Remove/ Alter logical condition
                             return true;
                         }
@@ -552,12 +552,12 @@ public class Utils extends org.smartregister.util.Utils {
                     case ConstantsUtils.AlertStatusUtils.DELIVERY_DUE:
                         dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
                         dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
-                        dueButton.setText(context.getString(R.string.due_delivery));
+                        dueButton.setText(context.getString(R.string.contact_due_delivery));
                         break;
                     case ConstantsUtils.AlertStatusUtils.EXPIRED:
                         dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
                         dueButton.setTextColor(context.getResources().getColor(R.color.white));
-                        dueButton.setText(context.getString(R.string.due_delivery));
+                        dueButton.setText(context.getString(R.string.contact_due_delivery));
                         break;
                     case ConstantsUtils.AlertStatusUtils.TODAY:
                         if (contactTextView != null) {
@@ -681,23 +681,23 @@ public class Utils extends org.smartregister.util.Utils {
         JSONObject jsonObject = JsonFormUtils.getFieldJSONObject(fields, fieldName);
         HashMap<String, HashMap<String, String>> repeatingGroupMap = new LinkedHashMap<>();
         if (jsonObject != null) {
-            JSONArray jsonArray = jsonObject.optJSONArray(JsonFormConstants.VALUE);
+            JSONArray jsonArray = jsonObject.optJSONArray(ANCJsonFormConstants.VALUE);
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject valueField = jsonArray.optJSONObject(i);
-                String fieldKey = valueField.optString(JsonFormConstants.KEY);
+                String fieldKey = valueField.optString(ANCJsonFormConstants.KEY);
                 keysArrayList.add(fieldKey);
             }
 
             for (int k = 0; k < fields.length(); k++) {
                 JSONObject valueField = fields.optJSONObject(k);
-                String fieldKey = valueField.optString(JsonFormConstants.KEY);
-                String fieldValue = valueField.optString(JsonFormConstants.VALUE);
+                String fieldKey = valueField.optString(ANCJsonFormConstants.KEY);
+                String fieldValue = valueField.optString(ANCJsonFormConstants.VALUE);
 
                 if (fieldKey.contains("_")) {
                     fieldKey = fieldKey.substring(0, fieldKey.lastIndexOf("_"));
                     if (keysArrayList.contains(fieldKey) && StringUtils.isNotBlank(fieldValue)) {
-                        String fieldKeyId = valueField.optString(JsonFormConstants.KEY).substring(fieldKey.length() + 1);
-                        valueField.put(JsonFormConstants.KEY, fieldKey);
+                        String fieldKeyId = valueField.optString(ANCJsonFormConstants.KEY).substring(fieldKey.length() + 1);
+                        valueField.put(ANCJsonFormConstants.KEY, fieldKey);
                         HashMap<String, String> hashMap = repeatingGroupMap.get(fieldKeyId) == null ? new HashMap<>() : repeatingGroupMap.get(fieldKeyId);
                         hashMap.put(fieldKey, fieldValue);
                         repeatingGroupMap.put(fieldKeyId, hashMap);

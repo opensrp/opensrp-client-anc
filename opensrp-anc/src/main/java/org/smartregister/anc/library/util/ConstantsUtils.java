@@ -98,6 +98,14 @@ public abstract class ConstantsUtils {
         public static final String DONE = "done";
     }
 
+    public static class AncRadioButtonOptionTextUtils {
+        public static final String DONE_TODAY = "Dilakukan hari ini";
+        public static final String DONE_EARLIER = "Pernah dilakukan";
+        public static final String ORDERED = "Sedang dalam proses";
+        public static final String NOT_DONE = "Tidak dilakukan";
+        public static final String DONE = "Dilakukan";
+    }
+
     public static class ConfigurationUtils {
         public static final String LOGIN = "login";
         public static final String HOME_REGISTER = "home_register";

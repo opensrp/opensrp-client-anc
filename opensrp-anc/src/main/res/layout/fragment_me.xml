@@ -376,7 +376,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="@dimen/me_page_section_text_right_margin"
                         android:layout_toEndOf="@+id/logoutImageView"
-                        android:text="@string/log_out_text"
+                        android:text="@string/action_logout"
                         android:textColor="@color/text_black"
                         android:textSize="@dimen/me_page_section_text_size" />
 

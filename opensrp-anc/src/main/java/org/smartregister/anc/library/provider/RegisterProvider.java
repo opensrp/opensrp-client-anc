@@ -133,7 +133,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
 
         String dobString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.DOB, false));
         dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
-        fillValue((viewHolder.age), String.format(context.getString(R.string.age_text), dobString));
+        fillValue((viewHolder.age), String.format(context.getString(R.string.client_age), dobString));
 
 
         String edd = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.EDD, false);
@@ -145,7 +145,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
             }
             else {
                 fillValue((viewHolder.ga),
-                        String.format(context.getString(R.string.ga_text), Utils.getGestationAgeFromEDDate(edd)));
+                        String.format(context.getString(R.string.client_ga), Utils.getGestationAgeFromEDDate(edd)));
                 viewHolder.period.setVisibility(View.VISIBLE);
             }
         } else {
@@ -184,7 +184,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
 
     private void populateIdentifierColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
         String ancId = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.ANC_ID, false);
-        fillValue(viewHolder.ancId, String.format(context.getString(R.string.anc_id_text), ancId));
+        fillValue(viewHolder.ancId, String.format(context.getString(R.string.client_id), ancId));
     }
 
     private void populateLastColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {

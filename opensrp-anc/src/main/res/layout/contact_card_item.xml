@@ -30,7 +30,7 @@
             android:gravity="center_vertical"
             android:maxLines="2"
             android:paddingRight="@dimen/contact_drawable_padding"
-            android:text="@string/quick_check"
+            android:text="@string/contact_quick_check"
             android:textColor="@color/white"
             android:textSize="@dimen/contact_name_text_size" />
 
@@ -48,7 +48,7 @@
             android:gravity="center_vertical"
             android:paddingRight="@dimen/contact_drawable_padding"
             android:singleLine="true"
-            android:text="@string/required_fields"
+            android:text="@string/contact_required_fields"
             android:textColor="@color/translucent_white"
             android:textSize="@dimen/contact_detail_text_size" />
 
@@ -84,7 +84,7 @@
                 android:paddingLeft="0dp"
                 android:paddingRight="@dimen/contact_drawable_padding"
                 android:singleLine="true"
-                android:text="@string/complete"
+                android:text="@string/contact_complete"
                 android:textColor="@color/translucent_white"
                 android:textSize="@dimen/contact_detail_text_size" />
 

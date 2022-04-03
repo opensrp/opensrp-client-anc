@@ -26,10 +26,12 @@ public class ContactHelper {
 		// Cleanup key before processing
 		String cleanKey = key;
 
-//		String[] ignoredChars = { "'", "[", "]", "{", "}" };
-//		for (String ignored : ignoredChars){
-//			cleanKey.replace(ignored, "");
-//		}
+		/*
+		String[] ignoredChars = { "'", "[", "]", "{", "}" };
+		for (String ignored : ignoredChars){
+			cleanKey.replace(ignored, "");
+		}
+		*/
 
 		// Get identifier
 		int identifier = this.context.getResources().getIdentifier(prefix + cleanKey, "string", this.context.getPackageName());

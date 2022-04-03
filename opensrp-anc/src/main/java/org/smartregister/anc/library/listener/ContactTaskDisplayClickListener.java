@@ -4,7 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.view.View;
 
-import com.vijay.jsonwizard.constants.JsonFormConstants;
+import org.smartregister.anc.library.constants.ANCJsonFormConstants;
 import com.vijay.jsonwizard.domain.ExpansionPanelValuesModel;
 import com.vijay.jsonwizard.utils.FormUtils;
 
@@ -93,7 +93,7 @@ public class ContactTaskDisplayClickListener implements View.OnClickListener {
             JSONArray taskValues = getExpansionPanelValues(taskValue, task.getKey());
             Map<String, ExpansionPanelValuesModel> secondaryValuesMap = getSecondaryValues(taskValues);
             JSONArray subFormFields = ANCFormUtils.addExpansionPanelFormValues(loadSubFormFields(taskValue, context).entrySet().iterator().next().getValue(), secondaryValuesMap);
-            String taskKey = taskValue.optString(JsonFormConstants.KEY);
+            String taskKey = taskValue.optString(ANCJsonFormConstants.KEY);
             String formTitle = ANCFormUtils.getTranslatedFormTitle(taskKey, context);
             JSONObject form = ANCFormUtils.loadTasksForm(context);
             if (StringUtils.isNotBlank(formTitle)) {
@@ -110,7 +110,7 @@ public class ContactTaskDisplayClickListener implements View.OnClickListener {
     private void addMlsPropertyFile(JSONObject form, String mlsPropertyFile) {
         try {
             if (form != null && StringUtils.isNotBlank(mlsPropertyFile)) {
-                form.put(JsonFormConstants.MLS.PROPERTIES_FILE_NAME, mlsPropertyFile);
+                form.put(ANCJsonFormConstants.MLS.PROPERTIES_FILE_NAME, mlsPropertyFile);
             }
         } catch (JSONException e) {
             Timber.e(e, " --> add mls property file");
@@ -144,8 +144,8 @@ public class ContactTaskDisplayClickListener implements View.OnClickListener {
      */
     private JSONObject removeTestResults(JSONObject taskValue) {
         JSONObject task = new JSONObject();
-        if (taskValue != null && taskValue.has(JsonFormConstants.VALUE)) {
-            taskValue.remove(JsonFormConstants.VALUE);
+        if (taskValue != null && taskValue.has(ANCJsonFormConstants.VALUE)) {
+            taskValue.remove(ANCJsonFormConstants.VALUE);
             task = taskValue;
         }
         return task;
@@ -195,15 +195,15 @@ public class ContactTaskDisplayClickListener implements View.OnClickListener {
         JSONArray fields = new JSONArray();
         Map<String, JSONArray> stringJSONArrayMap = new HashMap<>();
         try {
-            if (taskValue != null && taskValue.has(JsonFormConstants.CONTENT_FORM)) {
-                String subFormName = taskValue.getString(JsonFormConstants.CONTENT_FORM);
+            if (taskValue != null && taskValue.has(ANCJsonFormConstants.CONTENT_FORM)) {
+                String subFormName = taskValue.getString(ANCJsonFormConstants.CONTENT_FORM);
                 JSONObject subForm = FormUtils.getSubFormJson(subFormName, "", context);
-                if (subForm.has(JsonFormConstants.CONTENT_FORM)) {
-                    fields = subForm.getJSONArray(JsonFormConstants.CONTENT_FORM);
+                if (subForm.has(ANCJsonFormConstants.CONTENT_FORM)) {
+                    fields = subForm.getJSONArray(ANCJsonFormConstants.CONTENT_FORM);
                 }
 
-                if (subForm.has(JsonFormConstants.MLS.PROPERTIES_FILE_NAME)) {
-                    mlsPropertyFile = subForm.getString(JsonFormConstants.MLS.PROPERTIES_FILE_NAME);
+                if (subForm.has(ANCJsonFormConstants.MLS.PROPERTIES_FILE_NAME)) {
+                    mlsPropertyFile = subForm.getString(ANCJsonFormConstants.MLS.PROPERTIES_FILE_NAME);
                 }
 
                 stringJSONArrayMap.put(mlsPropertyFile, fields);
@@ -225,8 +225,8 @@ public class ContactTaskDisplayClickListener implements View.OnClickListener {
      */
     private String getFormTitle(JSONObject taskValue) {
         String title = "";
-        if (taskValue != null && taskValue.has(JsonFormConstants.TEXT)) {
-            title = taskValue.optString(JsonFormConstants.TEXT);
+        if (taskValue != null && taskValue.has(ANCJsonFormConstants.TEXT)) {
+            title = taskValue.optString(ANCJsonFormConstants.TEXT);
         }
         return title;
     }
@@ -239,9 +239,9 @@ public class ContactTaskDisplayClickListener implements View.OnClickListener {
      */
     private void updateFormTitle(JSONObject form, String title) {
         try {
-            if (form != null && StringUtils.isNotBlank(title) && form.has(JsonFormConstants.STEP1)) {
-                JSONObject stepOne = form.getJSONObject(JsonFormConstants.STEP1);
-                stepOne.put(JsonFormConstants.STEP_TITLE, title);
+            if (form != null && StringUtils.isNotBlank(title) && form.has(ANCJsonFormConstants.STEP1)) {
+                JSONObject stepOne = form.getJSONObject(ANCJsonFormConstants.STEP1);
+                stepOne.put(ANCJsonFormConstants.STEP_TITLE, title);
             }
         } catch (JSONException e) {
             Timber.e(e, " --> updateFormTitle");

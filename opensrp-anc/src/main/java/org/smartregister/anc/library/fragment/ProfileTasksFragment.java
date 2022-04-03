@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vijay.jsonwizard.activities.FormConfigurationJsonFormActivity;
-import com.vijay.jsonwizard.constants.JsonFormConstants;
+import org.smartregister.anc.library.constants.ANCJsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
 import org.apache.commons.lang3.StringUtils;
@@ -171,8 +171,8 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
         intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, baseEntityId);
         intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, clientDetails);
         intent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, contactNo);
-        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, getForm());
-        intent.putExtra(JsonFormConstants.PERFORM_FORM_TRANSLATION, true);
+        intent.putExtra(ANCJsonFormConstants.JSON_FORM_KEY.FORM, getForm());
+        intent.putExtra(ANCJsonFormConstants.PERFORM_FORM_TRANSLATION, true);
         startActivityForResult(intent, ANCJsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
@@ -226,7 +226,7 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
     private JSONArray createAccordionValues(JSONObject form) {
         JSONArray values = new JSONArray();
         if (form != null) {
-            JSONArray fields = ANCFormUtils.fields(form, JsonFormConstants.STEP1);
+            JSONArray fields = ANCFormUtils.fields(form, ANCJsonFormConstants.STEP1);
             values = formUtils.createExpansionPanelValues(fields);
         }
         return values;
@@ -237,7 +237,7 @@ public class ProfileTasksFragment extends BaseProfileFragment implements Profile
         try {
             if (values != null && values.length() > 0 && newTask != null) {
                 JSONObject newValue = new JSONObject(newTask.getValue());
-                newValue.put(JsonFormConstants.VALUE, values);
+                newValue.put(ANCJsonFormConstants.VALUE, values);
                 newTask.setValue(String.valueOf(newValue));
                 newTask.setUpdated(true);
                 newTask.setComplete(ANCJsonFormUtils.checkIfTaskIsComplete(newValue));
