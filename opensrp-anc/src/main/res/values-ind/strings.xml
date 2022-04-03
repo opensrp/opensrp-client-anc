@@ -87,9 +87,10 @@
     <string name="previous_contacts">Daftar Kunjungan</string>
     <string name="all_tests_results">Hasil Semua Tes</string>
     <string name="contact_details">%1$s Minggu &#183; Kunjungan %2$s</string>
-    <string name="ga_weeks">%1$s weeks</string>
+    <string name="ga_weeks">%1$s minggu</string>
     <string name="no_health_data_recorded">Data belum direkam</string>
     <string name="tap_button_below">Ketuk tombol di bawah untuk memulai / lanjutkan kunjungan.</string>
+    <string name="expected_date_of_delivery">Tanggal Perkiraan Kelahiran</string>
 
     <!-- Form -->
     <string name="confirm_form_close">Batalkan Pendaftaran</string>
@@ -290,6 +291,8 @@
 	<!-- Contact > Attributes -->
 	<string name="contact_required_fields">%1$d harus diisi</string>
 	<string name="contact_complete">Selesai</string>
+	<string name="contact_completed">Telah Selesai</string>
+	<string name="contact_upcoming">Kunjungan Mendatang</string>
 	<string name="contact_proceed_to_normal">Lanjut Kunjungan Normal</string>
 	<string name="contact_refer_and_close">Rujuk dan Akhiri Kunjungan</string>
 	<string name="contact_next">Lanjut</string>
@@ -298,6 +301,7 @@
     <string name="contact_no">Tidak</string>
 	<string name="contact_save_and_finish">Simpan &amp; Selesai</string>
 	<string name="contact_alert_treatment">Adakah pengobatan yang diberikan sebelum rujukan?</string>
+    <string name="timeline_away">%1$smg lagi</string>
 	<!-- Contact > Text -->
     <string name="contact_number">Kunjungan ke-%1$d</string>
     <string name="contact_weight">Berat</string>

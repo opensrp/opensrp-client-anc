@@ -199,7 +199,7 @@ fields:
     relevance: "tobacco_user != '' && tobacco_user != 'no'"
     isRedFont: "true"
 
-  - template: "{{profile_overview.tobacco_shs}}: Huehuehue {shs_exposure_value}"
+  - template: "{{profile_overview.tobacco_shs}}: {shs_exposure_value}"
     relevance: "shs_exposure == 'yes'"
     isRedFont: "true"
 

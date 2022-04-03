@@ -90,6 +90,7 @@
     <string name="ga_weeks">%1$s weeks</string>
     <string name="no_health_data_recorded">No health data recorded</string>
     <string name="tap_button_below">Tap the button below to start/complete a contact</string>
+    <string name="expected_date_of_delivery">Expected Date of Delivery</string>
 
 
     <!-- Form -->
@@ -296,6 +297,8 @@
     <!-- Contact > Attributes -->
 	<string name="contact_required_fields">%1$d required fields</string>
     <string name="contact_complete">Complete</string>
+    <string name="contact_completed">Completed</string>
+    <string name="contact_upcoming">Upcoming Contacts</string>
     <string name="contact_proceed_to_normal">Proceed to Normal Contact</string>
     <string name="contact_refer_and_close">Refer and Close Contact</string>
     <string name="contact_next">Next</string>
@@ -304,6 +307,7 @@
     <string name="contact_no">No</string>
     <string name="contact_save_and_finish">Save &amp; Finish</string>
     <string name="contact_alert_treatment">Any treatment given before referral?</string>
+    <string name="timeline_away">%1$sw away</string>
     <!-- Contact > Text -->
     <string name="contact_number">Contact %1$d</string>
     <string name="contact_weight">Weight</string>
@@ -599,9 +603,9 @@
     <string name="negative_contact_text">A negative contact means that the patient was referred so her contact schedule does not change and remains the same as before</string>
     <string name="previous_contacts_header">Previous Contacts</string>
     <string name="previous_contacts_tests_header">All Test Results</string>
-    <string name="expected_date_of_delivery">Expected Date of Delivery</string>
     
-    <string name="timeline_away">%1$sw away</string>
+    
+    
     <string name="all_results">All results</string>
     <string name="no_tests_available">No Tests Available</string>
     <string name="hospital_referral">Hospital referral</string>
