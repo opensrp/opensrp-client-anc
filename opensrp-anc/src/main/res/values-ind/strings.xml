@@ -89,11 +89,23 @@
     <string name="contact_details">%1$s Minggu &#183; Kunjungan %2$s</string>
     <string name="ga_weeks">%1$s weeks</string>
 
-    <!-- Registration -->
+    <!-- Form -->
+    <string name="confirm_form_close">Batalkan Pendaftaran</string>
+    <string name="confirm_form_close_explanation">Apakah Anda yakin ingin kembali? Semua data yang Anda masukkan dalam formulir ini akan hilang.</string>
     <string name="form_back_confirm_dialog_title">Batalkan Pendaftaran</string>
     <string name="form_back_confirm_dialog_message">Apakah Anda yakin ingin kembali? Semua data yang Anda masukkan dalam formulir ini akan hilang.</string>
 	<string name="yes_button_label">Ya</string>
 	<string name="no_button_label">Tidak</string>
+    <string name="yes">Ya</string>
+    <string name="no">Tidak</string>
+    <string name="cancel">Batalkan</string>
+    <string name="ok">OK</string>
+    <string name="save">Simpan</string>
+    <string name="done">Selesai</string>
+    <string name="apply">Terapkan</string>
+    <string name="loading">Memuat</string>
+    <string name="loading_form_message">Formulir sedang dimuat...</string>
+    <string name="opening_forms">Memuat sub-form...</string>
 
     <!-- Library -->
     <string name="library">Pustaka</string>

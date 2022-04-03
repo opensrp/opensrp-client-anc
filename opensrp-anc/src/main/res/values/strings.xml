@@ -90,11 +90,23 @@
     <string name="ga_weeks">%1$s weeks</string>
 
 
-    <!-- Registration -->
+    <!-- Form -->
+    <string name="confirm_form_close">Confirm Form Close</string>
+    <string name="confirm_form_close_explanation">Are you sure you want to go back? All data you have entered in this form will be cleared.</string>
     <string name="form_back_confirm_dialog_title">Confirm Form Close</string>
     <string name="form_back_confirm_dialog_message">Are you sure you want to go back? All the data you have entered in this form will be cleared.</string>
     <string name="yes_button_label">Yes</string>
 	<string name="no_button_label">No</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="save">Save</string>
+    <string name="done">Done</string>
+    <string name="apply">Apply</string>
+    <string name="loading">Loading</string>
+    <string name="loading_form_message">Please wait as we load your form...</string>
+    <string name="opening_forms">Loading sub forms...</string>
 
     <!-- Library -->
     <string name="library">Library</string>
@@ -362,8 +374,7 @@
     <string name="search_name_or_id">Search name or ID</string>
     <string name="filter">Filter</string>
     <string name="clear_filters">CLEAR FILTERS</string>
-    <string name="apply">APPLY</string>
-    <string name="done">DONE</string>
+    
     <string name="has_tasks_due">Has tasks due</string>
     <string name="risky_pregnancy">Risky pregnancy</string>
     <string name="syphilis_positive">Syphilis pregnancy</string>
@@ -408,7 +419,6 @@
     <string name="copy_to_clipboard">Copy to clipboard</string>
     <string name="no_matching_woman_found_on_this_device">No matching woman found on this device.</string>
     <string name="go_to_advanced_search">Go to advanced search</string>
-    <string name="cancel">Cancel</string>
     <string name="yellow">YELLOW</string>
     <string name="red">RED</string>
     <string name="record_birth">Record birth</string>
@@ -494,8 +504,6 @@
 
     <string name="any_treatment">Any treatment given\nbefore referral?</string>
     <string name="welcome_site_characteristics">Welcome!\n\nTo get started, please set your site characteristics.</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
     <string name="contact_dummy_text">CONTACT&#10;22/05/2018</string>
     <string name="library_placeholder">Library Placeholder</string>
     <string name="me_page_placeholder">Me Page Placeholder</string>
