@@ -242,6 +242,10 @@
     <string name="pagination_previous">&lt; Previous</string>
 	<string name="pagination_next">Next &gt;</string>
     <string name="undo_test_result">Undo the %1$s result?</string>
+    <string name="contact_recorded">Contact %1$d recorded</string>
+    <string name="upcoming_contact_dates">Upcoming contact dates:</string>
+    <string name="go_to_client_profile">Go to Client Profile</string>
+    <string name="send_summary_to_client">Send Summary to Client</string>
 
     <!-- Mother -->
 	<string name="mother_age">Age</string>
@@ -570,9 +574,7 @@
     
     
     <!-- Form container -->
-    <string name="upcoming_contact_dates">Upcoming contact dates:</string>
-    <string name="go_to_client_profile">GO TO CLIENT PROFILE</string>
-    <string name="send_summary_to_client">SEND SUMMARY TO CLIENT</string>
+    
     <string name="loading_client_settings">Loading client settings&#8230;</string>
     
     <string name="any_changes_you_make">Any changes you make will be lost</string>
@@ -580,7 +582,7 @@
     
     
     <string name="record_birth_popup_message">GA: %1$d weeks\nEDD: %2$s (%3$s ago)\n\n%4$s should come in immediately for delivery.</string>
-    <string name="contact_recorded">Contact %1$d recorded</string>
+    
     <string name="info_icon_display">the more info icon display</string>
     <string name="status_icon_display">the status icon display</string>
     

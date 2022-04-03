@@ -243,6 +243,10 @@
 	<string name="pagination_previous">&lt; Kembali</string>
 	<string name="pagination_next">Berikut &gt;</string>
     <string name="undo_test_result">Reset hasil %1$s?</string>
+    <string name="contact_recorded">Kunjungan %1$d telah direkam</string>
+    <string name="upcoming_contact_dates">Tanggal kunjungan berikutnya:</string>
+    <string name="go_to_client_profile">Lihat Profil Ibu</string>
+    <string name="send_summary_to_client">Kirim Ikhtisar ke Ibu</string>
 
 	<!-- Mother -->
 	<string name="mother_age">Usia</string>
@@ -322,6 +326,8 @@
     <string name="contact_family_planning_counseling">Konseling Keluarga Berencana</string>
     <string name="contact_birth_plan_counseling">Konseling Rencana Kelahiran</string>
     <string name="contact_risks_and_diagnoses">Resiko dan Diagnosis</string>
+    <string name="finalizing_contact">Finalisasi Kunjungan %1$d</string>
+    <string name="summarizing_contact_number">Menyimpulkan Kunjungan %1$d</string>
     <!-- Contact > Text > Test Result -->
     <string name="ultrasound_tests_results">Hasil Tes USG</string>
     <string name="blood_type_test_results">Hasil Tes Golongan Darah</string>
