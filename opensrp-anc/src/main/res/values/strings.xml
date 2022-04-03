@@ -88,6 +88,8 @@
     <string name="all_tests_results">All Tests Results</string>
     <string name="contact_details">%1$s Weeks &#183; Contact %2$s</string>
     <string name="ga_weeks">%1$s weeks</string>
+    <string name="no_health_data_recorded">No health data recorded</string>
+    <string name="tap_button_below">Tap the button below to start/complete a contact</string>
 
 
     <!-- Form -->
@@ -584,8 +586,7 @@
     <string name="hospital_referral_title">Hospital referral recorded</string>
     <string name="back">Back</string>
     <string name="tab_button_image">Tab button image</string>
-    <string name="tap_button_below">Tap the button below to start/complete a contact</string>
-    <string name="no_health_data_recorded">No health data recorded</string>
+    
     <string name="tests_tasks_header">Tests</string>
     <string name="go_to_image">Go to image</string>
     <string name="attach_file">Attach file</string>
