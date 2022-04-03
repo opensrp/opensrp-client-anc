@@ -109,6 +109,12 @@
     <string name="loading">Loading</string>
     <string name="loading_form_message">Please wait as we load your form...</string>
     <string name="opening_forms">Loading sub forms...</string>
+    <string name="previous">Previous</string>
+    <string name="next">Next</string>
+    <string name="submit">Submit</string>
+    <string name="record">Record</string>
+    <string name="undo">Undo</string>
+    <string name="save_and_finish">Save + Finish</string>
 
     <!-- Library -->
     <string name="library">Library</string>
@@ -235,6 +241,7 @@
     <string name="contact_record_birth_popup_message">GA: %1$d weeks\nEDD: %2$s (%3$s ago)\n\n%4$s should come in immediately for delivery.</string>
     <string name="pagination_previous">&lt; Previous</string>
 	<string name="pagination_next">Next &gt;</string>
+    <string name="undo_test_result">Undo the %1$s result?</string>
 
     <!-- Mother -->
 	<string name="mother_age">Age</string>
@@ -330,6 +337,22 @@
     <string name="blood_haemoglobin_test_results">Blood Haemoglobin Test Results</string>
     <string name="partner_hiv_test_results">Partner HIV Test Results</string>
     <string name="other_tests_results">Other Tests Results</string>
+    <!-- Contact > Test -->
+    <string name="accordion_ultrasound">Ultrasound Test</string>
+    <string name="accordion_blood_type">Blood Type Test</string>
+    <string name="accordion_hepatitis_b">Hepatitis B Test</string>
+    <string name="accordion_hepatitis_c">Hepatitis C Test</string>
+    <string name="accordion_syphilis">Syphilis Test</string>
+    <string name="accordion_urine">Urine Test</string>
+    <string name="accordion_blood_haemoglobin">Blood Haemoglobin Test</string>
+    <string name="accordion_hiv">HIV Test</string>
+    <string name="accordion_tb_screening">TB Screening</string>
+    <string name="accordion_partner_hiv">Partner HIV Test</string>
+    <string name="accordion_blood_glucose">Blood Glucose Test</string>
+    <string name="accordion_other_tests">Other Test</string>
+    <string name="contact_summary_data">Contact Summary Data  -  %1$s</string>
+    <string name="pdf_saved_successfully">\"PDF saved successfully to location \"</string>
+    <string name="contact_summary_data_file">contactSummaryData.pdf</string>
 
     <!-- General -->
     
@@ -560,9 +583,7 @@
     <string name="contact_recorded">Contact %1$d recorded</string>
     <string name="info_icon_display">the more info icon display</string>
     <string name="status_icon_display">the status icon display</string>
-    <string name="record">Record</string>
-    <string name="undo">Undo</string>
-    <string name="save_and_finish">SAVE + FINISH</string>
+    
     <string name="reason_for_visit">REASON FOR VISIT</string>
     
     <string name="username">Username</string>
@@ -572,7 +593,7 @@
     
     
     <string name="referral_contact_details">Contact %1$s</string>
-    <string name="undo_test_result">Undo the %1$s result?</string>
+    
     <string name="negative_contact_text">A negative contact means that the patient was referred so her contact schedule does not change and remains the same as before</string>
     <string name="previous_contacts_header">Previous Contacts</string>
     <string name="previous_contacts_tests_header">All Test Results</string>
@@ -603,20 +624,6 @@
     
     
 
-    <string name="accordion_ultrasound">Ultrasound test</string>
-    <string name="accordion_blood_type">Blood Type test</string>
-    <string name="accordion_hepatitis_b">Hepatitis B test</string>
-    <string name="accordion_hepatitis_c">Hepatitis C test</string>
-    <string name="accordion_syphilis">Syphilis test</string>
-    <string name="accordion_urine">Urine test</string>
-    <string name="accordion_blood_haemoglobin">Blood Haemoglobin test</string>
-    <string name="accordion_hiv">HIV test</string>
-    <string name="accordion_tb_screening">TB Screening</string>
-    <string name="accordion_partner_hiv">Partner HIV test</string>
-    <string name="accordion_blood_glucose">Blood Glucose test</string>
-    <string name="accordion_other_tests">Other test</string>
-    <string name="contact_summary_data">Contact Summary Data  -  %1$s</string>
-    <string name="pdf_saved_successfully">\"Pdf saved successfully to location \"</string>
-    <string name="contact_summary_data_file">contactSummaryData.pdf</string>
+    
 
 </resources>

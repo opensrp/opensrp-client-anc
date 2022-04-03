@@ -108,6 +108,12 @@
     <string name="loading">Memuat</string>
     <string name="loading_form_message">Formulir sedang dimuat...</string>
     <string name="opening_forms">Memuat sub-form...</string>
+    <string name="previous">Kembali</string>
+    <string name="next">Berikut</string>
+    <string name="submit">Kirim</string>
+    <string name="record">Rekam</string>
+    <string name="undo">Reset</string>
+    <string name="save_and_finish">Simpan + Selesai</string>
 
     <!-- Library -->
     <string name="library">Pustaka</string>
@@ -236,6 +242,7 @@
     </string>
 	<string name="pagination_previous">&lt; Kembali</string>
 	<string name="pagination_next">Berikut &gt;</string>
+    <string name="undo_test_result">Reset hasil %1$s?</string>
 
 	<!-- Mother -->
 	<string name="mother_age">Usia</string>
@@ -307,7 +314,7 @@
     <string name="contact_blood_type_test">Tes Golongan Darah</string>
     <string name="contact_partner_hiv_test">Tes HIV Pasangan</string>
     <string name="contact_syphilis_test">Tes Sipilis</string>
-    <string name="contact_urine_test">Tes urin</string>
+    <string name="contact_urine_test">Tes Urin</string>
     <string name="contact_blood_glucose_test">Tes Glukosa Darah</string>
     <string name="contact_blood_haemoglobin_test_and_ifa">Tes Hemoglobin Darah dan IFA</string>
     <string name="contact_danger_signs_counseling">Konseling Tanda Bahaya</string>
@@ -324,5 +331,21 @@
     <string name="blood_haemoglobin_test_results">Hasil Tes Hemoglobin Darah</string>
     <string name="partner_hiv_test_results">Hasil Tes HIV Pasangan</string>
     <string name="other_tests_results">Hasil Tes Lainnya</string>
+    <!-- Contact > Test -->
+    <string name="accordion_ultrasound">Tes USG</string>
+    <string name="accordion_blood_type">Tes Golongan Darah</string>
+    <string name="accordion_hepatitis_b">Tes Hepatitis B</string>
+    <string name="accordion_hepatitis_c">Tes Hepatitis C</string>
+    <string name="accordion_syphilis">Tes Sipilis</string>
+    <string name="accordion_urine">Tes Urin</string>
+    <string name="accordion_blood_haemoglobin">Tes Hemoglobin Darah</string>
+    <string name="accordion_hiv">Tes HIV</string>
+    <string name="accordion_tb_screening">Skrining TB</string>
+    <string name="accordion_partner_hiv">Tes HIV Pasangan</string>
+    <string name="accordion_blood_glucose">Tes Gula Darah</string>
+    <string name="accordion_other_tests">Tes Lainnya</string>
+    <string name="contact_summary_data">Ikhtisar Kunjungan  -  %1$s</string>
+    <string name="pdf_saved_successfully">\"PDF berhasil disimpan \"</string>
+    <string name="contact_summary_data_file">contactSummaryData.pdf</string>
 
 </resources>
