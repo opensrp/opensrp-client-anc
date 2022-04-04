@@ -2,16 +2,21 @@ package org.smartregister.anc.library.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.widget.LinearLayout;
 
 import org.jeasy.rules.api.Facts;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.robolectric.RuntimeEnvironment;
+import org.robolectric.util.ReflectionHelpers;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.domain.YamlConfigWrapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PreviousContactAdapterTest extends BaseUnitTest {
@@ -25,11 +30,31 @@ public class PreviousContactAdapterTest extends BaseUnitTest {
     @Before
     public void setUp() {
         context = RuntimeEnvironment.application;
+        factsList = new ArrayList<>();
+        Facts facts = new Facts();
+        factsList.add(facts);
         previousContactsAdapter = new PreviousContactsAdapter(factsList, context);
     }
+
     @Test
-    public void testGetItemCount(){
-        Mockito.verify(factsList.size());
+    public void testGetItemCount() {
+        int itemCount = previousContactsAdapter.getItemCount();
+        factsList.size();
+        Assert.assertNotNull(itemCount);
+
+    }
+
+    @Test
+    public void testOnBindView() {
+        AncLibrary ancLibrary = Mockito.mock(AncLibrary.class);
+        LinearLayout viewGroup = new LinearLayout(RuntimeEnvironment.application);
+        viewGroup.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
+        ReflectionHelpers.setStaticField(AncLibrary.class, "instance", ancLibrary);
+        PreviousContactsAdapter.ViewHolder viewHolder = previousContactsAdapter.onCreateViewHolder(viewGroup, 0);
+        Assert.assertNotNull(viewHolder);
+        previousContactsAdapter.onBindViewHolder(viewHolder, 0);
+    }
+    public void setUpContactDetailsRecycler(){
 
     }
 }
