@@ -2,7 +2,7 @@
 properties_file_name: "profile_contact_test"
 sub_group: ultrasound_tests_results
 fields:
-  - template: "{{profile_contact_test.ultrasound_tests.ultrasound_test}}: {ultrasound_value}"
+  - template: "{{profile_contact_test.ultrasound_tests.ultrasound_test}}: profile_contact_tab_tests.yml {ultrasound_value}"
     relevance: "ultrasound != ''"
 
   - template: "{{profile_contact_test.ultrasound_tests.ultrasound_not_done_reason}}: {ultrasound_notdone_value}"
