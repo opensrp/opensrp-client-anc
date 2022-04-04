@@ -219,7 +219,7 @@ fields:
     relevance: "preeclampsia_risk == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.hiv_risk}}: {date}"
+  - template: "{{profile_overview.hiv_risk}}: {hiv_risk_value}"
     relevance: "hiv_risk == 1"
     isRedFont: "true"
 
