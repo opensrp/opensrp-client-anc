@@ -19,6 +19,7 @@ public class Contact extends Form implements Serializable {
     private int contactNumber;
     private String jsonForm;
     private Map<String, String> globals;
+    private String title;
 
     private ContactHelper contactHelper;
 
@@ -67,6 +68,17 @@ public class Contact extends Form implements Serializable {
 
     public void setFormName(String formName) {
         this.formName = formName;
+    }
+
+    public String getTitle() {
+        if (this.title != null) {
+            return this.title;
+        }
+        return this.getName();
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     // --- Globals

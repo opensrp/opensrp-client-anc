@@ -110,7 +110,8 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
             // 1. Quick Check
             Contact quickCheck = new Contact();
-            quickCheck.setName(getString(R.string.contact_quick_check));
+            quickCheck.setName("Quick Check");
+            quickCheck.setTitle(getString(R.string.contact_quick_check));
             quickCheck.setContactNumber(contactNo);
             quickCheck.setActionBarBackground(R.color.quick_check_red);
             quickCheck.setBackground(R.drawable.quick_check_bg);
@@ -126,7 +127,8 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
             // 2. Profile
             Contact profile = new Contact();
-            profile.setName(getString(R.string.contact_profile));
+            profile.setName("Profile");
+            profile.setTitle(getString(R.string.contact_profile));
             profile.setContactNumber(contactNo);
             profile.setBackground(R.drawable.profile_bg);
             profile.setActionBarBackground(R.color.contact_profile_actionbar);
@@ -137,7 +139,8 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
             // 3. Symptoms and Follow-up
             Contact symptomsAndFollowUp = new Contact();
-            symptomsAndFollowUp.setName(getString(R.string.contact_symptoms_follow_up));
+            symptomsAndFollowUp.setName("Symptoms and Follow-up");
+            symptomsAndFollowUp.setTitle(getString(R.string.contact_symptoms_follow_up));
             symptomsAndFollowUp.setContactNumber(contactNo);
             symptomsAndFollowUp.setBackground(R.drawable.symptoms_bg);
             symptomsAndFollowUp.setActionBarBackground(R.color.contact_symptoms_actionbar);
@@ -148,7 +151,8 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
             // 4. Physical Exam
             Contact physicalExam = new Contact();
-            physicalExam.setName(getString(R.string.contact_physical_exam));
+            physicalExam.setName("Physical Exam");
+            physicalExam.setTitle(getString(R.string.contact_physical_exam));
             physicalExam.setContactNumber(contactNo);
             physicalExam.setBackground(R.drawable.physical_exam_bg);
             physicalExam.setActionBarBackground(R.color.contact_exam_actionbar);
@@ -159,7 +163,8 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
             // 5. Tests
             Contact tests = new Contact();
-            tests.setName(getString(R.string.contact_tests));
+            tests.setName("Tests");
+            tests.setTitle(getString(R.string.contact_tests));
             tests.setContactNumber(contactNo);
             tests.setBackground(R.drawable.tests_bg);
             tests.setActionBarBackground(R.color.contact_tests_actionbar);
@@ -170,7 +175,8 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
             // 6. Counseling and Treatment
             Contact counsellingAndTreatment = new Contact();
-            counsellingAndTreatment.setName(getString(R.string.contact_counselling_treatment));
+            counsellingAndTreatment.setName("Counseling and Treatment");
+            counsellingAndTreatment.setTitle(getString(R.string.contact_counselling_treatment));
             counsellingAndTreatment.setContactNumber(contactNo);
             counsellingAndTreatment.setBackground(R.drawable.counselling_bg);
             counsellingAndTreatment.setActionBarBackground(R.color.contact_counselling_actionbar);

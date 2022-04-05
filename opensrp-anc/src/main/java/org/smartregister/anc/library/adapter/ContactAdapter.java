@@ -46,7 +46,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         holder.cardLayout.setOnClickListener(clickListener);
         holder.cardLayout.setTag(contact);
 
-        holder.name.setText(contact.getName());
+        holder.name.setText(contact.getTitle());
 
         if (contact.getRequiredFields() == null) {
             holder.requiredFields.setVisibility(View.GONE);
