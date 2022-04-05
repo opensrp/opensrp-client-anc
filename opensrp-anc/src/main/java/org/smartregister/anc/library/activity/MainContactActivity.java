@@ -134,6 +134,12 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             profile.setActionBarBackground(R.color.contact_profile_actionbar);
             profile.setNavigationBackground(R.color.contact_profile_navigation);
             setRequiredFields(profile);
+
+            if (requiredFieldsMap.containsKey(profile.getName())) {
+                Integer quickCheckFields = requiredFieldsMap.get(profile.getName());
+                profile.setRequiredFields(quickCheckFields != null ? quickCheckFields : 0);
+            }
+
             profile.setFormName(ConstantsUtils.JsonFormUtils.ANC_PROFILE);
             contacts.add(profile);
 
@@ -149,6 +155,11 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             symptomsAndFollowUp.setFormName(ConstantsUtils.JsonFormUtils.ANC_SYMPTOMS_FOLLOW_UP);
             contacts.add(symptomsAndFollowUp);
 
+            if (requiredFieldsMap.containsKey(symptomsAndFollowUp.getName())) {
+                Integer quickCheckFields = requiredFieldsMap.get(symptomsAndFollowUp.getName());
+                symptomsAndFollowUp.setRequiredFields(quickCheckFields != null ? quickCheckFields : 0);
+            }
+
             // 4. Physical Exam
             Contact physicalExam = new Contact();
             physicalExam.setName("Physical Exam");
@@ -160,6 +171,11 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             setRequiredFields(physicalExam);
             physicalExam.setFormName(ConstantsUtils.JsonFormUtils.ANC_PHYSICAL_EXAM);
             contacts.add(physicalExam);
+
+            if (requiredFieldsMap.containsKey(physicalExam.getName())) {
+                Integer quickCheckFields = requiredFieldsMap.get(physicalExam.getName());
+                physicalExam.setRequiredFields(quickCheckFields != null ? quickCheckFields : 0);
+            }
 
             // 5. Tests
             Contact tests = new Contact();
@@ -173,6 +189,11 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             tests.setFormName(ConstantsUtils.JsonFormUtils.ANC_TEST);
             contacts.add(tests);
 
+            if (requiredFieldsMap.containsKey(tests.getName())) {
+                Integer quickCheckFields = requiredFieldsMap.get(tests.getName());
+                tests.setRequiredFields(quickCheckFields != null ? quickCheckFields : 0);
+            }
+
             // 6. Counseling and Treatment
             Contact counsellingAndTreatment = new Contact();
             counsellingAndTreatment.setName("Counseling and Treatment");
@@ -184,6 +205,11 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             setRequiredFields(counsellingAndTreatment);
             counsellingAndTreatment.setFormName(ConstantsUtils.JsonFormUtils.ANC_COUNSELLING_TREATMENT);
             contacts.add(counsellingAndTreatment);
+
+            if (requiredFieldsMap.containsKey(counsellingAndTreatment.getName())) {
+                Integer quickCheckFields = requiredFieldsMap.get(counsellingAndTreatment.getName());
+                counsellingAndTreatment.setRequiredFields(quickCheckFields != null ? quickCheckFields : 0);
+            }
 
             contactAdapter.setContacts(contacts);
             contactAdapter.notifyDataSetChanged();
