@@ -2,7 +2,7 @@
 properties_file_name: "profile_contact_test"
 sub_group: ultrasound_tests_results
 fields:
-  - template: "{{profile_contact_test.ultrasound_tests.ultrasound_test}}: profile_contact_tab_tests.yml {ultrasound_value}"
+  - template: "{{profile_contact_test.ultrasound_tests.ultrasound_test}}: {ultrasound_value}"
     relevance: "ultrasound != ''"
 
   - template: "{{profile_contact_test.ultrasound_tests.ultrasound_not_done_reason}}: {ultrasound_notdone_value}"
@@ -67,13 +67,13 @@ fields:
   - template: "{{profile_contact_test.hepatitis_b_test.hepatitis_b_test_type}}: {hepb_test_type_value}"
     relevance: "hepb_test_type != ''"
 
-  - template: "{{profile_contact_test.hepatitis_b_test.hbsag_laboratory_based_immunoassay_result}}: {hbsag_lab_ima_value}"
+  - template: "{{profile_contact_test.hepatitis_b_test.hbsag_laboratory_based_immunoassay_result}}: {hbsag_lab_ima}"
     relevance: "hbsag_lab_ima != ''"
 
-  - template: "{{profile_contact_test.hepatitis_b_test.hbsag_rapid_diagnostic_test_rdt_result}}: {hbsag_rdt_value}"
+  - template: "{{profile_contact_test.hepatitis_b_test.hbsag_rapid_diagnostic_test_rdt_result}}: {hbsag_rdt}"
     relevance: "hbsag_rdt != ''"
 
-  - template: "{{profile_contact_test.hepatitis_b_test.dried_blood_spot_dbs_hbsag_test_result}}: {hbsag_dbs_value}"
+  - template: "{{profile_contact_test.hepatitis_b_test.dried_blood_spot_dbs_hbsag_test_result}}: {hbsag_dbs}"
     relevance: "hbsag_dbs != ''"
 
 ---
@@ -94,13 +94,13 @@ fields:
   - template: "{{profile_contact_test.hepatitis_c_test.hepatitis_c_test_type}}: {hepc_test_type_value}"
     relevance: "hepc_test_type != ''"
 
-  - template: "{{profile_contact_test.hepatitis_c_test.anti_hcv_laboratory_based_immunoassay_result}}: {hcv_lab_ima_value}"
+  - template: "{{profile_contact_test.hepatitis_c_test.anti_hcv_laboratory_based_immunoassay_result}}: {hcv_lab_ima}"
     relevance: "hcv_lab_ima != ''"
 
-  - template: "{{profile_contact_test.hepatitis_c_test.anti_hcv_rapid_diagnostic_test_rdt_result}}: {hcv_rdt_value}"
+  - template: "{{profile_contact_test.hepatitis_c_test.anti_hcv_rapid_diagnostic_test_rdt_result}}: {hcv_rdt}"
     relevance: "hcv_rdt != ''"
 
-  - template: "{{profile_contact_test.hepatitis_c_test.dried_blood_spot_dbs_anti_hcv_test_result}}: {hcv_dbs_value}"
+  - template: "{{profile_contact_test.hepatitis_c_test.dried_blood_spot_dbs_anti_hcv_test_result}}: {hcv_dbs}"
     relevance: "hcv_dbs != ''"
 
 ---
@@ -163,25 +163,25 @@ fields:
   - template: "{{profile_contact_test.blood_glucose_tests.blood_glucose_test_status}}: {glucose_test_status_value}"
     relevance: "glucose_test_status != ''"
 
-  - template: "{{profile_contact_test.blood_glucose_tests.blood_glucose_test_date}}: {glucose_test_date_value}"
+  - template: "{{profile_contact_test.blood_glucose_tests.blood_glucose_test_date}}: {glucose_test_date}"
     relevance: "glucose_test_date != ''"
 
   - template: "{{profile_contact_test.blood_glucose_tests.blood_glucose_test_type}}: {glucose_test_type_value}"
     relevance: "glucose_test_type != ''"
 
-  - template: "{{profile_contact_test.blood_glucose_tests.fasting_plasma_glucose_results_mg_dl}}: {fasting_plasma_gluc_value}"
+  - template: "{{profile_contact_test.blood_glucose_tests.fasting_plasma_glucose_results_mg_dl}}: {fasting_plasma_gluc}"
     relevance: "fasting_plasma_gluc != ''"
 
-  - template: "{{profile_contact_test.blood_glucose_tests.75g_ogtt_fasting_glucose_results_mg_dl}}: {ogtt_fasting_value}"
+  - template: "{{profile_contact_test.blood_glucose_tests.75g_ogtt_fasting_glucose_results_mg_dl}}: {ogtt_fasting}"
     relevance: "ogtt_fasting != ''"
 
-  - template: "{{profile_contact_test.blood_glucose_tests.75g_ogtt_1_hr_results_mg_dl}}: {ogtt_1_value}"
+  - template: "{{profile_contact_test.blood_glucose_tests.75g_ogtt_1_hr_results_mg_dl}}: {ogtt_1}"
     relevance: "ogtt_1 != ''"
 
-  - template: "{{profile_contact_test.blood_glucose_tests.75g_ogtt_2_hrs_results_mg_dl}}: {ogtt_2_value}"
+  - template: "{{profile_contact_test.blood_glucose_tests.75g_ogtt_2_hrs_results_mg_dl}}: {ogtt_2}"
     relevance: "ogtt_2 != ''"
 
-  - template: "{{profile_contact_test.blood_glucose_tests.random_plasma_glucose_results_mg_dl}}: {random_plasma_value}"
+  - template: "{{profile_contact_test.blood_glucose_tests.random_plasma_glucose_results_mg_dl}}: {random_plasma}"
     relevance: "random_plasma != ''"
 
 ---
@@ -202,22 +202,22 @@ fields:
   - template: "{{profile_contact_test.blood_haemoglobin_test.blood_haemoglobin_test_type}}: {hb_test_type_value}"
     relevance: "hb_test_type != ''"
 
-  - template: "{{profile_contact_test.blood_haemoglobin_test.complete_blood_count_test_result_g_dl}}: {cbc_value}"
+  - template: "{{profile_contact_test.blood_haemoglobin_test.complete_blood_count_test_result_g_dl}}: {cbc}"
     relevance: "cbc != ''"
 
-  - template: "{{profile_contact_test.blood_haemoglobin_test.rhb_test_result_haemoglobinometer_g_dl}}: {hb_gmeter_value}"
+  - template: "{{profile_contact_test.blood_haemoglobin_test.rhb_test_result_haemoglobinometer_g_dl}}: {hb_gmeter}"
     relevance: "hb_gmeter != ''"
 
-  - template: "{{profile_contact_test.blood_haemoglobin_test.hb_test_result_haemoglobin_colour_scale_g_dl}}: {hb_colour_value}"
+  - template: "{{profile_contact_test.blood_haemoglobin_test.hb_test_result_haemoglobin_colour_scale_g_dl}}: {hb_colour}"
     relevance: "hb_colour != ''"
 
-  - template: "{{profile_contact_test.blood_haemoglobin_test.hematocrit_ht}}: {ht_value}"
+  - template: "{{profile_contact_test.blood_haemoglobin_test.hematocrit_ht}}: {ht}"
     relevance: "ht != ''"
 
-  - template: "{{profile_contact_test.blood_haemoglobin_test.white_blood_cell_wbc_count}}: {wbc_value}"
+  - template: "{{profile_contact_test.blood_haemoglobin_test.white_blood_cell_wbc_count}}: {wbc}"
     relevance: "wbc != ''"
 
-  - template: "{{profile_contact_test.blood_haemoglobin_test.platelet_count}}: {platelets_value}"
+  - template: "{{profile_contact_test.blood_haemoglobin_test.platelet_count}}: {platelets}"
     relevance: "platelets != ''"
 
 ---
@@ -255,15 +255,15 @@ test_results: "['hiv_test_partner_result:Partner HIV tests results']"
 ---
 sub_group: other_tests_results
 fields:
-  - template: "{{profile_contact_test.other_tests.other_test_test_status}}: {other_test_value}"
+  - template: "{{profile_contact_test.other_tests.other_test_test_status}}: {other_test}"
     relevance: "other_test != ''"
 
   - template: "{{profile_contact_test.other_tests.other_test_done_date}}: {other_test_date}"
     relevance: "other_test_date != ''"
 
-  - template: "{{profile_contact_test.other_tests.other_test_name}}: {other_test_name_value}"
+  - template: "{{profile_contact_test.other_tests.other_test_name}}: {other_test_name}"
     relevance: "other_test_name != ''"
 
-  - template: "{{profile_contact_test.other_tests.other_test_result}}: {other_test_result_value}"
+  - template: "{{profile_contact_test.other_tests.other_test_result}}: {other_test_result}"
     relevance: "other_test_result != ''"
 test_results: "['other_test_result:Other tests results']"

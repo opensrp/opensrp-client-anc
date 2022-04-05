@@ -19,6 +19,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
@@ -26,6 +28,8 @@ import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
+
+import org.codehaus.jackson.JsonNode;
 import org.smartregister.anc.library.constants.ANCJsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
 
@@ -357,6 +361,32 @@ public class Utils extends org.smartregister.util.Utils {
                         value.substring(0, value.lastIndexOf(",")) + "]";
 
             }
+        }
+
+        // Cannot get value of the key
+        else {
+
+            // Try using attention flag to retrieve value
+            if (facts.get("attention_flag_facts") instanceof String) {
+
+                try {
+                    String attentionFlag = facts.get("attention_flag_facts");
+                    ObjectMapper mapper = new ObjectMapper();
+                    Map<String,String> map = mapper.readValue(attentionFlag, Map.class);
+
+                    if (map.get(key) instanceof String) {
+                        return map.get(key);
+                    }
+
+                } catch (JsonProcessingException e) {
+
+                }
+
+            }
+
+            // All means above are failed
+            return key;
+
         }
 
         return ANCFormUtils.keyToValueConverter(value);

@@ -105,6 +105,7 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
 
             Template template = getTemplate(yamlConfigItem.getTemplate());
             String output = Utils.fillTemplate(template.detail, this.facts);
+            //String output = yamlConfigItem.getDetailsKey(template.detail);
 
             holder.sectionDetailTitle.setText(template.title);
             holder.sectionDetails.setText(output);//Perhaps refactor to use Json Form Parser Implementation

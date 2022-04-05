@@ -248,6 +248,19 @@
     <string name="upcoming_contact_dates">Tanggal kunjungan berikutnya:</string>
     <string name="go_to_client_profile">Lihat Profil Ibu</string>
     <string name="send_summary_to_client">Kirim Ikhtisar ke Ibu</string>
+    <!-- Contact Test  Result Headers -->
+    <string name="contact_ultrasound_tests_results">Hasil Tes Ultrasound</string>
+    <string name="contact_blood_type_test_results">Hasil Tes Golongan Darah</string>
+    <string name="contact_hiv_tests_results">Hasil Tes HIV</string>
+    <string name="contact_hepatitis_b_test_results">Hasil Tes Hepatitis B</string>
+    <string name="contact_hepatitis_c_test_results">Hasil Tes Hepatitis C</string>
+    <string name="contact_syphilis_test_results">Hasil Tes Sipilis</string>
+    <string name="contact_urine_tests_results">Hasil Tes Urin</string>
+    <string name="contact_blood_glucose_tests_results">Hasil Tes Glukosa Darah</string>
+    <string name="contact_blood_haemoglobin_test_results">Hasil Tes Hemoglobin Darah</string>
+    <string name="contact_tb_screening_test_results">Hasil Tes Penyaringan TB</string>
+    <string name="contact_partner_hiv_test_results">Hasil Tes HIV Pasangan</string>
+    <string name="contact_other_tests_results">Hasil Tes Lainnya</string>
 
 	<!-- Mother -->
 	<string name="mother_age">Usia</string>

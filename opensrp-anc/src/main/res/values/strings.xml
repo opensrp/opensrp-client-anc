@@ -247,6 +247,19 @@
     <string name="upcoming_contact_dates">Upcoming contact dates:</string>
     <string name="go_to_client_profile">Go to Client Profile</string>
     <string name="send_summary_to_client">Send Summary to Client</string>
+    <!-- Contact Test Result Headers -->
+    <string name="contact_ultrasound_tests_results">Ultrasound Tests Results</string>
+    <string name="contact_blood_type_test_results">Blood Type Test Results</string>
+    <string name="contact_hiv_tests_results">Hiv Tests Results</string>
+    <string name="contact_hepatitis_b_test_results">Hepatitis B Test Results</string>
+    <string name="contact_hepatitis_c_test_results">Hepatitis C Test Results</string>
+    <string name="contact_syphilis_test_results">Syphilis Test Results</string>
+    <string name="contact_urine_tests_results">Urine Tests Results</string>
+    <string name="contact_blood_glucose_tests_results">Blood Glucose Tests Results</string>
+    <string name="contact_blood_haemoglobin_test_results">Blood Haemoglobin Test Results</string>
+    <string name="contact_tb_screening_test_results">Tb Screening Test Results</string>
+    <string name="contact_partner_hiv_test_results">Partner Hiv Test Results</string>
+    <string name="contact_other_tests_results">Other Tests Results</string>
 
     <!-- Mother -->
 	<string name="mother_age">Age</string>
