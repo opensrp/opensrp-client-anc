@@ -44,7 +44,6 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.sectionHeader.setText(processUnderscores(mData.get(position).getGroup()));
-
         List<YamlConfigItem> fields = mData.get(position).getFields();
         StringBuilder outputBuilder = new StringBuilder();
         for (YamlConfigItem yamlConfigItem : fields) {
