@@ -13,6 +13,7 @@
         {
           "key": "done_today",
           "text": "{{tests_urine_sub_form.step1.urine_test_status.done_today.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_test_status.done_today.text",
           "type": "done_today",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -21,6 +22,7 @@
         {
           "key": "done_earlier",
           "text": "{{tests_urine_sub_form.step1.urine_test_status.done_earlier.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_test_status.done_earlier.text",
           "type": "done_earlier",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -29,6 +31,7 @@
         {
           "key": "ordered",
           "text": "{{tests_urine_sub_form.step1.urine_test_status.ordered.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_test_status.ordered.text",
           "type": "ordered",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -37,6 +40,7 @@
         {
           "key": "not_done",
           "text": "{{tests_urine_sub_form.step1.urine_test_status.not_done.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_test_status.not_done.text",
           "type": "not_done",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -60,6 +64,7 @@
         {
           "key": "stock_out",
           "text": "{{tests_urine_sub_form.step1.urine_test_notdone.options.stock_out.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_test_notdone.options.stock_out.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165183AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -67,6 +72,7 @@
         {
           "key": "expired_stock",
           "text": "{{tests_urine_sub_form.step1.urine_test_notdone.options.expired_stock.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_test_notdone.options.expired_stock.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -74,6 +80,7 @@
         {
           "key": "other",
           "text": "{{tests_urine_sub_form.step1.urine_test_notdone.options.other.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_test_notdone.options.other.text",
           "openmrs_entity_parent": "161156AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -173,6 +180,7 @@
         {
           "key": "midstream_urine_culture",
           "text": "{{tests_urine_sub_form.step1.urine_test_type.options.midstream_urine_culture.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_test_type.options.midstream_urine_culture.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165392AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -180,6 +188,7 @@
         {
           "key": "midstream_urine_gram",
           "text": "{{tests_urine_sub_form.step1.urine_test_type.options.midstream_urine_gram.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_test_type.options.midstream_urine_gram.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -187,6 +196,7 @@
         {
           "key": "urine_dipstick",
           "text": "{{tests_urine_sub_form.step1.urine_test_type.options.urine_dipstick.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_test_type.options.urine_dipstick.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1618AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -216,6 +226,7 @@
         {
           "key": "positive_any",
           "text": "{{tests_urine_sub_form.step1.urine_culture.options.positive_any.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_culture.options.positive_any.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165390AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -223,6 +234,7 @@
         {
           "key": "positive_gbs",
           "text": "{{tests_urine_sub_form.step1.urine_culture.options.positive_gbs.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_culture.options.positive_gbs.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165391AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -230,6 +242,7 @@
         {
           "key": "negative",
           "text": "{{tests_urine_sub_form.step1.urine_culture.options.negative.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_culture.options.negative.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165393AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -237,6 +250,7 @@
         {
           "key": "not_available",
           "text": "{{tests_urine_sub_form.step1.urine_culture.options.not_available.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_culture.options.not_available.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165390AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -266,6 +280,7 @@
         {
           "key": "positive",
           "text": "{{tests_urine_sub_form.step1.urine_gram_stain.options.positive.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_gram_stain.options.positive.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -273,6 +288,7 @@
         {
           "key": "negative",
           "text": "{{tests_urine_sub_form.step1.urine_gram_stain.options.negative.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_gram_stain.options.negative.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -302,6 +318,7 @@
         {
           "key": "none",
           "text": "{{tests_urine_sub_form.step1.urine_nitrites.options.none.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_nitrites.options.none.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -309,6 +326,7 @@
         {
           "key": "+",
           "text": "{{tests_urine_sub_form.step1.urine_nitrites.options.plus_one.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_nitrites.options.plus_one.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -316,6 +334,7 @@
         {
           "key": "++",
           "text": "{{tests_urine_sub_form.step1.urine_nitrites.options.plus_two.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_nitrites.options.plus_two.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -323,6 +342,7 @@
         {
           "key": "+++",
           "text": "{{tests_urine_sub_form.step1.urine_nitrites.options.plus_three.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_nitrites.options.plus_three.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -330,6 +350,7 @@
         {
           "key": "++++",
           "text": "{{tests_urine_sub_form.step1.urine_nitrites.options.plus_four.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_nitrites.options.plus_four.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1365AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -359,6 +380,7 @@
         {
           "key": "none",
           "text": "{{tests_urine_sub_form.step1.urine_leukocytes.options.none.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_leukocytes.options.none.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -366,6 +388,7 @@
         {
           "key": "+",
           "text": "{{tests_urine_sub_form.step1.urine_leukocytes.options.plus_one.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_leukocytes.options.plus_one.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -373,6 +396,7 @@
         {
           "key": "++",
           "text": "{{tests_urine_sub_form.step1.urine_leukocytes.options.plus_two.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_leukocytes.options.plus_two.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -380,6 +404,7 @@
         {
           "key": "+++",
           "text": "{{tests_urine_sub_form.step1.urine_leukocytes.options.plus_three.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_leukocytes.options.plus_three.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -387,6 +412,7 @@
         {
           "key": "++++",
           "text": "{{tests_urine_sub_form.step1.urine_leukocytes.options.plus_four.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_leukocytes.options.plus_four.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1365AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -416,6 +442,7 @@
         {
           "key": "none",
           "text": "{{tests_urine_sub_form.step1.urine_protein.options.none.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_protein.options.none.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -423,6 +450,7 @@
         {
           "key": "+",
           "text": "{{tests_urine_sub_form.step1.urine_protein.options.plus_one.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_protein.options.plus_one.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -430,6 +458,7 @@
         {
           "key": "++",
           "text": "{{tests_urine_sub_form.step1.urine_protein.options.plus_two.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_protein.options.plus_two.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -437,6 +466,7 @@
         {
           "key": "+++",
           "text": "{{tests_urine_sub_form.step1.urine_protein.options.plus_three.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_protein.options.plus_three.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -444,6 +474,7 @@
         {
           "key": "++++",
           "text": "{{tests_urine_sub_form.step1.urine_protein.options.plus_four.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_protein.options.plus_four.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1365AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -473,6 +504,7 @@
         {
           "key": "none",
           "text": "{{tests_urine_sub_form.step1.urine_glucose.options.none.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_glucose.options.none.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -480,6 +512,7 @@
         {
           "key": "+",
           "text": "{{tests_urine_sub_form.step1.urine_glucose.options.plus_one.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_glucose.options.plus_one.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -487,6 +520,7 @@
         {
           "key": "++",
           "text": "{{tests_urine_sub_form.step1.urine_glucose.options.plus_two.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_glucose.options.plus_two.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -494,6 +528,7 @@
         {
           "key": "+++",
           "text": "{{tests_urine_sub_form.step1.urine_glucose.options.plus_three.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_glucose.options.plus_three.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -501,6 +536,7 @@
         {
           "key": "++++",
           "text": "{{tests_urine_sub_form.step1.urine_glucose.options.plus_four.text}}",
+          "translation_text": "tests_urine_sub_form.step1.urine_glucose.options.plus_four.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1365AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -539,6 +575,7 @@
       "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "{{tests_urine_sub_form.step1.gdm_risk_toaster.text}}",
+      "translation_text": "tests_urine_sub_form.step1.gdm_risk_toaster.text",
       "toaster_info_text": "{{tests_urine_sub_form.step1.gdm_risk_toaster.toaster_info_text}}",
       "toaster_info_title": "{{tests_urine_sub_form.step1.gdm_risk_toaster.toaster_info_title}}",
       "toaster_type": "warning",
@@ -573,6 +610,7 @@
       "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "{{tests_urine_sub_form.step1.asb_positive_toaster.text}}",
+      "translation_text": "tests_urine_sub_form.step1.asb_positive_toaster.text",
       "toaster_info_text": "{{tests_urine_sub_form.step1.asb_positive_toaster.toaster_info_text}}",
       "toaster_info_title": "{{tests_urine_sub_form.step1.asb_positive_toaster.toaster_info_title}}",
       "toaster_type": "warning",
@@ -591,6 +629,7 @@
       "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "{{tests_urine_sub_form.step1.gbs_agent_note.text}}",
+      "translation_text": "tests_urine_sub_form.step1.gbs_agent_note.text",
       "toaster_info_text": "{{tests_urine_sub_form.step1.gbs_agent_note.toaster_info_text}}",
       "toaster_info_title": "{{tests_urine_sub_form.step1.gbs_agent_note.toaster_info_title}}",
       "toaster_type": "warning",

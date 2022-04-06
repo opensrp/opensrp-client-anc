@@ -33,7 +33,7 @@
                     android:layout_marginBottom="@dimen/register_search_bar_max_margin"
                     android:textColor="@color/black_text_color"
                     android:textSize="@dimen/advanced_search_label_size"
-                    android:text="@string/clients_facility" />
+                    android:text="@string/search_clients_facility" />
 
                 <RelativeLayout
                     android:id="@+id/out_and_inside_layout"
@@ -62,7 +62,7 @@
                             android:layout_height="wrap_content"
                             android:maxLines="5"
                             android:paddingStart="@dimen/advanced_search_text_padding"
-                            android:text="@string/out_and_inside"
+                            android:text="@string/search_out_and_inside"
                             android:textColor="@color/black_text_color"
                             android:textSize="@dimen/advanced_search_label_size" />
 
@@ -72,7 +72,7 @@
                             android:layout_height="wrap_content"
                             android:maxLines="2"
                             android:paddingStart="@dimen/advanced_search_text_padding"
-                            android:text="@string/requires_internet_connection"
+                            android:text="@string/search_requires_internet_connection"
                             android:textColor="@color/black_text_color"
                             android:textSize="@dimen/advanced_search_label_small_size" />
                     </LinearLayout>
@@ -102,7 +102,7 @@
                         android:layout_marginStart="5dp"
                         android:maxLines="5"
                         android:paddingStart="@dimen/advanced_search_text_padding"
-                        android:text="@string/my_catchment_area"
+                        android:text="@string/search_my_catchment_area"
                         android:textColor="@color/black_text_color"
                         android:textSize="@dimen/advanced_search_label_size" />
                 </RelativeLayout>
@@ -119,7 +119,7 @@
                     android:id="@+id/first_name"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/first_name"
+                    android:hint="@string/search_first_name"
                     android:imeOptions="actionNext"
                     android:inputType="text"
                     android:paddingStart="@dimen/advanced_search_label_padding"
@@ -127,7 +127,7 @@
                     android:textColorHint="@color/light_grey"
                     android:textSize="@dimen/advanced_search_text_size"
                     app:met_floatingLabel="highlight"
-                    app:met_floatingLabelText="@string/first_name"
+                    app:met_floatingLabelText="@string/search_first_name"
                     app:met_floatingLabelTextSize="@dimen/advanced_search_text_size"
                     app:met_primaryColor="@color/light_blue"
                     app:met_singleLineEllipsis="true" />
@@ -142,7 +142,7 @@
                     android:id="@+id/last_name"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/last_name"
+                    android:hint="@string/search_last_name"
                     android:imeOptions="actionNext"
                     android:inputType="text"
                     android:paddingStart="@dimen/advanced_search_label_padding"
@@ -150,7 +150,7 @@
                     android:textColorHint="@color/light_grey"
                     android:textSize="@dimen/advanced_search_text_size"
                     app:met_floatingLabel="highlight"
-                    app:met_floatingLabelText="@string/last_name"
+                    app:met_floatingLabelText="@string/search_last_name"
                     app:met_floatingLabelTextSize="@dimen/advanced_search_text_size"
                     app:met_primaryColor="@color/light_blue"
                     app:met_singleLineEllipsis="true" />
@@ -166,14 +166,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="0dp"
-                    android:hint="@string/id_number"
+                    android:hint="@string/search_id_number"
                     android:imeOptions="actionNext"
                     android:inputType="text"
                     android:textColor="@color/lighter_grey_text"
                     android:textColorHint="@color/light_grey"
                     android:textSize="@dimen/advanced_search_text_size"
                     app:met_floatingLabel="highlight"
-                    app:met_floatingLabelText="@string/anc_id"
+                    app:met_floatingLabelText="@string/search_anc_id"
                     app:met_floatingLabelTextSize="@dimen/advanced_search_text_size"
                     app:met_primaryColor="@color/light_blue"
                     app:met_singleLineEllipsis="true" />
@@ -202,7 +202,7 @@
                     android:paddingLeft="@dimen/register_search_bar_min_margin"
                     android:paddingRight="@dimen/register_search_bar_min_margin"
                     android:paddingStart="@dimen/register_search_bar_min_margin"
-                    android:text="@string/scan_qr_code"
+                    android:text="@string/action_scan_qr_code"
                     android:textColor="@color/advance_search_qr_code" />
 
             </LinearLayout>
@@ -216,7 +216,7 @@
                     android:id="@+id/edd"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/exp_date_of_delivery"
+                    android:hint="@string/search_exp_date_of_delivery"
                     android:imeOptions="actionNext"
                     android:inputType="text"
                     android:paddingStart="@dimen/advanced_search_label_padding"
@@ -224,7 +224,7 @@
                     android:textColorHint="@color/light_grey"
                     android:textSize="@dimen/advanced_search_text_size"
                     app:met_floatingLabel="highlight"
-                    app:met_floatingLabelText="@string/edd"
+                    app:met_floatingLabelText="@string/search_edd"
                     app:met_floatingLabelTextSize="@dimen/advanced_search_text_size"
                     app:met_primaryColor="@color/light_blue"
                     app:met_singleLineEllipsis="true" />
@@ -239,7 +239,7 @@
                     android:id="@+id/dob"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/date_of_birth"
+                    android:hint="@string/search_date_of_birth"
                     android:imeOptions="actionNext"
                     android:inputType="text"
                     android:paddingStart="@dimen/advanced_search_label_padding"
@@ -247,7 +247,7 @@
                     android:textColorHint="@color/light_grey"
                     android:textSize="@dimen/advanced_search_text_size"
                     app:met_floatingLabel="highlight"
-                    app:met_floatingLabelText="@string/dob"
+                    app:met_floatingLabelText="@string/search_dob"
                     app:met_floatingLabelTextSize="@dimen/advanced_search_text_size"
                     app:met_primaryColor="@color/light_blue"
                     app:met_singleLineEllipsis="true" />
@@ -262,7 +262,7 @@
                     android:id="@+id/phone_number"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/phone_number"
+                    android:hint="@string/search_phone_number"
                     android:imeOptions="actionNext"
                     android:inputType="text"
                     android:paddingStart="@dimen/advanced_search_label_padding"
@@ -270,7 +270,7 @@
                     android:textColorHint="@color/light_grey"
                     android:textSize="@dimen/advanced_search_text_size"
                     app:met_floatingLabel="highlight"
-                    app:met_floatingLabelText="@string/mobile_phone_number"
+                    app:met_floatingLabelText="@string/search_mobile_phone_number"
                     app:met_floatingLabelTextSize="@dimen/advanced_search_text_size"
                     app:met_primaryColor="@color/light_blue"
                     app:met_singleLineEllipsis="true" />
@@ -285,7 +285,7 @@
                     android:id="@+id/alternate_contact_name"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/alt_contact_name"
+                    android:hint="@string/search_alt_contact_name"
                     android:imeOptions="actionNext"
                     android:inputType="text"
                     android:paddingStart="@dimen/advanced_search_label_padding"
@@ -293,7 +293,7 @@
                     android:textColorHint="@color/light_grey"
                     android:textSize="@dimen/advanced_search_text_size"
                     app:met_floatingLabel="highlight"
-                    app:met_floatingLabelText="@string/alternate_contact_name"
+                    app:met_floatingLabelText="@string/search_alternate_contact_name"
                     app:met_floatingLabelTextSize="@dimen/advanced_search_text_size"
                     app:met_primaryColor="@color/light_blue"
                     app:met_singleLineEllipsis="true" />

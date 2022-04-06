@@ -5,12 +5,11 @@ import static org.robolectric.shadows.ShadowInstrumentation.getInstrumentation;
 
 import android.app.Activity;
 import android.content.Intent;
-
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.vijay.jsonwizard.constants.JsonFormConstants;
+import org.smartregister.anc.library.constants.ANCJsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONArray;
@@ -175,9 +174,9 @@ public class ProfileTasksFragmentTest extends BaseActivityUnitTest {
             Assert.assertEquals("myTask", task.getKey());
 
             JSONObject taskValue = new JSONObject(task.getValue());
-            Assert.assertTrue(taskValue.has(JsonFormConstants.VALUE));
+            Assert.assertTrue(taskValue.has(ANCJsonFormConstants.VALUE));
 
-            JSONArray values = taskValue.getJSONArray(JsonFormConstants.VALUE);
+            JSONArray values = taskValue.getJSONArray(ANCJsonFormConstants.VALUE);
             Assert.assertNotNull(values);
             Assert.assertEquals(4, values.length());
         } catch (JSONException e) {

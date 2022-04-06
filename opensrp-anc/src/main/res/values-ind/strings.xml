@@ -1,0 +1,374 @@
+<resources>
+
+	<!-- Application Settings -->
+	<string name="app_name">BUNDA</string>
+	<string name="app_tagline">Bersinergi Untuk Dampingi Kesehatan \n Ibu dan Anak</string>
+	<string name="app_version">Versi Aplikasi: %1$s (dibuat %2$s)</string>
+    <string name="form_manifest_version">Versi Rilis Form: v%1$s</string>
+    <string name="data_synced">Sinkronisasi Data: %1$s pada %2$s</string>
+
+    <!-- Account -->
+    <string name="unauthorized_group">User group Anda tidak diizinkan untuk mengakses perangkat ini.</string>
+    <string name="no_internet_connectivity">Tidak ada jaringan internet.</string>
+    <string name="unknown_response">Login gagal. Silakan coba lagi kemudian.</string>
+    <string name="unauthorized">Periksa kembali input username dan password.</string>
+    <string name="account_disabled">Akun Nonaktif</string>
+    <string name="account_disabled_logged_off">Anda telah keluar karena akun Anda dinonaktifkan. Silakan coba masuk lagi atau hubungi administrator.</string>
+    <string name="account_new_assignment_logged_off">Anda telah keluar karena akun Anda memiliki tugas baru. Masuk lagi agar tugas baru berlaku</string>
+    <string name="default_location_revoked_logged_off">Anda telah keluar karena akses ke lokasi default Anda telah dicabut</string>
+    <string name="your_session_has_expired">Sesi Anda telah berakhir. Silakan masuk lagi.</string>
+
+	<!-- Actions -->
+    <string name="action_logout">Keluar</string>
+    <string name="action_login">Masuk</string>
+    <string name="action_back">Kembali</string>
+    <string name="action_finalize">Selesaikan</string>
+    <string name="action_language">Bahasa</string>
+    <string name="action_cancel">Batalkan</string>
+    <string name="action_yes">Ya</string>
+    <string name="action_no">Tidak</string>
+    <string name="action_edit">Sunting</string>
+    <string name="action_scan_qr_code">Pindai Kode QR</string>
+
+    <!-- Labels -->
+    <string name="qr_code_label">Kode QR</string>
+    <string name="label_yes">Ya</string>
+    <string name="label_no">Tidak</string>
+
+	<!--  Bottom Navigation Bar  -->
+    <string name="clients_menu">Ibu</string>
+    <string name="search_menu">Pencarian</string>
+    <string name="register_menu">Daftar</string>
+    <string name="library_menu">Pustaka</string>
+    <string name="me">Saya</string>
+
+	<!-- Dialog -->
+    <string name="dialog_please_wait">Harap tunggu</string>
+    <string name="saving_dialog_title">Menyimpan…</string>
+    <string name="removing_dialog_title">Menghapus…</string>
+    <string name="please_wait_message">Harap tunggu</string>
+
+	<!-- Login -->
+    <string name="login_show_password">Tampilkan password</string>
+	<string name="loggin_in_dialog_title">Sedang proses masuk…</string>
+    <string name="loggin_in_dialog_message">Harap tunggu sebentar</string>
+
+	<!-- Synchronization -->
+    <string name="sync_failed_no_internet">Sinkronisasi gagal. Cek koneksi internet.</string>
+    <string name="syncing">Sinkronisasi...</string>
+    <string name="sync_failed">Sinkronisasi gagal</string>
+    <string name="retry">Ulangi</string>
+    <string name="sync_complete">Sinkronisasi selesai</string>
+    <string name="sync_">Sinkronisasi%1$s</string>
+    <string name="last_sync">(terakhir %1$s)</string>
+    <string name="manual_sync_triggered">Sinkronisasi manual&#8230;</string>
+
+	<!-- Client -->
+	<string name="search_hint">Cari nama atau nomor ID</string>
+	<string name="clients">%1$d ibu</string>
+    <string name="client">%1$d ibu</string>
+    <string name="str_page_info">Halaman {0} dari {1}</string>
+	<string name="client_id">ID: %1$s</string>
+	<string name="client_age">Usia: %1$s</string>
+    <string name="client_ga">UK: %1$d Minggu</string>
+
+    <!-- Profile -->
+	<string name="profile_tab_overview">Ikhtisar</string>
+	<string name="profile_tab_contacts">Kunjungan</string>
+	<string name="profile_tab_tasks">Tugas</string>
+    <string name="registration_info">Info Pendaftaran</string>
+    <string name="profile_call">Telepon</string>
+	<string name="profile_start_contact">Mulai Kunjungan</string>
+	<string name="profile_close">Tutup Catatan ANC</string>
+    <string name="allow_phone_call_management">Anda harus mengizinkan aplikasi untuk mengelola panggilan telepon untuk mengaktifkan panggilan&#8230;</string>
+    <string name="last_contact">Kunjungan Terakhir</string>
+    <string name="key_figure">Key Figures</string>
+    <string name="recent_test">Tes Terkini: %1$s</string>
+    <string name="previous_contacts">Daftar Kunjungan</string>
+    <string name="all_tests_results">Hasil Semua Tes</string>
+    <string name="contact_details">%1$s Minggu &#183; Kunjungan %2$s</string>
+    <string name="ga_weeks">%1$s minggu</string>
+    <string name="no_health_data_recorded">Data belum direkam</string>
+    <string name="tap_button_below">Ketuk tombol di bawah untuk memulai / lanjutkan kunjungan.</string>
+    <string name="expected_date_of_delivery">Tanggal Perkiraan Kelahiran</string>
+
+    <!-- Form -->
+    <string name="confirm_form_close">Batalkan Pendaftaran</string>
+    <string name="confirm_form_close_explanation">Apakah Anda yakin ingin kembali? Semua data yang Anda masukkan dalam formulir ini akan hilang.</string>
+    <string name="form_back_confirm_dialog_title">Batalkan Pendaftaran</string>
+    <string name="form_back_confirm_dialog_message">Apakah Anda yakin ingin kembali? Semua data yang Anda masukkan dalam formulir ini akan hilang.</string>
+	<string name="yes_button_label">Ya</string>
+	<string name="no_button_label">Tidak</string>
+    <string name="yes">Ya</string>
+    <string name="no">Tidak</string>
+    <string name="cancel">Batalkan</string>
+    <string name="ok">OK</string>
+    <string name="save">Simpan</string>
+    <string name="done">Selesai</string>
+    <string name="apply">Terapkan</string>
+    <string name="loading">Memuat</string>
+    <string name="loading_form_message">Formulir sedang dimuat...</string>
+    <string name="opening_forms">Memuat sub-form...</string>
+    <string name="previous">Kembali</string>
+    <string name="next">Berikut</string>
+    <string name="submit">Kirim</string>
+    <string name="record">Rekam</string>
+    <string name="undo">Reset</string>
+    <string name="save_and_finish">Simpan + Selesai</string>
+
+    <!-- Library -->
+    <string name="library">Pustaka</string>
+    <string name="birth_and_emergency_plan">Rencana Kelahiran dan Darurat</string>
+    <string name="physical_activity">Aktivitas Fisik</string>
+    <string name="balanced_nutrition">Nutrisi Seimbang</string>
+    <!-- Library > Birth & Emergency Plan -->
+    <!-- TODO: This is not reliable way to accomodate future updates. Need to change. -->
+    <string name="birth_plan_source_text">SUMBER: WHO. Manajemen Terpadu Kehamilan dan Persalinan – Kehamilan, Melahirkan, Postpartum dan Perawatan Bayi Baru Lahir: Panduan untuk praktik penting. 2015. Jenewa.</string>
+    <string name="develop_a_birth_and_emergency_plan_header">Buat rencana kelahiran dan keadaan darurat</string>
+    <string name="facility_delivery_header">Fasilitas Melahirkan</string>
+    <string name="explain_why_birth_in_a_facility_is_recommended">Jelaskan mengapa kelahiran di fasilitas dianjurkan</string>
+    <string name="any_complication_can_develop_during_delivery_they_are_not_always_predictable">Setiap komplikasi dapat berkembang selama pengiriman - tidak selalu dapat diprediksi.</string>
+    <string name="lots_of_supplies">Sebuah fasilitas memiliki staf, peralatan, persediaan, dan obat-obatan yang tersedia untuk memberikan perawatan terbaik jika diperlukan, dan sistem rujukan.</string>
+    <string name="if_hiv_infected_she_will_need_appropriate_arv_treatment_for_herself_and_her_baby_during_childbirth">Jika terinfeksi HIV, dia akan memerlukan pengobatan ARV yang tepat untuk dirinya dan bayinya saat melahirkan.</string>
+    <string name="complications_are_more_common_in_hiv_infected_women_and_their_newborns_hiv_infected_women_should_deliver_in_a_facility">Komplikasi lebih sering terjadi pada ibu yang terinfeksi HIV dan bayinya yang baru lahir. Wanita yang terinfeksi HIV harus melahirkan di fasilitas kesehatan.</string>
+    <string name="advise_how_to_prepare">Sarankan cara mempersiapkan</string>
+    <string name="review_the_arrangements_for_delivery">Tinjau pengaturan pengiriman:</string>
+    <string name="how_will_she_get_there_will_she_have_to_pay_for_transport">Bagaimana dia bisa sampai di sana? Apakah dia harus membayar transportasi?</string>
+    <string name="how_much_will_it_cost_to_deliver_at_the_facility_how_will_she_pay">Berapa biaya pengiriman di fasilitas? Bagaimana dia akan membayar?</string>
+    <string name="can_she_start_saving_straight_away">Dapatkah dia langsung mulai menabung?</string>
+    <string name="who_will_go_with_her_for_support_during_labour_and_delivery">Siapa yang akan menemaninya selama persalinan dan melahirkan?</string>
+    <string name="who_will_help_while_she_is_away_to_care_for_her_home_and_other_children">Siapa yang akan membantu saat dia pergi untuk merawat rumahnya dan anak-anak lain?</string>
+    <string name="advise_when_to_go">Sarankan kapan harus pergi</string>
+    <string name="if_the_woman_lives_near_the_facility_she_should_go_at_the_first_signs_of_labour">Jika wanita tinggal di dekat fasilitas, dia harus pergi pada tanda-tanda pertama persalinan.</string>
+    <string name="if_living_far_from_the_facility_she_should_go_2_3_weeks_before_baby_due_date_and_stay_either_at_the_maternity_waiting_home_or_with_family_or_friends_near_the_facility">Jika tinggal jauh dari fasilitas, dia harus pergi ke rumah sakit dan tinggal 2-3 minggu sebelum bayinya lahir.</string>
+    <string name="advise_to_ask_for_help_from_the_community_if_needed">Sarankan untuk meminta bantuan dari komunitas, jika diperlukan.</string>
+    <string name="advise_what_to_bring">Sarankan apa yang harus dibawa</string>
+    <string name="home_based_maternal_record">Catatan ibu berbasis rumah.</string>
+    <string name="clean_cloths_for_washing_drying_and_wrapping_the_baby">Kain bersih untuk mencuci, mengeringkan, dan membungkus bayi.</string>
+    <string name="additional_clean_cloths_to_use_as_sanitary_pads_after_birth">Kain bersih tambahan untuk digunakan sebagai pembalut setelah melahirkan.</string>
+    <string name="clothes_for_mother_and_baby">Baju untuk ibu dan bayi.</string>
+    <string name="food_and_water_for_woman_and_support_person">Makanan dan air untuk wanita dan pendamping.</string>
+    <string name="home_delivery_with_a_skilled_attendant">Pengiriman ke rumah dengan petugas terampil</string>
+    <string name="review_the_following_with_her">Tinjau yang berikut ini bersamanya:</string>
+    <string name="who_will_be_the_companion_during_labour_and_delivery">Siapa yang akan menjadi pendamping selama persalinan dan melahirkan?</string>
+    <string name="who_will_be_close_by_for_at_least_24_hours_after_delivery">Siapa yang akan dekat setidaknya 24 jam setelah pengiriman?</string>
+    <string name="who_will_help_to_care_for_her_home_and_other_children">Siapa yang akan membantu merawat rumahnya dan anak-anak lainnya?</string>
+    <string name="advise_to_call_the_skilled_attendant_at_the_first_signs_of_labour">Sarankan untuk memanggil petugas terampil pada tanda-tanda pertama persalinan.</string>
+    <string name="advise_to_have_her_home_based_maternal_record_ready">Sarankan untuk menyiapkan catatan ibu berbasis rumah.</string>
+    <string name="advise_asking_for_help_from_the_community_if_needed">Sarankan untuk meminta bantuan dari komunitas, jika diperlukan.</string>
+    <string name="explain_supplies_needed_for_home_delivery">Menjelaskan persediaan yang dibutuhkan untuk pengiriman ke rumah</string>
+    <string name="clean_cloths_of_different_sizes_for_the_bed_for_drying_and_wrapping_the_baby_for_cleaning_the_baby_s_eyes_for_the_birth_attendant_to_wash_and_dry_her_hands_for_use_as_sanitary_pads">Kain bersih dengan berbagai ukuran: untuk tempat tidur, untuk menjemur dan membungkus bayi, untuk membersihkan mata bayi, untuk penolong untuk mencuci dan mengeringkan tangannya, untuk digunakan sebagai pembalut.</string>
+    <string name="blankets">Selimut.</string>
+    <string name="buckets_of_clean_water_and_some_way_to_heat_this_water">Ember air bersih dan beberapa cara untuk memanaskan air ini.</string>
+    <string name="soap">Sabun.</string>
+    <string name="bowls_2_for_washing_and_1_for_the_placenta">Mangkuk: 2 untuk mencuci dan 1 untuk plasenta.</string>
+    <string name="plastic_for_wrapping_the_placenta">Plastik untuk membungkus plasenta.</string>
+    <!-- Library > Physical Activity -->
+    <string name="physical_exam_disclaimer">PERINGATAN: WHO tidak bertanggung jawab atas isi materi tambahan ini.</string>
+    <string name="physical_exam_content_one">Aktivitas fisik adalah setiap gerakan tubuh yang dihasilkan oleh otot rangka yang menggunakan energi. Ini termasuk olahraga, olahraga, dan kegiatan lain seperti bermain, berjalan, pekerjaan rumah tangga, berkebun, dan menari. Setiap aktivitas, baik itu untuk bekerja, berjalan atau bersepeda ke dan dari tempat, atau sebagai bagian dari waktu luang, memiliki manfaat kesehatan.</string>
+    <string name="people_who_are_physically_active">Orang yang aktif secara fisik:</string>
+    <string name="improve_their_muscular_and_cardio_respiratory_fitness">meningkatkan kebugaran otot dan kardio-pernapasan mereka;</string>
+    <string name="improve_their_bone_and_functional_health">meningkatkan kesehatan tulang dan fungsional mereka;</string>
+    <string name="lower_diesease_rates">memiliki tingkat yang lebih rendah dari penyakit jantung koroner, tekanan darah tinggi, stroke, diabetes, kanker (termasuk kanker usus besar dan payudara), dan depresi;</string>
+    <string name="have_a_lower_risk_of_falling_and_of_hip_or_vertebral_fractures_and">memiliki risiko jatuh dan patah tulang pinggul atau tulang belakang yang lebih rendah; dan</string>
+    <string name="are_more_likely_to_maintain_their_weight">lebih mungkin untuk mempertahankan berat badan mereka.</string>
+    <string name="physical_activity_content_two">Latihan dapat berupa aktivitas apa pun yang memerlukan upaya fisik, dilakukan untuk mempertahankan atau meningkatkan kesehatan atau kebugaran, dan ini dapat dilakukan dengan resep/tanpa pengawasan (misalnya berjalan kaki 30 menit setiap hari), diawasi (misalnya kelas latihan kelompok yang diawasi setiap minggu) atau keduanya. Aktivitas fisik juga penting untuk keseimbangan energi dan pengendalian berat badan.</string>
+    <string name="physical_activity_content_three">Gaya hidup sehat mencakup aktivitas fisik aerobik dan latihan pengkondisian kekuatan yang ditujukan untuk mempertahankan tingkat kebugaran yang baik selama kehamilan, tanpa berusaha mencapai tingkat kebugaran puncak atau berlatih untuk kompetisi atletik. Wanita harus memilih aktivitas dengan risiko minimal kehilangan keseimbangan dan trauma janin. Wanita hamil, pascamelahirkan dan orang dengan penyakit jantung mungkin perlu mengambil tindakan pencegahan ekstra dan mencari nasihat medis sebelum berusaha mencapai tingkat aktivitas fisik yang disarankan.</string>
+    <string name="for_more_information_please_access">Untuk informasi lebih lanjut silahkan akses:</string>
+    <string name="physical_activity_url_one">https://apps.who.int/iris/bitstream/handle/10665/44399/9789241599979_eng.pdf?sequence=1</string>
+    <string name="physical_activity_url_two">https://extranet.who.int/rhl/pt-br/node/151040</string>
+    <!-- Library > Balanced Diet -->
+    <string name="balanced_diet_disclaimer">PERINGATAN: WHO tidak bertanggung jawab atas isi materi tambahan ini.</string>
+    <string name="balanced_diet_content_one">Mempertahankan nutrisi yang baik dan diet yang sehat selama kehamilan sangat penting untuk kesehatan ibu dan anak yang belum lahir. Saat memberikan pendidikan dan konseling gizi untuk meningkatkan status gizi ibu selama kehamilan, harap fokus terutama pada:</string>
+    <string name="balanced_diet_content_two">mempromosikan diet sehat dengan meningkatkan keragaman dan jumlah makanan yang dikonsumsi</string>
+    <string name="balanced_diet_content_three">mempromosikan penambahan berat badan yang memadai melalui asupan protein dan energi yang cukup dan seimbang</string>
+    <string name="balanced_diet_content_four">mempromosikan penggunaan suplemen mikronutrien, suplemen makanan, atau makanan yang diperkaya secara konsisten dan berkelanjutan</string>
+    <string name="balanced_diet_content_five">Adaptasi lokal serta budaya mungkin diperlukan untuk memenuhi kebutuhan individu dan memastikan kepatuhan terhadap rekomendasi.</string>
+    <string name="for_adults_a_healthy_diet_contains">Untuk orang dewasa, makanan sehat mengandung:</string>
+    <string name="balanced_diet_content_six">Buah-buahan, sayuran, kacang-kacangan (misalnya lentil, kacang-kacangan), kacang-kacangan dan biji-bijian (misalnya jagung yang belum diproses, millet, oat, gandum, beras merah).</string>
+    <string name="balanced_diet_content_seven">Setidaknya 400 g (5 porsi) buah dan sayuran sehari. Kentang, ubi jalar, singkong dan akar bertepung lainnya tidak diklasifikasikan sebagai buah atau sayuran.</string>
+    <string name="balanced_diet_content_eight">Kurang dari 10% dari total asupan energi dari gula bebas yang setara dengan 50 g (atau sekitar 12 sendok teh tingkat) untuk seseorang dengan berat badan sehat yang mengkonsumsi sekitar 2000 kalori per hari, tetapi idealnya kurang dari 5% dari total asupan energi untuk tambahan Keuntungan sehat. Sebagian besar gula bebas ditambahkan ke makanan atau minuman oleh produsen, juru masak atau konsumen, dan juga dapat ditemukan dalam gula yang secara alami ada dalam madu, sirup, jus buah, dan konsentrat jus buah.</string>
+    <string name="balanced_diet_content_nine">Kurang dari 30% dari total asupan energi berasal dari lemak. Lemak tak jenuh (misalnya ditemukan pada ikan, alpukat, kacang-kacangan, bunga matahari, canola dan minyak zaitun) lebih disukai daripada lemak jenuh (misalnya ditemukan dalam daging berlemak, mentega, minyak kelapa sawit dan kelapa, krim, keju, ghee dan lemak babi). Lemak trans industri (ditemukan dalam makanan olahan, makanan cepat saji, makanan ringan, gorengan, pizza beku, pai, kue, margarin, dan olesan) bukan bagian dari diet sehat.</string>
+    <string name="balanced_diet_content_ten">Kurang dari 5g garam (setara dengan kurang lebih 1 sendok teh) per hari dan gunakan garam beryodium.</string>
+    <string name="balanced_diet_url_one">http://www.who.int/en/news-room/fact-sheets/detail/healthy-diet</string>
+    <string name="balanced_diet_url_two">https://mediumredpotion.wordpress.com/2011/12/14/that-old-healthy-food-pyramid/</string>
+    <string name="source">Sumber</string>
+    <string name="example_sources_of_protein">Contoh sumber protein:</string>
+    <string name="balanced_diet_content_eleven">Harap tambahkan ke daftar dan ubah ke standar lokal jika memungkinkan.</string>
+    <string name="balanced_diet_url_three">http://www.bendifulblog.com/your-guide-to-protein-what-you-should-know/</string>
+    <string name="balanced_diet_url_four">https://co.pinterest.com/pin/208291551498329651/</string>
+    <string name="example_sources_of_calcium">Contoh sumber kalsium:</string>
+    <string name="example_sources_of_energy">Contoh sumber energi:</string>
+    <string name="balanced_diet_content_12_info">Harap tambahkan ke daftar dan ubah ke standar lokal jika memungkinkan.</string>
+    <string name="balanced_diet_url_4"><![CDATA[https://www.google.com/url?q=https://cyclonecup.com/blogs/news/13218465-12-healthy-foods-to-eat-for-high-energy&sa=D&ust=1580808439831000]]></string>
+    <string name="example_sources_of_iron">Contoh sumber zat besi:</string>
+    <string name="balanced_diet_url_5">https://www.wholesomebabyfoodguide.com/iron-and-iron-rich-baby-foods-what-iron-rich-foods-can-baby-eat/</string>
+    <string name="balanced_diet_url_6">https://bit.ly/2RUH0VU</string>
+    <string name="balanced_diet_url_7">https://i.pinimg.com/originals/21/f2/e3/21f2e3fc203e6b475616e971f3c874f3.jpg</string>
+    <string name="example_sources_of_vitamin_a">Contoh sumber Vitamin A:</string>
+    <string name="balanced_diet_url_8">https://www.myfooddata.com/articles/food-sources-of-vitamin-A.php</string>
+    <string name="balanced_diet_url_9">https://www.medindia.net/patients/lifestyleandwellness/vitamin-a-rich-foods.htm</string>
+    <string name="example_sources_of_vitamin_c">Contoh sumber Vitamin C:</string>
+    <string name="balanced_diet_url_10">https://www.myfooddata.com/articles/vitamin-c-foods.php#printable</string>
+    <string name="caffeine_intake">Asupan Kafein</string>
+    <string name="balanced_diet_content_13">Dosis harian maksimum asupan kafein untuk ibu hamil adalah 300mg, setara dengan:</string>
+    <string name="balanced_diet_url_11">ftp://ftp.caism.unicamp.br/pub/astec/CARTILHA_DE_EXERCISIO_FISICO_NA_GRAVIDEZ_Publico.pdf</string>
+
+    <!-- Me -->
+    <string name="me_page_location_text">Lokasi: </string>
+    <string name="default_language_string">%1s</string>
+    <string name="select_language">Pilih Bahasa</string>
+    <string name="choose_language">Pilih Bahasa</string>
+    <string name="english_language">English</string>
+    <string name="french_language">Français</string>
+    <string name="portuguese_brazil_language">Português (Brazil)</string>
+    <string name="bahasa_indonesia_language">Bahasa Indonesia</string>
+    <string name="population_characteristics">Karakteristik Populasi</string>
+    <string name="site_characteristics">Karakteristik Tempat</string>
+
+	<!-- Contact -->
+	<string name="contact_recorded_today">Kunjungan %1$d\n dilakukan hari ini</string>
+    <string name="contact_recorded_today_no_break">Kunjungan %1$d dilakukan hari ini</string>
+    <string name="continue_contact">Lanjutkan Kunjungan %1$d</string>
+	<string name="contact_weeks">Mulai\nKunjungan %1$s\n%2$s</string>
+    <string name="contact_weeks_no_break">Mulai &#183; Kunjungan %1$s &#183; %2$s</string>
+    <string name="contact_in_progress">Kunjungan %1$s\n dalam proses</string>
+    <string name="contact_in_progress_no_break">Kunjungan %1$s &#183; dalam proses</string>
+	<string name="contact_number_due">Kunjungan %1$d\n jatuh tempo \n %2$s</string>
+    <string name="contact_number_due_no_break">Kunjungan %1$d &#183; jatuh tempo &#183; %2$s</string>
+	<string name="contact_due_delivery">Saatnya\nMelahirkan</string>
+	<string name="contact_record_birth">Catat Belahiran</string>
+	<string name="contact_record_birth_popup_message">UK: %1$d Minggu \nHPL: %2$s (%3$s lalu)
+        %4$s harus segera datang untuk persalinan
+    </string>
+	<string name="pagination_previous">&lt; Kembali</string>
+	<string name="pagination_next">Berikut &gt;</string>
+    <string name="undo_test_result">Reset hasil %1$s?</string>
+    <string name="contact_recorded">Kunjungan %1$d telah direkam</string>
+    <string name="upcoming_contact_dates">Tanggal kunjungan berikutnya:</string>
+    <string name="go_to_client_profile">Lihat Profil Ibu</string>
+    <string name="send_summary_to_client">Kirim Ikhtisar ke Ibu</string>
+    <!-- Contact Test  Result Headers -->
+    <string name="contact_ultrasound_tests_results">Hasil Tes Ultrasound</string>
+    <string name="contact_blood_type_test_results">Hasil Tes Golongan Darah</string>
+    <string name="contact_hiv_tests_results">Hasil Tes HIV</string>
+    <string name="contact_hepatitis_b_test_results">Hasil Tes Hepatitis B</string>
+    <string name="contact_hepatitis_c_test_results">Hasil Tes Hepatitis C</string>
+    <string name="contact_syphilis_test_results">Hasil Tes Sipilis</string>
+    <string name="contact_urine_tests_results">Hasil Tes Urin</string>
+    <string name="contact_blood_glucose_tests_results">Hasil Tes Glukosa Darah</string>
+    <string name="contact_blood_haemoglobin_test_results">Hasil Tes Hemoglobin Darah</string>
+    <string name="contact_tb_screening_test_results">Hasil Tes Penyaringan TB</string>
+    <string name="contact_partner_hiv_test_results">Hasil Tes HIV Pasangan</string>
+    <string name="contact_other_tests_results">Hasil Tes Lainnya</string>
+
+	<!-- Mother -->
+	<string name="mother_age">Usia</string>
+	<string name="mother_age_number">Usia: %1$s</string>
+	<string name="mother_ga">UK</string>
+	<string name="mother_ga_weeks">UK: %1$s Minggu</string>
+	<string name="mother_id_number">ID: %1$s</string>
+
+    <!-- Advanced Search -->
+    <string name="search_advanced">Pencarian Lanjutan</string>
+    <string name="search_clients_facility">Fasilitas Ibu</string>
+    <string name="search_out_and_inside">Di luar dan di dalam fasilitas kesehatan saya</string>
+    <string name="search_requires_internet_connection">(membutuhkan koneksi Internet)</string>
+    <string name="search_my_catchment_area">Hanya di fasilitas kesehatan saya</string>
+    <string name="search_first_name">Nama depan</string>
+    <string name="search_last_name">Nama belakang</string>
+    <string name="search_anc_id">ID ANC</string>
+    <string name="search_id_number">ID ANC</string>
+    <string name="search_edd">HPL</string>
+    <string name="search_exp_date_of_delivery">Tanggal perkiraan kelahiran</string>
+    <string name="search_dob">TL</string>
+    <string name="search_date_of_birth">Tanggal lahir</string>
+    <string name="search_mobile_phone_number">Nomor handphone</string>
+    <string name="search_phone_number">Telepon</string>
+    <string name="search_alternate_contact_name">Nama kontak alternatif</string>
+    <string name="search_alt_contact_name">Kontak alt.</string>
+    <string name="search">Cari</string>
+    <string name="search_results">Hasil Pencarian</string>
+    <string name="search_searching_dialog_title">Mencari…</string>
+    <string name="search_searching_dialog_message">Harap tunggu</string>
+    <string name="search_matching_results">%1$s ditemukan</string>
+
+	<!-- Contact -->
+	<!-- Contact > Titles -->
+	<string name="contact_quick_check">Pemeriksaan Cepat</string>
+	<string name="contact_profile">Profil</string>
+	<string name="contact_symptoms_follow_up">Gejala dan Tindak Lanjut</string>
+	<string name="contact_physical_exam">Pemeriksaan Fisik</string>
+	<string name="contact_tests">Tes</string>
+	<string name="contact_counselling_treatment">Konseling dan Pengobatan</string>
+	<!-- Contact > Attributes -->
+	<string name="contact_required_fields">%1$d harus diisi</string>
+	<string name="contact_complete">Selesai</string>
+	<string name="contact_completed">Telah Selesai</string>
+	<string name="contact_upcoming">Kunjungan Mendatang</string>
+	<string name="contact_proceed_to_normal">Lanjut Kunjungan Normal</string>
+	<string name="contact_refer_and_close">Rujuk dan Akhiri Kunjungan</string>
+	<string name="contact_next">Lanjut</string>
+    <string name="contact_previous">Kembali</string>
+	<string name="contact_yes">Ya</string>
+    <string name="contact_no">Tidak</string>
+	<string name="contact_save_and_finish">Simpan &amp; Selesai</string>
+	<string name="contact_alert_treatment">Adakah pengobatan yang diberikan sebelum rujukan?</string>
+    <string name="timeline_away">%1$smg lagi</string>
+	<!-- Contact > Text -->
+    <string name="contact_number">Kunjungan ke-%1$d</string>
+    <string name="contact_weight">Berat</string>
+	<string name="contact_hospital_referral">Rujukan Rumah Sakit</string>
+    <string name="contact_reason_for_visit">Alasan Berkunjung</string>
+    <string name="contact_demographic_info">Info Demografis</string>
+    <string name="contact_current_pregnancy">Kehamilan Saat Ini</string>
+    <string name="contact_obstetric_history">Riwayat Kebidanan</string>
+    <string name="contact_medical_history">Riwayat kesehatan</string>
+    <string name="contact_immunisation_status">Status Imunisasi</string>
+    <string name="contact_medications">Obat-obatan</string>
+    <string name="contact_womans_behaviour">Perilaku Wanita</string>
+    <string name="contact_physiological_symptoms">Gejala Fisiologis</string>
+    <string name="contact_height_and_weight">Tinggi dan berat</string>
+    <string name="contact_blood_pressure">Tekanan darah</string>
+    <string name="contact_maternal_exam">Ujian Ibu</string>
+    <string name="contact_fetal_assessment">Penilaian Janin</string>
+    <string name="contact_blood_type_test">Tes Golongan Darah</string>
+    <string name="contact_partner_hiv_test">Tes HIV Pasangan</string>
+    <string name="contact_syphilis_test">Tes Sipilis</string>
+    <string name="contact_urine_test">Tes Urin</string>
+    <string name="contact_blood_glucose_test">Tes Glukosa Darah</string>
+    <string name="contact_blood_haemoglobin_test_and_ifa">Tes Hemoglobin Darah dan IFA</string>
+    <string name="contact_danger_signs_counseling">Konseling Tanda Bahaya</string>
+    <string name="contact_anc_contacts_counseling">Konseling Kontak ANC</string>
+    <string name="contact_family_planning_counseling">Konseling Keluarga Berencana</string>
+    <string name="contact_birth_plan_counseling">Konseling Rencana Kelahiran</string>
+    <string name="contact_risks_and_diagnoses">Resiko dan Diagnosis</string>
+    <string name="finalizing_contact">Finalisasi Kunjungan %1$d</string>
+    <string name="summarizing_contact_number">Menyimpulkan Kunjungan %1$d</string>
+    <!-- Contact > Text > Test Result -->
+    <string name="ultrasound_tests_results">Hasil Tes USG</string>
+    <string name="blood_type_test_results">Hasil Tes Golongan Darah</string>
+    <string name="syphilis_test_results">Hasil Tes Sipilis</string>
+    <string name="urine_test_results">Hasil Tes Urin</string>
+    <string name="blood_glucose_tests_results">Hasil Tes Glukosa Darah</string>
+    <string name="blood_haemoglobin_test_results">Hasil Tes Hemoglobin Darah</string>
+    <string name="partner_hiv_test_results">Hasil Tes HIV Pasangan</string>
+    <string name="other_tests_results">Hasil Tes Lainnya</string>
+    <!-- Contact > Test -->
+    <string name="accordion_ultrasound">Tes USG</string>
+    <string name="accordion_blood_type">Tes Golongan Darah</string>
+    <string name="accordion_hepatitis_b">Tes Hepatitis B</string>
+    <string name="accordion_hepatitis_c">Tes Hepatitis C</string>
+    <string name="accordion_syphilis">Tes Sipilis</string>
+    <string name="accordion_urine">Tes Urin</string>
+    <string name="accordion_blood_haemoglobin">Tes Hemoglobin Darah</string>
+    <string name="accordion_hiv">Tes HIV</string>
+    <string name="accordion_tb_screening">Skrining TB</string>
+    <string name="accordion_partner_hiv">Tes HIV Pasangan</string>
+    <string name="accordion_blood_glucose">Tes Gula Darah</string>
+    <string name="accordion_other_tests">Tes Lainnya</string>
+    <string name="contact_summary_data">Ikhtisar Kunjungan  -  %1$s</string>
+    <string name="pdf_saved_successfully">\"PDF berhasil disimpan \"</string>
+    <string name="contact_summary_data_file">contactSummaryData.pdf</string>
+
+</resources>

@@ -126,7 +126,7 @@
             android:background="@drawable/refer_close_background"
             android:paddingEnd="@dimen/quick_check_padding"
             android:paddingStart="@dimen/quick_check_padding"
-            android:text="@string/refer_and_close_contact"
+            android:text="@string/contact_refer_and_close"
             android:textAllCaps="true"
             android:textAppearance="?android:textAppearanceSmall"
             android:textColor="@color/white"
@@ -145,10 +145,11 @@
             android:background="@color/transparent"
             android:paddingEnd="@dimen/quick_check_drawable_padding"
             android:paddingStart="@dimen/quick_check_drawable_padding"
-            android:text="@string/proceed_to_normal_contact"
+            android:text="@string/contact_proceed_to_normal"
             android:textAllCaps="true"
             android:textAppearance="?android:textAppearanceSmall"
             android:textColor="@color/button_navy_blue"
+            android:textStyle="bold"
             android:textSize="@dimen/quick_check_text_size" />
     </LinearLayout>
 </LinearLayout>

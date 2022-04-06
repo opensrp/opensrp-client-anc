@@ -6,7 +6,6 @@ package org.smartregister.anc.library.domain;
 public class YamlConfigWrapper {
 
     private String group;
-    private String groupTitle;
     private String subGroup;
     private YamlConfigItem yamlConfigItem;
     private String testResults;
@@ -55,13 +54,5 @@ public class YamlConfigWrapper {
 
     public void setTestResults(String testResults) {
         this.testResults = testResults;
-    }
-
-    public String getGroupTitle() {
-        return groupTitle;
-    }
-
-    public void setGroupTitle(String groupTitle) {
-        this.groupTitle = groupTitle;
     }
 }

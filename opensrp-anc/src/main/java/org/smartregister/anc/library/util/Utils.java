@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.os.Build;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
@@ -20,6 +19,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
@@ -27,7 +28,9 @@ import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
-import com.vijay.jsonwizard.constants.JsonFormConstants;
+
+import org.codehaus.jackson.JsonNode;
+import org.smartregister.anc.library.constants.ANCJsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
 
 import net.sqlcipher.database.SQLiteDatabase;
@@ -73,7 +76,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -235,12 +237,12 @@ public class Utils extends org.smartregister.util.Utils {
 
             if (hasPendingRequiredFields(new JSONObject(processedForm))) {
                 intent.putExtra(ConstantsUtils.JsonFormExtraUtils.JSON, processedForm);
-                intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, quickCheck);
+                intent.putExtra(ANCJsonFormConstants.JSON_FORM_KEY.FORM, quickCheck);
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, partialContactRequest.getBaseEntityId());
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, personObjectClient);
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME, partialContactRequest.getType());
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, partialContactRequest.getContactNo());
-                intent.putExtra(JsonFormConstants.PERFORM_FORM_TRANSLATION, true);
+                intent.putExtra(ANCJsonFormConstants.PERFORM_FORM_TRANSLATION, true);
                 Activity activity = (Activity) context;
                 activity.startActivityForResult(intent, ANCJsonFormUtils.REQUEST_CODE_GET_JSON);
             } else {
@@ -250,7 +252,7 @@ public class Utils extends org.smartregister.util.Utils {
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME, partialContactRequest.getType());
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO,
                         Integer.valueOf(personObjectClient.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
-                intent.putExtra(JsonFormConstants.PERFORM_FORM_TRANSLATION, true);
+                intent.putExtra(ANCJsonFormConstants.PERFORM_FORM_TRANSLATION, true);
                 context.startActivity(intent);
             }
 
@@ -276,7 +278,7 @@ public class Utils extends org.smartregister.util.Utils {
             while (keys.hasNext()) {
                 String key = keys.next();
                 if (key.startsWith(RuleConstant.STEP)) {
-                    JSONArray stepArray = object.getJSONObject(key).getJSONArray(JsonFormConstants.FIELDS);
+                    JSONArray stepArray = object.getJSONObject(key).getJSONArray(ANCJsonFormConstants.FIELDS);
 
                     for (int i = 0; i < stepArray.length(); i++) {
                         JSONObject fieldObject = stepArray.getJSONObject(i);
@@ -284,12 +286,12 @@ public class Utils extends org.smartregister.util.Utils {
 
                         boolean isRequiredField = ANCJsonFormUtils.isFieldRequired(fieldObject);
                         //Do not check for required for fields that are invisible
-                        if (fieldObject.has(JsonFormConstants.IS_VISIBLE) && !fieldObject.getBoolean(JsonFormConstants.IS_VISIBLE)) {
+                        if (fieldObject.has(ANCJsonFormConstants.IS_VISIBLE) && !fieldObject.getBoolean(ANCJsonFormConstants.IS_VISIBLE)) {
                             isRequiredField = false;
                         }
 
-                        if (isRequiredField && ((fieldObject.has(JsonFormConstants.VALUE) && TextUtils.isEmpty(
-                                fieldObject.getString(JsonFormConstants.VALUE))) || !fieldObject.has(JsonFormConstants.VALUE))) {
+                        if (isRequiredField && ((fieldObject.has(ANCJsonFormConstants.VALUE) && TextUtils.isEmpty(
+                                fieldObject.getString(ANCJsonFormConstants.VALUE))) || !fieldObject.has(ANCJsonFormConstants.VALUE))) {
                             //TO DO Remove/ Alter logical condition
                             return true;
                         }
@@ -359,6 +361,32 @@ public class Utils extends org.smartregister.util.Utils {
                         value.substring(0, value.lastIndexOf(",")) + "]";
 
             }
+        }
+
+        // Cannot get value of the key
+        else {
+
+            // Try using attention flag to retrieve value
+            if (facts.get("attention_flag_facts") instanceof String) {
+
+                try {
+                    String attentionFlag = facts.get("attention_flag_facts");
+                    ObjectMapper mapper = new ObjectMapper();
+                    Map<String,String> map = mapper.readValue(attentionFlag, Map.class);
+
+                    if (map.get(key) instanceof String) {
+                        return map.get(key);
+                    }
+
+                } catch (JsonProcessingException e) {
+
+                }
+
+            }
+
+            // All means above are failed
+            return key;
+
         }
 
         return ANCFormUtils.keyToValueConverter(value);
@@ -453,7 +481,7 @@ public class Utils extends org.smartregister.util.Utils {
 
     public static int getGestationAgeFromEDDate(String expectedDeliveryDate) {
         try {
-            if (!"0".equals(expectedDeliveryDate)) {
+            if (!"0".equals(expectedDeliveryDate) && expectedDeliveryDate.length() > 0) {
                 LocalDate date = SQLITE_DATE_DF.withOffsetParsed().parseLocalDate(expectedDeliveryDate);
                 LocalDate lmpDate = date.minusWeeks(ConstantsUtils.DELIVERY_DATE_WEEKS);
                 Weeks weeks = Weeks.weeksBetween(lmpDate, LocalDate.now());
@@ -554,12 +582,12 @@ public class Utils extends org.smartregister.util.Utils {
                     case ConstantsUtils.AlertStatusUtils.DELIVERY_DUE:
                         dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
                         dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
-                        dueButton.setText(context.getString(R.string.due_delivery));
+                        dueButton.setText(context.getString(R.string.contact_due_delivery));
                         break;
                     case ConstantsUtils.AlertStatusUtils.EXPIRED:
                         dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
                         dueButton.setTextColor(context.getResources().getColor(R.color.white));
-                        dueButton.setText(context.getString(R.string.due_delivery));
+                        dueButton.setText(context.getString(R.string.contact_due_delivery));
                         break;
                     case ConstantsUtils.AlertStatusUtils.TODAY:
                         if (contactTextView != null) {
@@ -667,71 +695,6 @@ public class Utils extends org.smartregister.util.Utils {
         return AncLibrary.getInstance().getProperties().getPropertyBoolean(AncAppPropertyConstants.KeyUtils.LANGUAGE_SWITCHING_ENABLED);
     }
 
-    /**
-     * Loads yaml files that contain rules for the profile displays
-     *
-     * @param filename {@link String}
-     * @return
-     * @throws IOException
-     */
-    public Iterable<Object> loadRulesFiles(String filename) throws IOException {
-        return AncLibrary.getInstance().readYaml(filename);
-    }
-
-    /**
-     * Creates the {@link Task} partial contact form.  This is done any time we update tasks.
-     *
-     * @param baseEntityId {@link String} - The patient base entity id
-     * @param context      {@link Context} - application context
-     * @param contactNo    {@link Integer} - the contact that the partial contact belongs in.
-     * @param doneTasks    {@link List<Task>} - A list of all the done/completed tasks.
-     */
-    public void createTasksPartialContainer(String baseEntityId, Context context, int contactNo, List<Task> doneTasks) {
-        try {
-            if (contactNo > 0 && doneTasks != null && doneTasks.size() > 0) {
-                JSONArray fields = createFieldsArray(doneTasks);
-
-                ANCFormUtils ANCFormUtils = new ANCFormUtils();
-                JSONObject jsonForm = ANCFormUtils.loadTasksForm(context);
-                if (jsonForm != null) {
-                    ANCFormUtils.updateFormFields(jsonForm, fields);
-                }
-
-                createAndPersistPartialContact(baseEntityId, contactNo, jsonForm);
-            }
-        } catch (JSONException e) {
-            Timber.e(e, " --> createTasksPartialContainer");
-        }
-    }
-
-    @NotNull
-    private JSONArray createFieldsArray(List<Task> doneTasks) throws JSONException {
-        JSONArray fields = new JSONArray();
-        for (Task task : doneTasks) {
-            JSONObject field = new JSONObject(task.getValue());
-            fields.put(field);
-        }
-        return fields;
-    }
-
-    private void createAndPersistPartialContact(String baseEntityId, int contactNo, JSONObject jsonForm) {
-        Contact contact = new Contact();
-        contact.setJsonForm(String.valueOf(jsonForm));
-        contact.setContactNumber(contactNo);
-        contact.setFormName(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS);
-
-        ANCFormUtils.persistPartial(baseEntityId, contact);
-    }
-
-    /**
-     * Returns the Contact Tasks Repository {@link ContactTasksRepository}
-     *
-     * @return contactTasksRepository
-     */
-    public ContactTasksRepository getContactTasksRepositoryHelper() {
-        return AncLibrary.getInstance().getContactTasksRepository();
-    }
-
     public static String getDueCheckStrategy() {
         return getProperties(AncLibrary.getInstance().getApplicationContext()).getProperty(ConstantsUtils.Properties.DUE_CHECK_STRATEGY, "");
     }
@@ -748,23 +711,23 @@ public class Utils extends org.smartregister.util.Utils {
         JSONObject jsonObject = JsonFormUtils.getFieldJSONObject(fields, fieldName);
         HashMap<String, HashMap<String, String>> repeatingGroupMap = new LinkedHashMap<>();
         if (jsonObject != null) {
-            JSONArray jsonArray = jsonObject.optJSONArray(JsonFormConstants.VALUE);
+            JSONArray jsonArray = jsonObject.optJSONArray(ANCJsonFormConstants.VALUE);
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject valueField = jsonArray.optJSONObject(i);
-                String fieldKey = valueField.optString(JsonFormConstants.KEY);
+                String fieldKey = valueField.optString(ANCJsonFormConstants.KEY);
                 keysArrayList.add(fieldKey);
             }
 
             for (int k = 0; k < fields.length(); k++) {
                 JSONObject valueField = fields.optJSONObject(k);
-                String fieldKey = valueField.optString(JsonFormConstants.KEY);
-                String fieldValue = valueField.optString(JsonFormConstants.VALUE);
+                String fieldKey = valueField.optString(ANCJsonFormConstants.KEY);
+                String fieldValue = valueField.optString(ANCJsonFormConstants.VALUE);
 
                 if (fieldKey.contains("_")) {
                     fieldKey = fieldKey.substring(0, fieldKey.lastIndexOf("_"));
                     if (keysArrayList.contains(fieldKey) && StringUtils.isNotBlank(fieldValue)) {
-                        String fieldKeyId = valueField.optString(JsonFormConstants.KEY).substring(fieldKey.length() + 1);
-                        valueField.put(JsonFormConstants.KEY, fieldKey);
+                        String fieldKeyId = valueField.optString(ANCJsonFormConstants.KEY).substring(fieldKey.length() + 1);
+                        valueField.put(ANCJsonFormConstants.KEY, fieldKey);
                         HashMap<String, String> hashMap = repeatingGroupMap.get(fieldKeyId) == null ? new HashMap<>() : repeatingGroupMap.get(fieldKeyId);
                         hashMap.put(fieldKey, fieldValue);
                         repeatingGroupMap.put(fieldKeyId, hashMap);
@@ -873,7 +836,6 @@ public class Utils extends org.smartregister.util.Utils {
         }
     }
 
-
     public static Event addContactVisitDetails(String attentionFlagsString, Event event,
                                                String referral, String currentContactState) {
         event.addDetails(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS, attentionFlagsString);
@@ -881,6 +843,71 @@ public class Utils extends org.smartregister.util.Utils {
             event.addDetails(ConstantsUtils.DetailsKeyUtils.PREVIOUS_CONTACTS, currentContactState);
         }
         return event;
+    }
+
+    /**
+     * Loads yaml files that contain rules for the profile displays
+     *
+     * @param filename {@link String}
+     * @return
+     * @throws IOException
+     */
+    public Iterable<Object> loadRulesFiles(String filename) throws IOException {
+        return AncLibrary.getInstance().readYaml(filename);
+    }
+
+    /**
+     * Creates the {@link Task} partial contact form.  This is done any time we update tasks.
+     *
+     * @param baseEntityId {@link String} - The patient base entity id
+     * @param context      {@link Context} - application context
+     * @param contactNo    {@link Integer} - the contact that the partial contact belongs in.
+     * @param doneTasks    {@link List<Task>} - A list of all the done/completed tasks.
+     */
+    public void createTasksPartialContainer(String baseEntityId, Context context, int contactNo, List<Task> doneTasks) {
+        try {
+            if (contactNo > 0 && doneTasks != null && doneTasks.size() > 0) {
+                JSONArray fields = createFieldsArray(doneTasks);
+
+                ANCFormUtils ANCFormUtils = new ANCFormUtils();
+                JSONObject jsonForm = ANCFormUtils.loadTasksForm(context);
+                if (jsonForm != null) {
+                    ANCFormUtils.updateFormFields(jsonForm, fields);
+                }
+
+                createAndPersistPartialContact(baseEntityId, contactNo, jsonForm);
+            }
+        } catch (JSONException e) {
+            Timber.e(e, " --> createTasksPartialContainer");
+        }
+    }
+
+    @NotNull
+    private JSONArray createFieldsArray(List<Task> doneTasks) throws JSONException {
+        JSONArray fields = new JSONArray();
+        for (Task task : doneTasks) {
+            JSONObject field = new JSONObject(task.getValue());
+            fields.put(field);
+        }
+        return fields;
+    }
+
+    private void createAndPersistPartialContact(String baseEntityId, int contactNo, JSONObject jsonForm) {
+        Contact contact = new Contact();
+        contact.setJsonForm(String.valueOf(jsonForm));
+        contact.setContactNumber(contactNo);
+        contact.setFormName(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS);
+
+        ANCFormUtils.persistPartial(baseEntityId, contact);
+    }
+
+    /**
+     * Returns the Contact Tasks Repository {@link ContactTasksRepository}
+     *
+     * @return contactTasksRepository
+     */
+    public ContactTasksRepository getContactTasksRepositoryHelper() {
+        return AncLibrary.getInstance().getContactTasksRepository();
     }
 
     @Nullable
@@ -901,7 +928,7 @@ public class Utils extends org.smartregister.util.Utils {
             (new File(filePath)).delete();
         }
         FileOutputStream fOut = new FileOutputStream(filePath);
-        PdfWriter pdfWriter = new PdfWriter((OutputStream) fOut);
+        PdfWriter pdfWriter = new PdfWriter(fOut);
         PdfDocument pdfDocument = new PdfDocument(pdfWriter);
         Document layoutDocument = new Document(pdfDocument);
 
@@ -930,7 +957,7 @@ public class Utils extends org.smartregister.util.Utils {
 
 
         layoutDocument.close();
-        Toast.makeText(context, (CharSequence) (context.getResources().getString(R.string.pdf_saved_successfully) + filePath), Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, context.getResources().getString(R.string.pdf_saved_successfully) + filePath, Toast.LENGTH_SHORT).show();
     }
 
     private String processUnderscores(String string) {
@@ -951,35 +978,32 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     private void addParagraph(Document layoutDocument, HorizontalAlignment horizontalAlignment, String headerDetails) {
-        layoutDocument.add((IBlockElement) (new Paragraph(headerDetails).setHorizontalAlignment(horizontalAlignment)));
+        layoutDocument.add(new Paragraph(headerDetails).setHorizontalAlignment(horizontalAlignment));
     }
 
     private final String getAppPath(Context context) {
         File dir = new File(Environment.getExternalStorageDirectory() + File.separator + context.getResources().getString(R.string.app_name) + File.separator);
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            dir = Paths.get(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getAbsolutePath(), context.getResources().getString(R.string.app_name)).toFile();
-        }
         if (!dir.exists()) {
-            dir.mkdirs();
+            dir.mkdir();
         }
 
         return dir.getPath() + File.separator;
     }
 
     private final void addTitle(Document layoutDocument, String text) {
-        layoutDocument.add((IBlockElement) ((Paragraph) ((Paragraph) (new Paragraph(text)).setBold()).setUnderline()).setTextAlignment(TextAlignment.CENTER));
+        layoutDocument.add((new Paragraph(text)).setBold().setUnderline().setTextAlignment(TextAlignment.CENTER));
     }
 
     private final void addEmptyLine(Document layoutDocument, int number) {
         int i = 0;
 
         for (int j = number; i < j; ++i) {
-            layoutDocument.add((IBlockElement) (new Paragraph(" ")));
+            layoutDocument.add(new Paragraph(" "));
         }
 
     }
 
     private final void addSubHeading(Document layoutDocument, String text) {
-        layoutDocument.add((IBlockElement) ((Paragraph) (new Paragraph(text)).setBold()).setHorizontalAlignment(HorizontalAlignment.LEFT));
+        layoutDocument.add((new Paragraph(text)).setBold().setHorizontalAlignment(HorizontalAlignment.LEFT));
     }
 }

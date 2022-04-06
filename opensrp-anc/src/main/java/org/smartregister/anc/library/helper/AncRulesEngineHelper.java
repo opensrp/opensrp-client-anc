@@ -3,14 +3,11 @@ package org.smartregister.anc.library.helper;
 import android.content.Context;
 import android.text.TextUtils;
 
-import android.util.Log;
-import com.vijay.jsonwizard.constants.JsonFormConstants;
-import com.vijay.jsonwizard.domain.Form;
+import org.smartregister.anc.library.constants.ANCJsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
 import com.vijay.jsonwizard.rules.RulesEngineHelper;
 import com.vijay.jsonwizard.utils.FormUtils;
 
-import com.vijay.jsonwizard.utils.Utils;
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rule;
 import org.jeasy.rules.api.Rules;
@@ -21,15 +18,12 @@ import org.jeasy.rules.core.RulesEngineParameters;
 import org.jeasy.rules.mvel.MVELRule;
 import org.jeasy.rules.mvel.MVELRuleFactory;
 import org.jeasy.rules.support.YamlRuleDefinitionReader;
-import org.joda.time.*;
+import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.anc.library.R;
-import org.smartregister.anc.library.constants.IMTWeight;
 import org.smartregister.anc.library.rule.AlertRule;
 import org.smartregister.anc.library.rule.ContactRule;
-import org.smartregister.anc.library.rule.RelevanceRule;
 import org.smartregister.anc.library.util.ANCFormUtils;
 
 import java.io.BufferedReader;
@@ -175,12 +169,12 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
             String key = ANCFormUtils.removeKeyPrefix(widget, step);
             if (mJsonObject.has(step)) {
                 JSONObject stepsObject = mJsonObject.getJSONObject(step);
-                JSONArray fields = stepsObject.getJSONArray(JsonFormConstants.FIELDS);
+                JSONArray fields = stepsObject.getJSONArray(ANCJsonFormConstants.FIELDS);
                 if (fields.length() > 1)
                     for (int i = 0; i < fields.length(); i++) {
                         JSONObject accordionObject = fields.getJSONObject(i);
-                        if (accordionObject.getString(JsonFormConstants.KEY).equals(accordion)) {
-                            JSONArray value = accordionObject.optJSONArray(JsonFormConstants.VALUE);
+                        if (accordionObject.getString(ANCJsonFormConstants.KEY).equals(accordion)) {
+                            JSONArray value = accordionObject.optJSONArray(ANCJsonFormConstants.VALUE);
                             if (value == null) {
                                 return result;
                             }
@@ -247,46 +241,6 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
      */
     public int compareDateWithDurationsAddedAgainstToday(String dateString, String duration) {
         return compareDateAgainstToday(addDuration(dateString, duration));
-    }
-
-    @Override
-    public String getWeeksAndDaysFromDays(Integer days) {
-        double weeks = Math.round(Math.floor(days / 7));
-        Integer dayz = days % 7;
-
-        return String.format(context.getString(R.string.get_weeks_and_days_from_days), weeks, dayz);
-    }
-
-    public String weightIMT(String input) {
-        return context.getString(IMTWeight.fromString(input).getResourceString());
-    }
-
-    @Override
-    public String formatDate(String dateString, String duration) {
-        LocalDate date = new LocalDate(Utils.reverseDateString(Utils.getDateFormattedForCalculation(dateString, Form.getDatePickerDisplayFormat()), "-"));
-        int result = 0;
-        String cleanDuration = duration.trim().toLowerCase();
-
-        if (cleanDuration.length() == 1) {
-            switch (cleanDuration) {
-                case "d":
-                    result = Days.daysBetween(date, LocalDate.now()).getDays();
-                    break;
-                case "w":
-                    result = Weeks.weeksBetween(date, LocalDate.now()).getWeeks();
-                    break;
-                case "m":
-                    result = Months.monthsBetween(date, LocalDate.now()).getMonths();
-                    break;
-                case "y":
-                    result = Years.yearsBetween(date, LocalDate.now()).getYears();
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        return "wd".equals(cleanDuration) ? getDuration(dateString).replace("w", " minggu").replace("d", " hari") : String.valueOf(Math.abs(result));
     }
 
     /**

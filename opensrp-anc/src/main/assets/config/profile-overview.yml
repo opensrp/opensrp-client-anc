@@ -24,13 +24,13 @@ fields:
     relevance: "no_of_fetuses != ''"
     isRedFont: "no_of_fetuses > 1"
 
-  - template: "{{profile_overview.overview_of_pregnancy.current_pregnancy.fetal_presentation}}: {fetal_presentation}"
+  - template: "{{profile_overview.overview_of_pregnancy.current_pregnancy.fetal_presentation}}: {fetal_presentation_value}"
     relevance: "fetal_presentation != ''"
 
-  - template: "{{profile_overview.overview_of_pregnancy.current_pregnancy.amniotic_fluid}}: {amniotic_fluid}"
+  - template: "{{profile_overview.overview_of_pregnancy.current_pregnancy.amniotic_fluid}}: {amniotic_fluid_value}"
     relevance: "amniotic_fluid != ''"
 
-  - template: "{{profile_overview.overview_of_pregnancy.current_pregnancy.placenta_location}}: {placenta_location}"
+  - template: "{{profile_overview.overview_of_pregnancy.current_pregnancy.placenta_location}}: {placenta_location_value}"
     relevance: "placenta_location != ''"
     isRedFont: "placenta_location.contains('Previa')"
 
@@ -71,10 +71,10 @@ fields:
   - template: "{{profile_overview.overview_of_pregnancy.medical_history.blood_type}}: {blood_type}"
     relevance: "blood_type != ''"
 
-  - template: "{{profile_overview.overview_of_pregnancy.medical_history.allergies}}: {allergies}"
+  - template: "{{profile_overview.overview_of_pregnancy.medical_history.allergies}}: {allergies_value}"
     relevance: "allergies != ''"
 
-  - template: "{{profile_overview.overview_of_pregnancy.medical_history.surgeries}}: {surgeries}"
+  - template: "{{profile_overview.overview_of_pregnancy.medical_history.surgeries}}: {surgeries_value}"
     relevance: "surgeries != ''"
 
   - template: "{{profile_overview.overview_of_pregnancy.medical_history.chronic_health_conditions}}: {health_conditions_value}"
@@ -93,7 +93,7 @@ fields:
 
   - template: "{{profile_overview.overview_of_pregnancy.weight.weight_category}}: {weight_cat}"
     relevance: "weight_cat !=''"
-    isRedFont: "weight_cat.contains(helper.weightIMT('Underweight')) || weight_cat.contains(helper.weightIMT('Overweight')) || weight_cat.contains(helper.weightIMT('Obese'))"
+    isRedFont: "weight_cat.contains('Underweight') || weight_cat.contains('Overweight') || weight_cat.contains('Obese')"
 
   - template: "{{profile_overview.overview_of_pregnancy.weight.expected_weight_gain_during_the_pregnancy}}: {exp_weight_gain} kg"
     relevance: "exp_weight_gain != ''"
@@ -159,7 +159,7 @@ fields:
     relevance: "body_temp_repeat >= 38"
     isRedFont: "true"
 
-  - template: "{{profile_overview.hospital_referral_reasons.abnormal_pulse_rate}}: {pulse_rate_repeat} kpm"
+  - template: "{{profile_overview.hospital_referral_reasons.abnormal_pulse_rate}}: {pulse_rate_repeat} bpm"
     relevance: "pulse_rate_repeat < 60 || pulse_rate_repeat > 100"
 
   - template: "{{profile_overview.hospital_referral_reasons.respiratory_distress}}: {respiratory_exam_abnormal_value}"
@@ -185,109 +185,105 @@ fields:
     relevance: "fetal_heartbeat == 'No'"
     isRedFont: "true"
 
-  - template: "{{profile_overview.hospital_referral_reasons.abnormal_fetal_heart_rate}}: {fetal_heart_rate_repeat} kpm"
+  - template: "{{profile_overview.hospital_referral_reasons.abnormal_fetal_heart_rate}}: {fetal_heart_rate_repeat} bpm"
     relevance: "fetal_heart_rate_repeat < 100 || fetal_heart_rate_repeat > 180"
 
 ---
 group: risks_and_diagnoses
 fields:
-  - template: "Konsumsi kafein harian yang tinggi: {caffeine_intake_value}"
-    relevance: "caffeine_intake != '' && caffeine_intake != '[none]'"
+  - template: "{{profile_overview.caffeine_intake}}: {caffeine_intake_value}"
+    relevance: "caffeine_intake != '' && caffeine_intake != 'none'"
     isRedFont: "true"
 
-  - template: "Konsumsi kafein harian yang tinggi: {caffeine_intake_value}"
-    relevance: "caffeine_intake == '[none]'"
-    isRedFont: "false"
-
-  - template: "Pengguna tembakau atau baru saja berhenti: Ya"
+  - template: "{{profile_overview.tobacco_user}}: {tobacco_user_value}"
     relevance: "tobacco_user != '' && tobacco_user != 'no'"
     isRedFont: "true"
 
-  - template: "Paparan orang kedua terhadap asap tembakau: Ya"
+  - template: "{{profile_overview.tobacco_shs}}: {shs_exposure_value}"
     relevance: "shs_exposure == 'yes'"
     isRedFont: "true"
 
-  - template: "Wanita dan pasangannya tidak menggunakan kondom: Tidak"
+  - template: "{{profile_overview.condom_use}}: {condom_use_value}"
     relevance: "condom_use == 'no'"
     isRedFont: "true"
 
-  - template: "Alkohol / zat adiktif lainnya yang sedang digunakan: {alcohol_substance_use_value}, {other_substance_use_value}"
+  - template: "{{profile_overview.alcohol_substance_use}}: {alcohol_substance_use_value}, {other_substance_use_value}"
     relevance: "!alcohol_substance_use.isEmpty() && !alcohol_substance_use.contains('none')"
     isRedFont: "true"
 
-  - template: "Berkurang atau tidak ada gerakan janin yang dirasakan oleh wanita: {mat_percept_fetal_move}"
+  - template: "{{profile_overview.mat_percept_fetal_move}}: {mat_percept_fetal_move_value}"
     relevance: "mat_percept_fetal_move != '' && mat_percept_fetal_move != 'normal_fetal_move'"
     isRedFont: "true"
 
-  - template: "Risiko preeklamsia: {preeclampsia_risk}"
+  - template: "{{profile_overview.preeclampsia_risk}}: {preeclampsia_risk}"
     relevance: "preeclampsia_risk == 1"
     isRedFont: "true"
 
-  - template: "Resiko HIV: {date}"
+  - template: "{{profile_overview.hiv_risk}}: {hiv_risk_value}"
     relevance: "hiv_risk == 1"
     isRedFont: "true"
 
-  - template: "Resiko Diabetes: {date} "
+  - template: "{{profile_overview.gdm_risk}}: {date} "
     relevance: "gdm_risk == 1"
     isRedFont: "true"
 
-  - template: "Hipertensi: {date}"
+  - template: "{{profile_overview.hypertension}}: {date}"
     relevance: "hypertension == 1"
     isRedFont: "true"
 
-  - template: "Hipertensi berat: {date}: {date}"
+  - template: "{{profile_overview.severe_hypertension}}: {date}"
     relevance: "severe_hypertension == 1"
     isRedFont: "true"
 
-  - template: "Pre-eklampsia: {date}"
+  - template: "{{profile_overview.preeclampsia}}: {date}"
     relevance: "preeclampsia == 1"
     isRedFont: "true"
 
-  - template: "Preeklamsia berat: {date}"
+  - template: "{{profile_overview.severe_preeclampsia}}: {date}"
     relevance: "severe_preeclampsia == 1"
     isRedFont: "true"
 
-  - template: "Faktor Rh negatif: {date}: {date}"
+  - template: "{{profile_overview.rh_factor}}: {date}"
     relevance: "rh_factor == 'negative'"
     isRedFont: "true"
 
-  - template: "Positif HIV: {date}"
+  - template: "{{profile_overview.hiv_positive}}: {date}"
     relevance: "hiv_positive == 1"
     isRedFont: "true"
 
-  - template: "Positif Hepatitis B: {date}"
+  - template: "{{profile_overview.hepb_positive}}: {date}"
     relevance: "hepb_positive == 1"
     isRedFont: "true"
 
-  - template: "Positif Hepatitis C: {date}"
+  - template: "{{profile_overview.hepc_positive}}: {date}"
     relevance: "hepc_positive == 1"
     isRedFont: "true"
 
-  - template: "Positif Sifilis: {date}"
+  - template: "{{profile_overview.syphilis_positive}}: {date}"
     relevance: "syphilis_positive == 1"
     isRedFont: "true"
 
-  - template: "Infeksi bakteriuria asimtomatik (ASB): {date}"
+  - template: "{{profile_overview.asb_positive}}: {date}"
     relevance: "asb_positive == 1"
     isRedFont: "true"
 
-  - template: "Positif untuk Grup B Streptococcus (GBS): {date}"
+  - template: "{{profile_overview.urine_culture}}: {date}"
     relevance: "urine_culture == 'positive - group b streptococcus (gbs)'"
     isRedFont: "true"
 
-  - template: "Diabetes Mellitus Gestasional (GDM): {date}"
+  - template: "{{profile_overview.gdm}}: {date}"
     relevance: "gdm = 1"
     isRedFont: "true"
 
-  - template: "Diabetes Mellitus (DM) pada kehamilan: {date}"
+  - template: "{{profile_overview.dm_in_preg}}: {date}"
     relevance: "dm_in_preg = 1"
     isRedFont: "true"
 
-  - template: "Diagnosa anemia: {date}"
+  - template: "{{profile_overview.anaemic}}: {date}"
     relevance: "anaemic = 1"
     isRedFont: "true"
 
-  - template: "Skrining TB positif: {date}"
+  - template: "{{profile_overview.tb_screening_result}}: {date}"
     relevance: "tb_screening_result == 'positive'"
     isRedFont: "true"
 
@@ -304,10 +300,10 @@ fields:
 ---
 group: birth_plan_counseling
 fields:
-  - template: "{{profile_overview.birth_plan_counseling.planned_birth_place}}: {delivery_place}"
+  - template: "{{profile_overview.birth_plan_counseling.planned_birth_place}}: {delivery_place_value}"
     relevance: "delivery_place != ''"
 
-  - template: "{{profile_overview.birth_plan_counseling.fp_method_accepted}}: {family_planning_type}"
+  - template: "{{profile_overview.birth_plan_counseling.fp_method_accepted}}: {family_planning_type_value}"
     relevance: "family_planning_type != ''"
 
 ---
@@ -335,9 +331,13 @@ fields:
   - template: "{{profile_overview.immunisation_status.tt_dose_2}}: {tt2_date_value}"
     relevance: "tt2_date == 'done_today' || tt2_date == 'done_earlier'"
 
-  - template: "{{profile_overview.immunisation_status.flu_immunisation_status}}: {flu_immun_status_value}"
-    relevance: "flu_immun_status != ''"
-    isRedFont: "flu_immun_status == 'seasonal_flu_dose_missing' || flu_immun_status == 'unknown'"
+#  - template: "{{profile_overview.immunisation_status.flu_immunisation_status}}: {flu_immun_status_value}"
+#    relevance: "flu_immun_status != ''"
+#    isRedFont: "flu_immun_status == 'seasonal_flu_dose_missing' || flu_immun_status == 'unknown'"
 
   - template: "{{profile_overview.immunisation_status.flu_dose}}: {flu_date_value}"
     relevance: "flu_date == 'done_today' || flu_date == 'done_earlier'"
+    #added
+  - template: "{{profile_overview.immunisation_status.flu_immunisation_status}}: {{anc_profile.step5.flu_immun_status.options.seasonal_flu_dose_given.text}}"
+    relevance: "flu_immun_status != ''"
+    isRedFont: "flu_immun_status == 'seasonal_flu_dose_missing' || flu_immun_status == 'unknown'"

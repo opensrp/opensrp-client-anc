@@ -2,12 +2,15 @@ package org.smartregister.anc.library.util;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.google.common.collect.ImmutableMap;
-import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.ExpansionPanelItemModel;
 import com.vijay.jsonwizard.rules.RuleConstant;
 import com.vijay.jsonwizard.utils.FormUtils;
+import com.vijay.jsonwizard.views.CustomTextView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.WordUtils;
@@ -16,6 +19,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.anc.library.constants.ANCJsonFormConstants;
+import org.smartregister.anc.library.constants.ANCJsonFormConstants;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.model.PartialContact;
 import org.smartregister.anc.library.model.PreviousContact;
@@ -37,9 +42,9 @@ public class ANCFormUtils extends FormUtils {
         String result = "";
         for (int j = 0; j < value.length(); j++) {
             JSONObject valueItem = value.getJSONObject(j);
-            if (valueItem.getString(JsonFormConstants.KEY).equals(key)) {
-                JSONArray valueItemJSONArray = valueItem.getJSONArray(JsonFormConstants.VALUES);
-                String type = valueItem.optString(JsonFormConstants.TYPE);
+            if (valueItem.getString(ANCJsonFormConstants.KEY).equals(key)) {
+                JSONArray valueItemJSONArray = valueItem.getJSONArray(ANCJsonFormConstants.VALUES);
+                String type = valueItem.optString(ANCJsonFormConstants.TYPE);
                 result = extractItemValue(type, valueItemJSONArray);
                 break;
             }
@@ -51,11 +56,11 @@ public class ANCFormUtils extends FormUtils {
         String result = "";
         if (StringUtils.isNoneBlank(type)) {
             switch (type) {
-                case JsonFormConstants.EXTENDED_RADIO_BUTTON:
-                case JsonFormConstants.NATIVE_RADIO_BUTTON:
+                case ANCJsonFormConstants.EXTENDED_RADIO_BUTTON:
+                case ANCJsonFormConstants.NATIVE_RADIO_BUTTON:
                     result = valueItemJSONArray.getString(0).split(":")[0];
                     break;
-                case JsonFormConstants.CHECK_BOX:
+                case ANCJsonFormConstants.CHECK_BOX:
                     result = formatCheckboxValues(new StringBuilder("["), valueItemJSONArray, 0) + "]";
                     break;
                 default:
@@ -86,10 +91,10 @@ public class ANCFormUtils extends FormUtils {
         String formJsonString = isValidPartialForm(partialContact) ? getPartialContactForm(partialContact) : form.toString();
         JSONObject object = new JSONObject(formJsonString);
 
-        JSONObject globals = form.optJSONObject(JsonFormConstants.JSON_FORM_KEY.GLOBAL);
+        JSONObject globals = form.optJSONObject(ANCJsonFormConstants.JSON_FORM_KEY.GLOBAL);
 
         if (globals != null) {
-            object.put(JsonFormConstants.JSON_FORM_KEY.GLOBAL, globals);
+            object.put(ANCJsonFormConstants.JSON_FORM_KEY.GLOBAL, globals);
         }
 
         return object;
@@ -104,32 +109,32 @@ public class ANCFormUtils extends FormUtils {
     }
 
     public static void processSpecialWidgets(JSONObject widget) throws Exception {
-        String widgetType = widget.getString(JsonFormConstants.TYPE);
+        String widgetType = widget.getString(ANCJsonFormConstants.TYPE);
         List<String> keyList = new ArrayList<>();
         List<String> valueList = new ArrayList<>();
 
-        if (widgetType.equals(JsonFormConstants.CHECK_BOX)) {
+        if (widgetType.equals(ANCJsonFormConstants.CHECK_BOX)) {
             processCheckBoxSpecialWidget(widget, keyList, valueList);
 
-        } else if (widgetType.equals(JsonFormConstants.NATIVE_RADIO_BUTTON) ||
-                widgetType.equals(JsonFormConstants.RADIO_BUTTON) || widgetType.equals(ConstantsUtils.EXTENDED_RADIO_BUTTON)) {
+        } else if (widgetType.equals(ANCJsonFormConstants.NATIVE_RADIO_BUTTON) ||
+                widgetType.equals(ANCJsonFormConstants.RADIO_BUTTON) || widgetType.equals(ConstantsUtils.EXTENDED_RADIO_BUTTON)) {
             processRadioButtonsSpecialWidget(widget, valueList);
         }
     }
 
     private static void processRadioButtonsSpecialWidget(JSONObject widget, List<String> valueList) throws Exception {
         //Value already good for radio buttons so no keylist
-        JSONArray jsonArray = widget.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+        JSONArray jsonArray = widget.getJSONArray(ANCJsonFormConstants.OPTIONS_FIELD_NAME);
 
         for (int i = 0; i < jsonArray.length(); i++) {
 
             JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-            if (widget.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(widget.getString(JsonFormConstants.VALUE)) &&
-                    jsonObject.getString(JsonFormConstants.KEY).equals(widget.getString(JsonFormConstants.VALUE))) {
+            if (widget.has(ANCJsonFormConstants.VALUE) && !TextUtils.isEmpty(widget.getString(ANCJsonFormConstants.VALUE)) &&
+                    jsonObject.getString(ANCJsonFormConstants.KEY).equals(widget.getString(ANCJsonFormConstants.VALUE))) {
 
-                if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) &&
-                        !TextUtils.isEmpty(jsonObject.getString(JsonFormConstants.SECONDARY_VALUE))) {
+                if (jsonObject.has(ANCJsonFormConstants.SECONDARY_VALUE) &&
+                        !TextUtils.isEmpty(jsonObject.getString(ANCJsonFormConstants.SECONDARY_VALUE))) {
 
                     jsonObject.put(ConstantsUtils.KeyUtils.PARENT_SECONDARY_KEY, getSecondaryKey(widget));
                     getRealSecondaryValue(jsonObject);
@@ -141,7 +146,7 @@ public class ANCFormUtils extends FormUtils {
                     break;
 
                 } else {
-                    valueList.add(jsonObject.getString(JsonFormConstants.TEXT));
+                    valueList.add(jsonObject.getString(ANCJsonFormConstants.TEXT));
                 }
             }
         }
@@ -154,39 +159,39 @@ public class ANCFormUtils extends FormUtils {
     private static void processCheckBoxSpecialWidget(JSONObject widget, List<String> keyList, List<String> valueList)
             throws Exception {
         //Clear previous selected values from the widget first
-        if (widget.has(JsonFormConstants.VALUE)) {
-            widget.remove(JsonFormConstants.VALUE);
+        if (widget.has(ANCJsonFormConstants.VALUE)) {
+            widget.remove(ANCJsonFormConstants.VALUE);
         }
         if (widget.has(getSecondaryKey(widget))) {
             widget.remove(getSecondaryKey(widget));
         }
-        JSONArray jsonArray = widget.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+        JSONArray jsonArray = widget.getJSONArray(ANCJsonFormConstants.OPTIONS_FIELD_NAME);
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
-            if (jsonObject.has(JsonFormConstants.VALUE) && jsonObject.getBoolean(JsonFormConstants.VALUE)) {
-                keyList.add(jsonObject.getString(JsonFormConstants.KEY));
-                if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) &&
-                        jsonObject.getJSONArray(JsonFormConstants.SECONDARY_VALUE).length() > 0) {
+            if (jsonObject.has(ANCJsonFormConstants.VALUE) && jsonObject.getBoolean(ANCJsonFormConstants.VALUE)) {
+                keyList.add(jsonObject.getString(ANCJsonFormConstants.KEY));
+                if (jsonObject.has(ANCJsonFormConstants.SECONDARY_VALUE) &&
+                        jsonObject.getJSONArray(ANCJsonFormConstants.SECONDARY_VALUE).length() > 0) {
                     getRealSecondaryValue(jsonObject);
                 } else {
-                    valueList.add(jsonObject.getString(JsonFormConstants.TEXT));
+                    valueList.add(jsonObject.getString(ANCJsonFormConstants.TEXT));
                 }
             }
         }
 
         if (keyList.size() > 0) {
-            widget.put(JsonFormConstants.VALUE, keyList);
+            widget.put(ANCJsonFormConstants.VALUE, keyList);
             widget.put(getSecondaryKey(widget), getListValuesAsString(valueList));
         }
     }
 
     public static void getRealSecondaryValue(JSONObject itemField) throws Exception {
-        JSONArray secondaryValues = itemField.getJSONArray(JsonFormConstants.SECONDARY_VALUE);
+        JSONArray secondaryValues = itemField.getJSONArray(ANCJsonFormConstants.SECONDARY_VALUE);
         itemField.put(ConstantsUtils.KeyUtils.SECONDARY_VALUES, new JSONArray());
 
         String keystone = itemField.has(ConstantsUtils.KeyUtils.PARENT_SECONDARY_KEY) ?
                 itemField.getString(ConstantsUtils.KeyUtils.PARENT_SECONDARY_KEY) : getSecondaryKey(itemField);
-        itemField.getJSONArray(ConstantsUtils.KeyUtils.SECONDARY_VALUES).put(new JSONObject(ImmutableMap.of(JsonFormConstants.KEY, keystone, JsonFormConstants.VALUE, itemField.getString(JsonFormConstants.TEXT))));
+        itemField.getJSONArray(ConstantsUtils.KeyUtils.SECONDARY_VALUES).put(new JSONObject(ImmutableMap.of(ANCJsonFormConstants.KEY, keystone, ANCJsonFormConstants.VALUE, itemField.getString(ANCJsonFormConstants.TEXT))));
 
         setSecondaryValues(itemField, secondaryValues);
     }
@@ -197,8 +202,8 @@ public class ANCFormUtils extends FormUtils {
 
             if (secValue.length() > 0) {
                 JSONArray values = new JSONArray();
-                if (secValue.has(JsonFormConstants.VALUES)) {
-                    values = secValue.getJSONArray(JsonFormConstants.VALUES);
+                if (secValue.has(ANCJsonFormConstants.VALUES)) {
+                    values = secValue.getJSONArray(ANCJsonFormConstants.VALUES);
                 }
 
                 int valueLength = values.length();
@@ -214,11 +219,11 @@ public class ANCFormUtils extends FormUtils {
 
     private static void setItemSecondaryValues(JSONObject itemField, JSONObject secValue, List<String> keyList, List<String> valueList) throws JSONException {
         JSONObject secValueJsonObject = new JSONObject(ImmutableMap
-                .of(JsonFormConstants.KEY, getSecondaryKey(secValue), JsonFormConstants.VALUE,
+                .of(ANCJsonFormConstants.KEY, getSecondaryKey(secValue), ANCJsonFormConstants.VALUE,
                         getListValuesAsString(valueList)));
         itemField.getJSONArray(ConstantsUtils.KeyUtils.SECONDARY_VALUES).put(secValueJsonObject);
 
-        secValue.put(JsonFormConstants.VALUE, keyList.size() > 0 ? keyList : valueList);
+        secValue.put(ANCJsonFormConstants.VALUE, keyList.size() > 0 ? keyList : valueList);
         itemField.getJSONArray(ConstantsUtils.KeyUtils.SECONDARY_VALUES).put(secValue);
     }
 
@@ -251,31 +256,31 @@ public class ANCFormUtils extends FormUtils {
         Map<String, String> vMap = new HashMap<>();
         JSONObject resultJsonObject = new JSONObject();
         JSONObject stepJsonObject = new JSONObject();
-        JSONArray fieldsJsonArray = jsonSubForm.getJSONArray(JsonFormConstants.CONTENT_FORM);
+        JSONArray fieldsJsonArray = jsonSubForm.getJSONArray(ANCJsonFormConstants.CONTENT_FORM);
 
-        if (parentObject.has(JsonFormConstants.VALUE) &&
-                !TextUtils.isEmpty(parentObject.getString(JsonFormConstants.VALUE))) {
-            if (parentObject.get(JsonFormConstants.VALUE) instanceof JSONArray) {
-                JSONArray jsonArray = parentObject.getJSONArray(JsonFormConstants.VALUE);
+        if (parentObject.has(ANCJsonFormConstants.VALUE) &&
+                !TextUtils.isEmpty(parentObject.getString(ANCJsonFormConstants.VALUE))) {
+            if (parentObject.get(ANCJsonFormConstants.VALUE) instanceof JSONArray) {
+                JSONArray jsonArray = parentObject.getJSONArray(ANCJsonFormConstants.VALUE);
                 for (int j = 0; j < jsonArray.length(); j++) {
                     populateValueMap(vMap, jsonArray.getJSONObject(j));
                 }
 
             } else {
-                populateValueMap(vMap, parentObject.getJSONObject(JsonFormConstants.VALUE));
+                populateValueMap(vMap, parentObject.getJSONObject(ANCJsonFormConstants.VALUE));
             }
 
             for (int l = 0; l < fieldsJsonArray.length(); l++) {
-                String value = vMap.get(fieldsJsonArray.getJSONObject(l).getString(JsonFormConstants.KEY));
+                String value = vMap.get(fieldsJsonArray.getJSONObject(l).getString(ANCJsonFormConstants.KEY));
                 if (!TextUtils.isEmpty(value)) {
-                    fieldsJsonArray.getJSONObject(l).put(JsonFormConstants.VALUE, value);
+                    fieldsJsonArray.getJSONObject(l).put(ANCJsonFormConstants.VALUE, value);
                 }
             }
 
         }
 
-        stepJsonObject.put(JsonFormConstants.FIELDS, fieldsJsonArray);
-        resultJsonObject.put(JsonFormConstants.FIRST_STEP_NAME, stepJsonObject);
+        stepJsonObject.put(ANCJsonFormConstants.FIELDS, fieldsJsonArray);
+        resultJsonObject.put(ANCJsonFormConstants.FIRST_STEP_NAME, stepJsonObject);
         resultJsonObject.put(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE, encounterType);
 
         return resultJsonObject;
@@ -283,8 +288,8 @@ public class ANCFormUtils extends FormUtils {
     }
 
     private static void populateValueMap(Map<String, String> vMap, JSONObject jsonObject) throws JSONException {
-        String key = jsonObject.getString(JsonFormConstants.KEY);
-        JSONArray values = jsonObject.getJSONArray(JsonFormConstants.VALUES);
+        String key = jsonObject.getString(ANCJsonFormConstants.KEY);
+        JSONArray values = jsonObject.getJSONArray(ANCJsonFormConstants.VALUES);
         for (int k = 0; k < values.length(); k++) {
             String valuesString = values.getString(k);
             vMap.put(key, valuesString.contains(":") ? valuesString.substring(0, valuesString.indexOf(":")) : valuesString);
@@ -297,7 +302,7 @@ public class ANCFormUtils extends FormUtils {
             while (keys.hasNext()) {
                 String key = keys.next();
                 if (key.startsWith(RuleConstant.STEP)) {
-                    JSONArray stepArray = object.getJSONObject(key).getJSONArray(JsonFormConstants.FIELDS);
+                    JSONArray stepArray = object.getJSONObject(key).getJSONArray(ANCJsonFormConstants.FIELDS);
 
                     for (int i = 0; i < stepArray.length(); i++) {
                         JSONObject fieldObject = stepArray.getJSONObject(i);
@@ -305,10 +310,10 @@ public class ANCFormUtils extends FormUtils {
 
                         String fieldKey = getObjectKey(fieldObject);
                         //Do not add to facts values from expansion panels since they are processed separately
-                        if (fieldKey != null && fieldObject.has(JsonFormConstants.VALUE) && fieldObject.has(JsonFormConstants.TYPE)
-                                && !JsonFormConstants.EXPANSION_PANEL.equals(fieldObject.getString(JsonFormConstants.TYPE))) {
+                        if (fieldKey != null && fieldObject.has(ANCJsonFormConstants.VALUE) && fieldObject.has(ANCJsonFormConstants.TYPE)
+                                && !ANCJsonFormConstants.EXPANSION_PANEL.equals(fieldObject.getString(ANCJsonFormConstants.TYPE))) {
 
-                            facts.put(fieldKey, fieldObject.getString(JsonFormConstants.VALUE));
+                            facts.put(fieldKey, fieldObject.getString(ANCJsonFormConstants.VALUE));
                             processAbnormalValues(facts, fieldObject);
                             String secKey = getSecondaryKey(fieldObject);
 
@@ -320,7 +325,7 @@ public class ANCFormUtils extends FormUtils {
                             processOtherCheckBoxField(facts, fieldObject);
                         }
 
-                        if (fieldObject.has(JsonFormConstants.CONTENT_FORM)) {
+                        if (fieldObject.has(ANCJsonFormConstants.CONTENT_FORM)) {
                             processRequiredStepsExpansionPanelValues(facts, fieldObject);
                         }
                     }
@@ -331,20 +336,20 @@ public class ANCFormUtils extends FormUtils {
 
     private static void processOtherCheckBoxField(Facts facts, JSONObject fieldObject) throws Exception {
         //Other field for check boxes
-        if (fieldObject.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE)) &&
+        if (fieldObject.has(ANCJsonFormConstants.VALUE) && !TextUtils.isEmpty(fieldObject.getString(ANCJsonFormConstants.VALUE)) &&
                 fieldObject.getString(ConstantsUtils.KeyUtils.KEY).endsWith(ConstantsUtils.SuffixUtils.OTHER) && facts.get(
                 fieldObject.getString(ConstantsUtils.KeyUtils.KEY).replace(ConstantsUtils.SuffixUtils.OTHER, ConstantsUtils.SuffixUtils.VALUE)) != null) {
 
-            facts.put(getSecondaryKey(fieldObject), fieldObject.getString(JsonFormConstants.VALUE));
+            facts.put(getSecondaryKey(fieldObject), fieldObject.getString(ANCJsonFormConstants.VALUE));
             processAbnormalValues(facts, fieldObject);
             // in complex expression of other where more than one other option is defined e.g. surgeries for profile has 2 items
             //To specify other for: gynecology surgery and the normal other fields with edit text
         } else if (fieldObject.has(ConstantsUtils.OTHER_FOR) && !TextUtils.isEmpty(fieldObject.getString(ConstantsUtils.OTHER_FOR))) {
             JSONObject otherFor = fieldObject.getJSONObject(ConstantsUtils.OTHER_FOR);
-            String parentKey = otherFor.getString(JsonFormConstants.PARENT_KEY) + ConstantsUtils.SuffixUtils.VALUE;
-            String parentLabel = otherFor.getString(JsonFormConstants.LABEL);
+            String parentKey = otherFor.getString(ANCJsonFormConstants.PARENT_KEY) + ConstantsUtils.SuffixUtils.VALUE;
+            String parentLabel = otherFor.getString(ANCJsonFormConstants.LABEL);
             String factValue = facts.get(parentKey);
-            String newValue = factValue.replace(parentLabel, fieldObject.getString(JsonFormConstants.VALUE));
+            String newValue = factValue.replace(parentLabel, fieldObject.getString(ANCJsonFormConstants.VALUE));
             facts.put(parentKey, newValue);
         }
     }
@@ -377,19 +382,20 @@ public class ANCFormUtils extends FormUtils {
      * @throws Exception {@link JSONException}
      */
     private static void processRequiredStepsExpansionPanelValues(Facts facts, JSONObject fieldObject) throws Exception {
-        if (fieldObject.has(JsonFormConstants.TYPE) &&
-                JsonFormConstants.EXPANSION_PANEL.equals(fieldObject.getString(JsonFormConstants.TYPE)) &&
-                fieldObject.has(JsonFormConstants.VALUE)) {
-            JSONArray expansionPanelValue = fieldObject.getJSONArray(JsonFormConstants.VALUE);
-
-            for (int j = 0; j < expansionPanelValue.length(); j++) {
+        if (fieldObject.has(ANCJsonFormConstants.TYPE) &&
+                ANCJsonFormConstants.EXPANSION_PANEL.equals(fieldObject.getString(ANCJsonFormConstants.TYPE)) &&
+                fieldObject.has(ANCJsonFormConstants.VALUE)) {
+            JSONArray expansionPanelValue = fieldObject.getJSONArray(ANCJsonFormConstants.VALUE);
+            int length = expansionPanelValue.length();
+            for (int j = 0; j < length; j++) {
                 JSONObject jsonObject = expansionPanelValue.getJSONObject(j);
                 ExpansionPanelItemModel expansionPanelItem = getExpansionPanelItem(
-                        jsonObject.getString(JsonFormConstants.KEY), expansionPanelValue);
+                        jsonObject.getString(ANCJsonFormConstants.KEY), expansionPanelValue);
 
-                if (jsonObject.has(JsonFormConstants.TYPE) && (JsonFormConstants.CHECK_BOX.equals(jsonObject.getString(JsonFormConstants.TYPE))
-                        || JsonFormConstants.NATIVE_RADIO_BUTTON.equals(jsonObject.getString(JsonFormConstants.TYPE)) ||
-                        JsonFormConstants.EXTENDED_RADIO_BUTTON.equals(jsonObject.getString(JsonFormConstants.TYPE)))) {
+
+                if (jsonObject.has(ANCJsonFormConstants.TYPE) && (ANCJsonFormConstants.CHECK_BOX.equals(jsonObject.getString(ANCJsonFormConstants.TYPE))
+                        || ANCJsonFormConstants.NATIVE_RADIO_BUTTON.equals(jsonObject.getString(ANCJsonFormConstants.TYPE)) ||
+                        ANCJsonFormConstants.EXTENDED_RADIO_BUTTON.equals(jsonObject.getString(ANCJsonFormConstants.TYPE)))) {
 
                     facts.put(expansionPanelItem.getKey(), expansionPanelItem.getSelectedKeys());
                     facts.put(expansionPanelItem.getKey() + ConstantsUtils.SuffixUtils.VALUE, expansionPanelItem.getSelectedValues());
@@ -430,7 +436,7 @@ public class ANCFormUtils extends FormUtils {
         for (int j = 0; j < secondaryValues.length(); j++) {
             JSONObject jsonObject = secondaryValues.getJSONObject(j);
 
-            if (jsonObject.has(JsonFormConstants.KEY) && jsonObject.getString(JsonFormConstants.KEY)
+            if (jsonObject.has(ANCJsonFormConstants.KEY) && jsonObject.getString(ANCJsonFormConstants.KEY)
                     .endsWith(ConstantsUtils.SuffixUtils.OTHER)) {
                 otherValue = jsonObject;
             } else {
@@ -449,7 +455,7 @@ public class ANCFormUtils extends FormUtils {
 
         //Expansion panel widgets have "values" attribute with no "value" do not process them
         //We will handle the processing somewhere else.
-        if (jsonObject.has(JsonFormConstants.VALUES) && !jsonObject.has(JsonFormConstants.VALUE)) {
+        if (jsonObject.has(ANCJsonFormConstants.VALUES) && !jsonObject.has(ANCJsonFormConstants.VALUE)) {
             return;
         }
 
@@ -523,19 +529,19 @@ public class ANCFormUtils extends FormUtils {
             String step = filteredItems.getString(index).split("_")[0];
             String key = removeKeyPrefix(filteredItems.getString(index), step);
             JSONObject checkBoxField = FormUtils.getFieldJSONObject(FormUtils.fields(mainJsonObject, step), key);
-            if (!mainJsonObject.has(ConstantsUtils.GLOBAL) || checkBoxField == null || !checkBoxField.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.CHECK_BOX)) {
+            if (!mainJsonObject.has(ConstantsUtils.GLOBAL) || checkBoxField == null || !checkBoxField.getString(ANCJsonFormConstants.TYPE).equals(ANCJsonFormConstants.CHECK_BOX)) {
                 return;
             }
             if (!checkBoxField.optBoolean(ConstantsUtils.IS_FILTERED, false)) {
                 ArrayList<JSONObject> newOptionsList = new ArrayList<>();
                 Map<String, JSONObject> optionsMap = new HashMap<>();
-                JSONArray checkboxOptions = checkBoxField.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+                JSONArray checkboxOptions = checkBoxField.getJSONArray(ANCJsonFormConstants.OPTIONS_FIELD_NAME);
 
                 getOptionsMap(optionsMap, checkboxOptions);
                 setUpNoneForSpecialTreatment(newOptionsList, optionsMap, optionsMap.containsKey("none"), "none");
                 if (checkForFilterSources(mainJsonObject, checkBoxField, newOptionsList, optionsMap))
                     return;
-                checkBoxField.put(JsonFormConstants.OPTIONS_FIELD_NAME, new JSONArray(newOptionsList));
+                checkBoxField.put(ANCJsonFormConstants.OPTIONS_FIELD_NAME, new JSONArray(newOptionsList));
                 checkBoxField.put(ConstantsUtils.IS_FILTERED, true);
             }
         }
@@ -548,7 +554,7 @@ public class ANCFormUtils extends FormUtils {
     private static void getOptionsMap(Map<String, JSONObject> optionsMap, JSONArray checkboxOptions) throws JSONException {
         for (int i = 0; i < checkboxOptions.length(); i++) {
             JSONObject item = checkboxOptions.getJSONObject(i);
-            optionsMap.put(item.getString(JsonFormConstants.KEY), item);
+            optionsMap.put(item.getString(ANCJsonFormConstants.KEY), item);
         }
     }
 
@@ -593,7 +599,7 @@ public class ANCFormUtils extends FormUtils {
             if (filterOptions.length() > 0) {
                 for (int count = 0; count < filterOptions.length(); count++) {
                     JSONObject filterOption = filterOptions.getJSONObject(count);
-                    if (!filterOption.has(JsonFormConstants.KEY) && !filterOption.has(JsonFormConstants.VALUE)) {
+                    if (!filterOption.has(ANCJsonFormConstants.KEY) && !filterOption.has(ANCJsonFormConstants.VALUE)) {
                         Timber.e("JsonObject for filter options must contain a key value pair with an optional options attribute");
                         return true;
                     }
@@ -602,7 +608,7 @@ public class ANCFormUtils extends FormUtils {
                     String globalValue = mainJsonObject.getJSONObject(ConstantsUtils.GLOBAL).getString(keyGlobal);
 
                     if (compareItemAndValueGlobal(itemValue, globalValue)) {
-                        JSONArray optionsToFilter = filterOption.optJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+                        JSONArray optionsToFilter = filterOption.optJSONArray(ANCJsonFormConstants.OPTIONS_FIELD_NAME);
                         if (optionsToFilter == null) {
                             String itemKey = removeKeyPrefix(keyGlobal, ConstantsUtils.PREVIOUS);
                             newOptionsList.add(optionsMap.get(itemKey));
@@ -619,11 +625,11 @@ public class ANCFormUtils extends FormUtils {
     }
 
     public static String getObjectKey(JSONObject jsonObject) throws JSONException {
-        return jsonObject.has(JsonFormConstants.KEY) ? jsonObject.getString(JsonFormConstants.KEY) : null;
+        return jsonObject.has(ANCJsonFormConstants.KEY) ? jsonObject.getString(ANCJsonFormConstants.KEY) : null;
     }
 
     public static String getObjectValue(JSONObject jsonObject) throws JSONException {
-        return jsonObject.has(JsonFormConstants.VALUE) ? jsonObject.getString(JsonFormConstants.VALUE) : null;
+        return jsonObject.has(ANCJsonFormConstants.VALUE) ? jsonObject.getString(ANCJsonFormConstants.VALUE) : null;
     }
 
     private static boolean compareItemAndValueGlobal(String itemValue, String globalValue) {
@@ -662,9 +668,9 @@ public class ANCFormUtils extends FormUtils {
      */
     public void saveExpansionPanelValues(String baseEntityId, String contactNo, JSONObject valueItem) throws JSONException {
         String result = "";
-        if (valueItem.has(JsonFormConstants.TYPE) && valueItem.has(JsonFormConstants.VALUES)) {
-            String type = valueItem.optString(JsonFormConstants.TYPE);
-            JSONArray values = valueItem.optJSONArray(JsonFormConstants.VALUES);
+        if (valueItem.has(ANCJsonFormConstants.TYPE) && valueItem.has(ANCJsonFormConstants.VALUES)) {
+            String type = valueItem.optString(ANCJsonFormConstants.TYPE);
+            JSONArray values = valueItem.optJSONArray(ANCJsonFormConstants.VALUES);
             result = extractItemValue(type, values);
         }
 
@@ -674,8 +680,8 @@ public class ANCFormUtils extends FormUtils {
             return;
         }
         JSONObject itemToSave = new JSONObject();
-        itemToSave.put(JsonFormConstants.KEY, valueItem.getString(JsonFormConstants.KEY));
-        itemToSave.put(JsonFormConstants.VALUE, result);
+        itemToSave.put(ANCJsonFormConstants.KEY, valueItem.getString(ANCJsonFormConstants.KEY));
+        itemToSave.put(ANCJsonFormConstants.VALUE, result);
         itemToSave.put(PreviousContactRepository.CONTACT_NO, contactNo);
         savePreviousContactItem(baseEntityId, itemToSave);
     }
@@ -689,8 +695,8 @@ public class ANCFormUtils extends FormUtils {
      */
     public void savePreviousContactItem(String baseEntityId, JSONObject fieldObject) throws JSONException {
         PreviousContact previousContact = new PreviousContact();
-        previousContact.setKey(fieldObject.getString(JsonFormConstants.KEY));
-        previousContact.setValue(fieldObject.getString(JsonFormConstants.VALUE));
+        previousContact.setKey(fieldObject.getString(ANCJsonFormConstants.KEY));
+        previousContact.setValue(fieldObject.getString(ANCJsonFormConstants.VALUE));
         previousContact.setBaseEntityId(baseEntityId);
         previousContact.setContactNo(fieldObject.getString(PreviousContactRepository.CONTACT_NO));
         getPreviousContactRepository().savePreviousContact(previousContact);
@@ -725,9 +731,9 @@ public class ANCFormUtils extends FormUtils {
      */
     public void updateFormFields(JSONObject form, JSONArray fields) {
         try {
-            if (form != null && fields != null && fields.length() > 0 && form.has(JsonFormConstants.STEP1)) {
-                JSONObject stepOne = form.getJSONObject(JsonFormConstants.STEP1);
-                stepOne.put(JsonFormConstants.FIELDS, fields);
+            if (form != null && fields != null && fields.length() > 0 && form.has(ANCJsonFormConstants.STEP1)) {
+                JSONObject stepOne = form.getJSONObject(ANCJsonFormConstants.STEP1);
+                stepOne.put(ANCJsonFormConstants.FIELDS, fields);
             }
         } catch (JSONException e) {
             Timber.e(e, " --> updateFormFields");
@@ -737,16 +743,17 @@ public class ANCFormUtils extends FormUtils {
 
     /**
      * Update form properties file name according to the test fields populated
-     *  @param taskValue {@link JSONObject}
-     * @param form   {@link JSONObject}
+     *
+     * @param taskValue {@link JSONObject}
+     * @param form      {@link JSONObject}
      */
     public void updateFormPropertiesFileName(JSONObject form, JSONObject taskValue, Context context) {
         try {
-            if (taskValue != null && taskValue.has(JsonFormConstants.CONTENT_FORM)) {
-                String subFormName = taskValue.getString(JsonFormConstants.CONTENT_FORM);
+            if (taskValue != null && taskValue.has(ANCJsonFormConstants.CONTENT_FORM)) {
+                String subFormName = taskValue.getString(ANCJsonFormConstants.CONTENT_FORM);
                 JSONObject subForm = FormUtils.getSubFormJson(subFormName, "", context);
-                String fileName = subForm.optString(JsonFormConstants.MLS.PROPERTIES_FILE_NAME);
-                form.put(JsonFormConstants.MLS.PROPERTIES_FILE_NAME, fileName);
+                String fileName = subForm.optString(ANCJsonFormConstants.MLS.PROPERTIES_FILE_NAME);
+                form.put(ANCJsonFormConstants.MLS.PROPERTIES_FILE_NAME, fileName);
             }
         } catch (JSONException e) {
             Timber.e(e, " --> updateFormPropertiesFileName");
@@ -757,8 +764,9 @@ public class ANCFormUtils extends FormUtils {
 
     /**
      * get translated form name according to key
+     *
      * @param formKey {@link String}
-     * @param context   {@link Context}
+     * @param context {@link Context}
      */
     public String getTranslatedFormTitle(String formKey, Context context) {
         try {
@@ -769,4 +777,5 @@ public class ANCFormUtils extends FormUtils {
         }
         return "";
     }
+
 }

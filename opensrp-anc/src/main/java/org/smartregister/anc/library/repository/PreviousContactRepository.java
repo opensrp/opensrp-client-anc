@@ -1,6 +1,7 @@
 package org.smartregister.anc.library.repository;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -9,6 +10,8 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
+import org.json.JSONObject;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.model.PreviousContact;
 import org.smartregister.anc.library.model.PreviousContactsSummaryModel;
 import org.smartregister.anc.library.util.ANCFormUtils;
@@ -52,7 +55,7 @@ public class PreviousContactRepository extends BaseRepository {
     private static final String INDEX_CONTACT_NO = "CREATE INDEX " + TABLE_NAME + "_" + CONTACT_NO +
             "_index ON " + TABLE_NAME + "(" + CONTACT_NO + " COLLATE NOCASE);";
 
-    private String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, BASE_ENTITY_ID, CREATED_AT};
+    private final String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, BASE_ENTITY_ID, CREATED_AT};
 
     public static void createTable(SQLiteDatabase database) {
         database.execSQL(CREATE_TABLE_SQL);
@@ -61,6 +64,7 @@ public class PreviousContactRepository extends BaseRepository {
         database.execSQL(INDEX_KEY);
         database.execSQL(INDEX_CONTACT_NO);
     }
+
 
     public void savePreviousContact(PreviousContact previousContact) {
         if (previousContact == null) return;
@@ -311,18 +315,33 @@ public class PreviousContactRepository extends BaseRepository {
         Facts previousContactFacts = new Facts();
         try {
             SQLiteDatabase db = getReadableDatabase();
-
             if (StringUtils.isNotBlank(baseEntityId) && StringUtils.isNotBlank(contactNo)) {
                 selection = BASE_ENTITY_ID + " = ? AND " + CONTACT_NO + " = ?";
                 selectionArgs = new String[]{baseEntityId, getContactNo(contactNo, checkNegative)};
             }
-
             mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
-
             if (mCursor != null && mCursor.getCount() > 0) {
                 while (mCursor.moveToNext()) {
-                    previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)),
-                            mCursor.getString(mCursor.getColumnIndex(VALUE)));
+                    Context context = AncLibrary.getInstance().getApplicationContext();
+                    String value = org.smartregister.util.Utils.getProperties(context).getProperty(ConstantsUtils.Properties.WIDGET_VALUE_TRANSLATED, "false");
+                    if (StringUtils.isNotBlank(value) && Boolean.parseBoolean(value)) {
+                        String previousContactValue = mCursor.getString(mCursor.getColumnIndex(VALUE));
+                        if (StringUtils.isNotBlank(previousContactValue) && previousContactValue.trim().charAt(0) == '{') {
+                            JSONObject previousContactObject = new JSONObject(previousContactValue);
+                            if (previousContactObject.has("value") && previousContactObject.has("text")) {
+                                String translation_text;
+                                translation_text = !previousContactObject.getString("text").isEmpty() ? "{" + previousContactObject.getString("text") + "}" : "";
+                                previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), translation_text);
+                            } else {
+                                previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), previousContactValue);
+                            }
+                        } else {
+                            previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), previousContactValue);
+                        }
+
+                    } else {
+                        previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), mCursor.getString(mCursor.getColumnIndex(VALUE)));
+                    }
 
                 }
                 previousContactFacts.put(CONTACT_NO, selectionArgs[1]);

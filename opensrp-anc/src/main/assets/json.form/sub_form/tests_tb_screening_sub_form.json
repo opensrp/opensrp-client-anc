@@ -13,6 +13,7 @@
         {
           "key": "done_today",
           "text": "{{tests_tb_screening_sub_form.step1.tb_screening_status.done_today.text}}",
+          "translation_text": "tests_tb_screening_sub_form.step1.tb_screening_status.done_today.text",
           "type": "done_today",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -21,6 +22,7 @@
         {
           "key": "done_earlier",
           "text": "{{tests_tb_screening_sub_form.step1.tb_screening_status.done_earlier.text}}",
+          "translation_text": "tests_tb_screening_sub_form.step1.tb_screening_status.done_earlier.text",
           "type": "done_earlier",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -29,6 +31,7 @@
         {
           "key": "ordered",
           "text": "{{tests_tb_screening_sub_form.step1.tb_screening_status.ordered.text}}",
+          "translation_text": "tests_tb_screening_sub_form.step1.tb_screening_status.ordered.text",
           "type": "ordered",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -37,6 +40,7 @@
         {
           "key": "not_done",
           "text": "{{tests_tb_screening_sub_form.step1.tb_screening_status.not_done.text}}",
+          "translation_text": "tests_tb_screening_sub_form.step1.tb_screening_status.not_done.text",
           "type": "not_done",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -68,6 +72,7 @@
         {
           "key": "sputum_smear",
           "text": "{{tests_tb_screening_sub_form.step1.tb_screening_notdone.options.sputum_smear.text}}",
+          "translation_text": "tests_tb_screening_sub_form.step1.tb_screening_notdone.options.sputum_smear.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165401AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -75,6 +80,7 @@
         {
           "key": "sputum_culture",
           "text": "{{tests_tb_screening_sub_form.step1.tb_screening_notdone.options.sputum_culture.text}}",
+          "translation_text": "tests_tb_screening_sub_form.step1.tb_screening_notdone.options.sputum_culture.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165402AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -82,6 +88,7 @@
         {
           "key": "genexpert_machine",
           "text": "{{tests_tb_screening_sub_form.step1.tb_screening_notdone.options.genexpert_machine.text}}",
+          "translation_text": "tests_tb_screening_sub_form.step1.tb_screening_notdone.options.genexpert_machine.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165403AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -89,6 +96,7 @@
         {
           "key": "xray_machine",
           "text": "{{tests_tb_screening_sub_form.step1.tb_screening_notdone.options.xray_machine.text}}",
+          "translation_text": "tests_tb_screening_sub_form.step1.tb_screening_notdone.options.xray_machine.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165404AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -96,6 +104,7 @@
         {
           "key": "no_sputum_supplies",
           "text": "{{tests_tb_screening_sub_form.step1.tb_screening_notdone.options.no_sputum_supplies.text}}",
+          "translation_text": "tests_tb_screening_sub_form.step1.tb_screening_notdone.options.no_sputum_supplies.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165183AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -103,6 +112,7 @@
         {
           "key": "machine_not_functioning",
           "text": "{{tests_tb_screening_sub_form.step1.tb_screening_notdone.options.machine_not_functioning.text}}",
+          "translation_text": "tests_tb_screening_sub_form.step1.tb_screening_notdone.options.machine_not_functioning.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165179AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -110,6 +120,7 @@
         {
           "key": "technician_not_available",
           "text": "{{tests_tb_screening_sub_form.step1.tb_screening_notdone.options.technician_not_available.text}}",
+          "translation_text": "tests_tb_screening_sub_form.step1.tb_screening_notdone.options.technician_not_available.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165400AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -117,6 +128,7 @@
         {
           "key": "other",
           "text": "{{tests_tb_screening_sub_form.step1.tb_screening_notdone.options.other.text}}",
+          "translation_text": "tests_tb_screening_sub_form.step1.tb_screening_notdone.options.other.text",
           "openmrs_entity_parent": "164800AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -206,6 +218,7 @@
         {
           "key": "positive",
           "text": "{{tests_tb_screening_sub_form.step1.tb_screening_result.options.positive.text}}",
+          "translation_text": "tests_tb_screening_sub_form.step1.tb_screening_result.options.positive.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -213,6 +226,7 @@
         {
           "key": "negative",
           "text": "{{tests_tb_screening_sub_form.step1.tb_screening_result.options.negative.text}}",
+          "translation_text": "tests_tb_screening_sub_form.step1.tb_screening_result.options.negative.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -220,6 +234,7 @@
         {
           "key": "inconclusive",
           "text": "{{tests_tb_screening_sub_form.step1.tb_screening_result.options.inconclusive.text}}",
+          "translation_text": "tests_tb_screening_sub_form.step1.tb_screening_result.options.inconclusive.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -227,6 +242,7 @@
         {
           "key": "incomplete",
           "text": "{{tests_tb_screening_sub_form.step1.tb_screening_result.options.incomplete.text}}",
+          "translation_text": "tests_tb_screening_sub_form.step1.tb_screening_result.options.incomplete.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "163339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -251,6 +267,7 @@
       "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "{{tests_tb_screening_sub_form.step1.tb_screening_danger_toaster.text}}",
+      "translation_text": "tests_tb_screening_sub_form.step1.tb_screening_danger_toaster.text",
       "toaster_info_text": "{{tests_tb_screening_sub_form.step1.tb_screening_danger_toaster.toaster_info_text}}",
       "toaster_info_title": "{{tests_tb_screening_sub_form.step1.tb_screening_danger_toaster.toaster_info_title}}",
       "toaster_type": "problem",

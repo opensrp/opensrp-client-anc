@@ -13,6 +13,7 @@
         {
           "key": "done_today",
           "text": "{{tests_hepatitis_c_sub_form.step1.hepc_test_status.done_today.text}}",
+          "translation_text": "tests_hepatitis_c_sub_form.step1.hepc_test_status.done_today.text",
           "type": "done_today",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -21,6 +22,7 @@
         {
           "key": "done_earlier",
           "text": "{{tests_hepatitis_c_sub_form.step1.hepc_test_status.done_earlier.text}}",
+          "translation_text": "tests_hepatitis_c_sub_form.step1.hepc_test_status.done_earlier.text",
           "type": "done_earlier",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -29,6 +31,7 @@
         {
           "key": "ordered",
           "text": "{{tests_hepatitis_c_sub_form.step1.hepc_test_status.ordered.text}}",
+          "translation_text": "tests_hepatitis_c_sub_form.step1.hepc_test_status.ordered.text",
           "type": "ordered",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -37,6 +40,7 @@
         {
           "key": "not_done",
           "text": "{{tests_hepatitis_c_sub_form.step1.hepc_test_status.not_done.text}}",
+          "translation_text": "tests_hepatitis_c_sub_form.step1.hepc_test_status.not_done.text",
           "type": "not_done",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -67,6 +71,7 @@
         {
           "key": "stock_out",
           "text": "{{tests_hepatitis_c_sub_form.step1.hepc_test_notdone.options.stock_out.text}}",
+          "translation_text": "tests_hepatitis_c_sub_form.step1.hepc_test_notdone.options.stock_out.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165183AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -74,6 +79,7 @@
         {
           "key": "expired_stock",
           "text": "{{tests_hepatitis_c_sub_form.step1.hepc_test_notdone.options.expired_stock.text}}",
+          "translation_text": "tests_hepatitis_c_sub_form.step1.hepc_test_notdone.options.expired_stock.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -81,6 +87,7 @@
         {
           "key": "other",
           "text": "{{tests_hepatitis_c_sub_form.step1.hepc_test_notdone.options.other.text}}",
+          "translation_text": "tests_hepatitis_c_sub_form.step1.hepc_test_notdone.options.other.text",
           "openmrs_entity_parent": "161474AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -171,6 +178,7 @@
         {
           "key": "anti_hcv_lab_based",
           "text": "{{tests_hepatitis_c_sub_form.step1.hepc_test_type.options.anti_hcv_lab_based.text}}",
+          "translation_text": "tests_hepatitis_c_sub_form.step1.hepc_test_type.options.anti_hcv_lab_based.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1325AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -178,6 +186,7 @@
         {
           "key": "anti_hcv_rdt",
           "text": "{{tests_hepatitis_c_sub_form.step1.hepc_test_type.options.anti_hcv_rdt.text}}",
+          "translation_text": "tests_hepatitis_c_sub_form.step1.hepc_test_type.options.anti_hcv_rdt.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165302AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -185,6 +194,7 @@
         {
           "key": "anti_hcv_dbs",
           "text": "{{tests_hepatitis_c_sub_form.step1.hepc_test_type.options.anti_hcv_dbs.text}}",
+          "translation_text": "tests_hepatitis_c_sub_form.step1.hepc_test_type.options.anti_hcv_dbs.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "161471AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -213,6 +223,7 @@
         {
           "key": "positive",
           "text": "{{tests_hepatitis_c_sub_form.step1.hcv_lab_ima.options.positive.text}}",
+          "translation_text": "tests_hepatitis_c_sub_form.step1.hcv_lab_ima.options.positive.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -220,6 +231,7 @@
         {
           "key": "negative",
           "text": "{{tests_hepatitis_c_sub_form.step1.hcv_lab_ima.options.negative.text}}",
+          "translation_text": "tests_hepatitis_c_sub_form.step1.hcv_lab_ima.options.negative.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -248,6 +260,7 @@
         {
           "key": "positive",
           "text": "{{tests_hepatitis_c_sub_form.step1.hcv_rdt.options.positive.text}}",
+          "translation_text": "tests_hepatitis_c_sub_form.step1.hcv_rdt.options.positive.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -255,6 +268,7 @@
         {
           "key": "negative",
           "text": "{{tests_hepatitis_c_sub_form.step1.hcv_rdt.options.negative.text}}",
+          "translation_text": "tests_hepatitis_c_sub_form.step1.hcv_rdt.options.negative.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -283,6 +297,7 @@
         {
           "key": "positive",
           "text": "{{tests_hepatitis_c_sub_form.step1.hcv_dbs.options.positive.text}}",
+          "translation_text": "tests_hepatitis_c_sub_form.step1.hcv_dbs.options.positive.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -290,6 +305,7 @@
         {
           "key": "negative",
           "text": "{{tests_hepatitis_c_sub_form.step1.hcv_dbs.options.negative.text}}",
+          "translation_text": "tests_hepatitis_c_sub_form.step1.hcv_dbs.options.negative.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -329,6 +345,7 @@
       "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "{{tests_hepatitis_c_sub_form.step1.hepatitis_c_danger_toaster.text}}",
+      "translation_text": "tests_hepatitis_c_sub_form.step1.hepatitis_c_danger_toaster.text",
       "toaster_info_text": "{{tests_hepatitis_c_sub_form.step1.hepatitis_c_danger_toaster.toaster_info_text}}",
       "toaster_info_title": "{{tests_hepatitis_c_sub_form.step1.hepatitis_c_danger_toaster.toaster_info_title}}",
       "toaster_type": "problem",

@@ -11,7 +11,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.vijay.jsonwizard.activities.FormConfigurationJsonFormActivity;
-import com.vijay.jsonwizard.constants.JsonFormConstants;
+import org.smartregister.anc.library.constants.ANCJsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
 
@@ -60,9 +60,9 @@ public class ContactJsonFormActivity extends FormConfigurationJsonFormActivity {
             }
 
             //populate them global values
-            if (getmJSONObject().has(JsonFormConstants.JSON_FORM_KEY.GLOBAL)) {
+            if (getmJSONObject().has(ANCJsonFormConstants.JSON_FORM_KEY.GLOBAL)) {
                 globalValues = new Gson()
-                        .fromJson(getmJSONObject().getJSONObject(JsonFormConstants.JSON_FORM_KEY.GLOBAL).toString(),
+                        .fromJson(getmJSONObject().getJSONObject(ANCJsonFormConstants.JSON_FORM_KEY.GLOBAL).toString(),
                                 new TypeToken<HashMap<String, String>>() {
                                 }.getType());
             } else {
@@ -88,7 +88,7 @@ public class ContactJsonFormActivity extends FormConfigurationJsonFormActivity {
 
     protected void initializeFormFragmentCore() {
         JsonWizardFormFragment contactJsonFormFragment =
-                ContactWizardJsonFormFragment.getFormFragment(JsonFormConstants.FIRST_STEP_NAME);
+                ContactWizardJsonFormFragment.getFormFragment(ANCJsonFormConstants.FIRST_STEP_NAME);
 
         getSupportFragmentManager().beginTransaction().add(com.vijay.jsonwizard.R.id.container, contactJsonFormFragment).commit();
     }
@@ -118,15 +118,15 @@ public class ContactJsonFormActivity extends FormConfigurationJsonFormActivity {
 
             for (int i = 0; i < fields.length(); i++) {
                 JSONObject item = fields.getJSONObject(i);
-                String keyAtIndex = item.getString(JsonFormConstants.KEY);
+                String keyAtIndex = item.getString(ANCJsonFormConstants.KEY);
                 if (parentKey.equals(keyAtIndex)) {
                     JSONArray jsonArray = item.getJSONArray(childObjectKey);
                     for (int j = 0; j < jsonArray.length(); j++) {
                         JSONObject innerItem = jsonArray.getJSONObject(j);
-                        String anotherKeyAtIndex = innerItem.getString(JsonFormConstants.KEY);
+                        String anotherKeyAtIndex = innerItem.getString(ANCJsonFormConstants.KEY);
 
                         if (childKey.equals(anotherKeyAtIndex)) {
-                            innerItem.put(JsonFormConstants.VALUE, value);
+                            innerItem.put(ANCJsonFormConstants.VALUE, value);
                             if (StringUtils.isNotBlank(formName) && formName.equals(ConstantsUtils.JsonFormUtils.ANC_QUICK_CHECK)) {
                                 quickCheckDangerSignsSelectionHandler(fields);
                             }
@@ -143,12 +143,12 @@ public class ContactJsonFormActivity extends FormConfigurationJsonFormActivity {
 
     @Override
     public void onBackPressed() {
-        if (getmJSONObject().optString(JsonFormConstants.ENCOUNTER_TYPE).equals(ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE)) {
+        if (getmJSONObject().optString(ANCJsonFormConstants.ENCOUNTER_TYPE).equals(ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE)) {
             ContactWizardJsonFormFragment contactWizardJsonFormFragment = (ContactWizardJsonFormFragment) getVisibleFragment();
             contactWizardJsonFormFragment.getPresenter().validateAndWriteValues();
             Intent intent = new Intent();
             intent.putExtra("formInvalidFields",
-                    getmJSONObject().optString(JsonFormConstants.ENCOUNTER_TYPE) + ":" + contactWizardJsonFormFragment.getPresenter().getInvalidFields().size());
+                    getmJSONObject().optString(ANCJsonFormConstants.ENCOUNTER_TYPE) + ":" + contactWizardJsonFormFragment.getPresenter().getInvalidFields().size());
             setResult(RESULT_OK, intent);
         }
 
@@ -200,17 +200,17 @@ public class ContactJsonFormActivity extends FormConfigurationJsonFormActivity {
         if (fragment instanceof ContactWizardJsonFormFragment) {
             for (int i = 0; i < fields.length(); i++) {
                 JSONObject jsonObject = fields.getJSONObject(i);
-                if (jsonObject != null && jsonObject.getString(JsonFormConstants.KEY).equals(ConstantsUtils.DANGER_SIGNS)) {
+                if (jsonObject != null && jsonObject.getString(ANCJsonFormConstants.KEY).equals(ConstantsUtils.DANGER_SIGNS)) {
 
-                    JSONArray jsonArray = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+                    JSONArray jsonArray = jsonObject.getJSONArray(ANCJsonFormConstants.OPTIONS_FIELD_NAME);
                     for (int k = 0; k < jsonArray.length(); k++) {
                         JSONObject item = jsonArray.getJSONObject(k);
-                        if (item != null && item.getBoolean(JsonFormConstants.VALUE)) {
-                            if (item.getString(JsonFormConstants.KEY).equals(ConstantsUtils.DANGER_NONE)) {
+                        if (item != null && item.getBoolean(ANCJsonFormConstants.VALUE)) {
+                            if (item.getString(ANCJsonFormConstants.KEY).equals(ConstantsUtils.DANGER_NONE)) {
                                 none = true;
                             }
 
-                            if (!item.getString(JsonFormConstants.KEY).equals(ConstantsUtils.DANGER_NONE)) {
+                            if (!item.getString(ANCJsonFormConstants.KEY).equals(ConstantsUtils.DANGER_NONE)) {
                                 other = true;
                             }
                         }
@@ -248,7 +248,7 @@ public class ContactJsonFormActivity extends FormConfigurationJsonFormActivity {
             progressDialog = new ProgressDialog(this);
             progressDialog.setCancelable(false);
             progressDialog.setTitle(titleIdentifier);
-            progressDialog.setMessage(getString(R.string.please_wait_message));
+            progressDialog.setMessage(getString(R.string.dialog_please_wait));
         }
 
         if (!isFinishing()) progressDialog.show();

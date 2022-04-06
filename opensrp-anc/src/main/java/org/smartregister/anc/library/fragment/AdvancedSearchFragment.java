@@ -89,7 +89,8 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
     @Override
     protected void initializePresenter() {
         String viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
-        presenter = new AdvancedSearchPresenter(this, viewConfigurationIdentifier);
+        presenter = new AdvancedSearchPresenter(getContext(), this, viewConfigurationIdentifier);
+
 
     }
 
@@ -182,7 +183,7 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
             searchButton.setVisibility(View.VISIBLE);
 
             if (titleLabelView != null) {
-                titleLabelView.setText(getString(R.string.advanced_search));
+                titleLabelView.setText(getString(R.string.search_advanced));
             }
 
 
@@ -192,7 +193,7 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
 
     public void updateMatchingResults(int count) {
         if (matchingResults != null) {
-            matchingResults.setText(String.format(getString(R.string.matching_results), String.valueOf(count)));
+            matchingResults.setText(String.format(getString(R.string.search_matching_results), String.valueOf(count)));
             matchingResults.setVisibility(View.VISIBLE);
         }
     }

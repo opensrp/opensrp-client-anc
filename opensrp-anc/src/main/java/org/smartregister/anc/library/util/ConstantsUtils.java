@@ -64,15 +64,17 @@ public abstract class ConstantsUtils {
     public static final String OTHER_FOR = "other_for";
     public static final String OTHER = "other";
     public static final String CONTINUE = "Continue";
-    public static final String DUE = "Jatuh tempo";
+    public static final String DUE = "Due";
     public static final String OPEN_TEST_TASKS = "open_test_tasks";
     public static final String ANDROID_SWITCHER = "android:switcher:";
     public static final String IS_FIRST_CONTACT = "is_first_contact";
+
 
     public interface Properties {
         String CAN_SAVE_SITE_INITIAL_SETTING = "CAN_SAVE_INITIAL_SITE_SETTING";
         String MAX_CONTACT_SCHEDULE_DISPLAYED = "MAX_CONTACT_SCHEDULE_DISPLAYED";
         String DUE_CHECK_STRATEGY = "DUE_CHECK_STRATEGY";
+        String WIDGET_VALUE_TRANSLATED = "widget.value.translated";
     }
 
     public interface DueCheckStrategy {
@@ -94,6 +96,14 @@ public abstract class ConstantsUtils {
         public static final String ORDERED = "ordered";
         public static final String NOT_DONE = "not_done";
         public static final String DONE = "done";
+    }
+
+    public static class AncRadioButtonOptionTextUtils {
+        public static final String DONE_TODAY = "Dilakukan hari ini";
+        public static final String DONE_EARLIER = "Pernah dilakukan";
+        public static final String ORDERED = "Sedang dalam proses";
+        public static final String NOT_DONE = "Tidak dilakukan";
+        public static final String DONE = "Dilakukan";
     }
 
     public static class ConfigurationUtils {

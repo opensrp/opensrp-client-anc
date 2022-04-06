@@ -2,8 +2,6 @@ package org.smartregister.anc.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -19,7 +17,6 @@ import org.smartregister.anc.library.util.Utils;
 import org.smartregister.anc.presenter.LoginPresenter;
 import org.smartregister.task.SaveTeamLocationsTask;
 import org.smartregister.view.activity.BaseLoginActivity;
-import org.smartregister.view.activity.SettingsActivity;
 import org.smartregister.view.contract.BaseLoginContract;
 
 import timber.log.Timber;
@@ -42,22 +39,6 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setUpViews();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(R.string.settings);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getTitle().equals(getString(R.string.settings))) {
-            startActivity(new Intent(this, SettingsActivity.class));
-            return true;
-        } else {
-            return super.onOptionsItemSelected(item);
-        }
     }
 
     private void setUpViews() {

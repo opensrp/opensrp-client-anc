@@ -26,7 +26,7 @@ fields:
 - template: "{{contact_summary.hospital_referral.fever}}: {body_temp_repeat}ºC"
   relevance: "body_temp_repeat >= 38"
 
-- template: "{{contact_summary.hospital_referral.abnormal_pulse_rate}}: {pulse_rate_repeat}kpm"
+- template: "{{contact_summary.hospital_referral.abnormal_pulse_rate}}: {pulse_rate_repeat}bpm"
   relevance: "pulse_rate_repeat < 60 || pulse_rate_repeat > 100"
 
 - template: "{{contact_summary.hospital_referral.respiratory_distress}}: {respiratory_exam_abnormal_value}"
@@ -50,7 +50,7 @@ fields:
 - template: "{{contact_summary.hospital_referral.no_fetal_heartbeat_observed}}"
   relevance: "fetal_heartbeat == 'no'"
 
-- template: "{{contact_summary.hospital_referral.abnormal_fetal_heart_rate}}: {fetal_heart_rate_repeat}kpm"
+- template: "{{contact_summary.hospital_referral.abnormal_fetal_heart_rate}}: {fetal_heart_rate_repeat}bpm"
   relevance: "fetal_heart_rate_repeat < 100 || fetal_heart_rate_repeat > 180"
 
 ---
@@ -195,7 +195,7 @@ fields:
 - template: "{{contact_summary.medications.penicillin_compliance}}: {penicillin_comply}"
   relevance: "penicillin_comply != ''"
 ---
-group: woman's_behaviour
+group: womans_behaviour
 fields:
 
 - template: "{{contact_summary.woman_behaviour.persisting_behaviours}}: {behaviour_persist_value}"
@@ -219,7 +219,7 @@ fields:
 - template: "{{contact_summary.woman_behaviour.tobacco_cessation_counseling_done}}: {tobacco_counsel_notdone_value}"
   relevance: "tobacco_counsel == 'not_done'"
 
-- template: "{{contact_summary.woman_behaviour.shs_exposure}}: {shs_exposure_value}"
+- template: "{{contact_summary.woman_behaviour.shs_exposure}}: Hayayya {shs_exposure_value}"
   relevance: "shs_exposure != ''"
 
 - template: "{{contact_summary.woman_behaviour.shs_counseling_done}}"
@@ -255,7 +255,7 @@ fields:
 - template: "{{contact_summary.physiological_symptoms.persisting_physiological_symptoms}}: {phys_symptoms_persist_value}"
   relevance: "phys_symptoms_persist != ''"
 
-- template: "{{contact_summary.physiological_symptoms.physiological_symptoms}}: {phys_symptoms_value}"
+- template: "{{contact_summary.physiological_symptoms.physiological_symptoms}}: contact-summary.yml {phys_symptoms_value}"
   relevance: "phys_symptoms != ''"
 
 - template: "{{contact_summary.physiological_symptoms.low_back_and_pelvic_pain_other_symptoms}}: {other_sym_lbpp_value}"
@@ -420,10 +420,10 @@ fields:
 - template: "{{contact_summary.maternal_exam.second_temperature}}: {body_temp_repeat}ºC"
   relevance: "body_temp_repeat != ''"
 
-- template: "{{contact_summary.maternal_exam.pulse_rate}}: {pulse_rate} kpm"
+- template: "{{contact_summary.maternal_exam.pulse_rate}}: {pulse_rate} bpm"
   relevance: "pulse_rate != ''"
 
-- template: "{{contact_summary.maternal_exam.second_pulse_rate}}: {pulse_rate_repeat} kpm"
+- template: "{{contact_summary.maternal_exam.second_pulse_rate}}: {pulse_rate_repeat} bpm"
   relevance: "pulse_rate_repeat != ''"
 
 - template: "{{contact_summary.maternal_exam.pallor_present}}: {pallor_value}"
@@ -489,10 +489,10 @@ fields:
 - template: "{{contact_summary.maternal_exam.fetal_heartbeat_present}}: {fetal_heartbeat}"
   relevance: "fetal_heartbeat != ''"
 
-- template: "{{contact_summary.maternal_exam.fetal_heart_rate}}: {fetal_heart_rate} kpm"
+- template: "{{contact_summary.maternal_exam.fetal_heart_rate}}: {fetal_heart_rate} bpm"
   relevance: "fetal_heart_rate != ''"
 
-- template: "{{contact_summary.maternal_exam.second_fetal_heart_rate}}: {fetal_heart_rate_repeat} kpm"
+- template: "{{contact_summary.maternal_exam.second_fetal_heart_rate}}: {fetal_heart_rate_repeat} bpm"
   relevance: "fetal_heart_rate_repeat != ''"
 ---
 group: ultrasound_test

@@ -8,6 +8,7 @@
       "type": "label",
       "label_text_style": "bold",
       "text": "{{cervical_exam_sub_form.step1.dilation_cm_label.text}}",
+      "translation_text": "cervical_exam_sub_form.step1.dilation_cm_label.text",
       "text_color": "#000000",
       "v_required": {
         "value": false

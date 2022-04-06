@@ -34,6 +34,22 @@ public class YamlConfigItem {
         return template;
     }
 
+    /**
+     * Retrieve string key of details
+     */
+    public String getDetailsKey(String detail) {
+        String key = detail;
+
+        // while (detail.contains("{")) {
+        //     key = detail.substring(detail.indexOf("{") + 1, detail.indexOf("}"));
+        //     // String value = processValue(key, facts);
+        //     // stringValueResult = stringValueResult.replace("{" + key + "}", value).replaceAll(", $", "").trim();
+        // }
+
+        return key;
+
+    }
+
     public void setTemplate(String template) {
         this.template = template;
     }

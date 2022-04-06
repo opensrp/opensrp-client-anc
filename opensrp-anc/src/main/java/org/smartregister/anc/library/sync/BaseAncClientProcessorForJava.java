@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.gson.reflect.TypeToken;
-import com.vijay.jsonwizard.constants.JsonFormConstants;
+import org.smartregister.anc.library.constants.ANCJsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
@@ -141,10 +141,10 @@ public class BaseAncClientProcessorForJava extends ClientProcessorForJava implem
             String openTasks = event.getDetails().get(ConstantsUtils.DetailsKeyUtils.OPEN_TEST_TASKS);
             if (StringUtils.isNotBlank(openTasks)) {
                 JSONArray openTasksArray = new JSONArray(openTasks);
-
+                getContactTasksRepository().deleteAllTasks(event.getBaseEntityId());
                 for (int i = 0; i < openTasksArray.length(); i++) {
                     JSONObject tasks = new JSONObject(openTasksArray.getString(i));
-                    String key = tasks.optString(JsonFormConstants.KEY);
+                    String key = tasks.optString(ANCJsonFormConstants.KEY);
 
                     Task task = getTask(tasks, key, event.getBaseEntityId());
                     getContactTasksRepository().saveOrUpdateTasks(task);

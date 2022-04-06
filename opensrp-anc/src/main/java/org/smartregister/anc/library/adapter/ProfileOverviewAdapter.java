@@ -28,6 +28,7 @@ import org.smartregister.anc.library.domain.TestResults;
 import org.smartregister.anc.library.domain.TestResultsDialog;
 import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.domain.YamlConfigWrapper;
+import org.smartregister.anc.library.helper.ContactHelper;
 import org.smartregister.anc.library.util.Utils;
 
 import java.util.ArrayList;
@@ -46,6 +47,7 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
     private PreviousContactsTests.Presenter presenter;
     private String baseEntityId;
     private String contactNo;
+    private ContactHelper contactHelper;
 
     // data is passed into the constructor
     public ProfileOverviewAdapter(Context context, List<YamlConfigWrapper> data, Facts facts) {
@@ -53,6 +55,7 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
         this.mData = data;
         this.facts = facts;
         this.context = context;
+        this.contactHelper = new ContactHelper(this.context);
     }
 
     public ProfileOverviewAdapter(Context context, List<YamlConfigWrapper> data, Facts facts,
@@ -64,6 +67,7 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
         this.presenter = presenter;
         this.baseEntityId = baseEntityId;
         this.contactNo = contactNo;
+        this.contactHelper = new ContactHelper(this.context);
     }
 
     // inflates the row layout from xml when needed
@@ -78,10 +82,8 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         if (!TextUtils.isEmpty(mData.get(position).getGroup())) {
-            String title = processUnderscores(mData.get(position).getGroup());
-            if (mData.get(position).getGroupTitle() != null)
-                title = mData.get(position).getGroupTitle();
-            holder.sectionHeader.setText(title);
+
+            holder.sectionHeader.setText(this.contactHelper.getContactString(mData.get(position).getGroup()));
             holder.sectionHeader.setVisibility(View.VISIBLE);
 
         } else {
@@ -90,10 +92,7 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
         }
 
         if (!TextUtils.isEmpty(mData.get(position).getSubGroup())) {
-            String title = processUnderscores(mData.get(position).getSubGroup());
-            if (mData.get(position).getGroupTitle() != null)
-                title = mData.get(position).getGroupTitle();
-            holder.subSectionHeader.setText(processUnderscores(title));
+            holder.subSectionHeader.setText(this.contactHelper.getContactString(mData.get(position).getSubGroup()));
             holder.subSectionHeader.setVisibility(View.VISIBLE);
         } else {
             holder.subSectionHeader.setVisibility(View.GONE);
@@ -106,6 +105,7 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
 
             Template template = getTemplate(yamlConfigItem.getTemplate());
             String output = Utils.fillTemplate(template.detail, this.facts);
+            //String output = yamlConfigItem.getDetailsKey(template.detail);
 
             holder.sectionDetailTitle.setText(template.title);
             holder.sectionDetails.setText(output);//Perhaps refactor to use Json Form Parser Implementation

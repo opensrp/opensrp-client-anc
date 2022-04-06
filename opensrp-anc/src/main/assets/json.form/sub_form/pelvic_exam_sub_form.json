@@ -13,6 +13,7 @@
         {
           "key": "abnormal_vaginal_discharge",
           "text": "{{pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.abnormal_vaginal_discharge.text}}",
+          "translation_text": "pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.abnormal_vaginal_discharge.text",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "123395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -21,6 +22,7 @@
         {
           "key": "amniotic_fluid_evidence",
           "text": "{{pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.amniotic_fluid_evidence.text}}",
+          "translation_text": "pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.amniotic_fluid_evidence.text",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "148968AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -29,6 +31,7 @@
         {
           "key": "smelling_vaginal_discharge",
           "text": "{{pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.smelling_vaginal_discharge.text}}",
+          "translation_text": "pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.smelling_vaginal_discharge.text",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165162AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -37,6 +40,7 @@
         {
           "key": "erythematous_papules",
           "text": "{{pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.erythematous_papules.text}}",
+          "translation_text": "pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.erythematous_papules.text",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165286AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -45,6 +49,7 @@
         {
           "key": "vesicles",
           "text": "{{pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.vesicles.text}}",
+          "translation_text": "pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.vesicles.text",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "133798AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -53,6 +58,7 @@
         {
           "key": "genital_ulcer",
           "text": "{{pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.genital_ulcer.text}}",
+          "translation_text": "pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.genital_ulcer.text",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "153872AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -61,6 +67,7 @@
         {
           "key": "genital_pain",
           "text": "{{pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.genital_pain.text}}",
+          "translation_text": "pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.genital_pain.text",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "123385AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -69,6 +76,7 @@
         {
           "key": "femoral_lymphadenopathy",
           "text": "{{pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.femoral_lymphadenopathy.text}}",
+          "translation_text": "pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.femoral_lymphadenopathy.text",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "",
@@ -77,6 +85,7 @@
         {
           "key": "cervical_friability",
           "text": "{{pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.cervical_friability.text}}",
+          "translation_text": "pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.cervical_friability.text",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165288AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -85,6 +94,7 @@
         {
           "key": "mucopurulent_ervicitis",
           "text": "{{pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.mucopurulent_ervicitis.text}}",
+          "translation_text": "pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.mucopurulent_ervicitis.text",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165371AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -93,6 +103,7 @@
         {
           "key": "vaginal_discharge_curd_like",
           "text": "{{pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.vaginal_discharge_curd_like.text}}",
+          "translation_text": "pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.vaginal_discharge_curd_like.text",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165290AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -101,6 +112,7 @@
         {
           "key": "other",
           "text": "{{pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.other.text}}",
+          "translation_text": "pelvic_exam_sub_form.step1.pelvic_exam_abnormal.options.other.text",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -115,6 +127,7 @@
       "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "{{pelvic_exam_sub_form.step1.evaluate_labour_toaster.text}}",
+      "translation_text": "pelvic_exam_sub_form.step1.evaluate_labour_toaster.text",
       "text_color": "#E20000",
       "toaster_type": "problem",
       "relevance": {

@@ -1,6 +1,7 @@
 package org.smartregister.anc.library.activity;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -36,6 +37,7 @@ import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.util.PermissionUtils;
 
 import java.io.FileNotFoundException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,7 +88,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
             actionBar.setTitle(String.format(this.getString(R.string.contact_number),
                     getIntent().getExtras().getInt(ConstantsUtils.IntentKeyUtils.CONTACT_NO)));
         } else {
-            actionBar.setTitle(R.string.back);
+            actionBar.setTitle(R.string.action_back);
         }
     }
 
@@ -133,18 +135,9 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         }
 
         Iterable<Object> ruleObjects = AncLibrary.getInstance().readYaml(FilePathUtils.FileUtils.CONTACT_SUMMARY);
-
         yamlConfigList = new ArrayList<>();
         for (Object ruleObject : ruleObjects) {
             YamlConfig yamlConfig = (YamlConfig) ruleObject;
-            String group = yamlConfig.getGroup();
-            if (group.contains("'"))
-                group = group.replace("'", "");
-            if (group.contains("-"))
-                group = group.replace("-", "_");
-            String string = getResources().getString(getResources().getIdentifier(group, "string", getPackageName()));
-            if (string != null)
-                yamlConfig.setTitle(string);
             yamlConfigList.add(yamlConfig);
         }
     }
@@ -190,7 +183,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     }
 
     private void saveFinishForm() {
-        new FinalizeContactTask(this, mProfilePresenter, getIntent()).execute();
+        new FinalizeContactTask(new WeakReference<Context>(this), mProfilePresenter, getIntent()).execute();
     }
 
     @Override
@@ -209,18 +202,17 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
     @Override
     public void setProfileID(String ancId) {
-        ancIdView.setText("ID: " + ancId);
+        ancIdView.setText(getString(R.string.mother_id_number, ancId));
     }
 
     @Override
     public void setProfileAge(String age) {
-        ageView.setText(String.format(getApplicationContext().getString(R.string.profile_age), age));
-
+        ageView.setText(getString(R.string.mother_age_number, age));
     }
 
     @Override
     public void setProfileGestationAge(String gestationAge) {
-        gestationAgeView.setText(gestationAge != null ? String.format(getApplicationContext().getString(R.string.profile_gestation_age), gestationAge) : getApplicationContext().getString(R.string.profile_gestation_age_empty));
+        gestationAgeView.setText(gestationAge != null ? getString(R.string.mother_ga_weeks, gestationAge) : getString(R.string.mother_ga));
     }
 
     @Override

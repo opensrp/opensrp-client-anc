@@ -16,10 +16,10 @@ import java.util.List;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHolder> {
 
-    private Context context;
+    private final Context context;
     private List<Contact> contacts;
 
-    private View.OnClickListener clickListener;
+    private final View.OnClickListener clickListener;
 
     public ContactAdapter(Context context, List<Contact> contacts, View.OnClickListener clickListener) {
         this.context = context;
@@ -46,7 +46,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         holder.cardLayout.setOnClickListener(clickListener);
         holder.cardLayout.setTag(contact);
 
-        holder.name.setText(contact.getName());
+        holder.name.setText(contact.getTitle());
 
         if (contact.getRequiredFields() == null) {
             holder.requiredFields.setVisibility(View.GONE);
@@ -55,7 +55,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
             holder.completeLayout.setVisibility(View.VISIBLE);
             holder.requiredFields.setVisibility(View.GONE);
         } else {
-            holder.requiredFields.setText(String.format(context.getString(R.string.required_fields), contact.getRequiredFields()));
+            holder.requiredFields.setText(String.format(context.getString(R.string.contact_required_fields), contact.getRequiredFields()));
             holder.requiredFields.setVisibility(View.VISIBLE);
             holder.completeLayout.setVisibility(View.GONE);
         }

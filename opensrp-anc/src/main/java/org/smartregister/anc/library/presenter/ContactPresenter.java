@@ -2,7 +2,7 @@ package org.smartregister.anc.library.presenter;
 
 import android.content.Context;
 
-import com.vijay.jsonwizard.constants.JsonFormConstants;
+import org.smartregister.anc.library.constants.ANCJsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
@@ -133,7 +133,7 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
                 }
 
                 if (form != null) {
-                    form.put(JsonFormConstants.JSON_FORM_KEY.GLOBAL, defaultGlobals);
+                    form.put(ANCJsonFormConstants.JSON_FORM_KEY.GLOBAL, defaultGlobals);
                     getView().startFormActivity(form, contact);
                 }
             } catch (JSONException e) {

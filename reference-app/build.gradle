@@ -24,8 +24,8 @@ jacoco {
 }
 // This variables are used by the version code & name generators
 ext.versionMajor = 1
-ext.versionMinor = 6
-ext.versionPatch = 13
+ext.versionMinor = 7
+ext.versionPatch = 0
 ext.versionClassifier = null
 ext.isSnapshot = false
 ext.minimumSdkVersion = androidMinSdkVersion
@@ -143,10 +143,10 @@ android {
             minifyEnabled false
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rule.pro'
-            resValue "string", 'opensrp_url', '"https://anc.labs.smartregister.org/opensrp/"'
+            resValue "string", 'opensrp_url', '"https://ancs.dev.sid-indonesia.org/opensrp/"'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '1'
             buildConfigField "int", "DATABASE_VERSION", '2'
             buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
             buildConfigField "boolean", "TIME_CHECK", "false"
@@ -156,13 +156,10 @@ android {
             buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '180'
             buildConfigField "int", "VIEW_SYNC_CONFIGURATIONS_MINUTES", '15'
             buildConfigField "int", "CLIENT_SETTINGS_SYNC_MINUTES", '15'
-            applicationVariants.all { variant ->
-                renameAPK(variant, defaultConfig.versionName, 'release')
-            }
         }
 
         debug {
-            resValue "string", 'opensrp_url', '"https://anc.labs.smartregister.org/opensrp/"'
+            resValue "string", 'opensrp_url', '"https://ancs.dev.sid-indonesia.org/opensrp/"'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
@@ -176,9 +173,6 @@ android {
             buildConfigField "int", "VIEW_SYNC_CONFIGURATIONS_MINUTES", '15'
             buildConfigField "int", "CLIENT_SETTINGS_SYNC_MINUTES", '15'
             testCoverageEnabled true
-            applicationVariants.all { variant ->
-                renameAPK(variant, defaultConfig.versionName, 'debug')
-            }
         }
     }
 
@@ -223,7 +217,7 @@ private String generateVersionName() {
     if (ext.versionClassifier != null) {
         versionName += "-" + ext.versionClassifier
     }
-    return versionName;
+    return versionName
 }
 
 tasks.withType(Test) {
@@ -347,7 +341,6 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'crea
     def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*', '**/*$ViewBinder*.*']
     def debugTree = fileTree(dir: "$project.buildDir/intermediates/javac/debug/classes/", excludes: fileFilter)
     def mainSrc = "$project.projectDir/src/main/java"
-
     getSourceDirectories().setFrom([mainSrc])
     getClassDirectories().setFrom([debugTree])
     getExecutionData().setFrom(dir: project.buildDir, includes: [
@@ -360,54 +353,3 @@ jarJar {
     // Dependencies and related JarJar rules
     remove = ['fhir-model-4.8.3.jar': 'com.ibm.fhir.model.visitor.CopyingVisitor*']
 }
-
-def renameAPK(variant, version, buildType) {
-    def fileName = buildFileName(buildType, version);
-    variant.outputs.each { output ->
-        output.outputFileName = fileName
-    }
-    if (project.rootProject.file("local.properties").exists()) {
-        Properties properties = new Properties();
-        properties.load(project.rootProject.file('local.properties').newDataInputStream())
-        if (properties.containsKey("copy.output.enable") && Boolean.parseBoolean(properties.getProperty("copy.output.enable"))) {
-            def toDir = properties.getProperty("copy.output.path");
-            variant.assembleProvider.configure { assemble ->
-                assemble.doLast {
-                    //copy the apk in another directory, add here your
-                    //logic to customize the destination folder
-                    copy {
-                        def out = 'WHOANC.latest-' + buildType + '-optibp.apk';
-                        File file = new File(toDir + "\\" + out);
-                        if (file.exists()) {
-                            file.delete();
-                        }
-                        from "$buildDir/outputs/apk/" + buildType + "/" + fileName
-                        //for Windows
-                        into toDir
-                        rename { out }
-                    }
-                    copy {
-                        File file = new File(toDir + "\\" + fileName);
-                        if (file.exists()) {
-                            file.delete();
-                        }
-                        from "$buildDir/outputs/apk/" + buildType + "/" + fileName
-                        //for Windows
-                        into toDir
-                    }
-                }
-            }
-        }
-    }
-
-}
-
-
-private String buildDate() {
-    return new Date().format('ddMMyyyy');
-}
-
-private String buildFileName(String buildType, String version) {
-    return "WHOANC." + buildType + ".v" + version + ".build-" + buildDate() + "-optibp.apk"
-}
-

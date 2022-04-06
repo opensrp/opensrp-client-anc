@@ -1,6 +1,6 @@
 package org.smartregister.anc.library.interactor;
 
-import com.vijay.jsonwizard.constants.JsonFormConstants;
+import org.smartregister.anc.library.constants.ANCJsonFormConstants;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -59,12 +59,12 @@ public class ProfileFragmentInteractor implements ProfileFragmentContract.Intera
     private void savePreviousTaskDetails(String contactNo, Task task) {
         try {
             JSONObject taskValue = new JSONObject(task.getValue());
-            if (taskValue.has(JsonFormConstants.VALUE)) {
-                JSONArray value = taskValue.getJSONArray(JsonFormConstants.VALUE);
+            if (taskValue.has(ANCJsonFormConstants.VALUE)) {
+                JSONArray value = taskValue.getJSONArray(ANCJsonFormConstants.VALUE);
                 if (value.length() > 0) {
                     for (int i = 0; i < value.length(); i++) {
                         JSONObject valueObject = value.getJSONObject(i);
-                        if (valueObject != null && valueObject.has(JsonFormConstants.KEY) && valueObject.has(JsonFormConstants.TYPE) && valueObject.has(JsonFormConstants.VALUES)) {
+                        if (valueObject != null && valueObject.has(ANCJsonFormConstants.KEY) && valueObject.has(ANCJsonFormConstants.TYPE) && valueObject.has(ANCJsonFormConstants.VALUES)) {
                             ANCFormUtils.saveExpansionPanelValues(task.getBaseEntityId(), contactNo, valueObject);
                         }
                     }

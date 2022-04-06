@@ -5,6 +5,7 @@
       "type": "label",
       "label_text_style": "bold",
       "text": "{{fetal_heartbeat_sub_form.step1.fetal_heart_rate_label.text}}",
+      "translation_text": "fetal_heartbeat_sub_form.step1.fetal_heart_rate_label.text",
       "text_color": "#000000",
       "v_required": {
         "value": false

@@ -1,6 +1,5 @@
 package org.smartregister.anc.library.fragment;
 
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,20 +86,6 @@ public class ProfileOverviewFragment extends BaseProfileFragment implements Prof
         }
     }
 
-    String buildTitle(String group) {
-        if (group.contains("'"))
-            group = group.replace("'", "");
-        if (group.contains("-"))
-            group.replace("-", "_");
-        try {
-            return getResources().getString(getResources().getIdentifier(group, "string", getContext().getPackageName()));
-        } catch (Resources.NotFoundException ex) {
-            System.err.println("ID String "+group+" not found");
-            return null;
-        }
-
-    }
-
     @Override
     protected void onResumption() {
         try {
@@ -114,25 +99,11 @@ public class ProfileOverviewFragment extends BaseProfileFragment implements Prof
 
                 YamlConfig yamlConfig = (YamlConfig) ruleObject;
                 if (yamlConfig.getGroup() != null) {
-                    String group = yamlConfig.getGroup();
-                    if (group.contains("'"))
-                        group = group.replace("'", "");
-                    if (group.contains("-"))
-                        group.replace("-", "_");
-                    String string = buildTitle(group);
-                    if (string != null)
-                        yamlConfig.setTitle(string);
-
-                    yamlConfigList.add(new YamlConfigWrapper(yamlConfig.getGroup(), null, null) {{
-                        setGroupTitle(string);
-                    }});
+                    yamlConfigList.add(new YamlConfigWrapper(yamlConfig.getGroup(), null, null));
                 }
 
                 if (yamlConfig.getSubGroup() != null) {
-
-                    yamlConfigList.add(new YamlConfigWrapper(null, yamlConfig.getSubGroup(), null) {{
-                        setGroupTitle(buildTitle(yamlConfig.getSubGroup()));
-                    }});
+                    yamlConfigList.add(new YamlConfigWrapper(null, yamlConfig.getSubGroup(), null));
                 }
 
                 List<YamlConfigItem> configItems = yamlConfig.getFields();

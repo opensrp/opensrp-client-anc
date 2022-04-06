@@ -15,7 +15,7 @@ import androidx.core.util.Pair;
 
 import com.google.common.reflect.TypeToken;
 import com.vijay.jsonwizard.activities.FormConfigurationJsonFormActivity;
-import com.vijay.jsonwizard.constants.JsonFormConstants;
+import org.smartregister.anc.library.constants.ANCJsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
@@ -87,16 +87,16 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     public static boolean isFieldRequired(JSONObject fieldObject) throws JSONException {
         boolean isValueRequired = false;
-        if (fieldObject.has(JsonFormConstants.V_REQUIRED)) {
-            JSONObject valueRequired = fieldObject.getJSONObject(JsonFormConstants.V_REQUIRED);
-            String value = valueRequired.getString(JsonFormConstants.VALUE);
+        if (fieldObject.has(ANCJsonFormConstants.V_REQUIRED)) {
+            JSONObject valueRequired = fieldObject.getJSONObject(ANCJsonFormConstants.V_REQUIRED);
+            String value = valueRequired.getString(ANCJsonFormConstants.VALUE);
             isValueRequired = Boolean.parseBoolean(value);
         }
         //Don't check required for hidden, toaster notes, spacer and label widgets
-        return (!fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.LABEL) &&
-                !fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.SPACER) &&
-                !fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.TOASTER_NOTES) &&
-                !fieldObject.getString(JsonFormConstants.TYPE).equals(JsonFormConstants.HIDDEN)) &&
+        return (!fieldObject.getString(ANCJsonFormConstants.TYPE).equals(ANCJsonFormConstants.LABEL) &&
+                !fieldObject.getString(ANCJsonFormConstants.TYPE).equals(ANCJsonFormConstants.SPACER) &&
+                !fieldObject.getString(ANCJsonFormConstants.TYPE).equals(ANCJsonFormConstants.TOASTER_NOTES) &&
+                !fieldObject.getString(ANCJsonFormConstants.TYPE).equals(ANCJsonFormConstants.HIDDEN)) &&
                 isValueRequired;
     }
 
@@ -168,12 +168,12 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
         if (ancMetadata.getFieldsWithLocationHierarchy() != null && !ancMetadata.getFieldsWithLocationHierarchy().isEmpty()) {
             for (int i = 0; i < fields.length(); i++) {
                 JSONObject widget = fields.optJSONObject(i);
-                if (ancMetadata.getFieldsWithLocationHierarchy().contains(widget.optString(JsonFormConstants.KEY))) {
+                if (ancMetadata.getFieldsWithLocationHierarchy().contains(widget.optString(ANCJsonFormConstants.KEY))) {
                     if (StringUtils.isNotBlank(entireTreeString)) {
-                        addLocationTree(widget.optString(JsonFormConstants.KEY), widget, entireTreeString, JsonFormConstants.TREE);
+                        addLocationTree(widget.optString(ANCJsonFormConstants.KEY), widget, entireTreeString, ANCJsonFormConstants.TREE);
                     }
                     if (StringUtils.isNotBlank(defaultFacilityString)) {
-                        addLocationTreeDefault(widget.optString(JsonFormConstants.KEY), widget, defaultLocationString);
+                        addLocationTreeDefault(widget.optString(ANCJsonFormConstants.KEY), widget, defaultLocationString);
                     }
                 }
             }
@@ -182,7 +182,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     private static void addLocationTree(@NonNull String widgetKey, @NonNull JSONObject widget, @NonNull String updateString, @NonNull String treeType) {
         try {
-            if (widget.optString(JsonFormConstants.KEY).equals(widgetKey)) {
+            if (widget.optString(ANCJsonFormConstants.KEY).equals(widgetKey)) {
                 widget.put(treeType, new JSONArray(updateString));
             }
         } catch (JSONException e) {
@@ -191,7 +191,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
     }
 
     private static void addLocationTreeDefault(@NonNull String widgetKey, @NonNull JSONObject widget, @NonNull String updateString) {
-        addLocationTree(widgetKey, widget, updateString, JsonFormConstants.DEFAULT);
+        addLocationTree(widgetKey, widget, updateString, ANCJsonFormConstants.DEFAULT);
     }
 
     public static JSONObject getFieldJSONObject(JSONArray jsonArray, String key) {
@@ -248,16 +248,16 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     protected static void processLocationFields(@NonNull JSONArray fields) throws JSONException {
         for (int i = 0; i < fields.length(); i++) {
-            if (fields.optJSONObject(i).has(JsonFormConstants.TYPE) &&
-                    fields.optJSONObject(i).optString(JsonFormConstants.TYPE).equals(JsonFormConstants.TREE))
+            if (fields.optJSONObject(i).has(ANCJsonFormConstants.TYPE) &&
+                    fields.optJSONObject(i).optString(ANCJsonFormConstants.TYPE).equals(ANCJsonFormConstants.TREE))
                 try {
-                    String rawValue = fields.optJSONObject(i).optString(JsonFormConstants.VALUE);
+                    String rawValue = fields.optJSONObject(i).optString(ANCJsonFormConstants.VALUE);
                     if (StringUtils.isNotBlank(rawValue)) {
                         JSONArray valueArray = new JSONArray(rawValue);
                         if (valueArray.length() > 0) {
                             String lastLocationName = valueArray.optString(valueArray.length() - 1);
                             String lastLocationId = LocationHelper.getInstance().getOpenMrsLocationId(lastLocationName);
-                            fields.optJSONObject(i).put(JsonFormConstants.VALUE, lastLocationId);
+                            fields.optJSONObject(i).put(ANCJsonFormConstants.VALUE, lastLocationId);
                         }
                     }
                 } catch (NullPointerException e) {
@@ -337,14 +337,14 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
             }
         }
         JSONObject nextContactJSONObject = getFieldJSONObject(fields, DBConstantsUtils.KeyUtils.NEXT_CONTACT);
-        if (nextContactJSONObject.has(JsonFormConstants.VALUE) &&
-                "".equals(nextContactJSONObject.getString(JsonFormConstants.VALUE))) {
+        if (nextContactJSONObject.has(ANCJsonFormConstants.VALUE) &&
+                "".equals(nextContactJSONObject.getString(ANCJsonFormConstants.VALUE))) {
             nextContactJSONObject.put(ANCJsonFormUtils.VALUE, nextContact);
         }
 
         JSONObject nextContactDateJSONObject = getFieldJSONObject(fields, DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE);
-        if (nextContactDateJSONObject.has(JsonFormConstants.VALUE) &&
-                "".equals(nextContactDateJSONObject.getString(JsonFormConstants.VALUE))) {
+        if (nextContactDateJSONObject.has(ANCJsonFormConstants.VALUE) &&
+                "".equals(nextContactDateJSONObject.getString(ANCJsonFormConstants.VALUE))) {
             nextContactDateJSONObject.put(ANCJsonFormUtils.VALUE, nextContactDate);
         }
 
@@ -584,8 +584,8 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
         String facilityHierarchyString = AssetHandler.javaToJsonString(entityHierarchy, new TypeToken<List<String>>() {
         }.getType());
         if (StringUtils.isNotBlank(facilityHierarchyString)) {
-            jsonObject.put(JsonFormConstants.VALUE, facilityHierarchyString);
-            jsonObject.put(JsonFormConstants.TREE, new JSONArray(entireTreeString));
+            jsonObject.put(ANCJsonFormConstants.VALUE, facilityHierarchyString);
+            jsonObject.put(ANCJsonFormConstants.TREE, new JSONArray(entireTreeString));
         }
     }
 
@@ -624,7 +624,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
     public static void startFormForEdit(Activity context, int jsonFormActivityRequestCode, String metaData) {
         Intent intent = new Intent(context, EditJsonFormActivity.class);
         intent.putExtra(ConstantsUtils.IntentKeyUtils.JSON, metaData);
-        intent.putExtra(JsonFormConstants.PERFORM_FORM_TRANSLATION, true);
+        intent.putExtra(ANCJsonFormConstants.PERFORM_FORM_TRANSLATION, true);
         Timber.d("form is %s", metaData);
         context.startActivityForResult(intent, jsonFormActivityRequestCode);
     }
@@ -722,7 +722,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
             if (form != null) {
                 form.put(ConstantsUtils.JsonFormKeyUtils.ENTITY_ID, activity.getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.JSON, form.toString());
-                intent.putExtra(JsonFormConstants.PERFORM_FORM_TRANSLATION, true);
+                intent.putExtra(ANCJsonFormConstants.PERFORM_FORM_TRANSLATION, true);
                 activity.startActivityForResult(intent, ANCJsonFormUtils.REQUEST_CODE_GET_JSON);
             }
         } catch (Exception e) {
@@ -738,7 +738,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 form.put(ConstantsUtils.JsonFormKeyUtils.ENTITY_ID,
                         activity.getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
                 intent.putExtra(ConstantsUtils.IntentKeyUtils.JSON, form.toString());
-                intent.putExtra(JsonFormConstants.PERFORM_FORM_TRANSLATION, true);
+                intent.putExtra(ANCJsonFormConstants.PERFORM_FORM_TRANSLATION, true);
                 activity.startActivityForResult(intent, ANCJsonFormUtils.REQUEST_CODE_GET_JSON);
             }
         } catch (Exception e) {
@@ -915,15 +915,15 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
     public static boolean checkIfTaskIsComplete(JSONObject field) {
         boolean isComplete = true;
         try {
-            if (field != null && field.has(JsonFormConstants.VALUE)) {
-                JSONArray value = field.getJSONArray(JsonFormConstants.VALUE);
+            if (field != null && field.has(ANCJsonFormConstants.VALUE)) {
+                JSONArray value = field.getJSONArray(ANCJsonFormConstants.VALUE);
                 if (value.length() > 1) {
                     JSONObject valueField = value.getJSONObject(0);
-                    if (valueField != null && valueField.has(JsonFormConstants.VALUES)) {
-                        JSONArray values = valueField.getJSONArray(JsonFormConstants.VALUES);
+                    if (valueField != null && valueField.has(ANCJsonFormConstants.VALUES)) {
+                        JSONArray values = valueField.getJSONArray(ANCJsonFormConstants.VALUES);
                         if (values.length() > 0) {
                             String selectedValue = values.getString(0);
-                            if (selectedValue.contains(JsonFormConstants.AncRadioButtonOptionTypesUtils.ORDERED) || selectedValue.contains(JsonFormConstants.AncRadioButtonOptionTypesUtils.NOT_DONE)) {
+                            if (selectedValue.contains(ANCJsonFormConstants.AncRadioButtonOptionTypesUtils.ORDERED) || selectedValue.contains(ANCJsonFormConstants.AncRadioButtonOptionTypesUtils.NOT_DONE)) {
                                 isComplete = false;
                             }
                         }

@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import com.vijay.jsonwizard.constants.JsonFormConstants;
+import org.smartregister.anc.library.constants.ANCJsonFormConstants;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -187,10 +187,10 @@ public class ANCFormUtilsTest extends BaseUnitTest {
         ANCFormUtils.processCheckboxFilteredItems(mainObject);
         //Obtain the first checkbox in step1 with key behaviour_persist check if items has been filtered
         JSONObject stepOneBehaviourPersist = mainObject.getJSONObject("step1").getJSONArray("fields").getJSONObject(0);
-        JSONArray checkBoxOptions = stepOneBehaviourPersist.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+        JSONArray checkBoxOptions = stepOneBehaviourPersist.getJSONArray(ANCJsonFormConstants.OPTIONS_FIELD_NAME);
         assertEquals(4, checkBoxOptions.length());
-        assertEquals("none", checkBoxOptions.getJSONObject(0).getString(JsonFormConstants.KEY));
-        assertEquals("caffeine_intake", checkBoxOptions.getJSONObject(3).getString(JsonFormConstants.KEY));
+        assertEquals("none", checkBoxOptions.getJSONObject(0).getString(ANCJsonFormConstants.KEY));
+        assertEquals("caffeine_intake", checkBoxOptions.getJSONObject(3).getString(ANCJsonFormConstants.KEY));
         assertTrue(stepOneBehaviourPersist.getBoolean(ConstantsUtils.IS_FILTERED));
         assertTrue(stepOneBehaviourPersist.has(ConstantsUtils.IS_FILTERED));
     }
@@ -201,9 +201,9 @@ public class ANCFormUtilsTest extends BaseUnitTest {
         ANCFormUtils.processCheckboxFilteredItems(mainObject);
         //Obtain the first checkbox in step1 with key behaviour_persist check if items has been filtered
         JSONObject stepTwoBehaviourPersist = mainObject.getJSONObject("step2").getJSONArray("fields").getJSONObject(0);
-        JSONArray checkBoxOptions = stepTwoBehaviourPersist.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+        JSONArray checkBoxOptions = stepTwoBehaviourPersist.getJSONArray(ANCJsonFormConstants.OPTIONS_FIELD_NAME);
         assertEquals(1, checkBoxOptions.length());
-        assertEquals("none", checkBoxOptions.getJSONObject(0).getString(JsonFormConstants.KEY));
+        assertEquals("none", checkBoxOptions.getJSONObject(0).getString(ANCJsonFormConstants.KEY));
         assertTrue(stepTwoBehaviourPersist.getBoolean(ConstantsUtils.IS_FILTERED));
         assertTrue(stepTwoBehaviourPersist.has(ConstantsUtils.IS_FILTERED));
     }
@@ -214,11 +214,11 @@ public class ANCFormUtilsTest extends BaseUnitTest {
         ANCFormUtils.processCheckboxFilteredItems(mainObject);
         //Obtain the first checkbox in step1 with key behaviour_persist check if items has been filtered
         JSONObject stepThreePhysSymptomsPersist = mainObject.getJSONObject("step3").getJSONArray("fields").getJSONObject(0);
-        JSONArray checkBoxOptions = stepThreePhysSymptomsPersist.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+        JSONArray checkBoxOptions = stepThreePhysSymptomsPersist.getJSONArray(ANCJsonFormConstants.OPTIONS_FIELD_NAME);
         assertEquals(3, checkBoxOptions.length());
-        assertEquals("none", checkBoxOptions.getJSONObject(0).getString(JsonFormConstants.KEY));
-        assertEquals("heartburn", checkBoxOptions.getJSONObject(1).getString(JsonFormConstants.KEY));
-        assertEquals("leg_cramps", checkBoxOptions.getJSONObject(2).getString(JsonFormConstants.KEY));
+        assertEquals("none", checkBoxOptions.getJSONObject(0).getString(ANCJsonFormConstants.KEY));
+        assertEquals("heartburn", checkBoxOptions.getJSONObject(1).getString(ANCJsonFormConstants.KEY));
+        assertEquals("leg_cramps", checkBoxOptions.getJSONObject(2).getString(ANCJsonFormConstants.KEY));
         assertTrue(stepThreePhysSymptomsPersist.getBoolean(ConstantsUtils.IS_FILTERED));
         assertTrue(stepThreePhysSymptomsPersist.has(ConstantsUtils.IS_FILTERED));
     }
@@ -250,7 +250,7 @@ public class ANCFormUtilsTest extends BaseUnitTest {
         JSONObject formArg = new JSONObject(quickCheckForm);
         JSONObject global = new JSONObject();
         global.put("contact_no", "1");
-        formArg.put(JsonFormConstants.JSON_FORM_KEY.GLOBAL, global);
+        formArg.put(ANCJsonFormConstants.JSON_FORM_KEY.GLOBAL, global);
         JSONObject result = ANCFormUtils.getFormJsonCore(partialContact, formArg);
         assertNotNull(result);
         assertEquals(formArg.toString(), result.toString());

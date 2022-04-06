@@ -61,7 +61,7 @@
                 android:enabled="false"
                 android:paddingLeft="@dimen/contact_drawable_padding"
                 android:paddingRight="@dimen/contact_default_padding"
-                android:text="@string/finalize"
+                android:text="@string/action_finalize"
                 android:textAllCaps="true"
                 android:textAppearance="?android:textAppearanceSmall"
                 android:textColor="@color/finalize_color"

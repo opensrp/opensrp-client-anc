@@ -1,6 +1,6 @@
 package org.smartregister.anc.library.util;
 
-import com.vijay.jsonwizard.constants.JsonFormConstants;
+import org.smartregister.anc.library.constants.ANCJsonFormConstants;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,7 +13,7 @@ public class AgeValueMatcher implements ValueMatcher {
     @Override
     public boolean equal(Object o1, Object o2) {
         try {
-            return ((JSONObject) o1).get(JsonFormConstants.VALUE).toString().equals(((JSONObject) o2).get(JsonFormConstants.VALUE).toString());
+            return ((JSONObject) o1).get(ANCJsonFormConstants.VALUE).toString().equals(((JSONObject) o2).get(ANCJsonFormConstants.VALUE).toString());
         } catch (JSONException e) {
             return false;
         }

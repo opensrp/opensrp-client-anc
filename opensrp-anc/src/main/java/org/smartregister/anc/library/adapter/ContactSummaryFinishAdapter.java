@@ -13,25 +13,27 @@ import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.domain.YamlConfigItem;
+import org.smartregister.anc.library.helper.ContactHelper;
 import org.smartregister.anc.library.util.Utils;
 
 import java.util.List;
 
 /**
  * Created by ndegwamartin on 04/12/2018.
- * Updated by alcasha (indra@alcasha.com) on 01/10/2021
  */
 public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSummaryFinishAdapter.ViewHolder> {
 
     private List<YamlConfig> mData;
     private LayoutInflater mInflater;
     private Facts facts;
+    private ContactHelper contactHelper;
 
     // data is passed into the constructor
     public ContactSummaryFinishAdapter(Context context, List<YamlConfig> data, Facts facts) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.facts = facts;
+        this.contactHelper = new ContactHelper(context);
     }
 
     // inflates the row layout from xml when needed
@@ -41,18 +43,11 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
         return new ViewHolder(view);
     }
 
-    /**
-     * binds the data to the TextView in each row
-     * We fix
-     * @param holder
-     * @param position
-     */
+    // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String title = processUnderscores(mData.get(position).getGroup());
-        if (mData.get(position).getTitle() != null)
-            title = mData.get(position).getTitle();
-        holder.sectionHeader.setText(title);
+        String header = this.contactHelper.getContactString(mData.get(position).getGroup());
+        holder.sectionHeader.setText(header);
 
         List<YamlConfigItem> fields = mData.get(position).getFields();
         StringBuilder outputBuilder = new StringBuilder();

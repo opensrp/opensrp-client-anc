@@ -1,10 +1,8 @@
 package org.smartregister.anc.library.interactor;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
-
 import androidx.core.util.Pair;
 
 import org.apache.commons.lang3.tuple.Triple;

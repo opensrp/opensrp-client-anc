@@ -59,6 +59,7 @@
         "key": "label_site_ipv_assess",
         "type": "label",
         "text": "{{anc_site_characteristics.step1.label_site_ipv_assess.text}}",
+        "translation_text": "anc_site_characteristics.step1.label_site_ipv_assess.text",
         "text_size": "22px",
         "text_color": "black",
         "v_required": {
@@ -77,11 +78,13 @@
         "options": [
           {
             "key": "1",
-            "text": "{{anc_site_characteristics.step1.site_ipv_assess.options.1.text}}"
+            "text": "{{anc_site_characteristics.step1.site_ipv_assess.options.1.text}}",
+            "translation_text": "anc_site_characteristics.step1.site_ipv_assess.options.1.text"
           },
           {
             "key": "0",
-            "text": "{{anc_site_characteristics.step1.site_ipv_assess.options.0.text}}"
+            "text": "{{anc_site_characteristics.step1.site_ipv_assess.options.0.text}}",
+            "translation_text": "anc_site_characteristics.step1.site_ipv_assess.options.0.text"
           }
         ],
         "value": "",
@@ -101,11 +104,13 @@
         "options": [
           {
             "key": "1",
-            "text": "{{anc_site_characteristics.step1.site_ultrasound.options.1.text}}"
+            "text": "{{anc_site_characteristics.step1.site_ultrasound.options.1.text}}",
+            "translation_text": "anc_site_characteristics.step1.site_ultrasound.options.1.text"
           },
           {
             "key": "0",
-            "text": "{{anc_site_characteristics.step1.site_ultrasound.options.0.text}}"
+            "text": "{{anc_site_characteristics.step1.site_ultrasound.options.0.text}}",
+            "translation_text": "anc_site_characteristics.step1.site_ultrasound.options.0.text"
           }
         ],
         "value": "",

@@ -1,7 +1,7 @@
 package org.smartregister.anc.library.activity;
 
 import android.os.Bundle;
-import android.webkit.WebView;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,10 +14,9 @@ import org.smartregister.anc.library.util.ConstantsUtils;
 public class LibraryContentActivity extends AppCompatActivity {
     private TextView toolbarHeaderTextview;
     private String contentName;
-    private WebView webView;
-//    private View libraryBirthAndEmergency;
-//    private View libraryPhysicalActivityContent;
-//    private View libraryBalanceNutritionContent;
+    private View libraryBirthAndEmergency;
+    private View libraryPhysicalActivityContent;
+    private View libraryBalanceNutritionContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +36,9 @@ public class LibraryContentActivity extends AppCompatActivity {
         mToolbar.findViewById(R.id.close_library).setOnClickListener(view -> onBackPressed());
 
         toolbarHeaderTextview = mToolbar.findViewById(R.id.activity_library_toolbar_title);
-//        libraryBirthAndEmergency = findViewById(R.id.library_birth_and_emergency);
-//        libraryPhysicalActivityContent = findViewById(R.id.library_physical_activity_content);
-//        libraryBalanceNutritionContent = findViewById(R.id.library_balance_nutrition_content);
-        webView = findViewById(R.id.birth_html);
-        webView.getSettings().setLoadWithOverviewMode(true);
-        webView.getSettings().setUseWideViewPort(false);
+        libraryBirthAndEmergency = findViewById(R.id.library_birth_and_emergency);
+        libraryPhysicalActivityContent = findViewById(R.id.library_physical_activity_content);
+        libraryBalanceNutritionContent = findViewById(R.id.library_balance_nutrition_content);
     }
 
     private void updateTheToolbarHeader() {
@@ -54,23 +50,17 @@ public class LibraryContentActivity extends AppCompatActivity {
     private void toggleViews() {
         if (StringUtils.isNotBlank(contentName)) {
             if (getResources().getString(R.string.birth_and_emergency_plan).equals(contentName)) {
-//                libraryBirthAndEmergency.setVisibility(View.VISIBLE);
-//                libraryPhysicalActivityContent.setVisibility(View.GONE);
-//                libraryBalanceNutritionContent.setVisibility(View.GONE);
-
-                webView.loadUrl("file:///android_asset/content/birth_and_emergency.html");
+                libraryBirthAndEmergency.setVisibility(View.VISIBLE);
+                libraryPhysicalActivityContent.setVisibility(View.GONE);
+                libraryBalanceNutritionContent.setVisibility(View.GONE);
             } else if (getResources().getString(R.string.balanced_nutrition).equals(contentName)) {
-//                libraryBirthAndEmergency.setVisibility(View.GONE);
-//                libraryPhysicalActivityContent.setVisibility(View.GONE);
-//                libraryBalanceNutritionContent.setVisibility(View.VISIBLE);
-
-                webView.loadUrl("file:///android_asset/content/balanced_nutrition.html");
+                libraryBirthAndEmergency.setVisibility(View.GONE);
+                libraryPhysicalActivityContent.setVisibility(View.GONE);
+                libraryBalanceNutritionContent.setVisibility(View.VISIBLE);
             } else {
-//                libraryBirthAndEmergency.setVisibility(View.GONE);
-//                libraryPhysicalActivityContent.setVisibility(View.VISIBLE);
-//                libraryBalanceNutritionContent.setVisibility(View.GONE);
-
-                webView.loadUrl("file:///android_asset/content/physical_activity.html");
+                libraryBirthAndEmergency.setVisibility(View.GONE);
+                libraryPhysicalActivityContent.setVisibility(View.VISIBLE);
+                libraryBalanceNutritionContent.setVisibility(View.GONE);
             }
         }
     }
