@@ -737,8 +737,9 @@ public class ANCFormUtils extends FormUtils {
 
     /**
      * Update form properties file name according to the test fields populated
-     *  @param taskValue {@link JSONObject}
-     * @param form   {@link JSONObject}
+     *
+     * @param taskValue {@link JSONObject}
+     * @param form      {@link JSONObject}
      */
     public void updateFormPropertiesFileName(JSONObject form, JSONObject taskValue, Context context) {
         try {
@@ -757,8 +758,9 @@ public class ANCFormUtils extends FormUtils {
 
     /**
      * get translated form name according to key
+     *
      * @param formKey {@link String}
-     * @param context   {@link Context}
+     * @param context {@link Context}
      */
     public String getTranslatedFormTitle(String formKey, Context context) {
         try {
