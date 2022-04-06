@@ -223,8 +223,10 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     private int getRequiredCountTotal() {
         int count = -1;
         Set<Map.Entry<String, Integer>> entries = requiredFieldsMap.entrySet();
-        //We count required fields for all the contact forms
-        if (entries.size() == contactForms.length) {
+        // We count required fields for all the contact forms
+        // We know that this is bad like many of the code here before. But it works for now.
+        // Maybe not in the future. But now it works. And the future is now. Right? Right?
+        if (entries.size() == contactForms.length || entries.size() == (contactForms.length + 1)) {
             count++;
             for (Map.Entry<String, Integer> entry : entries) {
                 count += entry.getValue();
