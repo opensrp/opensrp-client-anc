@@ -25,4 +25,4 @@ description: Final calculated Age
 priority: 1
 condition: "true"
 actions:
-  - 'calculation =  19'
+  - 'calculation =  helper.getMothersAge(step1_dob_entered)'
