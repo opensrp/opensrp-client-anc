@@ -18,14 +18,14 @@ description: weight cat tingz
 priority: 1
 condition: "true"
 actions:
-  - "calculation = (step1_bmi < 18.5 ? helper.weightIMT('Underweight') : ((step1_bmi >= 18.5 && step1_bmi < 25) ?  helper.weightIMT('Normal Weight') : ((step1_bmi >= 25 && step1_bmi < 30) ? helper.weightIMT('Overweight') : helper.weightIMT('Obese'))))"
+  - "calculation = helper.weightCatString(step1_bmi)"
 ---
 name: step1_exp_weight_gain
 description: weight gain tingz
 priority: 1
 condition: "true"
 actions:
-  - "calculation = (step1_weight_cat == helper.weightIMT('Underweight') ? '12.5 - 18': (step1_weight_cat == helper.weightIMT('Normal Weight') ? '11.5 - 16' : (step1_weight_cat == helper.weightIMT('Overweight') ? '7 - 11.5' : '5 - 9')))"
+  - "calculation = helper.expWeightGain(step1_bmi)"
 ---
 name: step1_gdm_risk
 description: gdm risk

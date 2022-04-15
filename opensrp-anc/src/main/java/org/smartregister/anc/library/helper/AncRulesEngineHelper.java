@@ -155,6 +155,42 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
         return ga;
     }
 
+    /**
+     * Get weight category
+     * @param bmi - float value of Body Mass Index
+     * @return - key for weight category
+     */
+    public String weightCat(float bmi) {
+        if (bmi < 18.5) return "underweight";
+        if (bmi >= 18.5 && bmi < 25) return "normal";
+        if (bmi >= 25 && bmi < 30) return "overweight";
+        return "obese";
+    }
+
+    /**
+     * Get string display of weight category from strings.xml
+     * @param bmi - float value of Body Mass Index
+     * @return String of weight category value
+     */
+    public String weightCatString(float bmi) {
+        String weightCat = this.weightCat(bmi);
+        int resId = this.context.getResources().getIdentifier("weight_" + weightCat, "string", this.context.getPackageName());
+        return this.context.getString(resId);
+    }
+
+    /**
+     * Get expected pregnancy weight gain based on BMI
+     * @param bmi - float value of Body Mass Index
+     * @return - String of expected weight gain in kg
+     */
+    public String expWeightGain(float bmi) {
+        String weightCat = this.weightCat(bmi);
+        if (weightCat.equals("underweight")) return "12.5 - 18";
+        if (weightCat.equals("normal")) return "11.5 - 16";
+        if (weightCat.equals("overweight")) return "7 - 11.5";
+        return "5 - 9";
+    }
+
     /***
      * Gets value form accordion
      * @param accordion accordion to get the value from

@@ -371,4 +371,10 @@
     <string name="pdf_saved_successfully">\"PDF berhasil disimpan \"</string>
     <string name="contact_summary_data_file">contactSummaryData.pdf</string>
 
+    <!-- Form Helper -->
+    <string name="weight_underweight">Kekurangan Berat Badan</string>
+    <string name="weight_normal">Normal</string>
+    <string name="weight_overweight">Kelebihan Berat Badan</string>
+    <string name="weight_obese">Obesitas</string>
+
 </resources>

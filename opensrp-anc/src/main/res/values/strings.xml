@@ -375,6 +375,12 @@
     <string name="pdf_saved_successfully">\"PDF saved successfully to location \"</string>
     <string name="contact_summary_data_file">contactSummaryData.pdf</string>
 
+    <!-- Form Helper -->
+    <string name="weight_underweight">Underweight</string>
+    <string name="weight_normal">Normal</string>
+    <string name="weight_overweight">Overweight</string>
+    <string name="weight_obese">Obese</string>
+
     <!-- General -->
     
     
