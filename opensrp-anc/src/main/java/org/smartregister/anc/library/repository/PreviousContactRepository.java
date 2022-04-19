@@ -199,7 +199,6 @@ public class PreviousContactRepository extends BaseRepository {
                     previousContactsSummary.setContactNumber(factsCursor.getString(factsCursor.getColumnIndex(CONTACT_NO)));
                     previousContactsSummary.setCreatedAt(factsCursor.getString(factsCursor.getColumnIndex(CREATED_AT)));
                     previousContactsSummary.setVisitFacts(contactFacts);
-
                     previousContactFacts.add(previousContactsSummary);
                 }
             }

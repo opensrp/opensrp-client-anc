@@ -69,7 +69,7 @@ public class ContactJsonFormActivity extends FormConfigurationJsonFormActivity {
                                 }.getType());
                 if (globalValues.containsKey(ConstantsUtils.DANGER_SIGNS + ConstantsUtils.SuffixUtils.VALUE) && StringUtils.isNotBlank(globalValues.get(ConstantsUtils.DANGER_SIGNS + ConstantsUtils.SuffixUtils.VALUE))) {
                     String danger_signs_value = globalValues.get(ConstantsUtils.DANGER_SIGNS + ConstantsUtils.SuffixUtils.VALUE);
-                    if (danger_signs_value.contains(",") && danger_signs_value.contains(".")) {
+                    if (danger_signs_value.contains(",") || (danger_signs_value.contains(".") && danger_signs_value.contains(JsonFormConstants.TEXT))) {
                         List<String> list = Arrays.asList(danger_signs_value.split(",")), finalList = new LinkedList<>();
                         for (int i = 0; i < list.size(); i++) {
                             String text = list.get(i).trim();

@@ -42,7 +42,7 @@ public class AttentionFlagsTask extends AsyncTask<Void, Void, Void> {
             while (keys.hasNext()) {
                 String key = keys.next();
                 String ValueObject = jsonObject.optString(key);
-                String value = Utils.returnTranslatedStringJoinedValue(ValueObject, key);
+                String value = Utils.returnTranslatedStringJoinedValue(ValueObject);
                 if (StringUtils.isNotBlank(value)) {
                     facts.put(key, value);
                 } else {

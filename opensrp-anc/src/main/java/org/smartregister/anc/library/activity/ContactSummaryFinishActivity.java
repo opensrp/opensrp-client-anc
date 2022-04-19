@@ -46,6 +46,8 @@ import timber.log.Timber;
 /**
  * Created by ndegwamartin on 10/07/2018.
  */
+
+
 public class ContactSummaryFinishActivity extends BaseProfileActivity implements ProfileContract.View {
     public MenuItem saveFinishMenuItem;
     private TextView nameView;
@@ -189,6 +191,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     private void saveFinishForm() {
         new FinalizeContactTask(new WeakReference<Context>(this), mProfilePresenter, getIntent()).execute();
     }
+
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
