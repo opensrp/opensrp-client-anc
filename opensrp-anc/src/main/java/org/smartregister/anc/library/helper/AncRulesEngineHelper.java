@@ -3,6 +3,7 @@ package org.smartregister.anc.library.helper;
 import android.content.Context;
 import android.text.TextUtils;
 
+import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.constants.ANCJsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
 import com.vijay.jsonwizard.rules.RulesEngineHelper;
@@ -289,4 +290,15 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
     public int compareDateAgainstToday(String theDate) {
         return compareTwoDates(theDate, (new LocalDate()).toString(FormUtils.NATIIVE_FORM_DATE_FORMAT_PATTERN));
     }
+
+    /**
+     * Calculate weeks and days from days integer.
+     */
+    public String getWeeksAndDaysFromDays(Integer days) {
+        double weeks = Math.round(Math.floor(days / 7));
+        Integer dayz = days % 7;
+
+        return String.format(this.context.getString(R.string.lmp_gest_age_format), weeks, dayz);
+    }
+
 }
