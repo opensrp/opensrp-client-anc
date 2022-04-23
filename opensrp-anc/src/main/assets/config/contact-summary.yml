@@ -255,7 +255,7 @@ fields:
 - template: "{{contact_summary.physiological_symptoms.persisting_physiological_symptoms}}: {phys_symptoms_persist_value}"
   relevance: "phys_symptoms_persist != ''"
 
-- template: "{{contact_summary.physiological_symptoms.physiological_symptoms}}: contact-summary.yml {phys_symptoms_value}"
+- template: "{{contact_summary.physiological_symptoms.physiological_symptoms}}: {phys_symptoms_value}"
   relevance: "phys_symptoms != ''"
 
 - template: "{{contact_summary.physiological_symptoms.low_back_and_pelvic_pain_other_symptoms}}: {other_sym_lbpp_value}"

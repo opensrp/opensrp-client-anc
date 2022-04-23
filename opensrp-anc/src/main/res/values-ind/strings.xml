@@ -295,6 +295,7 @@
 
 	<!-- Contact -->
 	<!-- Contact > Titles -->
+	<string name="quick_check">Pemeriksaan Cepat</string>
 	<string name="contact_quick_check">Pemeriksaan Cepat</string>
 	<string name="contact_profile">Profil</string>
 	<string name="contact_symptoms_follow_up">Gejala dan Tindak Lanjut</string>
