@@ -348,6 +348,7 @@
     <string name="contact_anc_contacts_counseling">ANC Contacts Counseling</string>
     <string name="contact_family_planning_counseling">Family Planning Counseling</string>
     <string name="contact_birth_plan_counseling">Birth Plan Counseling</string>
+    <string name="contact_hospital_referral_reasons">Hospital Referral Reasons</string>
     <string name="contact_risks_and_diagnoses">Risks and Diagnoses</string>
     <!-- Contact > Text > Test Result -->
     <string name="ultrasound_tests_results">Ultrasound Tests Results</string>

@@ -870,7 +870,7 @@ fields:
 - template: "{{contact_summary.family_planning_counseling.pfp_counseling_not_done}}"
   relevance: "family_planning_counsel == 'not_done'"
 
-- template: "{{contact_summary.family_planning_counseling.fp_method_accepted}}: {family_planning_type_value}"
+- template: "{{contact_summary.family_planning_counseling.fp_method_accepted}}: {family_planning_type}"
   relevance: "family_planning_type != ''"
 ---
 group: birth_plan_counseling

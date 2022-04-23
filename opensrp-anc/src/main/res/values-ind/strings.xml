@@ -343,6 +343,7 @@
     <string name="contact_anc_contacts_counseling">Konseling Kontak ANC</string>
     <string name="contact_family_planning_counseling">Konseling Keluarga Berencana</string>
     <string name="contact_birth_plan_counseling">Konseling Rencana Kelahiran</string>
+    <string name="contact_hospital_referral_reasons">Sebab Rujukan Rumah Sakit</string>
     <string name="contact_risks_and_diagnoses">Resiko dan Diagnosis</string>
     <string name="finalizing_contact">Finalisasi Kunjungan %1$d</string>
     <string name="summarizing_contact_number">Menyimpulkan Kunjungan %1$d</string>

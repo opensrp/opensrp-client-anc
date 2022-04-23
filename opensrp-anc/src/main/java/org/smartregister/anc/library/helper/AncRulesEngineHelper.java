@@ -301,4 +301,8 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
         return String.format(this.context.getString(R.string.lmp_gest_age_format), weeks, dayz);
     }
 
+    public String getBooleanString() {
+        return "HAI";
+    }
+
 }
