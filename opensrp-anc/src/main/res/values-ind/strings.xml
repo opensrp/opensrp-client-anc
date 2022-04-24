@@ -120,7 +120,7 @@
     <string name="library">Pustaka</string>
     <string name="birth_and_emergency_plan">Rencana Kelahiran dan Darurat</string>
     <string name="physical_activity">Aktivitas Fisik</string>
-    <string name="balanced_nutrition">Nutrisi Seimbang</string>
+    <string name="balanced_nutrition">Gizi Seimbang</string>
     <!-- Library > Birth & Emergency Plan -->
     <!-- TODO: This is not reliable way to accomodate future updates. Need to change. -->
     <string name="birth_plan_source_text">SUMBER: WHO. Manajemen Terpadu Kehamilan dan Persalinan – Kehamilan, Melahirkan, Postpartum dan Perawatan Bayi Baru Lahir: Panduan untuk praktik penting. 2015. Jenewa.</string>
