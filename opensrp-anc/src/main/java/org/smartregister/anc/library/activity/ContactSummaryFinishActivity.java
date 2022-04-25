@@ -45,6 +45,8 @@ import timber.log.Timber;
 /**
  * Created by ndegwamartin on 10/07/2018.
  */
+
+
 public class ContactSummaryFinishActivity extends BaseProfileActivity implements ProfileContract.View {
     public MenuItem saveFinishMenuItem;
     private TextView nameView;
@@ -69,7 +71,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
         mProfilePresenter = new ProfilePresenter(this);
         imageRenderHelper = new ImageRenderHelper(this);
-        loadContactSummaryData();
+
 
     }
 
@@ -104,9 +106,17 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     @Override
     public void onResume() {
         super.onResume();
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && Environment.isExternalStorageManager())
+        if(isPermissionGranted())
         {
-            generateFileinStorage();
+           loadContactSummaryData();
+        }
+        else if(!isPermissionGranted() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+        {
+            Intent intent = new Intent();
+            intent.setAction(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+            Uri uri = Uri.fromParts("package", this.getPackageName(), null);
+            intent.setData(uri);
+            startActivity(intent);
         }
     }
 
@@ -189,6 +199,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         new FinalizeContactTask(new WeakReference<Context>(this), mProfilePresenter, getIntent()).execute();
     }
 
+
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         saveFinishMenuItem = menu.findItem(R.id.save_finish_menu_item);
@@ -235,10 +246,10 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     }
 
     @Override
-    public void createContactSummaryPdf() {
+    public void createContactSummaryPdf(String womanName) {
 
         if (isPermissionGranted() && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)) {
-            generateFileinStorage();
+            generateFileinStorage(womanName);
         }
         else if (!isPermissionGranted() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
         {
@@ -250,10 +261,10 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         }
     }
 
-    public void generateFileinStorage()
+    public void generateFileinStorage(String womanName)
     {
         try {
-            new Utils().createSavePdf(this, yamlConfigList, facts);
+            new Utils().createSavePdf(this, yamlConfigList, facts,womanName);
         } catch (FileNotFoundException e) {
             Timber.e(e, "%s createContactSummaryPdf()", this.getClass().getCanonicalName());
         }
@@ -275,7 +286,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == PermissionUtils.WRITE_EXTERNAL_STORAGE_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                createContactSummaryPdf();
+               loadContactSummaryData();
             } else {
                 displayToast(R.string.allow_phone_call_management);
             }
