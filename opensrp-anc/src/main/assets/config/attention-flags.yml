@@ -64,7 +64,7 @@ group: red_attention_flag
 fields:
 
   - template: "{{attention_flags.red.danger_sign}}: {danger_signs_value}"
-    relevance: "!danger_signs.isEmpty() && !danger_signs.contains('danger_none')"
+    relevance: "!danger_signs.isEmpty() && !danger_signs.contains('none') || !danger_signs.isEmpty() && !danger_signs.contains('danger_none')"
 
   - template: "{{attention_flags.red.occupation_informal_employment_sex_worker}}"
     relevance: "occupation.contains('informal_employment_sex_worker')"

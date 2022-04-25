@@ -29,7 +29,7 @@ public interface ProfileContract {
 
         void getTaskCount(String baseEntityId);
 
-        void createContactSummaryPdf();
+        void createContactSummaryPdf(String womanName);
     }
 
     interface View extends BaseProfileContract.View {
@@ -48,7 +48,7 @@ public interface ProfileContract {
 
         void setTaskCount(String taskCount);
 
-        void createContactSummaryPdf();
+        void createContactSummaryPdf(String womanName);
 
     }
 

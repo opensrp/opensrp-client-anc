@@ -168,7 +168,7 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
     }
 
     @Override
-    public void createContactSummaryPdf() {
-        getProfileView().createContactSummaryPdf();
+    public void createContactSummaryPdf(String womanName) {
+        getProfileView().createContactSummaryPdf(womanName);
     }
 }
