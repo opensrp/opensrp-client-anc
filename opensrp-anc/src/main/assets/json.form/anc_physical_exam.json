@@ -79,6 +79,26 @@
 		"next": "step2",
 		"fields": [
 			{
+				"key": "firstname_label",
+				"type": "label",
+				"label_text_style": "bold",
+				"text": "First Name",
+				"text_color": "#000000",
+				"v_required": {
+					"value": true
+				}
+			},
+			{
+				"type": "edit_text",
+				"openmrs_entity_id": "",
+				"hint": "First name",
+				"key": "First_Name",
+				"v_regex": {
+					"value": "[A-Za-z]*",
+					"err": "Please enter a valid name"
+				}
+			},
+			{
 				"key": "height_label",
 				"type": "label",
 				"label_text_style": "bold",
