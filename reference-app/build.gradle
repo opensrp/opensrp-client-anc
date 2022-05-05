@@ -165,7 +165,7 @@ android {
         }
 
         debug {
-            resValue "string", 'opensrp_url', '"https://anc.labs.smartregister.org/opensrp/"'
+            resValue "string", 'opensrp_url', '"https://dhmira.dphcp.org/opensrp/"'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
