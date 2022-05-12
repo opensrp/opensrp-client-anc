@@ -381,6 +381,8 @@
     <string name="weight_normal">Normal</string>
     <string name="weight_overweight">Overweight</string>
     <string name="weight_obese">Obese</string>
+    <string name="muac_malnourished">Malnourished</string>
+    <string name="muac_normal">Normal</string>
 
     <string name="lmp_gest_age_format">%.0f weeks %d days</string>
 

@@ -378,7 +378,9 @@
     <string name="weight_normal">Normal</string>
     <string name="weight_overweight">Kelebihan Berat Badan</string>
     <string name="weight_obese">Obesitas</string>
-    
+    <string name="muac_malnourished">Gizi Malnutrisi</string>
+    <string name="muac_normal">Gizi Normal</string>
+
     <string name="lmp_gest_age_format">%.0f minggu %d hari</string>
 
 </resources>

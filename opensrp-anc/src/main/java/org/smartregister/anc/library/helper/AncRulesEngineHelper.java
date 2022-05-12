@@ -180,6 +180,26 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
     }
 
     /**
+     * Get MUAC category
+     * @param muac - float value of woman's MUAC
+     * @return String of MUAC category
+     */
+    public String muacCat(float muac) {
+        if (muac > 23.5) return "malnourished";
+        return "normal";
+    }
+    /**
+     * Get string display of MUAC category from strings.xml
+     * @param muac - float value of MUAC
+     * @return String of MUAC category value
+     */
+    public String muacCatString(float muac) {
+        String muacCat = this.muacCat(muac);
+        int resId = this.context.getResources().getIdentifier("muac_" + muacCat, "string", this.context.getPackageName());
+        return this.context.getString(resId);
+    }
+
+    /**
      * Get expected pregnancy weight gain based on BMI
      * @param bmi - float value of Body Mass Index
      * @return - String of expected weight gain in kg
