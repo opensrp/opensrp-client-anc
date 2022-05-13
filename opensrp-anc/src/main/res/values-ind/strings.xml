@@ -330,8 +330,9 @@
     <string name="contact_womans_behaviour">Perilaku Wanita</string>
     <string name="contact_physiological_symptoms">Gejala Fisiologis</string>
     <string name="contact_height_and_weight">Tinggi dan berat</string>
+    <string name="contact_muac">Lingkar Lengan Atas</string>
     <string name="contact_blood_pressure">Tekanan darah</string>
-    <string name="contact_maternal_exam">Ujian Ibu</string>
+    <string name="contact_maternal_exam">Pemeriksaan Kehamilan</string>
     <string name="contact_fetal_assessment">Penilaian Janin</string>
     <string name="contact_blood_type_test">Tes Golongan Darah</string>
     <string name="contact_partner_hiv_test">Tes HIV Pasangan</string>

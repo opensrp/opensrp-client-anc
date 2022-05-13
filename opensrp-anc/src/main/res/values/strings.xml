@@ -335,6 +335,7 @@
     <string name="contact_womans_behaviour">Woman\'s Behaviour</string>
     <string name="contact_physiological_symptoms">Physiological Symptoms</string>
     <string name="contact_height_and_weight">Height and Weight</string>
+    <string name="contact_muac">Middle-Upper Arm Circumference</string>
     <string name="contact_blood_pressure">Blood Pressure</string>
     <string name="contact_maternal_exam">Maternal Exam</string>
     <string name="contact_fetal_assessment">Fetal Assessment</string>

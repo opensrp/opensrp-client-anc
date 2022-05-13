@@ -329,6 +329,9 @@ fields:
 ---
 group: immunisation_status
 fields:
+  - template: "{{profile_overview.immunisation_status.covid_vaccine_status}}: {covid_vaccine_status_value}"
+    relevance: "covid_vaccine_status != ''"
+    
   - template: "{{profile_overview.immunisation_status.tt_immunisation_status}}: {tt_immun_status_value}"
     relevance: "tt_immun_status != ''"
     isRedFont: "tt_immun_status == 'ttcv_not_received' || tt_immun_status == 'unknown'"

@@ -143,6 +143,9 @@ fields:
 group: immunisation_status
 fields:
 
+- template: "{{contact_summary.immunisation_status.covid_vaccine_status}}: {covid_vaccine_status_value}"
+  relevance: "tt_immun_status_value != ''"
+  
 - template: "{{contact_summary.immunisation_status.tt_immunisation_status}}: {tt_immun_status_value}"
   relevance: "tt_immun_status_value != ''"
 
@@ -219,7 +222,7 @@ fields:
 - template: "{{contact_summary.woman_behaviour.tobacco_cessation_counseling_done}}: {tobacco_counsel_notdone_value}"
   relevance: "tobacco_counsel == 'not_done'"
 
-- template: "{{contact_summary.woman_behaviour.shs_exposure}}: Hayayya {shs_exposure_value}"
+- template: "{{contact_summary.woman_behaviour.shs_exposure}}: {shs_exposure_value}"
   relevance: "shs_exposure != ''"
 
 - template: "{{contact_summary.woman_behaviour.shs_counseling_done}}"
@@ -240,7 +243,7 @@ fields:
 - template: "{{contact_summary.woman_behaviour.alcohol_substance_enquiry}}: {alcohol_substance_enquiry_value}"
   relevance: "alcohol_substance_enquiry != ''"
 
-- template: "{{contact_summary.woman_behaviour.alcohol_substances_used}}: {alcohol_substance_use_value}, {other_substance_use}"
+- template: "{{contact_summary.woman_behaviour.alcohol_substances_used}}: {alcohol_substance_use_value}"
   relevance: "alcohol_substance_use != ''"
 
 - template: "{{contact_summary.woman_behaviour.alcohol_substances_use_counseling_done}}"
@@ -377,6 +380,16 @@ fields:
 
 - template: "{{contact_summary.height_and_weight.balanced_protein_dietary_counseling_not_done}}: {balanced_energy_counsel_notdone_value}"
   relevance: "balanced_energy_counsel == 'not_done'"
+---
+group: muac
+fields:
+
+- template: "{{contact_summary.muac.muac}}: {muac} cm"
+  relevance: "muac != ''"
+
+- template: "{{contact_summary.muac.muac_cat}}t: {muac_cat}"
+  relevance: "muac_cat != ''"
+
 ---
 group: blood_pressure
 fields:
@@ -870,7 +883,7 @@ fields:
 - template: "{{contact_summary.family_planning_counseling.pfp_counseling_not_done}}"
   relevance: "family_planning_counsel == 'not_done'"
 
-- template: "{{contact_summary.family_planning_counseling.fp_method_accepted}}: {family_planning_type}"
+- template: "{{contact_summary.family_planning_counseling.fp_method_accepted}}: {family_planning_type_value}"
   relevance: "family_planning_type != ''"
 ---
 group: birth_plan_counseling
