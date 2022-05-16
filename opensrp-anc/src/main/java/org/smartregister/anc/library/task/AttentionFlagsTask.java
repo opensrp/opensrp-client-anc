@@ -47,7 +47,7 @@ public class AttentionFlagsTask extends AsyncTask<Void, Void, Void> {
                 if (StringUtils.isNotBlank(value)) {
                     facts.put(key, value);
                 } else {
-                    facts.put(key, "");
+                    facts.put(key, ValueObject);
                 }
 
             }
