@@ -86,7 +86,7 @@ fields:
      (tobacco_user.contains('yes') || tobacco_user.contains('Yes') || tobacco_user.contains('recently_quit'))"
 
   - template: "{{attention_flags.red.woman_and_her_partner_do_not_use_condoms}}"
-    relevance: "!condom_use.isEmpty() && (condom_use.contains('no') !! condom_use.contains('No'))"
+    relevance: "!condom_use.isEmpty() && (condom_use.contains('no') || condom_use.contains('No'))"
 
   - template: "{{attention_flags.red.alcohol_substances_currently_using}}: {alcohol_substance_use_value}"
     relevance: "!alcohol_substance_use.isEmpty() && (!alcohol_substance_use.contains('none') && !alcohol_substance_use.contains('None'))"
