@@ -17,10 +17,10 @@ import java.util.HashMap;
 import timber.log.Timber;
 
 public class FinalizeContactTask extends AsyncTask<Void, Void, Void> {
+    private final Context context;
+    private final ProfileContract.Presenter mProfilePresenter;
+    private final Intent intent;
     private HashMap<String, String> newWomanProfileDetails;
-    private Context context;
-    private ProfileContract.Presenter mProfilePresenter;
-    private Intent intent;
 
     public FinalizeContactTask(WeakReference<Context> context, ProfileContract.Presenter mProfilePresenter, Intent intent) {
         this.context = context.get();
@@ -28,6 +28,14 @@ public class FinalizeContactTask extends AsyncTask<Void, Void, Void> {
         this.intent = intent;
     }
 
+    @Override
+    protected void onPreExecute() {
+        ((ContactSummaryFinishActivity) context).showProgressDialog(R.string.please_wait_message);
+        ((ContactSummaryFinishActivity) context).getProgressDialog().setMessage(
+                String.format(context.getString(R.string.finalizing_contact),
+                        intent.getExtras().getInt(ConstantsUtils.IntentKeyUtils.CONTACT_NO)) + " data");
+        ((ContactSummaryFinishActivity) context).getProgressDialog().show();
+    }
     @Override
     protected Void doInBackground(Void... nada) {
         try {
@@ -46,14 +54,7 @@ public class FinalizeContactTask extends AsyncTask<Void, Void, Void> {
 
     }
 
-    @Override
-    protected void onPreExecute() {
-        ((ContactSummaryFinishActivity) context).showProgressDialog(R.string.please_wait_message);
-        ((ContactSummaryFinishActivity) context).getProgressDialog().setMessage(
-                String.format(context.getString(R.string.finalizing_contact),
-                        intent.getExtras().getInt(ConstantsUtils.IntentKeyUtils.CONTACT_NO)) + " data");
-        ((ContactSummaryFinishActivity) context).getProgressDialog().show();
-    }
+
 
     @Override
     protected void onPostExecute(Void result) {
@@ -63,7 +64,6 @@ public class FinalizeContactTask extends AsyncTask<Void, Void, Void> {
         contactSummaryIntent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID,
                 intent.getExtras().getString(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
         contactSummaryIntent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, newWomanProfileDetails);
-
         context.startActivity(contactSummaryIntent);
         ((ContactSummaryFinishActivity) context).finish();
     }

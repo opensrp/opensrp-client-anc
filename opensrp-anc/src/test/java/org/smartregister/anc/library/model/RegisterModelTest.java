@@ -16,27 +16,25 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.BuildConfig;
 import org.smartregister.anc.library.activity.BaseUnitTest;
-import org.smartregister.anc.library.contract.RegisterContract;
 import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
-import org.smartregister.util.FormUtils;
 import org.smartregister.util.Utils;
 
 import java.util.Date;
 
 @RunWith(PowerMockRunner.class)
 public class RegisterModelTest extends BaseUnitTest {
-    private RegisterContract.Model model;
-    private String jsonString = "{\n" +
+    private final String jsonString = "{\n" +
             "  \"count\": \"1\",\n" +
             "  \"encounter_type\": \"ANC Registration\",\n" +
             "  \"entity_id\": \"\",\n" +
@@ -329,7 +327,7 @@ public class RegisterModelTest extends BaseUnitTest {
             "    ]\n" +
             "  }\n" +
             "}";
-    private String json = "{\n" +
+    private final String json = "{\n" +
             "  \"count\": \"1\",\n" +
             "  \"encounter_type\": \"ANC Registration\",\n" +
             "  \"entity_id\": \"\",\n" +
@@ -590,10 +588,11 @@ public class RegisterModelTest extends BaseUnitTest {
             "    ]\n" +
             "  }\n" +
             "}";
+    private RegisterModel model;
 
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         model = new RegisterModel();
     }
 
@@ -669,30 +668,40 @@ public class RegisterModelTest extends BaseUnitTest {
     }
 
     @Test
-    public void testFormAsJson() throws Exception {
-        FormUtils formUtils = Mockito.mock(FormUtils.class);
-        RegisterModel registerModel = (RegisterModel) model;
-
+    public void testGetFormAsJsonShouldReturnNull() throws Exception {
+        RegisterModel registerModel = Mockito.spy(model);
         String formName = "anc_register";
         String entityId = "ENTITY_ID";
         String currentLocationId = "CURRENT_LOCATION_ID";
+        android.content.Context mockContext = Mockito.mock(android.content.Context.class);
+        AncLibrary mockAncLibrary = Mockito.mock(AncLibrary.class);
+        Mockito.doReturn(mockContext).when(mockAncLibrary).getApplicationContext();
+        ReflectionHelpers.setStaticField(AncLibrary.class, "instance", mockAncLibrary);
+        com.vijay.jsonwizard.utils.FormUtils formUtils = Mockito.mock(com.vijay.jsonwizard.utils.FormUtils.class);
+        Mockito.doReturn(formUtils).when(registerModel).getFormUtils();
+        Mockito.doReturn(null).when(formUtils).getFormJsonFromRepositoryOrAssets(mockContext, formName);
+        Assert.assertNull(registerModel.getFormAsJson(formName, entityId, currentLocationId));
 
-        JSONObject jsonInMock = new JSONObject(json);
+    }
 
-        Assert.assertNotEquals(currentLocationId,
-                jsonInMock.getJSONObject(ANCJsonFormUtils.METADATA).getString(ANCJsonFormUtils.ENCOUNTER_LOCATION));
-        Assert.assertNotEquals(entityId, entityId(jsonInMock));
 
-        Mockito.doReturn(jsonInMock).when(formUtils).getFormJson(formName);
-
-        JSONObject actualJson = registerModel.getFormAsJson(formName, entityId, currentLocationId);
-
-        Mockito.verify(formUtils).getFormJson(formName);
-
-        Assert.assertEquals(currentLocationId,
-                actualJson.getJSONObject(ANCJsonFormUtils.METADATA).getString(ANCJsonFormUtils.ENCOUNTER_LOCATION));
-
-        Assert.assertEquals(entityId, entityId(actualJson));
+    @Test
+    public void testGetFormAsJsonShouldReturnJsonObject() throws Exception {
+        RegisterModel registerModel = Mockito.spy(model);
+        String formName = "anc_register";
+        String entityId = "ENTITY_ID";
+        String currentLocationId = "CURRENT_LOCATION_ID";
+        android.content.Context mockContext = Mockito.mock(android.content.Context.class);
+        AncLibrary mockAncLibrary = Mockito.mock(AncLibrary.class);
+        Mockito.doReturn(mockContext).when(mockAncLibrary).getApplicationContext();
+        ReflectionHelpers.setStaticField(AncLibrary.class, "instance", mockAncLibrary);
+        com.vijay.jsonwizard.utils.FormUtils formUtils = Mockito.mock(com.vijay.jsonwizard.utils.FormUtils.class);
+        Mockito.doReturn(formUtils).when(registerModel).getFormUtils();
+        Mockito.doReturn(new JSONObject(json)).when(formUtils).getFormJsonFromRepositoryOrAssets(mockContext, formName);
+        JSONObject resultJsonObject = registerModel.getFormAsJson(formName, entityId, currentLocationId);
+        Assert.assertNotNull(resultJsonObject);
+        Assert.assertEquals(entityId, entityId(resultJsonObject));
+        Assert.assertEquals(currentLocationId, resultJsonObject.getJSONObject(ANCJsonFormUtils.METADATA).getString(ANCJsonFormUtils.ENCOUNTER_LOCATION));
 
 
     }

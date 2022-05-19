@@ -104,7 +104,8 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     @Override
     public void onResume() {
         super.onResume();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && Environment.isExternalStorageManager()) {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && Environment.isExternalStorageManager())
+        {
             generateFileinStorage();
         }
     }
@@ -133,11 +134,15 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         }
 
         Iterable<Object> ruleObjects = AncLibrary.getInstance().readYaml(FilePathUtils.FileUtils.CONTACT_SUMMARY);
+
         yamlConfigList = new ArrayList<>();
-        for (Object ruleObject : ruleObjects) {
-            YamlConfig yamlConfig = (YamlConfig) ruleObject;
-            yamlConfigList.add(yamlConfig);
+        if(ruleObjects!=null){
+            for (Object ruleObject : ruleObjects) {
+                YamlConfig yamlConfig = (YamlConfig) ruleObject;
+                yamlConfigList.add(yamlConfig);
+            }
         }
+
     }
 
     public PartialContactRepository getPartialContactRepository() {
@@ -152,7 +157,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         if (itemId == android.R.id.home) {
             PatientRepository.updateEDDDate(baseEntityId, null); //Reset EDD
             super.onBackPressed();
-        } else {
+        } else if (itemId == R.id.save_finish_menu_item) {
             saveFinishForm();
         }
         return super.onOptionsItemSelected(item);
@@ -234,7 +239,9 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
         if (isPermissionGranted() && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)) {
             generateFileinStorage();
-        } else if (!isPermissionGranted() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        }
+        else if (!isPermissionGranted() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+        {
             Intent intent = new Intent();
             intent.setAction(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
             Uri uri = Uri.fromParts("package", this.getPackageName(), null);
@@ -243,7 +250,8 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         }
     }
 
-    public void generateFileinStorage() {
+    public void generateFileinStorage()
+    {
         try {
             new Utils().createSavePdf(this, yamlConfigList, facts);
         } catch (FileNotFoundException e) {

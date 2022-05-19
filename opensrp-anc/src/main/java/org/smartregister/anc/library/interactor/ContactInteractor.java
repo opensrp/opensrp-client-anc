@@ -39,6 +39,7 @@ import java.util.Map;
 import timber.log.Timber;
 
 import static org.smartregister.anc.library.util.ConstantsUtils.CONTACT_DATE;
+import static org.smartregister.anc.library.util.ConstantsUtils.GEST_AGE_OPENMRS;
 
 /**
  * Created by keyman 30/07/2018.
@@ -208,7 +209,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
     private void addReferralGa(String baseEntityId, Map<String, String> details) {
         PreviousContact previousContact = preLoadPreviousContact(baseEntityId, details);
-        previousContact.setKey(ConstantsUtils.GEST_AGE_OPENMRS);
+        previousContact.setKey(GEST_AGE_OPENMRS);
         String edd = details.get(DBConstantsUtils.KeyUtils.EDD);
         previousContact.setValue(String.valueOf(Utils.getGestationAgeFromEDDate(edd)));
         AncLibrary.getInstance().getPreviousContactRepository().savePreviousContact(previousContact);
@@ -239,6 +240,8 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
             for (PreviousContact previousContact : previousContactList) {
                 if(previousContact.getKey().equals(CONTACT_DATE) && stateObject.has(CONTACT_DATE))
+                    continue;
+                if(stateObject.has(previousContact.getKey()))
                     continue;
                 stateObject.put(previousContact.getKey(), previousContact.getValue());
             }

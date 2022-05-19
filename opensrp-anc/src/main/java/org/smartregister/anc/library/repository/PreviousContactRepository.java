@@ -67,7 +67,6 @@ public class PreviousContactRepository extends BaseRepository {
         database.execSQL(INDEX_CONTACT_NO);
     }
 
-
     public void savePreviousContact(PreviousContact previousContact) {
         if (previousContact == null) return;
         previousContact.setVisitDate(Utils.getDBDateToday());
@@ -223,6 +222,7 @@ public class PreviousContactRepository extends BaseRepository {
         try {
             SQLiteDatabase db = getWritableDatabase();
             mCursor = getAllTests(baseEntityId, db);
+
             if (mCursor != null) {
                 while (mCursor.moveToNext()) {
                     String jsonValue = mCursor.getString(mCursor.getColumnIndex(VALUE));
@@ -259,7 +259,7 @@ public class PreviousContactRepository extends BaseRepository {
      */
     private Cursor getAllTests(String baseEntityId, SQLiteDatabase database) {
         String selection = "";
-        String orderBy = ID + " DESC";
+        String orderBy = "MAX( "+ID +") DESC";
         String[] selectionArgs = null;
 
         if (StringUtils.isNotBlank(baseEntityId)) {
@@ -319,16 +319,19 @@ public class PreviousContactRepository extends BaseRepository {
     public Facts getPreviousContactFacts(String baseEntityId, String contactNo, boolean checkNegative) {
         Cursor mCursor = null;
         String selection = "";
-        String orderBy = "created_at DESC";
+        String orderBy = "MAX("+ ID + ") DESC";
         String[] selectionArgs = null;
         Facts previousContactFacts = new Facts();
         try {
             SQLiteDatabase db = getReadableDatabase();
+
             if (StringUtils.isNotBlank(baseEntityId) && StringUtils.isNotBlank(contactNo)) {
                 selection = BASE_ENTITY_ID + " = ? AND " + CONTACT_NO + " = ?";
                 selectionArgs = new String[]{baseEntityId, getContactNo(contactNo, checkNegative)};
             }
-            mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
+
+            mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, KEY, null, orderBy, null);
+
             if (mCursor != null && mCursor.getCount() > 0) {
                 while (mCursor.moveToNext()) {
                     String previousContactValue = mCursor.getString(mCursor.getColumnIndex(VALUE));
@@ -347,7 +350,6 @@ public class PreviousContactRepository extends BaseRepository {
                     }
 
                 }
-
                 previousContactFacts.put(CONTACT_NO, selectionArgs[1]);
                 return previousContactFacts;
             } else if (Integer.parseInt(contactNo) > 0) {
