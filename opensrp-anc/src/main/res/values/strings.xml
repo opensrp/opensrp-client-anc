@@ -391,7 +391,6 @@
     <!-- General -->
 
 
-    <string name="no_openmrs_id">No unique ids found. Click on the sync button to get more and if this error persists contact the system admin.</string>
     <string name="alphabetical_sort">Alphabetical (Name)</string>
     <string name="name">Name</string>
     <string name="dismiss">Cancel</string>
@@ -642,7 +641,10 @@
 
     <string name="balanced_nutrition_source">SOURCE: World Health Organization. Integrated Management of Pregnancy and Childbirth – Pregnancy, Childbirth, Postpartum and Newborn Care: A guide for essential practice. 2015. Geneva.</string>
     <string name="string_bullet">•</string>
-    <string name="birth_and_emergency"></string>
+    <string name="birth_and_emergency">" "</string>
+    <string name="no_openmrs_id">No unique ids found. Click on the sync button to get more and if this error persists contact the system admin.</string>
+    <string name="no_openmrs_id">No unique ids found. Click on the sync button to get more and if this error persists contact the system admin.</string>
+    <string name="no_openmrs_id">No unique ids found. Click on the sync button to get more and if this error persists contact the system admin.</string>
 
 
 </resources>
