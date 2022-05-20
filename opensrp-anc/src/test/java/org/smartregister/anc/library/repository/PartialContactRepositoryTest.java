@@ -207,6 +207,64 @@ public class PartialContactRepositoryTest {
 
     }
 
+    @Test
+    public void testDeleteDraftJson()
+    {
+        PowerMockito.mockStatic(DrishtiApplication.class);
+        PowerMockito.mockStatic(Calendar.class);
+
+        PowerMockito.when(DrishtiApplication.getInstance()).thenReturn(drishtiApplication);
+
+
+        PowerMockito.when(drishtiApplication.getRepository()).thenReturn(repository);
+        PowerMockito.when(repository.getWritableDatabase()).thenReturn(sqLiteDatabase);
+
+        partialContactRepository.deleteDraftJson("base_ID");
+        Mockito.verify(sqLiteDatabase).execSQL(Mockito.anyString(),Mockito.any());
+
+
+    }
+
+
+    @Test
+    public void deletePartialContactTest()
+    {
+        PowerMockito.mockStatic(DrishtiApplication.class);
+        PowerMockito.mockStatic(Calendar.class);
+
+        PowerMockito.when(DrishtiApplication.getInstance()).thenReturn(drishtiApplication);
+
+
+        PowerMockito.when(drishtiApplication.getRepository()).thenReturn(repository);
+        PowerMockito.when(repository.getWritableDatabase()).thenReturn(sqLiteDatabase);
+
+
+        partialContactRepository.deletePartialContact(123L);
+        Mockito.verify(sqLiteDatabase).delete(Mockito.anyString(),Mockito.anyString(),Mockito.any());
+
+    }
+
+
+
+    @Test
+    public void clearPartialContactTest()
+    {
+        PowerMockito.mockStatic(DrishtiApplication.class);
+        PowerMockito.mockStatic(Calendar.class);
+
+        PowerMockito.when(DrishtiApplication.getInstance()).thenReturn(drishtiApplication);
+
+
+        PowerMockito.when(drishtiApplication.getRepository()).thenReturn(repository);
+        PowerMockito.when(repository.getWritableDatabase()).thenReturn(sqLiteDatabase);
+
+
+        partialContactRepository.clearPartialRepository();
+        Mockito.verify(sqLiteDatabase).delete(Mockito.anyString(),Mockito.anyString(),Mockito.any());
+
+
+    }
+
 
 
 
