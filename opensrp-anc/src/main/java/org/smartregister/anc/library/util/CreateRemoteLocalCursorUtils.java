@@ -11,6 +11,9 @@ public class CreateRemoteLocalCursorUtils {
     private String ancId;
     private String phoneNumber;
     private String altName;
+    private String edd;
+    private String nextContact;
+    private String nextContactDate;
 
     public CreateRemoteLocalCursorUtils(Cursor cursor, boolean isRemote) {
         if (isRemote) {
@@ -22,9 +25,12 @@ public class CreateRemoteLocalCursorUtils {
         firstName = cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.FIRST_NAME));
         lastName = cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.LAST_NAME));
         dob = cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.DOB));
+        edd = cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.EDD));
         ancId = cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.ANC_ID));
         phoneNumber = cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.PHONE_NUMBER));
         altName = cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.ALT_NAME));
+        nextContact = cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.NEXT_CONTACT));
+        nextContactDate = cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE));
     }
 
     public String getId() {
@@ -46,7 +52,9 @@ public class CreateRemoteLocalCursorUtils {
     public String getDob() {
         return dob;
     }
-
+    public String getEdd() {
+        return edd;
+    }
     public String getAncId() {
         return ancId;
     }
@@ -57,5 +65,13 @@ public class CreateRemoteLocalCursorUtils {
 
     public String getAltName() {
         return altName;
+    }
+
+    public String getNextContact() {
+        return nextContact;
+    }
+
+    public String getNextContactDate () {
+        return  nextContactDate;
     }
 }

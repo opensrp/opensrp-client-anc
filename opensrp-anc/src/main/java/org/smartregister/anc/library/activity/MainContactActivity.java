@@ -372,7 +372,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
             formGlobalValues.put(fieldObject.getString(JsonFormConstants.KEY),
                     fieldObject.getString(JsonFormConstants.VALUE));//Normal value
-            processAbnormalValues(formGlobalValues, fieldObject);
+            processKeysWithExtensionValues(formGlobalValues, fieldObject);
 
             String secKey = ANCFormUtils.getSecondaryKey(fieldObject);
             if (fieldObject.has(secKey)) {
@@ -385,7 +385,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 JSONArray secondaryValues = fieldObject.getJSONArray(ConstantsUtils.KeyUtils.SECONDARY_VALUES);
                 for (int j = 0; j < secondaryValues.length(); j++) {
                     JSONObject jsonObject = secondaryValues.getJSONObject(j);
-                    processAbnormalValues(formGlobalValues, jsonObject);
+                    processKeysWithExtensionValues(formGlobalValues, jsonObject);
                 }
             }
             checkRequiredForCheckBoxOther(fieldObject);
@@ -404,7 +404,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         }
     }
 
-    public static void processAbnormalValues(Map<String, String> facts, JSONObject jsonObject) throws Exception {
+    public static void processKeysWithExtensionValues(Map<String, String> facts, JSONObject jsonObject) throws Exception {
         String fieldKey = ANCFormUtils.getObjectKey(jsonObject);
         Object fieldValue = ANCFormUtils.getObjectValue(jsonObject);
         String fieldKeySecondary = fieldKey.contains(ConstantsUtils.SuffixUtils.OTHER) ?
@@ -434,7 +434,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
             formGlobalValues
                     .put(ANCFormUtils.getSecondaryKey(fieldObject), fieldObject.getString(JsonFormConstants.VALUE));
-            processAbnormalValues(formGlobalValues, fieldObject);
+            processKeysWithExtensionValues(formGlobalValues, fieldObject);
         }
     }
 
@@ -670,6 +670,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             JSONObject optiBPData = FormUtils.createOptiBPDataObject(baseEntityId, womanOpenSRPId);
             fieldObject.put(JsonFormConstants.OptibpConstants.OPTIBP_KEY_DATA, optiBPData);
         }
+
     }
 
     private void getValueMap(JSONObject object) throws JSONException {
@@ -735,6 +736,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             map.put(ConstantsUtils.KeyUtils.CONTACT_NO, contactNo.toString());
             map.put(ConstantsUtils.PREVIOUS_CONTACT_NO, contactNo > 1 ? String.valueOf(contactNo - 1) : "0");
             map.put(ConstantsUtils.AGE, womanAge);
+
             updateFirstContactFlag(map);
             addGAWhenNotCalculated(map);
             addLastContactDate(map);
@@ -808,7 +810,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && data != null) {
             formInvalidFields = data.getStringExtra("formInvalidFields");
         }

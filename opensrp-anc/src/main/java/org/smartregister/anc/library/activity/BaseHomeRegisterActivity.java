@@ -202,7 +202,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
 
     @Override
     public void startFormActivity(JSONObject form) {
-        Intent intent = new Intent(this, FormConfigurationJsonFormActivity.class);
+        Intent intent = new Intent(this, AncRegistrationActivity.class);
         intent.putExtra(ConstantsUtils.JsonFormExtraUtils.JSON, form.toString());
         intent.putExtra(JsonFormConstants.PERFORM_FORM_TRANSLATION, true);
         startActivityForResult(intent, ANCJsonFormUtils.REQUEST_CODE_GET_JSON);
@@ -210,7 +210,6 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == AllConstants.BARCODE.BARCODE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             if (data != null) {
                 Barcode barcode = data.getParcelableExtra(AllConstants.BARCODE.BARCODE_KEY);
@@ -229,7 +228,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
                 Timber.i("NO RESULT FOR QR CODE");
             }
         } else {
-            onActivityResultExtended(requestCode, resultCode, data);
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 

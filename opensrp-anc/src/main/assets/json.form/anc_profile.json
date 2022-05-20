@@ -148,7 +148,7 @@
     "title": "{{anc_profile.step1.title}}",
     "next": "step2",
     "fields": [
-     {
+      {
         "key": "headss_toaster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
@@ -406,17 +406,20 @@
           {
             "key": "yes",
             "text": "{{anc_profile.step2.lmp_known.options.yes.text}}",
+            "translation_text": "anc_profile.step2.lmp_known.options.yes.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "specify_info": "specify date",
             "specify_widget": "date_picker",
             "max_date": "today-14d",
-            "min_date": "today-280d"
+            "min_date": "today-280d",
+            "default": "today"
           },
           {
             "key": "no",
             "text": "{{anc_profile.step2.lmp_known.options.no.text}}",
+            "translation_text": "anc_profile.step2.lmp_known.options.no.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -434,7 +437,14 @@
         "key": "lmp_known_date",
         "type": "hidden",
         "label_text_style": "bold",
-        "text_color": "#FF0000"
+        "text_color": "#FF0000",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_rules.yml"
+            }
+          }
+        }
       },
       {
         "openmrs_entity_parent": "",
@@ -488,17 +498,20 @@
           {
             "key": "yes",
             "text": "{{anc_profile.step2.ultrasound_done.options.yes.text}}",
+            "translation_text": "anc_profile.step2.ultrasound_done.options.yes.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "specify_info": "ultrasound date",
             "specify_widget": "date_picker",
             "max_date": "today",
-            "min_date": "today-9m"
+            "min_date": "today-9m",
+            "default": "today"
           },
           {
             "key": "no",
             "text": "{{anc_profile.step2.ultrasound_done.options.no.text}}",
+            "translation_text": "anc_profile.step2.ultrasound_done.options.no.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -516,7 +529,14 @@
         "key": "ultrasound_done_date",
         "type": "hidden",
         "label_text_style": "bold",
-        "text_color": "#FF0000"
+        "text_color": "#FF0000",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "ultrasound_toaster",
@@ -1801,98 +1821,112 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "dont_know",
-            "text": "{{anc_profile.step4.allergies.options.dont_know.text}}"
+            "text": "{{anc_profile.step4.allergies.options.dont_know.text}}",
+            "translation_text": "anc_profile.step4.allergies.options.dont_know.text"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "70439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "albendazole",
-            "text": "{{anc_profile.step4.allergies.options.albendazole.text}}"
+            "text": "{{anc_profile.step4.allergies.options.albendazole.text}}",
+            "translation_text": "anc_profile.step4.allergies.options.albendazole.text"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "70991AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "aluminium_hydroxide",
-            "text": "{{anc_profile.step4.allergies.options.aluminium_hydroxide.text}}"
+            "text": "{{anc_profile.step4.allergies.options.aluminium_hydroxide.text}}",
+            "translation_text": "anc_profile.step4.allergies.options.aluminium_hydroxide.text"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "72650AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "calcium",
-            "text": "{{anc_profile.step4.allergies.options.calcium.text}}"
+            "text": "{{anc_profile.step4.allergies.options.calcium.text}}",
+            "translation_text": "anc_profile.step4.allergies.options.calcium.text"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "73154AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "chamomile",
-            "text": "{{anc_profile.step4.allergies.options.chamomile.text}}"
+            "text": "{{anc_profile.step4.allergies.options.chamomile.text}}",
+            "translation_text": "anc_profile.step4.allergies.options.chamomile.text"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "76613AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "folic_acid",
-            "text": "{{anc_profile.step4.allergies.options.folic_acid.text}}"
+            "text": "{{anc_profile.step4.allergies.options.folic_acid.text}}",
+            "translation_text": "anc_profile.step4.allergies.options.folic_acid.text"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "77001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "ginger",
-            "text": "{{anc_profile.step4.allergies.options.ginger.text}}"
+            "text": "{{anc_profile.step4.allergies.options.ginger.text}}",
+            "translation_text": "anc_profile.step4.allergies.options.ginger.text"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "78218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "iron",
-            "text": "{{anc_profile.step4.allergies.options.iron.text}}"
+            "text": "{{anc_profile.step4.allergies.options.iron.text}}",
+            "translation_text": "anc_profile.step4.allergies.options.iron.text"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "79229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "magnesium_carbonate",
-            "text": "{{anc_profile.step4.allergies.options.magnesium_carbonate.text}}"
+            "text": "{{anc_profile.step4.allergies.options.magnesium_carbonate.text}}",
+            "translation_text": "anc_profile.step4.allergies.options.magnesium_carbonate.text"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "924AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "malaria_medication",
-            "text": "{{anc_profile.step4.allergies.options.malaria_medication.text}}"
+            "text": "{{anc_profile.step4.allergies.options.malaria_medication.text}}",
+            "translation_text": "anc_profile.step4.allergies.options.malaria_medication.text"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "79413AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "mebendazole",
-            "text": "{{anc_profile.step4.allergies.options.mebendazole.text}}"
+            "text": "{{anc_profile.step4.allergies.options.mebendazole.text}}",
+            "translation_text": "anc_profile.step4.allergies.options.mebendazole.text"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "81724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "penicillin",
-            "text": "{{anc_profile.step4.allergies.options.penicillin.text}}"
+            "text": "{{anc_profile.step4.allergies.options.penicillin.text}}",
+            "translation_text": "anc_profile.step4.allergies.options.penicillin.text"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "84797AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "prep_tenofovir_disoproxil_fumarate",
-            "text": "{{anc_profile.step4.allergies.options.prep_tenofovir_disoproxil_fumarate.text}}"
+            "text": "{{anc_profile.step4.allergies.options.prep_tenofovir_disoproxil_fumarate.text}}",
+            "translation_text": "anc_profile.step4.allergies.options.prep_tenofovir_disoproxil_fumarate.text"
           },
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "other",
-            "text": "{{anc_profile.step4.allergies.options.other.text}}"
+            "text": "{{anc_profile.step4.allergies.options.other.text}}",
+            "translation_text": "anc_profile.step4.allergies.options.other.text"
           }
         ],
         "v_required": {
@@ -2083,7 +2117,8 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "none",
-            "text": "{{anc_profile.step4.health_conditions.options.none.text}}"
+            "text": "{{anc_profile.step4.health_conditions.options.none.text}}",
+            "translation_text": "anc_profile.step4.health_conditions.options.none.text"
           },
           {
             "openmrs_entity_parent": "",
@@ -2369,6 +2404,7 @@
           {
             "key": "3_doses",
             "text": "{{anc_profile.step5.tt_immun_status.options.3_doses.text}}",
+            "translation_text": "anc_profile.step5.tt_immun_status.options.3_doses.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "164134AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -2376,6 +2412,7 @@
           {
             "key": "1-4_doses",
             "text": "{{anc_profile.step5.tt_immun_status.options.1-4_doses.text}}",
+            "translation_text": "anc_profile.step5.tt_immun_status.options.1-4_doses.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165226AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -2383,6 +2420,7 @@
           {
             "key": "ttcv_not_received",
             "text": "{{anc_profile.step5.tt_immun_status.options.ttcv_not_received.text}}",
+            "translation_text": "anc_profile.step5.tt_immun_status.options.ttcv_not_received.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165227AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -2390,6 +2428,7 @@
           {
             "key": "unknown",
             "text": "{{anc_profile.step5.tt_immun_status.options.unknown.text}}",
+            "translation_text": "anc_profile.step5.tt_immun_status.options.unknown.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -2459,6 +2498,7 @@
           {
             "key": "seasonal_flu_dose_given",
             "text": "{{anc_profile.step5.flu_immun_status.options.seasonal_flu_dose_given.text}}",
+            "translation_text": "anc_profile.step5.flu_immun_status.options.seasonal_flu_dose_given.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -2466,6 +2506,7 @@
           {
             "key": "seasonal_flu_dose_missing",
             "text": "{{anc_profile.step5.flu_immun_status.options.seasonal_flu_dose_missing.text}}",
+            "translation_text": "anc_profile.step5.flu_immun_status.options.seasonal_flu_dose_missing.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -2473,6 +2514,7 @@
           {
             "key": "unknown",
             "text": "{{anc_profile.step5.flu_immun_status.options.unknown.text}}",
+            "translation_text": "anc_profile.step5.flu_immun_status.options.unknown.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -3098,6 +3140,7 @@
           {
             "key": "none",
             "text": "{{anc_profile.step7.alcohol_substance_use.options.none.text}}",
+            "translation_text": "anc_profile.step7.alcohol_substance_use.options.none.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -3105,6 +3148,7 @@
           {
             "key": "alcohol",
             "text": "{{anc_profile.step7.alcohol_substance_use.options.alcohol.text}}",
+            "translation_text": "anc_profile.step7.alcohol_substance_use.options.alcohol.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "143098AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -3112,6 +3156,7 @@
           {
             "key": "marijuana",
             "text": "{{anc_profile.step7.alcohol_substance_use.options.marijuana.text}}",
+            "translation_text": "anc_profile.step7.alcohol_substance_use.options.marijuana.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165221AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -3119,6 +3164,7 @@
           {
             "key": "cocaine",
             "text": "{{anc_profile.step7.alcohol_substance_use.options.cocaine.text}}",
+            "translation_text": "anc_profile.step7.alcohol_substance_use.options.cocaine.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "155793AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -3126,6 +3172,7 @@
           {
             "key": "injectable_drugs",
             "text": "{{anc_profile.step7.alcohol_substance_use.options.injectable_drugs.text}}",
+            "translation_text": "anc_profile.step7.alcohol_substance_use.options.injectable_drugs.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "157351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -3133,6 +3180,7 @@
           {
             "key": "other",
             "text": "{{anc_profile.step7.alcohol_substance_use.options.other.text}}",
+            "translation_text": "anc_profile.step7.alcohol_substance_use.options.other.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -3249,6 +3297,7 @@
           {
             "key": "dont_know",
             "text": "{{anc_profile.step8.partner_hiv_status.options.dont_know.text}}",
+            "translation_text": "anc_profile.step8.partner_hiv_status.options.dont_know.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -3256,6 +3305,7 @@
           {
             "key": "positive",
             "text": "{{anc_profile.step8.partner_hiv_status.options.positive.text}}",
+            "translation_text": "anc_profile.step8.partner_hiv_status.options.positive.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -3263,6 +3313,7 @@
           {
             "key": "negative",
             "text": "{{anc_profile.step8.partner_hiv_status.options.negative.text}}",
+            "translation_text": "anc_profile.step8.partner_hiv_status.options.negative.text",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -3341,10 +3392,9 @@
         "toaster_info_title": "{{anc_profile.step8.hiv_risk_counselling_toaster.toaster_info_title}}",
         "toaster_type": "problem",
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
-            }
+          "step8:partner_hiv_status": {
+            "type": "string",
+            "ex": "equalTo(., \"positive\")"
           }
         }
       }

@@ -53,7 +53,7 @@ import timber.log.Timber;
 public class AncLibrary {
     private static AncLibrary instance;
     private final Context context;
-    private JsonSpecHelper jsonSpecHelper;
+    private final JsonSpecHelper jsonSpecHelper;
     private PartialContactRepository partialContactRepository;
     private PreviousContactRepository previousContactRepository;
     private ContactTasksRepository contactTasksRepository;
@@ -64,13 +64,13 @@ public class AncLibrary {
     private AncRulesEngineHelper ancRulesEngineHelper;
     private RegisterQueryProvider registerQueryProvider;
     private ClientProcessorForJava clientProcessorForJava;
-    private JSONObject defaultContactFormGlobals = new JSONObject();
+    private final JSONObject defaultContactFormGlobals = new JSONObject();
     private Compressor compressor;
     private Gson gson;
     private Yaml yaml;
-    private SubscriberInfoIndex subscriberInfoIndex;
-    private int databaseVersion;
-    private ActivityConfiguration activityConfiguration;
+    private final SubscriberInfoIndex subscriberInfoIndex;
+    private final int databaseVersion;
+    private final ActivityConfiguration activityConfiguration;
     private AncMetadata ancMetadata = new AncMetadata();
     private AppExecutors appExecutors;
 
@@ -104,33 +104,6 @@ public class AncLibrary {
 
         //initialize configs processor
         initializeYamlConfigs();
-    }
-
-    public android.content.Context getApplicationContext() {
-        return context.applicationContext();
-    }
-
-    private void setUpEventHandling() {
-        try {
-            EventBusBuilder eventBusBuilder = EventBus.builder()
-                    .addIndex(new ANCEventBusIndex());
-
-            if (subscriberInfoIndex != null) {
-                eventBusBuilder.addIndex(subscriberInfoIndex);
-            }
-
-            eventBusBuilder.installDefaultEventBus();
-        } catch (Exception e) {
-            Timber.e(e, " --> setUpEventHandling");
-        }
-    }
-
-    private void initializeYamlConfigs() {
-        Constructor constructor = new Constructor(YamlConfig.class);
-        TypeDescription customTypeDescription = new TypeDescription(YamlConfig.class);
-        customTypeDescription.addPropertyParameters(YamlConfigItem.FIELD_CONTACT_SUMMARY_ITEMS, YamlConfigItem.class);
-        constructor.addTypeDescription(customTypeDescription);
-        yaml = new Yaml(constructor);
     }
 
     public static void init(@NonNull Context context, int dbVersion) {
@@ -185,6 +158,33 @@ public class AncLibrary {
                     + "your Application class ");
         }
         return instance;
+    }
+
+    public android.content.Context getApplicationContext() {
+        return context.applicationContext();
+    }
+
+    private void setUpEventHandling() {
+        try {
+            EventBusBuilder eventBusBuilder = EventBus.builder()
+                    .addIndex(new ANCEventBusIndex());
+
+            if (subscriberInfoIndex != null) {
+                eventBusBuilder.addIndex(subscriberInfoIndex);
+            }
+
+            eventBusBuilder.installDefaultEventBus();
+        } catch (Exception e) {
+            Timber.e(e, " --> setUpEventHandling");
+        }
+    }
+
+    private void initializeYamlConfigs() {
+        Constructor constructor = new Constructor(YamlConfig.class);
+        TypeDescription customTypeDescription = new TypeDescription(YamlConfig.class);
+        customTypeDescription.addPropertyParameters(YamlConfigItem.FIELD_CONTACT_SUMMARY_ITEMS, YamlConfigItem.class);
+        constructor.addTypeDescription(customTypeDescription);
+        yaml = new Yaml(constructor);
     }
 
     public PartialContactRepository getPartialContactRepository() {
@@ -316,7 +316,13 @@ public class AncLibrary {
     }
 
     public Iterable<Object> readYaml(String filename) {
-        return yaml.loadAll(com.vijay.jsonwizard.utils.Utils.getTranslatedYamlFileWithDBProperties((FilePathUtils.FolderUtils.CONFIG_FOLDER_PATH + filename), getApplicationContext()));
+        try {
+            return yaml.loadAll(com.vijay.jsonwizard.utils.Utils.getTranslatedYamlFileWithDBProperties((FilePathUtils.FolderUtils.CONFIG_FOLDER_PATH + filename), getApplicationContext()));
+        } catch (Exception e) {
+            Timber.e(e);
+            return null;
+        }
+
     }
 
     public int getDatabaseVersion() {

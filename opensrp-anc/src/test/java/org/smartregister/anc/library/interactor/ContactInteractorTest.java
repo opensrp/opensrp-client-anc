@@ -27,9 +27,11 @@ import org.smartregister.anc.library.contract.ContactContract;
 import org.smartregister.anc.library.helper.AncRulesEngineHelper;
 import org.smartregister.anc.library.helper.ECSyncHelper;
 import org.smartregister.anc.library.model.PartialContact;
+import org.smartregister.anc.library.model.PreviousContact;
 import org.smartregister.anc.library.repository.PartialContactRepository;
 import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.repository.PreviousContactRepository;
+import org.smartregister.anc.library.repository.PreviousContactRepositoryTest;
 import org.smartregister.anc.library.repository.RegisterQueryProvider;
 import org.smartregister.anc.library.rule.ContactRule;
 import org.smartregister.anc.library.util.AppExecutors;
@@ -41,6 +43,7 @@ import org.smartregister.repository.DetailsRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.service.UserService;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -52,7 +55,7 @@ import java.util.concurrent.Executors;
 import timber.log.Timber;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({PatientRepository.class, AncLibrary.class, PreviousContactRepository.class, PartialContactRepository.class, EventClientRepository.class, LocationHelper.class, Pair.class})
+@PrepareForTest({PatientRepository.class, AncLibrary.class, PreviousContactRepositoryTest.class, PartialContactRepository.class, EventClientRepository.class, LocationHelper.class, Pair.class})
 @PowerMockIgnore({"org.powermock.*", "org.mockito.*",})
 public class ContactInteractorTest extends BaseUnitTest {
 
@@ -94,11 +97,11 @@ public class ContactInteractorTest extends BaseUnitTest {
     @Mock
     private UserService userService;
 
-    private List<PartialContact> partialContactList = new ArrayList<>();
+    private final List<PartialContact> partialContactList = new ArrayList<>();
 
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         interactor = new ContactInteractor(new AppExecutors(Executors.newSingleThreadExecutor(), Executors.newSingleThreadExecutor(), Executors.newSingleThreadExecutor()));
     }
 
@@ -179,7 +182,7 @@ public class ContactInteractorTest extends BaseUnitTest {
 
 
             PowerMockito.mockStatic(AncLibrary.class);
-            PowerMockito.mockStatic(PreviousContactRepository.class);
+            PowerMockito.mockStatic(PreviousContactRepositoryTest.class);
             PowerMockito.mockStatic(PartialContactRepository.class);
             PowerMockito.mockStatic(EventClientRepository.class);
             PowerMockito.mockStatic(LocationHelper.class);
@@ -216,6 +219,8 @@ public class ContactInteractorTest extends BaseUnitTest {
         }
     }
 
+
+
     @NotNull
     private Map<String, String> getStringStringMap(String firstName, String lastName) {
         Map<String, String> details = new HashMap<>();
@@ -227,5 +232,19 @@ public class ContactInteractorTest extends BaseUnitTest {
         details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, "1");
         details.put(ConstantsUtils.REFERRAL, "-1");
         return details;
+    }
+
+    @Test
+    public void getCurrentContactStateTest() {
+        String baseEntityId = "84333de0-1b2b-4431-b7b8-44457fc9a32a", key = "contact_reason";
+        long id = 7346;
+        String value = "{\"value\":\"first_contact\",\"text\":\"First contact\"}";
+        String contactNo = "1";
+        PreviousContact previousContact = new PreviousContact(baseEntityId, key, value, contactNo);
+        Mockito.doNothing().when(ancLibrary).getPreviousContactRepository().getPreviousContact(previousContact);
+//        getCurrentContactState.setAccessible(true);
+//        getCurrentContactState.invoke(interactor, null);
+
+
     }
 }

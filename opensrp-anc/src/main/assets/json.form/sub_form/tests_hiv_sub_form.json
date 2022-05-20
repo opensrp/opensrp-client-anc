@@ -69,6 +69,7 @@
         {
           "key": "stock_out",
           "text": "{{tests_hiv_sub_form.step1.hiv_test_notdone.options.stock_out.text}}",
+          "translation_text": "tests_hiv_sub_form.step1.hiv_test_notdone.options.stock_out.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165183AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -76,6 +77,7 @@
         {
           "key": "expired_stock",
           "text": "{{tests_hiv_sub_form.step1.hiv_test_notdone.options.expired_stock.text}}",
+          "translation_text": "tests_hiv_sub_form.step1.hiv_test_notdone.options.expired_stock.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -83,6 +85,7 @@
         {
           "key": "other",
           "text": "{{tests_hiv_sub_form.step1.hiv_test_notdone.options.other.text}}",
+          "translation_text": "tests_hiv_sub_form.step1.hiv_test_notdone.options.other.text",
           "openmrs_entity_parent": "165300AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -172,6 +175,7 @@
         {
           "key": "positive",
           "text": "{{tests_hiv_sub_form.step1.hiv_test_result.options.positive.text}}",
+          "translation_text": "tests_hiv_sub_form.step1.hiv_test_result.options.positive.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -179,6 +183,7 @@
         {
           "key": "negative",
           "text": "{{tests_hiv_sub_form.step1.hiv_test_result.options.negative.text}}",
+          "translation_text": "tests_hiv_sub_form.step1.hiv_test_result.options.negative.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -186,6 +191,7 @@
         {
           "key": "inconclusive",
           "text": "{{tests_hiv_sub_form.step1.hiv_test_result.options.inconclusive.text}}",
+          "translation_text": "tests_hiv_sub_form.step1.hiv_test_result.options.inconclusive.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
