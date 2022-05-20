@@ -142,9 +142,12 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
                     .setProfileName(client.get(DBConstantsUtils.KeyUtils.FIRST_NAME) + " " + client.get(DBConstantsUtils.KeyUtils.LAST_NAME));
             getProfileView().setProfileAge(String.valueOf(Utils.getAgeFromDate(client.get(DBConstantsUtils.KeyUtils.DOB))));
             try {
-                getProfileView().setProfileGestationAge(
-                        client.containsKey(DBConstantsUtils.KeyUtils.EDD) && client.get(DBConstantsUtils.KeyUtils.EDD) != null ?
-                                String.valueOf(Utils.getGestationAgeFromEDDate(client.get(DBConstantsUtils.KeyUtils.EDD))) : null);
+                if(client.containsKey(DBConstantsUtils.KeyUtils.EDD) && client.get(DBConstantsUtils.KeyUtils.EDD) != null)
+                    if(Utils.getGestationAgeFromEDDate(client.get(DBConstantsUtils.KeyUtils.EDD)) <= 40) {
+                        getProfileView().setProfileGestationAge(
+                                String.valueOf(Utils.getGestationAgeFromEDDate(client.get(DBConstantsUtils.KeyUtils.EDD))));
+                    }
+
             } catch (Exception e) {
                 getProfileView().setProfileGestationAge("0");
             }
