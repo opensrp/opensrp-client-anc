@@ -412,7 +412,8 @@
             "specify_info": "specify date",
             "specify_widget": "date_picker",
             "max_date": "today-14d",
-            "min_date": "today-280d"
+            "min_date": "today-280d",
+            "default": "today"
           },
           {
             "key": "no",
@@ -434,7 +435,14 @@
         "key": "lmp_known_date",
         "type": "hidden",
         "label_text_style": "bold",
-        "text_color": "#FF0000"
+        "text_color": "#FF0000",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_rules.yml"
+            }
+          }
+        }
       },
       {
         "openmrs_entity_parent": "",
@@ -494,7 +502,8 @@
             "specify_info": "ultrasound date",
             "specify_widget": "date_picker",
             "max_date": "today",
-            "min_date": "today-9m"
+            "min_date": "today-9m",
+            "default": "today"
           },
           {
             "key": "no",
@@ -516,7 +525,14 @@
         "key": "ultrasound_done_date",
         "type": "hidden",
         "label_text_style": "bold",
-        "text_color": "#FF0000"
+        "text_color": "#FF0000",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "ultrasound_toaster",
@@ -3341,10 +3357,10 @@
         "toaster_info_title": "{{anc_profile.step8.hiv_risk_counselling_toaster.toaster_info_title}}",
         "toaster_type": "problem",
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
-            }
+          "step8:partner_hiv_status": {
+            "type": "string",
+            "ex": "equalTo(., \"positive\")"
+
           }
         }
       }

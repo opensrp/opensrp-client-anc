@@ -145,7 +145,7 @@ public class PreviousContactsAdapter extends RecyclerView.Adapter<PreviousContac
         holder.contactDisplay.setAdapter(adapter);
     }
 
-    private Iterable<Object> loadFile(String filename) throws IOException {
+    private Iterable<Object> loadFile(String filename) {
         return AncLibrary.getInstance().readYaml(filename);
     }
 

@@ -243,11 +243,11 @@ fields:
     relevance: "severe_preeclampsia == 1"
     isRedFont: "true"
 
-  - template: "Rh factor negative: {date}: {date}"
+  - template: "Rh factor negative: {rh_factor}"
     relevance: "rh_factor == 'negative'"
     isRedFont: "true"
 
-  - template: "HIV positive: {date}"
+  - template: "HIV Status: {hiv_test_result}"
     relevance: "hiv_positive == 1"
     isRedFont: "true"
 
@@ -321,7 +321,7 @@ fields:
 ---
 group: immunisation_status
 fields:
-  - template: "{{profile_overview.immunisation_status.tt_immunisation_status}}: {tt_immun_status_value}"
+  - template: "{{profile_overview.immunisation_status.tt_immunisation_status}}: {tt_immun_status}"
     relevance: "tt_immun_status != ''"
     isRedFont: "tt_immun_status == 'ttcv_not_received' || tt_immun_status == 'unknown'"
 
@@ -331,7 +331,7 @@ fields:
   - template: "{{profile_overview.immunisation_status.tt_dose_2}}: {tt2_date_value}"
     relevance: "tt2_date == 'done_today' || tt2_date == 'done_earlier'"
 
-  - template: "{{profile_overview.immunisation_status.flu_immunisation_status}}: {flu_immun_status_value}"
+  - template: "{{profile_overview.immunisation_status.flu_immunisation_status}}: {flu_immun_status}"
     relevance: "flu_immun_status != ''"
     isRedFont: "flu_immun_status == 'seasonal_flu_dose_missing' || flu_immun_status == 'unknown'"
 
