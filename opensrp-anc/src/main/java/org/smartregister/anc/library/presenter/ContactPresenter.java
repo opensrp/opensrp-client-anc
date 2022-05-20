@@ -137,7 +137,7 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
                     getView().startFormActivity(form, contact);
                 }
             } catch (JSONException e) {
-                Timber.e(e);
+                Timber.w(e);
             }
         } catch (Exception e) {
             Timber.e(e);

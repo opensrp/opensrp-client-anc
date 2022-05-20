@@ -44,7 +44,7 @@ actions:
 name: step1_low_oximetry_toaster
 description: Low oximetry
 priority: 1
-condition: "global_oximetry < 92"
+condition: "global_oximetry < 95"
 actions:
   - 'calculation = ["oximetry" : global_oximetry]'
 ---

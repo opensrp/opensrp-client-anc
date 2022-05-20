@@ -209,6 +209,13 @@ condition: "(step5_covid_immun_status == 'fully_immunized')"
 actions:
   - "isRelevant = true"
 ---
+name: step5_hep_b_immunized_toaster
+description: Hepatitis B immunized
+priority: 1
+condition: "(step5_hep_b_immun_status == 'fully_immunized')"
+actions:
+  - "isRelevant = true"
+---
 name: step4_uterine_rupture_counseling_toaster
 description: uterine_rupture_counseling_toaster
 priority: 1

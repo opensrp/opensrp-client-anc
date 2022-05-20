@@ -2700,6 +2700,23 @@
         }
       },
       {
+        "key": "hep_b_immunized_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_profile.step5.hep_b_immunized_toaster.text}}",
+        "text_color": "#000000",
+        "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "hep_b_recommended_toaster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",

@@ -162,7 +162,7 @@ fields:
     relevance: "respiratory_exam_abnormal != ''"
 
   - template: "{{profile_overview.hospital_referral_reasons.low_oximetry}}: {oximetry}%"
-    relevance: "oximetry < 92"
+    relevance: "oximetry < 95"
     isRedFont: "true"
 
   - template: "{{profile_overview.hospital_referral_reasons.abnormal_cardiac_exam}}: {cardiac_exam_abnormal_value}"
