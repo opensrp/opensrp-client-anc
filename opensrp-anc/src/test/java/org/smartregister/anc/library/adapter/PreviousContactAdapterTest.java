@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.powermock.api.mockito.PowerMockito;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.anc.library.AncLibrary;
@@ -17,6 +18,7 @@ import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.domain.YamlConfigWrapper;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class PreviousContactAdapterTest extends BaseUnitTest {
@@ -53,6 +55,8 @@ public class PreviousContactAdapterTest extends BaseUnitTest {
         PreviousContactsAdapter.ViewHolder viewHolder = previousContactsAdapter.onCreateViewHolder(viewGroup, 0);
         Assert.assertNotNull(viewHolder);
         previousContactsAdapter.onBindViewHolder(viewHolder, 0);
+        Iterator mockIterator=Mockito.mock(Iterator.class);
+        PowerMockito.when(mockIterator.hasNext()).thenReturn(true).thenReturn(false);
     }
     public void setUpContactDetailsRecycler(){
 
