@@ -13,8 +13,7 @@ import org.smartregister.view.customcontrols.CustomFontTextView;
 public class LibraryContentClickListener implements View.OnClickListener {
     private Activity activity;
 
-    public LibraryContentClickListener(Activity activity) {
-        this.activity = activity;
+    public LibraryContentClickListener() {
     }
 
     @Override

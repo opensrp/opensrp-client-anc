@@ -67,7 +67,6 @@ public class ContactSummaryAdapterTest extends BaseUnitTest {
         viewGroup.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
         ContactSummaryAdapter.ViewHolder viewHolder = adapter.onCreateViewHolder(viewGroup, 0);
         Assert.assertNotNull(viewHolder);
-
         getContactSummaryModel();
         adapter.setContactDates(getContactSummaryModel());
         adapter.onBindViewHolder(viewHolder, 0);

@@ -56,7 +56,10 @@ public class PatientRepository extends BaseRepository {
                 detailsMap = new HashMap<>();
                 for (int count = 0; count < projection.length; count++) {
                     String columnName = cursor.getColumnName(count);
-                    detailsMap.put(columnName, cursor.getString(cursor.getColumnIndex(columnName)));
+                    String columnValue = cursor.getString(cursor.getColumnIndex(columnName));
+                    if(columnName.equals(DBConstantsUtils.KeyUtils.LAST_NAME) && StringUtils.isBlank(columnValue))
+                        columnValue =  "";
+                    detailsMap.put(columnName, columnValue);
                 }
             }
             return detailsMap;
