@@ -1,9 +1,14 @@
 package org.smartregister.anc.library.activity;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,6 +19,7 @@ import android.widget.TextView;
 import org.jeasy.rules.api.Facts;
 import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.anc.library.BuildConfig;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.ProfileContract;
 import org.smartregister.anc.library.domain.YamlConfig;
@@ -31,6 +37,7 @@ import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.util.PermissionUtils;
 
 import java.io.FileNotFoundException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,9 +103,14 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         }
     }
 
+
     @Override
     public void onResume() {
         super.onResume();
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && Environment.isExternalStorageManager())
+        {
+            generateFileinStorage();
+        }
     }
 
     @Override
@@ -176,9 +188,10 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
     }
 
-    public void saveFinishForm() {
-        new FinalizeContactTask(this, mProfilePresenter, getIntent()).execute();
+    private void saveFinishForm() {
+        new FinalizeContactTask(new WeakReference<Context>(this), mProfilePresenter, getIntent()).execute();
     }
+
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
@@ -227,12 +240,26 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
     @Override
     public void createContactSummaryPdf() {
+
         if (isPermissionGranted() && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)) {
-            try {
-                new Utils().createSavePdf(this, yamlConfigList, facts);
-            } catch (FileNotFoundException e) {
-                Timber.e(e, "%s createContactSummaryPdf()", this.getClass().getCanonicalName());
-            }
+            generateFileinStorage();
+        }
+        else if (!isPermissionGranted() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+        {
+            Intent intent = new Intent();
+            intent.setAction(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+            Uri uri = Uri.fromParts("package", this.getPackageName(), null);
+            intent.setData(uri);
+            startActivity(intent);
+        }
+    }
+
+    public void generateFileinStorage()
+    {
+        try {
+            new Utils().createSavePdf(this, yamlConfigList, facts);
+        } catch (FileNotFoundException e) {
+            Timber.e(e, "%s createContactSummaryPdf()", this.getClass().getCanonicalName());
         }
     }
 
@@ -260,6 +287,14 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     }
 
     protected boolean isPermissionGranted() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+        {
+            if(Environment.isExternalStorageManager())
+                return true;
+            else
+                return false;
+        }
+        else
         return PermissionUtils.isPermissionGranted(this, Manifest.permission.WRITE_EXTERNAL_STORAGE, PermissionUtils.WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
     }
 

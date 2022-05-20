@@ -424,6 +424,7 @@
     <string name="english_language">English</string>
     <string name="french_language">French</string>
     <string name="portuguese_brazil_language">Portuguese (Brazil)</string>
+    <string name="bahasa_indonesia_language">Bahasa (Indonesia)</string>
 
     <string name="accordion_ultrasound">Ultrasound test</string>
     <string name="accordion_blood_type">Blood Type test</string>

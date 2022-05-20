@@ -45,7 +45,7 @@ fields:
   - template: "{{profile_contact_test.hiv_tests.hiv_test_not_done_other_reason}}: {hiv_test_notdone_other}"
     relevance: "hiv_test_notdone_other != '' && helper.compareDateAgainstContactDate(hiv_test_date, contact_date)"
 
-  - template: "{{profile_contact_test.hiv_tests.hiv_test_result}}t: {hiv_test_result}"
+  - template: "{{profile_contact_test.hiv_tests.hiv_test_result}}: {hiv_test_result}"
     relevance: "hiv_test_result != '' && helper.compareDateAgainstContactDate(hiv_test_date, contact_date)"
 test_results: "['hiv_test_result:hiv_test_date:Hiv tests results']"
 
