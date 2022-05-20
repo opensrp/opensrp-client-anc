@@ -15,4 +15,5 @@
     <item name="accordion_info_title" type="id"/>
     <item name="test_results" type="id"/>
     <item name="task_object" type="id"/>
+    <item name="is_human_action" type="id"/>
 </resources>

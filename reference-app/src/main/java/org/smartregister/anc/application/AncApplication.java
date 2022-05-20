@@ -1,5 +1,8 @@
 package org.smartregister.anc.application;
 
+import static org.smartregister.util.Log.logError;
+import static org.smartregister.util.Log.logInfo;
+
 import android.content.Intent;
 import android.util.Log;
 
@@ -13,11 +16,13 @@ import com.vijay.jsonwizard.NativeFormLibrary;
 
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
+import org.smartregister.P2POptions;
 import org.smartregister.anc.ANCEventBusIndex;
 import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.activity.LoginActivity;
 import org.smartregister.anc.job.AncJobCreator;
 import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.anc.library.auth.AncCoreAuthorizationService;
 import org.smartregister.anc.library.sync.BaseAncClientProcessorForJava;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
@@ -37,9 +42,6 @@ import java.io.FileNotFoundException;
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
-import static org.smartregister.util.Log.logError;
-import static org.smartregister.util.Log.logInfo;
-
 /**
  * Created by ndegwamartin on 21/06/2018.
  */
@@ -56,7 +58,9 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         context.updateCommonFtsObject(createCommonFtsObject());
 
         //Initialize Modules
-        CoreLibrary.init(context, new AncSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);
+        P2POptions p2POptions = new P2POptions(true);
+        p2POptions.setAuthorizationService(new AncCoreAuthorizationService());
+        CoreLibrary.init(context, new AncSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP, p2POptions);
         AncLibrary.init(context, BuildConfig.DATABASE_VERSION, new ANCEventBusIndex());
         ConfigurableViewsLibrary.init(context);
 
@@ -81,6 +85,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         NativeFormLibrary
                 .getInstance()
                 .setClientFormDao(CoreLibrary.getInstance().context().getClientFormRepository());
+
     }
 
     private void setDefaultLanguage() {

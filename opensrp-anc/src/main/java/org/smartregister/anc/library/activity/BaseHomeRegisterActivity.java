@@ -201,7 +201,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
 
     @Override
     public void startFormActivity(JSONObject form) {
-        Intent intent = new Intent(this, FormConfigurationJsonFormActivity.class);
+        Intent intent = new Intent(this, AncRegistrationActivity.class);
         intent.putExtra(ConstantsUtils.JsonFormExtraUtils.JSON, form.toString());
         intent.putExtra(JsonFormConstants.PERFORM_FORM_TRANSLATION, true);
         startActivityForResult(intent, ANCJsonFormUtils.REQUEST_CODE_GET_JSON);
