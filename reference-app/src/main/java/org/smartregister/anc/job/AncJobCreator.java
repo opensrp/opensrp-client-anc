@@ -9,6 +9,7 @@ import com.evernote.android.job.JobCreator;
 import org.smartregister.job.DocumentConfigurationServiceJob;
 import org.smartregister.job.ExtendedSyncServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
+import org.smartregister.job.P2pServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncAllLocationsServiceJob;
 import org.smartregister.job.SyncServiceJob;
@@ -43,6 +44,8 @@ public class AncJobCreator implements JobCreator {
                 return new SyncSettingsServiceJob();
             case DocumentConfigurationServiceJob.TAG:
                 return new DocumentConfigurationServiceJob(DocumentConfigurationIntentService.class);
+            case P2pServiceJob.TAG:
+                return new P2pServiceJob();
             case SyncAllLocationsServiceJob.TAG:
                 return new SyncAllLocationsServiceJob();
             default:
