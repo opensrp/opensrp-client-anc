@@ -1,17 +1,21 @@
 package org.smartregister.anc.job;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobCreator;
 
+import org.smartregister.job.DocumentConfigurationServiceJob;
 import org.smartregister.job.ExtendedSyncServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
+import org.smartregister.job.P2pServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
+import org.smartregister.job.SyncAllLocationsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.SyncSettingsServiceJob;
 import org.smartregister.job.ValidateSyncDataServiceJob;
+import org.smartregister.sync.intent.DocumentConfigurationIntentService;
 import org.smartregister.sync.intent.SyncIntentService;
 
 import timber.log.Timber;
@@ -38,6 +42,12 @@ public class AncJobCreator implements JobCreator {
                 return new ViewConfigurationsServiceJob();
             case SyncSettingsServiceJob.TAG:
                 return new SyncSettingsServiceJob();
+            case DocumentConfigurationServiceJob.TAG:
+                return new DocumentConfigurationServiceJob(DocumentConfigurationIntentService.class);
+            case P2pServiceJob.TAG:
+                return new P2pServiceJob();
+            case SyncAllLocationsServiceJob.TAG:
+                return new SyncAllLocationsServiceJob();
             default:
                 Timber.d("Looks like you tried to create a job " + tag + " that is not declared in the Anc Job Creator");
                 return null;

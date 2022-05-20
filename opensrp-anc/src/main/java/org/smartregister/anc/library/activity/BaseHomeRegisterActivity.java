@@ -3,10 +3,6 @@ package org.smartregister.anc.library.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.bottomnavigation.LabelVisibilityMode;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -15,8 +11,14 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+
 import com.google.android.gms.vision.barcode.Barcode;
-import com.vijay.jsonwizard.activities.JsonFormActivity;
+import com.google.android.material.bottomnavigation.LabelVisibilityMode;
+import com.vijay.jsonwizard.activities.FormConfigurationJsonFormActivity;
+import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
@@ -38,9 +40,9 @@ import org.smartregister.anc.library.fragment.MeFragment;
 import org.smartregister.anc.library.fragment.SortFilterFragment;
 import org.smartregister.anc.library.presenter.RegisterPresenter;
 import org.smartregister.anc.library.repository.PatientRepository;
+import org.smartregister.anc.library.util.ANCFormUtils;
 import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
-import org.smartregister.anc.library.util.ANCFormUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -56,6 +58,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import timber.log.Timber;
 
@@ -178,6 +181,11 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
     }
 
     @Override
+    public void startFormActivity(String s, String s1, Map<String, String> map) {
+        //Todo implementing an abstract class
+    }
+
+    @Override
     public void startFormActivity(String formName, String entityId, String metaData) {
         try {
             if (mBaseFragment instanceof HomeRegisterFragment) {
@@ -193,8 +201,9 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
 
     @Override
     public void startFormActivity(JSONObject form) {
-        Intent intent = new Intent(this, JsonFormActivity.class);
+        Intent intent = new Intent(this, AncRegistrationActivity.class);
         intent.putExtra(ConstantsUtils.JsonFormExtraUtils.JSON, form.toString());
+        intent.putExtra(JsonFormConstants.PERFORM_FORM_TRANSLATION, true);
         startActivityForResult(intent, ANCJsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
@@ -218,7 +227,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
                 Timber.i("NO RESULT FOR QR CODE");
             }
         } else {
-            onActivityResultExtended(requestCode, resultCode, data);
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
@@ -469,7 +478,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
 
     @Override
     public void startRegistration() {
-        startFormActivity(ConstantsUtils.JsonFormUtils.ANC_REGISTER, null, null);
+        startFormActivity(ConstantsUtils.JsonFormUtils.ANC_REGISTER, null, "");
     }
 
     public void showRecordBirthPopUp(CommonPersonObjectClient client) {

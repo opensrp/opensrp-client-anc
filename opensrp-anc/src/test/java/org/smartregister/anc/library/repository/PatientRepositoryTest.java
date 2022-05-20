@@ -81,14 +81,16 @@ public class PatientRepositoryTest {
         ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", drishtiApplication);
         PowerMockito.when(drishtiApplication.getRepository()).thenReturn(repository);
         PowerMockito.when(repository.getReadableDatabase()).thenReturn(sqLiteDatabase);
-        String sql = "SELECT first_name,last_name,dob,dob_unknown,ec_mother_details.phone_number,ec_mother_details.alt_name,ec_mother_details.alt_phone_number," +
-                "ec_client.base_entity_id,register_id,ec_mother_details.reminders,home_address,ec_mother_details.edd,ec_mother_details.contact_status,ec_mother_details.previous_contact_status," +
-                "ec_mother_details.next_contact,ec_mother_details.next_contact_date,ec_mother_details.visit_start_date,ec_mother_details.red_flag_count,ec_mother_details.yellow_flag_count," +
-                "ec_mother_details.last_contact_record_date FROM ec_client " +
-                "join ec_mother_details on ec_client.base_entity_id = ec_mother_details.base_entity_id WHERE ec_client.base_entity_id = ?";
+        String sql = "SELECT first_name,last_name,dob,dob_unknown,ec_mother_details.phone_number,ec_mother_details.alt_name,ec_mother_details.alt_phone_number,ec_client.base_entity_id,ec_client.base_entity_id as _id,register_id,ec_mother_details.reminders,home_address,ec_mother_details.edd,ec_mother_details.contact_status,ec_mother_details.previous_contact_status,ec_mother_details.next_contact,ec_mother_details.next_contact_date,ec_mother_details.visit_start_date,ec_mother_details.red_flag_count,ec_mother_details.yellow_flag_count,ec_mother_details.last_contact_record_date,ec_mother_details.cohabitants,ec_client.relationalid,ec_mother_details.province,ec_mother_details.district,ec_mother_details.subdistrict,ec_mother_details.health_facility,ec_mother_details.village FROM ec_client join ec_mother_details on ec_client.base_entity_id = ec_mother_details.base_entity_id WHERE ec_client.base_entity_id = ?";
         Cursor cursor = Mockito.mock(Cursor.class);
         PowerMockito.when(sqLiteDatabase.rawQuery(sql, new String[]{DUMMY_BASE_ENTITY_ID})).thenReturn(cursor);
         PowerMockito.when(cursor.moveToFirst()).thenReturn(true);
+        PowerMockito.when(cursor.getColumnName(0)).thenReturn(DBConstantsUtils.KeyUtils.FIRST_NAME);
+        PowerMockito.when(cursor.getColumnName(1)).thenReturn(DBConstantsUtils.KeyUtils.LAST_NAME);
+        PowerMockito.when(cursor.getColumnName(9)).thenReturn(DBConstantsUtils.KeyUtils.ANC_ID);
+        PowerMockito.when(cursor.getColumnName(4)).thenReturn(DBConstantsUtils.KeyUtils.PHONE_NUMBER);
+
+
         PowerMockito.when(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.FIRST_NAME)).thenReturn(1);
         PowerMockito.when(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.LAST_NAME)).thenReturn(2);
         PowerMockito.when(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.ANC_ID)).thenReturn(3);

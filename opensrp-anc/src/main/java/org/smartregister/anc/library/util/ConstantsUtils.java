@@ -67,9 +67,18 @@ public abstract class ConstantsUtils {
     public static final String DUE = "Due";
     public static final String OPEN_TEST_TASKS = "open_test_tasks";
     public static final String ANDROID_SWITCHER = "android:switcher:";
+    public static final String IS_FIRST_CONTACT = "is_first_contact";
 
     public interface Properties {
         String CAN_SAVE_SITE_INITIAL_SETTING = "CAN_SAVE_INITIAL_SITE_SETTING";
+        String MAX_CONTACT_SCHEDULE_DISPLAYED = "MAX_CONTACT_SCHEDULE_DISPLAYED";
+        String DUE_CHECK_STRATEGY = "DUE_CHECK_STRATEGY";
+        String WIDGET_VALUE_TRANSLATED = "widget.value.translated";
+        String DEAFAULT_COUNTRY_ID = "DEFAULT_COUNTRY_ID";
+    }
+
+    public interface DueCheckStrategy {
+        String CHECK_FOR_FIRST_CONTACT = "check_for_first_contact";
     }
 
     public interface TemplateUtils {
@@ -96,6 +105,7 @@ public abstract class ConstantsUtils {
 
     public static class IdentifierUtils {
         public static final String ANC_ID = "ANC_ID";
+        public static final String STRING_IDENTIFIEER = "string";
     }
 
     public static final class EventTypeUtils {
@@ -140,6 +150,10 @@ public abstract class ConstantsUtils {
         public static final String ANC_ID = "anc_id";
         public static final String STEP1 = "step1";
         public static final String FIELDS = "fields";
+        public static final String VILLAGE = "village";
+        public static final String PREVIOUS_VISITS = "previous_visits";
+        public static final String VISIT_DATE = "visit_date";
+        public static final String PREVIOUS_VISITS_MAP = "previous_visits_map";
     }
 
     public static class JsonFormExtraUtils {
@@ -156,12 +170,12 @@ public abstract class ConstantsUtils {
     public static final class KeyUtils {
         public static final String KEY = "key";
         public static final String VALUE = "value";
+        public static final String TYPE = "type";
         public static final String TREE = "tree";
         public static final String DEFAULT = "default";
         public static final String PHOTO = "photo";
         public static final String AGE_ENTERED = "age_entered";
         public static final String STEP = "step";
-        public static final String TYPE = "type";
         public static final String FORM = "form";
         public static final String CONTACT_NO = "contact_no";
         public static final String LAST_CONTACT_DATE = "last_contact_date";
@@ -197,6 +211,22 @@ public abstract class ConstantsUtils {
         public static final String EXPIRED = "expired";
         public static final String TODAY = "today";
         public static final String ACTIVE = "active";
+    }
+
+    public static final class PrescriptionUtils{
+        public static final String VITA = "vita";
+        public static final String MAG_CALC = "mag_calc";
+        public static final String NAUSEA_PHARMA = "nausea_pharma";
+        public static final String ALBEN_MEBEN = "alben_meben";
+        public static final String ANTACID = "antacid";
+        public static final String PENICILLIN = "penicillin";
+        public static final String ANTIBIOTIC = "antibiotic";
+        public static final String PREP = "prep";
+        public static final String SP = "sp";
+        public static final String IFA = "ifa";
+        public static final String IFA_MEDICATION = "ifa_medication";
+        public static final String ASPIRIN = "aspirin";
+        public static final String CALCIUM = "calcium";
     }
 
     public static class FileCategoryUtils {
@@ -238,5 +268,33 @@ public abstract class ConstantsUtils {
 
     public static class ClientUtils {
         public static final String ANC_ID = "ANC_ID";
+    }
+
+    public static class SettingsSyncParamsUtils {
+        public static final String LOCATION_ID = "locationId";
+        public static final String IDENTIFIER = "identifier";
+    }
+
+    public static final class SpinnerKeyConstants {
+        public static final String PROVINCE = "province";
+        public static final String DISTRICT = "district";
+        public static final String SUB_DISTRICT = "subdistrict";
+        public static final String FACILITY = "health_facility";
+        public static final String VILLAGE = "village";
+    }
+
+    public static final class FormKeyConstants {
+        public static final String SUB_TYPE = "sub_type";
+        public static final String LOCATION_SUB_TYPE = "location";
+    }
+
+    public static final class LocationConstants {
+        public static final String COUNTRY = "Country";
+        public static final String PROVINCE = "PROVINCE";
+        public static final String DISTRICT = "DISTRICT";
+        public static final String SUBDISTRICT = "SUBDISTRICT";
+        public static final String HEALTH_FACILITY = "HEALTH_FACILITY";
+        public static final String FACILITY = "FACILITY";
+        public static final String VILLAGE = "VILLAGE";
     }
 }

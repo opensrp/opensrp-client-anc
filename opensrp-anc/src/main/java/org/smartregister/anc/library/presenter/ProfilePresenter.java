@@ -2,7 +2,8 @@ package org.smartregister.anc.library.presenter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.util.Pair;
+
+import androidx.core.util.Pair;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
@@ -12,9 +13,9 @@ import org.smartregister.anc.library.contract.RegisterContract;
 import org.smartregister.anc.library.interactor.ContactInteractor;
 import org.smartregister.anc.library.interactor.ProfileInteractor;
 import org.smartregister.anc.library.interactor.RegisterInteractor;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
-import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
@@ -141,9 +142,12 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
                     .setProfileName(client.get(DBConstantsUtils.KeyUtils.FIRST_NAME) + " " + client.get(DBConstantsUtils.KeyUtils.LAST_NAME));
             getProfileView().setProfileAge(String.valueOf(Utils.getAgeFromDate(client.get(DBConstantsUtils.KeyUtils.DOB))));
             try {
-                getProfileView().setProfileGestationAge(
-                        client.containsKey(DBConstantsUtils.KeyUtils.EDD) && client.get(DBConstantsUtils.KeyUtils.EDD) != null ?
-                                String.valueOf(Utils.getGestationAgeFromEDDate(client.get(DBConstantsUtils.KeyUtils.EDD))) : null);
+                if(client.containsKey(DBConstantsUtils.KeyUtils.EDD) && client.get(DBConstantsUtils.KeyUtils.EDD) != null)
+                    if(Utils.getGestationAgeFromEDDate(client.get(DBConstantsUtils.KeyUtils.EDD)) <= 40) {
+                        getProfileView().setProfileGestationAge(
+                                String.valueOf(Utils.getGestationAgeFromEDDate(client.get(DBConstantsUtils.KeyUtils.EDD))));
+                    }
+
             } catch (Exception e) {
                 getProfileView().setProfileGestationAge("0");
             }
@@ -161,5 +165,10 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
     @Override
     public void getTaskCount(String baseEntityId) {
         getProfileView().setTaskCount(mProfileInteractor.getTaskCount(baseEntityId));
+    }
+
+    @Override
+    public void createContactSummaryPdf() {
+        getProfileView().createContactSummaryPdf();
     }
 }

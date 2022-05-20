@@ -2,13 +2,15 @@ package org.smartregister.anc.library.provider;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.fragment.HomeRegisterFragment;
@@ -168,6 +170,21 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
         String firstName = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.FIRST_NAME, true);
         String lastName = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.LAST_NAME, true);
         String patientName = Utils.getName(firstName, lastName);
+        String edd = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.EDD, true);
+
+        if(!StringUtils.isBlank(edd))
+        {
+            if(Utils.getGestationAgeFromEDDate(edd) <= 40) {
+                fillValue(viewHolder.ga, String.format(context.getString(R.string.ga_text), Utils.getGestationAgeFromEDDate(edd)));
+            }
+            else
+            {
+                fillValue(viewHolder.ga,"");
+            }
+        }
+        else
+            fillValue(viewHolder.ga,"");
+
 
         fillValue(viewHolder.patientName, WordUtils.capitalize(patientName));
 

@@ -18,9 +18,9 @@ import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.repository.PartialContactRepository;
 import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.repository.PreviousContactRepository;
+import org.smartregister.anc.library.util.ANCFormUtils;
 import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
-import org.smartregister.anc.library.util.ANCFormUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.FilePathUtils;
 import org.smartregister.clientandeventmodel.Event;
@@ -39,23 +39,23 @@ import java.util.Map;
 import timber.log.Timber;
 
 public class ContactVisit {
-    private Map<String, String> details;
-    private String referral;
-    private String baseEntityId;
-    private int nextContact;
-    private String nextContactVisitDate;
-    private PartialContactRepository partialContactRepository;
-    private List<PartialContact> partialContactList;
+    private final Map<String, String> details;
+    private final String referral;
+    private final String baseEntityId;
+    private final int nextContact;
+    private final String nextContactVisitDate;
+    private final PartialContactRepository partialContactRepository;
+    private final List<PartialContact> partialContactList;
     private Facts facts;
     private List<String> formSubmissionIDs;
     private WomanDetail womanDetail;
-    private Map<String, Integer> attentionFlagCountMap = new HashMap<>();
-    private List<String> parsableFormsList =
+    private final Map<String, Integer> attentionFlagCountMap = new HashMap<>();
+    private final List<String> parsableFormsList =
             Arrays.asList(ConstantsUtils.JsonFormUtils.ANC_QUICK_CHECK, ConstantsUtils.JsonFormUtils.ANC_PROFILE,
                     ConstantsUtils.JsonFormUtils.ANC_SYMPTOMS_FOLLOW_UP, ConstantsUtils.JsonFormUtils.ANC_PHYSICAL_EXAM,
                     ConstantsUtils.JsonFormUtils.ANC_TEST, ConstantsUtils.JsonFormUtils.ANC_COUNSELLING_TREATMENT);
     private Map<String, Long> currentClientTasks = new HashMap<>();
-    private ANCFormUtils ANCFormUtils = new ANCFormUtils();
+    private final ANCFormUtils ancFormUtils = new ANCFormUtils();
 
     public ContactVisit(Map<String, String> details, String referral, String baseEntityId, int nextContact,
                         String nextContactVisitDate, PartialContactRepository partialContactRepository,
@@ -180,24 +180,29 @@ public class ContactVisit {
 
     private void processAttentionFlags(WomanDetail patientDetail, Facts facts) throws IOException {
         Iterable<Object> ruleObjects = AncLibrary.getInstance().readYaml(FilePathUtils.FileUtils.ATTENTION_FLAGS);
+        int redCount = 0;
+        int yellowCount = 0;
 
         for (Object ruleObject : ruleObjects) {
             YamlConfig attentionFlagConfig = (YamlConfig) ruleObject;
 
             for (YamlConfigItem yamlConfigItem : attentionFlagConfig.getFields()) {
                 if (AncLibrary.getInstance().getAncRulesEngineHelper().getRelevance(facts, yamlConfigItem.getRelevance())) {
-                    Integer requiredFieldCount = attentionFlagCountMap.get(attentionFlagConfig.getGroup());
-                    requiredFieldCount = requiredFieldCount == null ? 1 : ++requiredFieldCount;
-                    attentionFlagCountMap.put(attentionFlagConfig.getGroup(), requiredFieldCount);
+                   if(attentionFlagConfig.getGroup().equals(ConstantsUtils.AttentionFlagUtils.RED))
+                   {
+                       redCount = redCount+1;
+                   }
+                   else
+                   {
+                       yellowCount = yellowCount+1;
+                   }
 
                 }
             }
         }
 
-        Integer redCount = attentionFlagCountMap.get(ConstantsUtils.AttentionFlagUtils.RED);
-        Integer yellowCount = attentionFlagCountMap.get(ConstantsUtils.AttentionFlagUtils.YELLOW);
-        patientDetail.setRedFlagCount(redCount != null ? redCount : 0);
-        patientDetail.setYellowFlagCount(yellowCount != null ? yellowCount : 0);
+        patientDetail.setRedFlagCount(redCount);
+        patientDetail.setYellowFlagCount(yellowCount);
     }
 
     private void processFormFieldKeyValues(String baseEntityId, JSONObject object, String contactNo) throws Exception {
@@ -226,7 +231,7 @@ public class ContactVisit {
                                 !isCheckboxValueEmpty(fieldObject)) {
 
                             fieldObject.put(PreviousContactRepository.CONTACT_NO, contactNo);
-                            ANCFormUtils.savePreviousContactItem(baseEntityId, fieldObject);
+                            ancFormUtils.savePreviousContactItem(baseEntityId, fieldObject);
                         }
 
                         if (fieldObject.has(ConstantsUtils.KeyUtils.SECONDARY_VALUES) &&
@@ -235,7 +240,7 @@ public class ContactVisit {
                             for (int count = 0; count < secondaryValues.length(); count++) {
                                 JSONObject secondaryValuesJSONObject = secondaryValues.getJSONObject(count);
                                 secondaryValuesJSONObject.put(PreviousContactRepository.CONTACT_NO, contactNo);
-                                ANCFormUtils.savePreviousContactItem(baseEntityId, secondaryValuesJSONObject);
+                                ancFormUtils.savePreviousContactItem(baseEntityId, secondaryValuesJSONObject);
                             }
                         }
                     }
@@ -260,6 +265,44 @@ public class ContactVisit {
         } catch (JSONException e) {
             Timber.e(e, " --> processTasks");
         }
+    }
+
+    /***
+     * Method that persist previous invisible required fields
+     * @param baseEntityId unique Id for the woman
+     * @param contactNo the contact number
+     * @param object main form json object
+     * @throws JSONException exception thrown
+     */
+    private void persistRequiredInvisibleFields(String baseEntityId, String contactNo, JSONObject object) throws JSONException {
+        if (object.has(JsonFormConstants.INVISIBLE_REQUIRED_FIELDS)) {
+            String key = JsonFormConstants.INVISIBLE_REQUIRED_FIELDS + "_" + object.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE).toLowerCase().replace(" ", "_");
+            ancFormUtils.savePreviousContactItem(baseEntityId, new JSONObject().put(JsonFormConstants.KEY, key)
+                    .put(JsonFormConstants.VALUE, object.getString(JsonFormConstants.INVISIBLE_REQUIRED_FIELDS))
+                    .put(PreviousContactRepository.CONTACT_NO, contactNo));
+        }
+    }
+
+    private void saveExpansionPanelPreviousValues(String baseEntityId, JSONObject fieldObject, String contactNo) throws JSONException {
+        if (fieldObject != null) {
+            JSONArray value = fieldObject.optJSONArray(JsonFormConstants.VALUE);
+            if (value == null) {
+                return;
+            }
+            for (int j = 0; j < value.length(); j++) {
+                JSONObject valueItem = value.getJSONObject(j);
+                ancFormUtils.saveExpansionPanelValues(baseEntityId, contactNo, valueItem);
+            }
+        }
+    }
+
+    private boolean isCheckboxValueEmpty(JSONObject fieldObject) throws JSONException {
+        if (!fieldObject.has(JsonFormConstants.VALUE)) {
+            return true;
+        }
+        String currentValue = fieldObject.getString(JsonFormConstants.VALUE);
+        return TextUtils.equals(currentValue, "[]") || (currentValue.length() == 2
+                && currentValue.startsWith("[") && currentValue.endsWith("]"));
     }
 
     private void saveOrDeleteTasks(@NotNull JSONArray stepFields) throws JSONException {
@@ -290,46 +333,12 @@ public class ContactVisit {
         }
     }
 
-    /***
-     * Method that persist previous invisible required fields
-     * @param baseEntityId unique Id for the woman
-     * @param contactNo the contact number
-     * @param object main form json object
-     * @throws JSONException exception thrown
-     */
-    private void persistRequiredInvisibleFields(String baseEntityId, String contactNo, JSONObject object) throws JSONException {
-        if (object.has(JsonFormConstants.INVISIBLE_REQUIRED_FIELDS)) {
-            String key = JsonFormConstants.INVISIBLE_REQUIRED_FIELDS + "_" + object.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE).toLowerCase().replace(" ", "_");
-            ANCFormUtils.savePreviousContactItem(baseEntityId, new JSONObject().put(JsonFormConstants.KEY, key)
-                    .put(JsonFormConstants.VALUE, object.getString(JsonFormConstants.INVISIBLE_REQUIRED_FIELDS))
-                    .put(PreviousContactRepository.CONTACT_NO, contactNo));
-        }
-    }
-
-    private void saveExpansionPanelPreviousValues(String baseEntityId, JSONObject fieldObject, String contactNo) throws JSONException {
-        if (fieldObject != null) {
-            JSONArray value = fieldObject.optJSONArray(JsonFormConstants.VALUE);
-            if (value == null) {
-                return;
-            }
-            for (int j = 0; j < value.length(); j++) {
-                JSONObject valueItem = value.getJSONObject(j);
-                ANCFormUtils.saveExpansionPanelValues(baseEntityId, contactNo, valueItem);
-            }
-        }
-    }
-
-    private boolean isCheckboxValueEmpty(JSONObject fieldObject) throws JSONException {
-        if (!fieldObject.has(JsonFormConstants.VALUE)) {
-            return true;
-        }
-        String currentValue = fieldObject.getString(JsonFormConstants.VALUE);
-        return TextUtils.equals(currentValue, "[]") || (currentValue.length() == 2
-                && currentValue.startsWith("[") && currentValue.endsWith("]"));
-    }
-
     public Map<String, Long> getCurrentClientTasks() {
         return currentClientTasks;
+    }
+
+    public void setCurrentClientTasks(Map<String, Long> currentClientTasks) {
+        this.currentClientTasks = currentClientTasks;
     }
 
     private void saveTasks(JSONObject field) {
@@ -377,10 +386,6 @@ public class ContactVisit {
         task.setComplete(ANCJsonFormUtils.checkIfTaskIsComplete(field));
         task.setCreatedAt(Calendar.getInstance().getTimeInMillis());
         return task;
-    }
-
-    public void setCurrentClientTasks(Map<String, Long> currentClientTasks) {
-        this.currentClientTasks = currentClientTasks;
     }
 
     protected PreviousContactRepository getPreviousContactRepository() {

@@ -2,11 +2,12 @@ package org.smartregister.anc.library.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.model.LibraryContent;
@@ -15,21 +16,22 @@ import org.smartregister.anc.library.viewholder.LibraryContentViewHolder;
 import java.util.List;
 
 public class LibraryContentAdapter extends RecyclerView.Adapter<LibraryContentViewHolder> {
-    private List<LibraryContent> libraryContentList;
-    private LayoutInflater inflater;
+    private final List<LibraryContent> libraryContentList;
+    private final LayoutInflater inflater;
     private Activity activity;
+    private final Context context;
 
     public LibraryContentAdapter(List<LibraryContent> libraryContentList, Context context) {
         this.libraryContentList = libraryContentList;
         this.inflater = LayoutInflater.from(context);
-        this.activity = (Activity) context;
+        this.context = context;
     }
 
     @NonNull
     @Override
     public LibraryContentViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = inflater.inflate(R.layout.library_items_row, viewGroup, false);
-        return new LibraryContentViewHolder(view, activity);
+        return new LibraryContentViewHolder(view);
     }
 
     @Override

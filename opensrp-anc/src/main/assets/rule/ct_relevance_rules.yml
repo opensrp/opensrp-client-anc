@@ -93,21 +93,21 @@ actions:
 name: step1_no_fetal_heartbeat_toaster
 description: No fetal heartbeat observed
 priority: 1
-condition: "global_fetal_heartbeat != '' && global_fetal_heartbeat == 'no'"
+condition: "global_fetal_heartbeat != '' && global_fetal_heartbeat == 'no' && global_gest_age_openmrs > 20 "
 actions:
   - "isRelevant = true"
 ---
 name: step1_abn_feat_heart_rate_toaster
 description: Abnormal fetal heart rate
 priority: 1
-condition: "global_fetal_heart_rate_repeat < 110 || global_fetal_heart_rate_repeat > 160"
+condition: "global_fetal_heart_rate_repeat < 100 || global_fetal_heart_rate_repeat > 180"
 actions:
   - "isRelevant = true"
 ---
 name: step1_referred_hosp
 description: Referred to hospital
 priority: 1
-condition: "(global_severe_hypertension != '' && global_severe_hypertension == 1) || (!global_danger_signs.isEmpty() && !global_danger_signs.contains('danger_none') && global_danger_signs_value != 'None') || (global_hypertension != '' && global_hypertension == 1 && !global_symp_sev_preeclampsia.isEmpty() && !global_symp_sev_preeclampsia.contains('none')) || (global_preeclampsia != '' && global_preeclampsia == 1) || (global_severe_preeclampsia != ''  && global_severe_preeclampsia == 1) || (global_body_temp_repeat != '' && global_body_temp_repeat >= 38) || global_pulse_rate_repeat != '' && (global_pulse_rate_repeat < 60 || global_pulse_rate_repeat > 100) || global_respiratory_exam == 3 || global_cardiac_exam == 3 || global_breast_exam == 3 || global_abdominal_exam == 3 || global_pelvic_exam == 3 || global_fetal_heartbeat == 'no' || global_fetal_heart_rate_repeat != '' && (global_fetal_heart_rate_repeat < 110 || global_fetal_heart_rate_repeat > 160)"
+condition: "(global_severe_hypertension != '' && global_severe_hypertension == 1) || (!global_danger_signs.isEmpty() && !global_danger_signs.contains('danger_none') && global_danger_signs_value != 'None') || (global_hypertension != '' && global_hypertension == 1 && !global_symp_sev_preeclampsia.isEmpty() && !global_symp_sev_preeclampsia.contains('none')) || (global_preeclampsia != '' && global_preeclampsia == 1) || (global_severe_preeclampsia != ''  && global_severe_preeclampsia == 1) || (global_body_temp_repeat != '' && global_body_temp_repeat >= 38) || global_pulse_rate_repeat != '' && (global_pulse_rate_repeat < 60 || global_pulse_rate_repeat > 100) || global_respiratory_exam == 3 || global_cardiac_exam == 3 || global_breast_exam == 3 || global_abdominal_exam == 3 || global_pelvic_exam == 3 || (global_fetal_heartbeat == 'no' && global_gest_age_openmrs > 20) || global_fetal_heart_rate_repeat != '' && (global_fetal_heart_rate_repeat < 110 || global_fetal_heart_rate_repeat > 160)"
 actions:
   - "isRelevant = true"
 ---
@@ -279,10 +279,24 @@ condition: "global_syphilis_positive == 1 && global_pop_syphilis == false"
 actions:
   - "isRelevant = true"
 ---
+name: step5_low_prev_allergy_toaster
+description: prep_toaster
+priority: 1
+condition: "(global_syphilis_positive == 1 && global_pop_syphilis == false) && !global_allergies.isEmpty() && !global_allergies.contains('none')"
+actions:
+  - "isRelevant = true"
+---
 name: step5_syphilis_high_prev_counsel
 description: Syphilis counselling and treatment
 priority: 1
 condition: "global_syphilis_positive == 1 && global_pop_syphilis == true"
+actions:
+  - "isRelevant = true"
+---
+name: step5_high_prev_allergy_toaster
+description: prep_toaster
+priority: 1
+condition: "(global_syphilis_positive == 1 && global_pop_syphilis == true) && !global_allergies.isEmpty() && !global_allergies.contains('none')"
 actions:
   - "isRelevant = true"
 ---
@@ -359,7 +373,7 @@ actions:
 name: step7_birth_plan_toaster
 description: birth_plan_toaster
 priority: 1
-condition: "(!global_other_symptoms.isEmpty() && global_other_symptoms.contains('vaginal_bleeding')) || (global_gravida != '' && global_gravida == 1) || (global_parity != '' && global_parity > 5) || (global_hiv_positive != '' && global_hiv_positive == 1) || (!global_prev_preg_comps.isEmpty() && (global_prev_preg_comps.contains('3rd_degree_tear') || global_prev_preg_comps.contains('heavy_bleeding') || global_prev_preg_comps.contains('vacuum_delivery') || global_prev_preg_comps.contains('convulsions'))) || global_fetal_presentation != '' && (global_fetal_presentation == 'transverse' || global_fetal_presentation == 'other') || (global_age != '' && global_age <= 17) || (global_c_sections != '' && global_c_sections > 0) || (global_no_of_fetuses != '' && global_no_of_fetuses > 1) || 'step7_family_planning_type' == 'iud' || 'step7_family_planning_type' == 'tubal_ligation'"
+condition: "(!global_other_symptoms.isEmpty() && global_other_symptoms.contains('vaginal_bleeding')) || (global_gravida != '' && global_gravida == 1) || (global_parity != '' && global_parity > 5) || (global_hiv_positive != '' && global_hiv_positive == 1) || (!global_prev_preg_comps.isEmpty() && (global_prev_preg_comps.contains('3rd_degree_tear') || global_prev_preg_comps.contains('heavy_bleeding') || global_prev_preg_comps.contains('vacuum_delivery') || global_prev_preg_comps.contains('vacuum') || global_prev_preg_comps.contains('convulsions'))) || global_fetal_presentation != '' && (global_fetal_presentation == 'transverse' || global_fetal_presentation == 'other') || (global_age != '' && global_age <= 17) || (global_c_sections != '' && global_c_sections > 0) || (global_no_of_fetuses != '' && global_no_of_fetuses > 1) || 'step7_family_planning_type' == 'iud' || 'step7_family_planning_type' == 'tubal_ligation'"
 actions:
   - "isRelevant = true"
 ---
@@ -384,20 +398,6 @@ condition: "global_gest_age_openmrs != '' && global_gest_age_openmrs >= 32"
 actions:
   - "isRelevant = true"
 ---
-name: step8_ipv_enquiry
-description: ipv_enquiry
-priority: 1
-condition: "global_site_ipv_assess == true"
-actions:
-  - "isRelevant = true"
----
-name: step8_ipv_refer_toaster
-description: ipv_refer_toaster
-priority: 1
-condition: "global_site_ipv_assess == false"
-actions:
-  - "isRelevant = true"
----
 name: step9_ifa_high_prev
 description: ifa_high_prev
 priority: 1
@@ -405,10 +405,24 @@ condition: "global_pop_anaemia_40 == true && (global_anaemic == '' || global_ana
 actions:
   - "isRelevant = true"
 ---
+name: step9_ifa_high_prev_toaster
+description: ifa_high_prev_toaster
+priority: 1
+condition: "global_pop_anaemia_40 == true && (global_anaemic == '' || global_anaemic == 0) && !global_allergies.isEmpty() && !global_allergies.contains('none')"
+actions:
+  - "isRelevant = true"
+---
 name: step9_ifa_low_prev
 description: ifa_low_prev
 priority: 1
 condition: "global_pop_anaemia_40 == false && (global_anaemic == '' || global_anaemic == 0)"
+actions:
+  - "isRelevant = true"
+---
+name: step9_ifa_low_prev_toaster
+description: ifa_low_prev_toaster
+priority: 1
+condition: "global_pop_anaemia_40 == false && (global_anaemic == '' || global_anaemic == 0) && !global_allergies.isEmpty() && !global_allergies.isEmpty('none')"
 actions:
   - "isRelevant = true"
 ---
@@ -423,6 +437,13 @@ name: step10_deworm
 description: deworm
 priority: 1
 condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13 ) && (global_pop_anaemia_40 == true || global_pop_helminth == true) && (global_contact_no == 1 || (global_contact_no > 1 && global_previous_deworm == '')) "
+actions:
+  - "isRelevant = true"
+---
+name: step10_deworm_toaster
+description: deworm_toaster
+priority: 1
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13 ) && (global_pop_anaemia_40 == true || global_pop_helminth == true) && (global_contact_no == 1 || (global_contact_no > 1 && global_previous_deworm == '') && !global_allergies.isEmpty() && !global_allergies.contains('none')) "
 actions:
   - "isRelevant = true"
 ---
@@ -513,77 +534,7 @@ actions:
 name: step11_tt_dose_notdone
 description: tt_dose_notdone
 priority: 1
-condition: "step11_tt1_date == 'not_done' || step11_tt2_date == 'not_done' || step11_tt3_date == 'not_done'"
-actions:
-  - "isRelevant = true"
----
-name: step11_woman_immunised_toaster
-description: woman_immunised_toaster
-priority: 1
-condition: "step11_tt3_date == 'done_earlier' || step11_tt3_date == 'done_today' "
-actions:
-  - "isRelevant = true"
----
-name: step11_hepb_negative_note
-description: hepb_negative_note
-priority: 1
-condition: "global_hepb_positive != '' && global_hepb_positive == 0"
-actions:
-  - "isRelevant = true"
----
-name: step11_hepb1_date
-description: hepb1_date
-priority: 1
-condition: "global_hepb_positive == 0 && (global_gest_age_openmrs != '' && global_gest_age_openmrs >= 12) && (global_contact_no == 1 || (global_contact_no > 1 && (global_previous_hepb1_date== '' || global_previous_hepb1_date == 'not_done')))"
-actions:
-  - "isRelevant = true"
----
-name: step11_hepb2_date
-description: hepb2_date
-priority: 1
-condition: "global_contact_no > 1 && (helper.compareDateWithDurationsAddedAgainstToday(global_previous_hepb1_date_done,'28d') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_hepb1_date_done,'28d') == -1) && (global_previous_hepb2_date == '' || global_previous_hepb2_date == 'not_done')"
-actions:
-  - "isRelevant = true"
----
-name: step11_hepb3_date
-description: hepb3_date
-priority: 1
-condition: "global_contact_no > 1 && (helper.compareDateWithDurationsAddedAgainstToday(global_previous_hepb2_date_done,'140d') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_hepb2_date_done,'140d') == -1) && (global_previous_hepb3_date == '' || global_previous_hepb3_date == 'not_done')"
-actions:
-  - "isRelevant = true"
----
-name: step11_hepb1_date_done
-description: Date hepb1 dose given
-priority: 1
-condition: "(step11_hepb1_date!= '') && (step11_hepb1_date == 'done_earlier')"
-actions:
-  - "isRelevant = true"
----
-name: step11_hepb2_date_done
-description: Date hepb2 dose given
-priority: 1
-condition: "(step11_hepb2_date != '') && (step11_hepb2_date == 'done_earlier')"
-actions:
-  - "isRelevant = true"
----
-name: step11_hepb3_date_done
-description: Date hepb3 dose given
-priority: 1
-condition: "(step11_hepb3_date != '') && (step11_hepb3_date  == 'done_earlier')"
-actions:
-  - "isRelevant = true"
----
-name: step11_hepb_dose_notdone
-description: hepb_dose_notdone
-priority: 1
-condition: "step11_hepb1_date == 'not_done' || step11_hepb3_date == 'not_done' || step11_hepb3_date == 'not_done'"
-actions:
-  - "isRelevant = true"
----
-name: step11_woman_immunised_hep_b_toaster
-description: woman_immunised_hep_b_toaster
-priority: 1
-condition: "step11_hepb3_date == 'done_earlier' || step11_hepb3_date == 'done_today' "
+condition: "step11_tt1_date == 'not_done' || step11_tt2_date == 'not_done'"
 actions:
   - "isRelevant = true"
 ---
@@ -619,5 +570,75 @@ name: step11_flu_date_done
 description: flu_date_done
 priority: 1
 condition: "step11_flu_date != '' && step11_flu_date == 'done_earlier'"
+actions:
+  - "isRelevant = true"
+---
+name: step8_ipv_support
+description: ipv_support
+priority: 1
+condition: "global_ipv_subject == 'yes' "
+actions:
+  - "isRelevant = true"
+---
+name: step8_ipv_support_notdone
+description: ipv_support_notdone
+priority: 1
+condition: "step8_ipv_support == 'no' "
+actions:
+  - "isRelevant = true"
+---
+name: step8_ipv_care
+description: ipv_care
+priority: 1
+condition: "global_ipv_subject == 'yes' "
+actions:
+  - "isRelevant = true"
+---
+name: step8_phys_violence_worse
+description: ipv_care
+priority: 1
+condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care.contains('safety_assessment')"
+actions:
+  - "isRelevant = true"
+---
+name: step8_used_weapon
+description: ipv_care
+priority: 1
+condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care.contains('safety_assessment')"
+actions:
+  - "isRelevant = true"
+---
+name: step8_strangle
+description: ipv_care
+priority: 1
+condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care.contains('safety_assessment')"
+actions:
+  - "isRelevant = true"
+---
+name: step8_beaten
+description: ipv_care
+priority: 1
+condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care.contains('safety_assessment')"
+actions:
+  - "isRelevant = true"
+---
+name: step8_jealous
+description: ipv_care
+priority: 1
+condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care.contains('safety_assessment')"
+actions:
+  - "isRelevant = true"
+---
+name: step8_believe_kill
+description: ipv_care
+priority: 1
+condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care.contains('safety_assessment')"
+actions:
+  - "isRelevant = true"
+---
+name: step8_ipv_referrals
+description: ipv_care
+priority: 1
+condition: "step8_ipv_care != null && !step8_ipv_care.isEmpty() && step8_ipv_care.contains('referred')"
 actions:
   - "isRelevant = true"

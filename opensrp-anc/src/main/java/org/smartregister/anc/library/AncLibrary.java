@@ -1,7 +1,7 @@
 package org.smartregister.anc.library;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.gson.Gson;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -24,21 +24,24 @@ import org.smartregister.anc.library.repository.ContactTasksRepository;
 import org.smartregister.anc.library.repository.PartialContactRepository;
 import org.smartregister.anc.library.repository.PreviousContactRepository;
 import org.smartregister.anc.library.repository.RegisterQueryProvider;
+import org.smartregister.anc.library.util.AncMetadata;
+import org.smartregister.anc.library.util.AppExecutors;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.FilePathUtils;
+import org.smartregister.anc.library.util.Utils;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.domain.Setting;
 import org.smartregister.repository.DetailsRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.sync.ClientProcessorForJava;
+import org.smartregister.util.AppProperties;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.yaml.snakeyaml.TypeDescription;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.Locale;
 
 import id.zelory.compressor.Compressor;
 import timber.log.Timber;
@@ -50,7 +53,7 @@ import timber.log.Timber;
 public class AncLibrary {
     private static AncLibrary instance;
     private final Context context;
-    private JsonSpecHelper jsonSpecHelper;
+    private final JsonSpecHelper jsonSpecHelper;
     private PartialContactRepository partialContactRepository;
     private PreviousContactRepository previousContactRepository;
     private ContactTasksRepository contactTasksRepository;
@@ -61,18 +64,32 @@ public class AncLibrary {
     private AncRulesEngineHelper ancRulesEngineHelper;
     private RegisterQueryProvider registerQueryProvider;
     private ClientProcessorForJava clientProcessorForJava;
-    private JSONObject defaultContactFormGlobals = new JSONObject();
+    private final JSONObject defaultContactFormGlobals = new JSONObject();
     private Compressor compressor;
     private Gson gson;
     private Yaml yaml;
-    private SubscriberInfoIndex subscriberInfoIndex;
-    private int databaseVersion;
-    private ActivityConfiguration activityConfiguration;
+    private final SubscriberInfoIndex subscriberInfoIndex;
+    private final int databaseVersion;
+    private final ActivityConfiguration activityConfiguration;
+    private AncMetadata ancMetadata = new AncMetadata();
+    private AppExecutors appExecutors;
 
 
     private AncLibrary(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex, @Nullable RegisterQueryProvider registerQueryProvider) {
         this(context, dbVersion, activityConfiguration, subscriberInfoIndex);
-        this.registerQueryProvider = registerQueryProvider;
+        if (registerQueryProvider != null) {
+            this.registerQueryProvider = registerQueryProvider;
+        }
+    }
+
+    private AncLibrary(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex, @Nullable RegisterQueryProvider registerQueryProvider, @Nullable AncMetadata metadata) {
+        this(context, dbVersion, activityConfiguration, subscriberInfoIndex);
+        if (registerQueryProvider != null) {
+            this.registerQueryProvider = registerQueryProvider;
+        }
+        if (metadata != null) {
+            this.ancMetadata = metadata;
+        }
     }
 
     private AncLibrary(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
@@ -87,6 +104,60 @@ public class AncLibrary {
 
         //initialize configs processor
         initializeYamlConfigs();
+    }
+
+    public static void init(@NonNull Context context, int dbVersion) {
+        init(context, dbVersion, new ActivityConfiguration());
+    }
+
+    public static void init(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration) {
+        init(context, dbVersion, activityConfiguration, null);
+    }
+
+    public static void init(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
+        if (instance == null) {
+            instance = new AncLibrary(context, dbVersion, activityConfiguration, subscriberInfoIndex);
+        }
+    }
+
+    public static void init(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex, @Nullable RegisterQueryProvider registerQueryProvider) {
+        if (instance == null) {
+            instance = new AncLibrary(context, dbVersion, activityConfiguration, subscriberInfoIndex, registerQueryProvider);
+        }
+    }
+
+    /**
+     * Provides options for implementation specific classes
+     *
+     * @param context               {@link Context}
+     * @param dbVersion             {@link int dbVersion}
+     * @param activityConfiguration {@link ActivityConfiguration}
+     * @param subscriberInfoIndex   {@link SubscriberInfoIndex}
+     * @param registerQueryProvider {@link RegisterQueryProvider}
+     * @param metadata              {@link AncMetadata}
+     */
+    public static void init(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex, @Nullable RegisterQueryProvider registerQueryProvider, @Nullable AncMetadata metadata) {
+        if (instance == null) {
+            instance = new AncLibrary(context, dbVersion, activityConfiguration, subscriberInfoIndex, registerQueryProvider, metadata);
+        }
+    }
+
+    public static void init(@NonNull Context context, int dbVersion, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
+        init(context, dbVersion, new ActivityConfiguration(), subscriberInfoIndex);
+    }
+
+    public static JsonSpecHelper getJsonSpecHelper() {
+        return getInstance().jsonSpecHelper;
+    }
+
+    public static AncLibrary getInstance() {
+        if (instance == null) {
+            throw new IllegalStateException(" Instance does not exist!!! Call "
+                    + AncLibrary.class.getName()
+                    + ".init method in the onCreate method of "
+                    + "your Application class ");
+        }
+        return instance;
     }
 
     public android.content.Context getApplicationContext() {
@@ -114,44 +185,6 @@ public class AncLibrary {
         customTypeDescription.addPropertyParameters(YamlConfigItem.FIELD_CONTACT_SUMMARY_ITEMS, YamlConfigItem.class);
         constructor.addTypeDescription(customTypeDescription);
         yaml = new Yaml(constructor);
-    }
-
-    public static void init(@NonNull Context context, int dbVersion) {
-        init(context, dbVersion, new ActivityConfiguration());
-    }
-
-    public static void init(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration) {
-        init(context, dbVersion, activityConfiguration, null);
-    }
-
-    public static void init(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
-        if (instance == null) {
-            instance = new AncLibrary(context, dbVersion, activityConfiguration, subscriberInfoIndex);
-        }
-    }
-
-    public static void init(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex, @Nullable RegisterQueryProvider registerQueryProvider) {
-        if (instance == null) {
-            instance = new AncLibrary(context, dbVersion, activityConfiguration, subscriberInfoIndex, registerQueryProvider);
-        }
-    }
-
-    public static void init(@NonNull Context context, int dbVersion, @Nullable SubscriberInfoIndex subscriberInfoIndex) {
-        init(context, dbVersion, new ActivityConfiguration(), subscriberInfoIndex);
-    }
-
-    public static JsonSpecHelper getJsonSpecHelper() {
-        return getInstance().jsonSpecHelper;
-    }
-
-    public static AncLibrary getInstance() {
-        if (instance == null) {
-            throw new IllegalStateException(" Instance does not exist!!! Call "
-                    + AncLibrary.class.getName()
-                    + ".init method in the onCreate method of "
-                    + "your Application class ");
-        }
-        return instance;
     }
 
     public PartialContactRepository getPartialContactRepository() {
@@ -255,16 +288,13 @@ public class AncLibrary {
             if (settingObject != null) {
                 JSONArray settingArray = settingObject.getJSONArray(AllConstants.SETTINGS);
                 if (settingArray != null) {
-
                     for (int i = 0; i < settingArray.length(); i++) {
-
                         JSONObject jsonObject = settingArray.getJSONObject(i);
                         Boolean value = jsonObject.optBoolean(JsonFormConstants.VALUE);
                         JSONObject nullObject = null;
                         if (value != null && !value.equals(nullObject)) {
                             defaultContactFormGlobals.put(jsonObject.getString(JsonFormConstants.KEY), value);
                         } else {
-
                             defaultContactFormGlobals.put(jsonObject.getString(JsonFormConstants.KEY), false);
                         }
                     }
@@ -285,10 +315,14 @@ public class AncLibrary {
         return defaultContactFormGlobals;
     }
 
-    public Iterable<Object> readYaml(String filename) throws IOException {
-        InputStreamReader inputStreamReader = new InputStreamReader(
-                getApplicationContext().getAssets().open((FilePathUtils.FolderUtils.CONFIG_FOLDER_PATH + filename)));
-        return yaml.loadAll(inputStreamReader);
+    public Iterable<Object> readYaml(String filename) {
+        try {
+            return yaml.loadAll(com.vijay.jsonwizard.utils.Utils.getTranslatedYamlFileWithDBProperties((FilePathUtils.FolderUtils.CONFIG_FOLDER_PATH + filename), getApplicationContext()));
+        } catch (Exception e) {
+            Timber.e(e);
+            return null;
+        }
+
     }
 
     public int getDatabaseVersion() {
@@ -309,5 +343,28 @@ public class AncLibrary {
 
     public void setRegisterQueryProvider(RegisterQueryProvider registerQueryProvider) {
         this.registerQueryProvider = registerQueryProvider;
+    }
+
+
+    public AncMetadata getAncMetadata() {
+        return ancMetadata;
+    }
+
+    public AppExecutors getAppExecutors() {
+        if (appExecutors == null) {
+            appExecutors = new AppExecutors();
+        }
+        return appExecutors;
+    }
+
+    public AppProperties getProperties() {
+        return CoreLibrary.getInstance().context().getAppProperties();
+    }
+
+    public void notifyAppContextChange() {
+        if (getApplicationContext() != null) {
+            Locale current = getApplicationContext().getResources().getConfiguration().locale;
+            Utils.saveLanguage(current.getLanguage());
+        }
     }
 }

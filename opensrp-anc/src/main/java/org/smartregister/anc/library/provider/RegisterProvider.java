@@ -2,13 +2,14 @@ package org.smartregister.anc.library.provider;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.vijay.jsonwizard.views.CustomTextView;
 
@@ -138,9 +139,15 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         String edd = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.EDD, false);
 
         if (StringUtils.isNotBlank(edd)) {
-            fillValue((viewHolder.ga),
-                    String.format(context.getString(R.string.ga_text), Utils.getGestationAgeFromEDDate(edd)));
-            viewHolder.period.setVisibility(View.VISIBLE);
+            if(Utils.getGestationAgeFromEDDate(edd) > 40)
+            {
+                fillValue(viewHolder.ga, "");
+            }
+            else {
+                fillValue((viewHolder.ga),
+                        String.format(context.getString(R.string.ga_text), Utils.getGestationAgeFromEDDate(edd)));
+                viewHolder.period.setVisibility(View.VISIBLE);
+            }
         } else {
 
             fillValue((viewHolder.ga), "");

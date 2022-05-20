@@ -5,14 +5,14 @@
       "openmrs_entity_parent": "887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-      "label": "Blood glucose test",
+      "label": "{{tests_blood_glucose_sub_form.step1.glucose_test_status.label}}",
       "label_text_style": "bold",
       "text_color": "#000000",
       "type": "extended_radio_button",
       "options": [
         {
           "key": "done_today",
-          "text": "Done today",
+          "text": "{{tests_blood_glucose_sub_form.step1.glucose_test_status.options.done_today.text}}",
           "type": "done_today",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -20,7 +20,7 @@
         },
         {
           "key": "done_earlier",
-          "text": "Done earlier",
+          "text": "{{tests_blood_glucose_sub_form.step1.glucose_test_status.options.done_earlier.text}}",
           "type": "done_earlier",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -28,7 +28,7 @@
         },
         {
           "key": "ordered",
-          "text": "Ordered",
+          "text": "{{tests_blood_glucose_sub_form.step1.glucose_test_status.options.ordered.text}}",
           "type": "ordered",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -36,7 +36,7 @@
         },
         {
           "key": "not_done",
-          "text": "Not done",
+          "text": "{{tests_blood_glucose_sub_form.step1.glucose_test_status.options.not_done.text}}",
           "type": "not_done",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -77,7 +77,7 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "date_picker",
-      "hint": "Blood glucose test date",
+      "hint": "{{tests_blood_glucose_sub_form.step1.glucose_test_date.hint}}",
       "expanded": "false",
       "max_date": "today",
       "relevance": {
@@ -96,7 +96,7 @@
       },
       "v_required": {
         "value": true,
-        "err": "Select the date of the glucose test.."
+        "err": "{{tests_blood_glucose_sub_form.step1.glucose_test_date.v_required.err}}"
       }
     },
     {
@@ -105,26 +105,26 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165394AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
-      "label": "Blood glucose test type",
+      "label": "{{tests_blood_glucose_sub_form.step1.glucose_test_type.label}}",
       "label_text_style": "bold",
       "options": [
         {
           "key": "fasting_plasma",
-          "text": "Fasting plasma glucose",
+          "text": "{{tests_blood_glucose_sub_form.step1.glucose_test_type.options.fasting_plasma.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "160053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "ogtt_75",
-          "text": "75g OGTT",
+          "text": "{{tests_blood_glucose_sub_form.step1.glucose_test_type.options.ogtt_75.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "163594AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "random_plasma",
-          "text": "Random plasma glucose",
+          "text": "{{tests_blood_glucose_sub_form.step1.glucose_test_type.options.random_plasma.text}}",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -147,23 +147,23 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "160053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
-      "hint": "Fasting plasma glucose results (mg/dl)",
+      "hint": "{{tests_blood_glucose_sub_form.step1.fasting_plasma_gluc.hint}}",
       "edit_type": "number",
       "v_min": {
         "value": "30",
-        "err": "Fasting plasma glucose results must be greater than or equal to 30"
+        "err": "{{tests_blood_glucose_sub_form.step1.fasting_plasma_gluc.v_min.err}}"
       },
       "v_max": {
         "value": "500",
-        "err": "Fasting plasma glucose results must be less than or equal to 500"
+        "err": "{{tests_blood_glucose_sub_form.step1.fasting_plasma_gluc.v_max.err}}"
       },
       "v_numeric": {
         "value": "true",
-        "err": "Enter a numeric value"
+        "err": "{{tests_blood_glucose_sub_form.step1.fasting_plasma_gluc.v_numeric.err}}"
       },
       "v_required": {
         "value": true,
-        "err": "Enter the result for the fasting plasma glucose test"
+        "err": "{{tests_blood_glucose_sub_form.step1.fasting_plasma_gluc.v_required.err}}"
       },
       "relevance": {
         "rules-engine": {
@@ -179,23 +179,23 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163594AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
-      "hint": "75g OGTT - fasting glucose results (mg/dl)",
+      "hint": "{{tests_blood_glucose_sub_form.step1.ogtt_fasting.hint}}",
       "edit_type": "number",
       "v_min": {
         "value": "30",
-        "err": "75g OGTT - fasting glucose results must be greater than or equal to 30"
+        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_fasting.v_min.err}}"
       },
       "v_max": {
         "value": "500",
-        "err": "75g OGTT - fasting glucose results must be less than or equal to 500"
+        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_fasting.v_max.err}}"
       },
       "v_numeric": {
         "value": "true",
-        "err": "Enter a numeric value"
+        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_fasting.v_numeric.err}}"
       },
       "v_required": {
         "value": true,
-        "err": "Enter the result for the initial 75g OGTT - fasting glucose."
+        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_fasting.v_required.err}}"
       },
       "relevance": {
         "rules-engine": {
@@ -211,23 +211,23 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163704AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
-      "hint": "75g OGTT - 1 hr results (mg/dl)",
+      "hint": "{{tests_blood_glucose_sub_form.step1.ogtt_1.hint}}",
       "edit_type": "number",
       "v_min": {
         "value": "30",
-        "err": "The result for the 75g OGTT - 1 hr must be greater than or equal to 30"
+        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_1.v_min.err}}"
       },
       "v_max": {
         "value": "500",
-        "err": "The result for the 75g OGTT - 1 hr must be less than or equal to 500"
+        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_1.v_max.err}}"
       },
       "v_numeric": {
         "value": "true",
-        "err": "Enter a numeric value"
+        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_1.v_numeric.err}}"
       },
       "v_required": {
         "value": true,
-        "err": "Enter the result for the 75g OGTT - fasting glucose (1 hr)."
+        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_1.v_required.err}}"
       },
       "relevance": {
         "rules-engine": {
@@ -243,23 +243,23 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163705AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
-      "hint": "75g OGTT - 2 hrs results (mg/dl)",
+      "hint": "{{tests_blood_glucose_sub_form.step1.ogtt_2.hint}}",
       "edit_type": "number",
       "v_min": {
         "value": "30",
-        "err": "The result for the 75g OGTT - 2 hr must be greater than or equal to 30"
+        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_2.v_min.err}}"
       },
       "v_max": {
         "value": "500",
-        "err": "The result for the 75g OGTT - 2 hr must be less than or equal to 500"
+        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_2.v_max.err}}"
       },
       "v_numeric": {
         "value": "true",
-        "err": "Enter a numeric value"
+        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_2.v_numeric.err}}"
       },
       "v_required": {
         "value": true,
-        "err": "Enter the result for the 75g OGTT - fasting glucose (2 hr)."
+        "err": "{{tests_blood_glucose_sub_form.step1.ogtt_2.v_required.err}}"
       },
       "relevance": {
         "rules-engine": {
@@ -275,23 +275,23 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
-      "hint": "Random plasma glucose results (mg/dl)",
+      "hint": "{{tests_blood_glucose_sub_form.step1.random_plasma.hint}}",
       "edit_type": "number",
       "v_min": {
         "value": "30",
-        "err": "The result for the random plasma glucose test must be greater than or equal to 30"
+        "err": "{{tests_blood_glucose_sub_form.step1.random_plasma.v_min.err}}"
       },
       "v_max": {
         "value": "500",
-        "err": "The result for the random plasma glucose test must be less than or equal to 500"
+        "err": "{{tests_blood_glucose_sub_form.step1.random_plasma.v_max.err}}"
       },
       "v_numeric": {
         "value": "true",
-        "err": "Enter a numeric value"
+        "err": "{{tests_blood_glucose_sub_form.step1.random_plasma.v_numeric.err}}"
       },
       "v_required": {
         "value": true,
-        "err": "Enter the result for the random plasma glucose test."
+        "err": "{{tests_blood_glucose_sub_form.step1.random_plasma.v_required.err}}"
       },
       "relevance": {
         "rules-engine": {
@@ -339,9 +339,9 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "toaster_notes",
-      "text": "Gestational Diabetes Mellitus (GDM) diagnosis!",
-      "toaster_info_text": "The woman has Gestational Diabetes Mellitus (GDM) if her fasting plasma glucose is 92–125 mg/dL. \n\nOR\n\n- 75g OGTT - fasting glucose 92–125 mg/dL\n- 75g OGTT - 1 hr 180–199 mg/dL\n- 75g OGTT - 2 hrs 153–199 mg/dL",
-      "toaster_info_title": "Gestational Diabetes Mellitus (GDM) diagnosis!",
+      "text": "{{tests_blood_glucose_sub_form.step1.gestational_diabetes_danger_toaster.text}}",
+      "toaster_info_text": "{{tests_blood_glucose_sub_form.step1.gestational_diabetes_danger_toaster.toaster_info_text}}",
+      "toaster_info_title": "{{tests_blood_glucose_sub_form.step1.gestational_diabetes_danger_toaster.toaster_info_title}}",
       "toaster_type": "problem",
       "relevance": {
         "rules-engine": {
@@ -357,9 +357,9 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "toaster_notes",
-      "text": "Diabetes Mellitus (DM) in pregnancy diagnosis!",
-      "toaster_info_text": "The woman has Diabetes Mellitus (DM) in pregnancy if her fasting plasma glucose is 126 mg/dL or higher.\n\nOR\n\n- 75g OGTT - fasting glucose 126 mg/dL or higher\n- 75g OGTT - 1 hr 200 mg/dL or higher\n- 75g OGTT - 2 hrs 200 mg/dL or higher\n- Random plasma glucose 200 mg/dL or higher",
-      "toaster_info_title": "Diabetes Mellitus (DM) in pregnancy diagnosis!",
+      "text": "{{tests_blood_glucose_sub_form.step1.diabetes_mellitus_danger_toaster.text}}",
+      "toaster_info_text": "{{tests_blood_glucose_sub_form.step1.diabetes_mellitus_danger_toaster.toaster_info_text}}",
+      "toaster_info_title": "{{tests_blood_glucose_sub_form.step1.diabetes_mellitus_danger_toaster.toaster_info_title}}",
       "toaster_type": "problem",
       "relevance": {
         "rules-engine": {
@@ -375,8 +375,8 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "",
       "type": "toaster_notes",
-      "text": "Dietary intervention recommended and referral to high level care.",
-      "toaster_info_text": "Woman with hyperglycemia - Recommend dietary intervention and refer to higher level care.",
+      "text": "{{tests_blood_glucose_sub_form.step1.dietary_intervention_danger_toaster.text}}",
+      "toaster_info_text": "{{tests_blood_glucose_sub_form.step1.dietary_intervention_danger_toaster.toaster_info_text}}",
       "toaster_type": "problem",
       "relevance": {
         "rules-engine": {
@@ -386,5 +386,7 @@
         }
       }
     }
-  ]
+  ],
+  "count": 1,
+  "properties_file_name": "tests_blood_glucose_sub_form"
 }

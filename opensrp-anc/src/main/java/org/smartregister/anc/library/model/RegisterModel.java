@@ -1,7 +1,9 @@
 package org.smartregister.anc.library.model;
 
-import android.support.v4.util.Pair;
-import android.util.Log;
+import androidx.annotation.VisibleForTesting;
+import androidx.core.util.Pair;
+
+import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
@@ -12,13 +14,11 @@ import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.location.helper.LocationHelper;
-import org.smartregister.util.FormUtils;
 
 import java.util.List;
 import java.util.Map;
 
 public class RegisterModel implements RegisterContract.Model {
-    private FormUtils formUtils;
 
     @Override
     public void registerViewConfigurations(List<String> viewIdentifiers) {
@@ -52,31 +52,20 @@ public class RegisterModel implements RegisterContract.Model {
 
     @Override
     public JSONObject getFormAsJson(String formName, String entityId, String currentLocationId) throws Exception {
-        JSONObject form = getFormUtils().getFormJson(formName);
+        JSONObject form = getFormUtils().getFormJsonFromRepositoryOrAssets(AncLibrary.getInstance().getApplicationContext(), formName);
         if (form == null) {
             return null;
         }
         return ANCJsonFormUtils.getFormAsJson(form, formName, entityId, currentLocationId);
     }
 
-    private FormUtils getFormUtils() {
-        if (formUtils == null) {
-            try {
-                formUtils = FormUtils.getInstance(AncLibrary.getInstance().getApplicationContext());
-            } catch (Exception e) {
-                Log.e(RegisterModel.class.getCanonicalName(), e.getMessage(), e);
-            }
-        }
-        return formUtils;
-    }
-
-    public void setFormUtils(FormUtils formUtils) {
-        this.formUtils = formUtils;
-    }
-
-
     @Override
     public String getInitials() {
         return Utils.getUserInitials();
+    }
+
+    @VisibleForTesting
+    protected FormUtils getFormUtils() {
+        return new FormUtils();
     }
 }

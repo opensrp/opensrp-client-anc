@@ -1,11 +1,12 @@
 package org.smartregister.anc.library.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.jeasy.rules.api.Facts;
 import org.smartregister.anc.library.AncLibrary;
@@ -43,7 +44,6 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.sectionHeader.setText(processUnderscores(mData.get(position).getGroup()));
-
         List<YamlConfigItem> fields = mData.get(position).getFields();
         StringBuilder outputBuilder = new StringBuilder();
         for (YamlConfigItem yamlConfigItem : fields) {

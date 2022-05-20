@@ -1,11 +1,12 @@
 package org.smartregister.anc.library.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.utils.Utils;
@@ -52,9 +53,10 @@ public class ContactTasksDisplayAdapter extends RecyclerView.Adapter<ContactTask
             if (taskList != null && taskList.size() > 0) {
                 Task task = taskList.get(position);
                 JSONObject taskValue = new JSONObject(task.getValue());
-                String taskText = taskValue.optString(JsonFormConstants.TEXT);
-                if (StringUtils.isNotBlank(taskText)) {
-                    contactTasksViewHolder.topBarTextView.setText(taskText);
+                String taskKey = taskValue.optString(JsonFormConstants.KEY);
+                String testName= ANCFormUtils.getTranslatedFormTitle(taskKey, context);
+                if (StringUtils.isNotBlank(testName)) {
+                    contactTasksViewHolder.topBarTextView.setText(testName);
                 }
                 updateStatusIcon(taskValue, contactTasksViewHolder);
                 showInfoIcon(taskValue, contactTasksViewHolder);

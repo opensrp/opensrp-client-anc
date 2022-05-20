@@ -68,7 +68,7 @@ public abstract class BaseUnitTest {
             "         \"openmrs_entity_id\": \"139084\"\n" +
             "      },\n" +
             "      {\n" +
-            "         \"key\": \"blurred_vision\",\n" +
+            "         \"key\": \"visual_disturbance\",\n" +
             "         \"text\": \"Blurred vision\",\n" +
             "         \"value\": false,\n" +
             "         \"openmrs_entity\": \"Blurred vision\",\n" +

@@ -3,29 +3,33 @@ package org.smartregister.anc.library.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.LocalBroadcastManager;
-import android.text.TextUtils;
+
+import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.vijay.jsonwizard.activities.JsonFormActivity;
+import com.vijay.jsonwizard.activities.FormConfigurationJsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
+import com.vijay.jsonwizard.utils.NativeFormLangUtils;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.fragment.ContactWizardJsonFormFragment;
 import org.smartregister.anc.library.helper.AncRulesEngineFactory;
-import org.smartregister.anc.library.task.BackPressedPersistPartialTask;
-import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ANCFormUtils;
+import org.smartregister.anc.library.util.ConstantsUtils;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 import timber.log.Timber;
@@ -34,11 +38,11 @@ import timber.log.Timber;
  * Created by ndegwamartin on 30/06/2018.
  */
 
-public class ContactJsonFormActivity extends JsonFormActivity {
+public class ContactJsonFormActivity extends FormConfigurationJsonFormActivity {
+    private final ANCFormUtils ancFormUtils = new ANCFormUtils();
     protected AncRulesEngineFactory rulesEngineFactory = null;
     private ProgressDialog progressDialog;
     private String formName;
-    private ANCFormUtils ANCFormUtils = new ANCFormUtils();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
         super.onCreate(savedInstanceState);
     }
 
+    @Override
     public void init(String json) {
         try {
             setmJSONObject(new JSONObject(json));
@@ -62,6 +67,18 @@ public class ContactJsonFormActivity extends JsonFormActivity {
                         .fromJson(getmJSONObject().getJSONObject(JsonFormConstants.JSON_FORM_KEY.GLOBAL).toString(),
                                 new TypeToken<HashMap<String, String>>() {
                                 }.getType());
+                if (globalValues.containsKey(ConstantsUtils.DANGER_SIGNS + ConstantsUtils.SuffixUtils.VALUE) && StringUtils.isNotBlank(globalValues.get(ConstantsUtils.DANGER_SIGNS + ConstantsUtils.SuffixUtils.VALUE))) {
+                    String danger_signs_value = globalValues.get(ConstantsUtils.DANGER_SIGNS + ConstantsUtils.SuffixUtils.VALUE);
+                    if (danger_signs_value.contains(",") || (danger_signs_value.contains(".") && danger_signs_value.contains(JsonFormConstants.TEXT))) {
+                        List<String> list = Arrays.asList(danger_signs_value.split(",")), finalList = new LinkedList<>();
+                        for (int i = 0; i < list.size(); i++) {
+                            String text = list.get(i).trim();
+                            String translated_text = StringUtils.isNotBlank(text) ? NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext()) : "";
+                            finalList.add(translated_text);
+                        }
+                        globalValues.put(ConstantsUtils.DANGER_SIGNS + ConstantsUtils.SuffixUtils.VALUE, finalList.size() > 1 ? String.join(",", finalList) : finalList.size() == 1 ? finalList.get(0) : "");
+                    }
+                }
             } else {
                 globalValues = new HashMap<>();
             }
@@ -87,8 +104,7 @@ public class ContactJsonFormActivity extends JsonFormActivity {
         JsonWizardFormFragment contactJsonFormFragment =
                 ContactWizardJsonFormFragment.getFormFragment(JsonFormConstants.FIRST_STEP_NAME);
 
-        getSupportFragmentManager().beginTransaction().add(com.vijay.jsonwizard.R.id.container, contactJsonFormFragment)
-                .commit();
+        getSupportFragmentManager().beginTransaction().add(com.vijay.jsonwizard.R.id.container, contactJsonFormFragment).commit();
     }
 
     @Override
@@ -125,11 +141,11 @@ public class ContactJsonFormActivity extends JsonFormActivity {
 
                         if (childKey.equals(anotherKeyAtIndex)) {
                             innerItem.put(JsonFormConstants.VALUE, value);
-                            if (!TextUtils.isEmpty(formName) && formName.equals(ConstantsUtils.JsonFormUtils.ANC_QUICK_CHECK)) {
+                            if (StringUtils.isNotBlank(formName) && formName.equals(ConstantsUtils.JsonFormUtils.ANC_QUICK_CHECK)) {
                                 quickCheckDangerSignsSelectionHandler(fields);
                             }
 
-                            invokeRefreshLogic(value, popup, parentKey, childKey);
+                            invokeRefreshLogic(value, popup, parentKey, childKey, stepName, false);
                             return;
                         }
                     }
@@ -141,7 +157,17 @@ public class ContactJsonFormActivity extends JsonFormActivity {
 
     @Override
     public void onBackPressed() {
-        new BackPressedPersistPartialTask(getContact(), this, getIntent(), currentJsonState()).execute();
+        if (getmJSONObject().optString(JsonFormConstants.ENCOUNTER_TYPE).equals(ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE)) {
+            ContactWizardJsonFormFragment contactWizardJsonFormFragment = (ContactWizardJsonFormFragment) getVisibleFragment();
+            contactWizardJsonFormFragment.getPresenter().validateAndWriteValues();
+            Intent intent = new Intent();
+            intent.putExtra("formInvalidFields",
+                    getmJSONObject().optString(JsonFormConstants.ENCOUNTER_TYPE) + ":" + contactWizardJsonFormFragment.getPresenter().getInvalidFields().size());
+            setResult(RESULT_OK, intent);
+        }
+
+        proceedToMainContactPage();
+        // new BackPressedPersistPartialTask(getContact(), this, getIntent(), currentJsonState()).execute();
     }
 
     public Contact getContact() {
@@ -249,12 +275,12 @@ public class ContactJsonFormActivity extends JsonFormActivity {
     }
 
     /**
-     * Partially saves the Quick Check forms details then proceeds to the main contact page
+     * Partially saves the contact forms details then proceeds to the main contact page
      *
      * @author dubdabasoduba
      */
     public void proceedToMainContactPage() {
-        Intent intent = new Intent(this, MainContactActivity.class);
+        Intent intent = new Intent(this, AncLibrary.getInstance().getActivityConfiguration().getMainContactActivityClass());
 
         int contactNo = getIntent().getIntExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, 0);
         String baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
@@ -264,10 +290,11 @@ public class ContactJsonFormActivity extends JsonFormActivity {
         intent.putExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME, getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.FORM_NAME));
         intent.putExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, contactNo);
         Contact contact = getContact();
-        contact.setJsonForm(ANCFormUtils.addFormDetails(currentJsonState()));
+        contact.setJsonForm(ancFormUtils.addFormDetails(currentJsonState()));
         contact.setContactNumber(contactNo);
         ANCFormUtils.persistPartial(baseEntityId, getContact());
         this.startActivity(intent);
+        this.finish();
     }
 
     /**

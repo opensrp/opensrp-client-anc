@@ -1,6 +1,6 @@
 package org.smartregister.anc.library.interactor;
 
-import android.support.annotation.VisibleForTesting;
+import androidx.annotation.VisibleForTesting;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
@@ -10,10 +10,10 @@ import org.smartregister.anc.library.contract.BaseContactContract;
 import org.smartregister.anc.library.contract.ContactSummarySendContract;
 import org.smartregister.anc.library.model.ContactSummaryModel;
 import org.smartregister.anc.library.repository.PatientRepository;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.AppExecutors;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
-import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.Utils;
 
 import java.util.ArrayList;

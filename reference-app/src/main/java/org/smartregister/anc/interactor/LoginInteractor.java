@@ -3,8 +3,11 @@ package org.smartregister.anc.interactor;
 import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.domain.LoginResponse;
+import org.smartregister.job.DocumentConfigurationServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
+import org.smartregister.job.P2pServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
+import org.smartregister.job.SyncAllLocationsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.SyncSettingsServiceJob;
 import org.smartregister.login.interactor.BaseLoginInteractor;
@@ -33,16 +36,22 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
         SyncSettingsServiceJob
                 .scheduleJob(SyncSettingsServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.CLIENT_SETTINGS_SYNC_MINUTES),
                         getFlexValue(BuildConfig.CLIENT_SETTINGS_SYNC_MINUTES));
+        DocumentConfigurationServiceJob
+                .scheduleJob(DocumentConfigurationServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.CLIENT_SETTINGS_SYNC_MINUTES),
+                        getFlexValue(BuildConfig.CLIENT_SETTINGS_SYNC_MINUTES));
+        P2pServiceJob.scheduleJob(P2pServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.CLIENT_SETTINGS_SYNC_MINUTES),
+                        getFlexValue(BuildConfig.CLIENT_SETTINGS_SYNC_MINUTES));
     }
 
     @Override
     protected void scheduleJobsImmediately() {
         super.scheduleJobsImmediately();
+        DocumentConfigurationServiceJob.scheduleJobImmediately(DocumentConfigurationServiceJob.TAG);
+        SyncAllLocationsServiceJob.scheduleJobImmediately(SyncAllLocationsServiceJob.TAG);
     }
 
     @Override
     protected void processServerSettings(LoginResponse loginResponse) {
-
         super.processServerSettings(loginResponse);
         AncLibrary.getInstance().populateGlobalSettings();
     }

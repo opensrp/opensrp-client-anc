@@ -6,13 +6,13 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "1123AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "check_box",
-      "label": "Respiratory exam: abnormal",
+      "label": "{{respiratory_exam_sub_form.step1.respiratory_exam_abnormal.label}}",
       "label_text_style": "bold",
       "text_color": "#000000",
       "options": [
         {
           "key": "dyspnoea",
-          "text": "Dyspnoea",
+          "text": "{{respiratory_exam_sub_form.step1.respiratory_exam_abnormal.options.dyspnoea.text}}",
           "value": false,
           "openmrs_entity_parent": "165367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "openmrs_entity": "concept",
@@ -20,7 +20,7 @@
         },
         {
           "key": "cough",
-          "text": "Cough",
+          "text": "{{respiratory_exam_sub_form.step1.respiratory_exam_abnormal.options.cough.text}}",
           "value": false,
           "openmrs_entity_parent": "165367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "openmrs_entity": "concept",
@@ -28,7 +28,7 @@
         },
         {
           "key": "rapid_breathing",
-          "text": "Rapid breathing",
+          "text": "{{respiratory_exam_sub_form.step1.respiratory_exam_abnormal.options.rapid_breathing.text}}",
           "value": false,
           "openmrs_entity_parent": "165367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "openmrs_entity": "concept",
@@ -36,7 +36,7 @@
         },
         {
           "key": "slow_breathing",
-          "text": "Slow breathing",
+          "text": "{{respiratory_exam_sub_form.step1.respiratory_exam_abnormal.options.slow_breathing.text}}",
           "value": false,
           "openmrs_entity_parent": "165367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "openmrs_entity": "concept",
@@ -44,7 +44,7 @@
         },
         {
           "key": "wheezing",
-          "text": "Wheezing",
+          "text": "{{respiratory_exam_sub_form.step1.respiratory_exam_abnormal.options.wheezing.text}}",
           "value": false,
           "openmrs_entity_parent": "165367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "openmrs_entity": "concept",
@@ -52,7 +52,7 @@
         },
         {
           "key": "rales",
-          "text": "Rales",
+          "text": "{{respiratory_exam_sub_form.step1.respiratory_exam_abnormal.options.rales.text}}",
           "value": false,
           "openmrs_entity_parent": "165367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "openmrs_entity": "concept",
@@ -60,7 +60,7 @@
         },
         {
           "key": "other",
-          "text": "Other (specify)",
+          "text": "{{respiratory_exam_sub_form.step1.respiratory_exam_abnormal.options.other.text}}",
           "value": false,
           "openmrs_entity_parent": "1123AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "openmrs_entity": "concept",
@@ -74,10 +74,10 @@
       "openmrs_entity": "",
       "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "edit_text",
-      "hint": "Specify",
+      "hint": "{{respiratory_exam_sub_form.step1.respiratory_exam_abnormal_other.hint}}",
       "v_regex": {
         "value": "[A-Za-z\\s\\.\\-]*",
-        "err": "Please enter valid content"
+        "err": "{{respiratory_exam_sub_form.step1.respiratory_exam_abnormal_other.v_regex.err}}"
       },
       "relevance": {
         "step3:respiratory_exam_abnormal": {
@@ -91,5 +91,7 @@
         }
       }
     }
-  ]
+  ],
+  "count": 1,
+  "properties_file_name": "respiratory_exam_sub_form"
 }

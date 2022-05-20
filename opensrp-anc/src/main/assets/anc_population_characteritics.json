@@ -1,0 +1,101 @@
+{
+  "settingConfigurations": [
+    {
+      "identifier": "population_characteristics",
+      "settings": [
+        {
+          "description": "The proportion of women in the adult population (18 years or older), with a BMI less than 18.5, is 20% or higher.",
+          "label": "Undernourished prevalence 20% or higher",
+          "value": "false",
+          "key": "pop_undernourish"
+        },
+        {
+          "description": "The proportion of pregnant women in the population with anaemia (haemoglobin level less than 11 g/dl) is 40% or higher.",
+          "label": "Anaemia prevalence 40% or higher",
+          "value": "false",
+          "key": "pop_anaemia_40"
+        },
+        {
+          "description": "The proportion of pregnant women in the population with anaemia (haemoglobin level less than 11 g/dl) is 20% or lower.",
+          "label": "Anaemia prevalence 20% or lower",
+          "value": "true",
+          "key": "pop_anaemia_20"
+        },
+        {
+          "description": "Women in the population are likely to have low dietary calcium intake (less than 900 mg of calcium per day).",
+          "label": "Low dietary calcium intake",
+          "value": "true",
+          "key": "pop_low_calcium"
+        },
+        {
+          "description": "The tuberculosis prevalence in the general population is 100 cases per 100,000 persons or greater.",
+          "label": "TB prevalence 100/100,000 or higher",
+          "value": "false",
+          "key": "pop_tb"
+        },
+        {
+          "description": "The prevalence of night blindness is 5% or higher in pregnant women or 5% or higher in children 24–59 months of age, or the proportion of pregnant women with a serum retinol level less than 0.7 mol/L is 20% or higher. ",
+          "label": "Vitamin A deficiency 5% or higher",
+          "value": "true",
+          "key": "pop_vita"
+        },
+        {
+          "description": "The percentage of individuals in the general population infected with at least one species of soil-transmitted helminth is 20% or higher.",
+          "label": "Soil-transmitted helminth infection prevalence 20% or higher",
+          "value": "false",
+          "key": "pop_helminth"
+        },
+        {
+          "description": "Women in the population have a substantial risk of HIV infection. Substantial risk of HIV infection is provisionally defined as HIV incidence greater than 3 per 100 person–years in the absence of pre-exposure prophylaxis (PrEP).",
+          "label": "HIV incidence greater than 3 per 100 person-years in the absence of PrEP",
+          "value": "false",
+          "key": "pop_hiv_incidence"
+        },
+        {
+          "description": "Is the HIV prevalence consistently > 1% in pregnant women attending antenatal clinics?",
+          "label": "Generalized HIV epidemic",
+          "value": "true",
+          "key": "pop_hiv_generalized"
+        },
+        {
+          "description": "HIV is spread rapidly in key populations (men who have sex with men, people in prison or other closed settings, people who inject drugs, sex workers and transgender people), i.e. HIV prevalence is consistently over 5% in at least one defined key population.",
+          "label": "Concentrated HIV epidemic",
+          "value": "true",
+          "key": "pop_hiv_concentrated"
+        },
+        {
+          "description": "This is a malaria-endemic setting.",
+          "label": "Malaria-endemic setting",
+          "value": "true",
+          "key": "pop_malaria"
+        },
+        {
+          "description": "The prevalence of syphilis in pregnant women in the population is 5% or higher.",
+          "label": "Syphilis prevalence 5% or higher",
+          "value": "false",
+          "key": "pop_syphilis"
+        },
+        {
+          "description": "The proportion of Hepatitis B surface antigen (HBsAg) seroprevalance in the general population is 2% or higher.",
+          "label": "Hep B prevalence is intermediate (2% or higher) or high (5% or higher)",
+          "value": "false",
+          "key": "pop_hepb"
+        },
+        {
+          "description": "There is a national Hepatitis B ANC routine screening program in place.",
+          "label": "National Hep B ANC routine screening program established",
+          "value": "true",
+          "key": "pop_hepb_screening"
+        },
+        {
+          "description": "The proportion of Hepatitis C virus (HCV) antibody seroprevalence in the general population is 2% or higher. ",
+          "label": "Hep C prevalence is intermediate (2% or higher) or high (5% or higher)",
+          "value": "false",
+          "key": "pop_hepc"
+        }
+      ],
+      "locationId": "02ebbc84-5e29-4cd5-9b79-c594058923e9",
+      "type": "SettingConfiguration"
+    }
+  ]
+}

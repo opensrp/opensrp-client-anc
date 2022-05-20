@@ -3,8 +3,6 @@ package org.smartregister.anc.library.fragment;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,7 +19,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.vijay.jsonwizard.activities.JsonFormActivity;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+
+import com.vijay.jsonwizard.activities.FormConfigurationJsonFormActivity;
 import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 
@@ -29,9 +30,8 @@ import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.ContactJsonFormActivity;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.presenter.ContactWizardJsonFormFragmentPresenter;
-import org.smartregister.anc.library.task.ANCNextProgressDialogTask;
-import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ANCFormUtils;
+import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.anc.library.viewstate.ContactJsonFormFragmentViewState;
@@ -88,7 +88,7 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
     private void quickCheckClose() {
         AlertDialog dialog = new AlertDialog.Builder(getContext(), R.style.AppThemeAlertDialog)
                 .setTitle(getJsonApi().getConfirmCloseTitle()).setMessage(getJsonApi().getConfirmCloseMessage())
-                .setNegativeButton(R.string.yes, (dialog1, which) -> ((ContactJsonFormActivity) getActivity()).finishInitialQuickCheck()).setPositiveButton(R.string.no, (dialog12, which) -> Timber.d("No button on dialog in %s", JsonFormActivity.class.getCanonicalName())).create();
+                .setNegativeButton(R.string.yes, (dialog1, which) -> ((ContactJsonFormActivity) getActivity()).finishInitialQuickCheck()).setPositiveButton(R.string.no, (dialog12, which) -> Timber.d("No button on dialog in %s", FormConfigurationJsonFormActivity.class.getCanonicalName())).create();
 
         dialog.show();
     }
@@ -144,11 +144,6 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (!getJsonApi().isPreviousPressed()) {
-            skipStepsOnNextPressed();
-        } else {
-            skipStepOnPreviousPressed();
-        }
         setJsonFormFragment(this);
     }
 
@@ -215,6 +210,15 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
             this.save(false);
         }
 
+    }
+
+    @Override
+    public ContactWizardJsonFormFragment getJsonFormFragment() {
+        return formFragment;
+    }
+
+    public void setJsonFormFragment(ContactWizardJsonFormFragment formFragment) {
+        this.formFragment = formFragment;
     }
 
     private void displayReferralDialog() {
@@ -290,14 +294,19 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
             proceedButton = buttonLayout.findViewById(R.id.proceed);
         }
 
-        setQuickCheckButtonsVisible(none, other, buttonLayout, referButton, proceedButton);
-        setQuickCheckButtonsInvisible(none, other, buttonLayout, referButton, proceedButton);
 
-        if ((none && !other) && buttonLayout != null) {
-            referButton.setVisibility(View.GONE);
-        }
+        Button finalReferButton = referButton;
+        Button finalProceedButton = proceedButton;
+        getJsonApi().getAppExecutors().mainThread().execute(() -> {
+            setQuickCheckButtonsVisible(none, other, buttonLayout, finalReferButton, finalProceedButton);
+            setQuickCheckButtonsInvisible(none, other, buttonLayout, finalReferButton, finalProceedButton);
 
+            if ((none && !other) && buttonLayout != null) {
+                finalReferButton.setVisibility(View.GONE);
+            }
+        });
     }
+
 
     @Nullable
     private LinearLayout getQuickCheckButtonsLayout() {
@@ -327,15 +336,6 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
         }
     }
 
-    public void setJsonFormFragment(ContactWizardJsonFormFragment formFragment) {
-        this.formFragment = formFragment;
-    }
-
-    @Override
-    public ContactWizardJsonFormFragment getJsonFormFragment() {
-        return formFragment;
-    }
-
     private class BottomNavigationListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
@@ -343,11 +343,22 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
             if (view.getId() == com.vijay.jsonwizard.R.id.next || view.getId() == com.vijay.jsonwizard.R.id.next_icon) {
                 Object tag = view.getTag(com.vijay.jsonwizard.R.id.NEXT_STATE);
                 if (tag == null) {
-                    new ANCNextProgressDialogTask(getJsonFormFragment()).execute();
+                    getJsonApi().getAppExecutors().diskIO().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            next();
+                        }
+                    });
+//                    new ANCNextProgressDialogTask(getJsonFormFragment()).execute();
                 } else {
                     boolean next = (boolean) tag;
                     if (next) {
-                        new ANCNextProgressDialogTask(getJsonFormFragment()).execute();
+                        getJsonApi().getAppExecutors().diskIO().execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                next();
+                            }
+                        });
                     } else {
                         savePartial = true;
                         save();
@@ -366,5 +377,4 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
         }
     }
 }
-
 
