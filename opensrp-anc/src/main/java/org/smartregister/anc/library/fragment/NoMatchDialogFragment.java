@@ -6,7 +6,7 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,7 +92,7 @@ public class NoMatchDialogFragment extends DialogFragment {
 
         private void goToAdvancedSearch(String whoAncId) {
             ((BaseHomeRegisterActivity) baseRegisterActivity).startAdvancedSearch();
-            android.support.v4.app.Fragment currentFragment =
+            androidx.fragment.app.Fragment currentFragment =
                     baseRegisterActivity.findFragmentByPosition(BaseRegisterActivity.ADVANCED_SEARCH_POSITION);
             ((AdvancedSearchFragment) currentFragment).getAncId().setText(whoAncId);
         }

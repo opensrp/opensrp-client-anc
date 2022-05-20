@@ -1,7 +1,7 @@
 package org.smartregister.anc.library.interactor;
 
 
-import android.support.v4.util.Pair;
+import androidx.core.util.Pair;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
@@ -166,8 +166,8 @@ public class RegisterInteractorTest extends BaseUnitTest {
         long timestamp = new Date().getTime();
 
         List<EventClient> eventClients = new ArrayList<>();
-        EventClient eventClient = new EventClient(ANCJsonFormUtils.gson.fromJson(eventObject.toString(), org.smartregister.domain.db.Event.class),
-                ANCJsonFormUtils.gson.fromJson(clientObject.toString(), org.smartregister.domain.db.Client.class));
+        EventClient eventClient = new EventClient(ANCJsonFormUtils.gson.fromJson(eventObject.toString(), org.smartregister.domain.Event.class),
+                ANCJsonFormUtils.gson.fromJson(clientObject.toString(), org.smartregister.domain.Client.class));
         eventClients.add(eventClient);
 
         Mockito.doReturn(timestamp).when(allSharedPreferences).fetchLastUpdatedAtDate(0);
@@ -243,8 +243,8 @@ public class RegisterInteractorTest extends BaseUnitTest {
         long timestamp = new Date().getTime();
 
         List<EventClient> eventClients = new ArrayList<>();
-        EventClient eventClient = new EventClient(ANCJsonFormUtils.gson.fromJson(eventObject.toString(), org.smartregister.domain.db.Event.class),
-                ANCJsonFormUtils.gson.fromJson(clientObject.toString(), org.smartregister.domain.db.Client.class));
+        EventClient eventClient = new EventClient(ANCJsonFormUtils.gson.fromJson(eventObject.toString(), org.smartregister.domain.Event.class),
+                ANCJsonFormUtils.gson.fromJson(clientObject.toString(), org.smartregister.domain.Client.class));
         eventClients.add(eventClient);
 
         JSONObject orginalClientObject = clientObject;

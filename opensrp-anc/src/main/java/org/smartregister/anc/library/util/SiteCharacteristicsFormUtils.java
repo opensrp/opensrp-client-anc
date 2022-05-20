@@ -1,7 +1,7 @@
 package org.smartregister.anc.library.util;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;

@@ -41,20 +41,6 @@ public class LoginModelTest extends BaseUnitTest {
     }
 
     @Test
-    public void testIsPasswordValidShouldTrueWhenPasswordValidatesCorrectly() {
-        boolean result = model.isPasswordValid(DUMMY_PASSWORD);
-        Assert.assertTrue(result);
-    }
-
-    @Test
-    public void testIsPasswordValidShouldFalseWhenPasswordValidationFails() {
-        boolean result = model.isPasswordValid("");
-        Assert.assertFalse(result);
-        result = model.isPasswordValid("A");
-        Assert.assertFalse(result);
-    }
-
-    @Test
     public void testIsEmptyUsernameShouldTrueWhenIsEmpty() {
         boolean result = model.isEmptyUsername("");
         Assert.assertTrue(result);

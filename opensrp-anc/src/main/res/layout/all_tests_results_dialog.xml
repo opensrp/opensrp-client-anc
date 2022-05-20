@@ -8,7 +8,7 @@
     android:paddingEnd="@dimen/expansion_panel_dialog_padding"
     android:paddingBottom="10dp">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -38,7 +38,7 @@
             app:layout_constraintLeft_toRightOf="@+id/txt_title_label"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <RelativeLayout
@@ -49,12 +49,12 @@
         android:layout_marginRight="@dimen/all_test_margin"
         android:layout_marginBottom="1dp">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/all_test_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        </android.support.v7.widget.RecyclerView>
+        </androidx.recyclerview.widget.RecyclerView>
 
     </RelativeLayout>
 

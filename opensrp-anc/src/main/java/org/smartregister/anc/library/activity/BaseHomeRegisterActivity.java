@@ -3,10 +3,10 @@ package org.smartregister.anc.library.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.bottomnavigation.LabelVisibilityMode;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
+import androidx.annotation.NonNull;
+import com.google.android.material.bottomnavigation.LabelVisibilityMode;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -56,6 +56,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import timber.log.Timber;
 
@@ -175,6 +176,11 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
         }
 
         return fragments;
+    }
+
+    @Override
+    public void startFormActivity(String s, String s1, Map<String, String> map) {
+        //Do nothing
     }
 
     @Override
@@ -469,7 +475,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
 
     @Override
     public void startRegistration() {
-        startFormActivity(ConstantsUtils.JsonFormUtils.ANC_REGISTER, null, null);
+        startFormActivity(ConstantsUtils.JsonFormUtils.ANC_REGISTER, null, "");
     }
 
     public void showRecordBirthPopUp(CommonPersonObjectClient client) {

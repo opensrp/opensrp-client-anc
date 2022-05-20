@@ -1,6 +1,6 @@
 package org.smartregister.anc.library.model;
 
-import android.support.v4.util.Pair;
+import androidx.core.util.Pair;
 import android.util.Log;
 
 import org.json.JSONObject;
