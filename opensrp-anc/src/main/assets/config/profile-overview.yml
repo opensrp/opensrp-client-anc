@@ -196,7 +196,7 @@ fields:
 group: risks_and_diagnoses
 fields:
   - template: "{{profile_overview.caffeine_intake}}: {caffeine_intake_value}"
-    relevance: "caffeine_intake != '' && caffeine_intake != 'none'"
+    relevance: "caffeine_intake == ''"
     isRedFont: "true"
 
   - template: "{{profile_overview.tobacco_user}}: {tobacco_user_value}"
@@ -207,7 +207,7 @@ fields:
     relevance: "shs_exposure == 'yes'"
     isRedFont: "true"
 
-  - template: "{{profile_overview.condom_use}}: {condom_use_value}"
+  - template: "{{profile_overview.condom_use}}: {{profile_overview.condom_use_yes}}"
     relevance: "condom_use == 'no'"
     isRedFont: "true"
 
