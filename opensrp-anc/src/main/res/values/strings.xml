@@ -643,8 +643,8 @@
     <string name="string_bullet">•</string>
     <string name="birth_and_emergency">" "</string>
     <string name="no_openmrs_id">No unique ids found. Click on the sync button to get more and if this error persists contact the system admin.</string>
-    <string name="no_openmrs_id">No unique ids found. Click on the sync button to get more and if this error persists contact the system admin.</string>
-    <string name="no_openmrs_id">No unique ids found. Click on the sync button to get more and if this error persists contact the system admin.</string>
 
+    <string name="login_failed_dialog_title">Log In Failed</string>
+    <string name="remote_login_generic_error">Error occurred during Login in with server. Please try again...</string>
 
 </resources>

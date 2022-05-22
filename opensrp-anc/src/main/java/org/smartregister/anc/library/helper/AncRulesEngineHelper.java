@@ -321,6 +321,14 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
         return String.format(this.context.getString(R.string.lmp_gest_age_format), weeks, dayz);
     }
 
+    /**
+     * Add weeks string to a number.
+     * @return
+     */
+    public String getWeeksStringFromInteger(Integer weeks) {
+        return String.format(this.context.getString(R.string.ga_weeks), weeks.toString());
+    }
+
     public String getBooleanString() {
         return "HAI";
     }

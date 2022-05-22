@@ -587,4 +587,7 @@
     <string name="string_bullet">•</string>
     <string name="birth_and_emergency">" "</string>
 
+    <string name="login_failed_dialog_title">Login Gagal</string>
+    <string name="remote_login_generic_error">Terjadi error saat login ke server. Silakan coba lagi.</string>
+
 </resources>

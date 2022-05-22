@@ -557,10 +557,6 @@
 				"label": "{{anc_physical_exam.step3.bp_measurement_method.label}}",
 				"label_text_style": "bold",
 				"text_color": "#000000",
-				"exclusive": [
-					"optibp",
-					"manually"
-				],
 				"options": [
 					{
 						"key": "optibp",

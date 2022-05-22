@@ -121,9 +121,6 @@ fields:
   - template: "{{profile_contact_test.syphilis_test.syphilis_test_type}}: {syph_test_type_value}"
     relevance: "syph_test_type != ''"
 
-  - template: "{{profile_contact_test.syphilis_test.syphilis_test_type}}: {rapid_syphilis_test_value}"
-    relevance: "rapid_syphilis_test != ''"
-
   - template: "{{profile_contact_test.syphilis_test.rapid_plasma_reagin_rpr_test_result}}: {rpr_syphilis_test_value}"
     relevance: "rpr_syphilis_test != ''"
 
