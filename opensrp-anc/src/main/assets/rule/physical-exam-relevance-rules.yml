@@ -1,40 +1,75 @@
 ---
-name: step3_bp_systolic_label
-description: BP Systolic Label
+name: step3_bp_systolic_optibp_label
+description: BP Systolic OptiBP Label
 priority: 1
-condition: "(step3_bp_measurement_method.contains('manually') || step3_bp_measurement_method.contains('optibp'))
-      && !step3_cant_record_bp.contains('cant_record_bp')"
+condition: "step3_bp_measurement_method.contains('optibp') && !step3_cant_record_bp_optibp.contains('cant_record_bp_optibp')"
 actions:
   - "isRelevant = true"
 ---
-name: step3_bp_systolic
-description: BP Systolic Value
+name: step3_bp_systolic_optibp
+description: BP Systolic OptiBP Value
 priority: 1
-condition: "(step3_bp_measurement_method.contains('manually') || step3_bp_measurement_method.contains('optibp'))
-      && !step3_cant_record_bp.contains('cant_record_bp')"
+condition: "step3_bp_measurement_method.contains('optibp') && !step3_cant_record_bp_optibp.contains('cant_record_bp_optibp')"
 actions:
   - "isRelevant = true"
 ---
-name: step3_bp_diastolic_label
-description: BP Diastolic Label
+name: step3_bp_diastolic_optibp_label
+description: BP diastolic OptiBP Label
 priority: 1
-condition: "(step3_bp_measurement_method.contains('manually') || step3_bp_measurement_method.contains('optibp'))
-      && !step3_cant_record_bp.contains('cant_record_bp')"
+condition: "step3_bp_measurement_method.contains('optibp') && !step3_cant_record_bp_optibp.contains('cant_record_bp_optibp')"
 actions:
   - "isRelevant = true"
 ---
-name: step3_bp_diastolic
+name: step3_bp_diastolic_optibp
+description: BP diastolic OptiBP Value
+priority: 1
+condition: "step3_bp_measurement_method.contains('optibp') && !step3_cant_record_bp_optibp.contains('cant_record_bp_optibp')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_bp_systolic_manual_label
+description: BP Systolic Manual Label
+priority: 1
+condition: "(step3_bp_measurement_method.contains('manually'))
+      && !step3_cant_record_bp_manual.contains('cant_record_bp_manual')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_bp_systolic_manual
+description: BP Systolic Manual Value
+priority: 1
+condition: "(step3_bp_measurement_method.contains('manually'))
+      && !step3_cant_record_bp_manual.contains('cant_record_bp_manual')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_bp_diastolic_manual_label
+description: BP Diastolic Manual Label
+priority: 1
+condition: "(step3_bp_measurement_method.contains('manually'))
+      && !step3_cant_record_bp_manual.contains('cant_record_bp_manual')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_bp_diastolic_manual
+description: BP Diastolic Manual Value
+priority: 1
+condition: "(step3_bp_measurement_method.contains('manually'))
+      && !step3_cant_record_bp_manual.contains('cant_record_bp_manual')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_cant_record_bp_optibp
+description: BP Can't Record (OptiBP)
+priority: 1
+condition: "step3_bp_measurement_method.contains('optibp')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_cant_record_bp_manual
 description: BP Diastolic Value
 priority: 1
-condition: "(step3_bp_measurement_method.contains('manually') || step3_bp_measurement_method.contains('optibp'))
-      && !step3_cant_record_bp.contains('cant_record_bp')"
-actions:
-  - "isRelevant = true"
----
-name: step3_cant_record_bp
-description: BP Diastolic Value
-priority: 1
-condition: "step3_bp_measurement_method.contains('manually') || step3_bp_measurement_method.contains('optibp')"
+condition: "step3_bp_measurement_method.contains('manually')"
 actions:
   - "isRelevant = true"
 ---
@@ -48,14 +83,14 @@ actions:
 name: step3_cant_record_bp_reason
 description: Cant record BP reason
 priority: 1
-condition: "step3_bp_measurement_method.contains('manually') && step3_cant_record_bp.contains('cant_record_bp')"
+condition: "step3_bp_measurement_method.contains('manually') && step3_cant_record_bp_manual.contains('cant_record_bp_manual')"
 actions:
   - "isRelevant = true"
 ---
 name: step3_cant_record_bp_reason_opt
 description: Cant record BP reason via OptiBP
 priority: 1
-condition: "step3_bp_measurement_method.contains('optibp') && step3_cant_record_bp.contains('cant_record_bp')"
+condition: "step3_bp_measurement_method.contains('optibp') && step3_cant_record_bp_optibp.contains('cant_record_bp_optibp')"
 actions:
   - "isRelevant = true"
 ---

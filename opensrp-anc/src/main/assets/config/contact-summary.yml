@@ -394,8 +394,11 @@ fields:
 group: blood_pressure
 fields:
 
-- template: "{{contact_summary.blood_pressure.bp}}: {bp_systolic}/{bp_diastolic} mmHg"
-  relevance: "bp_systolic != '' && bp_diastolic != ''"
+- template: "{{contact_summary.blood_pressure.bp_manual}}: {bp_systolic_manual}/{bp_diastolic_manual} mmHg"
+  relevance: "bp_systolic_manual != '' && bp_diastolic_manual != ''"
+
+- template: "{{contact_summary.blood_pressure.bp_optibp}}: {bp_systolic_optibp}/{bp_diastolic_optibp} mmHg"
+  relevance: "bp_systolic_optibp != '' && bp_diastolic_optibp != ''"
 
 - template: "{{contact_summary.blood_pressure.bp_10_min_rest}}: {bp_systolic_repeat}/{bp_diastolic_repeat} mmHg"
   relevance: "bp_systolic_repeat != '' && bp_diastolic_repeat != ''"
