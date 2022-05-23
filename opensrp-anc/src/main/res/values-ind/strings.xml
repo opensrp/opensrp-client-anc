@@ -447,7 +447,7 @@
     <string name="age_text">Usia: %1$s</string>
     <string name="ga_text">UK: %1$d weeks</string>
     <string name="antenatal_care_module">Modul Ibu Hamil</string>
-    <string name="bullet">\\u2022</string>
+    <string name="bullet">•</string>
     <string name="overview">RINGKASAN</string>
     <string name="contacts">KUNJUNGAN</string>
     <string name="tasks">TUGAS</string>

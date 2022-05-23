@@ -460,7 +460,7 @@
     <string name="anc_id_text">ID: %1$s</string>
     <string name="age_text">Age: %1$s</string>
     <string name="ga_text">GA: %1$d weeks</string>
-    <string name="bullet">\u2022</string>
+    <string name="bullet">•</string>
 
     <string name="overview">OVERVIEW</string>
     <string name="contacts">CONTACTS</string>
