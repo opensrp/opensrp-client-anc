@@ -353,12 +353,7 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
                 } else {
                     boolean next = (boolean) tag;
                     if (next) {
-                        getJsonApi().getAppExecutors().diskIO().execute(new Runnable() {
-                            @Override
-                            public void run() {
-                                next();
-                            }
-                        });
+                        getJsonApi().getAppExecutors().diskIO().execute(() -> next());
                     } else {
                         savePartial = true;
                         save();

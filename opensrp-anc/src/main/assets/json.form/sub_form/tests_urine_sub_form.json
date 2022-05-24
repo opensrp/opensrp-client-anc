@@ -604,5 +604,6 @@
     }
   ],
   "count": 1,
-  "properties_file_name": "tests_urine_sub_form"
+  "properties_file_name": "tests_urine_sub_form",
+  "validate_on_submit": true
 }
