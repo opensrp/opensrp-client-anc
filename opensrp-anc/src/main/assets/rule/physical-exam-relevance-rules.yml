@@ -207,6 +207,20 @@ condition: "step4_oximetry > 0 && step4_oximetry < 92"
 actions:
   - "isRelevant = true"
 ---
+name: step5_sfh_label
+description: SFH Label
+priority: 1
+condition: "step5_sfh_measurement == 'done'"
+actions:
+  - "isRelevant = true"
+---
+name: step5_sfh
+description: SFH Label
+priority: 1
+condition: "step5_sfh_measurement == 'done'"
+actions:
+  - "isRelevant = true"
+---
 name: step5_toaster28
 description: Fetal heart beat rate
 priority: 1

@@ -14,7 +14,8 @@
 		"first_weight",
 		"no_of_fetuses_unknown",
 		"no_of_fetuses",
-		"ipv_physical_signs_symptoms"
+		"ipv_physical_signs_symptoms",
+		"sfh_measurement"
 	],
 	"global_previous": [
 		"current_weight"
@@ -26,7 +27,8 @@
 		"pregest_weight_unknown",
 		"first_weight",
 		"no_of_fetuses_unknown",
-		"no_of_fetuses"
+		"no_of_fetuses",
+		"sfh_measurement"
 	],
 	"metadata": {
 		"start": {
@@ -2716,6 +2718,40 @@
 		"title": "{{anc_physical_exam.step5.title}}",
 		"fields": [
 			{
+				"key": "sfh_measurement",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "concept",
+				"openmrs_entity_id": "sfh_measurement",
+				"type": "native_radio",
+				"label": "{{anc_physical_exam.step5.sfh_measurement.label}}",
+				"label_text_style": "bold",
+				"text_color": "#000000",
+				"options": [
+					{
+						"key": "done",
+						"text": "{{anc_physical_exam.step5.sfh_measurement.options.done.text}}",
+						"translation_text": "anc_physical_exam.step5.sfh_measurement.options.done.text",
+						"value": false,
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "sfh_measurement_done",
+						"openmrs_entity_parent": "sfh_measurement"
+					},
+					{
+						"key": "not_done",
+						"text": "{{anc_physical_exam.step5.sfh_measurement.options.not_done.text}}",
+						"translation_text": "anc_physical_exam.step5.sfh_measurement.options.not_done.text",
+						"value": false,
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "sfh_measurement_not_done",
+						"openmrs_entity_parent": "sfh_measurement"
+					}
+				],
+				"v_required": {
+					"value": "true",
+					"err": "{{anc_physical_exam.step5.sfh_measurement.v_required.err}}"
+				}
+			},
+			{
 				"key": "sfh_label",
 				"type": "label",
 				"label_text_style": "bold",
@@ -2724,6 +2760,13 @@
 				"text_color": "#000000",
 				"v_required": {
 					"value": false
+				},
+				"relevance": {
+					"rules-engine": {
+						"ex-rules": {
+							"rules-file": "physical-exam-relevance-rules.yml"
+						}
+					}
 				}
 			},
 			{
@@ -2749,6 +2792,13 @@
 				"v_required": {
 					"value": "false",
 					"err": "{{anc_physical_exam.step5.sfh.v_required.err}}"
+				},
+				"relevance": {
+					"rules-engine": {
+						"ex-rules": {
+							"rules-file": "physical-exam-relevance-rules.yml"
+						}
+					}
 				}
 			},
 			{
