@@ -238,7 +238,7 @@ actions:
 name: step5_toaster27
 description: No fetal heartbeat observed. Refer to hospital.
 priority: 1
-condition: "(step5_fetal_heartbeat == 'no' && (global_gest_age_openmrs != '' && global_gest_age_openmrs > 20))"
+condition: "(step5_fetal_heartbeat == 'no' && (global_gest_age_openmrs != '' && global_gest_age_openmrs >= 16))"
 actions:
   - "isRelevant = true"
 ---
