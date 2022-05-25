@@ -1294,7 +1294,7 @@
         "label_text_style": "bold",
         "text": "{{anc_physical_exam.step3.body_temp_repeat_label.text}}",
         "text_color": "#000000",
-        "label_info_text": "Retake the woman's temperature if the first reading was 38ºC or higher.",
+        "label_info_text": "Retake the woman\u0027s temperature if the first reading was 38ºC or higher.",
         "v_required": {
           "value": true
         },
@@ -1426,7 +1426,7 @@
         "type": "label",
         "label_text_style": "bold",
         "text": "{{anc_physical_exam.step3.pulse_rate_repeat_label.text}}",
-        "label_info_text": "Retake the woman's pulse rate if the first reading was lower than 60 or higher than 100.",
+        "label_info_text": "Retake the woman\u0027s pulse rate if the first reading was lower than 60 or higher than 100.",
         "text_color": "#000000",
         "v_required": {
           "value": true
