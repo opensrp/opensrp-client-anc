@@ -95,7 +95,7 @@ public class PreviousContactsAdapter extends RecyclerView.Adapter<PreviousContac
         String displayContactDate;
         if(Utils.isBikramSAmbatDate())
         {
-            displayContactDate = DateUtil.convertADtoBSDAte(new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(lastContactDate));
+            displayContactDate = DateUtil.convertADtoBSDAte(new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).format(lastContactDate));
         }
         else
         displayContactDate = new SimpleDateFormat("dd MMM " + "yyyy", Locale.getDefault()).format(lastContactDate);

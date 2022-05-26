@@ -59,7 +59,7 @@ public class ContactScheduleAdapter extends RecyclerView.Adapter<ContactSchedule
                 if(Utils.isBikramSAmbatDate())
                 {
                     viewHolder.nextContactDate
-                            .setText(DateUtil.convertADtoBSDAte(new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(locateDate)));
+                            .setText(DateUtil.convertADtoBSDAte(new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).format(locateDate)));
                 }
                 else
                 viewHolder.nextContactDate

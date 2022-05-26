@@ -178,7 +178,7 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
                     Date lastContactDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(contactDate);
                     if(utils.isBikramSAmbatDate())
                     {
-                        displayContactDate = DateUtil.convertADtoBSDAte(new SimpleDateFormat("dd-MM-" + "yyyy", Locale.getDefault()).format(lastContactDate));
+                        displayContactDate = DateUtil.convertADtoBSDAte(new SimpleDateFormat("dd-MM-" + "yyyy", Locale.ENGLISH).format(lastContactDate));
                     }
                     else
                     displayContactDate = new SimpleDateFormat("dd MMM " + "yyyy", Locale.getDefault())

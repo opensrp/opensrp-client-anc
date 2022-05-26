@@ -45,7 +45,7 @@ public class ContactSummaryAdapter extends RecyclerView.Adapter<ContactSummaryAd
         if(Utils.isBikramSAmbatDate())
         {
             try {
-                Date date = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).parse(model.getContactDate());
+                Date date = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH).parse(model.getContactDate());
                 holder.contactDate.setText(DateUtil.convertADtoBSDAte(com.vijay.jsonwizard.utils.Utils.getStringFromDate(date)));
 
             }
