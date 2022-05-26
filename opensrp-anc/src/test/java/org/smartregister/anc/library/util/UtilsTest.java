@@ -82,16 +82,20 @@ public class UtilsTest extends BaseUnitTest {
 
     @Mock
     private Context opensrpContext;
+    private android.content.Context context;
 
     @Mock
     private AllSharedPreferences allSharedPreferences;
 
     @Mock
     private AncLibrary ancLibrary;
+    private boolean iswidegetSelectedValue;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        context = PowerMockito.mock(android.content.Context.class);
+        iswidegetSelectedValue = Boolean.parseBoolean(Utils.getProperties(context).getProperty(ConstantsUtils.Properties.WIDGET_VALUE_TRANSLATED, "false"));
     }
 
     @PrepareForTest({CoreLibrary.class, Context.class})
@@ -519,6 +523,7 @@ public class UtilsTest extends BaseUnitTest {
 
         ArgumentCaptor<List<String>> listArgumentCaptor = ArgumentCaptor.forClass(List.class);
         Mockito.verify(ecSyncHelper, Mockito.times(1)).getEvents(listArgumentCaptor.capture());
+
         Assert.assertNotNull(listArgumentCaptor.getValue());
         Assert.assertEquals(2, listArgumentCaptor.getValue().size());
 
@@ -528,6 +533,177 @@ public class UtilsTest extends BaseUnitTest {
     }
 
     @Test
+    public void generateTranslatableValueTest() throws Exception {
+        String details = " {\n" +
+                "        \"key\": \"danger_signs\",\n" +
+                "        \"openmrs_entity_parent\": \"\",\n" +
+                "        \"openmrs_entity\": \"concept\",\n" +
+                "        \"openmrs_entity_id\": \"160939AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n" +
+                "        \"type\": \"check_box\",\n" +
+                "        \"label\": \"Danger signs\",\n" +
+                "        \"label_text_style\": \"bold\",\n" +
+                "        \"text_color\": \"#000000\",\n" +
+                "        \"exclusive\": [\n" +
+                "          \"danger_none\"\n" +
+                "        ],\n" +
+                "        \"options\": [\n" +
+                "          {\n" +
+                "            \"key\": \"danger_none\",\n" +
+                "            \"text\": \"None\",\n" +
+                "            \"translation_text\": \"anc_quick_check.step1.danger_signs.options.danger_none.text\",\n" +
+                "            \"value\": false,\n" +
+                "            \"openmrs_entity_parent\": \"\",\n" +
+                "            \"openmrs_entity\": \"concept\",\n" +
+                "            \"openmrs_entity_id\": \"1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"\n" +
+                "          },\n" +
+                "          {\n" +
+                "            \"key\": \"danger_bleeding\",\n" +
+                "            \"text\": \"Bleeding vaginally\",\n" +
+                "            \"translation_text\": \"anc_quick_check.step1.danger_signs.options.danger_bleeding.text\",\n" +
+                "            \"value\": false,\n" +
+                "            \"openmrs_entity_parent\": \"\",\n" +
+                "            \"openmrs_entity\": \"concept\",\n" +
+                "            \"openmrs_entity_id\": \"150802AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"\n" +
+                "          },\n" +
+                "          {\n" +
+                "            \"key\": \"central_cyanosis\",\n" +
+                "            \"text\": \"Central cyanosis\",\n" +
+                "            \"translation_text\": \"anc_quick_check.step1.danger_signs.options.danger_none.text\",\n" +
+                "            \"label_info_text\": \"Bluish discolouration around the mucous membranes in the mouth, lips and tongue\",\n" +
+                "            \"label_info_title\": \"Central cyanosis\",\n" +
+                "            \"value\": \"true\",\n" +
+                "            \"openmrs_entity_parent\": \"\",\n" +
+                "            \"openmrs_entity\": \"concept\",\n" +
+                "            \"openmrs_entity_id\": \"165216AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"\n" +
+                "          },\n" +
+                "          {\n" +
+                "            \"key\": \"convulsing\",\n" +
+                "            \"text\": \"Convulsing\",\n" +
+                "            \"translation_text\": \"anc_quick_check.step1.danger_signs.options.convulsing.text\",\n" +
+                "            \"value\": false,\n" +
+                "            \"openmrs_entity_parent\": \"\",\n" +
+                "            \"openmrs_entity\": \"concept\",\n" +
+                "            \"openmrs_entity_id\": \"164483AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"\n" +
+                "          },\n" +
+                "          {\n" +
+                "            \"key\": \"danger_fever\",\n" +
+                "            \"text\": \"Fever\",\n" +
+                "            \"translation_text\": \"anc_quick_check.step1.danger_signs.options.danger_fever.text\",\n" +
+                "            \"value\": \"false\",\n" +
+                "            \"openmrs_entity_parent\": \"\",\n" +
+                "            \"openmrs_entity\": \"concept\",\n" +
+                "            \"openmrs_entity_id\": \"140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"\n" +
+                "          },\n" +
+                "          {\n" +
+                "            \"key\": \"severe_headache\",\n" +
+                "            \"text\": \"Severe headache\",\n" +
+                "            \"translation_text\": \"anc_quick_check.step1.danger_signs.options.severe_headache.text\",\n" +
+                "            \"value\": false,\n" +
+                "            \"openmrs_entity_parent\": \"\",\n" +
+                "            \"openmrs_entity\": \"concept\",\n" +
+                "            \"openmrs_entity_id\": \"139081AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"\n" +
+                "          },\n" +
+                "          {\n" +
+                "            \"key\": \"visual_disturbance\",\n" +
+                "            \"text\": \"Visual disturbance\",\n" +
+                "            \"translation_text\": \"anc_quick_check.step1.danger_signs.options.visual_disturbance.text\",\n" +
+                "            \"value\": false,\n" +
+                "            \"openmrs_entity_parent\": \"\",\n" +
+                "            \"openmrs_entity\": \"concept\",\n" +
+                "            \"openmrs_entity_id\": \"123074AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"\n" +
+                "          },\n" +
+                "          {\n" +
+                "            \"key\": \"imminent_delivery\",\n" +
+                "            \"text\": \"Imminent delivery\",\n" +
+                "            \"translation_text\": \"anc_quick_check.step1.danger_signs.options.imminent_delivery.text\",\n" +
+                "            \"value\": false,\n" +
+                "            \"openmrs_entity_parent\": \"\",\n" +
+                "            \"openmrs_entity\": \"concept\",\n" +
+                "            \"openmrs_entity_id\": \"162818AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"\n" +
+                "          },\n" +
+                "          {\n" +
+                "            \"key\": \"labour\",\n" +
+                "            \"text\": \"Labour\",\n" +
+                "            \"translation_text\": \"anc_quick_check.step1.danger_signs.options.labour.text\",\n" +
+                "            \"value\": false,\n" +
+                "            \"openmrs_entity_parent\": \"\",\n" +
+                "            \"openmrs_entity\": \"concept\",\n" +
+                "            \"openmrs_entity_id\": \"145AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"\n" +
+                "          },\n" +
+                "          {\n" +
+                "            \"key\": \"looks_very_ill\",\n" +
+                "            \"text\": \"Looks very ill\",\n" +
+                "            \"value\": false,\n" +
+                "            \"openmrs_entity_parent\": \"\",\n" +
+                "            \"openmrs_entity\": \"concept\",\n" +
+                "            \"openmrs_entity_id\": \"163293AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"\n" +
+                "          },\n" +
+                "          {\n" +
+                "            \"key\": \"severe_vomiting\",\n" +
+                "            \"text\": \"Severe vomiting\",\n" +
+                "            \"translation_text\": \"anc_quick_check.step1.danger_signs.options.severe_vomiting.text\",\n" +
+                "            \"value\": false,\n" +
+                "            \"openmrs_entity_parent\": \"\",\n" +
+                "            \"openmrs_entity\": \"concept\",\n" +
+                "            \"openmrs_entity_id\": \"118477AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"\n" +
+                "          },\n" +
+                "          {\n" +
+                "            \"key\": \"severe_pain\",\n" +
+                "            \"text\": \"Severe pain\",\n" +
+                "            \"translation_text\": \"anc_quick_check.step1.danger_signs.options.severe_pain.text\",\n" +
+                "            \"value\": false,\n" +
+                "            \"openmrs_entity_parent\": \"\",\n" +
+                "            \"openmrs_entity\": \"concept\",\n" +
+                "            \"openmrs_entity_id\": \"163477AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"\n" +
+                "          },\n" +
+                "          {\n" +
+                "            \"key\": \"severe_abdominal_pain\",\n" +
+                "            \"text\": \"Severe abdominal pain\",\n" +
+                "            \"translation_text\": \"anc_quick_check.step1.danger_signs.options.severe_abdominal_pain.text\",\n" +
+                "            \"value\": false,\n" +
+                "            \"openmrs_entity_parent\": \"\",\n" +
+                "            \"openmrs_entity\": \"concept\",\n" +
+                "            \"openmrs_entity_id\": \"165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"\n" +
+                "          },\n" +
+                "          {\n" +
+                "            \"key\": \"unconscious\",\n" +
+                "            \"text\": \"Unconscious\",\n" +
+                "            \"translation_text\": \"anc_quick_check.step1.danger_signs.options.unconscious.text\",\n" +
+                "            \"value\": false,\n" +
+                "            \"openmrs_entity_parent\": \"\",\n" +
+                "            \"openmrs_entity\": \"concept\",\n" +
+                "            \"openmrs_entity_id\": \"123818AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"\n" +
+                "          }\n" +
+                "        ],\n" +
+                "        \"v_required\": {\n" +
+                "          \"value\": \"true\",\n" +
+                "          \"err\": \"Danger signs is required\"\n" +
+                "        },\n" +
+                "        \"relevance\": {\n" +
+                "          \"rules-engine\": {\n" +
+                "            \"ex-rules\": {\n" +
+                "              \"rules-file\": \"quick_check_relevance_rules.yml\"\n" +
+                "            }\n" +
+                "          }\n" +
+                "        },\n" +
+                "        \"is_visible\": true\n" +
+                "      }";
+        JSONObject object = new JSONObject(details);
+        JSONArray jsonArray = new JSONArray(object.optString(JsonFormConstants.OPTIONS_FIELD_NAME));
+        JSONObject expectedJsonObject = new JSONObject("{\"value\":\"central_cyanosis\",\"text\":\"anc_quick_check.step1.danger_signs.options.danger_none.text\"}");
+        JSONObject jsonObject;
+        for (int i = 0; i < jsonArray.length(); i++) {
+            jsonObject = jsonArray.getJSONObject(i);
+            if (jsonObject.has(JsonFormConstants.VALUE) && Boolean.parseBoolean(jsonObject.optString(JsonFormConstants.VALUE))) {
+                if (iswidegetSelectedValue) {
+                    JSONObject actual = Utils.generateTranslatableValue(jsonObject.optString(JsonFormConstants.VALUE, ""), jsonObject);
+                    Assert.assertEquals(expectedJsonObject, actual);
+                }
+            }
+        }
+
+
+    }
     public void testGetLocationLocalizedName() {
         LocationProperty property = new LocationProperty();
         property.setName("locationName");
@@ -576,6 +752,4 @@ public class UtilsTest extends BaseUnitTest {
         String locationId = Utils.getCurrentLocation("village", jsonFormActivity);
         Assert.assertEquals("village-id", locationId);
     }
-
-
 }

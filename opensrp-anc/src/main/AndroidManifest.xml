@@ -13,6 +13,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:clearTaskOnLaunch="true"
@@ -20,5 +22,7 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AncAppTheme"
-        tools:replace="android:theme" />
+        tools:replace="android:theme">
+        <activity android:name=".activity.AncP2pModeSelectActivity" />
+    </application>
 </manifest>

@@ -180,24 +180,29 @@ public class ContactVisit {
 
     private void processAttentionFlags(WomanDetail patientDetail, Facts facts) throws IOException {
         Iterable<Object> ruleObjects = AncLibrary.getInstance().readYaml(FilePathUtils.FileUtils.ATTENTION_FLAGS);
+        int redCount = 0;
+        int yellowCount = 0;
 
         for (Object ruleObject : ruleObjects) {
             YamlConfig attentionFlagConfig = (YamlConfig) ruleObject;
 
             for (YamlConfigItem yamlConfigItem : attentionFlagConfig.getFields()) {
                 if (AncLibrary.getInstance().getAncRulesEngineHelper().getRelevance(facts, yamlConfigItem.getRelevance())) {
-                    Integer requiredFieldCount = attentionFlagCountMap.get(attentionFlagConfig.getGroup());
-                    requiredFieldCount = requiredFieldCount == null ? 1 : ++requiredFieldCount;
-                    attentionFlagCountMap.put(attentionFlagConfig.getGroup(), requiredFieldCount);
+                   if(attentionFlagConfig.getGroup().equals(ConstantsUtils.AttentionFlagUtils.RED))
+                   {
+                       redCount = redCount+1;
+                   }
+                   else if(attentionFlagConfig.getGroup().equals(ConstantsUtils.AttentionFlagUtils.YELLOW))
+                   {
+                       yellowCount = yellowCount+1;
+                   }
 
                 }
             }
         }
 
-        Integer redCount = attentionFlagCountMap.get(ConstantsUtils.AttentionFlagUtils.RED);
-        Integer yellowCount = attentionFlagCountMap.get(ConstantsUtils.AttentionFlagUtils.YELLOW);
-        patientDetail.setRedFlagCount(redCount != null ? redCount : 0);
-        patientDetail.setYellowFlagCount(yellowCount != null ? yellowCount : 0);
+        patientDetail.setRedFlagCount(redCount);
+        patientDetail.setYellowFlagCount(yellowCount);
     }
 
     private void processFormFieldKeyValues(String baseEntityId, JSONObject object, String contactNo) throws Exception {
