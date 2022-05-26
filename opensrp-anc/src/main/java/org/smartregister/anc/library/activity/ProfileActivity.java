@@ -379,7 +379,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     }
 
     @Override
-    public void createContactSummaryPdf() {
+    public void createContactSummaryPdf(String womanName) {
         //overridden
     }
 
