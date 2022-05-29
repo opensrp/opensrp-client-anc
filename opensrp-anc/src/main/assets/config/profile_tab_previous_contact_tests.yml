@@ -2,7 +2,7 @@
 properties_file_name: "profile_contact_test"
 sub_group: ultrasound_tests_results
 fields:
-  - template: "{{profile_contact_test.ultrasound_tests.ultrasound_test}}: {ultrasound_value}"
+  - template: "{{profile_contact_test.ultrasound_tests.ultrasound_test}}: {ultrasound_date}"
     relevance: "ultrasound != '' && helper.compareDateAgainstContactDate(ultrasound_date, contact_date)"
 
   - template: "{{profile_contact_test.ultrasound_tests.ultrasound_not_done_reason}}: {ultrasound_notdone_value}"
@@ -14,6 +14,8 @@ fields:
   - template: "{{profile_contact_test.ultrasound_tests.ultrasound_done_date}}: {ultrasound_date}"
     relevance: "ultrasound_date != '' && helper.compareDateAgainstContactDate(ultrasound_date, contact_date)"
 
+  - template: "haha: {no_of_fetuses}"
+    relevance: "ultrasound != ''"
 ---
 sub_group: blood_type_test_results
 fields:
