@@ -590,4 +590,8 @@
     <string name="login_failed_dialog_title">Login Gagal</string>
     <string name="remote_login_generic_error">Terjadi error saat login ke server. Silakan coba lagi.</string>
 
+    <!-- Form Values -->
+    <string name="value_positive">Positif</string>
+    <string name="value_negative">Negatif</string>
+
 </resources>

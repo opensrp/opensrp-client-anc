@@ -647,4 +647,8 @@
     <string name="login_failed_dialog_title">Log In Failed</string>
     <string name="remote_login_generic_error">Error occurred during Login in with server. Please try again...</string>
 
+    <!-- Form Values -->
+    <string name="value_positive">Positive</string>
+    <string name="value_negative">Negative</string>
+
 </resources>
