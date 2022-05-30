@@ -104,8 +104,9 @@ android {
             buildConfigField "String", "OAUTH_CLIENT_SECRET", "\"sample_client_secret\""
         }
 
-        buildConfigField "String[]", "LOCATION_LEVELS", '{"Country", "Province", "District", "Facility", "Village"}'
-        buildConfigField "String[]", "HEALTH_FACILITY_LEVELS", '{"Country", "Province", "District", "Health Facility", "Village"}'
+
+        buildConfigField "String[]", "LOCATION_LEVELS", '{"Country", "District", "Institution", "Municipality", "State"}'
+        buildConfigField "String[]", "HEALTH_FACILITY_LEVELS", '{"Country", "District", "Institution", "Municipality", "State"}'
     }
     dexOptions {
         javaMaxHeapSize "4g"

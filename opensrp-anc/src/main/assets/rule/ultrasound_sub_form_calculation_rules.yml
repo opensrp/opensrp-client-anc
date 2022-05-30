@@ -16,14 +16,14 @@ actions:
 name: step1_ultrasound_date
 description: Date that the ultrasound was done..
 priority: 1
-condition: "(global_ultrasound_done_date != '') && (step1_ultrasound_date == '') && (step1_ultrasound == 'done_earlier')"
+condition: "(global_ultrasound_done_date != '0') && (global_ultrasound_done_date != '') && (step1_ultrasound_date == '') && (step1_ultrasound_date != '0') && (step1_ultrasound == 'done_earlier')"
 actions:
   - "calculation = global_ultrasound_done_date"
 ---
 name: step2_ultrasound_date
 description: Date that the ultrasound was done..
 priority: 1
-condition: "(global_ultrasound_done_date != '') && (step2_ultrasound_date == '') && (step2_ultrasound == 'done_earlier')"
+condition: "(global_ultrasound_done_date != '0') && (global_ultrasound_done_date != '') && (step2_ultrasound_date == '') && (step1_ultrasound_date != '0')  && (step2_ultrasound == 'done_earlier')"
 actions:
   - "calculation = global_ultrasound_done_date"
 ---

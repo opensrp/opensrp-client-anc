@@ -102,7 +102,7 @@ public class Utils extends org.smartregister.util.Utils {
     public static final SimpleDateFormat CONTACT_DF = new SimpleDateFormat(ConstantsUtils.CONTACT_DATE_FORMAT);
     public static final SimpleDateFormat CONTACT_SUMMARY_DF = new SimpleDateFormat(ConstantsUtils.CONTACT_SUMMARY_DATE_FORMAT);
     public static final ArrayList<String> ALLOWED_LEVELS;
-    public static final String DEFAULT_LOCATION_LEVEL = "Health Facility";
+    public static final String DEFAULT_LOCATION_LEVEL = "Institution";
     public static final String FACILITY = "Facility";
     public static final String HOME_ADDRESS = "Home Address";
     private static final DateTimeFormatter SQLITE_DATE_DF = DateTimeFormat.forPattern(ConstantsUtils.SQLITE_DATE_TIME_FORMAT);
