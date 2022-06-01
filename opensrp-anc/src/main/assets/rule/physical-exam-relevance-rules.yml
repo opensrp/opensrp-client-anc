@@ -76,7 +76,7 @@ actions:
 name: step3_record_bp_using_optibp_button
 description: BP Measurement Widget
 priority: 1
-condition: "!(step3_bp_systolic >= 140 || step3_bp_diastolic >= 90) && step3_bp_measurement_method.contains('optibp') && !step3_cant_record_bp.contains('cant_record_bp')"
+condition: "!(step3_bp_systolic >= 140 || step3_bp_diastolic >= 90) && step3_bp_measurement_method.contains('optibp') && !step3_cant_record_bp_optibp.contains('cant_record_bp_optibp')"
 actions:
   - "isRelevant = true"
 ---

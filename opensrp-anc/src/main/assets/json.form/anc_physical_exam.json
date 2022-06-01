@@ -966,8 +966,8 @@
 					"clientOpenSRPId": ""
 				},
 				"fields_to_use_value": [
-					"bp_systolic",
-					"bp_diastolic"
+					"bp_systolic_optibp",
+					"bp_diastolic_optibp"
 				],
 				"relevance": {
 					"rules-engine": {
