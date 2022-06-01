@@ -333,4 +333,11 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
         return "HAI";
     }
 
+    public String getPositiveNegativeString(String value) {
+        if (value == "positive") {
+            return this.context.getString(R.string.value_positive);
+        }
+        return this.context.getString(R.string.value_negative);
+    }
+
 }

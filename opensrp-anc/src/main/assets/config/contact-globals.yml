@@ -238,3 +238,4 @@ fields:
   - "hepb_positive"
   - "lmp_known"
   - "ultrasound_done"
+  - "rapid_syphilis_test"
