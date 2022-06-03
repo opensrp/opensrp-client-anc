@@ -24,8 +24,8 @@ jacoco {
 }
 // This variables are used by the version code & name generators
 ext.versionMajor = 1
-ext.versionMinor = 7
-ext.versionPatch = 8
+ext.versionMinor = 9
+ext.versionPatch = 0
 ext.versionClassifier = null
 ext.isSnapshot = false
 ext.minimumSdkVersion = androidMinSdkVersion
