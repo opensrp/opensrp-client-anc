@@ -219,7 +219,7 @@ fields:
 - template: "{{contact_summary.woman_behaviour.tobacco_cessation_counseling_done}}"
   relevance: "tobacco_counsel == 'done'"
 
-- template: "{{contact_summary.woman_behaviour.tobacco_cessation_counseling_done}}: {tobacco_counsel_notdone_value}"
+- template: "{{contact_summary.woman_behaviour.tobacco_cessation_counseling_not_done}}: {tobacco_counsel_notdone_value}"
   relevance: "tobacco_counsel == 'not_done'"
 
 - template: "{{contact_summary.woman_behaviour.shs_exposure}}: {shs_exposure_value}"
