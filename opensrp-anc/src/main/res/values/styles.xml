@@ -33,9 +33,13 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:fontFamily">@font/font</item>
+        <item name="colorPrimary">#0092D5</item>
+        <item name="colorPrimaryDark">#0076AC</item>
     </style>
 
-    <style name="AncAppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AncAppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="colorPrimary">@color/primary</item>
+    </style>
 
     <style name="AncAppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -55,6 +56,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
     public static final String CLICK_VIEW_ALERT_STATUS = "click_view_alert_status";
     public static final String CLICK_VIEW_SYNC = "click_view_sync";
     public static final String CLICK_VIEW_ATTENTION_FLAG = "click_view_attention_flag";
+
 
     @Override
     protected void initializePresenter() {
@@ -180,7 +182,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
     @Override
     public void showNotFoundPopup(String whoAncId) {
         NoMatchDialogFragment
-                .launchDialog((BaseRegisterActivity) Objects.requireNonNull(getActivity()), SecuredNativeSmartRegisterFragment.DIALOG_TAG, whoAncId);
+                .launchDialog((BaseRegisterActivity) requireActivity(), SecuredNativeSmartRegisterFragment.DIALOG_TAG, whoAncId);
     }
 
     @Override

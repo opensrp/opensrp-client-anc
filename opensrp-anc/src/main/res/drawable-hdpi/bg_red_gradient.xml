@@ -5,8 +5,5 @@
         android:angle="-90"
         android:endColor="@color/vaccine_red_bg_stk"
         android:startColor="@color/vaccine_red_bg_end" />
-    <stroke
-        android:width="0.5dp"
-        android:color="#d8d8d8" />
-    <corners android:radius="5dp" />
+    <corners android:radius="8dp" />
 </shape>
