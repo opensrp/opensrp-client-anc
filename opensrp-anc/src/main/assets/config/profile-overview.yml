@@ -65,9 +65,13 @@ fields:
     relevance: "!prev_preg_comps.isEmpty() && (!prev_preg_comps.contains('dont_know') || !prev_preg_comps.contains('none'))"
     isRedFont: "true"
 
-  - template: "{{profile_overview.overview_of_pregnancy.obstetric_history.past_substances_used}}: {substances_used_value},{substances_used_other}"
-    relevance: "(!substances_used.contains('none') && !substances_used.isEmpty())"
+  - template: "{{profile_overview.overview_of_pregnancy.obstetric_history.past_substances_used}}: {substances_used_value}, {substances_used_other}"
+    relevance: "(!substances_used.contains('none') && substances_used_other !='')"
     isRedFont: "true"
+
+  - template: "{{profile_overview.overview_of_pregnancy.obstetric_history.past_substances_used}}: {substances_used_value}"
+      relevance: "(!substances_used.contains('none') && substances_used_other =='')"
+      isRedFont: "true"
 
 ---
 sub_group: medical_history
