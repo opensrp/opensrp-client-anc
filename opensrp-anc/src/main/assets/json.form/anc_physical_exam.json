@@ -599,8 +599,8 @@
 					"clientOpenSRPId": ""
 				},
 				"fields_to_use_value": [
-					"bp_systolic_optibp",
-					"bp_diastolic_optibp"
+					"bp_systolic",
+					"bp_diastolic"
 				],
 				"relevance": {
 					"rules-engine": {
@@ -629,7 +629,7 @@
 				}
 			},
 			{
-				"key": "bp_systolic_optibp",
+				"key": "bp_systolic",
 				"openmrs_entity_parent": "",
 				"openmrs_entity": "concept",
 				"openmrs_entity_id": "bp_systolic_optibp",
@@ -679,7 +679,7 @@
 				}
 			},
 			{
-				"key": "bp_diastolic_optibp",
+				"key": "bp_diastolic",
 				"openmrs_entity_parent": "",
 				"openmrs_entity": "concept",
 				"openmrs_entity_id": "bp_diastolic_optibp",
@@ -1145,8 +1145,8 @@
 					"clientOpenSRPId": ""
 				},
 				"fields_to_use_value": [
-					"bp_systolic_repeat",
-					"bp_diastolic_repeat"
+					"bp_systolic_optibp",
+					"bp_diastolic_optibp"
 				],
 				"relevance": {
 					"rules-engine": {

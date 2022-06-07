@@ -6,7 +6,7 @@ condition: "step3_bp_measurement_method.contains('optibp') && !step3_cant_record
 actions:
   - "isRelevant = true"
 ---
-name: step3_bp_systolic_optibp
+name: step3_bp_systolic
 description: BP Systolic OptiBP Value
 priority: 1
 condition: "step3_bp_measurement_method.contains('optibp') && !step3_cant_record_bp_optibp.contains('cant_record_bp_optibp')"
@@ -20,7 +20,7 @@ condition: "step3_bp_measurement_method.contains('optibp') && !step3_cant_record
 actions:
   - "isRelevant = true"
 ---
-name: step3_bp_diastolic_optibp
+name: step3_bp_diastolic
 description: BP diastolic OptiBP Value
 priority: 1
 condition: "step3_bp_measurement_method.contains('optibp') && !step3_cant_record_bp_optibp.contains('cant_record_bp_optibp')"
@@ -105,7 +105,7 @@ actions:
 name: step3_bp_warning_optibp
 description: BP measurement warning toaster
 priority: 1
-condition: "(step3_bp_systolic_optibp >= 140 || step3_bp_diastolic_optibp >= 90)
+condition: "(step3_bp_systolic >= 140 || step3_bp_diastolic >= 90)
         && step3_bp_measurement_method.contains('optibp')"
 actions:
   - "isRelevant = true"
