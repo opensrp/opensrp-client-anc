@@ -82,7 +82,7 @@ public class AncSyncConfiguration extends SyncConfiguration {
 
     @Override
     public SyncFilter getEncryptionParam() {
-        return SyncFilter.TEAM;
+        return SyncFilter.LOCATION_ID;
     }
 
     @Override

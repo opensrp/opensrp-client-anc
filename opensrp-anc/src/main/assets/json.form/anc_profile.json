@@ -55,8 +55,6 @@
 		}
 	},
 	"editable_fields": [
-		"nik",
-		"bpjs",
 		"educ_level",
 		"marital_status",
 		"occupation",
@@ -98,8 +96,6 @@
 		"partner_hiv_status"
 	],
 	"default_values": [
-		"nik",
-		"bpjs",
 		"educ_level",
 		"marital_status",
 		"occupation",
@@ -152,42 +148,6 @@
 		"title": "{{anc_profile.step1.title}}",
 		"next": "step2",
 		"fields": [
-			{
-				"key": "nik",
-				"openmrs_entity_parent": "",
-				"openmrs_entity": "concept",
-				"openmrs_entity_id": "nik",
-				"type": "edit_text",
-				"hint": "{{anc_profile.step1.nik.hint}}",
-				"v_regex": {
-					"value": "[0-9]{16}",
-					"err": "{{anc_profile.step1.nik.v_numeric.err}}"
-				},
-				"v_numeric": {
-					"value": "true",
-					"err": "{{anc_profile.step1.nik.v_numeric.err}}"
-				},
-				"v_required": {
-					"value": true,
-					"err": "{{anc_profile.step1.nik.v_required.err}}"
-				}
-			},
-			{
-				"key": "bpjs",
-				"openmrs_entity_parent": "",
-				"openmrs_entity": "concept",
-				"openmrs_entity_id": "bpjs",
-				"type": "edit_text",
-				"hint": "{{anc_profile.step1.bpjs.hint}}",
-				"v_numeric": {
-					"value": "true",
-					"err": "{{anc_profile.step1.bpjs.v_numeric.err}}"
-				},
-				"v_required": {
-					"value": false,
-					"err": "{{anc_profile.step1.bpjs.v_required.err}}"
-				}
-			},
 			{
 				"key": "headss_toaster",
 				"openmrs_entity_parent": "",
