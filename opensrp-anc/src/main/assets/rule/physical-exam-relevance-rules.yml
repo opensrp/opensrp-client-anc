@@ -94,11 +94,19 @@ condition: "step3_bp_measurement_method.contains('optibp') && step3_cant_record_
 actions:
   - "isRelevant = true"
 ---
-name: step3_toaster7
+name: step3_bp_warning_manual
 description: BP measurement warning toaster
 priority: 1
-condition: "(step3_bp_systolic >= 140 || step3_bp_diastolic >= 90)
-        && (step3_bp_measurement_method.contains('optibp') || step3_bp_measurement_method.contains('manually'))"
+condition: "(step3_bp_systolic_manual >= 140 || step3_bp_diastolic_manual >= 90)
+        && step3_bp_measurement_method.contains('manually')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_bp_warning_optibp
+description: BP measurement warning toaster
+priority: 1
+condition: "(step3_bp_systolic_optibp >= 140 || step3_bp_diastolic_optibp >= 90)
+        && step3_bp_measurement_method.contains('optibp')"
 actions:
   - "isRelevant = true"
 ---

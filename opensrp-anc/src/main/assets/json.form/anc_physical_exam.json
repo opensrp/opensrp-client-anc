@@ -979,13 +979,31 @@
 			},
 
 			{
-				"key": "toaster7",
+				"key": "bp_warning_manual",
 				"openmrs_entity_parent": "",
 				"openmrs_entity": "",
 				"openmrs_entity_id": "",
 				"type": "toaster_notes",
-				"text": "{{anc_physical_exam.step3.toaster7.text}}",
-				"translation_text": "anc_physical_exam.step3.toaster7.text",
+				"text": "{{anc_physical_exam.step3.bp_warning_manual.text}}",
+				"translation_text": "anc_physical_exam.step3.bp_warning_manual.text",
+				"text_color": "#D56900",
+				"toaster_type": "warning",
+				"relevance": {
+					"rules-engine": {
+						"ex-rules": {
+							"rules-file": "physical-exam-relevance-rules.yml"
+						}
+					}
+				}
+			},
+			{
+				"key": "bp_warning_optibp",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "",
+				"openmrs_entity_id": "",
+				"type": "toaster_notes",
+				"text": "{{anc_physical_exam.step3.bp_warning_optibp.text}}",
+				"translation_text": "anc_physical_exam.step3.bp_warning_optibp.text",
 				"text_color": "#D56900",
 				"toaster_type": "warning",
 				"relevance": {
