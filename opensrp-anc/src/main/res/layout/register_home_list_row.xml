@@ -153,7 +153,8 @@
             android:adjustViewBounds="true"
             android:background="@drawable/contact_completed_today"
             android:drawableStart="@drawable/ic_checked_green"
-            android:elevation="8dp"
+            android:drawablePadding="6dp"
+            android:elevation="0dp"
             android:fontFamily="@font/font_bold"
             android:gravity="center"
             android:hapticFeedbackEnabled="true"
@@ -165,6 +166,7 @@
             android:textColor="@color/dark_grey"
             android:textSize="14sp"
             android:typeface="normal"
+            android:shadowColor="@color/transparent"
             android:visibility="visible" />
 
         <Button
@@ -174,7 +176,7 @@
             android:layout_gravity="center_vertical|center_horizontal"
             android:adjustViewBounds="true"
             android:background="@drawable/contact_completed_today"
-            android:elevation="8dp"
+            android:elevation="0dp"
             android:gravity="center_vertical|center_horizontal"
             android:hapticFeedbackEnabled="true"
             android:paddingLeft="10dp"
@@ -195,7 +197,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal"
             android:background="@color/transparent"
-            android:elevation="8dp"
+            android:elevation="0dp"
             android:padding="@dimen/advanced_search_button_padding"
             android:stateListAnimator="@drawable/button"
             android:text="@string/sync"
