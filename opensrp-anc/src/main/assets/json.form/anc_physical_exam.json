@@ -1868,6 +1868,58 @@
 				]
 			},
 			{
+				"key": "respiratory_rate_label",
+				"type": "label",
+				"label_text_style": "bold",
+				"text": "{{anc_physical_exam.step4.respiratory_rate_label.text}}",
+				"translation_text": "anc_physical_exam.step4.respiratory_rate_label.text",
+				"text_color": "#000000",
+				"v_required": {
+					"value": "true",
+					"err": "{{anc_physical_exam.step4.respiratory_rate_label.v_required.err}}"
+				},
+				"relevance": {
+					"rules-engine": {
+						"ex-rules": {
+							"rules-file": "physical-exam-relevance-rules.yml"
+						}
+					}
+				}
+			},
+			{
+				"key": "respiratory_rate",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "concept",
+				"openmrs_entity_id": "1440AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				"type": "normal_edit_text",
+				"edit_text_style": "bordered",
+				"edit_type": "number",
+				"v_min": {
+					"value": "0",
+					"err": "{{anc_physical_exam.step4.respiratory_rate_label.v_min.err}}"
+				},
+				"v_max": {
+					"value": "200",
+					"err": "{{anc_physical_exam.step4.respiratory_rate_label.v_max.err}}"
+				},
+				"v_numeric_integer": {
+					"value": "true",
+					"err": "{{anc_physical_exam.step4.respiratory_rate_label.v_numeric_integer.err}}"
+				},
+				"relevance": {
+					"rules-engine": {
+						"ex-rules": {
+							"rules-file": "physical-exam-relevance-rules.yml"
+						}
+					}
+				},
+				"v_required": {
+					"value": "true",
+					"err": "{{anc_physical_exam.step4.respiratory_rate.v_required.err}}"
+				}
+			},
+
+			{
 				"key": "toaster20",
 				"openmrs_entity_parent": "",
 				"openmrs_entity": "",

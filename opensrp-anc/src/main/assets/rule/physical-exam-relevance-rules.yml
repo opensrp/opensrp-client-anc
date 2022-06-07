@@ -215,6 +215,20 @@ condition: "step4_oximetry > 0 && step4_oximetry < 92"
 actions:
   - "isRelevant = true"
 ---
+name: step4_respiratory_rate_label
+description: RR
+priority: 1
+condition: "step4_respiratory_exam == 2 || step4_respiratory_exam == 3"
+actions:
+  - "isRelevant = true"
+---
+name: step4_respiratory_rate
+description: RR
+priority: 1
+condition: "step4_respiratory_exam == 2 || step4_respiratory_exam == 3"
+actions:
+  - "isRelevant = true"
+---
 name: step5_sfh_label
 description: SFH Label
 priority: 1
