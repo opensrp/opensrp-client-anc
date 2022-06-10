@@ -258,7 +258,7 @@ dependencies {
         exclude group: 'org.smartregister', module: 'android-p2p-sync'
     }
 
-    api("org.smartregister:android-p2p-sync:0.3.9-PREVIEW-SNAPSHOT") {
+    api("org.smartregister:android-p2p-sync:0.3.9-SNAPSHOT") {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'com.android.support', module: 'appcompat-v7'
