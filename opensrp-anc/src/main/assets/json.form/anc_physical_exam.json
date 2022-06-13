@@ -106,11 +106,11 @@
         },
         "v_min": {
           "value": "100",
-          "err": "{{anc_physical_exam.step1.height.v_min.err}}"
+          "err": "Height must be equal or greater than 100"
         },
         "v_max": {
           "value": "200",
-          "err": "{{anc_physical_exam.step1.height.v_max.err}}"
+          "err": "Height must be equal or less than 200"
         }
       },
       {
@@ -168,11 +168,11 @@
         },
         "v_min": {
           "value": "30",
-          "err": "{{anc_physical_exam.step1.pregest_weight.v_min.err}}"
+          "err": "Weight must be equal or greater than 30"
         },
         "v_max": {
           "value": "180",
-          "err": "{{anc_physical_exam.step1.pregest_weight.v_max.err}}"
+          "err": "Weight must be equal or less than 180"
         },
         "v_required": {
           "value": "true",
@@ -228,11 +228,11 @@
         },
         "v_min": {
           "value": "30",
-          "err": "{{anc_physical_exam.step1.current_weight.v_min.err}}"
+          "err": "Weight must be equal or greater than 30"
         },
         "v_max": {
           "value": "180",
-          "err": "{{anc_physical_exam.step1.current_weight.v_max.err}}"
+          "err": "Weight must be equal or less than 180"
         },
         "v_required": {
           "value": "true",
@@ -460,44 +460,6 @@
     "next": "step3",
     "fields": [
       {
-        "key": "bp_measurement_method",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "check_box",
-        "label": "{{anc_physical_exam.step2.bp_measurement_method.label}}",
-        "label_text_style": "bold",
-        "text_color": "#000000",
-        "exclusive": [
-          "optibp",
-          "manually"
-        ],
-        "options": [
-          {
-            "key": "optibp",
-            "text": "{{anc_physical_exam.step2.bp_measurement_method.options.optibp.text}}",
-            "translation_text": "anc_physical_exam.step2.bp_measurement_method.options.optibp.text",
-            "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "manually",
-            "text": "{{anc_physical_exam.step2.bp_measurement_method.options.manually.text}}",
-            "translation_text": "anc_physical_exam.step2.bp_measurement_method.options.manually.text",
-            "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "{{anc_physical_exam.step2.bp_measurement_method.v_required.err}}"
-        }
-      },
-      {
         "key": "bp_systolic_label",
         "type": "label",
         "label_text_style": "bold",
@@ -507,10 +469,14 @@
           "value": true
         },
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
+          "step2:cant_record_bp": {
+            "ex-checkbox": [
+              {
+                "not": [
+                  "cant_record_bp"
+                ]
+              }
+            ]
           }
         }
       },
@@ -528,21 +494,25 @@
         },
         "v_min": {
           "value": "20",
-          "err": "{{anc_physical_exam.step2.bp_systolic.v_min.err}}"
+          "err": "SBP must be equal or greater than 20"
         },
         "v_max": {
           "value": "260",
-          "err": "{{anc_physical_exam.step2.bp_systolic.v_max.err}}"
+          "err": "SBP must be equal or less than 260"
         },
         "v_required": {
           "value": "true",
           "err": "{{anc_physical_exam.step2.bp_systolic.v_required.err}}"
         },
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
+          "step2:cant_record_bp": {
+            "ex-checkbox": [
+              {
+                "not": [
+                  "cant_record_bp"
+                ]
+              }
+            ]
           }
         }
       },
@@ -554,10 +524,14 @@
         "type": "spacer",
         "spacer_height": "10sp",
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
+          "step2:cant_record_bp": {
+            "ex-checkbox": [
+              {
+                "not": [
+                  "cant_record_bp"
+                ]
+              }
+            ]
           }
         }
       },
@@ -571,10 +545,14 @@
           "value": true
         },
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
+          "step2:cant_record_bp": {
+            "ex-checkbox": [
+              {
+                "not": [
+                  "cant_record_bp"
+                ]
+              }
+            ]
           }
         }
       },
@@ -592,21 +570,25 @@
         },
         "v_min": {
           "value": "20",
-          "err": "{{anc_physical_exam.step2.bp_diastolic.v_min.err}}"
+          "err": "DBP must be equal to or greater than 20"
         },
         "v_max": {
           "value": "260",
-          "err": "{{anc_physical_exam.step2.bp_diastolic.v_max.err}}"
+          "err": "DBP must be equal to or less than 260"
         },
         "v_required": {
           "value": "true",
           "err": "{{anc_physical_exam.step2.bp_diastolic.v_required.err}}"
         },
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
+          "step2:cant_record_bp": {
+            "ex-checkbox": [
+              {
+                "not": [
+                  "cant_record_bp"
+                ]
+              }
+            ]
           }
         }
       },
@@ -625,14 +607,7 @@
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
+        ]
       },
       {
         "key": "cant_record_bp_reason",
@@ -671,54 +646,14 @@
           "err": "{{anc_physical_exam.step2.cant_record_bp_reason.v_required.err}}"
         },
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "cant_record_bp_reason_opt",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165428AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "label": "{{anc_physical_exam.step2.cant_record_bp_reason_opt.label}}",
-        "type": "check_box",
-        "label_text_style": "bold",
-        "text_color": "#000000",
-        "options": [
-          {
-            "key": "optibp_didnt_load",
-            "text": "{{anc_physical_exam.step2.cant_record_bp_reason_opt.options.optibp_didnt_load.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165386AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "optibp_returned_error",
-            "text": "{{anc_physical_exam.step2.cant_record_bp_reason_opt.options.optibp_returned_error.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165179AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "other",
-            "text": "{{anc_physical_exam.step2.cant_record_bp_reason.options.other.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "{{anc_physical_exam.step2.cant_record_bp_reason.v_required.err}}"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
+          "step2:cant_record_bp": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "cant_record_bp"
+                ]
+              }
+            ]
           }
         }
       },
@@ -729,32 +664,6 @@
         "openmrs_entity_id": "spacer",
         "type": "spacer",
         "spacer_height": "10sp"
-      },
-      {
-        "key": "record_bp_using_optibp_button",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "optibp",
-        "label": "{{anc_physical_exam.step2.record_bp_using_optibp_button.label}}",
-        "optibp_button_bg_color": "#EB5281",
-        "optibp_button_text_color": "#FFFFFF",
-        "read_only": false,
-        "optibp_data": {
-          "clientId": "",
-          "clientOpenSRPId": ""
-        },
-        "fields_to_use_value": [
-          "bp_systolic",
-          "bp_diastolic"
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
       },
       {
         "key": "toaster7",
@@ -812,11 +721,11 @@
         },
         "v_min": {
           "value": "20",
-          "err": "{{anc_physical_exam.step2.bp_systolic_repeat.v_min.err}}"
+          "err": "SBP must be equal or greater than 20"
         },
         "v_max": {
           "value": "260",
-          "err": "{{anc_physical_exam.step2.bp_systolic_repeat.v_max.err}}"
+          "err": "SBP must be equal or less than 260"
         },
         "v_required": {
           "value": "true",
@@ -869,43 +778,16 @@
         },
         "v_min": {
           "value": "20",
-          "err": "{{anc_physical_exam.step2.bp_diastolic_repeat.v_min.err}}"
+          "err": "DBP must be equal or greater than 20"
         },
         "v_max": {
           "value": "260",
-          "err": "{{anc_physical_exam.step2.bp_diastolic_repeat.v_max.err}}"
+          "err": "DBP must be equal or less than 260"
         },
         "v_required": {
           "value": "true",
           "err": "{{anc_physical_exam.step2.bp_diastolic_repeat.v_required.err}}"
         },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "record_bp_using_optibp_2nd_reading_button",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "optibp",
-        "label": "{{anc_physical_exam.step2.record_bp_using_optibp_2nd_reading_button.label}}",
-        "optibp_button_bg_color": "#EB5281",
-        "optibp_button_text_color": "#FFFFFF",
-        "optibp_button_text": "{{anc_physical_exam.step2.record_bp_using_optibp_2nd_reading_button.text}}",
-        "read_only": false,
-        "optibp_data": {
-          "clientId": "",
-          "clientOpenSRPId": ""
-        },
-        "fields_to_use_value": [
-          "bp_systolic_repeat",
-          "bp_diastolic_repeat"
-        ],
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -1257,11 +1139,11 @@
         },
         "v_min": {
           "value": "35",
-          "err": "{{anc_physical_exam.step3.body_temp.v_min.err}}"
+          "err": "Temperature must be equal to or greater than 35"
         },
         "v_max": {
           "value": "42",
-          "err": "{{anc_physical_exam.step3.body_temp.v_max.err}}"
+          "err": "Temperature must be equal to or less than 42"
         }
       },
       {
@@ -1329,11 +1211,11 @@
         },
         "v_min": {
           "value": "35",
-          "err": "{{anc_physical_exam.step3.body_temp_repeat.v_min.err}}"
+          "err": "Temperature must be equal to or greater than 35"
         },
         "v_max": {
           "value": "42",
-          "err": "{{anc_physical_exam.step3.body_temp_repeat.v_max.err}}"
+          "err": "Temperature must be equal to or less than 42"
         }
       },
       {
@@ -1389,11 +1271,11 @@
         },
         "v_min": {
           "value": "20",
-          "err": "{{anc_physical_exam.step3.pulse_rate.v_min.err}}"
+          "err": "Pulse rate must be equal to or greater than 20"
         },
         "v_max": {
           "value": "200",
-          "err": "{{anc_physical_exam.step3.pulse_rate.v_max.err}}"
+          "err": "Pulse rate must be equal to or less than 200"
         }
       },
       {
@@ -1453,11 +1335,11 @@
         },
         "v_min": {
           "value": "20",
-          "err": "{{anc_physical_exam.step3.pulse_rate_repeat.v_min.err}}"
+          "err": "Pulse rate must be equal to or greater than 20"
         },
         "v_max": {
           "value": "200",
-          "err": "{{anc_physical_exam.step3.pulse_rate_repeat.v_max.err}}"
+          "err": "Pulse rate must be equal to or less than 200"
         },
         "v_required": {
           "value": "true",
@@ -2100,7 +1982,6 @@
           {
             "key": "none",
             "text": "{{anc_physical_exam.step3.ipv_physical_signs_symptoms.options.none.text}}",
-            "translation_text": "anc_physical_exam.step3.ipv_physical_signs_symptoms.options.none.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "",
@@ -2109,7 +1990,6 @@
           {
             "key": "abdomen_injury",
             "text": "{{anc_physical_exam.step3.ipv_physical_signs_symptoms.options.abdomen_injury.text}}",
-            "translation_text": "anc_physical_exam.step3.ipv_physical_signs_symptoms.options.abdomen_injury.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "",
@@ -2118,7 +1998,6 @@
           {
             "key": "other_injury",
             "text": "{{anc_physical_exam.step3.ipv_physical_signs_symptoms.options.other_injury.text}}",
-            "translation_text": "anc_physical_exam.step3.ipv_physical_signs_symptoms.other_injury.none.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "",
@@ -2127,7 +2006,6 @@
           {
             "key": "other",
             "text": "{{anc_physical_exam.step3.ipv_physical_signs_symptoms.options.other.text}}",
-            "translation_text": "anc_physical_exam.step3.ipv_physical_signs_symptoms.options.other.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "",
@@ -2441,15 +2319,15 @@
         "edit_type": "number",
         "v_min": {
           "value": "0.1",
-          "err": "{{anc_physical_exam.step4.sfh.v_min.err}}"
+          "err": "SFH must be greater than 0"
         },
         "v_max": {
           "value": "44",
-          "err": "{{anc_physical_exam.step4.sfh.v_max.err}}"
+          "err": "SFH must be less than or equal to 44"
         },
         "v_numeric_integer": {
           "value": "true",
-          "err": "{{anc_physical_exam.step4.sfh.v_numeric_integer.err}}"
+          "err": "Enter a valid sfh"
         },
         "v_required": {
           "value": "false",
@@ -2562,15 +2440,15 @@
         "edit_type": "number",
         "v_min": {
           "value": "80",
-          "err": "{{anc_physical_exam.step4.fetal_heart_rate.v_min.err}}"
+          "err": "Fetal heartbeat must be equal or greater than 80"
         },
         "v_max": {
           "value": "200",
-          "err": "{{anc_physical_exam.step4.fetal_heart_rate.v_max.err}}"
+          "err": "Fetal heartbeat must be less than or equal to 200"
         },
         "v_numeric_integer": {
           "value": "true",
-          "err": "{{anc_physical_exam.step4.fetal_heart_rate.v_numeric_integer.err}}"
+          "err": "Enter a valid number"
         },
         "relevance": {
           "step4:fetal_heartbeat": {
