@@ -22,8 +22,7 @@
           "column_name": "alt_name",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "163258AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "field": "attributes.alt_name"
           }
         },
         {

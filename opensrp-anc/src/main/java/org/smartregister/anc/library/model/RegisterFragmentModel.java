@@ -182,8 +182,7 @@ public class RegisterFragmentModel implements RegisterFragmentContract.Model {
                 nextContactDate = getJsonString(getJsonObject(client, "attributes"), "next_contact_date");
 
 
-                matrixCursor
-                        .addRow(new Object[]{entityId, null, firstName, lastName, dob,edd, ancId, phoneNumber, altContactName,nextContact,nextContactDate});
+                matrixCursor.addRow(new Object[]{entityId, null, firstName, lastName, dob, edd, ancId, phoneNumber, altContactName, nextContact, nextContactDate});
             }
         }
         return matrixCursor;
