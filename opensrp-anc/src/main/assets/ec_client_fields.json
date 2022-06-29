@@ -12,10 +12,9 @@
         },
         {
           "column_name": "phone_number",
-          "type": "Event",
+          "type": "Client",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "field": "attributes.phone_number"
           }
         },
         {
