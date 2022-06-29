@@ -3,7 +3,6 @@ package org.smartregister.anc.library.task;
 import android.content.Context;
 import android.content.Intent;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
