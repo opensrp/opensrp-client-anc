@@ -1,6 +1,5 @@
 package org.smartregister.anc.library.model;
 
-
 import androidx.annotation.Nullable;
 
 import org.json.JSONObject;

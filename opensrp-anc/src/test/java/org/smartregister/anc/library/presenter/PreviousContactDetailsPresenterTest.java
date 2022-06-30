@@ -1,5 +1,8 @@
 package org.smartregister.anc.library.presenter;
 
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.verify;
+
 import android.text.TextUtils;
 
 import org.jeasy.rules.api.Facts;
@@ -24,6 +27,7 @@ import org.smartregister.anc.library.contract.PreviousContactsDetails;
 import org.smartregister.anc.library.model.ContactSummaryModel;
 import org.smartregister.anc.library.model.PreviousContactsSummaryModel;
 import org.smartregister.anc.library.repository.PreviousContactRepository;
+import org.smartregister.anc.library.repository.PreviousContactRepositoryTest;
 import org.smartregister.anc.library.util.ConstantsUtils;
 
 import java.io.IOException;
@@ -31,9 +35,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-
-import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.verify;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({AncLibrary.class, TextUtils.class})

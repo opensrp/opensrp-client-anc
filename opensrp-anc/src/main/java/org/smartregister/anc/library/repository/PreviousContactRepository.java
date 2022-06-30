@@ -4,11 +4,16 @@ import android.content.ContentValues;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.utils.NativeFormLangUtils;
+
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
+import org.json.JSONObject;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.model.PreviousContact;
 import org.smartregister.anc.library.model.PreviousContactsSummaryModel;
 import org.smartregister.anc.library.util.ANCFormUtils;
@@ -52,7 +57,7 @@ public class PreviousContactRepository extends BaseRepository {
     private static final String INDEX_CONTACT_NO = "CREATE INDEX " + TABLE_NAME + "_" + CONTACT_NO +
             "_index ON " + TABLE_NAME + "(" + CONTACT_NO + " COLLATE NOCASE);";
 
-    private String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, BASE_ENTITY_ID, CREATED_AT};
+    private final String[] projectionArgs = new String[]{ID, CONTACT_NO, KEY, VALUE, BASE_ENTITY_ID, CREATED_AT};
 
     public static void createTable(SQLiteDatabase database) {
         database.execSQL(CREATE_TABLE_SQL);
@@ -194,7 +199,6 @@ public class PreviousContactRepository extends BaseRepository {
                     previousContactsSummary.setContactNumber(factsCursor.getString(factsCursor.getColumnIndex(CONTACT_NO)));
                     previousContactsSummary.setCreatedAt(factsCursor.getString(factsCursor.getColumnIndex(CREATED_AT)));
                     previousContactsSummary.setVisitFacts(contactFacts);
-
                     previousContactFacts.add(previousContactsSummary);
                 }
             }
@@ -220,8 +224,16 @@ public class PreviousContactRepository extends BaseRepository {
 
             if (mCursor != null) {
                 while (mCursor.moveToNext()) {
-                    previousContactsTestsFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)),
-                            mCursor.getString(mCursor.getColumnIndex(VALUE)));
+                    String jsonValue = mCursor.getString(mCursor.getColumnIndex(VALUE));
+                    if (StringUtils.isNotBlank(jsonValue) && jsonValue.trim().charAt(0) == '{') {
+                        JSONObject valueObject = new JSONObject(jsonValue);
+                        String text, translated_text;
+                        text = valueObject.optString(JsonFormConstants.TEXT).trim();
+                        translated_text = StringUtils.isNotBlank(text) ? NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext()) : "";
+                        previousContactsTestsFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), translated_text);
+                    } else {
+                        previousContactsTestsFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), jsonValue);
+                    }
 
                 }
                 return previousContactsTestsFacts;
@@ -246,7 +258,7 @@ public class PreviousContactRepository extends BaseRepository {
      */
     private Cursor getAllTests(String baseEntityId, SQLiteDatabase database) {
         String selection = "";
-        String orderBy = ID + " DESC";
+        String orderBy = "MAX("+ ID + ") DESC";
         String[] selectionArgs = null;
 
         if (StringUtils.isNotBlank(baseEntityId)) {
@@ -306,7 +318,7 @@ public class PreviousContactRepository extends BaseRepository {
     public Facts getPreviousContactFacts(String baseEntityId, String contactNo, boolean checkNegative) {
         Cursor mCursor = null;
         String selection = "";
-        String orderBy = "created_at DESC";
+        String orderBy = "MAX("+ ID + ") DESC";
         String[] selectionArgs = null;
         Facts previousContactFacts = new Facts();
         try {
@@ -317,12 +329,24 @@ public class PreviousContactRepository extends BaseRepository {
                 selectionArgs = new String[]{baseEntityId, getContactNo(contactNo, checkNegative)};
             }
 
-            mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, null, null, orderBy, null);
+            mCursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, KEY, null, orderBy, null);
 
             if (mCursor != null && mCursor.getCount() > 0) {
                 while (mCursor.moveToNext()) {
-                    previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)),
-                            mCursor.getString(mCursor.getColumnIndex(VALUE)));
+                    String previousContactValue = mCursor.getString(mCursor.getColumnIndex(VALUE));
+                    if (StringUtils.isNotBlank(previousContactValue) && previousContactValue.trim().charAt(0) == '{') {
+                        JSONObject previousContactObject = new JSONObject(previousContactValue);
+                        if (previousContactObject.has(JsonFormConstants.KEY) && previousContactObject.has(JsonFormConstants.TEXT)) {
+                            String translated_text, text;
+                            text = previousContactObject.optString(JsonFormConstants.TEXT).trim();
+                            translated_text = StringUtils.isNotBlank(text) ? NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext()) : "";
+                            previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), translated_text);
+                        } else {
+                            previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), previousContactValue);
+                        }
+                    } else {
+                        previousContactFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), previousContactValue);
+                    }
 
                 }
                 previousContactFacts.put(CONTACT_NO, selectionArgs[1]);

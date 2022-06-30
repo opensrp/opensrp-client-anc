@@ -1,6 +1,14 @@
 package org.smartregister.anc.library.util;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import android.content.Context;
+
 import com.vijay.jsonwizard.constants.JsonFormConstants;
+
+import net.sqlcipher.database.SQLiteDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,40 +19,48 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.robolectric.util.ReflectionHelpers;
+import org.smartregister.CoreLibrary;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.BaseUnitTest;
+import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.model.PartialContact;
 import org.smartregister.anc.library.repository.PartialContactRepository;
+import org.smartregister.repository.Repository;
+import org.smartregister.view.activity.DrishtiApplication;
 
 import java.util.List;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
+@PrepareForTest({AncLibrary.class, SQLiteDatabase.class, DrishtiApplication.class, CoreLibrary.class, Context.class})
 public class ANCFormUtilsTest extends BaseUnitTest {
 
-    private JSONArray accordionValuesJson;
-
-    @Mock
-    private AncLibrary ancLibrary;
-
-    @Mock
-    private PartialContactRepository partialContactRepository;
-
-    private String quickCheckForm = "{\"validate_on_submit\":true,\"display_scroll_bars\":true,\"count\":\"1\",\"encounter_type\":\"Quick Check\",\"entity_id\":\"\",\"relational_id\":\"\",\"form_version\":\"0.0.1\",\"step1\":{\"title\":\"Quick Check\",\"fields\":" +
+    private final String quickCheckForm = "{\"validate_on_submit\":true,\"display_scroll_bars\":true,\"count\":\"1\",\"encounter_type\":\"Quick Check\",\"entity_id\":\"\",\"relational_id\":\"\",\"form_version\":\"0.0.1\",\"step1\":{\"title\":\"Quick Check\",\"fields\":" +
             "[{\"key\":\"contact_reason\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"160288AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"," +
             "\"type\":\"native_radio\",\"label\":\"Reason for coming to facility\",\"label_text_style\":\"bold\",\"options\":[{\"key\":\"first_contact\"," +
             "\"text\":\"First contact\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"165269AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"scheduled_contact\",\"text\":\"Scheduled contact\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"}," +
             "{\"key\":\"specific_complaint\",\"text\":\"Specific complaint\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"}],\"v_required\":{\"value\":\"true\",\"err\":\"Reason for coming to facility is required\"}}," +
             "{\"key\":\"specific_complaint\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"type\":\"check_box\",\"label\":\"Specific complaint(s)\",\"label_text_style\":\"bold\",\"text_color\":\"#000000\",\"exclusive\":[\"dont_know\",\"none\"],\"options\":[{\"key\":\"abnormal_discharge\",\"text\":\"Abnormal vaginal discharge\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"123395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"altered_skin_color\",\"text\":\"Jaundice\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"changes_in_bp\",\"text\":\"Changes in blood pressure\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"155052AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"constipation\",\"text\":\"Constipation\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"996AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"contractions\",\"text\":\"Contractions\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"163750AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"cough\",\"text\":\"Cough\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"143264AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"depression\",\"text\":\"Depression\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"119537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"anxiety\",\"text\":\"Anxiety\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"121543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"dizziness\",\"text\":\"Dizziness\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"156046AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"domestic_violence\",\"text\":\"Domestic violence\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"141814AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"extreme_pelvic_pain\",\"text\":\"Extreme pelvic pain - can't walk (symphysis pubis dysfunction)\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"165270AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"fever\",\"text\":\"Fever\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"full_abdominal_pain\",\"text\":\"Full abdominal pain\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"139547AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"flu_symptoms\",\"text\":\"Flu symptoms\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"137162AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"fluid_loss\",\"text\":\"Fluid loss\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"148968AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"headache\",\"text\":\"Headache\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"139084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"heartburn\",\"text\":\"Heartburn\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"139059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"leg_cramps\",\"text\":\"Leg cramps\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"135969AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"leg_pain\",\"text\":\"Leg pain\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"114395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"leg_redness\",\"text\":\"Leg redness\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"165215AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"low_back_pain\",\"text\":\"Low back pain\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"116225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"pelvic_pain\",\"text\":\"Pelvic pain\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"131034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"nausea_vomiting_diarrhea\",\"text\":\"Nausea / vomiting / diarrhea\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"157892AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"no_fetal_movement\",\"text\":\"No fetal movement\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"1452AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"oedema\",\"text\":\"Oedema\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"other_bleeding\",\"text\":\"Other bleeding\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"147241AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"other_pain\",\"text\":\"Other pain\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"114403AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"other_psychological_symptoms\",\"text\":\"Other psychological symptoms\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"160198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"other_skin_disorder\",\"text\":\"Other skin disorder\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"119022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"other_types_of_violence\",\"text\":\"Other types of violence\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"158358AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"dysuria\",\"text\":\"Pain during urination (dysuria)\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"118771AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"pruritus\",\"text\":\"Pruritus\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"reduced_fetal_movement\",\"text\":\"Reduced or poor fetal movement\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"113377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"shortness_of_breath\",\"text\":\"Shortness of breath\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"141600AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"tiredness\",\"text\":\"Tiredness\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"124628AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"trauma\",\"text\":\"Trauma\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"124193AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"bleeding\",\"text\":\"Vaginal bleeding\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"147232AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"visual_disturbance\",\"text\":\"Visual disturbance\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"123074AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"other_specify\",\"text\":\"Other (specify)\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"}],\"v_required\":{\"value\":\"true\",\"err\":\"Specific complain is required\"},\"relevance\":{\"step1:contact_reason\":{\"type\":\"string\",\"ex\":\"equalTo(.,\\\"specific_complaint\\\")\"}}},{\"key\":\"specific_complaint_other\",\"openmrs_entity_parent\":\"5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"type\":\"normal_edit_text\",\"edit_text_style\":\"bordered\",\"hint\":\"Specify\",\"v_regex\":{\"value\":\"[A-Za-z\\\\s\\\\.\\\\-]*\",\"err\":\"Please enter valid content\"},\"relevance\":{\"step1:specific_complaint\":{\"ex-checkbox\":[{\"or\":[\"other_specify\"]}]}}},{\"key\":\"danger_signs\",\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"160939AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\"type\":\"check_box\",\"label\":\"Danger signs\",\"label_text_style\":\"bold\",\"text_color\":\"#000000\",\"exclusive\":[\"danger_none\"],\"options\":[{\"key\":\"danger_none\",\"text\":\"None\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"danger_bleeding\",\"text\":\"Bleeding vaginally\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"150802AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"central_cyanosis\",\"text\":\"Central cyanosis\",\"label_info_text\":\"Bluish discolouration around the mucous membranes in the mouth, lips and tongue\",\"label_info_title\":\"Central cyanosis\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"165216AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"convulsing\",\"text\":\"Convulsing\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"164483AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"danger_fever\",\"text\":\"Fever\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"severe_headache\",\"text\":\"Severe headache\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"139081AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"visual_disturbance\",\"text\":\"Visual disturbance\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"123074AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"imminent_delivery\",\"text\":\"Imminent delivery\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"162818AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"labour\",\"text\":\"Labour\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"145AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"looks_very_ill\",\"text\":\"Looks very ill\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"163293AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"severe_vomiting\",\"text\":\"Severe vomiting\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"118477AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"severe_pain\",\"text\":\"Severe pain\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"163477AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"severe_abdominal_pain\",\"text\":\"Severe abdominal pain\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"},{\"key\":\"unconscious\",\"text\":\"Unconscious\",\"value\":false,\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"concept\",\"openmrs_entity_id\":\"123818AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"}],\"v_required\":{\"value\":\"true\",\"err\":\"Danger signs is required\"},\"relevance\":{\"rules-engine\":{\"ex-rules\":{\"rules-file\":\"quick_check_relevance_rules.yml\"}}}}]}}";
+    private JSONArray accordionValuesJson;
+    private ANCFormUtils mockedAncFormUtils;
+    @Mock
+    private AncLibrary ancLibrary;
+    @Mock
+    private Context context;
+    @Mock
+    private org.smartregister.Context context1;
+    @Mock
+    private PartialContactRepository partialContactRepository;
 
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+
+        MockitoAnnotations.openMocks(this);
+        AncLibrary.init(org.smartregister.Context.getInstance(), 1);
+        mockedAncFormUtils = Mockito.spy(ANCFormUtils.class);
         try {
             accordionValuesJson = new JSONArray("[{\"key\":\"ultrasound\",\"type\":\"extended_radio_button\",\"label\":\"Ultrasound test\",\"values\":[\"done_today:Done today\"]," +
                     "\"openmrs_attributes\":{\"openmrs_entity_parent\":\"\",\"openmrs_entity\":\"\",\"openmrs_entity_id\":\"\"},\"value_openmrs_attributes\":[{\"key\":\"ultrasound\"," +
@@ -178,6 +194,7 @@ public class ANCFormUtilsTest extends BaseUnitTest {
     public void testObtainValueFromHiddenValues() throws JSONException {
         String actual = "39 weeks 6 days";
         String result = ANCFormUtils.obtainValue("ultrasound_gest_age", accordionValuesJson);
+        ANCFormUtils.obtainValue("ultrasound_gest_age", accordionValuesJson);
         assertEquals(result, actual);
     }
 
@@ -226,7 +243,7 @@ public class ANCFormUtilsTest extends BaseUnitTest {
     @Test
     public void testGetFormJsonCoreShouldReturnSameFormPassed() throws JSONException {
         PartialContact partialContact = new PartialContact();
-        Mockito.when(partialContactRepository.getPartialContact(partialContact)).thenReturn(null);
+        Mockito.when(partialContactRepository.getPartialContact(partialContact)).thenReturn(partialContact);
         Mockito.when(ancLibrary.getPartialContactRepository()).thenReturn(partialContactRepository);
         ReflectionHelpers.setStaticField(AncLibrary.class, "instance", ancLibrary);
         JSONObject form = new JSONObject(quickCheckForm);
@@ -255,5 +272,134 @@ public class ANCFormUtilsTest extends BaseUnitTest {
         assertNotNull(result);
         assertEquals(formArg.toString(), result.toString());
         ReflectionHelpers.setStaticField(AncLibrary.class, "instance", null);
+    }
+
+    @Test
+    public void testSavePreviousContactItem() throws Exception {
+        String jsonString = "{\n" +
+                "  \"key\": \"malaria_test\",\n" +
+                "  \"value\": \"anc_test.tests.malaria.text\",\n" +
+                "  \"contact_no\": \"1\"\n" +
+                "}";
+        JSONObject object = new JSONObject(jsonString);
+
+        Mockito.verify(mockedAncFormUtils, Mockito.times(0)).savePreviousContactItem(DUMMY_BASE_ENTITY_ID, object);
+    }
+
+    @Test
+    public void testPersistPartialContacts() {
+        Contact contact = new Contact();
+        String baseEnitityId = "29f324e8-8984-4977-bb68-b54ec1972d6e";
+        SQLiteDatabase database = Mockito.mock(SQLiteDatabase.class);
+        DrishtiApplication drishtiApplication = Mockito.mock(DrishtiApplication.class);
+        ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", drishtiApplication);
+        PartialContactRepository partialContactRepository = Mockito.mock(PartialContactRepository.class);
+        Repository repository = Mockito.mock(Repository.class);
+        Mockito.when(drishtiApplication.getRepository()).thenReturn(repository);
+        Mockito.when(repository.getWritableDatabase()).thenReturn(database);
+        CoreLibrary coreLibrary = PowerMockito.mock(CoreLibrary.class);
+        ReflectionHelpers.setStaticField(CoreLibrary.class, "instance", coreLibrary);
+        contact.setContactNumber(3);
+        contact.setFormName("anc_quick_check");
+        contact.setJsonForm(" \"anc_quick_check\": [\n" +
+                "    {\n" +
+                "      \"key\": \"breast_exam_abnormal\",\n" +
+                "      \"openmrs_entity_parent\": \"\",\n" +
+                "      \"openmrs_entity\": \"concept\",\n" +
+                "      \"openmrs_entity_id\": \"159780AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n" +
+                "      \"type\": \"check_box\",\n" +
+                "      \"label\": \"{{breast_exam_sub_form.step1.breast_exam_abnormal.label}}\",\n" +
+                "      \"label_text_style\": \"bold\",\n" +
+                "      \"text_color\": \"#000000\",\n" +
+                "      \"options\": [\n" +
+                "        {\n" +
+                "          \"key\": \"nodule\",\n" +
+                "          \"text\": \"{{breast_exam_sub_form.step1.breast_exam_abnormal.options.nodule.text}}\",\n" +
+                "          \"value\": false,\n" +
+                "          \"openmrs_entity\": \"concept\",\n" +
+                "          \"openmrs_entity_id\": \"146931AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n" +
+                "          \"openmrs_entity_parent\": \"165369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"key\": \"discharge\",\n" +
+                "          \"text\": \"{{breast_exam_sub_form.step1.breast_exam_abnormal.options.discharge.text}}\",\n" +
+                "          \"value\": false,\n" +
+                "          \"openmrs_entity\": \"concept\",\n" +
+                "          \"openmrs_entity_id\": \"142248AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n" +
+                "          \"openmrs_entity_parent\": \"165369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"key\": \"flushing\",\n" +
+                "          \"text\": \"{{breast_exam_sub_form.step1.breast_exam_abnormal.options.flushing.text}}\",\n" +
+                "          \"value\": false,\n" +
+                "          \"openmrs_entity\": \"concept\",\n" +
+                "          \"openmrs_entity_id\": \"140039AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n" +
+                "          \"openmrs_entity_parent\": \"165369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"key\": \"local_pain\",\n" +
+                "          \"text\": \"{{breast_exam_sub_form.step1.breast_exam_abnormal.options.local_pain.text}}\",\n" +
+                "          \"value\": false,\n" +
+                "          \"openmrs_entity\": \"concept\",\n" +
+                "          \"openmrs_entity_id\": \"131021AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n" +
+                "          \"openmrs_entity_parent\": \"165369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"key\": \"bleeding\",\n" +
+                "          \"text\": \"{{breast_exam_sub_form.step1.breast_exam_abnormal.options.bleeding.text}}\",\n" +
+                "          \"value\": false,\n" +
+                "          \"openmrs_entity\": \"concept\",\n" +
+                "          \"openmrs_entity_id\": \"147236AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n" +
+                "          \"openmrs_entity_parent\": \"165369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"key\": \"increased_temperature\",\n" +
+                "          \"text\": \"{{breast_exam_sub_form.step1.breast_exam_abnormal.options.increased_temperature.text}}\",\n" +
+                "          \"value\": false,\n" +
+                "          \"openmrs_entity\": \"concept\",\n" +
+                "          \"openmrs_entity_id\": \"165282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n" +
+                "          \"openmrs_entity_parent\": \"165369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"key\": \"other\",\n" +
+                "          \"text\": \"{{breast_exam_sub_form.step1.breast_exam_abnormal.options.other.text}}\",\n" +
+                "          \"value\": false,\n" +
+                "          \"openmrs_entity\": \"concept\",\n" +
+                "          \"openmrs_entity_id\": \"5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n" +
+                "          \"openmrs_entity_parent\": \"159780AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"\n" +
+                "        }\n" +
+                "      ]\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"key\": \"breast_exam_abnormal_other\",\n" +
+                "      \"openmrs_entity_parent\": \"159780AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n" +
+                "      \"openmrs_entity\": \"concept\",\n" +
+                "      \"openmrs_entity_id\": \"160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n" +
+                "      \"type\": \"edit_text\",\n" +
+                "      \"hint\": \"{{breast_exam_sub_form.step1.breast_exam_abnormal_other.hint}}\",\n" +
+                "      \"v_regex\": {\n" +
+                "        \"value\": \"[A-Za-z\\\\s\\\\.\\\\-]*\",\n" +
+                "        \"err\": \"{{breast_exam_sub_form.step1.breast_exam_abnormal_other.v_regex.err}}\"\n" +
+                "      },\n" +
+                "      \"relevance\": {\n" +
+                "        \"step3:breast_exam_abnormal\": {\n" +
+                "          \"ex-checkbox\": [\n" +
+                "            {\n" +
+                "              \"or\": [\n" +
+                "                \"other\"\n" +
+                "              ]\n" +
+                "            }\n" +
+                "          ]\n" +
+                "        }\n" +
+                "      }\n" +
+                "    }\n" +
+                "  ]");
+        PartialContact partialContact = new PartialContact();
+        partialContact.setContactNo(contact.getContactNumber());
+        partialContact.setFormJson(contact.getJsonForm());
+        partialContact.setBaseEntityId(baseEnitityId);
+        partialContactRepository.savePartialContact(partialContact);
+
+
     }
 }

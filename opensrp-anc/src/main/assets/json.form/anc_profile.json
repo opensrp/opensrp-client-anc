@@ -5,7 +5,7 @@
   "encounter_type": "Profile",
   "entity_id": "",
   "relational_id": "",
-  "form_version": "0.0.1",
+  "form_version": "0.0.15",
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -48,7 +48,7 @@
       "openmrs_data_type": "phonenumber",
       "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
     },
-    "encounter_location": "",
+    "encounter_location": "44de66fb-e6c6-4bae-92bb-386dfe626eba",
     "look_up": {
       "entity_id": "",
       "value": ""
@@ -412,7 +412,8 @@
             "specify_info": "specify date",
             "specify_widget": "date_picker",
             "max_date": "today-14d",
-            "min_date": "today-280d"
+            "min_date": "today-280d",
+            "default": "today"
           },
           {
             "key": "no",
@@ -434,7 +435,14 @@
         "key": "lmp_known_date",
         "type": "hidden",
         "label_text_style": "bold",
-        "text_color": "#FF0000"
+        "text_color": "#FF0000",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_rules.yml"
+            }
+          }
+        }
       },
       {
         "openmrs_entity_parent": "",
@@ -494,7 +502,8 @@
             "specify_info": "ultrasound date",
             "specify_widget": "date_picker",
             "max_date": "today",
-            "min_date": "today-9m"
+            "min_date": "today-9m",
+            "default": "today"
           },
           {
             "key": "no",
@@ -516,7 +525,14 @@
         "key": "ultrasound_done_date",
         "type": "hidden",
         "label_text_style": "bold",
-        "text_color": "#FF0000"
+        "text_color": "#FF0000",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_calculation_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "ultrasound_toaster",
@@ -692,7 +708,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "label_info_text": "If LMP is unknown and ultrasound wasn\u0027t done or it wasn\u0027t done early (before 24 weeks), then assess GA based on Symphysis Fundal Height (SFH) or abdominal palpation. Compare this GA against ultrasound GA (if done).",
+        "label_info_text": "If LMP is unknown and ultrasound wasn't done or it wasn't done early (before 24 weeks), then assess GA based on Symphysis Fundal Height (SFH) or abdominal palpation. Compare this GA against ultrasound GA (if done).",
         "label_info_title": "GA from SFH or abdominal palpation - weeks",
         "hint": "{{anc_profile.step2.sfh_gest_age.hint}}",
         "v_required": {
@@ -778,7 +794,7 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "text": "{{anc_profile.step2.lmp_gest_age_selection.options.lmp.text}}",
-            "extra_info": "GA: {lmp_gest_age}\u003cbr/\u003eEDD: {lmp_edd}"
+            "extra_info": "GA: {lmp_gest_age}<br/>EDD: {lmp_edd}"
           }
         ],
         "v_required": {
@@ -813,7 +829,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159618AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "extra_info": "GA: {ultrasound_gest_age} \u003cbr/\u003e EDD: {ultrasound_edd}"
+            "extra_info": "GA: {ultrasound_gest_age} <br/> EDD: {ultrasound_edd}"
           }
         ],
         "v_required": {
@@ -848,7 +864,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "extra_info": "GA: {sfh_gest_age} \u003cbr/\u003e EDD: {sfh_edd}"
+            "extra_info": "GA: {sfh_gest_age} <br/> EDD: {sfh_edd}"
           }
         ],
         "v_required": {
@@ -883,7 +899,7 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "text": "{{anc_profile.step2.lmp_ultrasound_gest_age_selection.options.lmp.text}}",
-            "extra_info": "GA: {lmp_gest_age}\u003cbr/\u003eEDD: {lmp_edd}"
+            "extra_info": "GA: {lmp_gest_age}<br/>EDD: {lmp_edd}"
           },
           {
             "key": "ultrasound",
@@ -891,7 +907,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159618AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "extra_info": "GA: {ultrasound_gest_age} \u003cbr/\u003e EDD: {ultrasound_edd}"
+            "extra_info": "GA: {ultrasound_gest_age} <br/> EDD: {ultrasound_edd}"
           }
         ],
         "v_required": {
@@ -926,7 +942,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159618AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "extra_info": "GA: {ultrasound_gest_age} \u003cbr/\u003e EDD: {ultrasound_edd}"
+            "extra_info": "GA: {ultrasound_gest_age} <br/> EDD: {ultrasound_edd}"
           },
           {
             "key": "sfh",
@@ -934,7 +950,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "extra_info": "GA: {sfh_gest_age} \u003cbr/\u003e EDD: {sfh_edd}"
+            "extra_info": "GA: {sfh_gest_age} <br/> EDD: {sfh_edd}"
           }
         ],
         "v_required": {
@@ -3341,10 +3357,10 @@
         "toaster_info_title": "{{anc_profile.step8.hiv_risk_counselling_toaster.toaster_info_title}}",
         "toaster_type": "problem",
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
-            }
+          "step8:partner_hiv_status": {
+            "type": "string",
+            "ex": "equalTo(., \"positive\")"
+
           }
         }
       }

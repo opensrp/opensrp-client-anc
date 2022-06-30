@@ -9,7 +9,7 @@ buildscript {
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.2'
+        classpath 'com.android.tools.build:gradle:4.0.0'
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.3'
         classpath 'com.palantir:jacoco-coverage:0.4.0'
         classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.11.0"
@@ -52,9 +52,21 @@ allprojects {
         maven { url "https://repo.maven.apache.org/maven2" }
         maven { url "https://cloudant.github.io/cloudant-sync-eap/repository" }
         maven { url "https://s3.amazonaws.com/repo.commonsware.com" }
-        maven { url "https://dl.bintray.com/ibm-watson-health/ibm-fhir-server-releases" }
+        //maven { url "https://dl.bintray.com/ibm-watson-health/ibm-fhir-server-releases" }
         google()
         jcenter()
+    }
+
+    subprojects {
+        configurations.all {
+            resolutionStrategy {
+                eachDependency { details ->
+                    if ('org.jacoco' == details.requested.group) {
+                        details.useVersion jacocoVersion
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -63,14 +75,14 @@ project.ext.preDexLibs = !project.hasProperty('disablePreDex')
 subprojects {
     group = 'org.smartregister'
 
-    ext.androidToolsBuildGradle = '29.0.3'
-    ext.androidBuildToolsVersion = '29.0.3'
+    ext.androidToolsBuildGradle = '30.0.3'
+    ext.androidBuildToolsVersion = '30.0.3'
     ext.androidMinSdkVersion = 18
-    ext.androidCompileSdkVersion = 29
-    ext.androidTargetSdkVersion = 29
+    ext.androidCompileSdkVersion = 30
+    ext.androidTargetSdkVersion = 30
     ext.androidAnnotationsVersion = '3.0.1'
     ext.androidAnnotationsAPIVersion = '3.0.1'
-    ext.jacocoVersion = "0.8.5"
+    ext.jacocoVersion = "0.7.9"
 
     // Improve build server performance by allowing disabling of pre-dexing
     // (see http://tools.android.com/tech-docs/new-build-system/tips#TOC-Improving-Build-Server-performance.)

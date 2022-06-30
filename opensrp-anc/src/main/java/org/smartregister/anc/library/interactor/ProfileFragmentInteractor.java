@@ -21,8 +21,8 @@ import timber.log.Timber;
  */
 public class ProfileFragmentInteractor implements ProfileFragmentContract.Interactor {
     private ProfileFragmentContract.Presenter mProfileFrgamentPresenter;
-    private ANCFormUtils ANCFormUtils = new ANCFormUtils();
-    private Utils utils = new Utils();
+    private final ANCFormUtils ANCFormUtils = new ANCFormUtils();
+    private final Utils utils = new Utils();
 
     public ProfileFragmentInteractor(ProfileFragmentContract.Presenter presenter) {
         this.mProfileFrgamentPresenter = presenter;

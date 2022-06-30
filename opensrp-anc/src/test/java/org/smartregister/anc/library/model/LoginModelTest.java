@@ -4,11 +4,15 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.mockito.Mockito;
+import org.robolectric.RuntimeEnvironment;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.login.model.BaseLoginModel;
 import org.smartregister.view.contract.BaseLoginContract;
+
+import java.nio.charset.StandardCharsets;
 
 /**
  * Created by ndegwamartin on 28/06/2018.
@@ -17,11 +21,15 @@ public class LoginModelTest extends BaseUnitTest {
 
     private BaseLoginContract.Model model;
 
+
     @Before
     public void setUp() {
-        model = new BaseLoginModel();
 
-        CoreLibrary.init(Context.getInstance());
+        model = new BaseLoginModel();
+        Context context = Mockito.spy(Context.getInstance());
+        android.content.Context androidContext = RuntimeEnvironment.application;
+        context.updateApplicationContext(androidContext);
+        CoreLibrary.init(context);
     }
 
     // This test should not be here is requires too much mocking of internal states and AndroidKeyStore
@@ -42,15 +50,15 @@ public class LoginModelTest extends BaseUnitTest {
 
     @Test
     public void testIsPasswordValidShouldTrueWhenPasswordValidatesCorrectly() {
-        boolean result = model.isPasswordValid(DUMMY_PASSWORD);
+        boolean result = model.isPasswordValid(DUMMY_PASSWORD.toCharArray());
         Assert.assertTrue(result);
     }
 
     @Test
     public void testIsPasswordValidShouldFalseWhenPasswordValidationFails() {
-        boolean result = model.isPasswordValid("");
+        boolean result = model.isPasswordValid("".toCharArray());
         Assert.assertFalse(result);
-        result = model.isPasswordValid("A");
+        result = model.isPasswordValid("A".toCharArray());
         Assert.assertFalse(result);
     }
 

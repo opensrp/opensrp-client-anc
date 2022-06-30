@@ -137,9 +137,9 @@ public class LoginInteractorTest extends BaseUnitTest {
         LoginInteractor interactor = new LoginInteractor(presenterSpy);
         LoginInteractor spyInteractor = Mockito.spy(interactor);
 
-        spyInteractor.login(new WeakReference<>(view), DUMMY_USERNAME, DUMMY_PASSWORD);
+        spyInteractor.login(new WeakReference<>(view), DUMMY_USERNAME, DUMMY_PASSWORD.toCharArray());
 
-        Mockito.verify(spyInteractor, Mockito.times(1)).loginWithLocalFlag(Mockito.any(WeakReference.class), Mockito.eq(false), Mockito.eq(DUMMY_USERNAME), Mockito.eq(DUMMY_PASSWORD));
+        Mockito.verify(spyInteractor, Mockito.times(1)).loginWithLocalFlag(Mockito.any(WeakReference.class), Mockito.eq(false), Mockito.eq(DUMMY_USERNAME), Mockito.eq(DUMMY_PASSWORD.toCharArray()));
 
     }
 
@@ -152,11 +152,11 @@ public class LoginInteractorTest extends BaseUnitTest {
         LoginInteractor spyInteractor = Mockito.spy(interactor);
 
         Mockito.doReturn(sharedPreferences).when(spyInteractor).getSharedPreferences();
-        Mockito.doReturn(false).when(sharedPreferences).fetchForceRemoteLogin();
+        Mockito.doReturn(false).when(sharedPreferences).fetchForceRemoteLogin(DUMMY_USERNAME);
 
-        spyInteractor.login(new WeakReference<>(view), DUMMY_USERNAME, DUMMY_PASSWORD);
+        spyInteractor.login(new WeakReference<>(view), DUMMY_USERNAME, DUMMY_PASSWORD.toCharArray());
 
-        Mockito.verify(spyInteractor, Mockito.times(1)).loginWithLocalFlag(Mockito.any(WeakReference.class), Mockito.eq(false), Mockito.eq(DUMMY_USERNAME), Mockito.eq(DUMMY_PASSWORD));
+        Mockito.verify(spyInteractor, Mockito.times(1)).loginWithLocalFlag(Mockito.any(WeakReference.class), Mockito.eq(false), Mockito.eq(DUMMY_USERNAME), Mockito.eq(DUMMY_PASSWORD.toCharArray()));
 
     }
 }

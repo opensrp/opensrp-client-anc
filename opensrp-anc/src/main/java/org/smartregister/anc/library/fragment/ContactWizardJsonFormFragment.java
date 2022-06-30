@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+
 import com.vijay.jsonwizard.activities.FormConfigurationJsonFormActivity;
 import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
@@ -29,7 +30,6 @@ import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.ContactJsonFormActivity;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.presenter.ContactWizardJsonFormFragmentPresenter;
-import org.smartregister.anc.library.task.ANCNextProgressDialogTask;
 import org.smartregister.anc.library.util.ANCFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
@@ -297,19 +297,14 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
 
         Button finalReferButton = referButton;
         Button finalProceedButton = proceedButton;
-        getJsonApi().getAppExecutors().mainThread().execute(new Runnable() {
-            @Override
-            public void run() {
-                setQuickCheckButtonsVisible(none, other, buttonLayout, finalReferButton, finalProceedButton);
-                setQuickCheckButtonsInvisible(none, other, buttonLayout, finalReferButton, finalProceedButton);
+        getJsonApi().getAppExecutors().mainThread().execute(() -> {
+            setQuickCheckButtonsVisible(none, other, buttonLayout, finalReferButton, finalProceedButton);
+            setQuickCheckButtonsInvisible(none, other, buttonLayout, finalReferButton, finalProceedButton);
 
-                if ((none && !other) && buttonLayout != null) {
-                    finalReferButton.setVisibility(View.GONE);
-                }
+            if ((none && !other) && buttonLayout != null) {
+                finalReferButton.setVisibility(View.GONE);
             }
         });
-
-
     }
 
 
@@ -382,5 +377,4 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
         }
     }
 }
-
 

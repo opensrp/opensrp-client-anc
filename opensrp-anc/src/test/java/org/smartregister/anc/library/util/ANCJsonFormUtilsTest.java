@@ -2,11 +2,12 @@ package org.smartregister.anc.library.util;
 
 import android.content.ContentValues;
 import android.graphics.Bitmap;
+
 import androidx.core.util.Pair;
 
-import net.sqlcipher.database.SQLiteDatabase;
-
 import com.vijay.jsonwizard.constants.JsonFormConstants;
+
+import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.jetbrains.annotations.NotNull;
@@ -586,7 +587,7 @@ public class ANCJsonFormUtilsTest {
     }
 
     @Test
-    @PrepareForTest({AncLibrary.class, LocationHelper.class, DrishtiApplication.class})
+    @PrepareForTest({AncLibrary.class, LocationHelper.class, DrishtiApplication.class, org.smartregister.util.Utils.class})
     public void testCreateContactVisitEvent() throws JSONException {
         String providerId = "demo";
         JSONObject patient = new JSONObject("{\n" +
@@ -625,6 +626,9 @@ public class ANCJsonFormUtilsTest {
                 "    \"serverVersion\": 1576225866661,\n" +
                 "    \"type\": \"Client\"\n" +
                 "}");
+
+        PowerMockito.mockStatic(org.smartregister.util.Utils.class);
+        PowerMockito.when(org.smartregister.util.Utils.getAllSharedPreferences()).thenReturn(allSharedPreferences);
 
         Map<String, String> details = getWomanDetails();
         details.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, "4");
@@ -676,7 +680,7 @@ public class ANCJsonFormUtilsTest {
         PowerMockito.when(context.allSharedPreferences()).thenReturn(allSharedPreferences);
         Mockito.when(allSharedPreferences.fetchRegisteredANM()).thenReturn(providerId);
 
-        Pair<Event, Event> eventPair = ANCJsonFormUtils.createContactVisitEvent(formSubmissionIds, details);
+        Pair<Event, Event> eventPair = ANCJsonFormUtils.createVisitAndUpdateEvent(formSubmissionIds, details);
         Assert.assertNotNull(eventPair);
         Assert.assertNotNull(eventPair.first);
         Assert.assertEquals("Contact Visit", eventPair.first.getEventType());

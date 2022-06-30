@@ -25,8 +25,8 @@ import java.util.Map;
 import timber.log.Timber;
 
 public class ContactTaskDisplayClickListener implements View.OnClickListener {
-    private ProfileTasksFragment profileTasksFragment;
-    private ANCFormUtils ANCFormUtils = new ANCFormUtils();
+    private final ProfileTasksFragment profileTasksFragment;
+    private final ANCFormUtils ANCFormUtils = new ANCFormUtils();
 
     public ContactTaskDisplayClickListener(ProfileTasksFragment profileTasksFragment) {
         this.profileTasksFragment = profileTasksFragment;
@@ -92,13 +92,16 @@ public class ContactTaskDisplayClickListener implements View.OnClickListener {
         if (context != null && task != null && taskValue != null) {
             JSONArray taskValues = getExpansionPanelValues(taskValue, task.getKey());
             Map<String, ExpansionPanelValuesModel> secondaryValuesMap = getSecondaryValues(taskValues);
-            Map<String, JSONArray> jsonArrayMap = loadSubFormFields(taskValue, context);
-            JSONArray subFormFields = ANCFormUtils.addExpansionPanelFormValues(jsonArrayMap.entrySet().iterator().next().getValue(), secondaryValuesMap);
-            String formTitle = getFormTitle(taskValue);
+            JSONArray subFormFields = ANCFormUtils.addExpansionPanelFormValues(loadSubFormFields(taskValue, context).entrySet().iterator().next().getValue(), secondaryValuesMap);
+            String taskKey = taskValue.optString(JsonFormConstants.KEY);
+            String formTitle = ANCFormUtils.getTranslatedFormTitle(taskKey, context);
             JSONObject form = ANCFormUtils.loadTasksForm(context);
-            updateFormTitle(form, formTitle);
-            addMlsPropertyFile(form, jsonArrayMap.entrySet().iterator().next().getKey());
+            if (StringUtils.isNotBlank(formTitle)) {
+                updateFormTitle(form, formTitle);
+            }
             ANCFormUtils.updateFormFields(form, subFormFields);
+            // Update form properties file name according to the test fields populated
+            ANCFormUtils.updateFormPropertiesFileName(form, taskValue, context);
 
             profileTasksFragment.startTaskForm(form, task);
         }
@@ -188,8 +191,8 @@ public class ContactTaskDisplayClickListener implements View.OnClickListener {
      * @return fields  {@link JSONArray}
      */
     private Map<String, JSONArray> loadSubFormFields(JSONObject taskValue, Context context) {
-        String mlsPropertyFile = "";
         JSONArray fields = new JSONArray();
+        String mlsPropertyFile = "";
         Map<String, JSONArray> stringJSONArrayMap = new HashMap<>();
         try {
             if (taskValue != null && taskValue.has(JsonFormConstants.CONTENT_FORM)) {
@@ -198,14 +201,12 @@ public class ContactTaskDisplayClickListener implements View.OnClickListener {
                 if (subForm.has(JsonFormConstants.CONTENT_FORM)) {
                     fields = subForm.getJSONArray(JsonFormConstants.CONTENT_FORM);
                 }
-
                 if (subForm.has(JsonFormConstants.MLS.PROPERTIES_FILE_NAME)) {
                     mlsPropertyFile = subForm.getString(JsonFormConstants.MLS.PROPERTIES_FILE_NAME);
                 }
 
                 stringJSONArrayMap.put(mlsPropertyFile, fields);
             }
-
         } catch (JSONException e) {
             Timber.e(e, " --> loadSubFormFields");
         } catch (Exception e) {
