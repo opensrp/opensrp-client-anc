@@ -328,7 +328,7 @@ task javadoc(type: Javadoc) {
 
 def jacocoReportPath,sourceDirs
 
-coveralls {
+task coveralls {
     jacocoReportPath = "${buildDir}/reports/jacoco/jacocoTestReport/merged.xml"
     sourceDirs = ["$project.projectDir/src/main/java"]
 }
