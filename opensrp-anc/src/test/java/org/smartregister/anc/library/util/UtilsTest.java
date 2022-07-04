@@ -534,7 +534,7 @@ public class UtilsTest extends BaseUnitTest {
     }
 
     @Test
-    public void testGenTranslatableValue() throws Exception {
+    public void testTransValue() throws Exception {
         String details = " {\n" +
                 "        \"key\": \"danger_signs\",\n" +
                 "        \"openmrs_entity_parent\": \"\",\n" +
