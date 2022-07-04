@@ -60,7 +60,7 @@ public class RegisterFragmentModelTest {
 
         String mainCondition = "register_id is not null";
         String sqlQueryWithMainCondition = "Select ec_client.id as _id , ec_client.relationalid , ec_client.last_interacted_with , ec_client.base_entity_id , ec_client.first_name , " +
-                "ec_client.last_name , ec_client.register_id , ec_client.dob , ec_mother_details.phone_number , ec_mother_details.alt_phone_number , ec_mother_details.alt_name , ec_client.date_removed , " +
+                "ec_client.last_name , ec_client.register_id , ec_client.dob , ec_mother_details.phone_number , ec_mother_details.alt_name , ec_client.date_removed , " +
                 "ec_mother_details.edd , ec_mother_details.red_flag_count , ec_mother_details.yellow_flag_count , ec_mother_details.contact_status , " +
                 "ec_mother_details.next_contact , ec_mother_details.next_contact_date , ec_mother_details.last_contact_record_date FROM " + DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME + "  " +
                 "join ec_mother_details on ec_client.base_entity_id= ec_mother_details.base_entity_id WHERE " + mainCondition + " ";
@@ -70,7 +70,7 @@ public class RegisterFragmentModelTest {
         Assert.assertEquals(mainSelect, sqlQueryWithMainCondition);
 
         String sqlQueryWithOutMainCondition = "Select ec_client.id as _id , ec_client.relationalid , ec_client.last_interacted_with , ec_client.base_entity_id , ec_client.first_name , " +
-                "ec_client.last_name , ec_client.register_id , ec_client.dob , ec_mother_details.phone_number , ec_mother_details.alt_phone_number , ec_mother_details.alt_name , ec_client.date_removed , " +
+                "ec_client.last_name , ec_client.register_id , ec_client.dob , ec_mother_details.phone_number , ec_mother_details.alt_name , ec_client.date_removed , " +
                 "ec_mother_details.edd , ec_mother_details.red_flag_count , ec_mother_details.yellow_flag_count , ec_mother_details.contact_status , " +
                 "ec_mother_details.next_contact , ec_mother_details.next_contact_date , ec_mother_details.last_contact_record_date FROM " + DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME + "  " +
                 "join ec_mother_details on ec_client.base_entity_id= ec_mother_details.base_entity_id";

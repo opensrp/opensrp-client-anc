@@ -1,7 +1,6 @@
 package org.smartregister.anc.library.adapter;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 
 import org.jeasy.rules.api.Facts;
@@ -15,7 +14,6 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.BaseUnitTest;
-import org.smartregister.anc.library.domain.YamlConfigWrapper;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -25,13 +23,10 @@ public class PreviousContactAdapterTest extends BaseUnitTest {
     @Mock
     PreviousContactsAdapter previousContactsAdapter;
     private List<Facts> factsList;
-    private LayoutInflater inflater;
-    private Context context;
-    private List<YamlConfigWrapper> lastContactDetails;
 
     @Before
     public void setUp() {
-        context = RuntimeEnvironment.application;
+        Context context = RuntimeEnvironment.application;
         factsList = new ArrayList<>();
         Facts facts = new Facts();
         factsList.add(facts);
@@ -57,8 +52,5 @@ public class PreviousContactAdapterTest extends BaseUnitTest {
         previousContactsAdapter.onBindViewHolder(viewHolder, 0);
         Iterator mockIterator=Mockito.mock(Iterator.class);
         PowerMockito.when(mockIterator.hasNext()).thenReturn(true).thenReturn(false);
-    }
-    public void setUpContactDetailsRecycler(){
-
     }
 }
