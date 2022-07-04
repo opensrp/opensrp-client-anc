@@ -65,8 +65,6 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     private TextView ancIdView;
     private ImageView imageView;
     private String phoneNumber;
-    private String altPhone;
-    private String altName;
     private HashMap<String, String> detailMap;
     private String buttonAlertStatus;
     private Button dueButton;
@@ -180,7 +178,6 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == PermissionUtils.PHONE_STATE_PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 launchPhoneDialer(phoneNumber);
@@ -373,18 +370,6 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     @Override
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    @Override
-    public void setAltName(String alternateName) {
-        this.altName = alternateName;
-
-    }
-
-    @Override
-    public void setAltPhone(String alternatePhone) {
-        this.altPhone = alternatePhone;
-
     }
 
     @Override
