@@ -189,7 +189,7 @@ dependencies {
         exclude group: 'org.yaml', module: 'snakeyaml'
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
-    implementation('org.smartregister:opensrp-client-core:5.0.3-PREVIEW-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:4.3.26-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'
@@ -205,7 +205,7 @@ dependencies {
         exclude group: 'org.smartregister', module: 'android-p2p-sync'
     }
 
-    api("org.smartregister:android-p2p-sync:0.3.9-SNAPSHOT") {
+    api("org.smartregister:android-p2p-sync:0.3.8-aplha4-SNAPSHOT") {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -327,7 +327,7 @@ task javadoc(type: Javadoc) {
 }
 
 def jacocoReportPath,sourceDirs
-task coveralls {
+coveralls {
     jacocoReportPath = "${buildDir}/reports/jacoco/jacocoTestReport/merged.xml"
     sourceDirs = ["$project.projectDir/src/main/java"]
 }
