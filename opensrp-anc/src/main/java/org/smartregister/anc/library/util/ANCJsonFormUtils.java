@@ -816,9 +816,6 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
             EventClientRepository db = AncLibrary.getInstance().getEventClientRepository();
 
             JSONObject clientForm = db.getClientByBaseEntityId(baseEntityId);
-            String phone_number, alt_phone_number;
-            phone_number = womanDetails.get(DBConstantsUtils.KeyUtils.PHONE_NUMBER);
-            alt_phone_number = womanDetails.get(DBConstantsUtils.KeyUtils.ALT_PHONE_NUMBER);
             JSONObject attributes = clientForm.getJSONObject(ConstantsUtils.JsonFormKeyUtils.ATTRIBUTES);
             attributes.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, womanDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT));
             attributes.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE, womanDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE));
@@ -829,8 +826,8 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
             attributes.put(DBConstantsUtils.KeyUtils.RED_FLAG_COUNT, womanDetails.get(DBConstantsUtils.KeyUtils.RED_FLAG_COUNT));
             attributes.put(DBConstantsUtils.KeyUtils.EDD, womanDetails.get(DBConstantsUtils.KeyUtils.EDD));
             attributes.put(DBConstantsUtils.KeyUtils.ALT_NAME, womanDetails.get(DBConstantsUtils.KeyUtils.ALT_NAME));
-            attributes.put(DBConstantsUtils.KeyUtils.PHONE_NUMBER, phone_number);
-            attributes.put(DBConstantsUtils.KeyUtils.ALT_PHONE_NUMBER, alt_phone_number);
+            attributes.put(DBConstantsUtils.KeyUtils.PHONE_NUMBER, womanDetails.get(DBConstantsUtils.KeyUtils.PHONE_NUMBER));
+            attributes.put(DBConstantsUtils.KeyUtils.ALT_PHONE_NUMBER, womanDetails.get(DBConstantsUtils.KeyUtils.ALT_PHONE_NUMBER));
             clientForm.put(ConstantsUtils.JsonFormKeyUtils.ATTRIBUTES, attributes);
 
             db.addorUpdateClient(baseEntityId, clientForm);

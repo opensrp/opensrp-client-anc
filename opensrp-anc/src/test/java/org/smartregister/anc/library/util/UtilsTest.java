@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.utils.Utils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hamcrest.Matchers;
@@ -82,7 +83,6 @@ public class UtilsTest extends BaseUnitTest {
 
     @Mock
     private Context opensrpContext;
-    private android.content.Context context;
 
     @Mock
     private AllSharedPreferences allSharedPreferences;
@@ -94,7 +94,7 @@ public class UtilsTest extends BaseUnitTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        context = PowerMockito.mock(android.content.Context.class);
+        android.content.Context context = PowerMockito.mock(android.content.Context.class);
         iswidegetSelectedValue = Boolean.parseBoolean(Utils.getProperties(context).getProperty(ConstantsUtils.Properties.WIDGET_VALUE_TRANSLATED, "false"));
     }
 
@@ -534,7 +534,7 @@ public class UtilsTest extends BaseUnitTest {
     }
 
     @Test
-    public void generateTranslatableValueTest() throws Exception {
+    public void testGenTranslatableValue() throws Exception {
         String details = " {\n" +
                 "        \"key\": \"danger_signs\",\n" +
                 "        \"openmrs_entity_parent\": \"\",\n" +
@@ -695,11 +695,9 @@ public class UtilsTest extends BaseUnitTest {
         JSONObject jsonObject;
         for (int i = 0; i < jsonArray.length(); i++) {
             jsonObject = jsonArray.getJSONObject(i);
-            if (jsonObject.has(JsonFormConstants.VALUE) && Boolean.parseBoolean(jsonObject.optString(JsonFormConstants.VALUE))) {
-                if (iswidegetSelectedValue) {
-                    JSONObject actual = Utils.generateTranslatableValue(jsonObject.optString(JsonFormConstants.VALUE, ""), jsonObject);
-                    Assert.assertEquals(expectedJsonObject, actual);
-                }
+            if (jsonObject.has(JsonFormConstants.VALUE) && Boolean.parseBoolean(jsonObject.optString(JsonFormConstants.VALUE)) && iswidegetSelectedValue) {
+                JSONObject actual = Utils.generateTranslatableValue(jsonObject.optString(JsonFormConstants.VALUE, ""), jsonObject);
+                Assert.assertEquals(expectedJsonObject, actual);
             }
         }
 
