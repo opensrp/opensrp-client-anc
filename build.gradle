@@ -7,10 +7,11 @@ buildscript {
         jcenter()
         maven { url 'https://maven.fabric.io/public' }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+        maven{  url 'https://plugins.gradle.org/m2/' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.0'
-        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.3'
+        classpath 'gradle.plugin.org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.12.0'
         classpath 'com.palantir:jacoco-coverage:0.4.0'
         classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.11.0"
         classpath 'com.google.gms:google-services:4.3.5'
@@ -22,8 +23,6 @@ buildscript {
     }
 }
 
-//apply plugin: 'com.palantir.jacoco-full-report'
-apply plugin: 'com.github.kt3k.coveralls'
 
 configure(allprojects) { project ->
 
@@ -35,6 +34,7 @@ configure(allprojects) { project ->
             mavenCentral()
             jcenter()
             maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+            maven { url 'https://plugins.gradle.org/m2/'}
             mavenLocal()
         }
     }
@@ -95,11 +95,6 @@ subprojects {
     }
 }
 
-
-coveralls {
-    jacocoReportPath = "${buildDir}/reports/jacoco/jacocoFullReport/jacocoFullReport.xml"
-    sourceDirs += ["opensrp-anc/src/main/java/", "reference-app/src/main/java"]
-}
 apply plugin: 'io.codearte.nexus-staging'
 
 def isReleaseBuild() {

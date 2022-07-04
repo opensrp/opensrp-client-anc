@@ -376,14 +376,14 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     }
 
     @Override
-    public void setAltName(String altName) {
-        this.altName = altName;
+    public void setAltName(String alternateName) {
+        this.altName = alternateName;
 
     }
 
     @Override
-    public void setAltPhone(String altPhone) {
-        this.altPhone = altPhone;
+    public void setAltPhone(String alternatePhone) {
+        this.altPhone = alternatePhone;
 
     }
 
