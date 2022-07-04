@@ -154,6 +154,8 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
             getProfileView().setProfileID(client.get(DBConstantsUtils.KeyUtils.ANC_ID));
             getProfileView().setProfileImage(client.get(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID));
             getProfileView().setPhoneNumber(client.get(DBConstantsUtils.KeyUtils.PHONE_NUMBER));
+            getProfileView().setAltName(client.get(DBConstantsUtils.KeyUtils.ALT_NAME));
+            getProfileView().setAltPhone(client.get(DBConstantsUtils.KeyUtils.ALT_PHONE_NUMBER));
         }
     }
 

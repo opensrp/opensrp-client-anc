@@ -242,6 +242,16 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     }
 
     @Override
+    public void setAltName(String altName) {
+
+    }
+
+    @Override
+    public void setAltPhone(String altPhone) {
+
+    }
+
+    @Override
     public void setTaskCount(String taskCount) {
         // Implement here
     }

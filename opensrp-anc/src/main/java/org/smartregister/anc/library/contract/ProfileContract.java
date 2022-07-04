@@ -46,6 +46,10 @@ public interface ProfileContract {
 
         void setPhoneNumber(String phoneNumber);
 
+        void setAltName(String altName);
+
+        void setAltPhone(String altPhone);
+
         void setTaskCount(String taskCount);
 
         void createContactSummaryPdf(String womanName);
