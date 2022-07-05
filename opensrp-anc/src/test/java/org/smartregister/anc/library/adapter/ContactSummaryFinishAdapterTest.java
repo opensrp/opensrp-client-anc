@@ -27,7 +27,6 @@ public class ContactSummaryFinishAdapterTest extends BaseUnitTest {
     @Mock
     private List<YamlConfig> mData;
     private Facts facts;
-    private List<YamlConfigItem> yamlConfigItems;
     @Mock
     private AncLibrary ancLibrary;
 
@@ -52,7 +51,7 @@ public class ContactSummaryFinishAdapterTest extends BaseUnitTest {
         config.setTestResults(template);
         config.setPropertiesFileName("tests_file_name");
         config.setSubGroup("urine_tests_subgroup");
-        yamlConfigItems = new ArrayList<>();
+        List<YamlConfigItem> yamlConfigItems = new ArrayList<>();
         YamlConfigItem configItem = new YamlConfigItem();
         configItem.setIsRedFont("contact_summary.reason_for_visit.health_complaint");
         configItem.setRelevance("true");

@@ -4,12 +4,9 @@ import static org.robolectric.Shadows.shadowOf;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Looper;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.google.android.material.appbar.AppBarLayout;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -33,7 +30,6 @@ import org.smartregister.helper.ImageRenderHelper;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
 
@@ -45,9 +41,6 @@ public class ContactSummaryFinishActivityTest extends BaseActivityUnitTest {
 
     @Mock
     private TextView textView;
-
-    @Mock
-    private AppBarLayout appBarLayout;
 
     @Mock
     private PartialContactRepository partialContactRepository;

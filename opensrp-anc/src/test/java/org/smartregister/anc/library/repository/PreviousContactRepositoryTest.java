@@ -1,5 +1,10 @@
 package org.smartregister.anc.library.repository;
 
+import static org.smartregister.anc.library.repository.PreviousContactRepository.BASE_ENTITY_ID;
+import static org.smartregister.anc.library.repository.PreviousContactRepository.CREATED_AT;
+import static org.smartregister.anc.library.repository.PreviousContactRepository.ID;
+import static org.smartregister.anc.library.repository.PreviousContactRepository.VALUE;
+
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
@@ -12,32 +17,21 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.internal.verification.Times;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.util.ReflectionHelpers;
-import org.robolectric.util.Util;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.model.PreviousContact;
 import org.smartregister.anc.library.model.PreviousContactsSummaryModel;
 import org.smartregister.anc.library.util.ConstantsUtils;
-import org.smartregister.anc.library.util.FileUtil;
 import org.smartregister.anc.library.util.Utils;
-import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.repository.Repository;
 import org.smartregister.view.activity.DrishtiApplication;
 
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.smartregister.anc.library.repository.PreviousContactRepository.BASE_ENTITY_ID;
-import static org.smartregister.anc.library.repository.PreviousContactRepository.CREATED_AT;
-import static org.smartregister.anc.library.repository.PreviousContactRepository.ID;
-import static org.smartregister.anc.library.repository.PreviousContactRepository.VALUE;
 
 
 @RunWith(PowerMockRunner.class)

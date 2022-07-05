@@ -136,6 +136,7 @@
           {
             "key": "caffeine_intake",
             "text": "High caffeine intake",
+            "translation_text": "anc.test.behaviour.change.tobbaco.caffeine_intake",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165249AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -146,6 +147,7 @@
           {
             "key": "tobacco_user",
             "text": "Current tobacco use or recently quit",
+            "translation_text": "anc.test.behaviour.change.tobbaco.tobacco_user",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "152722AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -154,6 +156,7 @@
           {
             "key": "shs_exposure",
             "text": "Exposure to second-hand smoke in the home",
+            "translation_text": "anc.test.behaviour.change.tobbaco.shs_exposure",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "152721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -162,6 +165,7 @@
           {
             "key": "condom_use",
             "text": "No condom use during sex",
+            "translation_text": "anc.test.behaviour.change.tobbaco.condom_use",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165250AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -170,6 +174,7 @@
           {
             "key": "alcohol_use",
             "text": "Alcohol use",
+            "translation_text": "anc.test.behaviour.change.tobbaco.alcohol_use",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "143098AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -178,6 +183,7 @@
           {
             "key": "substance_use",
             "text": "Substance use",
+            "translation_text": "anc.test.behaviour.change.tobbaco.substance_use",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "160246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1310,6 +1316,7 @@
           {
             "key": "none",
             "text": "None",
+            "translation_text": "anc.step4.phys_symptoms_persist.none.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1318,6 +1325,7 @@
           {
             "key": "nausea_vomiting",
             "text": "Nausea and vomiting",
+            "translation_text": "anc.step4.phys_symptoms_persist.none.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "133473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1326,6 +1334,7 @@
           {
             "key": "heartburn",
             "text": "Heartburn",
+            "translation_text": "anc.step4.phys_symptoms_persist.heartburn.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "139059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1334,6 +1343,7 @@
           {
             "key": "leg_cramps",
             "text": "Leg cramps",
+            "translation_text": "anc.step4.phys_symptoms_persist.leg_cramps.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "135969AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1342,6 +1352,7 @@
           {
             "key": "constipation",
             "text": "Constipation",
+            "translation_text": "anc.step4.phys_symptoms_persist.constipation.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "996AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1350,6 +1361,7 @@
           {
             "key": "low_back_pain",
             "text": "Low back pain",
+            "translation_text": "anc.step4.phys_symptoms_persist.low_back_pain.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "116225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1358,6 +1370,7 @@
           {
             "key": "pelvic_pain",
             "text": "Pelvic pain",
+            "translation_text": "anc.step4.phys_symptoms_persist.pelvic_pain.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "131034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1366,6 +1379,7 @@
           {
             "key": "varicose_veins",
             "text": "Varicose veins",
+            "translation_text": "anc.step4.phys_symptoms_persist.varicose_veins.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "156666AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1374,6 +1388,7 @@
           {
             "key": "oedema",
             "text": "Oedema",
+            "translation_text": "anc.step4.phys_symptoms_persist.oedema.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -2294,7 +2309,6 @@
             "key": "global_previous_shs_exposure",
             "value": "yes"
           },
-
           {
             "key": "global_previous_caffeine_intake",
             "value": "none"
