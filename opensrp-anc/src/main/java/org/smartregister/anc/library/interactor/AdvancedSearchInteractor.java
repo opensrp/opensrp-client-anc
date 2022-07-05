@@ -34,7 +34,6 @@ public class AdvancedSearchInteractor implements AdvancedSearchContract.Interact
     public void search(final Map<String, String> editMap, final AdvancedSearchContract.InteractorCallBack callBack,
                        final String ancId) {
         Runnable runnable = () -> {
-
             final Response<String> response = globalSearch(editMap);
             appExecutors.mainThread().execute(() -> callBack.onResultsFound(response, ancId));
         };

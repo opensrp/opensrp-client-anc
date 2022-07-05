@@ -1,5 +1,7 @@
 package org.smartregister.anc.library.util;
 
+
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.TextUtils;
@@ -530,7 +532,7 @@ public class ANCFormUtils extends FormUtils {
         if (keys != null) {
             String cleanKey = "";
             String value = cleanValue(keys);
-            if (!value.contains("text") || !value.contains(".") && StringUtils.isNotBlank(value)) {
+            if (!value.contains(JsonFormConstants.TEXT) || !value.contains(".") && StringUtils.isNotBlank(value)) {
                 cleanKey = WordUtils.capitalizeFully(value, ',');
             } else {
                 cleanKey = value;

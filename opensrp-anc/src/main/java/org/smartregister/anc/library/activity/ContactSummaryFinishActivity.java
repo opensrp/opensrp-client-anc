@@ -19,7 +19,6 @@ import android.widget.TextView;
 import org.jeasy.rules.api.Facts;
 import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
-import org.smartregister.anc.library.BuildConfig;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.ProfileContract;
 import org.smartregister.anc.library.domain.YamlConfig;
@@ -240,6 +239,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     public void setPhoneNumber(String phoneNumber) {
         //Overridden
     }
+
 
     @Override
     public void setTaskCount(String taskCount) {

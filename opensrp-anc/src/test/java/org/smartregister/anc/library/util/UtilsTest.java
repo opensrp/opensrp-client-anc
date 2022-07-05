@@ -577,4 +577,6 @@ public class UtilsTest extends BaseUnitTest {
         String locationId = Utils.getCurrentLocation("village", jsonFormActivity);
         Assert.assertEquals("village-id", locationId);
     }
+
+
 }
