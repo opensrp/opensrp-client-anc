@@ -1,5 +1,6 @@
 package org.smartregister.anc.library.util;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -22,12 +23,13 @@ import androidx.annotation.Nullable;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
+import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
+import com.vijay.jsonwizard.utils.NativeFormLangUtils;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
@@ -64,6 +66,8 @@ import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.rule.AlertRule;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.domain.Location;
+import org.smartregister.domain.LocationTag;
 import org.smartregister.util.JsonFormUtils;
 import org.smartregister.view.activity.DrishtiApplication;
 
@@ -71,7 +75,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -217,8 +220,7 @@ public class Utils extends org.smartregister.util.Utils {
             partialContactRequest.setContactNo(quickCheck.getContactNumber());
             partialContactRequest.setType(quickCheck.getFormName());
 
-            String locationId = AncLibrary.getInstance().getContext().allSharedPreferences()
-                    .getPreference(AllConstants.CURRENT_LOCATION_ID);
+            String locationId = AncLibrary.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
 
             ContactModel baseContactModel = new ContactModel();
             JSONObject form = baseContactModel.getFormAsJson(quickCheck.getFormName(), baseEntityId, locationId);
@@ -346,14 +348,19 @@ public class Utils extends org.smartregister.util.Utils {
         String value = "";
         if (facts.get(key) instanceof String) {
             value = facts.get(key);
-            if((key.equals(ConstantsUtils.PrescriptionUtils.NAUSEA_PHARMA) || key.equals(ConstantsUtils.PrescriptionUtils.ANTACID) || key.equals(ConstantsUtils.PrescriptionUtils.PENICILLIN) || key.equals(ConstantsUtils.PrescriptionUtils.ANTIBIOTIC) || key.equals(ConstantsUtils.PrescriptionUtils.IFA_MEDICATION) || key.equals(ConstantsUtils.PrescriptionUtils.VITA)
-             || key.equals(ConstantsUtils.PrescriptionUtils.MAG_CALC) || key.equals(ConstantsUtils.PrescriptionUtils.ALBEN_MEBEN) || key.equals(ConstantsUtils.PrescriptionUtils.PREP) || key.equals(ConstantsUtils.PrescriptionUtils.SP) || key.equals(ConstantsUtils.PrescriptionUtils.IFA) || key.equals(ConstantsUtils.PrescriptionUtils.ASPIRIN) || key.equals(ConstantsUtils.PrescriptionUtils.CALCIUM)) && (value!= null && value.equals("0")))
+            if ((key.equals(ConstantsUtils.PrescriptionUtils.NAUSEA_PHARMA) || key.equals(ConstantsUtils.PrescriptionUtils.ANTACID) || key.equals(ConstantsUtils.PrescriptionUtils.PENICILLIN) || key.equals(ConstantsUtils.PrescriptionUtils.ANTIBIOTIC) || key.equals(ConstantsUtils.PrescriptionUtils.IFA_MEDICATION) || key.equals(ConstantsUtils.PrescriptionUtils.VITA)
+                    || key.equals(ConstantsUtils.PrescriptionUtils.MAG_CALC) || key.equals(ConstantsUtils.PrescriptionUtils.ALBEN_MEBEN) || key.equals(ConstantsUtils.PrescriptionUtils.PREP) || key.equals(ConstantsUtils.PrescriptionUtils.SP) || key.equals(ConstantsUtils.PrescriptionUtils.IFA) || key.equals(ConstantsUtils.PrescriptionUtils.ASPIRIN) || key.equals(ConstantsUtils.PrescriptionUtils.CALCIUM)) && (value != null && value.equals("0"))) {
+                Context context = AncLibrary.getInstance().getApplicationContext();
+                String translationIsOn = Utils.getProperties(context).getProperty(ConstantsUtils.Properties.WIDGET_VALUE_TRANSLATED, "false");
+                if (StringUtils.isNotBlank(value) && Boolean.parseBoolean(translationIsOn)) {
+                    return ANCFormUtils.keyToValueConverter(value);
+                }
                 return ANCFormUtils.keyToValueConverter("");
-
+            }
             if (value != null && value.endsWith(OTHER_SUFFIX)) {
                 Object otherValue = value.endsWith(OTHER_SUFFIX) ? facts.get(key + ConstantsUtils.SuffixUtils.OTHER) : "";
                 value = otherValue != null ?
-                        value.substring(0, value.lastIndexOf(",")) + ", " + otherValue.toString() + "]" :
+                        value.substring(0, value.lastIndexOf(",")) + ", " + otherValue + "]" :
                         value.substring(0, value.lastIndexOf(",")) + "]";
 
             }
@@ -380,10 +387,14 @@ public class Utils extends org.smartregister.util.Utils {
                     nonEmptyItems.remove(0);
             }//replace with extracted value
         }
-        return itemLabel + (!TextUtils.isEmpty(itemLabel) ? ": " : "") + StringUtils.join(nonEmptyItems.toArray(), ",");
+        if (!itemLabel.equals(StringUtils.join(nonEmptyItems.toArray(), ",").replace(":", "")))
+            return itemLabel + (!TextUtils.isEmpty(itemLabel) ? ": " : "") + StringUtils.join(nonEmptyItems.toArray(), ",");
+        else
+            return itemLabel + ":";
     }
 
-    public static void navigateToHomeRegister(Context context, boolean isRemote, Class<? extends BaseHomeRegisterActivity> homeRegisterActivityClass) {
+    public static void navigateToHomeRegister(Context context, boolean isRemote, Class<? extends
+            BaseHomeRegisterActivity> homeRegisterActivityClass) {
         Intent intent = new Intent(context, homeRegisterActivityClass);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra(ConstantsUtils.IntentKeyUtils.IS_REMOTE_LOGIN, isRemote);
@@ -405,7 +416,8 @@ public class Utils extends org.smartregister.util.Utils {
         return (new LocalDate()).toString(SQLITE_DATE_DF);
     }
 
-    public static ButtonAlertStatus getButtonAlertStatus(Map<String, String> details, Context context, boolean isProfile) {
+    public static ButtonAlertStatus getButtonAlertStatus
+            (Map<String, String> details, Context context, boolean isProfile) {
         String contactStatus = details.get(DBConstantsUtils.KeyUtils.CONTACT_STATUS);
 
         String nextContactDate = details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE);
@@ -448,7 +460,7 @@ public class Utils extends org.smartregister.util.Utils {
 
     public static int getGestationAgeFromEDDate(String expectedDeliveryDate) {
         try {
-            if (!"0".equals(expectedDeliveryDate)) {
+            if (!"0".equals(expectedDeliveryDate) && expectedDeliveryDate.length() > 0) {
                 LocalDate date = SQLITE_DATE_DF.withOffsetParsed().parseLocalDate(expectedDeliveryDate);
                 LocalDate lmpDate = date.minusWeeks(ConstantsUtils.DELIVERY_DATE_WEEKS);
                 Weeks weeks = Weeks.weeksBetween(lmpDate, LocalDate.now());
@@ -473,7 +485,8 @@ public class Utils extends org.smartregister.util.Utils {
         return "";
     }
 
-    private static String getDisplayTemplate(Context context, String alertStatus, boolean isProfile) {
+    private static String getDisplayTemplate(Context context, String alertStatus,
+                                             boolean isProfile) {
         String displayTemplate;
         if (StringUtils.isNotBlank(alertStatus) && !isProfile) {
             switch (alertStatus) {
@@ -517,11 +530,13 @@ public class Utils extends org.smartregister.util.Utils {
         return result;
     }
 
-    public static void processButtonAlertStatus(Context context, Button dueButton, ButtonAlertStatus buttonAlertStatus) {
+    public static void processButtonAlertStatus(Context context, Button
+            dueButton, ButtonAlertStatus buttonAlertStatus) {
         Utils.processButtonAlertStatus(context, dueButton, null, buttonAlertStatus);
     }
 
-    public static void processButtonAlertStatus(Context context, Button dueButton, TextView contactTextView,
+    public static void processButtonAlertStatus(Context context, Button dueButton, TextView
+            contactTextView,
                                                 ButtonAlertStatus buttonAlertStatus) {
         if (dueButton != null) {
             dueButton.setVisibility(View.VISIBLE);
@@ -632,7 +647,8 @@ public class Utils extends org.smartregister.util.Utils {
      * @param tableName
      * @return
      */
-    public static boolean isTableExists(@NonNull SQLiteDatabase sqliteDatabase, @NonNull String tableName) {
+    public static boolean isTableExists(@NonNull SQLiteDatabase sqliteDatabase, @NonNull String
+            tableName) {
         Cursor cursor = sqliteDatabase.rawQuery(
                 "SELECT name FROM sqlite_master WHERE type='table' AND name='" + tableName + "'",
                 null
@@ -822,7 +838,8 @@ public class Utils extends org.smartregister.util.Utils {
      * @param baseEntityId {@link String}
      * @throws JSONException
      */
-    public static void createPreviousVisitFromGroup(@NonNull String strGroup, @NonNull String baseEntityId) throws JSONException {
+    public static void createPreviousVisitFromGroup(@NonNull String strGroup, @NonNull String
+            baseEntityId) throws JSONException {
         JSONObject jsonObject = new JSONObject(strGroup);
         Iterator<String> repeatingGroupKeys = jsonObject.keys();
         List<String> currentFormSubmissionIds = new ArrayList<>();
@@ -868,7 +885,6 @@ public class Utils extends org.smartregister.util.Utils {
         }
     }
 
-
     public static Event addContactVisitDetails(String attentionFlagsString, Event event,
                                                String referral, String currentContactState) {
         event.addDetails(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS, attentionFlagsString);
@@ -877,6 +893,91 @@ public class Utils extends org.smartregister.util.Utils {
         }
         return event;
     }
+
+    public static JSONObject generateTranslatableValue(String value, JSONObject jsonObject) throws JSONException {
+        JSONObject newValue = new JSONObject();
+        ANCFormUtils formUtils = new ANCFormUtils();
+        if (jsonObject.has(JsonFormConstants.OPTIONS_FIELD_NAME)) {
+            JSONArray options = jsonObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME);
+            JSONObject selectedOption = formUtils.getOptionFromOptionsUsingKey(options, value);
+            newValue.put(JsonFormConstants.VALUE, value);
+            String text = selectedOption.optString(JsonFormConstants.TRANSLATION_TEXT, "").length() != 0 ? selectedOption.optString(JsonFormConstants.TEXT, "") : selectedOption.optString(JsonFormConstants.KEY, "");
+            newValue.put(JsonFormConstants.TEXT, text);
+            return newValue;
+        }
+        newValue.put(JsonFormConstants.VALUE, value);
+        newValue.put(JsonFormConstants.TEXT, jsonObject.optString(JsonFormConstants.TRANSLATION_TEXT, ""));
+        return newValue;
+    }
+
+    public static boolean checkJsonArrayString(String input) {
+        try {
+            if (StringUtils.isNotBlank(input)) {
+                JSONArray jsonArray = new JSONArray(input);
+                return jsonArray.optJSONObject(0) != null || jsonArray.optJSONObject(0).length() > 0;
+            }
+            return false;
+
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
+    /**
+     * @param receives iterated keys and values and passes them through translation in nativeform
+     *                 to return a string. It checks whether the value is an array, a json object or a normal string separated by ,
+     * @return
+     */
+    @SuppressLint({"NewApi"})
+    public static String returnTranslatedStringJoinedValue(String value) {
+        try {
+            if (StringUtils.isNotBlank(value) && value.charAt(0) == '[') {
+                if (Utils.checkJsonArrayString(value)) {
+                    JSONArray jsonArray = new JSONArray(value);
+                    List<String> translatedList = new ArrayList<>();
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject object = jsonArray.optJSONObject(i);
+                        String text = object.optString(JsonFormConstants.TEXT).trim();
+                        String translatedText = StringUtils.isNotBlank(text) ? NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext()) : "";
+                        translatedList.add(translatedText);
+                    }
+                    return translatedList.size() > 1 ? String.join(",", translatedList) : translatedList.size() == 1 ? translatedList.get(0) : "";
+                } else {
+                    return value.substring(1, value.length() - 1);
+                }
+            }
+            if (StringUtils.isNotBlank(value) && value.charAt(0) == '{') {
+                JSONObject attentionFlagObject = new JSONObject(value);
+                String text = attentionFlagObject.optString(JsonFormConstants.TEXT).trim();
+                String translated_text = StringUtils.isNotBlank(text) ? NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext()) : "";
+                return translated_text;
+            }
+            if (StringUtils.isNotBlank(value) && value.contains(",") && value.contains(".") && value.contains(JsonFormConstants.TEXT)) {
+                List<String> attentionFlagValueArray = Arrays.asList(value.trim().split(","));
+                List<String> translatedList = new ArrayList<>();
+                for (int i = 0; i < attentionFlagValueArray.size(); i++) {
+                    String textToTranslate = attentionFlagValueArray.get(i).trim();
+                    String translatedText = StringUtils.isNotBlank(textToTranslate) ? NativeFormLangUtils.translateDatabaseString(textToTranslate, AncLibrary.getInstance().getApplicationContext()) : "";
+                    translatedList.add(translatedText);
+                }
+                return translatedList.size() > 1 ? String.join(",", translatedList) : translatedList.size() == 1 ? translatedList.get(0) : "";
+            }
+            if (StringUtils.isNotBlank(value) && value.contains(".") && !value.contains(",") && value.charAt(0) != '[' && !value.contains("{") && value.contains(JsonFormConstants.TEXT)) {
+                return NativeFormLangUtils.translateDatabaseString(value.trim(), AncLibrary.getInstance().getApplicationContext());
+            }
+            return value;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Timber.e("Failed to translate String %s", e.toString());
+            return "";
+        }
+
+    }
+
+
+
 
     @Nullable
     public String getManifestVersion(Context context) {
@@ -887,21 +988,21 @@ public class Utils extends org.smartregister.util.Utils {
         }
     }
 
-    public void createSavePdf(Context context, List<YamlConfig> yamlConfigList, Facts facts) throws FileNotFoundException {
+    public void createSavePdf(Context context, List<YamlConfig> yamlConfigList, Facts facts,String womanName) throws FileNotFoundException {
 
-        String FILENAME = context.getResources().getString(R.string.contact_summary_data_file);
+        String FILENAME = womanName+"_"+context.getResources().getString(R.string.contact_summary_data_file);
         String filePath = getAppPath(context) + FILENAME;
 
         if ((new File(filePath)).exists()) {
             (new File(filePath)).delete();
         }
         FileOutputStream fOut = new FileOutputStream(filePath);
-        PdfWriter pdfWriter = new PdfWriter((OutputStream) fOut);
+        PdfWriter pdfWriter = new PdfWriter(fOut);
         PdfDocument pdfDocument = new PdfDocument(pdfWriter);
         Document layoutDocument = new Document(pdfDocument);
 
 
-        addTitle(layoutDocument, context.getResources().getString(R.string.contact_summary_data, getTodaysDate()));
+        addTitle(layoutDocument, context.getResources().getString(R.string.contact_summary_data, getTodaysDate(),womanName));
 
 
         for (YamlConfig yamlConfig : yamlConfigList) {
@@ -925,7 +1026,7 @@ public class Utils extends org.smartregister.util.Utils {
 
 
         layoutDocument.close();
-        Toast.makeText(context, (CharSequence) (context.getResources().getString(R.string.pdf_saved_successfully) + filePath), Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, context.getResources().getString(R.string.pdf_saved_successfully) + filePath, Toast.LENGTH_SHORT).show();
     }
 
     private String processUnderscores(String string) {
@@ -946,11 +1047,11 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     private void addParagraph(Document layoutDocument, HorizontalAlignment horizontalAlignment, String headerDetails) {
-        layoutDocument.add((IBlockElement) (new Paragraph(headerDetails).setHorizontalAlignment(horizontalAlignment)));
+        layoutDocument.add(new Paragraph(headerDetails).setHorizontalAlignment(horizontalAlignment));
     }
 
     private final String getAppPath(Context context) {
-        File dir = new File(context.getExternalFilesDir("")+ File.separator + context.getResources().getString(R.string.app_name) + File.separator);
+        File dir = new File(Environment.getExternalStorageDirectory()+ File.separator + context.getResources().getString(R.string.app_name) + File.separator);
         if (!dir.exists()) {
             dir.mkdir();
         }
@@ -959,19 +1060,107 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     private final void addTitle(Document layoutDocument, String text) {
-        layoutDocument.add((IBlockElement) ((Paragraph) ((Paragraph) (new Paragraph(text)).setBold()).setUnderline()).setTextAlignment(TextAlignment.CENTER));
+        layoutDocument.add((new Paragraph(text)).setBold().setUnderline().setTextAlignment(TextAlignment.CENTER));
     }
 
     private final void addEmptyLine(Document layoutDocument, int number) {
         int i = 0;
 
         for (int j = number; i < j; ++i) {
-            layoutDocument.add((IBlockElement) (new Paragraph(" ")));
+            layoutDocument.add(new Paragraph(" "));
         }
 
     }
 
     private final void addSubHeading(Document layoutDocument, String text) {
-        layoutDocument.add((IBlockElement) ((Paragraph) (new Paragraph(text)).setBold()).setHorizontalAlignment(HorizontalAlignment.LEFT));
+        layoutDocument.add((new Paragraph(text)).setBold().setHorizontalAlignment(HorizontalAlignment.LEFT));
+    }
+
+    public static List<LocationTag> getLocationTagsByTagName(String tagName) {
+        return CoreLibrary.getInstance().context().getLocationTagRepository().getLocationTagsByTagName(tagName);
+    }
+
+    public static List<Location> getLocationsByParentId(String parentId) {
+        return CoreLibrary.getInstance().context().getLocationRepository().getLocationsByParentId(parentId);
+    }
+
+    public static Location getLocationById(String locationId) {
+        return CoreLibrary.getInstance().context().getLocationRepository().getLocationById(locationId);
+    }
+
+    /*
+     * Returns current location
+     * in case of edit it will return the saved location, otherwise
+     * the default location based on user's current location hierarchy
+     */
+    public static String getCurrentLocation(String level, JsonFormActivity jsonFormView) {
+        String villageId = CoreLibrary.getInstance().context().allSharedPreferences().fetchUserLocalityId(CoreLibrary.getInstance().context().allSharedPreferences().fetchRegisteredANM());
+        String currentLocation = "";
+
+        try {
+            JSONObject form = jsonFormView.getmJSONObject();
+            // If the form is in edit mode return the
+            if (form.getString(ANCJsonFormUtils.ENCOUNTER_TYPE).equals(ConstantsUtils.EventTypeUtils.UPDATE_REGISTRATION)) {
+                String fieldValue = JsonFormUtils.getFieldValue(form.getJSONObject(ConstantsUtils.JsonFormKeyUtils.STEP1).getJSONArray(ConstantsUtils.JsonFormKeyUtils.FIELDS), level);
+                if (fieldValue != null && !fieldValue.equals("")) return fieldValue;
+            }
+
+            currentLocation = getDefaultLocation(level, villageId);
+
+        } catch (JSONException e) {
+            Timber.e(e, "Error loading current location");
+        } catch (Exception e) {
+            Timber.e(e, e.getMessage());
+        }
+
+        return currentLocation;
+    }
+
+    /*
+     * Returns default location id based on the level passed
+     */
+    private static String getDefaultLocation(String level, String villageId) {
+        Location village = Utils.getLocationById(villageId);
+        Location facility = Utils.getLocationById(village != null ? village.getProperties().getParentId() : "");
+        Location subDistrict = Utils.getLocationById(facility != null ? facility.getProperties().getParentId() : "");
+        Location district = Utils.getLocationById(subDistrict != null ? subDistrict.getProperties().getParentId() : "");
+        Location province = Utils.getLocationById(district != null ? district.getProperties().getParentId() : "");
+
+        switch (level.substring(level.lastIndexOf("_") + 1).toUpperCase()) {
+            case ConstantsUtils.LocationConstants.PROVINCE:
+                return province != null ? province.getId() : "";
+            case ConstantsUtils.LocationConstants.DISTRICT:
+                return district != null ? district.getId() : "";
+            case ConstantsUtils.LocationConstants.SUBDISTRICT:
+                return subDistrict != null ? subDistrict.getId() : "";
+            case ConstantsUtils.LocationConstants.HEALTH_FACILITY:
+            case ConstantsUtils.LocationConstants.FACILITY:
+                return facility != null ? facility.getId() : "";
+            case ConstantsUtils.LocationConstants.VILLAGE:
+            default:
+                return village != null ? village.getId() : "";
+        }
+    }
+
+    /*
+     * Returns thee localized location name declared in strings.xml file
+     */
+    public static String getLocationLocalizedName(Location location, JsonFormActivity jsonFormView) {
+        String id = location.getProperties().getName().toLowerCase().trim()
+                .replace(" ", "_")
+                .replace("(", "")
+                .replace(")", "")
+                .replace("-", "_")
+                .replace(":", "_")
+                .replace("'", "")
+                .replace("’", "_");
+
+        int identifier = jsonFormView.getResources().getIdentifier(id, ConstantsUtils.IdentifierUtils.STRING_IDENTIFIEER,
+                jsonFormView.getApplicationContext().getPackageName());
+        String locationName = location.getProperties().getName();
+        if (identifier != 0) {
+            locationName = jsonFormView.getResources().getString(identifier);
+        }
+        return locationName;
     }
 }

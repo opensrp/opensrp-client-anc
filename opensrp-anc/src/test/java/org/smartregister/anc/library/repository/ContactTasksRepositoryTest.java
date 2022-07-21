@@ -88,7 +88,6 @@ public class ContactTasksRepositoryTest extends BaseUnitTest {
     public void testSaveTasks() throws Exception {
         ContactTasksRepository contactTasksRepository = PowerMockito.spy(new ContactTasksRepository());
         PowerMockito.mockStatic(ContentValues.class);
-
         DrishtiApplication drishtiApplication = Mockito.mock(DrishtiApplication.class);
         ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", drishtiApplication);
 
@@ -98,6 +97,7 @@ public class ContactTasksRepositoryTest extends BaseUnitTest {
         task.setId(null);
         ContentValues contentValues = Whitebox.invokeMethod(contactTasksRepository, "createValuesFor", task);
 
+        PowerMockito.when(contactTasksRepository.getReadableDatabase()).thenReturn(sqLiteDatabase);
         PowerMockito.when(contactTasksRepository.getWritableDatabase().insert(TABLE_NAME, null, contentValues)).thenReturn((long) 0);
         Assert.assertFalse(contactTasksRepository.saveOrUpdateTasks(task));
     }
@@ -341,4 +341,5 @@ public class ContactTasksRepositoryTest extends BaseUnitTest {
         boolean isBoolean = Whitebox.invokeMethod(contactTasksRepository, "updateBooleanValue", "0");
         Assert.assertFalse(isBoolean);
     }
+
 }

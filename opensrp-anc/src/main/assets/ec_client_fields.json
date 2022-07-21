@@ -12,18 +12,16 @@
         },
         {
           "column_name": "phone_number",
-          "type": "Event",
+          "type": "Client",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "field": "attributes.phone_number"
           }
         },
         {
           "column_name": "alt_name",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "163258AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "field": "attributes.alt_name"
           }
         },
         {
@@ -117,6 +115,41 @@
           "type": "Client",
           "json_mapping": {
             "field": "attributes.last_contact_record_date"
+          }
+        },
+        {
+          "column_name": "province",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.province"
+          }
+        },
+        {
+          "column_name": "district",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.district"
+          }
+        },
+        {
+          "column_name": "subdistrict",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.subdistrict"
+          }
+        },
+        {
+          "column_name": "health_facility",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.health_facility"
+          }
+        },
+        {
+          "column_name": "village",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.village"
           }
         },
         {

@@ -1,9 +1,14 @@
 package org.smartregister.anc.library.activity;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -31,6 +36,7 @@ import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.util.PermissionUtils;
 
 import java.io.FileNotFoundException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +45,8 @@ import timber.log.Timber;
 /**
  * Created by ndegwamartin on 10/07/2018.
  */
+
+
 public class ContactSummaryFinishActivity extends BaseProfileActivity implements ProfileContract.View {
     public MenuItem saveFinishMenuItem;
     private TextView nameView;
@@ -47,7 +55,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     private TextView ancIdView;
     private ImageView imageView;
     private ImageRenderHelper imageRenderHelper;
-    private Facts facts = new Facts();
+    private final Facts facts = new Facts();
     private List<YamlConfig> yamlConfigList = new ArrayList<>();
     private String baseEntityId;
     private int contactNo;
@@ -63,7 +71,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
         mProfilePresenter = new ProfilePresenter(this);
         imageRenderHelper = new ImageRenderHelper(this);
-        loadContactSummaryData();
+
 
     }
 
@@ -94,9 +102,22 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         }
     }
 
+
     @Override
     public void onResume() {
         super.onResume();
+        if(isPermissionGranted())
+        {
+           loadContactSummaryData();
+        }
+        else if(!isPermissionGranted() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+        {
+            Intent intent = new Intent();
+            intent.setAction(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+            Uri uri = Uri.fromParts("package", this.getPackageName(), null);
+            intent.setData(uri);
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -125,10 +146,13 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         Iterable<Object> ruleObjects = AncLibrary.getInstance().readYaml(FilePathUtils.FileUtils.CONTACT_SUMMARY);
 
         yamlConfigList = new ArrayList<>();
-        for (Object ruleObject : ruleObjects) {
-            YamlConfig yamlConfig = (YamlConfig) ruleObject;
-            yamlConfigList.add(yamlConfig);
+        if(ruleObjects!=null){
+            for (Object ruleObject : ruleObjects) {
+                YamlConfig yamlConfig = (YamlConfig) ruleObject;
+                yamlConfigList.add(yamlConfig);
+            }
         }
+
     }
 
     public PartialContactRepository getPartialContactRepository() {
@@ -143,7 +167,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         if (itemId == android.R.id.home) {
             PatientRepository.updateEDDDate(baseEntityId, null); //Reset EDD
             super.onBackPressed();
-        } else {
+        } else if (itemId == R.id.save_finish_menu_item) {
             saveFinishForm();
         }
         return super.onOptionsItemSelected(item);
@@ -172,8 +196,9 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     }
 
     private void saveFinishForm() {
-        new FinalizeContactTask(this, mProfilePresenter, getIntent()).execute();
+        new FinalizeContactTask(new WeakReference<Context>(this), mProfilePresenter, getIntent()).execute();
     }
+
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
@@ -215,19 +240,34 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         //Overridden
     }
 
+
     @Override
     public void setTaskCount(String taskCount) {
         // Implement here
     }
 
     @Override
-    public void createContactSummaryPdf() {
+    public void createContactSummaryPdf(String womanName) {
+
         if (isPermissionGranted() && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)) {
-            try {
-                new Utils().createSavePdf(this, yamlConfigList, facts);
-            } catch (FileNotFoundException e) {
-                Timber.e(e, "%s createContactSummaryPdf()", this.getClass().getCanonicalName());
-            }
+            generateFileinStorage(womanName);
+        }
+        else if (!isPermissionGranted() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+        {
+            Intent intent = new Intent();
+            intent.setAction(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+            Uri uri = Uri.fromParts("package", this.getPackageName(), null);
+            intent.setData(uri);
+            startActivity(intent);
+        }
+    }
+
+    public void generateFileinStorage(String womanName)
+    {
+        try {
+            new Utils().createSavePdf(this, yamlConfigList, facts,womanName);
+        } catch (FileNotFoundException e) {
+            Timber.e(e, "%s createContactSummaryPdf()", this.getClass().getCanonicalName());
         }
     }
 
@@ -247,7 +287,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == PermissionUtils.WRITE_EXTERNAL_STORAGE_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                createContactSummaryPdf();
+               loadContactSummaryData();
             } else {
                 displayToast(R.string.allow_phone_call_management);
             }
@@ -255,6 +295,14 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     }
 
     protected boolean isPermissionGranted() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+        {
+            if(Environment.isExternalStorageManager())
+                return true;
+            else
+                return false;
+        }
+        else
         return PermissionUtils.isPermissionGranted(this, Manifest.permission.WRITE_EXTERNAL_STORAGE, PermissionUtils.WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
     }
 

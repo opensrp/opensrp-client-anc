@@ -20,14 +20,14 @@ public class LibraryContentViewHolder extends RecyclerView.ViewHolder {
     private ImageView openContentIcon;
     private LibraryContentClickListener libraryContentClickListener;
 
-    public LibraryContentViewHolder(@NonNull View itemView, Activity activity) {
+    public LibraryContentViewHolder(@NonNull View itemView) {
         super(itemView);
         contentLayout = itemView.findViewById(R.id.library_item_layout);
         attachIcon = itemView.findViewById(R.id.library_attach_icon);
         openContentIcon = itemView.findViewById(R.id.library_arrow_icon);
         contentHeader = itemView.findViewById(R.id.library_text_header);
         parent = itemView;
-        libraryContentClickListener = new LibraryContentClickListener(activity);
+        libraryContentClickListener = new LibraryContentClickListener();
 
         attachClickListeners();
     }

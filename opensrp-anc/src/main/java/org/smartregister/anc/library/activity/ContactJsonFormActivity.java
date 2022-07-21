@@ -3,7 +3,6 @@ package org.smartregister.anc.library.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -14,6 +13,7 @@ import com.vijay.jsonwizard.activities.FormConfigurationJsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
+import com.vijay.jsonwizard.utils.NativeFormLangUtils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
@@ -27,7 +27,9 @@ import org.smartregister.anc.library.helper.AncRulesEngineFactory;
 import org.smartregister.anc.library.util.ANCFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 import timber.log.Timber;
@@ -37,10 +39,10 @@ import timber.log.Timber;
  */
 
 public class ContactJsonFormActivity extends FormConfigurationJsonFormActivity {
+    private final ANCFormUtils ancFormUtils = new ANCFormUtils();
     protected AncRulesEngineFactory rulesEngineFactory = null;
     private ProgressDialog progressDialog;
     private String formName;
-    private final ANCFormUtils ancFormUtils = new ANCFormUtils();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +67,18 @@ public class ContactJsonFormActivity extends FormConfigurationJsonFormActivity {
                         .fromJson(getmJSONObject().getJSONObject(JsonFormConstants.JSON_FORM_KEY.GLOBAL).toString(),
                                 new TypeToken<HashMap<String, String>>() {
                                 }.getType());
+                if (globalValues.containsKey(ConstantsUtils.DANGER_SIGNS + ConstantsUtils.SuffixUtils.VALUE) && StringUtils.isNotBlank(globalValues.get(ConstantsUtils.DANGER_SIGNS + ConstantsUtils.SuffixUtils.VALUE))) {
+                    String danger_signs_value = globalValues.get(ConstantsUtils.DANGER_SIGNS + ConstantsUtils.SuffixUtils.VALUE);
+                    if (danger_signs_value.contains(",") || (danger_signs_value.contains(".") && danger_signs_value.contains(JsonFormConstants.TEXT))) {
+                        List<String> list = Arrays.asList(danger_signs_value.split(",")), finalList = new LinkedList<>();
+                        for (int i = 0; i < list.size(); i++) {
+                            String text = list.get(i).trim();
+                            String translated_text = StringUtils.isNotBlank(text) ? NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext()) : "";
+                            finalList.add(translated_text);
+                        }
+                        globalValues.put(ConstantsUtils.DANGER_SIGNS + ConstantsUtils.SuffixUtils.VALUE, finalList.size() > 1 ? String.join(",", finalList) : finalList.size() == 1 ? finalList.get(0) : "");
+                    }
+                }
             } else {
                 globalValues = new HashMap<>();
             }

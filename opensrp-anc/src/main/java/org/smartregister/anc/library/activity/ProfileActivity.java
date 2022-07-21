@@ -46,6 +46,7 @@ import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.PermissionUtils;
 import org.smartregister.view.activity.BaseProfileActivity;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import timber.log.Timber;
@@ -79,8 +80,8 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     protected void onResumption() {
         super.onResumption();
         String baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
-        ((ProfilePresenter) presenter).refreshProfileView(baseEntityId);
         registerEventBus();
+        ((ProfilePresenter) presenter).refreshProfileView(baseEntityId);
         getTasksCount(baseEntityId);
     }
 
@@ -152,6 +153,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
 
             if (StringUtils.isNotBlank(baseEntityId)) {
                 Utils.proceedToContact(baseEntityId, detailMap, getActivity());
+                finish();
             }
 
         } else {
@@ -317,6 +319,15 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         if (event != null && !event.isEditMode()) {
             Utils.removeStickyEvent(event);
             ((ProfilePresenter) presenter).refreshProfileTopSection(event.getWomanClient());
+           if(!contactNo.equals(String.valueOf(Utils.getTodayContact(event.getWomanClient().get(DBConstantsUtils.KeyUtils.NEXT_CONTACT))))) {
+               Intent previousIntent =  getIntent();
+               previousIntent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, (Serializable) event.getWomanClient());
+               setIntent(previousIntent);
+               setupViewPager(viewPager);
+               getButtonAlertStatus();
+               updateTasksTabTitle();
+               getTasksCount(event.getWomanClient().get(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
+           }
         }
     }
 
@@ -367,7 +378,7 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
     }
 
     @Override
-    public void createContactSummaryPdf() {
+    public void createContactSummaryPdf(String womanName) {
         //overridden
     }
 

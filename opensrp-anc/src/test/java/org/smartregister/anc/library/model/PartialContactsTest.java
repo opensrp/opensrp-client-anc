@@ -17,7 +17,7 @@ import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.repository.PartialContactRepository;
 import org.smartregister.anc.library.repository.PatientRepository;
-import org.smartregister.anc.library.repository.PreviousContactRepository;
+import org.smartregister.anc.library.repository.PreviousContactRepositoryTest;
 import org.smartregister.anc.library.repository.RegisterQueryProvider;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({PatientRepository.class, AncLibrary.class, PreviousContactRepository.class, PartialContactRepository.class, EventClientRepository.class, LocationHelper.class, Pair.class})
+@PrepareForTest({PatientRepository.class, AncLibrary.class, PreviousContactRepositoryTest.class, PartialContactRepository.class, EventClientRepository.class, LocationHelper.class, Pair.class})
 @PowerMockIgnore({"org.powermock.*", "org.mockito.*",})
 public class PartialContactsTest extends BaseUnitTest {
     @Mock
@@ -47,7 +47,7 @@ public class PartialContactsTest extends BaseUnitTest {
     @Test
     public void testPartialContactsInvoke() {
         PowerMockito.mockStatic(AncLibrary.class);
-        PowerMockito.mockStatic(PreviousContactRepository.class);
+        PowerMockito.mockStatic(PreviousContactRepositoryTest.class);
         PowerMockito.mockStatic(PartialContactRepository.class);
         PowerMockito.mockStatic(EventClientRepository.class);
         PowerMockito.mockStatic(LocationHelper.class);
@@ -103,7 +103,7 @@ public class PartialContactsTest extends BaseUnitTest {
     @Test
     public void testNotFirstPartialContactsInvoke() {
         PowerMockito.mockStatic(AncLibrary.class);
-        PowerMockito.mockStatic(PreviousContactRepository.class);
+        PowerMockito.mockStatic(PreviousContactRepositoryTest.class);
         PowerMockito.mockStatic(PartialContactRepository.class);
         PowerMockito.mockStatic(EventClientRepository.class);
         PowerMockito.mockStatic(LocationHelper.class);
@@ -121,7 +121,7 @@ public class PartialContactsTest extends BaseUnitTest {
     @Test
     public void testReferralPartialContactsInvoke() {
         PowerMockito.mockStatic(AncLibrary.class);
-        PowerMockito.mockStatic(PreviousContactRepository.class);
+        PowerMockito.mockStatic(PreviousContactRepositoryTest.class);
         PowerMockito.mockStatic(PartialContactRepository.class);
         PowerMockito.mockStatic(EventClientRepository.class);
         PowerMockito.mockStatic(LocationHelper.class);
