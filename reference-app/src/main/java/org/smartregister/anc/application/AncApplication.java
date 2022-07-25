@@ -1,5 +1,8 @@
 package org.smartregister.anc.application;
 
+import static org.smartregister.util.Log.logError;
+import static org.smartregister.util.Log.logInfo;
+
 import android.content.Intent;
 import android.util.Log;
 
@@ -32,13 +35,8 @@ import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
-import java.io.FileNotFoundException;
-
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
-
-import static org.smartregister.util.Log.logError;
-import static org.smartregister.util.Log.logInfo;
 
 /**
  * Created by ndegwamartin on 21/06/2018.
@@ -49,7 +47,6 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     @Override
     public void onCreate() {
         super.onCreate();
-
         mInstance = this;
         context = Context.getInstance();
         context.updateApplicationContext(getApplicationContext());

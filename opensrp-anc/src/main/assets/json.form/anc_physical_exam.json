@@ -757,6 +757,14 @@
         }
       },
       {
+        "key": "optibp_client_calibration_data",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "value": ""
+      },
+      {
         "key": "toaster7",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",

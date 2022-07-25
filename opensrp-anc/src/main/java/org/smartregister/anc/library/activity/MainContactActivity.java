@@ -626,7 +626,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
             if (fieldObject.has(JsonFormConstants.OPTIONS_FIELD_NAME)) {
                 boolean addDefaults = true;
-
                 for (int m = 0; m < fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).length(); m++) {
                     String optionValue;
                     if (fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m)
@@ -661,14 +660,20 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 }
             }
         }
-
         if (fieldObject.getString(JsonFormConstants.KEY).equals(ANCJsonFormConstants.KeyConstants.OPTIBP_BUTTON)
                 || fieldObject.getString(JsonFormConstants.KEY).equals(ANCJsonFormConstants.KeyConstants.OPTIBP_BUTTON_SECOND)) {
-            if (fieldObject.has(JsonFormConstants.OptibpConstants.OPTIBP_KEY_DATA)) {
-                fieldObject.remove(JsonFormConstants.OptibpConstants.OPTIBP_KEY_DATA);
+            if (fieldObject.has(JsonFormConstants.OPTIBPCONSTANTS.OPTIBP_KEY_DATA)) {
+                fieldObject.remove(JsonFormConstants.OPTIBPCONSTANTS.OPTIBP_KEY_DATA);
             }
             JSONObject optiBPData = FormUtils.createOptiBPDataObject(baseEntityId, womanOpenSRPId);
-            fieldObject.put(JsonFormConstants.OptibpConstants.OPTIBP_KEY_DATA, optiBPData);
+            fieldObject.put(JsonFormConstants.OPTIBPCONSTANTS.OPTIBP_KEY_DATA, optiBPData);
+        }
+        if (fieldObject.optString(JsonFormConstants.KEY).equals(JsonFormConstants.OPTIBPCONSTANTS.OPTIBP_KEY_CALIBRATION_DATA)) {
+            //Function to read saved optibp calibration data
+            String previousContactBpValue = getMapValue(JsonFormConstants.OPTIBPCONSTANTS.OPTIBP_KEY_CALIBRATION_DATA);
+            if (StringUtils.isNotBlank(previousContactBpValue)) {
+                fieldObject.put(JsonFormConstants.VALUE, previousContactBpValue);
+            }
         }
 
     }
@@ -810,6 +815,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && data != null) {
             formInvalidFields = data.getStringExtra("formInvalidFields");
         }
