@@ -917,8 +917,8 @@ public class Utils extends org.smartregister.util.Utils {
                 return jsonArray.optJSONObject(0) != null || jsonArray.optJSONObject(0).length() > 0;
             }
             return false;
-
         } catch (Exception e) {
+            Timber.e(e);
             return false;
         }
 
