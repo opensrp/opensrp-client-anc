@@ -743,7 +743,7 @@
         "optibp_data": {
           "clientId": "",
           "clientOpenSRPId": "",
-          "calibration": []
+          "calibration": ""
         },
         "fields_to_use_value": [
           "bp_systolic",

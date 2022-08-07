@@ -662,13 +662,13 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         }
         if (fieldObject.getString(JsonFormConstants.KEY).equals(ANCJsonFormConstants.KeyConstants.OPTIBP_BUTTON)
                 || fieldObject.getString(JsonFormConstants.KEY).equals(ANCJsonFormConstants.KeyConstants.OPTIBP_BUTTON_SECOND)) {
-            if (fieldObject.has(JsonFormConstants.OPTIBPCONSTANTS.OPTIBP_KEY_DATA)) {
-                fieldObject.remove(JsonFormConstants.OPTIBPCONSTANTS.OPTIBP_KEY_DATA);
+            if (fieldObject.has(JsonFormConstants.OptibpConstants.OPTIBP_KEY_DATA)) {
+                fieldObject.remove(JsonFormConstants.OptibpConstants.OPTIBP_KEY_DATA);
             }
             String optibpButtonKey = fieldObject.getString(JsonFormConstants.KEY).equals(ANCJsonFormConstants.KeyConstants.OPTIBP_BUTTON) ? ANCJsonFormConstants.KeyConstants.OPTIBP_BUTTON : ANCJsonFormConstants.KeyConstants.OPTIBP_BUTTON_SECOND;
             String previousContactBpValue = getMapValue(optibpButtonKey) == null ? "" : getMapValue(optibpButtonKey);
             JSONObject optiBPData = FormUtils.createOptiBPDataObject(baseEntityId, womanOpenSRPId, previousContactBpValue);
-            fieldObject.put(JsonFormConstants.OPTIBPCONSTANTS.OPTIBP_KEY_DATA, optiBPData);
+            fieldObject.put(JsonFormConstants.OptibpConstants.OPTIBP_KEY_DATA, optiBPData);
         }
     }
 
