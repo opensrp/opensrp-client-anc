@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 import org.smartregister.anc.library.constants.ANCJsonFormConstants;
+
+import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
 import com.vijay.jsonwizard.utils.FormUtils;
 
@@ -710,7 +712,9 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             if (fieldObject.has(ANCJsonFormConstants.OptibpConstants.OPTIBP_KEY_DATA)) {
                 fieldObject.remove(ANCJsonFormConstants.OptibpConstants.OPTIBP_KEY_DATA);
             }
-            JSONObject optiBPData = FormUtils.createOptiBPDataObject(baseEntityId, womanOpenSRPId);
+            String optibpButtonKey = fieldObject.getString(JsonFormConstants.KEY).equals(ANCJsonFormConstants.KeyConstants.OPTIBP_BUTTON) ? ANCJsonFormConstants.KeyConstants.OPTIBP_BUTTON : ANCJsonFormConstants.KeyConstants.OPTIBP_BUTTON_SECOND;
+            String previousContactBpValue = getMapValue(optibpButtonKey) == null ? "" : getMapValue(optibpButtonKey);
+            JSONObject optiBPData = FormUtils.createOptiBPDataObject(baseEntityId, womanOpenSRPId,previousContactBpValue);
             fieldObject.put(ANCJsonFormConstants.OptibpConstants.OPTIBP_KEY_DATA, optiBPData);
         }
     }

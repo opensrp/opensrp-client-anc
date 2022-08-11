@@ -761,7 +761,8 @@
 				"read_only": false,
 				"optibp_data": {
 					"clientId": "",
-					"clientOpenSRPId": ""
+					"clientOpenSRPId": "",
+					"calibration": ""
 				},
 				"fields_to_use_value": [
 					"bp_systolic",
@@ -921,7 +922,8 @@
 				"read_only": false,
 				"optibp_data": {
 					"clientId": "",
-					"clientOpenSRPId": ""
+					"clientOpenSRPId": "",
+					"calibration": ""
 				},
 				"fields_to_use_value": [
 					"bp_systolic_repeat",
