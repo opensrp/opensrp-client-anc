@@ -2,6 +2,7 @@ package org.smartregister.anc.library.presenter;
 
 import android.text.TextUtils;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -10,6 +11,7 @@ import org.smartregister.anc.library.contract.ProfileFragmentContract;
 import org.smartregister.anc.library.interactor.ProfileFragmentInteractor;
 import org.smartregister.anc.library.model.Task;
 import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.Utils;
 
 import java.lang.ref.WeakReference;
 import java.util.Iterator;
@@ -70,21 +72,13 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
                     Iterator<String> keys = jsonObject.keys();
                     while (keys.hasNext()) {
                         String key = keys.next();
-                        String attentionFlagValue = jsonObject.getString(key);
-                        if (attentionFlagValue.length() != 0 && attentionFlagValue.charAt(0) == '{') {
-                            JSONObject attentionFlagObject = new JSONObject(attentionFlagValue);
-                            if (attentionFlagObject.has("text") && attentionFlagObject.has("key")) {
-                                String translation_text;
-                                translation_text = !attentionFlagObject.getString("text").isEmpty() ? "{" + attentionFlagObject.getString("text") + "}" : "";
-                                facts.put(key, translation_text);
-                            } else {
-                                facts.put(key, jsonObject.get(key));
-                            }
-
+                        String valueObject = jsonObject.optString(key), value;
+                        value = Utils.returnTranslatedStringJoinedValue(valueObject);
+                        if (StringUtils.isNotBlank(value)) {
+                            facts.put(key, value);
                         } else {
-                            facts.put(key, jsonObject.get(key));
+                            facts.put(key, "");
                         }
-
                     }
                 }
             }

@@ -7,9 +7,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.google.common.collect.ImmutableMap;
+import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.ExpansionPanelItemModel;
 import com.vijay.jsonwizard.rules.RuleConstant;
 import com.vijay.jsonwizard.utils.FormUtils;
+import com.vijay.jsonwizard.utils.NativeFormLangUtils;
 import com.vijay.jsonwizard.views.CustomTextView;
 
 import org.apache.commons.lang3.StringUtils;
@@ -504,12 +506,34 @@ public class ANCFormUtils extends FormUtils {
         }
     }
 
-    public static String cleanValue(String raw) {
-        if (raw.length() > 0 && raw.charAt(0) == '[') {
-            return raw.substring(1, raw.length() - 1);
-        } else {
-            return raw;
+    static String cleanValue(String value) {
+        String returnValue = "";
+        try {
+            if (value.trim().length() > 0 && value.trim().charAt(0) == '[') {
+                if (Utils.checkJsonArrayString(value)) {
+                    JSONArray jsonArray = new JSONArray(value);
+                    List<String> list = new ArrayList<>();
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.optJSONObject(i);
+                        if (StringUtils.isNotBlank(jsonObject.toString()) && StringUtils.isNotBlank(jsonObject.optString(JsonFormConstants.TEXT))) {
+                            String text = jsonObject.optString(JsonFormConstants.TEXT).trim(), translatedText = "";
+                            translatedText = StringUtils.isNotBlank(text) ? NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext()) : "";
+                            list.add(translatedText);
+                        }
+                    }
+                    returnValue = list.size() > 1 ? String.join(",", list) : list.get(0);
+                } else {
+                    returnValue = value.substring(1, value.length() - 1);
+                }
+            } else {
+                returnValue = value;
+            }
+            return returnValue;
+        } catch (Exception e) {
+            Timber.e(e, "Clean Value in ANCFormUtils");
+            return "";
         }
+
     }
 
     /**

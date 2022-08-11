@@ -218,6 +218,11 @@ public class PreviousContactRepository extends BaseRepository {
         return previousContactFacts;
     }
 
+    /***
+     *
+     * @param baseEntityId
+     * @return
+     */
     public Facts getPreviousContactTestsFacts(String baseEntityId) {
         Cursor mCursor = null;
         Facts previousContactsTestsFacts = new Facts();
@@ -227,8 +232,16 @@ public class PreviousContactRepository extends BaseRepository {
 
             if (mCursor != null) {
                 while (mCursor.moveToNext()) {
-                    previousContactsTestsFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)),
-                            mCursor.getString(mCursor.getColumnIndex(VALUE)));
+                    String jsonValue = mCursor.getString(mCursor.getColumnIndex(VALUE));
+                    if (StringUtils.isNotBlank(jsonValue) && jsonValue.trim().startsWith("{")) {
+                        JSONObject valueObject = new JSONObject(jsonValue);
+                        String text, translated_text;
+                        text = valueObject.optString(JsonFormConstants.TEXT).trim();
+                        translated_text = StringUtils.isNotBlank(text) ? NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext()) : "";
+                        previousContactsTestsFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), translated_text);
+                    } else {
+                        previousContactsTestsFacts.put(mCursor.getString(mCursor.getColumnIndex(KEY)), jsonValue);
+                    }
 
                 }
                 return previousContactsTestsFacts;
