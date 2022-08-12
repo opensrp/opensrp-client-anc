@@ -2,9 +2,6 @@ package org.smartregister.anc.library.util;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.google.common.collect.ImmutableMap;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -12,7 +9,6 @@ import com.vijay.jsonwizard.domain.ExpansionPanelItemModel;
 import com.vijay.jsonwizard.rules.RuleConstant;
 import com.vijay.jsonwizard.utils.FormUtils;
 import com.vijay.jsonwizard.utils.NativeFormLangUtils;
-import com.vijay.jsonwizard.views.CustomTextView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.WordUtils;
@@ -21,7 +17,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
-import org.smartregister.anc.library.constants.ANCJsonFormConstants;
 import org.smartregister.anc.library.constants.ANCJsonFormConstants;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.model.PartialContact;
@@ -509,7 +504,7 @@ public class ANCFormUtils extends FormUtils {
     static String cleanValue(String value) {
         String returnValue = "";
         try {
-            if (value.trim().length() > 0 && value.trim().charAt(0) == '[') {
+            if (value.trim().length() > 0 && value.trim().startsWith("[")) {
                 if (Utils.checkJsonArrayString(value)) {
                     JSONArray jsonArray = new JSONArray(value);
                     List<String> list = new ArrayList<>();
