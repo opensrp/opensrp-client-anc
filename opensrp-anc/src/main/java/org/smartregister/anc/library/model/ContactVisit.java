@@ -156,7 +156,9 @@ public class ContactVisit {
                     formSubmissionIDs.add(event.getFormSubmissionId());
 
                     JSONObject eventJson = new JSONObject(ANCJsonFormUtils.gson.toJson(event));
-                    eventJson.put(JsonFormConstants.Properties.DETAILS, JsonFormUtils.getJSONObject(formObject, JsonFormConstants.Properties.DETAILS));
+                    JSONObject detailsObject = JsonFormUtils.getJSONObject(formObject, JsonFormConstants.Properties.DETAILS);
+                    detailsObject.put(ConstantsUtils.KeyUtils.CONTACT_NO, partialContact.getContactNo());
+                    eventJson.put(JsonFormConstants.Properties.DETAILS, detailsObject);
                     AncLibrary.getInstance().getEcSyncHelper().addEvent(baseEntityId, eventJson);
 
                     processTasks(formObject);
