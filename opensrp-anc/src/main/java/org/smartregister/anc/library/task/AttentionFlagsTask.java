@@ -65,7 +65,7 @@ public class AttentionFlagsTask extends AsyncTask<Void, Void, Void> {
                 }
             }
         } catch (Exception e) {
-            Timber.e(e, " --> ");
+            Timber.e(e);
         }
 
         return null;
