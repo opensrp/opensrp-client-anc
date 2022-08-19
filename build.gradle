@@ -9,14 +9,14 @@ buildscript {
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.0'
+        classpath 'com.android.tools.build:gradle:4.0.2'
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.3'
         classpath 'com.palantir:jacoco-coverage:0.4.0'
-        classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.11.0"
-        classpath 'com.google.gms:google-services:4.3.5'
+        classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.30.0"
+        classpath 'com.google.gms:google-services:4.3.13'
         classpath 'io.fabric.tools:gradle:1.31.2'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.5.0'
-        classpath 'com.google.firebase:perf-plugin:1.3.4'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.1'
+        classpath 'com.google.firebase:perf-plugin:1.4.1'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -78,8 +78,8 @@ subprojects {
     ext.androidToolsBuildGradle = '30.0.3'
     ext.androidBuildToolsVersion = '30.0.3'
     ext.androidMinSdkVersion = 18
-    ext.androidCompileSdkVersion = 30
-    ext.androidTargetSdkVersion = 30
+    ext.androidCompileSdkVersion = 31
+    ext.androidTargetSdkVersion = 31
     ext.androidAnnotationsVersion = '3.0.1'
     ext.androidAnnotationsAPIVersion = '3.0.1'
     ext.jacocoVersion = "0.7.9"
@@ -108,6 +108,7 @@ coveralls {
     sourceDirs += ["opensrp-anc/src/main/java/", "reference-app/src/main/java"]
 }
 apply plugin: 'io.codearte.nexus-staging'
+apply plugin: 'com.google.firebase.crashlytics'
 
 def isReleaseBuild() {
     return version.contains("SNAPSHOT") == false

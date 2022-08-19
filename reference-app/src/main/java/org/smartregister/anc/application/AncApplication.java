@@ -8,10 +8,9 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.crashlytics.android.Crashlytics;
-import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
 import com.flurry.android.FlurryAgent;
+import com.google.firebase.crashlytics.internal.common.CrashlyticsCore;
 import com.vijay.jsonwizard.NativeFormLibrary;
 
 import org.smartregister.Context;
@@ -37,9 +36,6 @@ import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
-import java.io.FileNotFoundException;
-
-import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
 /**
