@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 
 import com.evernote.android.job.JobManager;
 import com.flurry.android.FlurryAgent;
-import com.google.firebase.crashlytics.internal.common.CrashlyticsCore;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.vijay.jsonwizard.NativeFormLibrary;
 
 import org.smartregister.Context;
@@ -64,7 +64,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         TimeChangedBroadcastReceiver.init(this);
         TimeChangedBroadcastReceiver.getInstance().addOnTimeChangedListener(this);
         LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.DEFAULT_LOCATION_LEVEL);
-        Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
+        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(!BuildConfig.DEBUG);
 
         //init Job Manager
         JobManager.create(this).addJobCreator(new AncJobCreator());

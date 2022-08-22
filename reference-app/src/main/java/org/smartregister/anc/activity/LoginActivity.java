@@ -15,7 +15,6 @@ import org.smartregister.anc.library.event.ViewConfigurationSyncCompleteEvent;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.anc.presenter.LoginPresenter;
-import org.smartregister.task.SaveTeamLocationsTask;
 import org.smartregister.view.activity.BaseLoginActivity;
 import org.smartregister.view.contract.BaseLoginContract;
 
@@ -63,7 +62,8 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     @Override
     public void goToHome(boolean remote) {
         if (remote) {
-            Utils.startAsyncTask(new SaveTeamLocationsTask(), null);
+//            Utils.startAsyncTask(new SaveTeamLocationsTask(), null);
+            Utils.startAsyncTask(null,null);
         }
 
         if (mLoginPresenter.isServerSettingsSet()) {

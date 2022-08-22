@@ -36,6 +36,7 @@ allprojects {
 
 apply plugin: 'com.android.library'
 apply plugin: 'jacoco'
+apply plugin: 'com.google.firebase.crashlytics'
 
 jacoco {
     toolVersion = jacocoVersion
@@ -238,17 +239,17 @@ dependencies {
     // Because RxAndroid releases are few and far between, it is recommended you also
     // explicitly depend on RxJava's latest version for bug fixes and new features.
     implementation 'io.reactivex.rxjava2:rxjava:2.2.20'
-    implementation 'com.evernote:android-job:1.4.2'
+    implementation 'com.evernote:android-job:1.4.3'
     implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'
     implementation 'id.zelory:compressor:2.1.1'
-    implementation('com.google.android.material:material:1.4.0') {
+    implementation('com.google.android.material:material:1.6.1') {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'cardview-v7'
     }
 
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation group: 'org.yaml', name: 'snakeyaml', version: '1.30'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'org.jeasy:easy-rules-core:3.4.0'
