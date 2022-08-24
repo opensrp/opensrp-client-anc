@@ -73,7 +73,7 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
 
     @Override
     public void onNoUniqueId() {
-        getProfileView().displayToast(R.string.no_openmrs_id);
+        // getProfileView().displayToast(R.string.no_openmrs_id);
     }
 
     @Override

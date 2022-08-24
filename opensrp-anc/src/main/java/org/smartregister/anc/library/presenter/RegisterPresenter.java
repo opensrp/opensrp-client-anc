@@ -160,7 +160,7 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
 
     @Override
     public void onNoUniqueId() {
-        getView().displayShortToast(R.string.no_openmrs_id);
+        // getView().displayShortToast(R.string.no_openmrs_id);
     }
 
     @Override

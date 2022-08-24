@@ -143,7 +143,7 @@ android {
             minifyEnabled false
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rule.pro'
-            resValue "string", 'opensrp_url', '"https://ancs.dev.sid-indonesia.org/opensrp/"'
+            resValue "string", 'opensrp_url', '"https://ancs.sid-indonesia.org/opensrp/"'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '1'
@@ -159,7 +159,7 @@ android {
         }
 
         debug {
-            resValue "string", 'opensrp_url', '"https://ancs.dev.sid-indonesia.org/opensrp/"'
+            resValue "string", 'opensrp_url', '"https://ancs.sid-indonesia.org/opensrp/"'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
