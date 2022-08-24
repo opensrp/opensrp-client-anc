@@ -3,6 +3,7 @@ package org.smartregister.anc.library.helper;
 import android.content.Context;
 import android.text.TextUtils;
 
+import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.constants.ANCJsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
 import com.vijay.jsonwizard.rules.RulesEngineHelper;
@@ -155,6 +156,62 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
         return ga;
     }
 
+    /**
+     * Get weight category
+     * @param bmi - float value of Body Mass Index
+     * @return - key for weight category
+     */
+    public String weightCat(float bmi) {
+        if (bmi < 18.5) return "underweight";
+        if (bmi >= 18.5 && bmi < 25) return "normal";
+        if (bmi >= 25 && bmi < 30) return "overweight";
+        return "obese";
+    }
+
+    /**
+     * Get string display of weight category from strings.xml
+     * @param bmi - float value of Body Mass Index
+     * @return String of weight category value
+     */
+    public String weightCatString(float bmi) {
+        String weightCat = this.weightCat(bmi);
+        int resId = this.context.getResources().getIdentifier("weight_" + weightCat, "string", this.context.getPackageName());
+        return this.context.getString(resId);
+    }
+
+    /**
+     * Get MUAC category
+     * @param muac - float value of woman's MUAC
+     * @return String of MUAC category
+     */
+    public String muacCat(float muac) {
+        if (muac > 23.5) return "malnourished";
+        return "normal";
+    }
+    /**
+     * Get string display of MUAC category from strings.xml
+     * @param muac - float value of MUAC
+     * @return String of MUAC category value
+     */
+    public String muacCatString(float muac) {
+        String muacCat = this.muacCat(muac);
+        int resId = this.context.getResources().getIdentifier("muac_" + muacCat, "string", this.context.getPackageName());
+        return this.context.getString(resId);
+    }
+
+    /**
+     * Get expected pregnancy weight gain based on BMI
+     * @param bmi - float value of Body Mass Index
+     * @return - String of expected weight gain in kg
+     */
+    public String expWeightGain(float bmi) {
+        String weightCat = this.weightCat(bmi);
+        if (weightCat.equals("underweight")) return "12.5 - 18";
+        if (weightCat.equals("normal")) return "11.5 - 16";
+        if (weightCat.equals("overweight")) return "7 - 11.5";
+        return "5 - 9";
+    }
+
     /***
      * Gets value form accordion
      * @param accordion accordion to get the value from
@@ -253,4 +310,34 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
     public int compareDateAgainstToday(String theDate) {
         return compareTwoDates(theDate, (new LocalDate()).toString(FormUtils.NATIIVE_FORM_DATE_FORMAT_PATTERN));
     }
+
+    /**
+     * Calculate weeks and days from days integer.
+     */
+    public String getWeeksAndDaysFromDays(Integer days) {
+        double weeks = Math.round(Math.floor(days / 7));
+        Integer dayz = days % 7;
+
+        return String.format(this.context.getString(R.string.lmp_gest_age_format), weeks, dayz);
+    }
+
+    /**
+     * Add weeks string to a number.
+     * @return
+     */
+    public String getWeeksStringFromInteger(Integer weeks) {
+        return String.format(this.context.getString(R.string.ga_weeks), weeks.toString());
+    }
+
+    public String getBooleanString() {
+        return "HAI";
+    }
+
+    public String getPositiveNegativeString(String value) {
+        if (value == "positive") {
+            return this.context.getString(R.string.value_positive);
+        }
+        return this.context.getString(R.string.value_negative);
+    }
+
 }

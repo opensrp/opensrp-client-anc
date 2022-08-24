@@ -9,6 +9,7 @@
         <item name="cardViewStyle">@style/CardView</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:fontFamily">@font/font</item>
     </style>
 
     <style name="AncAppTheme.ActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -19,14 +20,26 @@
         <item name="cardViewStyle">@style/CardView</item>
         <item name="android:homeAsUpIndicator">@drawable/ic_back</item>
         <item name="homeAsUpIndicator">@drawable/ic_back</item>
+        <item name="android:fontFamily">@font/font</item>
+    </style>
+
+    <style name="TransparentActionBar" parent="Widget.AppCompat.Light.ActionBar.Solid">
+        <item name="android:background">@null</item>
+        <!-- Support library compatibility -->
+        <item name="background">@null</item>
     </style>
 
     <style name="AncAppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:fontFamily">@font/font</item>
+        <item name="colorPrimary">#0092D5</item>
+        <item name="colorPrimaryDark">#0076AC</item>
     </style>
 
-    <style name="AncAppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AncAppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="colorPrimary">@color/primary</item>
+    </style>
 
     <style name="AncAppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
@@ -34,28 +47,36 @@
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primaryDark</item>
         <item name="colorAccent">@color/accent</item>
+        <item name="android:fontFamily">@font/font</item>
     </style>
 
     <style name="AncFullScreenDialog" parent="AncDialog">
         <item name="android:windowNoTitle">true</item>
         <item name="android:padding">0dp</item>
         <item name="android:windowBackground">@color/primaryDark</item>
+        <item name="android:fontFamily">@font/font</item>
     </style>
 
     <style name="AncAppTheme.Login" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorControlNormal">@android:color/white</item>
         <item name="android:textSize">@dimen/login_font_size</item>
-        <item name="colorControlActivated">@android:color/black</item>
+        <item name="colorControlActivated">@android:color/transparent</item>
+        <item name="android:fontFamily">@font/font</item>
+        <item name="colorPrimary">#0092D5</item>
+        <item name="colorPrimaryDark">#0076AC</item>
+        <item name="windowActionBarOverlay">true</item>
     </style>
 
     <style name="AncAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primaryDark</item>
+        <item name="colorPrimary">#0092D5</item>
+        <item name="colorPrimaryDark">#0076AC</item>
         <item name="colorAccent">@color/accent</item>
+        <item name="android:fontFamily">@font/font</item>
     </style>
 
     <style name="AncAppTheme.NoActionBar.NavigationDrawerStyle">
         <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/font</item>
         <!-- text size in menu-->
         <item name="android:listPreferredItemHeightSmall">70dp</item>
         <!-- item size in menu-->

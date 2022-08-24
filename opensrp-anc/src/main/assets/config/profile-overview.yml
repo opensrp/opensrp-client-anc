@@ -58,12 +58,20 @@ fields:
     isRedFont: "stillbirths > 0"
 
   - template: "{{profile_overview.overview_of_pregnancy.obstetric_history.past_pregnancy_problems}}: {prev_preg_comps_value}, {prev_preg_comps_other}"
+    relevance: "!prev_preg_comps.isEmpty() && !prev_preg_comps_other.isEmpty() && (!prev_preg_comps.contains('dont_know') || !prev_preg_comps.contains('none'))"
+    isRedFont: "true"
+
+  - template: "{{profile_overview.overview_of_pregnancy.obstetric_history.past_pregnancy_problems}}: {prev_preg_comps_value}"
     relevance: "!prev_preg_comps.isEmpty() && (!prev_preg_comps.contains('dont_know') || !prev_preg_comps.contains('none'))"
     isRedFont: "true"
 
-  - template: "{{profile_overview.overview_of_pregnancy.obstetric_history.past_substances_used}}: {substances_used_value},{substances_used_other}"
-    relevance: "(!substances_used.contains('none') && !substances_used.isEmpty())"
+  - template: "{{profile_overview.overview_of_pregnancy.obstetric_history.past_substances_used}}: {substances_used_value}, {substances_used_other}"
+    relevance: "(!substances_used.contains('none') && substances_used_other !='')"
     isRedFont: "true"
+
+  - template: "{{profile_overview.overview_of_pregnancy.obstetric_history.past_substances_used}}: {substances_used_value}"
+      relevance: "(!substances_used.contains('none') && substances_used_other =='')"
+      isRedFont: "true"
 
 ---
 sub_group: medical_history
@@ -192,7 +200,7 @@ fields:
 group: risks_and_diagnoses
 fields:
   - template: "{{profile_overview.caffeine_intake}}: {caffeine_intake_value}"
-    relevance: "caffeine_intake != '' && caffeine_intake != 'none'"
+    relevance: "caffeine_intake == ''"
     isRedFont: "true"
 
   - template: "{{profile_overview.tobacco_user}}: {tobacco_user_value}"
@@ -203,11 +211,15 @@ fields:
     relevance: "shs_exposure == 'yes'"
     isRedFont: "true"
 
-  - template: "{{profile_overview.condom_use}}: {condom_use_value}"
+  - template: "{{profile_overview.condom_use}}: {{profile_overview.condom_use_yes}}"
     relevance: "condom_use == 'no'"
     isRedFont: "true"
 
-  - template: "{{profile_overview.alcohol_substance_use}}: {alcohol_substance_use_value}, {other_substance_use_value}"
+  - template: "{{profile_overview.alcohol_substance_use}}: {alcohol_substance_use_value}, {other_substance_use}"
+    relevance: "!alcohol_substance_use.isEmpty() && !alcohol_substance_use.contains('none') && !other_substance_use.isEmpty()"
+    isRedFont: "true"
+
+  - template: "{{profile_overview.alcohol_substance_use}}: {alcohol_substance_use_value}"
     relevance: "!alcohol_substance_use.isEmpty() && !alcohol_substance_use.contains('none')"
     isRedFont: "true"
 
@@ -215,75 +227,75 @@ fields:
     relevance: "mat_percept_fetal_move != '' && mat_percept_fetal_move != 'normal_fetal_move'"
     isRedFont: "true"
 
-  - template: "{{profile_overview.preeclampsia_risk}}: {preeclampsia_risk}"
+  - template: "{{profile_overview.preeclampsia_risk}}: {{profile_overview.yes}}"
     relevance: "preeclampsia_risk == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.hiv_risk}}: {hiv_risk_value}"
+  - template: "{{profile_overview.hiv_risk}}: {{profile_overview.yes}}"
     relevance: "hiv_risk == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.gdm_risk}}: {date} "
+  - template: "{{profile_overview.gdm_risk}}: {{profile_overview.yes}}"
     relevance: "gdm_risk == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.hypertension}}: {date}"
+  - template: "{{profile_overview.hypertension}}: {{profile_overview.yes}}"
     relevance: "hypertension == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.severe_hypertension}}: {date}"
+  - template: "{{profile_overview.severe_hypertension}}: {{profile_overview.yes}}"
     relevance: "severe_hypertension == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.preeclampsia}}: {date}"
+  - template: "{{profile_overview.preeclampsia}}: {{profile_overview.yes}}"
     relevance: "preeclampsia == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.severe_preeclampsia}}: {date}"
+  - template: "{{profile_overview.severe_preeclampsia}}: {{profile_overview.yes}}"
     relevance: "severe_preeclampsia == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.rh_factor}}: {date}"
+  - template: "{{profile_overview.rh_factor}}: {{profile_overview.yes}}"
     relevance: "rh_factor == 'negative'"
     isRedFont: "true"
 
-  - template: "{{profile_overview.hiv_positive}}: {date}"
+  - template: "{{profile_overview.hiv_positive}}: {{profile_overview.yes}}"
     relevance: "hiv_positive == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.hepb_positive}}: {date}"
+  - template: "{{profile_overview.hepb_positive}}: {{profile_overview.yes}}"
     relevance: "hepb_positive == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.hepc_positive}}: {date}"
+  - template: "{{profile_overview.hepc_positive}}: {{profile_overview.yes}}"
     relevance: "hepc_positive == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.syphilis_positive}}: {date}"
+  - template: "{{profile_overview.syphilis_positive}}: {{profile_overview.yes}}"
     relevance: "syphilis_positive == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.asb_positive}}: {date}"
+  - template: "{{profile_overview.asb_positive}}: {{profile_overview.yes}}"
     relevance: "asb_positive == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.urine_culture}}: {date}"
+  - template: "{{profile_overview.urine_culture}}: {{profile_overview.yes}}"
     relevance: "urine_culture == 'positive - group b streptococcus (gbs)'"
     isRedFont: "true"
 
-  - template: "{{profile_overview.gdm}}: {date}"
+  - template: "{{profile_overview.gdm}}: {{profile_overview.yes}}"
     relevance: "gdm = 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.dm_in_preg}}: {date}"
+  - template: "{{profile_overview.dm_in_preg}}: {{profile_overview.yes}}"
     relevance: "dm_in_preg = 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.anaemic}}: {date}"
+  - template: "{{profile_overview.anaemic}}: {{profile_overview.yes}}"
     relevance: "anaemic = 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.tb_screening_result}}: {date}"
+  - template: "{{profile_overview.tb_screening_result}}: {{profile_overview.yes}}"
     relevance: "tb_screening_result == 'positive'"
     isRedFont: "true"
 
@@ -293,7 +305,7 @@ group: physiological_symptoms
 fields:
   - template: "{{profile_overview.physiological_symptoms.physiological_symptoms}}: {phys_symptoms_value}"
     relevance: "phys_symptoms != ''"
-  - template: "Persisting physiological symptoms: {phys_symptoms_persist_value}"
+  - template: "{{profile_overview.phys_symptoms_persist}}: {phys_symptoms_persist}"
     relevance: "phys_symptoms_persist != ''"
     isRedFont: "true"
 
@@ -303,24 +315,27 @@ fields:
   - template: "{{profile_overview.birth_plan_counseling.planned_birth_place}}: {delivery_place_value}"
     relevance: "delivery_place != ''"
 
-  - template: "{{profile_overview.birth_plan_counseling.fp_method_accepted}}: {family_planning_type_value}"
+  - template: "{{profile_overview.birth_plan_counseling.fp_method_accepted}}: {family_planning_type}"
     relevance: "family_planning_type != ''"
 
 ---
 group: malaria_prophylaxis
 fields:
-  - template: "{{profile_overview.malaria_prophylaxis.iptp_sp_dose_1}}: {date}"
+  - template: "{{profile_overview.malaria_prophylaxis.iptp_sp_dose_1}}: {iptp_sp_dose_1_value}"
     relevance: "iptp_sp1 == 'Done'"
 
-  - template: "{{profile_overview.malaria_prophylaxis.iptp_sp_dose_2}}: {date}"
+  - template: "{{profile_overview.malaria_prophylaxis.iptp_sp_dose_2}}: {iptp_sp_dose_2_value}"
     relevance: "iptp_sp2 == 'Done'"
 
-  - template: "{{profile_overview.malaria_prophylaxis.iptp_sp_dose_3}}: {date}"
+  - template: "{{profile_overview.malaria_prophylaxis.iptp_sp_dose_3}}: {iptp_sp_dose_3_value}"
     relevance: "iptp_sp3 == 'Done'"
 
 ---
 group: immunisation_status
 fields:
+  - template: "{{profile_overview.immunisation_status.covid_vaccine_status}}: {covid_vaccine_status_value}"
+    relevance: "covid_vaccine_status != ''"
+    
   - template: "{{profile_overview.immunisation_status.tt_immunisation_status}}: {tt_immun_status_value}"
     relevance: "tt_immun_status != ''"
     isRedFont: "tt_immun_status == 'ttcv_not_received' || tt_immun_status == 'unknown'"

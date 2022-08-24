@@ -127,7 +127,7 @@ fields:
     relevance: "dilation_cm > 2"
 
   - template: "{{attention_flags.red.no_fetal_heartbeat_observed}}"
-    relevance: "fetal_heartbeat == 'no' && gest_age > 20"
+    relevance: "fetal_heartbeat == 'no' && gest_age >= 16"
 
   - template: "{{attention_flags.red.abnormal_fetal_heart_rate}}: {fetal_heart_rate_repeat}bpm"
     relevance: "fetal_heart_rate_repeat < 100 || fetal_heart_rate_repeat > 180"
@@ -185,7 +185,3 @@ fields:
 
   - template: "{{attention_flags.red.tb_screening_positive}}"
     relevance: "tb_screening_result == 'positive'"
-
-  #added
-  - template: "{{profile_contact_test.ultrasound_tests.ultrasound_test}}: {{anc_profile.step2.ultrasound_done.options.yes.text}}"
-    relevance: "ultrasound_done!=''"

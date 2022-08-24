@@ -3,16 +3,16 @@
     android:id="@+id/register_nav_bar_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/customAppThemeBlue"
-    android:focusableInTouchMode="true">
+    android:background="#0078B1"
+    android:focusableInTouchMode="false">
 
     <RelativeLayout
         android:id="@+id/top_left_layout"
         android:layout_width="35dp"
         android:layout_height="35dp"
+        android:layout_centerVertical="true"
         android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_centerVertical="true">
+        android:layout_marginLeft="10dp">
 
         <ImageView
             android:id="@+id/scanQrCode"
@@ -58,8 +58,9 @@
             android:layout_alignParentTop="true"
             android:adjustViewBounds="false"
             android:contentDescription="@string/app_name"
-            android:padding="5dp"
-            android:scaleType="center"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/logo_opensrp_256" />
 
         <org.smartregister.view.customcontrols.CustomFontTextView
@@ -78,11 +79,11 @@
         android:id="@+id/top_right_layout"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true">
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp">
 
         <ImageView
             android:id="@+id/sync_refresh"

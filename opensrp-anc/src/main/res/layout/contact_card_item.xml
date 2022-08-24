@@ -5,9 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:layout_margin="@dimen/contact_layout_margin"
-    card_view:cardCornerRadius="@dimen/contact_default_padding"
-    card_view:cardElevation="@dimen/contact_elevation">
+    android:layout_margin="4dp"
+    card_view:cardCornerRadius="@dimen/contact_default_padding">
 
     <RelativeLayout
         android:id="@+id/card_layout"
@@ -18,7 +17,7 @@
         android:paddingStart="0dp"
         android:paddingTop="@dimen/contact_medium_padding">
 
-        <org.smartregister.view.customcontrols.CustomFontTextView
+        <TextView
             android:id="@+id/container_name"
             style="@style/CustomFontTextViewStyle.ClientList.Medium"
             android:layout_width="match_parent"
@@ -32,10 +31,13 @@
             android:paddingRight="@dimen/contact_drawable_padding"
             android:text="@string/contact_quick_check"
             android:textColor="@color/white"
-            android:textSize="@dimen/contact_name_text_size" />
+            android:fontFamily="@font/font_bold"
+            android:textSize="@dimen/contact_name_text_size"
+            android:lineSpacingMultiplier="0"
+            android:lineSpacingExtra="20sp" />
 
 
-        <org.smartregister.view.customcontrols.CustomFontTextView
+        <TextView
             android:id="@+id/required_fields"
             style="@style/CustomFontTextViewStyle.ClientList"
             android:layout_width="match_parent"
@@ -49,7 +51,7 @@
             android:paddingRight="@dimen/contact_drawable_padding"
             android:singleLine="true"
             android:text="@string/contact_required_fields"
-            android:textColor="@color/translucent_white"
+            android:textColor="@color/white"
             android:textSize="@dimen/contact_detail_text_size" />
 
 
@@ -66,11 +68,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/contact_drawable_padding"
-                android:paddingRight="2dp"
+                android:paddingRight="0dp"
                 android:src="@drawable/ic_checked_white" />
 
 
-            <org.smartregister.view.customcontrols.CustomFontTextView
+            <TextView
                 android:id="@+id/complete"
                 style="@style/CustomFontTextViewStyle.ClientList"
                 android:layout_width="match_parent"
@@ -78,6 +80,7 @@
                 android:layout_below="@+id/container_name"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="-10dp"
                 android:background="@android:color/transparent"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
@@ -85,7 +88,8 @@
                 android:paddingRight="@dimen/contact_drawable_padding"
                 android:singleLine="true"
                 android:text="@string/contact_complete"
-                android:textColor="@color/translucent_white"
+                android:textColor="@color/white"
+                android:fontFamily="@font/font_bold"
                 android:textSize="@dimen/contact_detail_text_size" />
 
         </LinearLayout>

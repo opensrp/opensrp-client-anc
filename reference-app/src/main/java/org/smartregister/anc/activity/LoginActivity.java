@@ -1,6 +1,7 @@
 package org.smartregister.anc.activity;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -38,6 +39,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
         setUpViews();
     }
 

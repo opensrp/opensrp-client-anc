@@ -68,7 +68,7 @@ description: SFH edd
 priority: 1
 condition: "true"
 actions:
-  - "calculation = step2_sfh_gest_age > 0 && step2_sfh_gest_age <= 44 ? step2_sfh_gest_age + ' weeks' : 0"
+  - "calculation = step2_sfh_gest_age > 0 && step2_sfh_gest_age <= 44 ? helper.getWeeksStringFromInteger(step2_sfh_gest_age) : 0"
 ---
 name: step2_lmp_gest_age_selection
 description: Gest age
@@ -177,6 +177,13 @@ actions:
 ---
 name: step3_gdm_risk
 description: gdm_risk
+priority: 1
+condition: "(global_bmi != null && global_bmi != '' && global_bmi >= 30) || (!step3_prev_preg_comps.isEmpty() && (step3_prev_preg_comps.contains('gestational_diabetes') || step3_prev_preg_comps.contains('macrosomia'))) || (global_urine_glucose != null && global_urine_glucose != '' && (global_urine_glucose == '++' || global_urine_glucose == '+++' ||  global_urine_glucose == '++++'))"
+actions:
+  - "calculation = 1"
+---
+name: step3_gdm_risk_value
+description: gdm_risk_value
 priority: 1
 condition: "(global_bmi != null && global_bmi != '' && global_bmi >= 30) || (!step3_prev_preg_comps.isEmpty() && (step3_prev_preg_comps.contains('gestational_diabetes') || step3_prev_preg_comps.contains('macrosomia'))) || (global_urine_glucose != null && global_urine_glucose != '' && (global_urine_glucose == '++' || global_urine_glucose == '+++' ||  global_urine_glucose == '++++'))"
 actions:
