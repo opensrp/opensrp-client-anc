@@ -19,7 +19,6 @@ import android.widget.TextView;
 import org.jeasy.rules.api.Facts;
 import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
-import org.smartregister.anc.library.BuildConfig;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.ProfileContract;
 import org.smartregister.anc.library.domain.YamlConfig;
@@ -97,7 +96,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
     protected void loadContactSummaryData() {
         try {
-            new LoadContactSummaryDataTask(this, getIntent(), mProfilePresenter, facts, baseEntityId).execute();
+            new LoadContactSummaryDataTask(this, getIntent(), mProfilePresenter, facts, baseEntityId).loadContactSummary();
         } catch (Exception e) {
             Timber.e(e, "%s loadContactSummaryData()", this.getClass().getCanonicalName());
         }
@@ -189,7 +188,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     }
 
     private void saveFinishForm() {
-        new FinalizeContactTask(new WeakReference<Context>(this), mProfilePresenter, getIntent()).execute();
+        new FinalizeContactTask(new WeakReference<Context>(this), mProfilePresenter, getIntent()).finalizeContactTask();
     }
 
 

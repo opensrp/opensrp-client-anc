@@ -164,7 +164,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
                 }
             }
         } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_ATTENTION_FLAG) {
-            new AttentionFlagsTask(baseHomeRegisterActivity, pc).execute();
+            new AttentionFlagsTask(baseHomeRegisterActivity, pc).attentionFlagsTask();
         } else if (view.getId() == R.id.filter_text_view) {
             baseHomeRegisterActivity.switchToFragment(BaseRegisterActivity.SORT_FILTER_POSITION);
         }

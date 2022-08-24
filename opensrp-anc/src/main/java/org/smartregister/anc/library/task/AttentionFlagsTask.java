@@ -1,7 +1,5 @@
 package org.smartregister.anc.library.task;
 
-import android.os.AsyncTask;
-
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
 import org.json.JSONObject;
@@ -10,6 +8,7 @@ import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.anc.library.domain.AttentionFlag;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.domain.YamlConfigItem;
+import org.smartregister.anc.library.util.AppExecutorService;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.FilePathUtils;
 import org.smartregister.anc.library.util.Utils;
@@ -18,24 +17,35 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 import timber.log.Timber;
 
-public class AttentionFlagsTask extends AsyncTask<Void, Void, Void> {
+public class AttentionFlagsTask {
     private final BaseHomeRegisterActivity baseHomeRegisterActivity;
     private final List<AttentionFlag> attentionFlagList = new ArrayList<>();
     private final CommonPersonObjectClient pc;
+    AppExecutorService appExecutorService;
 
     public AttentionFlagsTask(BaseHomeRegisterActivity baseHomeRegisterActivity, CommonPersonObjectClient pc) {
         this.baseHomeRegisterActivity = baseHomeRegisterActivity;
         this.pc = pc;
     }
 
-    @Override
-    protected Void doInBackground(Void... voids) {
-        try {
-            JSONObject jsonObject = new JSONObject(AncLibrary.getInstance().getDetailsRepository().getAllDetailsForClient(pc.getCaseId()).get(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS));
+    /***
+     * This function executes both background work and UI thread
+     */
+    public void attentionFlagsTask() {
+        appExecutorService = new AppExecutorService();
+        appExecutorService.executorService().execute(() -> {
+            this.addAttentionFlagsService();
+            appExecutorService.mainThread().execute(this::showAttentionFlagsDialogOnPostExec);
+        });
+    }
 
+    private void addAttentionFlagsService() {
+        try {
+            JSONObject jsonObject = new JSONObject(Objects.requireNonNull(AncLibrary.getInstance().getDetailsRepository().getAllDetailsForClient(pc.getCaseId()).get(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS)));
             Facts facts = new Facts();
             Iterator<String> keys = jsonObject.keys();
 
@@ -63,14 +73,12 @@ public class AttentionFlagsTask extends AsyncTask<Void, Void, Void> {
                 }
             }
         } catch (Exception e) {
-            Timber.e(e, " --> ");
+            Timber.e(e);
         }
-
-        return null;
     }
 
-    @Override
-    protected void onPostExecute(Void result) {
+
+    private void showAttentionFlagsDialogOnPostExec() {
         baseHomeRegisterActivity.showAttentionFlagsDialog(attentionFlagList);
     }
 }

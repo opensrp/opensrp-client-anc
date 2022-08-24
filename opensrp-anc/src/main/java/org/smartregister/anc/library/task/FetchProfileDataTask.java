@@ -1,9 +1,8 @@
 package org.smartregister.anc.library.task;
 
-import android.os.AsyncTask;
-
 import org.smartregister.anc.library.event.ClientDetailsFetchedEvent;
 import org.smartregister.anc.library.repository.PatientRepository;
+import org.smartregister.anc.library.util.AppExecutorService;
 import org.smartregister.anc.library.util.Utils;
 
 import java.util.Map;
@@ -11,20 +10,34 @@ import java.util.Map;
 /**
  * Created by ndegwamartin on 13/07/2018.
  */
-public class FetchProfileDataTask extends AsyncTask<String, Integer, Map<String, String>> {
-
-    private boolean isForEdit;
+public class FetchProfileDataTask {
+    private final boolean isForEdit;
+    private AppExecutorService appExecutorService;
 
     public FetchProfileDataTask(boolean isForEdit) {
         this.isForEdit = isForEdit;
     }
 
-    protected Map<String, String> doInBackground(String... params) {
-        String baseEntityId = params[0];
-        return PatientRepository.getWomanProfileDetails(baseEntityId);
+    public void fetchProfileDataTask(String baseEntityId) {
+        appExecutorService = new AppExecutorService();
+        appExecutorService.executorService().execute(() -> {
+            Map<String, String> client = this.getWomanDetailsOnBackground(baseEntityId);
+            appExecutorService.mainThread().execute(() -> {
+                if (!client.isEmpty()) {
+                    appExecutorService.mainThread().execute(() -> onPostStickyEventOnPostExecute(client));
+                }
+            });
+        });
+
     }
 
-    protected void onPostExecute(Map<String, String> client) {
+    private Map<String, String> getWomanDetailsOnBackground(String baseEntityId) {
+        return PatientRepository.getWomanProfileDetails(baseEntityId);
+
+    }
+
+    protected void onPostStickyEventOnPostExecute(Map<String, String> client) {
         Utils.postStickyEvent(new ClientDetailsFetchedEvent(client, isForEdit));
     }
+
 }
