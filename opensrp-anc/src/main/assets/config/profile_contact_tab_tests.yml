@@ -2,9 +2,6 @@
 properties_file_name: "profile_contact_test"
 sub_group: ultrasound_tests_results
 fields:
-  - template: "{{profile_contact_test.ultrasound_tests.ultrasound_test}}: {ultrasound_value}"
-    relevance: "ultrasound != ''"
-
   - template: "{{profile_contact_test.ultrasound_tests.ultrasound_not_done_reason}}: {ultrasound_notdone_value}"
     relevance: "ultrasound_notdone != ''"
 
@@ -13,6 +10,18 @@ fields:
 
   - template: "{{profile_contact_test.ultrasound_tests.ultrasound_done_date}}: {ultrasound_date}"
     relevance: "ultrasound_date != ''"
+
+  - template: "{{profile_contact_test.ultrasound_tests.ultrasound_no_of_fetuses}}: {no_of_fetuses}"
+    relevance: "ultrasound != ''"
+
+  - template: "{{profile_contact_test.ultrasound_tests.fetal_presentation}}: {fetal_presentation_value}"
+    relevance: "ultrasound != '' && fetal_presentation != ''"
+
+  - template: "{{profile_contact_test.ultrasound_tests.amniotic_fluid}}: {amniotic_fluid_value}"
+    relevance: "ultrasound != '' && amniotic_fluid != ''"
+
+  - template: "{{profile_contact_test.ultrasound_tests.placenta_location}}: {placenta_location_value}"
+    relevance: "ultrasound != '' && placenta_location != ''"
 
 ---
 sub_group: blood_type_test_results
@@ -120,9 +129,6 @@ fields:
 
   - template: "{{profile_contact_test.syphilis_test.syphilis_test_type}}: {syph_test_type_value}"
     relevance: "syph_test_type != ''"
-
-  - template: "{{profile_contact_test.syphilis_test.syphilis_test_type}}: {rapid_syphilis_test_value}"
-    relevance: "rapid_syphilis_test != ''"
 
   - template: "{{profile_contact_test.syphilis_test.rapid_plasma_reagin_rpr_test_result}}: {rpr_syphilis_test_value}"
     relevance: "rpr_syphilis_test != ''"

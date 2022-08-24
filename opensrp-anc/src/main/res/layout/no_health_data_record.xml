@@ -7,7 +7,7 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <org.smartregister.view.customcontrols.CustomFontTextView
+    <TextView
         android:id="@+id/no_health_data_recorded"
         style="@style/CustomFontTextViewStyle.ClientList.Medium"
         android:layout_width="wrap_content"
@@ -20,7 +20,7 @@
         android:textSize="25sp"
         android:textStyle="bold" />
 
-    <org.smartregister.view.customcontrols.CustomFontTextView
+    <TextView
         android:id="@+id/tap_button"
         style="@style/CustomFontTextViewStyle.ClientList.Light"
         android:layout_width="wrap_content"
@@ -29,7 +29,7 @@
         android:layout_marginLeft="25dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="25dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="30dp"
         android:gravity="center"
         android:lines="2"
         android:text="@string/tap_button_below"
@@ -41,12 +41,12 @@
         android:id="@+id/lady_image"
         android:layout_width="50dp"
         android:layout_height="90dp"
-        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="0dp"
         android:layout_marginBottom="10dp"
         android:contentDescription="@string/tab_button_image"
-        android:padding="10dp"
-        android:layout_gravity="center"
         android:gravity="center"
+        android:padding="10dp"
         android:src="@drawable/outline_arrow_back"
         tools:layout_editor_absoluteX="9dp"
         tools:layout_editor_absoluteY="9dp" />

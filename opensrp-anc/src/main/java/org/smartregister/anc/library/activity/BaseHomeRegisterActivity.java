@@ -3,6 +3,7 @@ package org.smartregister.anc.library.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -16,7 +17,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.vision.barcode.Barcode;
-import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 import com.google.android.material.navigation.NavigationBarView;
 import com.vijay.jsonwizard.activities.FormConfigurationJsonFormActivity;
 import org.smartregister.anc.library.constants.ANCJsonFormConstants;
@@ -35,6 +35,7 @@ import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.event.PatientRemovedEvent;
 import org.smartregister.anc.library.event.ShowProgressDialogEvent;
 import org.smartregister.anc.library.fragment.AdvancedSearchFragment;
+import org.smartregister.anc.library.fragment.BaseRegisterFragment;
 import org.smartregister.anc.library.fragment.HomeRegisterFragment;
 import org.smartregister.anc.library.fragment.LibraryFragment;
 import org.smartregister.anc.library.fragment.MeFragment;
@@ -53,7 +54,6 @@ import org.smartregister.domain.FetchStatus;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.listener.BottomNavigationListener;
 import org.smartregister.view.activity.BaseRegisterActivity;
-import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -141,7 +141,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
     }
 
     @Override
-    public BaseRegisterFragment getRegisterFragment() {
+    public org.smartregister.view.fragment.BaseRegisterFragment getRegisterFragment() {
         return new HomeRegisterFragment();
     }
 

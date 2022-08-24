@@ -1,8 +1,8 @@
 <resources>
 
     <!-- Application Settings -->
-	<string name="app_name">BUNDA</string>
-	<string name="app_tagline">Antenatal Care for Positive Pregnancy Experience</string>
+    <string name="app_name">BUNDA</string>
+    <string name="app_tagline">Antenatal Care for Positive Pregnancy Experience</string>
     <string name="app_version">App version: %1$s (built on %2$s)</string>
     <string name="form_manifest_version">Form Release version: v%1$s</string>
     <string name="data_synced">Data synced: %1$s at %2$s</string>
@@ -64,7 +64,7 @@
     <string name="manual_sync_triggered">Manual Sync triggered&#8230;</string>
 
     <!-- Client -->
-	<string name="search_hint">Find name or ID</string>
+    <string name="search_hint">Find name or ID</string>
     <string name="clients">%1$d clients</string>
     <string name="client">%1$d client</string>
     <string name="str_page_info">Page {0} of {1}</string>
@@ -73,13 +73,13 @@
     <string name="client_ga">GA: %1$d Minggu</string>
 
     <!-- Profile -->
-	<string name="profile_tab_overview">Overview</string>
-	<string name="profile_tab_contacts">Contacts</string>
-	<string name="profile_tab_tasks">Tasks</string>
+    <string name="profile_tab_overview">Overview</string>
+    <string name="profile_tab_contacts">Contacts</string>
+    <string name="profile_tab_tasks">Tasks</string>
     <string name="registration_info">Registration Info</string>
-	<string name="profile_call">Call</string>
-	<string name="profile_start_contact">Start Contact</string>
-	<string name="profile_close">Close ANC Record</string>
+    <string name="profile_call">Call</string>
+    <string name="profile_start_contact">Start Contact</string>
+    <string name="profile_close">Close ANC Record</string>
     <string name="allow_phone_call_management">You need to allow the app to manage phone calls to enable calling&#8230;</string>
     <string name="last_contact">Last Contact</string>
     <string name="key_figure">Key Figures</string>
@@ -99,7 +99,7 @@
     <string name="form_back_confirm_dialog_title">Confirm Form Close</string>
     <string name="form_back_confirm_dialog_message">Are you sure you want to go back? All the data you have entered in this form will be cleared.</string>
     <string name="yes_button_label">Yes</string>
-	<string name="no_button_label">No</string>
+    <string name="no_button_label">No</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="cancel">Cancel</string>
@@ -241,7 +241,7 @@
     <string name="contact_record_birth">Record Birth</string>
     <string name="contact_record_birth_popup_message">GA: %1$d weeks\nEDD: %2$s (%3$s ago)\n\n%4$s should come in immediately for delivery.</string>
     <string name="pagination_previous">&lt; Previous</string>
-	<string name="pagination_next">Next &gt;</string>
+    <string name="pagination_next">Next &gt;</string>
     <string name="undo_test_result">Undo the %1$s result?</string>
     <string name="contact_recorded">Contact %1$d recorded</string>
     <string name="upcoming_contact_dates">Upcoming contact dates:</string>
@@ -262,11 +262,11 @@
     <string name="contact_other_tests_results">Other Tests Results</string>
 
     <!-- Mother -->
-	<string name="mother_age">Age</string>
+    <string name="mother_age">Age</string>
     <string name="mother_age_number">Age: %1$s</string>
-	<string name="mother_ga">GA</string>
-	<string name="mother_ga_weeks">GA: %1$s Weeks</string>
-	<string name="mother_id_number">ID: %1$s</string>
+    <string name="mother_ga">GA</string>
+    <string name="mother_ga_weeks">GA: %1$s Weeks</string>
+    <string name="mother_id_number">ID: %1$s</string>
 
     <!-- Advanced Search -->
     <string name="search_advanced">Advanced Search</string>
@@ -295,20 +295,20 @@
     <!-- Contact -->
     <!-- Contact > Form Name -->
     <string name="contact_id_quick_check">quick_check</string>
-	<string name="contact_id_profile">profile</string>
-	<string name="contact_id_symptoms_follow_up">symptoms_follow_up</string>
-	<string name="contact_id_physical_exam">physical_exam</string>
-	<string name="contact_id_tests">tests</string>
-	<string name="contact_id_counselling_treatment">counselling_treatment</string>
-	<!-- Contact > Titles -->
-	<string name="contact_quick_check">Quick Check</string>
-	<string name="contact_profile">Profile</string>
-	<string name="contact_symptoms_follow_up">Symptoms and Follow-up</string>
-	<string name="contact_physical_exam">Physical Exam</string>
-	<string name="contact_tests">Tests</string>
-	<string name="contact_counselling_treatment">Counselling and Treatment</string>
+    <string name="contact_id_profile">profile</string>
+    <string name="contact_id_symptoms_follow_up">symptoms_follow_up</string>
+    <string name="contact_id_physical_exam">physical_exam</string>
+    <string name="contact_id_tests">tests</string>
+    <string name="contact_id_counselling_treatment">counselling_treatment</string>
+    <!-- Contact > Titles -->
+    <string name="contact_quick_check">Quick Check</string>
+    <string name="contact_profile">Profile</string>
+    <string name="contact_symptoms_follow_up">Symptoms and Follow-up</string>
+    <string name="contact_physical_exam">Physical Exam</string>
+    <string name="contact_tests">Tests</string>
+    <string name="contact_counselling_treatment">Counselling and Treatment</string>
     <!-- Contact > Attributes -->
-	<string name="contact_required_fields">%1$d required fields</string>
+    <string name="contact_required_fields">%1$d required fields</string>
     <string name="contact_complete">Complete</string>
     <string name="contact_completed">Completed</string>
     <string name="contact_upcoming">Upcoming Contacts</string>
@@ -335,6 +335,7 @@
     <string name="contact_womans_behaviour">Woman\'s Behaviour</string>
     <string name="contact_physiological_symptoms">Physiological Symptoms</string>
     <string name="contact_height_and_weight">Height and Weight</string>
+    <string name="contact_muac">Middle-Upper Arm Circumference</string>
     <string name="contact_blood_pressure">Blood Pressure</string>
     <string name="contact_maternal_exam">Maternal Exam</string>
     <string name="contact_fetal_assessment">Fetal Assessment</string>
@@ -348,6 +349,7 @@
     <string name="contact_anc_contacts_counseling">ANC Contacts Counseling</string>
     <string name="contact_family_planning_counseling">Family Planning Counseling</string>
     <string name="contact_birth_plan_counseling">Birth Plan Counseling</string>
+    <string name="contact_hospital_referral_reasons">Hospital Referral Reasons</string>
     <string name="contact_risks_and_diagnoses">Risks and Diagnoses</string>
     <!-- Contact > Text > Test Result -->
     <string name="ultrasound_tests_results">Ultrasound Tests Results</string>
@@ -375,11 +377,20 @@
     <string name="pdf_saved_successfully">\"PDF saved successfully to location \"</string>
     <string name="contact_summary_data_file">contactSummaryData.pdf</string>
 
+    <!-- Form Helper -->
+    <string name="weight_underweight">Underweight</string>
+    <string name="weight_normal">Normal</string>
+    <string name="weight_overweight">Overweight</string>
+    <string name="weight_obese">Obese</string>
+    <string name="muac_malnourished">Malnourished</string>
+    <string name="muac_normal">Normal</string>
+
+    <string name="lmp_gest_age_format">%.0f weeks %d days</string>
+
+
     <!-- General -->
-    
-    
-    
-    <string name="no_openmrs_id">No unique ids found. Click on the sync button to get more and if this error persists contact the system admin.</string>
+
+
     <string name="alphabetical_sort">Alphabetical (Name)</string>
     <string name="name">Name</string>
     <string name="dismiss">Cancel</string>
@@ -411,7 +422,7 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    
+
 
     <!-- register -->
     <string name="opensrp_id">OpenSRP ID</string>
@@ -420,7 +431,7 @@
     <string name="search_name_or_id">Search name or ID</string>
     <string name="filter">Filter</string>
     <string name="clear_filters">CLEAR FILTERS</string>
-    
+
     <string name="has_tasks_due">Has tasks due</string>
     <string name="risky_pregnancy">Risky pregnancy</string>
     <string name="syphilis_positive">Syphilis pregnancy</string>
@@ -436,12 +447,11 @@
     <string name="last_name_z_to_a">Last name (Z to A)</string>
     <string name="no_location_picker">No location selected </string>
 
-    
 
     <!-- side nav -->
     <string name="anc_clients">ANC clients</string>
     <string name="counseling_resources">Counseling resources</string>
-    
+
     <string name="contact_summary">Contact Summary</string>
     <string name="sync_data">Sync data</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -450,7 +460,7 @@
     <string name="anc_id_text">ID: %1$s</string>
     <string name="age_text">Age: %1$s</string>
     <string name="ga_text">GA: %1$d weeks</string>
-    <string name="bullet">\u2022</string>
+    <string name="bullet">•</string>
 
     <string name="overview">OVERVIEW</string>
     <string name="contacts">CONTACTS</string>
@@ -471,7 +481,7 @@
     <string name="the_qr_code_scanner_button">The QR Code Scanner button</string>
     <string name="woman_filter">Filter</string>
     <string name="register">Register</string>
-    
+
     <string name="_0_clients_sort_updated">0 Clients (Sort: updated)</string>
 
     <string name="reason_for_coming_facility"><font fgcolor="black">Reason for coming to facility? </font><font fgcolor="red">*</font></string>
@@ -553,7 +563,7 @@
     <string name="contact_dummy_text">CONTACT&#10;22/05/2018</string>
     <string name="library_placeholder">Library Placeholder</string>
     <string name="me_page_placeholder">Me Page Placeholder</string>
-    
+
     <string name="continue_">continue</string>
     <string name="continue_to_your_client_list">CONTINUE TO YOUR CLIENT LIST</string>
     <string name="your_site_characteristics_for_facility_name">Your site characteristics for %1$s are all set.</string>
@@ -582,43 +592,40 @@
     <string name="discard_contact">Ignore changes</string>
     <string name="close_without_saving">Close without saving\nLose updates you\'ve made in\nthis contact</string>
 
-    
+
     <string name="right_arrow">Right Arrow</string>
     <string name="section_icon">Section Icon</string>
     <string name="settings">Settings</string>
 
-    
-    
-    
+
     <!-- Form container -->
-    
+
     <string name="loading_client_settings">Loading client settings&#8230;</string>
-    
+
     <string name="any_changes_you_make">Any changes you make will be lost</string>
     <string name="woman_name">Woman Name</string>
-    
-    
+
+
     <string name="record_birth_popup_message">GA: %1$d weeks\nEDD: %2$s (%3$s ago)\n\n%4$s should come in immediately for delivery.</string>
-    
+
     <string name="info_icon_display">the more info icon display</string>
     <string name="status_icon_display">the status icon display</string>
-    
+
     <string name="reason_for_visit">REASON FOR VISIT</string>
-    
+
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="finalizing_contact">Finalizing Contact %1$d</string>
     <string name="summarizing_contact_number">Summarizing Contact %1$d</string>
-    
-    
+
+
     <string name="referral_contact_details">Contact %1$s</string>
-    
+
     <string name="negative_contact_text">A negative contact means that the patient was referred so her contact schedule does not change and remains the same as before</string>
     <string name="previous_contacts_header">Previous Contacts</string>
     <string name="previous_contacts_tests_header">All Test Results</string>
-    
-    
-    
+
+
     <string name="all_results">All results</string>
     <string name="no_tests_available">No Tests Available</string>
     <string name="hospital_referral">Hospital referral</string>
@@ -626,23 +633,22 @@
     <string name="hospital_referral_title">Hospital referral recorded</string>
     <string name="back">Back</string>
     <string name="tab_button_image">Tab button image</string>
-    
+
     <string name="tests_tasks_header">Tests</string>
     <string name="go_to_image">Go to image</string>
     <string name="attach_file">Attach file</string>
-    
+
 
     <string name="balanced_nutrition_source">SOURCE: World Health Organization. Integrated Management of Pregnancy and Childbirth – Pregnancy, Childbirth, Postpartum and Newborn Care: A guide for essential practice. 2015. Geneva.</string>
     <string name="string_bullet">•</string>
-    <string name="birth_and_emergency"></string>
-    
-    
-    
-    
-    
-    
-    
+    <string name="birth_and_emergency">" "</string>
+    <string name="no_openmrs_id">No unique ids found. Click on the sync button to get more and if this error persists contact the system admin.</string>
 
-    
+    <string name="login_failed_dialog_title">Log In Failed</string>
+    <string name="remote_login_generic_error">Error occurred during Login in with server. Please try again...</string>
+
+    <!-- Form Values -->
+    <string name="value_positive">Positive</string>
+    <string name="value_negative">Negative</string>
 
 </resources>

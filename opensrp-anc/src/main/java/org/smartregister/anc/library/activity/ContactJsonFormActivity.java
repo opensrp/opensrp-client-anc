@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -144,12 +145,23 @@ public class ContactJsonFormActivity extends FormConfigurationJsonFormActivity {
     @Override
     public void onBackPressed() {
         if (getmJSONObject().optString(ANCJsonFormConstants.ENCOUNTER_TYPE).equals(ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE)) {
-            ContactWizardJsonFormFragment contactWizardJsonFormFragment = (ContactWizardJsonFormFragment) getVisibleFragment();
-            contactWizardJsonFormFragment.getPresenter().validateAndWriteValues();
-            Intent intent = new Intent();
-            intent.putExtra("formInvalidFields",
-                    getmJSONObject().optString(ANCJsonFormConstants.ENCOUNTER_TYPE) + ":" + contactWizardJsonFormFragment.getPresenter().getInvalidFields().size());
-            setResult(RESULT_OK, intent);
+
+            int contactNo = getIntent().getIntExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, 0);
+
+            // Skip validation on further contacts
+            if (contactNo > 1) {
+                proceedToMainContactPage();
+            }
+
+            else {
+                ContactWizardJsonFormFragment contactWizardJsonFormFragment = (ContactWizardJsonFormFragment) getVisibleFragment();
+                contactWizardJsonFormFragment.getPresenter().validateAndWriteValues();
+                Intent intent = new Intent();
+                intent.putExtra("formInvalidFields",
+                        getmJSONObject().optString(ANCJsonFormConstants.ENCOUNTER_TYPE) + ":" + contactWizardJsonFormFragment.getPresenter().getInvalidFields().size());
+                setResult(RESULT_OK, intent);
+            }
+
         }
 
         proceedToMainContactPage();

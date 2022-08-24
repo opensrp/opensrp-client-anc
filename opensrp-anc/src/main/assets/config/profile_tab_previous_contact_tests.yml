@@ -2,24 +2,30 @@
 properties_file_name: "profile_contact_test"
 sub_group: ultrasound_tests_results
 fields:
-  - template: "{{profile_contact_test.ultrasound_tests.ultrasound_test}}: {ultrasound_value}"
-    relevance: "ultrasound != '' && helper.compareDateAgainstContactDate(ultrasound_date, contact_date)"
-
   - template: "{{profile_contact_test.ultrasound_tests.ultrasound_not_done_reason}}: {ultrasound_notdone_value}"
-    relevance: "ultrasound_notdone != '' && helper.compareDateAgainstContactDate(ultrasound_date, contact_date)"
+    relevance: "ultrasound_notdone != ''"
 
   - template: "{{profile_contact_test.ultrasound_tests.ultrasound_not_done_other_reason}}: {ultrasound_notdone_other_value}"
-    relevance: "ultrasound_notdone_other != '' && helper.compareDateAgainstContactDate(ultrasound_date, contact_date)"
+    relevance: "ultrasound_notdone_other != ''"
 
   - template: "{{profile_contact_test.ultrasound_tests.ultrasound_done_date}}: {ultrasound_date}"
-    relevance: "ultrasound_date != '' && helper.compareDateAgainstContactDate(ultrasound_date, contact_date)"
+    relevance: "ultrasound_date != ''"
+
+  - template: "{{profile_contact_test.ultrasound_tests.ultrasound_no_of_fetuses}}: {no_of_fetuses}"
+    relevance: "ultrasound != ''"
+
+  - template: "{{profile_contact_test.ultrasound_tests.fetal_presentation}}: {fetal_presentation_value}"
+    relevance: "ultrasound != '' && fetal_presentation != ''"
+
+  - template: "{{profile_contact_test.ultrasound_tests.amniotic_fluid}}: {amniotic_fluid_value}"
+    relevance: "ultrasound != '' && amniotic_fluid != ''"
+
+  - template: "{{profile_contact_test.ultrasound_tests.placenta_location}}: {placenta_location_value}"
+    relevance: "ultrasound != '' && placenta_location != ''"
 
 ---
 sub_group: blood_type_test_results
 fields:
-  - template: "{{profile_contact_test.blood_type_test.blood_type_test_status}}: {blood_type_test_status_value}"
-    relevance: "blood_type_test_status != '' && helper.compareDateAgainstContactDate(blood_type_test_date, contact_date) "
-
   - template: "{{profile_contact_test.blood_type_test.blood_type_test_done_date}}: {blood_type_test_date}"
     relevance: "blood_type_test_date != '' && helper.compareDateAgainstContactDate(blood_type_test_date, contact_date)"
 
@@ -33,9 +39,6 @@ test_results: "['blood_type:Blood type tests results','other_tests:Test multiple
 ---
 sub_group: hiv_tests_results
 fields:
-  - template: "{{profile_contact_test.hiv_tests.hiv_test_status}}: {hiv_test_status_value}"
-    relevance: "hiv_test_status != '' && helper.compareDateAgainstContactDate(hiv_test_date, contact_date)"
-
   - template: "{{profile_contact_test.hiv_tests.hiv_test_done_date}}: {hiv_test_date}"
     relevance: "hiv_test_date != '' && helper.compareDateAgainstContactDate(hiv_test_date, contact_date)"
 
@@ -52,9 +55,6 @@ test_results: "['hiv_test_result:hiv_test_date:Hiv tests results']"
 ---
 sub_group: hepatitis_b_test_results
 fields:
-  - template: "{{profile_contact_test.hepatitis_b_test.hepatitis_b_test_status}}: {hepb_test_status_value}"
-    relevance: "hepb_test_status != '' && helper.compareDateAgainstContactDate(hepb_test_date, contact_date)"
-
   - template: "{{profile_contact_test.hepatitis_b_test.hepatitis_b_test_done_date}}: {hepb_test_date}"
     relevance: "hepb_test_date != '' && helper.compareDateAgainstContactDate(hepb_test_date, contact_date)"
 
@@ -79,9 +79,6 @@ fields:
 ---
 sub_group: hepatitis_c_test_results
 fields:
-  - template: "{{profile_contact_test.hepatitis_c_test.hepatitis_c_test_status}}: {hepc_test_status_value}"
-    relevance: "hepc_test_status != '' && helper.compareDateAgainstContactDate(hepc_test_date, contact_date)"
-
   - template: "{{profile_contact_test.hepatitis_c_test.hepatitis_c_test_done_date}}: {hepc_test_date}"
     relevance: "hepc_test_date != '' && helper.compareDateAgainstContactDate(hepc_test_date, contact_date)"
 
@@ -106,9 +103,6 @@ fields:
 ---
 sub_group: syphilis_test_results
 fields:
-  - template: "{{profile_contact_test.syphilis_test.syphilis_test_status}}: {syph_test_status_value}"
-    relevance: "syph_test_status != '' && helper.compareDateAgainstContactDate(syphilis_test_date, contact_date)"
-
   - template: "{{profile_contact_test.syphilis_test.syphilis_test_done_date}}: {syphilis_test_date}"
     relevance: "syphilis_test_date != '' && helper.compareDateAgainstContactDate(syphilis_test_date, contact_date)"
 
@@ -121,7 +115,10 @@ fields:
   - template: "{{profile_contact_test.syphilis_test.syphilis_test_type}}: {syph_test_type_value}"
     relevance: "syph_test_type != '' && helper.compareDateAgainstContactDate(syphilis_test_date, contact_date)"
 
-  - template: "{{profile_contact_test.syphilis_test.syphilis_test_type}}: {rapid_syphilis_test_value}"
+  - template: "{{profile_contact_test.syphilis_test.rapid_syphilis_test}}: {rapid_syphilis_test_value}"
+    relevance: "rapid_syphilis_test_value != '' && helper.compareDateAgainstContactDate(syphilis_test_date, contact_date)"
+
+  - template: "{{profile_contact_test.syphilis_test.rapid_syphilis_test}}: {rapid_syphilis_test}"
     relevance: "rapid_syphilis_test != '' && helper.compareDateAgainstContactDate(syphilis_test_date, contact_date)"
 
   - template: "{{profile_contact_test.syphilis_test.rapid_plasma_reagin_rpr_test_result}}: {rpr_syphilis_test_value}"
@@ -133,9 +130,6 @@ fields:
 ---
 sub_group: urine_tests_results
 fields:
-  - template: "{{profile_contact_test.urine_tests.urine_test_status}}: {urine_test_status_value}"
-    relevance: "urine_test_status != '' && helper.compareDateAgainstContactDate(urine_test_date, contact_date)"
-
   - template: "{{profile_contact_test.urine_tests.urine_test_done_date}}: {urine_test_date}"
     relevance: "urine_test_date != '' && helper.compareDateAgainstContactDate(urine_test_date, contact_date)"
 
@@ -160,9 +154,6 @@ fields:
 ---
 sub_group: blood_glucose_tests_results
 fields:
-  - template: "{{profile_contact_test.blood_glucose_tests.blood_glucose_test_status}}: {glucose_test_status_value}"
-    relevance: "glucose_test_status != '' && helper.compareDateAgainstContactDate(glucose_test_date, contact_date)"
-
   - template: "{{profile_contact_test.blood_glucose_tests.blood_glucose_test_date}}: {glucose_test_date}"
     relevance: "glucose_test_date != '' && helper.compareDateAgainstContactDate(glucose_test_date, contact_date)"
 
@@ -187,9 +178,6 @@ fields:
 ---
 sub_group: blood_haemoglobin_test_results
 fields:
-  - template: "{{profile_contact_test.blood_haemoglobin_test.blood_haemoglobin_test_status}}: {hb_test_status_value}"
-    relevance: "hb_test_status != '' && helper.compareDateAgainstContactDate(hb_test_date, contact_date)"
-
   - template: "{{profile_contact_test.blood_haemoglobin_test.blood_haemoglobin_test_done_date}}: {hb_test_date}"
     relevance: "hb_test_date != '' && helper.compareDateAgainstContactDate(hb_test_date, contact_date)"
 
@@ -223,9 +211,6 @@ fields:
 ---
 sub_group: tb_screening_test_results
 fields:
-  - template: "{{profile_contact_test.tb_screening_test.tb_screening_test_status}}: {tb_screening_status_value}"
-    relevance: "tb_screening_status != '' && helper.compareDateAgainstContactDate(tb_screening_date, contact_date)"
-
   - template: "{{profile_contact_test.tb_screening_test.tb_screening_test_done_date}}: {tb_screening_date}"
     relevance: "tb_screening_date != '' && helper.compareDateAgainstContactDate(tb_screening_date, contact_date)"
 
@@ -242,7 +227,7 @@ test_results: "['tb_screening_result: TB Screening tests results']"
 ---
 sub_group: partner_hiv_test_results
 fields:
-  - template: "{{profile_contact_test.partner_hiv_test.partner_hiv_test_status}}: {hiv_test_partner_status}_value"
+  - template: "{{profile_contact_test.partner_hiv_test.partner_hiv_test_status}}: {hiv_test_partner_status_value}"
     relevance: "hiv_test_partner_status != '' && helper.compareDateAgainstContactDate(hiv_test_partner_date, contact_date)"
 
   - template: "{{profile_contact_test.partner_hiv_test.partner_hiv_test_done_date}}: {hiv_test_partner_date}"
@@ -255,15 +240,12 @@ test_results: "['hiv_test_partner_result:Partner HIV tests results']"
 ---
 sub_group: other_tests_results
 fields:
-  - template: "{{profile_contact_test.other_tests.other_test_test_status}}: {other_test_value}"
-    relevance: "other_test != '' && helper.compareDateAgainstContactDate(other_test_date, contact_date)"
-
   - template: "{{profile_contact_test.other_tests.other_test_done_date}}: {other_test_date}"
     relevance: "other_test_date != '' && helper.compareDateAgainstContactDate(other_test_date, contact_date)"
 
-  - template: "{{profile_contact_test.other_tests.other_test_name}}: {other_test_name_value}"
+  - template: "{{profile_contact_test.other_tests.other_test_name}}: {other_test_name}"
     relevance: "other_test_name != '' && helper.compareDateAgainstContactDate(other_test_date, contact_date)"
 
-  - template: "{{profile_contact_test.other_tests.other_test_result}}: {other_test_result_value}"
+  - template: "{{profile_contact_test.other_tests.other_test_result}}: {other_test_result}"
     relevance: "other_test_result != '' && helper.compareDateAgainstContactDate(other_test_date, contact_date)"
 test_results: "['other_test_result:Other tests results']"

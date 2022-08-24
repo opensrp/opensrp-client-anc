@@ -39,7 +39,9 @@ public class LibraryContentAdapter extends RecyclerView.Adapter<LibraryContentVi
             LibraryContent libraryContent = libraryContentList.get(position);
             if (libraryContent != null) {
                 String contentHeader = libraryContent.getContentHeader();
+                String contentFile = libraryContent.getContentFile();
                 libraryContentViewHolder.contentHeader.setText(contentHeader);
+                libraryContentViewHolder.contentFile.setText(contentFile);
             }
         }
     }

@@ -13,22 +13,23 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/patient_column"
         android:layout_width="0dp"
-        android:layout_height="@dimen/register_list_item_height"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginTop="7dp"
         android:layout_marginBottom="7dp"
         android:layout_weight="1.2"
         android:orientation="vertical">
 
-        <org.smartregister.view.customcontrols.CustomFontTextView
+        <TextView
             android:id="@+id/patient_name"
             style="@style/CustomFontTextViewStyle.ClientList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:fontFamily="@font/font_bold"
             android:paddingStart="0dp"
             android:text="Patient Name"
-            android:textColor="@color/black_text_color"
+            android:textColor="#282C34"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,15 +40,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="2dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp"
             android:orientation="horizontal"
             android:padding="0dp"
             app:layout_constraintBottom_toTopOf="@+id/id_flags_layout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/patient_name">
 
-            <org.smartregister.view.customcontrols.CustomFontTextView
+            <TextView
                 android:id="@+id/age"
                 style="@style/CustomFontTextViewStyle.ClientList"
                 android:layout_width="wrap_content"
@@ -56,10 +57,11 @@
                 android:paddingLeft="0dp"
                 android:text="Age: 33"
                 android:textColor="@color/dark_grey_text"
+                android:textFontWeight="600"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="normal" />
 
-            <org.smartregister.view.customcontrols.CustomFontTextView
+            <TextView
                 android:id="@+id/period"
                 style="@style/CustomFontTextViewStyle.ClientList"
                 android:layout_width="wrap_content"
@@ -69,10 +71,10 @@
                 android:text="@string/bullet"
                 android:textColor="@color/dark_grey_text"
                 android:textSize="16sp"
-                android:textStyle="bold"
+                android:textStyle="normal"
                 android:visibility="invisible" />
 
-            <org.smartregister.view.customcontrols.CustomFontTextView
+            <TextView
                 android:id="@+id/ga"
                 style="@style/CustomFontTextViewStyle.ClientList"
                 android:layout_width="wrap_content"
@@ -82,7 +84,7 @@
                 android:text="GA: 12 weeks"
                 android:textColor="@color/dark_grey_text"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="normal" />
         </LinearLayout>
 
         <RelativeLayout
@@ -90,13 +92,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginBottom="2dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/age_ga_layout">
 
-            <org.smartregister.view.customcontrols.CustomFontTextView
+            <TextView
                 android:id="@+id/anc_id"
                 style="@style/CustomFontTextViewStyle.ClientList"
                 android:layout_width="wrap_content"
@@ -105,11 +106,11 @@
                 android:gravity="bottom"
                 android:padding="0dp"
                 android:paddingStart="0dp"
-                android:paddingTop="5dp"
+                android:paddingTop="0dp"
                 android:text="ID: 3034503"
                 android:textColor="@color/dark_grey_text"
                 android:textSize="16sp"
-                android:textStyle="bold"
+                android:textStyle="normal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -119,12 +120,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="21dp"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="0dp"
                 android:layout_marginBottom="3dp"
                 android:background="@drawable/grey_border"
                 android:drawableLeft="@drawable/ic_red_flag"
                 android:gravity="bottom"
-                android:paddingStart="1dp"
+                android:paddingStart="0dp"
                 android:paddingEnd="2dp"
                 android:text="20"
                 android:textColor="@color/dark_grey_text"
@@ -148,12 +149,14 @@
             android:id="@+id/contact_today_text"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:adjustViewBounds="true"
             android:background="@drawable/contact_completed_today"
             android:drawableStart="@drawable/ic_checked_green"
-            android:elevation="8dp"
+            android:drawablePadding="6dp"
+            android:elevation="0dp"
+            android:fontFamily="@font/font_bold"
             android:gravity="center"
-            android:layout_gravity="center"
             android:hapticFeedbackEnabled="true"
             android:paddingLeft="18dp"
             android:paddingRight="18dp"
@@ -163,6 +166,7 @@
             android:textColor="@color/dark_grey"
             android:textSize="14sp"
             android:typeface="normal"
+            android:shadowColor="@color/transparent"
             android:visibility="visible" />
 
         <Button
@@ -172,7 +176,7 @@
             android:layout_gravity="center_vertical|center_horizontal"
             android:adjustViewBounds="true"
             android:background="@drawable/contact_completed_today"
-            android:elevation="8dp"
+            android:elevation="0dp"
             android:gravity="center_vertical|center_horizontal"
             android:hapticFeedbackEnabled="true"
             android:paddingLeft="10dp"
@@ -193,7 +197,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal"
             android:background="@color/transparent"
-            android:elevation="8dp"
+            android:elevation="0dp"
             android:padding="@dimen/advanced_search_button_padding"
             android:stateListAnimator="@drawable/button"
             android:text="@string/sync"

@@ -564,15 +564,15 @@ public class Utils extends org.smartregister.util.Utils {
             if (buttonAlertStatus.buttonAlertStatus != null) {
                 switch (buttonAlertStatus.buttonAlertStatus) {
                     case ConstantsUtils.AlertStatusUtils.IN_PROGRESS:
-                        dueButton.setBackgroundColor(context.getResources().getColor(R.color.progress_orange));
-                        dueButton.setTextColor(context.getResources().getColor(R.color.white));
+                        dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_progress));
+                        dueButton.setTextColor(context.getResources().getColor(R.color.black));
                         break;
                     case ConstantsUtils.AlertStatusUtils.DUE:
                         dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
-                        dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
+                        dueButton.setTextColor(context.getResources().getColor(R.color.white));
                         break;
                     case ConstantsUtils.AlertStatusUtils.OVERDUE:
-                        dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
+                        dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_overdue));
                         dueButton.setTextColor(context.getResources().getColor(R.color.white));
                         break;
                     case ConstantsUtils.AlertStatusUtils.NOT_DUE:
@@ -581,7 +581,7 @@ public class Utils extends org.smartregister.util.Utils {
                         break;
                     case ConstantsUtils.AlertStatusUtils.DELIVERY_DUE:
                         dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
-                        dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
+                        dueButton.setTextColor(context.getResources().getColor(R.color.white));
                         dueButton.setText(context.getString(R.string.contact_due_delivery));
                         break;
                     case ConstantsUtils.AlertStatusUtils.EXPIRED:
@@ -603,7 +603,7 @@ public class Utils extends org.smartregister.util.Utils {
                         break;
                     default:
                         dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
-                        dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
+                        dueButton.setTextColor(context.getResources().getColor(R.color.white));
                         break;
                 }
 

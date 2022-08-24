@@ -82,6 +82,42 @@
         }
       },
       {
+        "key": "nik",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "nik",
+        "type": "edit_text",
+        "hint": "{{anc_register.step1.nik.hint}}",
+        "v_regex": {
+          "value": "[0-9]{16}",
+          "err": "{{anc_register.step1.nik.v_numeric.err}}"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "{{anc_register.step1.nik.v_numeric.err}}"
+        },
+        "v_required": {
+          "value": true,
+          "err": "{{anc_register.step1.nik.v_required.err}}"
+        }
+      },
+      {
+        "key": "bpjs",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "bpjs",
+        "type": "edit_text",
+        "hint": "{{anc_register.step1.bpjs.hint}}",
+        "v_numeric": {
+          "value": "true",
+          "err": "{{anc_register.step1.bpjs.v_numeric.err}}"
+        },
+        "v_required": {
+          "value": false,
+          "err": "{{anc_register.step1.bpjs.v_required.err}}"
+        }
+      },
+      {
         "key": "first_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",

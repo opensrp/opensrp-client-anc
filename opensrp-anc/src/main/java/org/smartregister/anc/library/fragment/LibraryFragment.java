@@ -63,9 +63,9 @@ public class LibraryFragment extends org.smartregister.view.fragment.LibraryFrag
     private List<LibraryContent> getLibraryContent() {
         List<LibraryContent> libraryContents = new ArrayList<>();
         if (getActivity() != null && getActivity().getResources() != null) {
-            LibraryContent birthEmergencyPlan = new LibraryContent(getActivity().getResources().getString(R.string.birth_and_emergency_plan));
-            LibraryContent physicalActivity = new LibraryContent(getActivity().getResources().getString(R.string.physical_activity));
-            LibraryContent balancedNutrition = new LibraryContent(getActivity().getResources().getString(R.string.balanced_nutrition));
+            LibraryContent birthEmergencyPlan = new LibraryContent(getActivity().getResources().getString(R.string.birth_and_emergency_plan), "birth-and-emergency-plan");
+            LibraryContent physicalActivity = new LibraryContent(getActivity().getResources().getString(R.string.physical_activity), "physical-activity");
+            LibraryContent balancedNutrition = new LibraryContent(getActivity().getResources().getString(R.string.balanced_nutrition), "balanced-nutrition");
 
             libraryContents.add(birthEmergencyPlan);
             libraryContents.add(balancedNutrition);

@@ -251,7 +251,7 @@
       "key": "rapid_syphilis_test",
       "openmrs_entity_parent": "",
       "openmrs_entity": "concept",
-      "openmrs_entity_id": "165303AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity_id": "rapid_syphilis_test",
       "type": "native_radio",
       "label": "{{tests_syphilis_sub_form.step1.rapid_syphilis_test.label}}",
       "label_text_style": "bold",
@@ -262,7 +262,7 @@
           "translation_text": "tests_syphilis_sub_form.step1.rapid_syphilis_test.options.positive.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
-          "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "openmrs_entity_id": "rapid_syphilis_test_positive"
         },
         {
           "key": "negative",
@@ -270,7 +270,7 @@
           "translation_text": "tests_syphilis_sub_form.step1.rapid_syphilis_test.options.negative.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
-          "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "openmrs_entity_id": "rapid_syphilis_test_negative"
         }
       ],
       "v_required": {

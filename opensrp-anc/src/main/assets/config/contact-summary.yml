@@ -143,6 +143,9 @@ fields:
 group: immunisation_status
 fields:
 
+- template: "{{contact_summary.immunisation_status.covid_vaccine_status}}: {covid_vaccine_status_value}"
+  relevance: "tt_immun_status_value != ''"
+  
 - template: "{{contact_summary.immunisation_status.tt_immunisation_status}}: {tt_immun_status_value}"
   relevance: "tt_immun_status_value != ''"
 
@@ -216,10 +219,10 @@ fields:
 - template: "{{contact_summary.woman_behaviour.tobacco_cessation_counseling_done}}"
   relevance: "tobacco_counsel == 'done'"
 
-- template: "{{contact_summary.woman_behaviour.tobacco_cessation_counseling_done}}: {tobacco_counsel_notdone_value}"
+- template: "{{contact_summary.woman_behaviour.tobacco_cessation_counseling_not_done}}: {tobacco_counsel_notdone_value}"
   relevance: "tobacco_counsel == 'not_done'"
 
-- template: "{{contact_summary.woman_behaviour.shs_exposure}}: Hayayya {shs_exposure_value}"
+- template: "{{contact_summary.woman_behaviour.shs_exposure}}: {shs_exposure_value}"
   relevance: "shs_exposure != ''"
 
 - template: "{{contact_summary.woman_behaviour.shs_counseling_done}}"
@@ -240,7 +243,7 @@ fields:
 - template: "{{contact_summary.woman_behaviour.alcohol_substance_enquiry}}: {alcohol_substance_enquiry_value}"
   relevance: "alcohol_substance_enquiry != ''"
 
-- template: "{{contact_summary.woman_behaviour.alcohol_substances_used}}: {alcohol_substance_use_value}, {other_substance_use}"
+- template: "{{contact_summary.woman_behaviour.alcohol_substances_used}}: {alcohol_substance_use_value}"
   relevance: "alcohol_substance_use != ''"
 
 - template: "{{contact_summary.woman_behaviour.alcohol_substances_use_counseling_done}}"
@@ -255,7 +258,7 @@ fields:
 - template: "{{contact_summary.physiological_symptoms.persisting_physiological_symptoms}}: {phys_symptoms_persist_value}"
   relevance: "phys_symptoms_persist != ''"
 
-- template: "{{contact_summary.physiological_symptoms.physiological_symptoms}}: contact-summary.yml {phys_symptoms_value}"
+- template: "{{contact_summary.physiological_symptoms.physiological_symptoms}}: {phys_symptoms_value}"
   relevance: "phys_symptoms != ''"
 
 - template: "{{contact_summary.physiological_symptoms.low_back_and_pelvic_pain_other_symptoms}}: {other_sym_lbpp_value}"
@@ -378,10 +381,23 @@ fields:
 - template: "{{contact_summary.height_and_weight.balanced_protein_dietary_counseling_not_done}}: {balanced_energy_counsel_notdone_value}"
   relevance: "balanced_energy_counsel == 'not_done'"
 ---
+group: muac
+fields:
+
+- template: "{{contact_summary.muac.muac}}: {muac} cm"
+  relevance: "muac != ''"
+
+- template: "{{contact_summary.muac.muac_cat}}t: {muac_cat}"
+  relevance: "muac_cat != ''"
+
+---
 group: blood_pressure
 fields:
 
-- template: "{{contact_summary.blood_pressure.bp}}: {bp_systolic}/{bp_diastolic} mmHg"
+- template: "{{contact_summary.blood_pressure.bp_manual}}: {bp_systolic_manual}/{bp_diastolic_manual} mmHg"
+  relevance: "bp_systolic_manual != '' && bp_diastolic_manual != ''"
+
+- template: "{{contact_summary.blood_pressure.bp_optibp}}: {bp_systolic}/{bp_diastolic} mmHg"
   relevance: "bp_systolic != '' && bp_diastolic != ''"
 
 - template: "{{contact_summary.blood_pressure.bp_10_min_rest}}: {bp_systolic_repeat}/{bp_diastolic_repeat} mmHg"
