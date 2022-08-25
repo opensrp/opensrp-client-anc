@@ -96,7 +96,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
     protected void loadContactSummaryData() {
         try {
-            new LoadContactSummaryDataTask(this, getIntent(), mProfilePresenter, facts, baseEntityId).loadContactSummary();
+            new LoadContactSummaryDataTask(this, getIntent(), mProfilePresenter, facts, baseEntityId).init();
         } catch (Exception e) {
             Timber.e(e, "%s loadContactSummaryData()", this.getClass().getCanonicalName());
         }
@@ -188,7 +188,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     }
 
     private void saveFinishForm() {
-        new FinalizeContactTask(new WeakReference<Context>(this), mProfilePresenter, getIntent()).finalizeContactTask();
+        new FinalizeContactTask(new WeakReference<Context>(this), mProfilePresenter, getIntent()).init();
     }
 
 

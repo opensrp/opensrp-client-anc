@@ -39,8 +39,8 @@ public class LoadContactSummaryDataTask {
     }
 
 
-    public void loadContactSummary() {
-        this.showDialog();
+    public void init() {
+        appExecutorService.mainThread().execute(this::showDialog);
         appExecutorService = new AppExecutorService();
         appExecutorService.executorService().execute(() -> {
                     this.onProcess();

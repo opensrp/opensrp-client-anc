@@ -24,7 +24,7 @@ public class SiteCharacteristicsInteractor implements BaseCharacteristicsContrac
 
     @Override
     public void fetchCharacteristics() {
-        new FetchSiteCharacteristicsTask(presenter).fetchSiteCharacteristics();
+        new FetchSiteCharacteristicsTask(presenter).init();
     }
 
 }

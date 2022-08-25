@@ -24,7 +24,7 @@ public class FetchSiteCharacteristicsTask {
     /***
      * function that incorporates both background and UI threads
      */
-    public void fetchSiteCharacteristics() {
+    public void init() {
         /**
          * Background Thread
          */

@@ -24,7 +24,7 @@ public class PopulationCharacteristicsInteractor implements BaseCharacteristicsC
 
     @Override
     public void fetchCharacteristics() {
-        new FetchPopulationCharacteristicsTask(presenter).fetchPopulationCharacteristics();
+        new FetchPopulationCharacteristicsTask(presenter).init();
     }
 
 }

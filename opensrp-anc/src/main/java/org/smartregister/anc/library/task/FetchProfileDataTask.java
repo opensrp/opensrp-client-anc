@@ -18,15 +18,11 @@ public class FetchProfileDataTask {
         this.isForEdit = isForEdit;
     }
 
-    public void fetchProfileDataTask(String baseEntityId) {
+    public void init(String baseEntityId) {
         appExecutorService = new AppExecutorService();
         appExecutorService.executorService().execute(() -> {
             Map<String, String> client = this.getWomanDetailsOnBackground(baseEntityId);
-            appExecutorService.mainThread().execute(() -> {
-                if (!client.isEmpty()) {
-                    appExecutorService.mainThread().execute(() -> onPostStickyEventOnPostExecute(client));
-                }
-            });
+            appExecutorService.mainThread().execute(() -> postStickEventOnPostExec(client));
         });
 
     }
@@ -36,7 +32,7 @@ public class FetchProfileDataTask {
 
     }
 
-    protected void onPostStickyEventOnPostExecute(Map<String, String> client) {
+    protected void postStickEventOnPostExec(Map<String, String> client) {
         Utils.postStickyEvent(new ClientDetailsFetchedEvent(client, isForEdit));
     }
 

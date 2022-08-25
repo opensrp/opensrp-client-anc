@@ -23,7 +23,7 @@ public class ProfileInteractor implements ProfileContract.Interactor {
 
     @Override
     public void refreshProfileView(String baseEntityId, boolean isForEdit) {
-        new FetchProfileDataTask(isForEdit).fetchProfileDataTask(baseEntityId);
+        new FetchProfileDataTask(isForEdit).init(baseEntityId);
     }
 
     @Override

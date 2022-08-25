@@ -20,7 +20,7 @@ public class FetchPopulationCharacteristicsTask {
         this.presenter = presenter;
     }
 
-    public void fetchPopulationCharacteristics() {
+    public void init() {
         appExecutorService = new AppExecutorService();
         appExecutorService.executorService().execute(() -> {
             List<ServerSetting> result = this.getServerSettingsService();

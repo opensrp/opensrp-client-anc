@@ -35,7 +35,7 @@ public class AttentionFlagsTask {
     /***
      * This function executes both background work and UI thread
      */
-    public void attentionFlagsTask() {
+    public void init() {
         appExecutorService = new AppExecutorService();
         appExecutorService.executorService().execute(() -> {
             this.addAttentionFlagsService();

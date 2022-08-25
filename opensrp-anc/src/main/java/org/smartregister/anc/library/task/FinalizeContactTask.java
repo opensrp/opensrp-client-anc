@@ -32,8 +32,8 @@ public class FinalizeContactTask {
     /***
      * execute task with AppExecutors
      */
-    public void finalizeContactTask() {
-        getProgressDialog();
+    public void init() {
+        appExecutorService.mainThread().execute(this::getProgressDialog);
         appExecutorService = new AppExecutorService();
         appExecutorService.executorService().execute(() -> {
             /***
