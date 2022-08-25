@@ -131,10 +131,10 @@ public class ANCFormUtils extends FormUtils {
             String widgetValue = null;
             if(widget.has(JsonFormConstants.VALUE))
              widgetValue = widget.getString(JsonFormConstants.VALUE);
-            if(widgetValue != null && widgetValue.startsWith("{"))
+            if(!StringUtils.isNotBlank(widgetValue) && widgetValue.startsWith("{"))
                 widgetValue =  new JSONObject(widgetValue).getString(JsonFormConstants.VALUE);
 
-            if (widgetValue!= null && !TextUtils.isEmpty(widgetValue) &&
+            if (StringUtils.isNotBlank(widgetValue) && !TextUtils.isEmpty(widgetValue) &&
                     jsonObject.getString(JsonFormConstants.KEY).equals(widgetValue)) {
 
                 if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) &&

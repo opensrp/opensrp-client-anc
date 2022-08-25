@@ -16,6 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
+import org.smartregister.anc.library.constants.ANCJsonFormConstants;
 import org.smartregister.anc.library.contract.ContactContract;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.model.PartialContact;
@@ -637,12 +638,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                    JSONObject optionsObject =  fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m);
                    if(optionsObject.has(JsonFormConstants.CONTENT_WIDGET) && secondaryValue != null)
                    {
-                       JSONObject secondaryValueObject = new JSONObject();
-                       JSONArray  secondaryValueArray = new JSONArray();
-                       secondaryValueArray.put(secondaryValue);
-                       secondaryValueObject.put(JsonFormConstants.KEY, optionsObject.getString(JsonFormConstants.KEY));
-                       secondaryValueObject.put(JsonFormConstants.VALUES, secondaryValueArray);
-                       secondaryValueObject.put(JsonFormConstants.TYPE, optionsObject.getString(JsonFormConstants.CONTENT_WIDGET));
+                       JSONObject secondaryValueObject = ANCJsonFormUtils.populateSecondaryValues(secondaryValue,optionsObject);
                        optionsObject.put(JsonFormConstants.SECONDARY_VALUE,new JSONArray().put(secondaryValueObject));
                    }
 

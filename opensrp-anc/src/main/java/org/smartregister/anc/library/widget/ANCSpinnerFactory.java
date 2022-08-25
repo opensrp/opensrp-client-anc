@@ -135,7 +135,7 @@ public class ANCSpinnerFactory extends SpinnerFactory {
             JSONObject parentField = JsonFormUtils.getFieldJSONObject(getFormStep().getJSONArray(FIELDS),
                     parents.get(jsonObject.getString(KEY)));
             String parentId = "";
-            if (parentField.optString(VALUE) != null && parentField.optString(VALUE).charAt(0) == '{') {
+            if (!StringUtils.isNotBlank(parentField.optString(VALUE)) && parentField.optString(VALUE).charAt(0) == '{') {
                 parentId = new JSONObject(parentField.optString(VALUE)).optString(VALUE);
             } else {
                 parentId = parentField.getString(VALUE);

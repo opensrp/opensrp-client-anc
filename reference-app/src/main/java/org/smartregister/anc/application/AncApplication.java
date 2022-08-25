@@ -196,14 +196,14 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     @Override
     public void onTimeChanged() {
         Utils.showToast(this, this.getString(org.smartregister.anc.library.R.string.device_time_changed));
-        context.userService().getAllSharedPreferences().saveForceRemoteLogin(false, context.allSharedPreferences().fetchRegisteredANM());
+        context.userService().getAllSharedPreferences().saveForceRemoteLogin(true, context.allSharedPreferences().fetchRegisteredANM());
         logoutCurrentUser();
     }
 
     @Override
     public void onTimeZoneChanged() {
         Utils.showToast(this, this.getString(org.smartregister.anc.library.R.string.device_timezone_changed));
-        context.userService().getAllSharedPreferences().saveForceRemoteLogin(false, context.allSharedPreferences().fetchRegisteredANM());
+        context.userService().getAllSharedPreferences().saveForceRemoteLogin(true, context.allSharedPreferences().fetchRegisteredANM());
         logoutCurrentUser();
     }
 }
