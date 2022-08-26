@@ -83,7 +83,6 @@ public class ContactScheduleAdapterTest extends BaseUnitTest {
         viewGroup.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
         ContactScheduleAdapter.ViewHolder viewHolder = adapter.onCreateViewHolder(viewGroup, 0);
         Assert.assertNotNull(viewHolder);
-
         Whitebox.getInternalState(adapter, "contactsSchedule");
         adapter.onBindViewHolder(viewHolder, 0);
     }

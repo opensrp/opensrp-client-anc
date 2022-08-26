@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -128,7 +129,7 @@
                         android:contentDescription="@string/right_arrow"
                         android:gravity="center"
                         android:src="@drawable/baseline_keyboard_arrow_right"
-                        android:tint="@color/me_page_arrow" />
+                        app:tint="@color/me_page_arrow" />
                 </RelativeLayout>
 
                 <View
@@ -181,7 +182,7 @@
                         android:contentDescription="@string/right_arrow"
                         android:gravity="center"
                         android:src="@drawable/baseline_keyboard_arrow_right"
-                        android:tint="@color/me_page_arrow" />
+                        app:tint="@color/me_page_arrow" />
 
                 </RelativeLayout>
 
@@ -235,7 +236,7 @@
                         android:contentDescription="@string/right_arrow"
                         android:gravity="center"
                         android:src="@drawable/baseline_keyboard_arrow_right"
-                        android:tint="@color/me_page_arrow" />
+                        app:tint="@color/me_page_arrow" />
 
                 </RelativeLayout>
 
@@ -287,12 +288,64 @@
                         android:contentDescription="@string/right_arrow"
                         android:gravity="center"
                         android:src="@drawable/baseline_keyboard_arrow_right"
-                        android:tint="@color/me_page_arrow" />
+                        app:tint="@color/me_page_arrow" />
 
                 </RelativeLayout>
 
                 <View
                     android:id="@+id/contact_summary_separator"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/me_page_line_separator" />
+
+                <RelativeLayout
+                    android:id="@+id/p2p_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="@dimen/me_page_initials_background_margin"
+                    android:layout_marginLeft="@dimen/me_page_initials_background_margin"
+                    android:layout_marginEnd="@dimen/me_page_initials_background_margin"
+                    android:layout_marginRight="@dimen/me_page_initials_background_margin">
+
+                    <ImageView
+                        android:id="@+id/p2pSyncImageView"
+                        android:layout_width="@dimen/me_page_section_square_dimension"
+                        android:layout_height="@dimen/me_page_section_square_dimension"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/me_page_initials_background_margin"
+                        android:contentDescription="@string/section_icon"
+                        android:gravity="center"
+                        android:src="@drawable/ic_p2p" />
+
+                    <TextView
+                        android:id="@+id/p2pSyncText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/me_page_section_text_right_margin"
+                        android:layout_toEndOf="@+id/p2pSyncImageView"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:scrollHorizontally="true"
+                        android:text="@string/device_to_device"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/me_page_section_text_size" />
+
+                    <ImageView
+                        android:id="@+id/p2p_syncCaret"
+                        android:layout_width="@dimen/me_page_section_square_dimension"
+                        android:layout_height="@dimen/me_page_section_square_dimension"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:contentDescription="@string/right_arrow"
+                        android:gravity="center"
+                        android:src="@drawable/baseline_keyboard_arrow_right"
+                        app:tint="@color/me_page_arrow" />
+
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/p2p_separator"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/me_page_line_separator" />
@@ -340,7 +393,7 @@
                         android:contentDescription="@string/right_arrow"
                         android:gravity="center"
                         android:src="@drawable/baseline_keyboard_arrow_right"
-                        android:tint="@color/me_page_arrow" />
+                        app:tint="@color/me_page_arrow" />
 
                 </RelativeLayout>
 
@@ -389,7 +442,7 @@
                         android:contentDescription="@string/right_arrow"
                         android:gravity="center"
                         android:src="@drawable/baseline_keyboard_arrow_right"
-                        android:tint="@color/me_page_arrow" />
+                        app:tint="@color/me_page_arrow" />
 
                 </RelativeLayout>
 

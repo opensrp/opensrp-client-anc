@@ -101,8 +101,8 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter
         if (cursor != null && cursor.getCount() > 0) {
             AdvancedMatrixCursor remoteLocalCursor = new AdvancedMatrixCursor(
                     new String[]{DBConstantsUtils.KeyUtils.ID_LOWER_CASE, DBConstantsUtils.KeyUtils.RELATIONAL_ID, DBConstantsUtils.KeyUtils.FIRST_NAME,
-                            DBConstantsUtils.KeyUtils.LAST_NAME, DBConstantsUtils.KeyUtils.DOB, DBConstantsUtils.KeyUtils.ANC_ID,
-                            DBConstantsUtils.KeyUtils.PHONE_NUMBER, DBConstantsUtils.KeyUtils.ALT_NAME});
+                            DBConstantsUtils.KeyUtils.LAST_NAME, DBConstantsUtils.KeyUtils.DOB,DBConstantsUtils.KeyUtils.EDD, DBConstantsUtils.KeyUtils.ANC_ID,
+                            DBConstantsUtils.KeyUtils.PHONE_NUMBER, DBConstantsUtils.KeyUtils.ALT_NAME,DBConstantsUtils.KeyUtils.NEXT_CONTACT,DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE});
 
             CursorJoiner joiner =
                     new CursorJoiner(matrixCursor, new String[]{DBConstantsUtils.KeyUtils.ANC_ID, DBConstantsUtils.KeyUtils.ID_LOWER_CASE},
@@ -114,16 +114,22 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter
                         remoteLocalCursor.addRow(new Object[]{createRemoteLocalCursorUtils.getId(),
                                 createRemoteLocalCursorUtils.getRelationalId(), createRemoteLocalCursorUtils.getFirstName(),
                                 createRemoteLocalCursorUtils.getLastName(), createRemoteLocalCursorUtils.getDob(),
+                                createRemoteLocalCursorUtils.getEdd(),
                                 createRemoteLocalCursorUtils.getAncId(), createRemoteLocalCursorUtils.getPhoneNumber(),
-                                createRemoteLocalCursorUtils.getAltName()});
+                                createRemoteLocalCursorUtils.getAltName(),
+                                createRemoteLocalCursorUtils.getNextContact(),
+                                createRemoteLocalCursorUtils.getNextContactDate()
+                        });
                         break;
                     case RIGHT:
                         CreateRemoteLocalCursorUtils localCreateRemoteLocalCursorUtils = new CreateRemoteLocalCursorUtils(cursor, false);
                         remoteLocalCursor.addRow(new Object[]{localCreateRemoteLocalCursorUtils.getId(),
                                 localCreateRemoteLocalCursorUtils.getRelationalId(), localCreateRemoteLocalCursorUtils.getFirstName(),
                                 localCreateRemoteLocalCursorUtils.getLastName(), localCreateRemoteLocalCursorUtils.getDob(),
+                                localCreateRemoteLocalCursorUtils.getEdd(),
                                 localCreateRemoteLocalCursorUtils.getAncId(), localCreateRemoteLocalCursorUtils.getPhoneNumber(),
-                                localCreateRemoteLocalCursorUtils.getAltName()});
+                                localCreateRemoteLocalCursorUtils.getAltName(),localCreateRemoteLocalCursorUtils.getNextContact(),
+                                localCreateRemoteLocalCursorUtils.getNextContactDate()});
 
                         break;
                     case LEFT:
@@ -131,8 +137,12 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter
                         remoteLocalCursor.addRow(new Object[]{createRemoteLocalCursorUtils.getId(),
                                 createRemoteLocalCursorUtils.getRelationalId(), createRemoteLocalCursorUtils.getFirstName(),
                                 createRemoteLocalCursorUtils.getLastName(), createRemoteLocalCursorUtils.getDob(),
+                                createRemoteLocalCursorUtils.getEdd(),
                                 createRemoteLocalCursorUtils.getAncId(), createRemoteLocalCursorUtils.getPhoneNumber(),
-                                createRemoteLocalCursorUtils.getAltName()});
+                                createRemoteLocalCursorUtils.getAltName(),
+                                createRemoteLocalCursorUtils.getNextContact(),
+                                createRemoteLocalCursorUtils.getNextContactDate()
+                        });
                         break;
                     default:
                         break;
