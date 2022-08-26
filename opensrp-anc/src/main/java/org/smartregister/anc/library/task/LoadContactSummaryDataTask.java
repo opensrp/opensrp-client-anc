@@ -25,7 +25,7 @@ import timber.log.Timber;
 public class LoadContactSummaryDataTask {
     private static Intent intent;
     private final Context context;
-    private ProfileContract.Presenter mProfilePresenter;
+    private final ProfileContract.Presenter mProfilePresenter;
     private final Facts facts;
     private final String baseEntityId;
     AppExecutorService appExecutorService;
@@ -45,8 +45,7 @@ public class LoadContactSummaryDataTask {
         appExecutorService.executorService().execute(() -> {
                     this.onProcess();
                     appExecutorService.mainThread().execute(this::finishAdapterOnPostExecute);
-                }
-        );
+                });
     }
 
     private void onProcess() {
@@ -55,8 +54,6 @@ public class LoadContactSummaryDataTask {
         } catch (Exception e) {
             Timber.e(e, "%s --> loadContactSummaryData", this.getClass().getCanonicalName());
         }
-
-
     }
 
 

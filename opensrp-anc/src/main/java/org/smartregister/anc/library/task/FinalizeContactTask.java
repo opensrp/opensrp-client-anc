@@ -45,8 +45,6 @@ public class FinalizeContactTask {
              */
             appExecutorService.mainThread().execute(this::finishContactSummaryOnPostExecute);
         });
-
-
     }
 
     protected void getProgressDialog() {

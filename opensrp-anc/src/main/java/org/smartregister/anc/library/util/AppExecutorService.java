@@ -27,8 +27,7 @@ public class AppExecutorService {
     }
 
     public AppExecutorService() {
-        this(Executors.newSingleThreadExecutor(),
-                new AppExecutorService.MainThreadExecutor());
+        this(Executors.newSingleThreadExecutor(), new AppExecutorService.MainThreadExecutor());
     }
 
     public ExecutorService executorService() {

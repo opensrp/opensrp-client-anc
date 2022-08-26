@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class FetchPopulationCharacteristicsTask {
 
-    private PopulationCharacteristicsContract.Presenter presenter;
+    private final PopulationCharacteristicsContract.Presenter presenter;
     AppExecutorService appExecutorService;
 
     public FetchPopulationCharacteristicsTask(PopulationCharacteristicsContract.Presenter presenter) {

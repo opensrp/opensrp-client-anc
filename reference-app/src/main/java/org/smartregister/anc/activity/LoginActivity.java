@@ -65,13 +65,11 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         if (remote) {
             Utils.startAsyncTask(new SaveTeamLocationsTask(), null);
         }
-
         if (mLoginPresenter.isServerSettingsSet()) {
             gotToHomeRegister(remote);
         } else {
             goToSiteCharacteristics(remote);
         }
-
         finish();
     }
 
@@ -92,7 +90,6 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         if (syncCompleteEvent != null) {
             Timber.d("Refreshing Login View...");
             mLoginPresenter.processViewCustomizations();
-
         }
     }
 }

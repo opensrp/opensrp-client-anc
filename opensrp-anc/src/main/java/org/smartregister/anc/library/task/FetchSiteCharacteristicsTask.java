@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class FetchSiteCharacteristicsTask {
 
-    private BaseCharacteristicsContract.BasePresenter presenter;
+    private final BaseCharacteristicsContract.BasePresenter presenter;
     AppExecutorService appExecutorService;
 
     public FetchSiteCharacteristicsTask(PopulationCharacteristicsContract.Presenter presenter) {
