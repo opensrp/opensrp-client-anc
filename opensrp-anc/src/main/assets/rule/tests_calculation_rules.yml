@@ -272,7 +272,7 @@ condition: "step2_hb_test_status != '' && step2_hb_test_status == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
 ---
-name: step2_covid_test_date
+name: step2_covid_test_date_today_hidden
 description: covid_test_date
 priority: 1
 condition: "step2_covid_status == 'done_today'"

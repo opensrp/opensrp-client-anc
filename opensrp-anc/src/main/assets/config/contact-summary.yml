@@ -32,8 +32,8 @@ fields:
   - template: "{{contact_summary.hospital_referral.respiratory_distress}}: {respiratory_exam_abnormal_value}"
     relevance: "!respiratory_exam_abnormal.contains('none') && !respiratory_exam_abnormal.isEmpty()"
 
-- template: "{{contact_summary.hospital_referral.low_oximetry}}: {oximetry}%"
-  relevance: "oximetry < 95"
+  - template: "{{contact_summary.hospital_referral.low_oximetry}}: {oximetry}%"
+    relevance: "oximetry < 95"
 
   - template: "{{contact_summary.hospital_referral.abnormal_cardiac_exam}}: {cardiac_exam_abnormal_value}"
     relevance: "!cardiac_exam_abnormal.contains('none') && !cardiac_exam_abnormal.isEmpty()"
