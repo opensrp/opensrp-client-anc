@@ -16,6 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
+import org.smartregister.anc.library.constants.ANCJsonFormConstants;
 import org.smartregister.anc.library.contract.ContactContract;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.model.PartialContact;
@@ -219,7 +220,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                     }
                 }
                 //Make profile always complete on second contact onwards
-                requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE, 0);
+               // requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE, 0);
                 requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS_ENCOUNTER_TYPE, 0);
 
             }
@@ -613,13 +614,21 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     private void updateDefaultValues(JSONArray stepArray, int i, JSONObject fieldObject) throws JSONException {
         if (defaultValueFields.contains(fieldObject.getString(JsonFormConstants.KEY))) {
 
+            String secondaryValue = null;
             if (!fieldObject.has(JsonFormConstants.VALUE) ||
                     TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE))) {
 
                 String defaultKey = fieldObject.getString(JsonFormConstants.KEY);
                 String mapValue = getMapValue(defaultKey);
 
+                if(fieldObject.has(ANCJsonFormConstants.KeyConstants.SECONDARY_VALUE_FIELD))
+                    secondaryValue = getMapValue(fieldObject.getString(ANCJsonFormConstants.KeyConstants.SECONDARY_VALUE_FIELD));
+
+
                 if (mapValue != null) {
+                    if(mapValue.startsWith("{"))
+                        fieldObject.put(JsonFormConstants.VALUE, new JSONObject(mapValue));
+                    else
                     fieldObject.put(JsonFormConstants.VALUE, mapValue);
                     fieldObject.put(JsonFormConstants.EDITABLE, editableFields.contains(defaultKey));
                     fieldObject.put(JsonFormConstants.READ_ONLY, editableFields.contains(defaultKey));
@@ -630,8 +639,16 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             if (fieldObject.has(JsonFormConstants.OPTIONS_FIELD_NAME)) {
                 boolean addDefaults = true;
 
+
                 for (int m = 0; m < fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).length(); m++) {
                     String optionValue;
+                   JSONObject optionsObject =  fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m);
+                   if(optionsObject.has(JsonFormConstants.CONTENT_WIDGET) && secondaryValue != null)
+                   {
+                       JSONObject secondaryValueObject = ANCJsonFormUtils.populateSecondaryValues(secondaryValue,optionsObject);
+                       optionsObject.put(JsonFormConstants.SECONDARY_VALUE,new JSONArray().put(secondaryValueObject));
+                   }
+
                     if (fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m)
                             .has(JsonFormConstants.VALUE)) {
                         optionValue = fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m)

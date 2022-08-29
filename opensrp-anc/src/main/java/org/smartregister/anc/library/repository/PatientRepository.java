@@ -56,10 +56,12 @@ public class PatientRepository extends BaseRepository {
                 detailsMap = new HashMap<>();
                 for (int count = 0; count < projection.length; count++) {
                     String columnName = cursor.getColumnName(count);
-                    String columnValue = cursor.getString(cursor.getColumnIndex(columnName));
-                    if(columnName.equals(DBConstantsUtils.KeyUtils.LAST_NAME) && StringUtils.isBlank(columnValue))
-                        columnValue =  "";
-                    detailsMap.put(columnName, columnValue);
+                    if (columnName != null) {
+                        String columnValue = cursor.getString(cursor.getColumnIndex(columnName));
+                        if (columnName.equals(DBConstantsUtils.KeyUtils.LAST_NAME) && StringUtils.isBlank(columnValue))
+                            columnValue = "";
+                        detailsMap.put(columnName, columnValue);
+                    }
                 }
             }
             return detailsMap;

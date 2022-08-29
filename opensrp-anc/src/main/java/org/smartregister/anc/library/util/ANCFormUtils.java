@@ -128,9 +128,14 @@ public class ANCFormUtils extends FormUtils {
         for (int i = 0; i < jsonArray.length(); i++) {
 
             JSONObject jsonObject = jsonArray.getJSONObject(i);
+            String widgetValue = null;
+            if(widget.has(JsonFormConstants.VALUE))
+             widgetValue = widget.getString(JsonFormConstants.VALUE);
+            if(!StringUtils.isNotBlank(widgetValue) && widgetValue.startsWith("{"))
+                widgetValue =  new JSONObject(widgetValue).getString(JsonFormConstants.VALUE);
 
-            if (widget.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(widget.getString(JsonFormConstants.VALUE)) &&
-                    jsonObject.getString(JsonFormConstants.KEY).equals(widget.getString(JsonFormConstants.VALUE))) {
+            if (StringUtils.isNotBlank(widgetValue) && !TextUtils.isEmpty(widgetValue) &&
+                    jsonObject.getString(JsonFormConstants.KEY).equals(widgetValue)) {
 
                 if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) &&
                         !TextUtils.isEmpty(jsonObject.getString(JsonFormConstants.SECONDARY_VALUE))) {

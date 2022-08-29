@@ -9,11 +9,16 @@ import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 import org.robolectric.RuntimeEnvironment;
+import org.smartregister.CoreLibrary;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.repository.ContactTasksRepository;
 import org.smartregister.anc.library.util.ConstantsUtils;
@@ -27,7 +32,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({CoreLibrary.class})
 public class BaseAncClientProcessorForJavaTest extends BaseUnitTest {
     private BaseAncClientProcessorForJava baseAncClientProcessorForJava;
 
@@ -73,6 +79,11 @@ public class BaseAncClientProcessorForJavaTest extends BaseUnitTest {
 
     @Test
     public void testProcessClient() throws Exception {
+        CoreLibrary coreLibrary = PowerMockito.mock(CoreLibrary.class);
+        PowerMockito.mockStatic(CoreLibrary.class);
+        PowerMockito.when(CoreLibrary.getInstance()).thenReturn(coreLibrary);
+        Assert.assertNotNull(coreLibrary);
+
         List<EventClient> eventClients = new ArrayList<>();
         Map<String, String> details = getDetailsMap();
         Event event = getEvent(details);
@@ -99,13 +110,14 @@ public class BaseAncClientProcessorForJavaTest extends BaseUnitTest {
         Mockito.doReturn(true).when(contactTasksRepositorySpy).saveOrUpdateTasks(null);
 
         Mockito.doReturn(sqLiteDatabase).when(contactTasksRepositorySpy).getWritableDatabase();
+        Mockito.doReturn(sqLiteDatabase).when(contactTasksRepositorySpy).getReadableDatabase();
         Mockito.doReturn((long) 3).when(sqLiteDatabase).insert(ArgumentMatchers.anyString(), ArgumentMatchers.anyString(), ArgumentMatchers.eq(new ContentValues()));
 
         baseAncClientProcessorForJavaSpy.processClient(eventClients);
 
         Mockito.verify(baseAncClientProcessorForJavaSpy, Mockito.times(1)).getDetailsRepository();
-        Mockito.verify(baseAncClientProcessorForJavaSpy, Mockito.times(6)).getContactTasksRepository();
-        Mockito.verify(contactTasksRepositorySpy, Mockito.times(6)).getWritableDatabase();
+        Mockito.verify(baseAncClientProcessorForJavaSpy, Mockito.times(7)).getContactTasksRepository();
+        Mockito.verify(contactTasksRepositorySpy, Mockito.times(7)).getWritableDatabase();
     }
 
     @NotNull
