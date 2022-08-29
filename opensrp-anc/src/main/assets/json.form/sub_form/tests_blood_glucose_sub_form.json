@@ -44,7 +44,8 @@
         }
       ],
       "v_required": {
-        "value": true
+        "value": true,
+        "err": "{{tests_blood_glucose_sub_form.step1.glucose_test_status.v_required.err}}"
       }
     },
     {
@@ -138,7 +139,8 @@
         }
       },
       "v_required": {
-        "value": true
+        "value": true,
+        "err": "{{tests_blood_glucose_sub_form.step1.glucose_test_type.v_required.err}}"
       }
     },
     {
@@ -388,5 +390,6 @@
     }
   ],
   "count": 1,
+  "validate_on_submit": true,
   "properties_file_name": "tests_blood_glucose_sub_form"
 }

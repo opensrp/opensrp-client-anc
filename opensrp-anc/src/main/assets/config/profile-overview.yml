@@ -239,7 +239,7 @@ fields:
     relevance: "severe_preeclampsia == 1"
     isRedFont: "true"
 
-  - template: "Rh factor negative: {rh_factor}"
+  - template: "Rh factor : {rh_factor}"
     relevance: "rh_factor == 'negative'"
     isRedFont: "true"
 

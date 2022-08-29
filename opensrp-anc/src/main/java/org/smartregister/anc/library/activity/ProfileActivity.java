@@ -44,7 +44,6 @@ import org.smartregister.anc.library.util.Utils;
 import org.smartregister.anc.library.view.CopyToClipboardDialog;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.PermissionUtils;
-import org.smartregister.util.StringUtil;
 import org.smartregister.view.activity.BaseProfileActivity;
 
 import java.io.Serializable;

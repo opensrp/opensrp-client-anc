@@ -44,7 +44,8 @@
         }
       ],
       "v_required": {
-        "value": true
+        "value": true,
+        "err": "Please select an option"
       }
     },
     {
@@ -226,7 +227,8 @@
       "text": "{{tests_ultrasound_sub_form.step1.no_of_fetuses_label.text}}",
       "text_color": "#000000",
       "v_required": {
-        "value": true
+        "value": true,
+        "err": "Please select the number of fetus(es)"
       },
       "relevance": {
         "rules-engine": {
@@ -542,5 +544,6 @@
     }
   ],
   "count": 1,
+  "validate_on_submit": true,
   "properties_file_name": "tests_ultrasound_sub_form"
 }
