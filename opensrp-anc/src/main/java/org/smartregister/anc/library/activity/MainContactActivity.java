@@ -59,7 +59,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
     private final List<String> invisibleRequiredFields = new ArrayList<>();
     private final String[] contactForms = new String[]{ConstantsUtils.JsonFormUtils.ANC_QUICK_CHECK, ConstantsUtils.JsonFormUtils.ANC_PROFILE,
             ConstantsUtils.JsonFormUtils.ANC_SYMPTOMS_FOLLOW_UP, ConstantsUtils.JsonFormUtils.ANC_PHYSICAL_EXAM,
-            ConstantsUtils.JsonFormUtils.ANC_TEST, ConstantsUtils.JsonFormUtils.ANC_COUNSELLING_TREATMENT, ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS};
+            ConstantsUtils.JsonFormUtils.ANC_COUNSELLING_TREATMENT, ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS};
     private String formInvalidFields = null;
 
     @Override
@@ -80,7 +80,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         initializeMainContactContainers();
 
         //Enable/Disable finalize button
-        findViewById(R.id.finalize_contact).setEnabled(getRequiredCountTotal() == -1);
+        findViewById(R.id.finalize_contact).setEnabled(getRequiredCountTotal() == 0);
     }
 
     private void initializeMainContactContainers() {
@@ -91,7 +91,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             loadContactGlobalsConfig();
 
             process(contactForms);
-          //  requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS_ENCOUNTER_TYPE, 0);
+            requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS_ENCOUNTER_TYPE, 0);
 
             if (StringUtils.isNotBlank(formInvalidFields) && contactNo > 1 && !PatientRepository.isFirstVisit(baseEntityId)) {
                 String[] pair = formInvalidFields.split(":");
@@ -169,6 +169,8 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             contactAdapter.setContacts(contacts);
             contactAdapter.notifyDataSetChanged();
 
+            requiredFieldsMap.remove(getString(R.string.tests));
+
         } catch (Exception e) {
             Timber.e(e, " --> initializeMainContactContainers");
         }
@@ -218,7 +220,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 }
                 //Make profile always complete on second contact onwards
                 requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE, 0);
-              //requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS_ENCOUNTER_TYPE, 0);
+                requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS_ENCOUNTER_TYPE, 0);
 
             }
 
@@ -304,9 +306,9 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_PROFILE_ENCOUNTER_TYPE, 0);
             }
 
-//            if (ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS_ENCOUNTER_TYPE.equals(encounterType)) {
-//                requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS_ENCOUNTER_TYPE, 0);
-//            }
+            if (ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS_ENCOUNTER_TYPE.equals(encounterType)) {
+                requiredFieldsMap.put(ConstantsUtils.JsonFormUtils.ANC_TEST_TASKS_ENCOUNTER_TYPE, 0);
+            }
 
             Iterator<String> keys = object.keys();
             while (keys.hasNext()) {

@@ -3385,25 +3385,18 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "facility",
+            "key": "municipal_hospital",
             "text": "{{anc_counselling_treatment.step7.delivery_place.options.facility.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "facility_elective",
+            "key": "referral_hospital",
             "text": "{{anc_counselling_treatment.step7.delivery_place.options.facility_elective.text}}",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "155886AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "home",
-            "text": "{{anc_counselling_treatment.step7.delivery_place.options.home.text}}",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "other",
@@ -3415,17 +3408,17 @@
         ]
       },
       {
-        "key": "encourage_facility_toaster",
+        "key": "delivery_place_other",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "{{anc_counselling_treatment.step7.encourage_facility_toaster.text}}",
-        "toaster_type": "warning",
+        "type": "edit_text",
+        "hint": "{{anc_counselling_treatment.step8.ipv_support_notdone_other.hint}}",
+        "edit_type": "name",
         "relevance": {
           "step7:delivery_place": {
             "type": "string",
-            "ex": "equalTo(., \"home\")"
+            "ex": "equalTo(., \"other\")"
           }
         }
       },
