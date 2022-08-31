@@ -24,6 +24,7 @@ import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.auth.AncCoreAuthorizationService;
 import org.smartregister.anc.library.sync.BaseAncClientProcessorForJava;
 import org.smartregister.anc.library.util.DBConstantsUtils;
+import org.smartregister.anc.library.util.ANCFailSafeRecalledID;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.anc.repository.AncRepository;
 import org.smartregister.commonregistry.CommonFtsObject;
@@ -56,6 +57,8 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         //Initialize Modules
         P2POptions p2POptions = new P2POptions(true);
         p2POptions.setAuthorizationService(new AncCoreAuthorizationService());
+        ANCFailSafeRecalledID recalledID = new ANCFailSafeRecalledID();
+        p2POptions.setRecalledIdentifier(recalledID);
         CoreLibrary.init(context, new AncSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP, p2POptions);
         AncLibrary.init(context, BuildConfig.DATABASE_VERSION, new ANCEventBusIndex());
         ConfigurableViewsLibrary.init(context);

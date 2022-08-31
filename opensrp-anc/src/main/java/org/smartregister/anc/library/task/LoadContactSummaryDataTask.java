@@ -48,14 +48,15 @@ public class LoadContactSummaryDataTask {
                 });
     }
 
-    private void onProcess() {
+    private Void onProcess() {
         try {
             ((ContactSummaryFinishActivity) context).process();
         } catch (Exception e) {
             Timber.e(e, "%s --> loadContactSummaryData", this.getClass().getCanonicalName());
         }
-    }
 
+        return null;
+    }
 
     private void showDialog() {
         ((ContactSummaryFinishActivity) context).showProgressDialog(R.string.please_wait_message);
@@ -90,7 +91,11 @@ public class LoadContactSummaryDataTask {
         ((ContactSummaryFinishActivity) context).hideProgressDialog();
         //load profile details
         mProfilePresenter.refreshProfileView(baseEntityId);
+        String name = clientDetails.get(DBConstantsUtils.KeyUtils.FIRST_NAME);
+        if(clientDetails.get(DBConstantsUtils.KeyUtils.LAST_NAME)!= null)
+            name = name +" "+ clientDetails.get(DBConstantsUtils.KeyUtils.LAST_NAME);
+
         //Create PDF file stuff
-        mProfilePresenter.createContactSummaryPdf();
+        mProfilePresenter.createContactSummaryPdf(name);
     }
 }

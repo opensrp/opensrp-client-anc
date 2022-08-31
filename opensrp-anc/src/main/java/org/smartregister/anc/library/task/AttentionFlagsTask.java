@@ -53,10 +53,10 @@ public class AttentionFlagsTask {
                 String key = keys.next();
                 String ValueObject = jsonObject.optString(key);
                 String value = Utils.returnTranslatedStringJoinedValue(ValueObject);
-                if (StringUtils.isNotBlank(value)) {
+                if (StringUtils.isNotBlank(value) && StringUtils.isNotBlank(value.replace(",","").trim())) {
                     facts.put(key, value);
                 } else {
-                    facts.put(key, "");
+                    facts.put(key, ValueObject);
                 }
             }
 
