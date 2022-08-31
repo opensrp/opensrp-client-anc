@@ -247,7 +247,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                 if(previousContact.getKey().equals(CONTACT_DATE) && stateObject.has(CONTACT_DATE))
                     continue;
 
-                if(!lastContactNo.equals(previousContact.getContactNo()) && !stateObject.has(GEST_AGE_OPENMRS) && !TextUtils.isEmpty(edd))
+                if(lastContactNo == null || !lastContactNo.equals(previousContact.getContactNo()) && !stateObject.has(GEST_AGE_OPENMRS) && !TextUtils.isEmpty(edd))
                     stateObject.put(GEST_AGE_OPENMRS,String.valueOf(Utils.getGestationAgeFromEDDate(edd)));
 
                 if(stateObject.has(previousContact.getKey()))

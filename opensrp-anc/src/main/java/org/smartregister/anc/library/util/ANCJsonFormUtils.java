@@ -920,7 +920,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
     public static boolean checkIfTaskIsComplete(JSONObject field) {
         boolean isComplete = true;
         try {
-            if (field != null && field.has(JsonFormConstants.VALUE)) {
+            if (field != null && field.has(JsonFormConstants.VALUE) ) {
                 JSONArray value = field.getJSONArray(JsonFormConstants.VALUE);
                 if (value.length() > 1) {
                     JSONObject valueField = value.getJSONObject(0);
