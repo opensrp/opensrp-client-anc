@@ -23,7 +23,7 @@ import java.util.HashMap;
 import timber.log.Timber;
 
 public class LoadContactSummaryDataTask {
-    private static Intent intent;
+    private final Intent intent;
     private final Context context;
     private final ProfileContract.Presenter mProfilePresenter;
     private final Facts facts;
@@ -32,7 +32,7 @@ public class LoadContactSummaryDataTask {
 
     public LoadContactSummaryDataTask(Context context, Intent intent, ProfileContract.Presenter mProfilePresenter, Facts facts, String baseEntityId) {
         this.context = context;
-        LoadContactSummaryDataTask.intent = intent;
+        this.intent = intent;
         this.mProfilePresenter = mProfilePresenter;
         this.facts = facts;
         this.baseEntityId = baseEntityId;
