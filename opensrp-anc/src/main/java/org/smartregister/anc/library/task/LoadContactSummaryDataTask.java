@@ -40,8 +40,8 @@ public class LoadContactSummaryDataTask {
 
 
     public void init() {
-        appExecutorService.mainThread().execute(this::showDialog);
         appExecutorService = new AppExecutorService();
+        appExecutorService.mainThread().execute(this::showDialog);
         appExecutorService.executorService().execute(() -> {
                     this.onProcess();
                     appExecutorService.mainThread().execute(this::finishAdapterOnPostExecute);

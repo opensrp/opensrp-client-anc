@@ -231,7 +231,7 @@ dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
     def powerMockVersion = '2.0.9'
     implementation project(":opensrp-anc")
-    implementation('org.smartregister:opensrp-client-native-form:3.0.1-PREVIEW-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:3.0.2-PREVIEW-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -243,7 +243,7 @@ dependencies {
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
 
-    implementation('org.smartregister:opensrp-client-core:6.0.0-BETA2-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:6.0.1-PREVIEW-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'
@@ -281,7 +281,7 @@ dependencies {
     }
     implementation group: 'org.apache.commons', name: 'commons-text', version: '1.9'
     annotationProcessor 'com.jakewharton:butterknife:10.2.3'
-    implementation 'net.zetetic:android-database-sqlcipher:4.4.0@aar'
+    implementation 'net.zetetic:android-database-sqlcipher:4.5.1@aar'
     implementation 'commons-validator:commons-validator:1.7'
     implementation 'com.google.code.gson:gson:2.9.0'
     implementation 'org.greenrobot:eventbus:3.2.0'
@@ -328,15 +328,15 @@ dependencies {
     }
 // https://mvnrepository.com/artifact/org.hamcrest/hamcrest
     testImplementation group: 'org.hamcrest', name: 'hamcrest', version: '2.2'
-    testImplementation 'org.robolectric:robolectric:4.4'
-    testImplementation 'org.robolectric:shadows-multidex:4.4'
+    testImplementation 'org.robolectric:robolectric:4.8.1'
+    testImplementation 'org.robolectric:shadows-multidex:4.8.1'
     testImplementation 'com.ibm.fhir:fhir-model:4.8.3'
 //testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
     testImplementation "org.powermock:powermock-module-junit4:$powerMockVersion"
     testImplementation "org.powermock:powermock-module-junit4-rule:$powerMockVersion"
     testImplementation "org.powermock:powermock-api-mockito2:$powerMockVersion"
     testImplementation "org.powermock:powermock-classloading-xstream:$powerMockVersion"
-    testImplementation 'org.mockito:mockito-core:3.12.4'
+    testImplementation 'org.mockito:mockito-core:4.6.1'
     testImplementation 'org.apache.maven:maven-ant-tasks:2.1.3'
     testImplementation 'org.skyscreamer:jsonassert:1.5.0'
 }
