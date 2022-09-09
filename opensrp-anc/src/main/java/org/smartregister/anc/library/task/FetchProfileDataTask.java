@@ -1,8 +1,9 @@
 package org.smartregister.anc.library.task;
 
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.event.ClientDetailsFetchedEvent;
 import org.smartregister.anc.library.repository.PatientRepository;
-import org.smartregister.anc.library.util.AppExecutorService;
+import org.smartregister.anc.library.util.AppExecutors;
 import org.smartregister.anc.library.util.Utils;
 
 import java.util.Map;
@@ -12,17 +13,17 @@ import java.util.Map;
  */
 public class FetchProfileDataTask {
     private final boolean isForEdit;
-    private AppExecutorService appExecutorService;
+    private AppExecutors appExecutors;
 
     public FetchProfileDataTask(boolean isForEdit) {
         this.isForEdit = isForEdit;
     }
 
-    public void init(String baseEntityId) {
-        appExecutorService = new AppExecutorService();
-        appExecutorService.executorService().execute(() -> {
+    public void execute(String baseEntityId) {
+        appExecutors = AncLibrary.getInstance().getAppExecutors();
+        appExecutors.diskIO().execute(() -> {
             Map<String, String> client = this.getWomanDetailsOnBackground(baseEntityId);
-            appExecutorService.mainThread().execute(() -> postStickEventOnPostExec(client));
+            appExecutors.mainThread().execute(() -> postStickEventOnPostExec(client));
         });
 
     }

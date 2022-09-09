@@ -37,7 +37,7 @@ public class ProfileFragmentInteractor implements ProfileFragmentContract.Intera
 
     @Override
     public void refreshProfileView(String baseEntityId, boolean isForEdit) {
-        new FetchProfileDataTask(isForEdit).init(baseEntityId);
+        new FetchProfileDataTask(isForEdit).execute(baseEntityId);
     }
 
     @Override

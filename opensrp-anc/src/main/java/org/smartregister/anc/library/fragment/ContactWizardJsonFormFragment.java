@@ -263,7 +263,7 @@ public class ContactWizardJsonFormFragment extends JsonWizardFormFragment {
             if (contactNo < 0) {
                 contact.setContactNumber(contactNo);
             } else {
-                contact.setContactNumber(Integer.parseInt("-" + contact.getContactNumber()));
+                contact.setContactNumber(Integer.parseInt("-" + contactNo));
             }
             contact.setJsonForm(((ContactJsonFormActivity) getActivity()).currentJsonState());
             ANCFormUtils.persistPartial(baseEntityId, contact);

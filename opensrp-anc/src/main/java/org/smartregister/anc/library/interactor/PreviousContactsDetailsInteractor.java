@@ -19,7 +19,7 @@ public class PreviousContactsDetailsInteractor implements PreviousContactsDetail
 
     @Override
     public void refreshProfileView(String baseEntityId, boolean isForEdit) {
-        new FetchProfileDataTask(isForEdit).init(baseEntityId);
+        new FetchProfileDataTask(isForEdit).execute(baseEntityId);
     }
 
 

@@ -8,12 +8,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.ContactSummaryFinishActivity;
 import org.smartregister.anc.library.adapter.ContactSummaryFinishAdapter;
 import org.smartregister.anc.library.contract.ProfileContract;
 import org.smartregister.anc.library.repository.PatientRepository;
-import org.smartregister.anc.library.util.AppExecutorService;
+import org.smartregister.anc.library.util.AppExecutors;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
@@ -28,7 +29,7 @@ public class LoadContactSummaryDataTask {
     private final ProfileContract.Presenter mProfilePresenter;
     private final Facts facts;
     private final String baseEntityId;
-    AppExecutorService appExecutorService;
+    private AppExecutors appExecutors;
 
     public LoadContactSummaryDataTask(Context context, Intent intent, ProfileContract.Presenter mProfilePresenter, Facts facts, String baseEntityId) {
         this.context = context;
@@ -39,13 +40,13 @@ public class LoadContactSummaryDataTask {
     }
 
 
-    public void init() {
-        appExecutorService = new AppExecutorService();
-        appExecutorService.mainThread().execute(this::showDialog);
-        appExecutorService.executorService().execute(() -> {
-                    this.onProcess();
-                    appExecutorService.mainThread().execute(this::finishAdapterOnPostExecute);
-                });
+    public void execute() {
+        appExecutors = AncLibrary.getInstance().getAppExecutors();
+        appExecutors.mainThread().execute(this::showDialog);
+        appExecutors.diskIO().execute(() -> {
+            this.onProcess();
+            appExecutors.mainThread().execute(this::finishAdapterOnPostExecute);
+        });
     }
 
     private Void onProcess() {

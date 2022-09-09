@@ -8,7 +8,7 @@ import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.anc.library.domain.AttentionFlag;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.domain.YamlConfigItem;
-import org.smartregister.anc.library.util.AppExecutorService;
+import org.smartregister.anc.library.util.AppExecutors;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.FilePathUtils;
 import org.smartregister.anc.library.util.Utils;
@@ -25,7 +25,7 @@ public class AttentionFlagsTask {
     private final BaseHomeRegisterActivity baseHomeRegisterActivity;
     private final List<AttentionFlag> attentionFlagList = new ArrayList<>();
     private final CommonPersonObjectClient pc;
-    AppExecutorService appExecutorService;
+    AppExecutors appExecutors;
 
     public AttentionFlagsTask(BaseHomeRegisterActivity baseHomeRegisterActivity, CommonPersonObjectClient pc) {
         this.baseHomeRegisterActivity = baseHomeRegisterActivity;
@@ -35,11 +35,11 @@ public class AttentionFlagsTask {
     /***
      * This function executes both background work and UI thread
      */
-    public void init() {
-        appExecutorService = new AppExecutorService();
-        appExecutorService.executorService().execute(() -> {
+    public void execute() {
+        appExecutors = AncLibrary.getInstance().getAppExecutors();
+        appExecutors.diskIO().execute(() -> {
             this.addAttentionFlagsService();
-            appExecutorService.mainThread().execute(this::showAttentionFlagsDialogOnPostExec);
+            appExecutors.mainThread().execute(this::showAttentionFlagsDialogOnPostExec);
         });
     }
 

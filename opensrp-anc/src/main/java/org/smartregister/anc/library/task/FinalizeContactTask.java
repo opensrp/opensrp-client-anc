@@ -3,12 +3,13 @@ package org.smartregister.anc.library.task;
 import android.content.Context;
 import android.content.Intent;
 
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.ContactSummaryFinishActivity;
 import org.smartregister.anc.library.activity.ContactSummarySendActivity;
 import org.smartregister.anc.library.contract.ProfileContract;
 import org.smartregister.anc.library.repository.PatientRepository;
-import org.smartregister.anc.library.util.AppExecutorService;
+import org.smartregister.anc.library.util.AppExecutors;
 import org.smartregister.anc.library.util.ConstantsUtils;
 
 import java.lang.ref.WeakReference;
@@ -21,7 +22,7 @@ public class FinalizeContactTask {
     private final ProfileContract.Presenter mProfilePresenter;
     private final Intent intent;
     private HashMap<String, String> newWomanProfileDetails;
-    private AppExecutorService appExecutorService;
+    private AppExecutors appExecutors;
 
     public FinalizeContactTask(WeakReference<Context> context, ProfileContract.Presenter mProfilePresenter, Intent intent) {
         this.context = context.get();
@@ -32,10 +33,10 @@ public class FinalizeContactTask {
     /***
      * execute task with AppExecutors
      */
-    public void init() {
-        appExecutorService = new AppExecutorService();
-        appExecutorService.mainThread().execute(this::getProgressDialog);
-        appExecutorService.executorService().execute(() -> {
+    public void execute() {
+        appExecutors = AncLibrary.getInstance().getAppExecutors();
+        appExecutors.mainThread().execute(this::getProgressDialog);
+        appExecutors.diskIO().execute(() -> {
             /***
              * Background Thread
              */
@@ -43,7 +44,7 @@ public class FinalizeContactTask {
             /***
              * UI Thread
              */
-            appExecutorService.mainThread().execute(this::finishContactSummaryOnPostExecute);
+            appExecutors.mainThread().execute(this::finishContactSummaryOnPostExecute);
         });
     }
 
@@ -73,8 +74,7 @@ public class FinalizeContactTask {
 
     protected void finishContactSummaryOnPostExecute() {
         ((ContactSummaryFinishActivity) context).hideProgressDialog();
-        Intent contactSummaryIntent =
-                new Intent(context, ContactSummarySendActivity.class);
+        Intent contactSummaryIntent = new Intent(context, ContactSummarySendActivity.class);
         contactSummaryIntent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID,
                 intent.getExtras().getString(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
         contactSummaryIntent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, newWomanProfileDetails);

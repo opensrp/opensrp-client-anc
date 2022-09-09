@@ -1,8 +1,9 @@
 package org.smartregister.anc.library.task;
 
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.BaseCharacteristicsContract;
 import org.smartregister.anc.library.contract.PopulationCharacteristicsContract;
-import org.smartregister.anc.library.util.AppExecutorService;
+import org.smartregister.anc.library.util.AppExecutors;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.domain.ServerSetting;
 import org.smartregister.sync.helper.ServerSettingsHelper;
@@ -15,7 +16,7 @@ import java.util.List;
 public class FetchSiteCharacteristicsTask {
 
     private final BaseCharacteristicsContract.BasePresenter presenter;
-    AppExecutorService appExecutorService;
+    private AppExecutors appExecutors;
 
     public FetchSiteCharacteristicsTask(PopulationCharacteristicsContract.Presenter presenter) {
         this.presenter = presenter;
@@ -24,18 +25,18 @@ public class FetchSiteCharacteristicsTask {
     /***
      * function that incorporates both background and UI threads
      */
-    public void init() {
-        appExecutorService=new AppExecutorService();
+    public void execute() {
+        appExecutors = AncLibrary.getInstance().getAppExecutors();
         /**
          * Background Thread
          */
-        appExecutorService.executorService().execute(() -> {
+        appExecutors.diskIO().execute(() -> {
             List<ServerSetting> result = this.getServerSettingsSWorkerService();
             if (!result.isEmpty()) {
                 /***
                  * UI Thread
                  */
-                appExecutorService.mainThread().execute(() -> this.renderViewOnPostExecute(result));
+                appExecutors.mainThread().execute(() -> this.renderViewOnPostExecute(result));
             }
         });
 

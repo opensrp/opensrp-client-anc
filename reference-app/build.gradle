@@ -143,7 +143,7 @@ android {
             minifyEnabled false
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rule.pro'
-            resValue "string", 'opensrp_url', '"https://anc.labs.smartregister.org/opensrp/"'
+            resValue "string", 'opensrp_url', "https://anc.labs.smartregister.org/opensrp/"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
@@ -159,7 +159,7 @@ android {
         }
 
         debug {
-            resValue "string", 'opensrp_url', '"https://anc.labs.smartregister.org/opensrp/"'
+            resValue "string", 'opensrp_url', 'https://anc.labs.smartregister.org/opensrp/'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
@@ -320,8 +320,8 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-v4'
     }
     implementation 'com.google.firebase:firebase-perf'
-    implementation 'com.android.volley:volley:1.2.1'
     implementation 'androidx.work:work-runtime:2.7.1'
+    implementation 'com.android.volley:volley:1.2.1'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.apache.maven:maven-ant-tasks:2.1.3'
     testImplementation('com.squareup:fest-android:1.0.8') {
