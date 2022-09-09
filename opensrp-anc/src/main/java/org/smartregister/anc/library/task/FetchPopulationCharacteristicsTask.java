@@ -1,6 +1,5 @@
 package org.smartregister.anc.library.task;
 
-import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.PopulationCharacteristicsContract;
 import org.smartregister.anc.library.util.AppExecutors;
 import org.smartregister.anc.library.util.ConstantsUtils;
@@ -22,7 +21,7 @@ public class FetchPopulationCharacteristicsTask {
     }
 
     public void execute() {
-        appExecutorService = AncLibrary.getInstance().getAppExecutors();
+        appExecutorService = new AppExecutors();
         appExecutorService.diskIO().execute(() -> {
             List<ServerSetting> result = this.getServerSettingsService();
             appExecutorService.mainThread().execute(() -> this.renderViewOnPostExec(result));

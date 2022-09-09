@@ -1,6 +1,5 @@
 package org.smartregister.anc.library.task;
 
-import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.event.ClientDetailsFetchedEvent;
 import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.util.AppExecutors;
@@ -20,7 +19,7 @@ public class FetchProfileDataTask {
     }
 
     public void execute(String baseEntityId) {
-        appExecutors = AncLibrary.getInstance().getAppExecutors();
+        appExecutors = new AppExecutors();
         appExecutors.diskIO().execute(() -> {
             Map<String, String> client = this.getWomanDetailsOnBackground(baseEntityId);
             appExecutors.mainThread().execute(() -> postStickEventOnPostExec(client));

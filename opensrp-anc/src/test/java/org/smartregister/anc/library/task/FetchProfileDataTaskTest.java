@@ -7,8 +7,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.reflect.Whitebox;
-import org.smartregister.Context;
-import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.task.FetchProfileDataTask;
 
@@ -18,13 +16,10 @@ public class FetchProfileDataTaskTest extends BaseUnitTest {
     private final boolean isForEdit = false;
     private Map<String, String> getWomanDetail;
     @Mock
-    private FetchProfileDataTask fetchProfileDataTask;
-    @Mock
-    private Context appContext;
+    private FetchProfileDataTask fetchProfileDataTask;;
 
     @Before
     public void setUp() {
-        AncLibrary.init(appContext, 2);
         fetchProfileDataTask = Mockito.mock(FetchProfileDataTask.class);
     }
 
@@ -33,7 +28,6 @@ public class FetchProfileDataTaskTest extends BaseUnitTest {
         FetchProfileDataTask profileDataTask = new FetchProfileDataTask(isForEdit);
         profileDataTask.execute(BaseUnitTest.DUMMY_BASE_ENTITY_ID);
         Thread.sleep(ASYNC_TIMEOUT);
-        org.smartregister.anc.library.repository.PatientRepository patientRepository = Mockito.mock(org.smartregister.anc.library.repository.PatientRepository.class);
         getWomanDetail = Whitebox.invokeMethod(fetchProfileDataTask, "getWomanDetailsOnBackground", BaseUnitTest.DUMMY_BASE_ENTITY_ID);
         Assert.assertNotNull(getWomanDetail.size());
     }

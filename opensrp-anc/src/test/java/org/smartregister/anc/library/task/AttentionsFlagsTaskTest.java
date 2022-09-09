@@ -3,9 +3,6 @@ package org.smartregister.anc.library.task;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.smartregister.Context;
-import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.domain.AttentionFlag;
@@ -19,16 +16,12 @@ import java.util.Map;
 public class AttentionsFlagsTaskTest extends BaseUnitTest {
     private static BaseHomeRegisterActivity baseHomeRegisterActivity;
     private static CommonPersonObjectClient commonPersonObjectClient;
-    private final List<AttentionFlag> attentionFlagList = new ArrayList<>();
+    private final List<AttentionFlag> attentionFlagList = new ArrayList();
     Map<String, String> details = new HashMap<>();
     private AttentionFlagsTask attentionFlagsTask;
 
-    @Mock
-    private Context appContext;
-
     @Before
     public void setUp() {
-        AncLibrary.init(appContext, 2);
         String name = "asynctask", caseId = "e34343-343434-67";
         baseHomeRegisterActivity = new BaseHomeRegisterActivity();
         commonPersonObjectClient = new CommonPersonObjectClient(caseId, details, name);

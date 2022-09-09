@@ -13,7 +13,6 @@ import org.powermock.reflect.Whitebox;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.activity.ContactSummarySendActivity;
 import org.smartregister.anc.library.contract.ProfileContract;
-import org.smartregister.anc.library.AncLibrary;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
@@ -30,12 +29,9 @@ public class FinalizeContactTaskTest extends BaseUnitTest {
     private Intent intent;
     @Mock
     private FinalizeContactTask finalizeContactTaskMock;
-    @Mock
-    private org.smartregister.Context appContext;
 
     @Before
     public void setUp() {
-        AncLibrary.init(appContext, 2);
         context = Mockito.mock(Context.class);
         weakReferenceContext = new WeakReference<>(context);
         finalizeContactTask = new FinalizeContactTask(weakReferenceContext, mProfilePresenter, intent);

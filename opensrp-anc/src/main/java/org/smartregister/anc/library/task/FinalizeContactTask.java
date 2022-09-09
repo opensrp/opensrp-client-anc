@@ -3,7 +3,6 @@ package org.smartregister.anc.library.task;
 import android.content.Context;
 import android.content.Intent;
 
-import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.ContactSummaryFinishActivity;
 import org.smartregister.anc.library.activity.ContactSummarySendActivity;
@@ -34,7 +33,7 @@ public class FinalizeContactTask {
      * execute task with AppExecutors
      */
     public void execute() {
-        appExecutors = AncLibrary.getInstance().getAppExecutors();
+        appExecutors = new AppExecutors();
         appExecutors.mainThread().execute(this::getProgressDialog);
         appExecutors.diskIO().execute(() -> {
             /***

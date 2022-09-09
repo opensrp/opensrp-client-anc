@@ -55,6 +55,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         context.updateCommonFtsObject(createCommonFtsObject());
 
         //Initialize Modules
+        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(!BuildConfig.DEBUG);
         P2POptions p2POptions = new P2POptions(true);
         p2POptions.setAuthorizationService(new AncCoreAuthorizationService());
         ANCFailSafeRecalledID recalledID = new ANCFailSafeRecalledID();
@@ -67,7 +68,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         TimeChangedBroadcastReceiver.init(this);
         TimeChangedBroadcastReceiver.getInstance().addOnTimeChangedListener(this);
         LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.DEFAULT_LOCATION_LEVEL);
-        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(!BuildConfig.DEBUG);
+
 
         //init Job Manager
         JobManager.create(this).addJobCreator(new AncJobCreator());

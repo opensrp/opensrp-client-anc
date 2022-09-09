@@ -1,6 +1,5 @@
 package org.smartregister.anc.library.task;
 
-import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.contract.BaseCharacteristicsContract;
 import org.smartregister.anc.library.contract.PopulationCharacteristicsContract;
 import org.smartregister.anc.library.util.AppExecutors;
@@ -26,7 +25,7 @@ public class FetchSiteCharacteristicsTask {
      * function that incorporates both background and UI threads
      */
     public void execute() {
-        appExecutors = AncLibrary.getInstance().getAppExecutors();
+        appExecutors = new AppExecutors();
         /**
          * Background Thread
          */

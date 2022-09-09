@@ -9,9 +9,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
-import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.Context;
-import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.contract.ProfileContract;
 
@@ -30,7 +28,6 @@ public class LoadContactSummaryDataTaskTest extends BaseUnitTest {
 
     @Before
     public void setUp() {
-        AncLibrary.init(appContext, 2);
         loadContactSummaryDataTaskMock = Mockito.mock(LoadContactSummaryDataTask.class);
         facts = new Facts();
         loadContactSummaryDataTask = new LoadContactSummaryDataTask(context, intent, mProfilePresenter, facts, DUMMY_BASE_ENTITY_ID);

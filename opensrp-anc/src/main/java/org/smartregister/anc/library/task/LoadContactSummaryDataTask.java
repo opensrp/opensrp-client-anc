@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
-import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.ContactSummaryFinishActivity;
 import org.smartregister.anc.library.adapter.ContactSummaryFinishAdapter;
@@ -41,7 +40,7 @@ public class LoadContactSummaryDataTask {
 
 
     public void execute() {
-        appExecutors = AncLibrary.getInstance().getAppExecutors();
+        appExecutors = new AppExecutors();
         appExecutors.mainThread().execute(this::showDialog);
         appExecutors.diskIO().execute(() -> {
             this.onProcess();

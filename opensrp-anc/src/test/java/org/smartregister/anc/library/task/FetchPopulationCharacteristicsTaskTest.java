@@ -3,13 +3,12 @@ package org.smartregister.anc.library.task;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.stubbing.Answer;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.reflect.Whitebox;
-import org.smartregister.Context;
-import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.contract.PopulationCharacteristicsContract;
 import org.smartregister.anc.library.task.FetchPopulationCharacteristicsTask;
@@ -29,12 +28,9 @@ public class FetchPopulationCharacteristicsTaskTest extends BaseUnitTest {
     private AppExecutors appExecutors;
     @Mock
     private PopulationCharacteristicsContract.Presenter presenter;
-    @Mock
-    private Context appContext;
 
     @Before
     public void setUp() {
-        AncLibrary.init(appContext, 2);
         fetchPopulationCharacteristicsTask = Mockito.mock(FetchPopulationCharacteristicsTask.class);
         Whitebox.setInternalState(fetchPopulationCharacteristicsTask, "presenter", presenter);
         Whitebox.setInternalState(fetchPopulationCharacteristicsTask, "appExecutorService", appExecutors);
@@ -70,6 +66,6 @@ public class FetchPopulationCharacteristicsTaskTest extends BaseUnitTest {
         characteristicsTask.execute();
         Thread.sleep(1000);
         Mockito.when(fetchPopulationCharacteristicsTask.getServerSettingsService()).thenReturn(settingList);
-        PowerMockito.verifyPrivate(fetchPopulationCharacteristicsTask).invoke("renderViewOnPostExec", settingList);
+        PowerMockito.verifyPrivate(fetchPopulationCharacteristicsTask).invoke("renderViewOnPostExec", ArgumentMatchers.any());
     }
 }

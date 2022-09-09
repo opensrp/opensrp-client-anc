@@ -36,7 +36,7 @@ public class AttentionFlagsTask {
      * This function executes both background work and UI thread
      */
     public void execute() {
-        appExecutors = AncLibrary.getInstance().getAppExecutors();
+        appExecutors = new AppExecutors();
         appExecutors.diskIO().execute(() -> {
             this.addAttentionFlagsService();
             appExecutors.mainThread().execute(this::showAttentionFlagsDialogOnPostExec);
