@@ -68,5 +68,6 @@ public class FinalizeContactTaskTest extends BaseUnitTest {
         PowerMockito.whenNew(Intent.class).withArguments(context, ContactSummarySendActivity.class).thenReturn(intent);
         Whitebox.invokeMethod(finalizeContactTaskMock, "finishContactSummaryOnPostExecute");
         PowerMockito.verifyPrivate(finalizeContactTaskMock).invoke("finishContactSummaryOnPostExecute");
+        Mockito.verify(context).startActivity(intent);
     }
 }

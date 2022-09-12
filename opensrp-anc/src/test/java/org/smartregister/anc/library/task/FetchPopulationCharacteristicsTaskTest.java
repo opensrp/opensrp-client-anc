@@ -3,11 +3,9 @@ package org.smartregister.anc.library.task;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.stubbing.Answer;
-import org.powermock.api.mockito.PowerMockito;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.contract.PopulationCharacteristicsContract;
@@ -26,7 +24,6 @@ public class FetchPopulationCharacteristicsTaskTest extends BaseUnitTest {
     FetchPopulationCharacteristicsTask fetchPopulationCharacteristicsTask;
     @Mock
     private AppExecutors appExecutors;
-    @Mock
     private PopulationCharacteristicsContract.Presenter presenter;
 
     @Before
@@ -36,6 +33,7 @@ public class FetchPopulationCharacteristicsTaskTest extends BaseUnitTest {
         Whitebox.setInternalState(fetchPopulationCharacteristicsTask, "appExecutorService", appExecutors);
         executor = Mockito.mock(Executor.class);
         appExecutors = Mockito.mock(AppExecutors.class);
+        presenter=Mockito.mock(PopulationCharacteristicsContract.Presenter.class);
     }
 
     @Test
@@ -55,7 +53,7 @@ public class FetchPopulationCharacteristicsTaskTest extends BaseUnitTest {
     }
 
     @Test
-    public void testRenderView() throws Exception {
+    public void testPresenterView() throws Exception {
         Mockito.doAnswer((Answer<Void>) invocation -> {
             Runnable runnable = invocation.getArgument(0);
             runnable.run();
@@ -66,6 +64,7 @@ public class FetchPopulationCharacteristicsTaskTest extends BaseUnitTest {
         characteristicsTask.execute();
         Thread.sleep(1000);
         Mockito.when(fetchPopulationCharacteristicsTask.getServerSettingsService()).thenReturn(settingList);
-        PowerMockito.verifyPrivate(fetchPopulationCharacteristicsTask).invoke("renderViewOnPostExec", ArgumentMatchers.any());
+        presenter.renderView(settingList);
+        Assert.assertNotNull(presenter);
     }
 }

@@ -32,7 +32,7 @@ public class FetchProfileDataTask {
 
     }
 
-    protected void postStickEventOnPostExec(Map<String, String> client) {
+    public void postStickEventOnPostExec(Map<String, String> client) {
         Utils.postStickyEvent(new ClientDetailsFetchedEvent(client, isForEdit));
     }
 
