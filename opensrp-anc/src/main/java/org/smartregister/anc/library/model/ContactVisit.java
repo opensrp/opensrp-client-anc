@@ -23,6 +23,7 @@ import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.FilePathUtils;
+import org.smartregister.anc.library.util.Utils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.util.JsonFormUtils;
 
@@ -150,7 +151,8 @@ public class ContactVisit {
 
                     //process attention flags
                     ANCFormUtils.processRequiredStepsField(facts, formObject);
-
+                    //Add Practitioner details
+                    Utils.getAllSharedPreferences();
                     //process events
                     Event event = ANCJsonFormUtils.processContactFormEvent(formObject, baseEntityId);
                     formSubmissionIDs.add(event.getFormSubmissionId());

@@ -1,5 +1,8 @@
 package org.smartregister.anc.library.interactor;
 
+import static org.smartregister.anc.library.util.ConstantsUtils.CONTACT_DATE;
+import static org.smartregister.anc.library.util.ConstantsUtils.GEST_AGE_OPENMRS;
+
 import android.content.Context;
 import android.text.TextUtils;
 
@@ -19,7 +22,6 @@ import org.smartregister.anc.library.model.PartialContact;
 import org.smartregister.anc.library.model.PartialContacts;
 import org.smartregister.anc.library.model.PreviousContact;
 import org.smartregister.anc.library.model.Task;
-import org.smartregister.anc.library.repository.ContactTasksRepository;
 import org.smartregister.anc.library.repository.PartialContactRepository;
 import org.smartregister.anc.library.repository.PreviousContactRepository;
 import org.smartregister.anc.library.rule.ContactRule;
@@ -37,9 +39,6 @@ import java.util.List;
 import java.util.Map;
 
 import timber.log.Timber;
-
-import static org.smartregister.anc.library.util.ConstantsUtils.CONTACT_DATE;
-import static org.smartregister.anc.library.util.ConstantsUtils.GEST_AGE_OPENMRS;
 
 /**
  * Created by keyman 30/07/2018.

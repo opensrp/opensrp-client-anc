@@ -925,7 +925,7 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     /**
-     * @param receives iterated keys and values and passes them through translation in nativeform
+     * @param receives iterated keys and values and passes them through translation in native form
      *                 to return a string. It checks whether the value is an array, a json object or a normal string separated by ,
      * @return
      */
