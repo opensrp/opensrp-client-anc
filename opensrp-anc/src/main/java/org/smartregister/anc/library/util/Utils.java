@@ -1163,4 +1163,21 @@ public class Utils extends org.smartregister.util.Utils {
         }
         return locationName;
     }
+
+    public static String extractValuefromJSONObject(String jsonString)
+    {
+        if(jsonString.startsWith("{") && jsonString.endsWith("}")) {
+            try {
+
+                JSONObject valueObject = new JSONObject(jsonString);
+                return valueObject.getString(ConstantsUtils.KeyUtils.VALUE);
+            }
+            catch (JSONException e)
+            {
+                Timber.e(e);
+                return "";
+            }
+        }
+        return jsonString;
+    }
 }

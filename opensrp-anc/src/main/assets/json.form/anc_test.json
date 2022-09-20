@@ -129,7 +129,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "tests_expansion_panel_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -180,7 +180,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -196,7 +196,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         },
@@ -216,7 +216,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_calculation_rules.yml"
+              "rules-file": "tests_calculation_rules.yml"
             }
           }
         }
@@ -234,7 +234,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         },
@@ -245,7 +245,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_calculation_rules.yml"
+              "rules-file": "tests_calculation_rules.yml"
             }
           }
         }
@@ -261,7 +261,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -279,7 +279,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -301,7 +301,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_calculation_rules.yml"
+              "rules-file": "tests_calculation_rules.yml"
             }
           }
         }
@@ -318,7 +318,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -342,14 +342,14 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         },
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_calculation_rules.yml"
+              "rules-file": "tests_calculation_rules.yml"
             }
           }
         }
@@ -368,7 +368,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_calculation_rules.yml"
+              "rules-file": "tests_calculation_rules.yml"
             }
           }
         }
@@ -394,7 +394,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -445,7 +445,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -492,14 +492,14 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         },
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_calculation_rules.yml"
+              "rules-file": "tests_calculation_rules.yml"
             }
           }
         }
@@ -538,7 +538,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -605,7 +605,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -622,7 +622,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -678,7 +678,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "tests_expansion_panel_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -892,7 +892,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "tests_expansion_panel_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -1154,7 +1154,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "tests_expansion_panel_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -1523,7 +1523,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "tests_expansion_panel_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -1873,7 +1873,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "tests_expansion_panel_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -2381,7 +2381,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "tests_expansion_panel_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -3005,7 +3005,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "tests_expansion_panel_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -3494,7 +3494,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "tests_expansion_panel_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -3774,6 +3774,22 @@
         "spacer_height": "10dp"
       },
       {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "key": "toxo_test_date_today_hidden",
+        "type": "hidden",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "tests_calculation_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "toxo_test_date",
         "openmrs_entity_parent": "300AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "concept",
@@ -4017,7 +4033,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "tests_expansion_panel_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -4068,7 +4084,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -4084,7 +4100,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         },
@@ -4104,7 +4120,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_calculation_rules.yml"
+              "rules-file": "tests_calculation_rules.yml"
             }
           }
         }
@@ -4122,7 +4138,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         },
@@ -4133,7 +4149,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_calculation_rules.yml"
+              "rules-file": "tests_calculation_rules.yml"
             }
           }
         }
@@ -4149,7 +4165,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -4167,7 +4183,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -4189,7 +4205,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_calculation_rules.yml"
+              "rules-file": "tests_calculation_rules.yml"
             }
           }
         }
@@ -4206,7 +4222,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -4230,14 +4246,14 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         },
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_calculation_rules.yml"
+              "rules-file": "tests_calculation_rules.yml"
             }
           }
         }
@@ -4256,7 +4272,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_calculation_rules.yml"
+              "rules-file": "tests_calculation_rules.yml"
             }
           }
         }
@@ -4282,7 +4298,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -4325,7 +4341,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -4380,14 +4396,14 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         },
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_calculation_rules.yml"
+              "rules-file": "tests_calculation_rules.yml"
             }
           }
         }
@@ -4426,7 +4442,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -4493,7 +4509,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -4510,7 +4526,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -4566,7 +4582,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "tests_expansion_panel_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -4780,7 +4796,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "tests_expansion_panel_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -5039,7 +5055,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "tests_expansion_panel_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -5253,7 +5269,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "tests_expansion_panel_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -5622,7 +5638,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "tests_expansion_panel_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -5972,7 +5988,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "tests_expansion_panel_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -6480,7 +6496,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "tests_expansion_panel_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -7491,7 +7507,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "tests_expansion_panel_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }
@@ -7980,7 +7996,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "tests_expansion_panel_relevance_rules.yml"
+              "rules-file": "tests_relevance_rules.yml"
             }
           }
         }

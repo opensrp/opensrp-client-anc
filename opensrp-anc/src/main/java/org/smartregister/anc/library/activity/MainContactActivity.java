@@ -170,7 +170,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             contactAdapter.setContacts(contacts);
             contactAdapter.notifyDataSetChanged();
 
-            requiredFieldsMap.remove(getString(R.string.tests));
+            requiredFieldsMap.remove(ConstantsUtils.JsonFormUtils.ANC_TEST_ENCOUNTER_TYPE );
 
         } catch (Exception e) {
             Timber.e(e, " --> initializeMainContactContainers");
