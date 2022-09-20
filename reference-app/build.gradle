@@ -18,6 +18,7 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'org.smartregister.gradle.jarjar'
 apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'com.google.firebase.firebase-perf'
+apply from: '../properties.gradle'
 
 jacoco {
     toolVersion = jacocoVersion
@@ -35,27 +36,16 @@ android {
     * This allows you to run the app in the release variant.  make sure to add this configs to the
     * local.properties files when you need to use them
     * */
-    if (project.rootProject.file("local.properties").exists()) {
-        Properties properties = new Properties()
-        properties.load(project.rootProject.file("local.properties").newDataInputStream())
-        if (properties != null && properties.containsKey("store.file") && properties.containsKey("store.password") && properties.containsKey("key.password")) {
             signingConfigs {
                 release {
-                    storeFile file(properties['store.file'])
-                    storePassword properties['store.password']
-                    keyAlias = 'release'
-                    keyPassword properties['key.password']
-                }
-                debug {
-                    storeFile file(properties['store.file'])
-                    storePassword properties['store.password']
-                    keyAlias = 'release'
-                    keyPassword properties['key.password']
+                    //Store your local.properties file in the project root folder
+                    keyAlias System.getenv("KEYSTORE_ALIAS") ?: project.KEYSTORE_ALIAS
+                    keyPassword System.getenv("KEY_PASSWORD") ?: project.KEY_PASSWORD
+                    storePassword System.getenv("KEYSTORE_PASSWORD") ?: project.KEYSTORE_PASSWORD
+                    //Save your keystore file as ~/opensrp-release-upload-key.jks (in your home directory)
+                    storeFile file(System.getProperty("user.home") + "/opensrp-release-upload-key.jks")
                 }
             }
-        }
-    }
-
     useLibrary 'org.apache.http.legacy'
     compileSdkVersion androidCompileSdkVersion
     buildToolsVersion androidBuildToolsVersion
@@ -142,6 +132,7 @@ android {
         release {
             minifyEnabled false
             zipAlignEnabled true
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rule.pro'
             resValue "string", 'opensrp_url', '"https://anc.labs.smartregister.org/opensrp/"'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
@@ -173,6 +164,7 @@ android {
             buildConfigField "int", "VIEW_SYNC_CONFIGURATIONS_MINUTES", '15'
             buildConfigField "int", "CLIENT_SETTINGS_SYNC_MINUTES", '15'
             testCoverageEnabled true
+            signingConfig signingConfigs.debug
         }
     }
 

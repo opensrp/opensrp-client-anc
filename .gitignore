@@ -33,3 +33,4 @@ jacoco.exec
 /build/
 /google-services.json
 *.log
+keystore.properties

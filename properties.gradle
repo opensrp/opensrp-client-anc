@@ -1,0 +1,14 @@
+ext.props = new Properties()
+
+//KEYSTORE CREDENTIALS
+def keystoreAuthArray = ["KEYSTORE_ALIAS", "KEY_PASSWORD", "KEYSTORE_PASSWORD"]
+if (rootProject.file("local.properties").exists()) {
+    props.load(rootProject.file("local.properties").newDataInputStream())
+
+    keystoreAuthArray.each { arrayProp -> project.ext.set(arrayProp, props.getProperty(arrayProp, "sample"))
+    }
+} else {
+    println("local.properties does not exist. The following values are required " + keystoreAuthArray.join(", "))
+    keystoreAuthArray.each { arrayProp -> project.ext.set(arrayProp, props.getProperty(arrayProp, "sample_" + arrayProp))
+    }
+}
