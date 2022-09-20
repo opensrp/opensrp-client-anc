@@ -10,12 +10,11 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
-import org.powermock.reflect.Whitebox;
 import org.robolectric.RobolectricTestRunner;
-import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.contract.ProfileContract;
 
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 
 @RunWith(RobolectricTestRunner.class)
@@ -32,7 +31,8 @@ public class FinalizeContactTaskTest extends BaseUnitTest {
     @Before
     public void setUp() {
         context = Mockito.mock(Context.class);
-        finalizeContactTask = new FinalizeContactTask(context, mProfilePresenter, intent);
+        WeakReference<Context> weakReferenceContext = new WeakReference<>(context);
+        finalizeContactTask = new FinalizeContactTask(weakReferenceContext, mProfilePresenter, intent);
 
     }
 
@@ -49,8 +49,9 @@ public class FinalizeContactTaskTest extends BaseUnitTest {
 
     @Test
     public void testDoBackground() throws Exception {
-        PowerMockito.whenNew(FinalizeContactTask.class).withArguments(context, mProfilePresenter, new Intent()).thenReturn(finalizeContactTask);
-        FinalizeContactTask filter = new FinalizeContactTask(context, mProfilePresenter, new Intent()) {
+        WeakReference<Context> weakReferenceContext = new WeakReference<>(context);
+        PowerMockito.whenNew(FinalizeContactTask.class).withArguments(weakReferenceContext, mProfilePresenter, new Intent()).thenReturn(finalizeContactTask);
+        FinalizeContactTask filter = new FinalizeContactTask(weakReferenceContext, mProfilePresenter, new Intent()) {
             public FinalizeContactTask callProtectedMethod() {
                 doInBackground();
                 return this;

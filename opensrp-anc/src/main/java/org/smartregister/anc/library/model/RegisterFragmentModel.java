@@ -67,7 +67,7 @@ public class RegisterFragmentModel implements RegisterFragmentContract.Model {
         String[] columns = new String[]{tableName + "." + DBConstantsUtils.KeyUtils.RELATIONAL_ID, tableName + "." + DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH,
                 tableName + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID, tableName + "." + DBConstantsUtils.KeyUtils.FIRST_NAME,
                 tableName + "." + DBConstantsUtils.KeyUtils.LAST_NAME, tableName + "." + DBConstantsUtils.KeyUtils.ANC_ID,
-                tableName + "." + DBConstantsUtils.KeyUtils.DOB, getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.PHONE_NUMBER,
+                tableName + "." + DBConstantsUtils.KeyUtils.DOB, getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.PHONE_NUMBER,getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.ALT_PHONE_NUMBER,
                 getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.ALT_NAME, tableName + "." + DBConstantsUtils.KeyUtils.DATE_REMOVED,
                 getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.EDD, getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.RED_FLAG_COUNT,
                 getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT, getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.CONTACT_STATUS,
@@ -182,8 +182,7 @@ public class RegisterFragmentModel implements RegisterFragmentContract.Model {
                 nextContactDate = getJsonString(getJsonObject(client, "attributes"), "next_contact_date");
 
 
-                matrixCursor
-                        .addRow(new Object[]{entityId, null, firstName, lastName, dob,edd, ancId, phoneNumber, altContactName,nextContact,nextContactDate});
+                matrixCursor.addRow(new Object[]{entityId, null, firstName, lastName, dob, edd, ancId, phoneNumber, altContactName, nextContact, nextContactDate});
             }
         }
         return matrixCursor;
