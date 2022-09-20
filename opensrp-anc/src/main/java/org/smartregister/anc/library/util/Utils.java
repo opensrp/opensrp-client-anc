@@ -1166,6 +1166,8 @@ public class Utils extends org.smartregister.util.Utils {
 
     public static String extractValuefromJSONObject(String jsonString)
     {
+        if(jsonString == null)
+            return "";
         if(jsonString.startsWith("{") && jsonString.endsWith("}")) {
             try {
 
