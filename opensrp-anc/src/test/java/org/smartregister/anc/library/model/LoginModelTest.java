@@ -41,6 +41,7 @@ public class LoginModelTest extends BaseUnitTest {
         Assert.assertTrue(model.isUserLoggedOut());
     }
 
+    @Ignore
     @Test
     public void testGetOpenSRPContextShouldReturnValidValue() {
         Assert.assertNotNull(model.getOpenSRPContext());

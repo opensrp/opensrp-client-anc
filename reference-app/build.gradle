@@ -230,7 +230,7 @@ dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
     def powerMockVersion = '2.0.7'
     implementation project(":opensrp-anc")
-    implementation('org.smartregister:opensrp-client-native-form:2.1.16-PREVIEW-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:3.1.1-PREVIEW-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -255,7 +255,18 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
         exclude group: 'com.rengwuxian.materialedittext', module: 'library'
         exclude group: 'com.ibm.fhir', module: 'fhir-model'
+        exclude group: 'org.smartregister', module: 'android-p2p-sync'
     }
+
+    api("org.smartregister:android-p2p-sync:0.3.8-aplha4-SNAPSHOT") {
+        transitive = true
+        exclude group: 'org.smartregister', module: 'opensrp-client-core'
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
+        exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
+        exclude group: 'com.rengwuxian.materialedittext', module: 'library'
+    }
+
     jarJar 'com.ibm.fhir:fhir-model:4.8.3'
     implementation fileTree(dir: "./build/libs", include: ['*.jar'])
     implementation('org.smartregister:opensrp-client-configurable-views:1.1.5-SNAPSHOT@aar') {

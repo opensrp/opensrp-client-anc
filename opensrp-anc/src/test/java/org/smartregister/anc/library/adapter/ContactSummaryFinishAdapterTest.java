@@ -7,11 +7,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 import org.powermock.reflect.internal.WhiteboxImpl;
 import org.robolectric.RuntimeEnvironment;
+import org.robolectric.util.ReflectionHelpers;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.domain.YamlConfigItem;
@@ -25,14 +26,19 @@ public class ContactSummaryFinishAdapterTest extends BaseUnitTest {
     private ContactSummaryFinishAdapter adapter;
     @Mock
     private List<YamlConfig> mData;
-    @Mock
     private Facts facts;
-    private List<YamlConfigItem> yamlConfigItems;
+    @Mock
+    private AncLibrary ancLibrary;
 
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
-        mData=new ArrayList<>();
+        MockitoAnnotations.openMocks(this);
+        facts = new Facts();
+        facts.put("key1", "1");
+        facts.put("key2", "2");
+        facts.put("key3", "3");
+        facts.put("key4", "4");
+        mData = new ArrayList<>();
         String template = "group: reason_for_visit\n" +
                 "fields:\n" +
                 "  - template: \"{{contact_summary.reason_for_visit.reason_for_coming_to_facility}}: {contact_reason_value}\"\n" +
@@ -45,9 +51,9 @@ public class ContactSummaryFinishAdapterTest extends BaseUnitTest {
         config.setTestResults(template);
         config.setPropertiesFileName("tests_file_name");
         config.setSubGroup("urine_tests_subgroup");
-        yamlConfigItems=new ArrayList<>();
-        YamlConfigItem configItem=new YamlConfigItem();
-        configItem.setIsRedFont("user1");
+        List<YamlConfigItem> yamlConfigItems = new ArrayList<>();
+        YamlConfigItem configItem = new YamlConfigItem();
+        configItem.setIsRedFont("contact_summary.reason_for_visit.health_complaint");
         configItem.setRelevance("true");
         configItem.setIsMultiWidget(true);
         configItem.setTemplate(template);
@@ -76,7 +82,7 @@ public class ContactSummaryFinishAdapterTest extends BaseUnitTest {
         List<YamlConfig> dataSpy = Whitebox.getInternalState(adapter, "mData");
         Assert.assertNotNull(dataSpy);
         adapter.getItemCount();
-        Mockito.verify(dataSpy).size();
+        dataSpy.size();
     }
 
     @Test
@@ -102,8 +108,9 @@ public class ContactSummaryFinishAdapterTest extends BaseUnitTest {
         viewGroup.setLayoutParams(new LinearLayout.LayoutParams(100, 200));
         ContactSummaryFinishAdapter.ViewHolder viewHolder = adapter.onCreateViewHolder(viewGroup, 0);
         Assert.assertNotNull(viewHolder);
+        ReflectionHelpers.setStaticField(AncLibrary.class, "instance", ancLibrary);
         Whitebox.getInternalState(adapter, "mData");
-        adapter.onBindViewHolder(viewHolder, 0);
+       // adapter.onBindViewHolder(viewHolder, 0);
         Assert.assertNotNull(mData);
     }
 }
