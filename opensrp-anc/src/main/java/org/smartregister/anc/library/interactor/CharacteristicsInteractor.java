@@ -52,8 +52,10 @@ public class CharacteristicsInteractor implements SiteCharacteristicsContract.In
         if (localSettings != null) {
             for (int i = 0; i < localSettings.length(); i++) {
                 JSONObject localSetting = localSettings.getJSONObject(i);
+                String valueObject = siteCharacteristicsSettingsMap.get(localSetting.getString(ConstantsUtils.KeyUtils.KEY));
+                valueObject = org.smartregister.anc.library.util.Utils.extractValuefromJSONObject(valueObject);
                 localSetting.put(ConstantsUtils.KeyUtils.VALUE,
-                        "1".equals(siteCharacteristicsSettingsMap.get(localSetting.getString(ConstantsUtils.KeyUtils.KEY))));
+                "1".equals(valueObject));
             }
         }
 
