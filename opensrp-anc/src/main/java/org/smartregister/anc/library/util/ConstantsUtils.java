@@ -299,12 +299,11 @@ public abstract class ConstantsUtils {
     }
 
     public static final class PractitionerConstants {
-        public static final String PRACTITIONERID = "practitionerId";
-        public static final String PRACTITIONERNAME = "practitionerName";
-        public static final String USERID = "userId";
+        public static final String PRACTITIONERID = "providerBaseEntityId";
+        public static final String PRACTITIONERNAME = "providerId";
         public static final String TEAMID = "teamId";
         public static final String TEAM = "team";
         public static final String LOCATIONID = "locationId";
-        public static final String PRACTITIONERDETAILS = "practitionerDetails";
+        public static final String PRACTITIONERDETAILS = "providerDetails";
     }
 }

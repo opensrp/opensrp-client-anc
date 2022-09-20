@@ -71,15 +71,19 @@ public class PartialContactRepository extends BaseRepository {
         else if (partialContact.getUpdatedAt() == null) {
             partialContact.setUpdatedAt(Calendar.getInstance().getTimeInMillis());
         }
-        PartialContact existingContact = getPartialContact(partialContact);
-        if (existingContact != null) {
-            partialContact.setId(existingContact.getId());
-            if (partialContact.getFormJson() == null) {
+        if (partialContact.getId() == null) {
+            PartialContact existingContact = getPartialContact(partialContact);
+            if (existingContact != null) {
+                partialContact.setId(existingContact.getId());
+                if (partialContact.getFormJson() == null) {
+                    partialContact.setFormJson(existingContact.getFormJson());
+                }
+                partialContact.setCreatedAt(existingContact.getCreatedAt());
                 addPractitionerDetails(partialContact);
-                partialContact.setFormJson(existingContact.getFormJson());
+                update(partialContact);
             } else {
-                addPractitionerDetails(partialContact);
                 partialContact.setCreatedAt(Calendar.getInstance().getTimeInMillis());
+                addPractitionerDetails(partialContact);
                 getWritableDatabase().insert(TABLE_NAME, null, createValuesFor(partialContact));
             }
         } else {
@@ -142,8 +146,16 @@ public class PartialContactRepository extends BaseRepository {
                     practitionerObject.put(ConstantsUtils.PractitionerConstants.PRACTITIONERNAME, practitioner);
                     practitionerObject.put(ConstantsUtils.PractitionerConstants.TEAMID, allSharedPreferences.fetchDefaultTeamId(practitioner));
                     practitionerObject.put(ConstantsUtils.PractitionerConstants.TEAM, allSharedPreferences.fetchDefaultTeam(practitioner));
-                    practitionerObject.put(ConstantsUtils.PractitionerConstants.LOCATIONID, allSharedPreferences.fetchUserLocalityId(practitioner));
+                    practitionerObject.put(ConstantsUtils.PractitionerConstants.LOCATIONID, allSharedPreferences.fetchDefaultLocationId());
+                    if (partialContactJson.has(ConstantsUtils.PractitionerConstants.PRACTITIONERDETAILS)) {
+                        partialContactJson.remove(ConstantsUtils.PractitionerConstants.PRACTITIONERDETAILS);
+                    }
                     partialContactJson.put(ConstantsUtils.PractitionerConstants.PRACTITIONERDETAILS, practitionerArray.put(practitionerObject));
+                    if (StringUtils.isNotBlank(partialContact.getFormJson())) {
+                        partialContact.setFormJson(partialContactJson.toString());
+                    } else {
+                        partialContact.setFormJsonDraft(partialContactJson.toString());
+                    }
                 }
             } catch (Exception e) {
                 Timber.e(e);
