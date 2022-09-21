@@ -6,9 +6,11 @@ import android.content.Intent;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
+import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.activity.ContactSummarySendActivity;
@@ -17,7 +19,7 @@ import org.smartregister.anc.library.contract.ProfileContract;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 
-
+@RunWith(PowerMockRunner.class)
 public class FinalizeContactTaskTest extends BaseUnitTest {
 
     private FinalizeContactTask finalizeContactTask;

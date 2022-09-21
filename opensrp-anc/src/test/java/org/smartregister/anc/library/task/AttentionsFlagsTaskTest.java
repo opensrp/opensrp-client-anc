@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.robolectric.RobolectricTestRunner;
 import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
+import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.domain.AttentionFlag;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @RunWith(RobolectricTestRunner.class)
-public class AttentionsFlagsTaskTest {
+public class AttentionsFlagsTaskTest extends BaseUnitTest {
     AttentionFlagsTask attentionFlagMock;
     private static CommonPersonObjectClient commonPersonObjectClient;
     private final List<AttentionFlag> attentionFlagList = new ArrayList<>();
