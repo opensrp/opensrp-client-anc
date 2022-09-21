@@ -32,7 +32,7 @@ public class AttentionFlagsTask {
     }
 
     public void execute() {
-        appExecutors = AncLibrary.getInstance().getAppExecutors();
+        appExecutors = new AppExecutors();
         appExecutors.diskIO().execute(() -> {
             this.addAttentionFlagsService();
             appExecutors.mainThread().execute(this::showAttentionFlagsDialogOnPostExec);
