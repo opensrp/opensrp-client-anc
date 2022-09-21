@@ -300,7 +300,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation group: 'org.yaml', name: 'snakeyaml', version: '1.30'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
-    implementation 'org.jeasy:easy-rules-core:4.1.0'
+    implementation 'org.jeasy:easy-rules-core:3.3.0'
     implementation 'org.jeasy:easy-rules-mvel:3.3.0'
     implementation 'com.flurry.android:analytics:11.6.0@aar'
     implementation 'com.flurry.android:analytics:11.6.0@aar'
