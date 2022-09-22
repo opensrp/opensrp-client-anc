@@ -90,8 +90,11 @@ public class LoadContactSummaryDataTask extends AsyncTask<Void, Void, Void> {
         //load profile details
 
         mProfilePresenter.refreshProfileView(baseEntityId);
+        String name = clientDetails.get(DBConstantsUtils.KeyUtils.FIRST_NAME);
+        if(clientDetails.get(DBConstantsUtils.KeyUtils.LAST_NAME)!= null)
+            name = name +" "+ clientDetails.get(DBConstantsUtils.KeyUtils.LAST_NAME);
 
         //Create PDF file stuff
-        mProfilePresenter.createContactSummaryPdf();
+        mProfilePresenter.createContactSummaryPdf(name);
     }
 }
