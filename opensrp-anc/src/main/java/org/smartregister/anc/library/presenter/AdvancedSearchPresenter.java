@@ -115,7 +115,8 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter
                                 createRemoteLocalCursorUtils.getRelationalId(), createRemoteLocalCursorUtils.getFirstName(),
                                 createRemoteLocalCursorUtils.getLastName(), createRemoteLocalCursorUtils.getDob(),
                                 createRemoteLocalCursorUtils.getEdd(),
-                                createRemoteLocalCursorUtils.getAncId(), createRemoteLocalCursorUtils.getPhoneNumber(),
+                                createRemoteLocalCursorUtils.getAncId(),
+                                createRemoteLocalCursorUtils.getPhoneNumber(),
                                 createRemoteLocalCursorUtils.getAltName(),
                                 createRemoteLocalCursorUtils.getNextContact(),
                                 createRemoteLocalCursorUtils.getNextContactDate()

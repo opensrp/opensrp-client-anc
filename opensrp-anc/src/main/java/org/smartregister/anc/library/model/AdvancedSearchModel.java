@@ -38,6 +38,7 @@ public class AdvancedSearchModel extends RegisterFragmentModel implements Advanc
         addMapValues(lastName, isLocal, editMap, DBConstantsUtils.KeyUtils.LAST_NAME, GLOBAL_LAST_NAME);
         addMapValuesCheckingLocals(ancId, isLocal, editMap, DBConstantsUtils.KeyUtils.ANC_ID, GLOBAL_IDENTIFIER, ANC_ID);
         addMapValuesCheckingLocals(edd, isLocal, editMap, DBConstantsUtils.KeyUtils.EDD, GLOBAL_ATTRIBUTE, EDD_ATTR);
+        addMapValuesCheckingLocals(edd, isLocal, editMap, DBConstantsUtils.KeyUtils.EDD, GLOBAL_ATTRIBUTE, EDD_ATTR);
         addMapValues(dob, isLocal, editMap, DBConstantsUtils.KeyUtils.DOB, GLOBAL_BIRTH_DATE);
         addMapValues(phoneNumber, isLocal, editMap, DBConstantsUtils.KeyUtils.PHONE_NUMBER, PHONE_NUMBER);
         addMapValues(alternateContact, isLocal, editMap, DBConstantsUtils.KeyUtils.ALT_NAME, ALT_CONTACT_NAME);

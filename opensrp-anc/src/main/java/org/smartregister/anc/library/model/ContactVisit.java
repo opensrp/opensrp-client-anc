@@ -194,7 +194,7 @@ public class ContactVisit {
                    {
                        redCount = redCount+1;
                    }
-                   else
+                   else if(attentionFlagConfig.getGroup().equals(ConstantsUtils.AttentionFlagUtils.YELLOW))
                    {
                        yellowCount = yellowCount+1;
                    }
