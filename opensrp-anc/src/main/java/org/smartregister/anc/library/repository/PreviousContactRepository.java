@@ -1,6 +1,5 @@
 package org.smartregister.anc.library.repository;
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.text.TextUtils;
 import android.util.Log;
