@@ -71,9 +71,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-import javax.json.JsonException;
-import javax.json.JsonObject;
-
 import timber.log.Timber;
 
 /**
