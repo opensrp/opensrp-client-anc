@@ -68,6 +68,7 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Location;
 import org.smartregister.domain.LocationTag;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.JsonFormUtils;
 import org.smartregister.view.activity.DrishtiApplication;
 
@@ -1162,5 +1163,24 @@ public class Utils extends org.smartregister.util.Utils {
             locationName = jsonFormView.getResources().getString(identifier);
         }
         return locationName;
+    }
+
+    public static JSONArray addPractitionerDetails() {
+        try {
+            JSONArray practitionerArray = new JSONArray();
+            JSONObject practitionerObject = new JSONObject();
+            AllSharedPreferences allSharedPreferences = AncLibrary.getInstance().getContext().allSharedPreferences();
+            String practitioner = allSharedPreferences.fetchRegisteredANM();
+            practitionerObject.put(ConstantsUtils.PractitionerConstants.PRACTITIONERID, allSharedPreferences.getUserId(practitioner));
+            practitionerObject.put(ConstantsUtils.PractitionerConstants.PRACTITIONERNAME, practitioner);
+            practitionerObject.put(ConstantsUtils.PractitionerConstants.TEAMID, allSharedPreferences.fetchDefaultTeamId(practitioner));
+            practitionerObject.put(ConstantsUtils.PractitionerConstants.TEAM, allSharedPreferences.fetchDefaultTeam(practitioner));
+            practitionerObject.put(ConstantsUtils.PractitionerConstants.LOCATIONID, allSharedPreferences.fetchDefaultLocalityId(practitioner));
+            return practitionerArray.put(practitionerObject);
+        } catch (Exception e) {
+            Timber.e(e);
+            return null;
+        }
+
     }
 }

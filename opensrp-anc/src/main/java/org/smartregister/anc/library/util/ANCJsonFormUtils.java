@@ -26,8 +26,8 @@ import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.BuildConfig;
 import org.smartregister.anc.library.AncLibrary;
-import org.smartregister.anc.library.BuildConfig;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.EditJsonFormActivity;
 import org.smartregister.anc.library.domain.YamlConfigItem;
@@ -358,6 +358,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
         formTag.providerId = allSharedPreferences.fetchRegisteredANM();
         formTag.appVersion = BuildConfig.VERSION_CODE;
         formTag.databaseVersion = AncLibrary.getInstance().getDatabaseVersion();
+        formTag.practitionerDetails = Utils.addPractitionerDetails();
         return formTag;
     }
 
@@ -371,6 +372,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
         //event.setVersion(BuildConfig.EVENT_VERSION);
         event.setClientApplicationVersion(BuildConfig.VERSION_CODE);
         event.setClientDatabaseVersion(AncLibrary.getInstance().getDatabaseVersion());
+        event.setPractitionerDetails(Utils.addPractitionerDetails());
     }
 
     @Nullable
