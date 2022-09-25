@@ -49,7 +49,7 @@ public class FinalizeContactTaskTest extends BaseUnitTest {
         intent = new Intent(context, ContactSummarySendActivity.class);
         PowerMockito.whenNew(Intent.class).withArguments(context, ContactSummarySendActivity.class).thenReturn(intent);
         Whitebox.invokeMethod(finalizeContactTaskMock, "getProgressDialog");
-        PowerMockito.verifyPrivate(finalizeContactTaskMock).invoke("getProgressDialog");
+        Mockito.verify(finalizeContactTaskMock, Mockito.atLeastOnce()).getProgressDialog();
     }
 
     @Test
@@ -60,16 +60,4 @@ public class FinalizeContactTaskTest extends BaseUnitTest {
         Whitebox.invokeMethod(finalizeContactTaskMock, "processWomanDetailsServiceWorker");
         Assert.assertNotNull(newWomanProfileDetails);
     }
-
-//    @Test
-//    public void testInvokeFinishContactSummaryOnPostExecute() throws Exception {
-//        PowerMockito.whenNew(FinalizeContactTask.class).withArguments(weakReferenceContext, mProfilePresenter, new Intent()).thenReturn(finalizeContactTask);
-//        finalizeContactTask.execute();
-//        Thread.sleep(100);
-//        intent = new Intent(context, ContactSummarySendActivity.class);
-//        PowerMockito.whenNew(Intent.class).withArguments(context, ContactSummarySendActivity.class).thenReturn(intent);
-//        Whitebox.invokeMethod(finalizeContactTaskMock, "finishContactSummaryOnPostExecute");
-//        PowerMockito.verifyPrivate(finalizeContactTaskMock).invoke("finishContactSummaryOnPostExecute");
-//        Mockito.verify(context).startActivity(intent);
-//    }
 }
