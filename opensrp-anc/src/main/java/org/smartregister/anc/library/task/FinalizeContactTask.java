@@ -55,6 +55,7 @@ public class FinalizeContactTask {
         ((ContactSummaryFinishActivity) context).getProgressDialog().show();
     }
 
+
     protected void processWomanDetailsServiceWorker() {
         try {
             HashMap<String, String> womanProfileDetails = (HashMap<String, String>) PatientRepository
@@ -68,12 +69,12 @@ public class FinalizeContactTask {
             Timber.e(e);
         }
 
-
     }
 
     protected void finishContactSummaryOnPostExecute() {
         ((ContactSummaryFinishActivity) context).hideProgressDialog();
-        Intent contactSummaryIntent = new Intent(context, ContactSummarySendActivity.class);
+        Intent contactSummaryIntent =
+                new Intent(context, ContactSummarySendActivity.class);
         contactSummaryIntent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID,
                 intent.getExtras().getString(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID));
         contactSummaryIntent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, newWomanProfileDetails);

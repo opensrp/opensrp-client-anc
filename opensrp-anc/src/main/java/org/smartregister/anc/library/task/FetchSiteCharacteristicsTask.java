@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class FetchSiteCharacteristicsTask {
 
-    private final BaseCharacteristicsContract.BasePresenter presenter;
+    private BaseCharacteristicsContract.BasePresenter presenter;
     private AppExecutors appExecutors;
 
     public FetchSiteCharacteristicsTask(PopulationCharacteristicsContract.Presenter presenter) {
@@ -45,10 +45,9 @@ public class FetchSiteCharacteristicsTask {
     protected List<ServerSetting> getServerSettingsSWorkerService() {
         ServerSettingsHelper helper = new ServerSettingsHelper(ConstantsUtils.PrefKeyUtils.SITE_CHARACTERISTICS);
         return helper.getServerSettings();
-
     }
 
-    protected void renderViewOnPostExecute(List<ServerSetting> result) {
+    protected void renderViewOnPostExecute(final List<ServerSetting> result) {
         presenter.renderView(result);
     }
 }

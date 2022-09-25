@@ -45,57 +45,6 @@ import timber.log.Timber;
 public class AncApplication extends DrishtiApplication implements TimeChangedBroadcastReceiver.OnTimeChangedListener {
     private static CommonFtsObject commonFtsObject;
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-
-        mInstance = this;
-        context = Context.getInstance();
-        context.updateApplicationContext(getApplicationContext());
-        context.updateCommonFtsObject(createCommonFtsObject());
-
-        //Initialize Modules
-        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(!BuildConfig.DEBUG);
-        P2POptions p2POptions = new P2POptions(true);
-        p2POptions.setAuthorizationService(new AncCoreAuthorizationService());
-        ANCFailSafeRecalledID recalledID = new ANCFailSafeRecalledID();
-        p2POptions.setRecalledIdentifier(recalledID);
-        CoreLibrary.init(context, new AncSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP, p2POptions);
-        AncLibrary.init(context, BuildConfig.DATABASE_VERSION, new ANCEventBusIndex());
-        ConfigurableViewsLibrary.init(context);
-
-        SyncStatusBroadcastReceiver.init(this);
-        TimeChangedBroadcastReceiver.init(this);
-        TimeChangedBroadcastReceiver.getInstance().addOnTimeChangedListener(this);
-        LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.DEFAULT_LOCATION_LEVEL);
-
-
-        //init Job Manager
-        JobManager.create(this).addJobCreator(new AncJobCreator());
-
-        //Only integrate Flurry Analytics for  production. Remove negation to test in debug
-        if (!BuildConfig.DEBUG) {
-            new FlurryAgent.Builder()
-                    .withLogEnabled(true)
-                    .withCaptureUncaughtExceptions(true)
-                    .withContinueSessionMillis(10000)
-                    .withLogLevel(Log.VERBOSE)
-                    .build(this, BuildConfig.FLURRY_API_KEY);
-        }
-        NativeFormLibrary
-                .getInstance()
-                .setClientFormDao(CoreLibrary.getInstance().context().getClientFormRepository());
-
-    }
-
-    private void setDefaultLanguage() {
-        try {
-            Utils.saveLanguage("en");
-        } catch (Exception e) {
-            Timber.e(e, " --> saveLanguage");
-        }
-    }
-
     public static CommonFtsObject createCommonFtsObject() {
         if (commonFtsObject == null) {
             commonFtsObject = new CommonFtsObject(getFtsTables());
@@ -133,6 +82,60 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         }
     }
 
+    public static synchronized AncApplication getInstance() {
+        return (AncApplication) DrishtiApplication.mInstance;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        mInstance = this;
+        context = Context.getInstance();
+        context.updateApplicationContext(getApplicationContext());
+        context.updateCommonFtsObject(createCommonFtsObject());
+
+        //Initialize Modules
+        P2POptions p2POptions = new P2POptions(true);
+        p2POptions.setAuthorizationService(new AncCoreAuthorizationService());
+        ANCFailSafeRecalledID recalledID = new ANCFailSafeRecalledID();
+        p2POptions.setRecalledIdentifier(recalledID);
+        CoreLibrary.init(context, new AncSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP, p2POptions);
+        AncLibrary.init(context, BuildConfig.DATABASE_VERSION, new ANCEventBusIndex());
+        ConfigurableViewsLibrary.init(context);
+
+        SyncStatusBroadcastReceiver.init(this);
+        TimeChangedBroadcastReceiver.init(this);
+        TimeChangedBroadcastReceiver.getInstance().addOnTimeChangedListener(this);
+        LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.DEFAULT_LOCATION_LEVEL);
+        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(!BuildConfig.DEBUG);
+
+        //init Job Manager
+        JobManager.create(this).addJobCreator(new AncJobCreator());
+
+        //Only integrate Flurry Analytics for  production. Remove negation to test in debug
+        if (!BuildConfig.DEBUG) {
+            new FlurryAgent.Builder()
+                    .withLogEnabled(true)
+                    .withCaptureUncaughtExceptions(true)
+                    .withContinueSessionMillis(10000)
+                    .withLogLevel(Log.VERBOSE)
+                    .build(this, BuildConfig.FLURRY_API_KEY);
+        }
+        NativeFormLibrary
+                .getInstance()
+                .setClientFormDao(CoreLibrary.getInstance().context().getClientFormRepository());
+
+    }
+
+    private void setDefaultLanguage() {
+        try {
+            Utils.saveLanguage("en");
+        } catch (Exception e) {
+            Timber.e(e, " --> saveLanguage");
+        }
+    }
+
     @Override
     public void logoutCurrentUser() {
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
@@ -160,10 +163,6 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 
         }
         return repository;
-    }
-
-    public static synchronized AncApplication getInstance() {
-        return (AncApplication) DrishtiApplication.mInstance;
     }
 
     @NonNull

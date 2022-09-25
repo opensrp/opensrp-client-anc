@@ -33,7 +33,7 @@ public class FetchPopulationCharacteristicsTaskTest extends BaseUnitTest {
         Whitebox.setInternalState(fetchPopulationCharacteristicsTask, "appExecutorService", appExecutors);
         executor = Mockito.mock(Executor.class);
         appExecutors = Mockito.mock(AppExecutors.class);
-        presenter=Mockito.mock(PopulationCharacteristicsContract.Presenter.class);
+        presenter = Mockito.mock(PopulationCharacteristicsContract.Presenter.class);
     }
 
     @Test

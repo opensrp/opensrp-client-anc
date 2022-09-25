@@ -6,9 +6,11 @@ import android.content.Intent;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
+import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.anc.library.activity.ContactSummarySendActivity;
@@ -17,7 +19,7 @@ import org.smartregister.anc.library.contract.ProfileContract;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 
-
+@RunWith(PowerMockRunner.class)
 public class FinalizeContactTaskTest extends BaseUnitTest {
 
     private FinalizeContactTask finalizeContactTask;
@@ -47,7 +49,7 @@ public class FinalizeContactTaskTest extends BaseUnitTest {
         intent = new Intent(context, ContactSummarySendActivity.class);
         PowerMockito.whenNew(Intent.class).withArguments(context, ContactSummarySendActivity.class).thenReturn(intent);
         Whitebox.invokeMethod(finalizeContactTaskMock, "getProgressDialog");
-        PowerMockito.verifyPrivate(finalizeContactTaskMock).invoke("getProgressDialog");
+        Mockito.verify(finalizeContactTaskMock, Mockito.atLeastOnce()).getProgressDialog();
     }
 
     @Test
@@ -57,17 +59,5 @@ public class FinalizeContactTaskTest extends BaseUnitTest {
         Thread.sleep(1000);
         Whitebox.invokeMethod(finalizeContactTaskMock, "processWomanDetailsServiceWorker");
         Assert.assertNotNull(newWomanProfileDetails);
-    }
-
-    @Test
-    public void testInvokeFinishContactSummaryOnPostExecute() throws Exception {
-        PowerMockito.whenNew(FinalizeContactTask.class).withArguments(weakReferenceContext, mProfilePresenter, new Intent()).thenReturn(finalizeContactTask);
-        finalizeContactTask.execute();
-        Thread.sleep(100);
-        intent = new Intent(context, ContactSummarySendActivity.class);
-        PowerMockito.whenNew(Intent.class).withArguments(context, ContactSummarySendActivity.class).thenReturn(intent);
-        Whitebox.invokeMethod(finalizeContactTaskMock, "finishContactSummaryOnPostExecute");
-        PowerMockito.verifyPrivate(finalizeContactTaskMock).invoke("finishContactSummaryOnPostExecute");
-        Mockito.verify(context).startActivity(intent);
     }
 }

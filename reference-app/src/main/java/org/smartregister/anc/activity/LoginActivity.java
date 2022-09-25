@@ -63,13 +63,15 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     @Override
     public void goToHome(boolean remote) {
         if (remote) {
-           new SaveTeamLocationsTask().execute();
+            new SaveTeamLocationsTask().execute();
         }
+
         if (mLoginPresenter.isServerSettingsSet()) {
             gotToHomeRegister(remote);
         } else {
             goToSiteCharacteristics(remote);
         }
+
         finish();
     }
 
@@ -90,6 +92,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         if (syncCompleteEvent != null) {
             Timber.d("Refreshing Login View...");
             mLoginPresenter.processViewCustomizations();
+
         }
     }
 }

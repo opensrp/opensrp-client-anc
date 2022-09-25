@@ -68,7 +68,6 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Location;
 import org.smartregister.domain.LocationTag;
-import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.JsonFormUtils;
 import org.smartregister.view.activity.DrishtiApplication;
 
@@ -926,7 +925,7 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     /**
-     * @param receives iterated keys and values and passes them through translation in native form
+     * @param receives iterated keys and values and passes them through translation in nativeform
      *                 to return a string. It checks whether the value is an array, a json object or a normal string separated by ,
      * @return
      */
@@ -948,7 +947,7 @@ public class Utils extends org.smartregister.util.Utils {
                     return value.substring(1, value.length() - 1);
                 }
             }
-            if (StringUtils.isNotBlank(value) && value.startsWith( "{")) {
+            if (StringUtils.isNotBlank(value) && value.startsWith("{")) {
                 JSONObject attentionFlagObject = new JSONObject(value);
                 String text = attentionFlagObject.optString(JsonFormConstants.TEXT).trim();
                 String translated_text = StringUtils.isNotBlank(text) ? NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext()) : "";
@@ -1163,24 +1162,5 @@ public class Utils extends org.smartregister.util.Utils {
             locationName = jsonFormView.getResources().getString(identifier);
         }
         return locationName;
-    }
-
-    public static JSONArray addPractitionerDetails() {
-        try {
-            JSONArray practitionerArray = new JSONArray();
-            JSONObject practitionerObject = new JSONObject();
-            AllSharedPreferences allSharedPreferences = AncLibrary.getInstance().getContext().allSharedPreferences();
-            String practitioner = allSharedPreferences.fetchRegisteredANM();
-            practitionerObject.put(ConstantsUtils.PractitionerConstants.PRACTITIONERID, allSharedPreferences.getUserId(practitioner));
-            practitionerObject.put(ConstantsUtils.PractitionerConstants.PRACTITIONERNAME, practitioner);
-            practitionerObject.put(ConstantsUtils.PractitionerConstants.TEAMID, allSharedPreferences.fetchDefaultTeamId(practitioner));
-            practitionerObject.put(ConstantsUtils.PractitionerConstants.TEAM, allSharedPreferences.fetchDefaultTeam(practitioner));
-            practitionerObject.put(ConstantsUtils.PractitionerConstants.LOCATIONID, allSharedPreferences.fetchDefaultLocalityId(practitioner));
-            return practitionerArray.put(practitionerObject);
-        } catch (Exception e) {
-            Timber.e(e);
-            return null;
-        }
-
     }
 }
