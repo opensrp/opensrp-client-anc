@@ -111,6 +111,7 @@
           {
             "key": "none",
             "text": "{{anc_symptoms_follow_up.step1.medications.options.none.text}}",
+            "translation_text": "anc_symptoms_follow_up.step1.medications.options.none.text",
             "value": false,
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
@@ -119,6 +120,7 @@
           {
             "key": "dont_know",
             "text": "{{anc_symptoms_follow_up.step1.medications.options.dont_know.text}}",
+            "translation_text": "anc_symptoms_follow_up.step1.medications.options.dont_know.text",
             "value": false,
             "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
@@ -127,6 +129,7 @@
           {
             "key": "antacids",
             "text": "{{anc_symptoms_follow_up.step1.medications.options.antacids.text}}",
+            "translation_text": "anc_symptoms_follow_up.step1.medications.options.antacids.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "944AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -135,6 +138,7 @@
           {
             "key": "aspirin",
             "text": "{{anc_symptoms_follow_up.step1.medications.options.aspirin.text}}",
+            "translation_text": "anc_symptoms_follow_up.step1.medications.options.aspirin.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "71617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -143,6 +147,7 @@
           {
             "key": "calcium",
             "text": "{{anc_symptoms_follow_up.step1.medications.options.calcium.text}}",
+            "translation_text": "anc_symptoms_follow_up.step1.medications.options.calcium.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "72650AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -151,6 +156,7 @@
           {
             "key": "doxylamine",
             "text": "{{anc_symptoms_follow_up.step1.medications.options.doxylamine.text}}",
+            "translation_text": "anc_symptoms_follow_up.step1.medications.options.doxylamine.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "75229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -159,6 +165,7 @@
           {
             "key": "folic_acid",
             "text": "{{anc_symptoms_follow_up.step1.medications.options.folic_acid.text}}",
+            "translation_text": "anc_symptoms_follow_up.step1.medications.options.folic_acid.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "76613AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -167,6 +174,7 @@
           {
             "key": "iron",
             "text": "{{anc_symptoms_follow_up.step1.medications.options.iron.text}}",
+            "translation_text": "anc_symptoms_follow_up.step1.medications.options.iron.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "78218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -175,6 +183,7 @@
           {
             "key": "magnesium",
             "text": "{{anc_symptoms_follow_up.step1.medications.options.magnesium.text}}",
+            "translation_text": "anc_symptoms_follow_up.step1.medications.options.magnesium.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "79224AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -183,6 +192,7 @@
           {
             "key": "metoclopramide",
             "text": "{{anc_symptoms_follow_up.step1.medications.options.metoclopramide.text}}",
+            "translation_text": "anc_symptoms_follow_up.step1.medications.options.metoclopramide.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "79755AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -191,6 +201,7 @@
           {
             "key": "vitamina",
             "text": "{{anc_symptoms_follow_up.step1.medications.options.vitamina.text}}",
+            "translation_text": "anc_symptoms_follow_up.step1.medications.options.vitamina.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "86339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -199,6 +210,7 @@
           {
             "key": "analgesic",
             "text": "{{anc_symptoms_follow_up.step1.medications.options.analgesic.text}}",
+            "translation_text": "anc_symptoms_follow_up.step1.medications.options.analgesic.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165231AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -207,6 +219,7 @@
           {
             "key": "anti_convulsive",
             "text": "{{anc_symptoms_follow_up.step1.medications.options.anti_convulsive.text}}",
+            "translation_text": "anc_symptoms_follow_up.step1.medications.options.anti_convulsive.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165230AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -215,6 +228,7 @@
           {
             "key": "anti_diabetic",
             "text": "{{anc_symptoms_follow_up.step1.medications.options.anti_diabetic.text}}",
+            "translation_text": "anc_symptoms_follow_up.step1.medications.options.anti_diabetic.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -223,6 +237,7 @@
           {
             "key": "anthelmintic",
             "text": "{{anc_symptoms_follow_up.step1.medications.options.anthelmintic.text}}",
+            "translation_text": "anc_symptoms_follow_up.step1.medications.options.anthelmintic.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -231,6 +246,7 @@
           {
             "key": "anti_hypertensive",
             "text": "{{anc_symptoms_follow_up.step1.medications.options.anti_hypertensive.text}}",
+            "translation_text": "anc_symptoms_follow_up.step1.medications.options.anti_hypertensive.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165237AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -239,6 +255,7 @@
           {
             "key": "anti_malarials",
             "text": "{{anc_symptoms_follow_up.step1.medications.options.anti_malarials.text}}",
+            "translation_text": "anc_symptoms_follow_up.step1.medications.options.anti_malarials.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "5839AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -247,6 +264,7 @@
           {
             "key": "antivirals",
             "text": "{{anc_symptoms_follow_up.step1.medications.options.antivirals.text}}",
+            "translation_text": "anc_symptoms_follow_up.step1.medications.options.antivirals.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165236AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -255,6 +273,7 @@
           {
             "key": "arvs",
             "text": "{{anc_symptoms_follow_up.step1.medications.options.arvs.text}}",
+            "translation_text": "anc_symptoms_follow_up.step1.medications.options.arvs.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -263,6 +282,7 @@
           {
             "key": "prep_hiv",
             "text": "{{anc_symptoms_follow_up.step1.medications.options.prep_hiv.text}}",
+            "translation_text": "anc_symptoms_follow_up.step1.medications.options.prep_hiv.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "",
@@ -271,6 +291,7 @@
           {
             "key": "antitussive",
             "text": "{{anc_symptoms_follow_up.step1.medications.options.antitussive.text}}",
+            "translation_text": "anc_symptoms_follow_up.step1.medications.options.antitussive.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165235AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -279,6 +300,7 @@
           {
             "key": "asthma",
             "text": "{{anc_symptoms_follow_up.step1.medications.options.asthma.text}}",
+            "translation_text": "anc_symptoms_follow_up.step1.medications.options.asthma.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165234AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -287,6 +309,7 @@
           {
             "key": "cotrimoxazole",
             "text": "{{anc_symptoms_follow_up.step1.medications.options.cotrimoxazole.text}}",
+            "translation_text": "anc_symptoms_follow_up.step1.medications.options.cotrimoxazole.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "105281AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -295,6 +318,7 @@
           {
             "key": "antibiotics",
             "text": "{{anc_symptoms_follow_up.step1.medications.options.antibiotics.text}}",
+            "translation_text": "anc_symptoms_follow_up.step1.medications.options.antibiotics.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1195AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -303,6 +327,7 @@
           {
             "key": "hematinic",
             "text": "{{anc_symptoms_follow_up.step1.medications.options.hematinic.text}}",
+            "translation_text": "anc_symptoms_follow_up.step1.medications.options.hematinic.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165233AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -311,6 +336,7 @@
           {
             "key": "hemorrhoidal",
             "text": "{{anc_symptoms_follow_up.step1.medications.options.hemorrhoidal.text}}",
+            "translation_text": "anc_symptoms_follow_up.step1.medications.options.hemorrhoidal.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165255AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -319,6 +345,7 @@
           {
             "key": "multivitamin",
             "text": "{{anc_symptoms_follow_up.step1.medications.options.multivitamin.text}}",
+            "translation_text": "anc_symptoms_follow_up.step1.medications.options.multivitamin.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "461AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -327,6 +354,7 @@
           {
             "key": "thyroid",
             "text": "{{anc_symptoms_follow_up.step1.medications.options.thyroid.text}}",
+            "translation_text": "anc_symptoms_follow_up.step1.medications.options.thyroid.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165232AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -335,6 +363,7 @@
           {
             "key": "other",
             "text": "{{anc_symptoms_follow_up.step1.medications.options.other.text}}",
+            "translation_text": "anc_symptoms_follow_up.step1.medications.options.other.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -864,6 +893,7 @@
           {
             "key": "none",
             "text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.none.text}}",
+            "translation_text": "anc_symptoms_follow_up.step3.phys_symptoms_persist.options.none.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -872,6 +902,7 @@
           {
             "key": "nausea_vomiting",
             "text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.nausea_vomiting.text}}",
+            "translation_text": "anc_symptoms_follow_up.step3.phys_symptoms_persist.options.nausea_vomiting.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "133473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -880,6 +911,7 @@
           {
             "key": "heartburn",
             "text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.heartburn.text}}",
+            "translation_text": "anc_symptoms_follow_up.step3.phys_symptoms_persist.options.heartburn.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "139059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -888,6 +920,7 @@
           {
             "key": "leg_cramps",
             "text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.leg_cramps.text}}",
+            "translation_text": "anc_symptoms_follow_up.step3.phys_symptoms_persist.options.leg_cramps.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "135969AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -896,6 +929,7 @@
           {
             "key": "constipation",
             "text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.constipation.text}}",
+            "translation_text": "anc_symptoms_follow_up.step3.phys_symptoms_persist.options.constipation.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "996AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -904,6 +938,7 @@
           {
             "key": "low_back_pain",
             "text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.low_back_pain.text}}",
+            "translation_text": "anc_symptoms_follow_up.step3.phys_symptoms_persist.options.low_back_pain.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "116225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -912,6 +947,7 @@
           {
             "key": "pelvic_pain",
             "text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.pelvic_pain.text}}",
+            "translation_text": "anc_symptoms_follow_up.step3.phys_symptoms_persist.options.pelvic_pain.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "131034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -920,6 +956,7 @@
           {
             "key": "varicose_veins",
             "text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.varicose_veins.text}}",
+            "translation_text": "anc_symptoms_follow_up.step3.phys_symptoms_persist.options.varicose_veins.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "156666AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -928,6 +965,7 @@
           {
             "key": "oedema",
             "text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.oedema.text}}",
+            "translation_text": "anc_symptoms_follow_up.step3.phys_symptoms_persist.options.oedema.text",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

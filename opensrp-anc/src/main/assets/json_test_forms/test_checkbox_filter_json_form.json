@@ -136,6 +136,7 @@
           {
             "key": "caffeine_intake",
             "text": "High caffeine intake",
+            "translation_text": "anc.test.behaviour.change.tobbaco.caffeine_intake",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165249AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -146,6 +147,7 @@
           {
             "key": "tobacco_user",
             "text": "Current tobacco use or recently quit",
+            "translation_text": "anc.test.behaviour.change.tobbaco.tobacco_user",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "152722AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -154,6 +156,7 @@
           {
             "key": "shs_exposure",
             "text": "Exposure to second-hand smoke in the home",
+            "translation_text": "anc.test.behaviour.change.tobbaco.shs_exposure",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "152721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -162,6 +165,7 @@
           {
             "key": "condom_use",
             "text": "No condom use during sex",
+            "translation_text": "anc.test.behaviour.change.tobbaco.condom_use",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165250AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -170,6 +174,7 @@
           {
             "key": "alcohol_use",
             "text": "Alcohol use",
+            "translation_text": "anc.test.behaviour.change.tobbaco.alcohol_use",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "143098AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -178,6 +183,7 @@
           {
             "key": "substance_use",
             "text": "Substance use",
+            "translation_text": "anc.test.behaviour.change.tobbaco.substance_use",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "160246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

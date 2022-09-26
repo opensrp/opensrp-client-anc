@@ -44,7 +44,8 @@
         }
       ],
       "v_required": {
-        "value": true
+        "value": true,
+        "err": "{{tests_syphilis_sub_form.step1.syph_test_status.v_required.err}}"
       }
     },
     {
@@ -130,7 +131,8 @@
         }
       },
       "v_required": {
-        "value": true
+        "value": true,
+        "err": "{{tests_syphilis_sub_form.step1.syph_test_notdone.v_required.err}}"
       }
     },
     {
@@ -235,7 +237,8 @@
         }
       },
       "v_required": {
-        "value": true
+        "value": true,
+        "err": "{{tests_syphilis_sub_form.step1.syph_test_type.v_required.err}}"
       }
     },
     {
@@ -265,7 +268,8 @@
         }
       ],
       "v_required": {
-        "value": true
+        "value": true,
+        "err": "{{tests_syphilis_sub_form.step1.rapid_syphilis_test.v_required.err}}"
       },
       "relevance": {
         "rules-engine": {
@@ -302,7 +306,8 @@
         }
       ],
       "v_required": {
-        "value": true
+        "value": true,
+        "err": "{{tests_syphilis_sub_form.step1.rpr_syphilis_test.v_required.err}}"
       },
       "relevance": {
         "rules-engine": {
@@ -339,7 +344,8 @@
         }
       ],
       "v_required": {
-        "value": true
+        "value": true,
+        "err": "{{tests_syphilis_sub_form.step1.lab_syphilis_test.v_required.err}}"
       },
       "relevance": {
         "rules-engine": {
@@ -385,5 +391,6 @@
     }
   ],
   "count": 1,
+  "validate_on_submit": true,
   "properties_file_name": "tests_syphilis_sub_form"
 }

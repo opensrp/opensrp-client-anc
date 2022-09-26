@@ -282,8 +282,8 @@
       {
         "key": "phone_number",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "phone_number",
         "type": "edit_text",
         "hint": "{{anc_register.step1.phone_number.hint}}",
         "v_numeric": {
@@ -302,8 +302,8 @@
       {
         "key": "reminders",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "163164AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "reminders",
         "type": "native_radio",
         "label": "{{anc_register.step1.reminders.label}}",
         "label_info_text": "{{anc_register.step1.reminders.label_info_text}}",
@@ -331,8 +331,8 @@
       {
         "key": "alt_name",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "163258AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "alt_name",
         "type": "edit_text",
         "hint": "{{anc_register.step1.alt_name.hint}}",
         "edit_type": "name",

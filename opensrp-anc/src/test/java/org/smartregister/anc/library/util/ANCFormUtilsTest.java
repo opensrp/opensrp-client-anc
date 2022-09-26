@@ -31,6 +31,7 @@ import org.smartregister.anc.library.repository.PartialContactRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.view.activity.DrishtiApplication;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
@@ -142,16 +143,16 @@ public class ANCFormUtilsTest extends BaseUnitTest {
 
     @Test
     public void testGetListValues() {
-        String actual = "one, two, three";
+        String actual = "one,two,three";
         List<String> list = Arrays.asList(new String[]{"one", "two", "three"});
         String result = ANCFormUtils.getListValuesAsString(list);
-        assertEquals(result, actual);
+        assertEquals(actual, result);
     }
 
     @Test
     public void testGetListValuesWithNullInput() {
         String actual = "";
-        String result = ANCFormUtils.getListValuesAsString(null);
+        String result = ANCFormUtils.getListValuesAsString(new ArrayList<String>());
         assertEquals(result, actual);
     }
 
