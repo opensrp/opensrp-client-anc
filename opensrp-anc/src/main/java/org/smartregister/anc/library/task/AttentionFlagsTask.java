@@ -30,7 +30,9 @@ public class AttentionFlagsTask {
         this.baseHomeRegisterActivity = baseHomeRegisterActivity;
         this.pc = pc;
     }
-
+    /***
+     * This function executes both background work and UI thread
+     */
     public void execute() {
         appExecutors = new AppExecutors();
         appExecutors.diskIO().execute(() -> {
