@@ -13,7 +13,6 @@ import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.ImageLoader;
 
-//import androidx.collection.LruCache;
 
 /**
  * Created by samuelgithengi on 1/19/18.
