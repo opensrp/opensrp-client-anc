@@ -47,8 +47,8 @@ public class PartialContactRepository extends BaseRepository {
                     " COLLATE NOCASE);";
     private static final String INDEX_TYPE =
             "CREATE INDEX " + TABLE_NAME + "_" + TYPE + "_index ON " + TABLE_NAME + "(" + TYPE + " COLLATE NOCASE);";
-    private Map<String, Integer> formProcessingOrderMap;
-    private String[] projectionArgs =
+    private final Map<String, Integer> formProcessingOrderMap;
+    private final String[] projectionArgs =
             new String[]{ID, TYPE, FORM_JSON, FORM_JSON_DRAFT, CONTACT_NO, IS_FINALIZED, BASE_ENTITY_ID, CREATED_AT,
                     UPDATED_AT_COLUMN};
 

@@ -260,9 +260,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
                             fields.optJSONObject(i).put(JsonFormConstants.VALUE, lastLocationId);
                         }
                     }
-                } catch (NullPointerException e) {
-                    Timber.e(e);
-                } catch (IllegalArgumentException e) {
+                } catch (NullPointerException | IllegalArgumentException e) {
                     Timber.e(e);
                 }
         }
@@ -358,7 +356,6 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
         formTag.providerId = allSharedPreferences.fetchRegisteredANM();
         formTag.appVersion = BuildConfig.VERSION_CODE;
         formTag.databaseVersion = AncLibrary.getInstance().getDatabaseVersion();
-        formTag.practitionerDetails = Utils.addPractitionerDetails();
         return formTag;
     }
 
@@ -372,7 +369,6 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
         //event.setVersion(BuildConfig.EVENT_VERSION);
         event.setClientApplicationVersion(BuildConfig.VERSION_CODE);
         event.setClientDatabaseVersion(AncLibrary.getInstance().getDatabaseVersion());
-        event.setPractitionerDetails(Utils.addPractitionerDetails());
     }
 
     @Nullable
