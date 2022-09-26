@@ -240,6 +240,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         //Overridden
     }
 
+
     @Override
     public void setTaskCount(String taskCount) {
         // Implement here

@@ -16,13 +16,16 @@ import com.vijay.jsonwizard.NativeFormLibrary;
 
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
+import org.smartregister.P2POptions;
 import org.smartregister.anc.ANCEventBusIndex;
 import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.activity.LoginActivity;
 import org.smartregister.anc.job.AncJobCreator;
 import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.anc.library.auth.AncCoreAuthorizationService;
 import org.smartregister.anc.library.sync.BaseAncClientProcessorForJava;
 import org.smartregister.anc.library.util.DBConstantsUtils;
+import org.smartregister.anc.library.util.ANCFailSafeRecalledID;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.anc.repository.AncRepository;
 import org.smartregister.commonregistry.CommonFtsObject;
@@ -43,51 +46,6 @@ import timber.log.Timber;
  */
 public class AncApplication extends DrishtiApplication implements TimeChangedBroadcastReceiver.OnTimeChangedListener {
     private static CommonFtsObject commonFtsObject;
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        mInstance = this;
-        context = Context.getInstance();
-        context.updateApplicationContext(getApplicationContext());
-        context.updateCommonFtsObject(createCommonFtsObject());
-
-        //Initialize Modules
-        CoreLibrary.init(context, new AncSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);
-        AncLibrary.init(context, BuildConfig.DATABASE_VERSION, new ANCEventBusIndex());
-        ConfigurableViewsLibrary.init(context);
-        setDefaultLanguage();
-
-        SyncStatusBroadcastReceiver.init(this);
-        TimeChangedBroadcastReceiver.init(this);
-        TimeChangedBroadcastReceiver.getInstance().addOnTimeChangedListener(this);
-        LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.DEFAULT_LOCATION_LEVEL);
-        Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
-
-        //init Job Manager
-        JobManager.create(this).addJobCreator(new AncJobCreator());
-
-        //Only integrate Flurry Analytics for  production. Remove negation to test in debug
-        if (!BuildConfig.DEBUG) {
-            new FlurryAgent.Builder()
-                    .withLogEnabled(true)
-                    .withCaptureUncaughtExceptions(true)
-                    .withContinueSessionMillis(10000)
-                    .withLogLevel(Log.VERBOSE)
-                    .build(this, BuildConfig.FLURRY_API_KEY);
-        }
-        NativeFormLibrary
-                .getInstance()
-                .setClientFormDao(CoreLibrary.getInstance().context().getClientFormRepository());
-    }
-
-    private void setDefaultLanguage() {
-        try {
-            Utils.saveLanguage("en");
-        } catch (Exception e) {
-            Timber.e(e, " --> saveLanguage");
-        }
-    }
 
     public static CommonFtsObject createCommonFtsObject() {
         if (commonFtsObject == null) {
@@ -126,6 +84,59 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         }
     }
 
+    public static synchronized AncApplication getInstance() {
+        return (AncApplication) DrishtiApplication.mInstance;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        mInstance = this;
+        context = Context.getInstance();
+        context.updateApplicationContext(getApplicationContext());
+        context.updateCommonFtsObject(createCommonFtsObject());
+
+        //Initialize Modules
+        P2POptions p2POptions = new P2POptions(true);
+        p2POptions.setAuthorizationService(new AncCoreAuthorizationService());
+        ANCFailSafeRecalledID recalledID = new ANCFailSafeRecalledID();
+        p2POptions.setRecalledIdentifier(recalledID);
+        CoreLibrary.init(context, new AncSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP, p2POptions);
+        AncLibrary.init(context, BuildConfig.DATABASE_VERSION, new ANCEventBusIndex());
+        ConfigurableViewsLibrary.init(context);
+
+        SyncStatusBroadcastReceiver.init(this);
+        TimeChangedBroadcastReceiver.init(this);
+        TimeChangedBroadcastReceiver.getInstance().addOnTimeChangedListener(this);
+        LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.DEFAULT_LOCATION_LEVEL);
+        Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
+
+        //init Job Manager
+        JobManager.create(this).addJobCreator(new AncJobCreator());
+
+        //Only integrate Flurry Analytics for  production. Remove negation to test in debug
+        if (!BuildConfig.DEBUG) {
+            new FlurryAgent.Builder()
+                    .withLogEnabled(true)
+                    .withCaptureUncaughtExceptions(true)
+                    .withContinueSessionMillis(10000)
+                    .withLogLevel(Log.VERBOSE)
+                    .build(this, BuildConfig.FLURRY_API_KEY);
+        }
+        NativeFormLibrary
+                .getInstance()
+                .setClientFormDao(CoreLibrary.getInstance().context().getClientFormRepository());
+
+    }
+
+    private void setDefaultLanguage() {
+        try {
+            Utils.saveLanguage("en");
+        } catch (Exception e) {
+            Timber.e(e, " --> saveLanguage");
+        }
+    }
+
     @Override
     public void logoutCurrentUser() {
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
@@ -153,10 +164,6 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 
         }
         return repository;
-    }
-
-    public static synchronized AncApplication getInstance() {
-        return (AncApplication) DrishtiApplication.mInstance;
     }
 
     @NonNull

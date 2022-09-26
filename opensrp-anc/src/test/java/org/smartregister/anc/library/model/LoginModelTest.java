@@ -35,7 +35,7 @@ public class LoginModelTest extends BaseUnitTest {
     // It was transferred from the app module to the lib module
     // The fix might to add an actual OpenSRP application but again UserService testing should be in the
     // opensrp-client-core library which provides this data
-    @Ignore
+
     @Test
     public void testIsUserLoggedOutShouldReturnTrue() {
         Assert.assertTrue(model.isUserLoggedOut());
