@@ -55,6 +55,7 @@ public class FinalizeContactTask {
         ((ContactSummaryFinishActivity) context).getProgressDialog().show();
     }
 
+
     protected void processWomanDetailsServiceWorker() {
         try {
             HashMap<String, String> womanProfileDetails = (HashMap<String, String>) PatientRepository
@@ -67,7 +68,6 @@ public class FinalizeContactTask {
         } catch (Exception e) {
             Timber.e(e);
         }
-
 
     }
 

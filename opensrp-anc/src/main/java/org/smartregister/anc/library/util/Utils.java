@@ -925,7 +925,7 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     /**
-     * @param receives iterated keys and values and passes them through translation in native form
+     * @param receives iterated keys and values and passes them through translation in nativeform
      *                 to return a string. It checks whether the value is an array, a json object or a normal string separated by ,
      * @return
      */
@@ -947,7 +947,7 @@ public class Utils extends org.smartregister.util.Utils {
                     return value.substring(1, value.length() - 1);
                 }
             }
-            if (StringUtils.isNotBlank(value) && value.startsWith( "{")) {
+            if (StringUtils.isNotBlank(value) && value.startsWith("{")) {
                 JSONObject attentionFlagObject = new JSONObject(value);
                 String text = attentionFlagObject.optString(JsonFormConstants.TEXT).trim();
                 String translated_text = StringUtils.isNotBlank(text) ? NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext()) : "";

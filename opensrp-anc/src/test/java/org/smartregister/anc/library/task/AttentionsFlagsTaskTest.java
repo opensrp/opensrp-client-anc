@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.powermock.reflect.Whitebox;
 import org.robolectric.RobolectricTestRunner;
 import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.anc.library.activity.BaseUnitTest;
@@ -17,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@RunWith(RobolectricTestRunner.class)
 public class AttentionsFlagsTaskTest extends BaseUnitTest {
     AttentionFlagsTask attentionFlagMock;
     private static CommonPersonObjectClient commonPersonObjectClient;
@@ -39,7 +39,6 @@ public class AttentionsFlagsTaskTest extends BaseUnitTest {
     public void testAttentionFlags() throws InterruptedException {
         attentionFlagsTask = new AttentionFlagsTask(baseHomeRegisterActivity, commonPersonObjectClient);
         attentionFlagsTask.execute();
-        Whitebox.setInternalState(attentionFlagsTask, "onPostExecute");
         Thread.sleep(1000);
         //To check whether the Attention Flags have data in them
         Assert.assertNotNull(attentionFlagList);

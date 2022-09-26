@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class FetchPopulationCharacteristicsTask {
 
-    private final PopulationCharacteristicsContract.Presenter presenter;
+    private PopulationCharacteristicsContract.Presenter presenter;
     private AppExecutors appExecutorService;
 
     public FetchPopulationCharacteristicsTask(PopulationCharacteristicsContract.Presenter presenter) {
@@ -28,12 +28,13 @@ public class FetchPopulationCharacteristicsTask {
         });
     }
 
+
     public List<ServerSetting> getServerSettingsService() {
         ServerSettingsHelper helper = new ServerSettingsHelper(ConstantsUtils.PrefKeyUtils.POPULATION_CHARACTERISTICS);
         return helper.getServerSettings();
     }
 
-    public void renderViewOnPostExec(List<ServerSetting> result) {
+    protected void renderViewOnPostExec(final List<ServerSetting> result) {
         presenter.renderView(result);
     }
 }

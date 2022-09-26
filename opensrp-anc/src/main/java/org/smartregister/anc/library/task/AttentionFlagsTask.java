@@ -17,7 +17,6 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 
 import timber.log.Timber;
 
@@ -25,13 +24,12 @@ public class AttentionFlagsTask {
     private final BaseHomeRegisterActivity baseHomeRegisterActivity;
     private final List<AttentionFlag> attentionFlagList = new ArrayList<>();
     private final CommonPersonObjectClient pc;
-    AppExecutors appExecutors;
+    private AppExecutors appExecutors;
 
     public AttentionFlagsTask(BaseHomeRegisterActivity baseHomeRegisterActivity, CommonPersonObjectClient pc) {
         this.baseHomeRegisterActivity = baseHomeRegisterActivity;
         this.pc = pc;
     }
-
     /***
      * This function executes both background work and UI thread
      */
@@ -43,9 +41,10 @@ public class AttentionFlagsTask {
         });
     }
 
-    private void addAttentionFlagsService() {
+    protected void addAttentionFlagsService() {
         try {
-            JSONObject jsonObject = new JSONObject(Objects.requireNonNull(AncLibrary.getInstance().getDetailsRepository().getAllDetailsForClient(pc.getCaseId()).get(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS)));
+            JSONObject jsonObject = new JSONObject(AncLibrary.getInstance().getDetailsRepository().getAllDetailsForClient(pc.getCaseId()).get(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS));
+
             Facts facts = new Facts();
             Iterator<String> keys = jsonObject.keys();
 
@@ -73,12 +72,11 @@ public class AttentionFlagsTask {
                 }
             }
         } catch (Exception e) {
-            Timber.e(e);
+            Timber.e(e, " --> ");
         }
     }
 
-
-    private void showAttentionFlagsDialogOnPostExec() {
+    protected void showAttentionFlagsDialogOnPostExec() {
         baseHomeRegisterActivity.showAttentionFlagsDialog(attentionFlagList);
     }
 }

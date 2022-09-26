@@ -11,7 +11,8 @@ import java.util.Map;
  * Created by ndegwamartin on 13/07/2018.
  */
 public class FetchProfileDataTask {
-    private final boolean isForEdit;
+
+    private boolean isForEdit;
     private AppExecutors appExecutors;
 
     public FetchProfileDataTask(boolean isForEdit) {
@@ -29,11 +30,9 @@ public class FetchProfileDataTask {
 
     private Map<String, String> getWomanDetailsOnBackground(String baseEntityId) {
         return PatientRepository.getWomanProfileDetails(baseEntityId);
-
     }
 
-    public void postStickEventOnPostExec(Map<String, String> client) {
+    protected void postStickEventOnPostExec(Map<String, String> client) {
         Utils.postStickyEvent(new ClientDetailsFetchedEvent(client, isForEdit));
     }
-
 }
