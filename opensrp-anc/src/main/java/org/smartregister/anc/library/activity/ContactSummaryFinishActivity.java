@@ -1,7 +1,6 @@
 package org.smartregister.anc.library.activity;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -196,7 +195,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     }
 
     private void saveFinishForm() {
-        new FinalizeContactTask(new WeakReference<Context>(this), mProfilePresenter, getIntent()).execute();
+        new FinalizeContactTask(new WeakReference<>(this), mProfilePresenter, getIntent()).execute();
     }
 
 
