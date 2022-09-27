@@ -8,8 +8,12 @@ import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.model.PartialContact;
 import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
 
 import java.util.ArrayList;
@@ -75,12 +79,15 @@ public class PartialContactRepository extends BaseRepository {
                     partialContact.setFormJson(existingContact.getFormJson());
                 }
                 partialContact.setCreatedAt(existingContact.getCreatedAt());
+                addPractitionerDetails(partialContact);
                 update(partialContact);
             } else {
                 partialContact.setCreatedAt(Calendar.getInstance().getTimeInMillis());
+                addPractitionerDetails(partialContact);
                 getWritableDatabase().insert(TABLE_NAME, null, createValuesFor(partialContact));
             }
         } else {
+            addPractitionerDetails(partialContact);
             update(partialContact);
         }
     }
@@ -215,5 +222,38 @@ public class PartialContactRepository extends BaseRepository {
 
     public void clearPartialRepository() {
         getWritableDatabase().delete(TABLE_NAME, "_id IS NOT NULL", null);
+    }
+
+    private void addPractitionerDetails(PartialContact partialContact) {
+        if (StringUtils.isNotBlank(partialContact.getFormJson()) || StringUtils.isNotBlank(partialContact.getFormJsonDraft())) {
+            try {
+                JSONArray practitionerArray = new JSONArray();
+                JSONObject practitionerObject, partialContactJson;
+                practitionerObject = new JSONObject();
+                String jsonFormString = StringUtils.isNotBlank(partialContact.getFormJson()) ? partialContact.getFormJson() : partialContact.getFormJsonDraft();
+                if (StringUtils.isNotBlank(jsonFormString)) {
+                    partialContactJson = new JSONObject(jsonFormString);
+                    AllSharedPreferences allSharedPreferences = AncLibrary.getInstance().getContext().allSharedPreferences();
+                    String practitioner = allSharedPreferences.fetchRegisteredANM();
+                    practitionerObject.put(ConstantsUtils.PractitionerConstants.PRACTITIONERID, allSharedPreferences.getUserId(practitioner));
+                    practitionerObject.put(ConstantsUtils.PractitionerConstants.PRACTITIONERNAME, practitioner);
+                    practitionerObject.put(ConstantsUtils.PractitionerConstants.TEAMID, allSharedPreferences.fetchDefaultTeamId(practitioner));
+                    practitionerObject.put(ConstantsUtils.PractitionerConstants.TEAM, allSharedPreferences.fetchDefaultTeam(practitioner));
+                    practitionerObject.put(ConstantsUtils.PractitionerConstants.LOCATIONID, allSharedPreferences.fetchDefaultLocalityId(practitioner));
+                    if (partialContactJson.has(ConstantsUtils.PractitionerConstants.PRACTITIONERDETAILS)) {
+                        partialContactJson.remove(ConstantsUtils.PractitionerConstants.PRACTITIONERDETAILS);
+                    }
+                    partialContactJson.put(ConstantsUtils.PractitionerConstants.PRACTITIONERDETAILS, practitionerArray.put(practitionerObject));
+                    if (StringUtils.isNotBlank(partialContact.getFormJson())) {
+                        partialContact.setFormJson(partialContactJson.toString());
+                    } else {
+                        partialContact.setFormJsonDraft(partialContactJson.toString());
+                    }
+                }
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+        }
+
     }
 }
