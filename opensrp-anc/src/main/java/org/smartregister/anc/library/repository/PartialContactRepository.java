@@ -228,11 +228,11 @@ public class PartialContactRepository extends BaseRepository {
         if (StringUtils.isNotBlank(partialContact.getFormJson()) || StringUtils.isNotBlank(partialContact.getFormJsonDraft())) {
             try {
                 JSONArray practitionerArray = new JSONArray();
-                JSONObject practitionerObject, partialContactJson;
-                practitionerObject = new JSONObject();
+
+                JSONObject practitionerObject = new JSONObject();
                 String jsonFormString = StringUtils.isNotBlank(partialContact.getFormJson()) ? partialContact.getFormJson() : partialContact.getFormJsonDraft();
                 if (StringUtils.isNotBlank(jsonFormString)) {
-                    partialContactJson = new JSONObject(jsonFormString);
+                    JSONObject partialContactJson = new JSONObject(jsonFormString);
                     AllSharedPreferences allSharedPreferences = AncLibrary.getInstance().getContext().allSharedPreferences();
                     String practitioner = allSharedPreferences.fetchRegisteredANM();
                     practitionerObject.put(ConstantsUtils.PractitionerConstants.PRACTITIONERID, allSharedPreferences.getUserId(practitioner));
