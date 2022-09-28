@@ -2,6 +2,9 @@ buildscript {
     repositories {
         mavenCentral()
         google()
+        maven {
+            url "https://s3.amazonaws.com/repo.commonsware.com"
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.3'
