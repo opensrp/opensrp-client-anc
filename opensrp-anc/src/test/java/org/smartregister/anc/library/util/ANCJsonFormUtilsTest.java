@@ -842,4 +842,25 @@ public class ANCJsonFormUtilsTest {
         Assert.assertNotNull(result);
     }
 
+
+    @Test
+    public void testPopulateSecondaryValues() throws JSONException
+    {
+        JSONObject optionsObject  = new JSONObject();
+        String secondaryValue  = "[{\\\"id\\\":\\\"101\\\",\\\"name\\\":\\\"test\\\",\\\"value\\\":\\\"test value\\\"},\n" +
+                "{\\\"id\\\":\\\"102\\\",\\\"name\\\":\\\"test 1\\\",\\\"value\\\":\\\"test_value\\\"},\n" +
+                "{\\\"id\\\":\\\"103\\\",\\\"name\\\":\\\"test 2\\\",\\\"value \\\":\\\"test_value1\\\"}]";
+
+           optionsObject.put(JsonFormConstants.KEY, "KEY");
+           optionsObject.put(JsonFormConstants.CONTENT_WIDGET, "test_widget");
+
+           JSONObject returnedObject = ANCJsonFormUtils.populateSecondaryValues(secondaryValue, optionsObject);
+           Assert.assertNotNull(returnedObject);
+           Assert.assertNotNull(returnedObject.getJSONArray(JsonFormConstants.VALUES));
+           Assert.assertNotNull(returnedObject.getString(JsonFormConstants.KEY));
+           Assert.assertNotNull(returnedObject.getString(JsonFormConstants.TYPE));
+
+
+    }
+
 }

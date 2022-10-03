@@ -402,6 +402,7 @@
         "label_info_title": "{{anc_profile.step2.lmp_known.label_info_title}}",
         "label_text_style": "bold",
         "max_date": "today",
+        "secondary_value_field":"lmp_known_date",
         "options": [
           {
             "key": "yes",
@@ -494,6 +495,7 @@
         "label_info_text": "{{anc_profile.step2.ultrasound_done.label_info_text}}",
         "label_info_title": "{{anc_profile.step2.ultrasound_done.label_info_title}}",
         "label_text_style": "bold",
+        "secondary_value_field": "ultrasound_done_date",
         "options": [
           {
             "key": "yes",

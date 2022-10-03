@@ -12,7 +12,7 @@ description: step2_lmp_known_date
 priority: 1
 condition: "step2_lmp_known == 'yes'"
 actions:
-  - "calculation = helper.getDateToday()"
+  - "calculation = helper.getSecondaryValue(step2_lmp_known_date)"
 ---
 name: step2_lmp_edd
 description: LMP EDD
@@ -40,7 +40,7 @@ description: step2_ultrasound_done_date
 priority: 1
 condition: "step2_ultrasound_done == 'yes'"
 actions:
-  - "calculation = helper.getDateToday()"
+  - "calculation = helper.getSecondaryValue(step2_ultrasound_done_date)"
 ---
 name: step2_ultrasound_edd
 description: Ultrasound edd
