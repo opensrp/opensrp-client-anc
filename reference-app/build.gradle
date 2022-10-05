@@ -25,7 +25,7 @@ jacoco {
 // This variables are used by the version code & name generators
 ext.versionMajor = 1
 ext.versionMinor = 6
-ext.versionPatch = 16
+ext.versionPatch = 17
 ext.versionClassifier = null
 ext.isSnapshot = false
 ext.minimumSdkVersion = androidMinSdkVersion
@@ -242,7 +242,7 @@ dependencies {
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
 
-    implementation('org.smartregister:opensrp-client-core:4.3.26-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:6.0.0-BETA3-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'
@@ -305,6 +305,7 @@ dependencies {
     implementation 'com.flurry.android:analytics:11.6.0@aar'
     implementation 'com.flurry.android:analytics:11.6.0@aar'
     implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'com.android.volley:volley:1.2.1'
 // Import the BoM for the Firebase platform
     implementation platform('com.google.firebase:firebase-bom:28.3.1')
 
