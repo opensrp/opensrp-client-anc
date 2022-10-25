@@ -429,42 +429,42 @@ actions:
 name: step1_rapid_syphilis_test
 description: Rapid syphilis test (RST)
 priority: 1
-condition: "((step1_syph_test_status == 'done_today' || step1_syph_test_status == 'done_earlier') && step1_syph_test_type == 'rapid_syphilis')"
+condition: "((step1_syph_test_status == 'done_today' || step1_syph_test_status == 'done_earlier') && step1_syph_test_type.contains('rapid_syphilis'))"
 actions:
 - "isRelevant = true"
 ---
 name: step2_rapid_syphilis_test
 description: Rapid syphilis test (RST)
 priority: 1
-condition: "((step2_syph_test_status == 'done_today' || step2_syph_test_status == 'done_earlier') && step2_syph_test_type == 'rapid_syphilis')"
+condition: "((step2_syph_test_status == 'done_today' || step2_syph_test_status == 'done_earlier') && step2_syph_test_type.contains('rapid_syphilis'))"
 actions:
 - "isRelevant = true"
 ---
 name: step1_rpr_syphilis_test
 description: Rapid plasma reagin (RPR) test
 priority: 1
-condition: "((step1_syph_test_status == 'done_today' || step1_syph_test_status == 'done_earlier') && step1_syph_test_type == 'rapid_plasma')"
+condition: "((step1_syph_test_status == 'done_today' || step1_syph_test_status == 'done_earlier') && step1_syph_test_type.contains('rapid_plasma'))"
 actions:
 - "isRelevant = true"
 ---
 name: step2_rpr_syphilis_test
 description: Rapid plasma reagin (RPR) test
 priority: 1
-condition: "((step2_syph_test_status == 'done_today' || step2_syph_test_status == 'done_earlier') && step2_syph_test_type == 'rapid_plasma')"
+condition: "((step2_syph_test_status == 'done_today' || step2_syph_test_status == 'done_earlier') && step2_syph_test_type.contains('rapid_plasma'))"
 actions:
 - "isRelevant = true"
 ---
 name: step1_lab_syphilis_test
 description: Off-site lab test for syphilis
 priority: 1
-condition: "((step1_syph_test_status == 'done_today' || step1_syph_test_status == 'done_earlier') && step1_syph_test_type == 'off_site_lab')"
+condition: "((step1_syph_test_status == 'done_today' || step1_syph_test_status == 'done_earlier') && step1_syph_test_type.contains('off_site_lab'))"
 actions:
 - "isRelevant = true"
 ---
 name: step2_lab_syphilis_test
 description: Off-site lab test for syphilis
 priority: 1
-condition: "((step2_syph_test_status == 'done_today' || step2_syph_test_status == 'done_earlier') && step2_syph_test_type == 'off_site_lab')"
+condition: "((step2_syph_test_status == 'done_today' || step2_syph_test_status == 'done_earlier') && step2_syph_test_type.contains('off_site_lab'))"
 actions:
 - "isRelevant = true"
 ---
@@ -475,6 +475,15 @@ condition: "step1_syphilis_positive == 1"
 actions:
 - "isRelevant = true"
 ---
+
+name: step1_syphilis_positive_and_pencillin_allergy_toaster
+description: Syphilis test positive
+priority: 1
+condition: "step1_syphilis_positive == 1"
+actions:
+  - "isRelevant = true"
+---
+
 name: step2_syphilis_danger_toaster
 description: Syphilis test positive
 priority: 1
@@ -1069,3 +1078,143 @@ priority: 1
 condition: "step2_other_test == 'done_earlier' || step2_other_test == 'done_today'"
 actions:
 - "isRelevant = true"
+---
+name: step1_covid_test_date
+description: COVID test date
+priority: 1
+condition: "(step1_covid_status == 'done_earlier')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_covid_test_date
+description: COVID test date
+priority: 1
+condition: "(step2_covid_status == 'done_earlier')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_covid_test_type
+description: COVID test type
+priority: 1
+condition: "(step1_covid_status == 'done_today' || step1_covid_status == 'done_earlier')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_covid_test_type
+description: COVID test type
+priority: 1
+condition: "(step2_covid_status == 'done_today' || step2_covid_status == 'done_earlier')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_covid_pcr_test
+description: HBsAg laboratory-based immunoassay (recommended)
+priority: 1
+condition: "(step1_covid_test_type == 'covid_pcr_test' && step1_covid_status == 'done_today') || (step1_covid_test_type == 'hbsag_lab_based' && step1_covid_status == 'done_earlier')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_covid_pcr_test
+description: HBsAg laboratory-based immunoassay (recommended)
+priority: 1
+condition: "(step2_covid_test_type == 'covid_pcr_test' && step2_covid_status == 'done_today') || (step2_covid_test_type == 'hbsag_lab_based' && step2_covid_status == 'done_earlier')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_covid_antigen_test
+description: HBsAg laboratory-based immunoassay (recommended)
+priority: 1
+condition: "(step1_covid_test_type == 'covid_antigen_test' && step1_covid_status == 'done_today') || (step1_covid_test_type == 'covid_antigen_test' && step1_covid_status == 'done_earlier')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_covid_antigen_test
+description: HBsAg laboratory-based immunoassay (recommended)
+priority: 1
+condition: "(step2_covid_test_type == 'covid_antigen_test' && step2_covid_status == 'done_today') || (step2_covid_test_type == 'covid_antigen_test' && step2_covid_status == 'done_earlier')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_covid_igg_test
+description: HBsAg laboratory-based immunoassay (recommended)
+priority: 1
+condition: "(step1_covid_test_type == 'covid_igg_test' && step1_covid_status == 'done_today') || (step1_covid_test_type == 'covid_igg_test' && step1_covid_status == 'done_earlier')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_covid_igg_test
+description: HBsAg laboratory-based immunoassay (recommended)
+priority: 1
+condition: "(step2_covid_test_type == 'covid_igg_test' && step2_covid_status == 'done_today') || (step2_covid_test_type == 'covid_igg_test' && step2_covid_status == 'done_earlier')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_covid_igm_test
+description: HBsAg laboratory-based immunoassay (recommended)
+priority: 1
+condition: "(step1_covid_test_type == 'covid_igm_test' && step1_covid_status == 'done_today') || (step1_covid_test_type == 'covid_igm_test' && step1_covid_status == 'done_earlier')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_covid_igm_test
+description: HBsAg laboratory-based immunoassay (recommended)
+priority: 1
+condition: "(step2_covid_test_type == 'covid_igm_test' && step2_covid_status == 'done_today') || (step2_covid_test_type == 'covid_igm_test' && step2_covid_status == 'done_earlier')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_toxo_test_status
+description: toxo_test_status
+priority: 1
+condition: "global_contact_no == 1 || (global_contact_no > 1 && (global_gest_age_openmrs != '' && (global_gest_age_openmrs == 20 || global_gest_age_openmrs == 28)))"
+actions:
+  - "isRelevant = true"
+---
+name: step2_toxo_test_date
+description: toxo_test_datedate
+priority: 1
+condition: "step2_toxo_test_status != ''  && step2_toxo_test_status == 'done_earlier'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_toxo_igg_test
+description: toxo_igg_test
+priority: 1
+condition: "(step2_toxo_test_status == 'done_today' || step2_toxo_test_status == 'done_earlier')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_toxo_igm_test
+description: toxo_igm_test
+priority: 1
+condition: "(step2_toxo_test_status == 'done_today' || step2_toxo_test_status == 'done_earlier')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_toxo_avidity_test
+description: toxo_avidity_test
+priority: 1
+condition: "(step2_toxo_igm_test == 'positive')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_toaster_toxoplasmosis_susceptible
+description: toaster_toxoplasmosis_susceptible
+priority: 1
+condition: "(step2_toxo_igm_test == 'negative' && step2_toxo_igg_test == 'negative')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_toaster_toxoplasmosis_immune
+description: toaster_toxoplasmosis_immune
+priority: 1
+condition: "(step2_toxo_igm_test == 'negative' && step2_toxo_igg_test == 'positive') || (step2_toxo_igm_test == 'positive' && step2_toxo_igg_test == 'positive' && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 16) && step2_toxo_avidity_test == 'greater_than_60')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_toaster_toxoplasmosis_positive
+description: toaster_toxoplasmosis_positive
+priority: 1
+condition: "(step2_toxo_igm_test == 'positive' && step2_toxo_igg_test == 'negative') || (step2_toxo_igm_test == 'positive' && step2_toxo_igg_test == 'positive' && (global_gest_age_openmrs != '' && global_gest_age_openmrs > 16) && step2_toxo_avidity_test == 'greater_than_60') || (step2_toxo_avidity_test == 'less_than_60')"
+actions:
+  - "isRelevant = true"
