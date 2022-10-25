@@ -73,7 +73,7 @@ public class AncLibrary {
     private final ActivityConfiguration activityConfiguration;
     private AncMetadata ancMetadata = new AncMetadata();
     private AppExecutors appExecutors;
-    private EventBus eventBus;
+    private static EventBus eventBus;
 
     private AncLibrary(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex, @Nullable RegisterQueryProvider registerQueryProvider) {
         this(context, dbVersion, activityConfiguration, subscriberInfoIndex);
