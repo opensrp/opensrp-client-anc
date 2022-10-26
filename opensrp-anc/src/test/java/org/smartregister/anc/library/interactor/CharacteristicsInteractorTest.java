@@ -1,6 +1,5 @@
 package org.smartregister.anc.library.interactor;
 
-import android.content.Context;
 
 import com.google.common.collect.ImmutableMap;
 
