@@ -320,9 +320,9 @@ public class PreviousContactRepository extends BaseRepository {
         String selection = "";
         String orderBy = "MAX("+ ID + ") DESC";
         String[] selectionArgs = null;
-        int contactNumber = Integer.parseInt(contactNo);
         Facts previousContactFacts = new Facts();
         try {
+            int contactNumber = Integer.parseInt(contactNo);
             SQLiteDatabase db = getReadableDatabase();
 
             if (StringUtils.isNotBlank(baseEntityId) && StringUtils.isNotBlank(contactNo)) {
