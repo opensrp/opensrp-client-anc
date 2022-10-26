@@ -73,7 +73,7 @@ public class AncLibrary {
     private final ActivityConfiguration activityConfiguration;
     private AncMetadata ancMetadata = new AncMetadata();
     private AppExecutors appExecutors;
-
+    private static EventBus eventBus;
 
     private AncLibrary(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex, @Nullable RegisterQueryProvider registerQueryProvider) {
         this(context, dbVersion, activityConfiguration, subscriberInfoIndex);
@@ -100,6 +100,7 @@ public class AncLibrary {
 
         //Initialize JsonSpec Helper
         this.jsonSpecHelper = new JsonSpecHelper(getApplicationContext());
+        if(eventBus == null)
         setUpEventHandling();
 
         //initialize configs processor
@@ -166,6 +167,7 @@ public class AncLibrary {
 
     private void setUpEventHandling() {
         try {
+
             EventBusBuilder eventBusBuilder = EventBus.builder()
                     .addIndex(new ANCEventBusIndex());
 
@@ -173,7 +175,7 @@ public class AncLibrary {
                 eventBusBuilder.addIndex(subscriberInfoIndex);
             }
 
-            eventBusBuilder.installDefaultEventBus();
+           eventBus  =  eventBusBuilder.installDefaultEventBus();
         } catch (Exception e) {
             Timber.e(e, " --> setUpEventHandling");
         }

@@ -155,11 +155,16 @@ public class PatientRepository extends BaseRepository {
             JSONObject jsonObject = new JSONObject(form);
             JSONArray fields = ANCJsonFormUtils.getSingleStepFormfields(jsonObject);
             JSONObject cohabitants = ANCJsonFormUtils.getFieldJSONObject(fields, DBConstantsUtils.KeyUtils.COHABITANTS);
+            JSONObject reminder = ANCJsonFormUtils.getFieldJSONObject(fields, DBConstantsUtils.KeyUtils.REMINDERS);
 
             String value = cohabitants.optString(ConstantsUtils.KeyUtils.VALUE, "[]");
 
+            String remindersValue = reminder.optString(ConstantsUtils.KeyUtils.VALUE,"{}");
+
+
             ContentValues contentValues = new ContentValues();
             contentValues.put(DBConstantsUtils.KeyUtils.COHABITANTS, value);
+            contentValues.put(DBConstantsUtils.KeyUtils.REMINDERS,remindersValue);
 
             updatePatient(baseEntityId, contentValues, getRegisterQueryProvider().getDetailsTable());
 

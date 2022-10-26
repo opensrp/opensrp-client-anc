@@ -1,25 +1,34 @@
 package org.smartregister.anc.library.interactor;
 
+
 import com.google.common.collect.ImmutableMap;
 
 import org.json.JSONException;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.domain.Setting;
 import org.smartregister.repository.AllSettings;
+import org.smartregister.util.AppProperties;
+import org.smartregister.util.Utils;
 
 import java.util.Map;
 
 /**
  * Created by ndegwamartin on 30/08/2018.
  */
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({Utils.class})
 public class CharacteristicsInteractorTest extends BaseUnitTest {
 
 
@@ -29,10 +38,16 @@ public class CharacteristicsInteractorTest extends BaseUnitTest {
     @Mock
     private AncLibrary ancLibrary;
 
+    @Mock
+    private AppProperties appProperties;
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         ReflectionHelpers.setStaticField(AncLibrary.class, "instance", ancLibrary);
+        PowerMockito.mockStatic(Utils.class);
+        PowerMockito.when(Utils.getProperties(ArgumentMatchers.any())).thenReturn(appProperties);
+        Mockito.when(appProperties.getProperty(ArgumentMatchers.anyString(),ArgumentMatchers.anyString())).thenReturn("true");
     }
 
     @Test
