@@ -1,4 +1,22 @@
-{
+{"global_previous": [
+  "blood_type_test_status",
+  "hiv_test_partner_result",
+  "hiv_test_status",
+  "hiv_test_result",
+  "hiv_test_partner_status",
+  "hepb_test_status",
+  "hepc_test_status",
+  "syph_test_status",
+  "tb_screening_status",
+  "hiv_positive",
+  "urine_test_status",
+  "hb_test_status",
+  "syphilis_positive",
+  "hepc_positive",
+  "syph_test_status",
+  "ultrasound",
+  "hepb_positive"
+],
   "content_form": [
     {
       "key": "syph_test_status",
@@ -200,7 +218,7 @@
       "openmrs_entity_parent": "",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165422AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-      "type": "native_radio",
+      "type": "check_box",
       "label": "{{tests_syphilis_sub_form.step1.syph_test_type.label}}",
       "label_text_style": "bold",
       "options": [
@@ -358,6 +376,24 @@
         "rules-engine": {
           "ex-rules": {
             "rules-file": "tests_calculation_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "syphilis_positive_and_pencillin_allergy_toaster",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "toaster_notes",
+      "text": "{{tests_syphilis_sub_form.step1.syphilis_positive_and_pencillin_allergy_toaster.text}}",
+      "toaster_info_text": "{{tests_syphilis_sub_form.step1.syphilis_positive_and_pencillin_allergy_toaster.toaster_info_text}}",
+      "toaster_info_title": "{{tests_syphilis_sub_form.step1.syphilis_positive_and_pencillin_allergy_toaster.toaster_info_title}}",
+      "toaster_type": "problem",
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
           }
         }
       }

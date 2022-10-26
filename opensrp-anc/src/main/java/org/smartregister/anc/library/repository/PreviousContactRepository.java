@@ -320,6 +320,7 @@ public class PreviousContactRepository extends BaseRepository {
         String selection = "";
         String orderBy = "MAX("+ ID + ") DESC";
         String[] selectionArgs = null;
+        int contactNumber = Integer.parseInt(contactNo);
         Facts previousContactFacts = new Facts();
         try {
             SQLiteDatabase db = getReadableDatabase();
@@ -351,7 +352,7 @@ public class PreviousContactRepository extends BaseRepository {
                 }
                 previousContactFacts.put(CONTACT_NO, selectionArgs[1]);
                 return previousContactFacts;
-            } else if (Integer.parseInt(contactNo) > 0) {
+            } else if (contactNumber > 0) {
                 return getPreviousContactFacts(baseEntityId, contactNo, false);
             }
         } catch (Exception e) {
