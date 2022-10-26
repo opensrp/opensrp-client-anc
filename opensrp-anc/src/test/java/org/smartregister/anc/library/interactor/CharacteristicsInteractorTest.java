@@ -17,7 +17,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.BaseUnitTest;
-import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.domain.Setting;
 import org.smartregister.repository.AllSettings;
 import org.smartregister.util.AppProperties;
