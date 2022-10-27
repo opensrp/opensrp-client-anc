@@ -63,7 +63,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     @Override
     public void goToHome(boolean remote) {
         if (remote) {
-            Utils.startAsyncTask(new SaveTeamLocationsTask(), null);
+            new SaveTeamLocationsTask().execute();
         }
 
         if (mLoginPresenter.isServerSettingsSet()) {
