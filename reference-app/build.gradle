@@ -78,7 +78,7 @@ android {
         versionName generateVersionName()
         buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
         buildConfigField "boolean", "TIME_CHECK", "false"
-        buildConfigField "String", "SYNC_TYPE", '"teamId"'
+        buildConfigField "String", "SYNC_TYPE", '"locationId"'
         buildConfigField "int", "MAX_SYNC_RETRIES", '3'
         buildConfigField "long", "BUILD_TIMESTAMP", System.currentTimeMillis() + "L"
         buildConfigField "boolean", "IS_SYNC_SETTINGS", "true"
