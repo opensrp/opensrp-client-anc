@@ -1,13 +1,11 @@
 package org.smartregister.anc.application;
 
-import org.smartregister.AllConstants;
 import org.smartregister.SyncConfiguration;
 import org.smartregister.SyncFilter;
 import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.activity.LoginActivity;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.util.ConstantsUtils;
-import org.smartregister.cryptography.BaseCryptography;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.view.activity.BaseLoginActivity;
 
