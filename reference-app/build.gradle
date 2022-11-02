@@ -28,7 +28,7 @@ jacoco {
 // This variables are used by the version code & name generators
 ext.versionMajor = 1
 ext.versionMinor = 6
-ext.versionPatch = 15
+ext.versionPatch = 16
 ext.versionClassifier = null
 ext.isSnapshot = false
 ext.minimumSdkVersion = androidMinSdkVersion
@@ -281,11 +281,11 @@ dependencies {
         exclude group: 'com.android.support', module: 'cardview-v7'
         exclude group: 'com.android.support', module: 'support-v4'
     }
-    implementation group: 'org.apache.commons', name: 'commons-text', version: '1.9'
+    implementation group: 'org.apache.commons', name: 'commons-text', version: '1.10.0'
     annotationProcessor 'com.jakewharton:butterknife:10.2.3'
     implementation 'net.zetetic:android-database-sqlcipher:4.4.0@aar'
     implementation 'commons-validator:commons-validator:1.7'
-    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'org.greenrobot:eventbus:3.2.0'
     annotationProcessor 'org.greenrobot:eventbus-annotation-processor:3.2.0'
     implementation 'com.google.guava:guava:30.0-jre'
@@ -301,10 +301,10 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
-    implementation group: 'org.yaml', name: 'snakeyaml', version: '1.27'
+    implementation group: 'org.yaml', name: 'snakeyaml', version: '1.31'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
-    implementation 'org.jeasy:easy-rules-core:3.3.0'
-    implementation 'org.jeasy:easy-rules-mvel:3.3.0'
+    implementation 'org.jeasy:easy-rules-core:3.4.0'
+    implementation 'org.jeasy:easy-rules-mvel:3.4.0'
     implementation 'com.flurry.android:analytics:11.6.0@aar'
     implementation 'com.flurry.android:analytics:11.6.0@aar'
     implementation 'androidx.multidex:multidex:2.0.1'
