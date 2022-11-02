@@ -4,7 +4,6 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-//        gradlePluginPortal()
         maven { url 'https://maven.fabric.io/public' }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
         maven{  url 'https://plugins.gradle.org/m2/' }
@@ -32,7 +31,6 @@ configure(allprojects) { project ->
         repositories {
             google()
             mavenCentral()
-            gradlePluginPortal()
             maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
             maven { url 'https://plugins.gradle.org/m2/'}
             mavenLocal()
@@ -47,7 +45,6 @@ allprojects {
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
         mavenLocal()
         mavenCentral()
-        gradlePluginPortal()
         maven { url 'https://jitpack.io' }
         maven { url "https://acra.googlecode.com/svn/repository/releases" }
         maven { url "https://repo.maven.apache.org/maven2" }
