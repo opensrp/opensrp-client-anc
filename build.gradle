@@ -4,7 +4,7 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        gradlePluginPortal()
+//        gradlePluginPortal()
         maven { url 'https://maven.fabric.io/public' }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
         maven{  url 'https://plugins.gradle.org/m2/' }
