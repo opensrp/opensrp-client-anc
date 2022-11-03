@@ -240,10 +240,7 @@ public class ContactInteractorTest extends BaseUnitTest {
         long id = 7346;
         String value = "{\"value\":\"first_contact\",\"text\":\"First contact\"}";
         String contactNo = "1";
-        PreviousContact previousContact = new PreviousContact(baseEntityId, key, value, contactNo);
-        Mockito.doNothing().when(ancLibrary).getPreviousContactRepository().getPreviousContact(previousContact);
-//        getCurrentContactState.setAccessible(true);
-//        getCurrentContactState.invoke(interactor, null);
+        Mockito.when(ancLibrary.getPreviousContactRepository()).thenReturn(previousContactRepository);
 
 
     }
