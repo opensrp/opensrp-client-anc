@@ -25,7 +25,12 @@ public class AncSyncConfiguration extends SyncConfiguration {
 
     @Override
     public SyncFilter getSyncFilterParam() {
-        return SyncFilter.TEAM_ID;
+        if(BuildConfig.SYNC_TYPE.equals(SyncFilter.LOCATION_ID.value()))
+            return SyncFilter.LOCATION_ID;
+        else if(BuildConfig.SYNC_TYPE.equals(SyncFilter.TEAM_ID.value()))
+            return SyncFilter.TEAM_ID;
+        else
+            return SyncFilter.PROVIDER;
     }
 
     @Override
@@ -57,7 +62,14 @@ public class AncSyncConfiguration extends SyncConfiguration {
     public String getSyncFilterValue() {
         AllSharedPreferences sharedPreferences =
                 AncLibrary.getInstance().getContext().userService().getAllSharedPreferences();
-        return sharedPreferences.fetchDefaultTeamId(sharedPreferences.fetchRegisteredANM());
+
+        if(BuildConfig.SYNC_TYPE.equals(SyncFilter.LOCATION_ID.value()))
+            return sharedPreferences.fetchDefaultLocalityId(sharedPreferences.fetchRegisteredANM());
+        else if(BuildConfig.SYNC_TYPE.equals(SyncFilter.TEAM_ID.value()))
+            return sharedPreferences.fetchDefaultTeamId(sharedPreferences.fetchRegisteredANM());
+        else
+            return sharedPreferences.fetchRegisteredANM();
+
     }
 
     @Override
@@ -82,7 +94,13 @@ public class AncSyncConfiguration extends SyncConfiguration {
 
     @Override
     public SyncFilter getEncryptionParam() {
-        return SyncFilter.TEAM;
+        if(BuildConfig.SYNC_TYPE.equals(SyncFilter.LOCATION_ID.value()))
+            return SyncFilter.LOCATION;
+        else if(BuildConfig.SYNC_TYPE.equals(SyncFilter.TEAM_ID.value()))
+            return SyncFilter.TEAM;
+        else
+            return SyncFilter.PROVIDER;
+
     }
 
     @Override
