@@ -10,54 +10,54 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
-import org.robolectric.RobolectricTestRunner;
+import org.powermock.modules.junit4.PowerMockRunner;
+import org.powermock.reflect.Whitebox;
 import org.smartregister.anc.library.activity.BaseUnitTest;
+import org.smartregister.anc.library.activity.ContactSummarySendActivity;
 import org.smartregister.anc.library.contract.ProfileContract;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(PowerMockRunner.class)
 public class FinalizeContactTaskTest extends BaseUnitTest {
 
-    @Mock
-    private HashMap<String, String> newWomanProfileDetails;
     private FinalizeContactTask finalizeContactTask;
+    private final HashMap<String, String> newWomanProfileDetails = new HashMap<>();
+    @Mock
+    WeakReference<Context> weakReferenceContext;
     private Context context;
-    public  org.smartregister.Context context1;
     private ProfileContract.Presenter mProfilePresenter;
     private Intent intent;
+    @Mock
+    private FinalizeContactTask finalizeContactTaskMock;
 
     @Before
     public void setUp() {
         context = Mockito.mock(Context.class);
-        WeakReference<Context> weakReferenceContext = new WeakReference<>(context);
+        weakReferenceContext = new WeakReference<>(context);
         finalizeContactTask = new FinalizeContactTask(weakReferenceContext, mProfilePresenter, intent);
+        finalizeContactTaskMock = Mockito.mock(FinalizeContactTask.class);
 
     }
-
-//    @Test
-//    public void testFinalizeContact() throws InterruptedException {
-//        finalizeContactTask = new FinalizeContactTask(context, mProfilePresenter, new Intent());
-//        finalizeContactTask.execute();
-//        Whitebox.setInternalState(finalizeContactTask, "onPostExecute");
-//        Thread.sleep(1000);
-//        //To check whether the FinalizeTaks Flags have data in them
-//        Assert.assertNotNull(newWomanProfileDetails);
-//
-//    }
 
     @Test
-    public void testDoBackground() throws Exception {
-        WeakReference<Context> weakReferenceContext = new WeakReference<>(context);
+    public void testGetProgressDialog() throws Exception {
         PowerMockito.whenNew(FinalizeContactTask.class).withArguments(weakReferenceContext, mProfilePresenter, new Intent()).thenReturn(finalizeContactTask);
-        FinalizeContactTask filter = new FinalizeContactTask(weakReferenceContext, mProfilePresenter, new Intent()) {
-            public FinalizeContactTask callProtectedMethod() {
-                doInBackground();
-                return this;
-            }
-        }.callProtectedMethod();
-        filter.doInBackground();
+        finalizeContactTask.execute();
+        Thread.sleep(100);
+        intent = new Intent(context, ContactSummarySendActivity.class);
+        PowerMockito.whenNew(Intent.class).withArguments(context, ContactSummarySendActivity.class).thenReturn(intent);
+        Whitebox.invokeMethod(finalizeContactTaskMock, "getProgressDialog");
+        Mockito.verify(finalizeContactTaskMock, Mockito.atLeastOnce()).getProgressDialog();
+    }
+
+    @Test
+    public void testGetWomanProfileDetails() throws Exception {
+        PowerMockito.whenNew(FinalizeContactTask.class).withArguments(weakReferenceContext, mProfilePresenter, new Intent()).thenReturn(finalizeContactTask);
+        finalizeContactTask.execute();
+        Thread.sleep(1000);
+        Whitebox.invokeMethod(finalizeContactTaskMock, "processWomanDetailsServiceWorker");
+        Assert.assertNotNull(newWomanProfileDetails);
     }
 }
-
