@@ -42,6 +42,8 @@ android {
             signingConfigs {
                 release {
                     //Store your local.properties file in the project root folder
+                    v1SigningEnabled true
+                    v2SigningEnabled true
                     keyAlias System.getenv("KEYSTORE_ALIAS") ?: project.KEYSTORE_ALIAS
                     keyPassword System.getenv("KEY_PASSWORD") ?: project.KEY_PASSWORD
                     storePassword System.getenv("KEYSTORE_PASSWORD") ?: project.KEYSTORE_PASSWORD
