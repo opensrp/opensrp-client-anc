@@ -32,6 +32,8 @@ public class AncRulesEngineFactoryTest extends BaseUnitTest {
     @Before
     public void setUp() {
         try {
+            globalValues.put("pallor", "yes");
+            globalValues.put("select-rule", "step2_accordion_hiv");
             MockitoAnnotations.initMocks(this);
             ancRulesEngineFactory = new AncRulesEngineFactory(RuntimeEnvironment.application, globalValues, new JSONObject(DUMMY_JSON_OBJECT));
         } catch (JSONException exception) {
@@ -53,12 +55,9 @@ public class AncRulesEngineFactoryTest extends BaseUnitTest {
 
     @Test
     public void testInitializeFacts() {
-        globalValues.put("pallor", "yes");
-        globalValues.put("select-rule", "step2_accordion_hiv");
-        Whitebox.setInternalState(ancRulesEngineFactory, "globalValues", globalValues);
         Whitebox.setInternalState(ancRulesEngineFactory, "selectedRuleName", "Test");
         Facts facts = ancRulesEngineFactory.initializeFacts(new Facts());
-        Assert.assertEquals(5, facts.asMap().size());
+        Assert.assertEquals(3, facts.asMap().size());
         Assert.assertTrue(facts.asMap().containsKey("global_pallor"));
         Assert.assertEquals("yes", facts.asMap().get("global_pallor"));
     }
