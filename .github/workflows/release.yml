@@ -22,7 +22,7 @@ jobs:
           access_token: ${{ github.token }}
 
       - name: Decode Keystore file
-        run: echo $ENCODED_KEYSTORE | base64 -di > "${HOME}"/who.anc.keystore.jks
+        run: echo $ENCODED_KEYSTORE | base64 -di > "${HOME}"/anc.keystore.jks
         env:
           ENCODED_KEYSTORE: ${{ secrets.KEYSTORE_FILE }}
 
