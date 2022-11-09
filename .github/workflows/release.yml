@@ -45,7 +45,7 @@ jobs:
           LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
 
       - name: Decode & Generate keystore.properties file
-        run: echo $KEYSTORE_PROPERTIES | base64 -di > keystore.properties
+        run: echo $KEYSTORE_PROPERTIES > keystore.properties
         env:
           LOCAL_PROPERTIES: ${{ secrets.KEYSTORE_PROPERTIES }}
 
