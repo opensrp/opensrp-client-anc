@@ -139,6 +139,9 @@ For more details check out <https://semver.org/>
 ## Documentation
 Wiki [OpenSRP Documentation](https://smartregister.atlassian.net/wiki/spaces/Documentation)
 
+## Publishing the APK via Git TAG
+[Publishing via TAG](https://smartregister.atlassian.net/wiki/spaces/Documentation/pages/2983428097/How+to+set+up+Android+client+CI+CD+on+Github#Publishing-via-TAG)
+
 ## Support
 Email: <mailto:support@ona.io>
 Slack workspace: <opensrp.slack.com>

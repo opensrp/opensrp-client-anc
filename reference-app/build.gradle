@@ -2,6 +2,9 @@ buildscript {
     repositories {
         mavenCentral()
         google()
+        maven {
+            url "https://s3.amazonaws.com/repo.commonsware.com"
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.3'
@@ -18,6 +21,7 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'org.smartregister.gradle.jarjar'
 apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'com.google.firebase.firebase-perf'
+apply from: '../properties.gradle'
 
 jacoco {
     toolVersion = jacocoVersion
@@ -35,27 +39,18 @@ android {
     * This allows you to run the app in the release variant.  make sure to add this configs to the
     * local.properties files when you need to use them
     * */
-    if (project.rootProject.file("local.properties").exists()) {
-        Properties properties = new Properties()
-        properties.load(project.rootProject.file("local.properties").newDataInputStream())
-        if (properties != null && properties.containsKey("store.file") && properties.containsKey("store.password") && properties.containsKey("key.password")) {
             signingConfigs {
                 release {
-                    storeFile file(properties['store.file'])
-                    storePassword properties['store.password']
-                    keyAlias = 'release'
-                    keyPassword properties['key.password']
-                }
-                debug {
-                    storeFile file(properties['store.file'])
-                    storePassword properties['store.password']
-                    keyAlias = 'release'
-                    keyPassword properties['key.password']
+                    //Store your local.properties file in the project root folder
+                    v1SigningEnabled true
+                    v2SigningEnabled true
+                    keyAlias System.getenv("KEYSTORE_ALIAS") ?: project.KEYSTORE_ALIAS
+                    keyPassword System.getenv("KEY_PASSWORD") ?: project.KEY_PASSWORD
+                    storePassword System.getenv("KEYSTORE_PASSWORD") ?: project.KEYSTORE_PASSWORD
+                    //Save your keystore file as ~/opensrp-release-upload-key.jks (in your home directory)
+                    storeFile file(System.getProperty("user.home") + "/anckey.keystore.jks")
                 }
             }
-        }
-    }
-
     useLibrary 'org.apache.http.legacy'
     compileSdkVersion androidCompileSdkVersion
     buildToolsVersion androidBuildToolsVersion
@@ -142,6 +137,7 @@ android {
         release {
             minifyEnabled false
             zipAlignEnabled true
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rule.pro'
             resValue "string", 'opensrp_url', '"https://anc.labs.smartregister.org/opensrp/"'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
@@ -173,6 +169,7 @@ android {
             buildConfigField "int", "VIEW_SYNC_CONFIGURATIONS_MINUTES", '15'
             buildConfigField "int", "CLIENT_SETTINGS_SYNC_MINUTES", '15'
             testCoverageEnabled true
+            signingConfig signingConfigs.debug
         }
     }
 
@@ -230,7 +227,7 @@ dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
     def powerMockVersion = '2.0.7'
     implementation project(":opensrp-anc")
-    implementation('org.smartregister:opensrp-client-native-form:3.1.0-PREVIEW-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:3.1.1-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -242,7 +239,7 @@ dependencies {
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
 
-    implementation('org.smartregister:opensrp-client-core:4.3.26-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:6.0.0-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'
@@ -258,7 +255,7 @@ dependencies {
         exclude group: 'org.smartregister', module: 'android-p2p-sync'
     }
 
-    api("org.smartregister:android-p2p-sync:0.3.8-aplha4-SNAPSHOT") {
+    api("org.smartregister:android-p2p-sync:0.4.0-DEV-SNAPSHOT") {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -319,7 +316,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-v4'
     }
     implementation 'com.google.firebase:firebase-perf'
-
+    implementation 'com.android.volley:volley:1.2.1'
     testImplementation 'junit:junit:4.13.1'
     testImplementation 'org.apache.maven:maven-ant-tasks:2.1.3'
     testImplementation('com.squareup:fest-android:1.0.8') {
