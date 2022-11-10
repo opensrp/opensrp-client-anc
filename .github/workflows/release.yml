@@ -22,7 +22,7 @@ jobs:
           access_token: ${{ github.token }}
 
       - name: Decode Keystore file
-        run: echo $ENCODED_KEYSTORE | base64 -di > "${HOME}"/anc.keystore.jks
+        run: echo $ENCODED_KEYSTORE | base64 -di > "${HOME}"/anckey.keystore.jks
         env:
           ENCODED_KEYSTORE: ${{ secrets.KEYSTORE_FILE }}
 
@@ -47,7 +47,7 @@ jobs:
       - name: Decode & Generate keystore.properties file
         run: echo $KEYSTORE_PROPERTIES | base64 -di > keystore.properties
         env:
-          LOCAL_PROPERTIES: ${{ secrets.KEYSTORE_PROPERTIES }}
+          KEYSTORE_PROPERTIES: ${{ secrets.KEYSTORE_PROPERTIES }}
 
       - name: Decode google-services.json
         env:
@@ -61,7 +61,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: reference-app/release/reference-app-release.aab
+          file: reference-app/build/outputs/bundle/release/reference-app-release.aab
           asset_name: "reference-app-$tag.aab"
           tag: ${{ github.ref }}
           overwrite: true
@@ -73,7 +73,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: reference-app/release/reference-app-release.apk
+          file: reference-app/build/outputs/apk/release/reference-app-release.apk
           asset_name: "reference-app-$tag.apk"
           tag: ${{ github.ref }}
           prerelease: ${{ contains(github.ref, '-alpha') || contains(github.ref, '-beta') }}
