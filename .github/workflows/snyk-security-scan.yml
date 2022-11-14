@@ -4,7 +4,7 @@ on:
     branches:
       - master
       - develop
-  pull-request:
+  pull_request:
 jobs:
   security:
     runs-on: ubuntu-latest
@@ -14,6 +14,10 @@ jobs:
         run: echo "y" | sudo ${ANDROID_HOME}/tools/bin/sdkmanager --install "ndk;21.0.6113669" --sdk_root=${ANDROID_SDK_ROOT}
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
+      - name: Decode & Generate local.properties file
+        run: echo $LOCAL_PROPERTIES | base64 -di > local.properties
+        env:
+          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/gradle-jdk11@master
         continue-on-error: true # To make sure that SARIF upload gets called
