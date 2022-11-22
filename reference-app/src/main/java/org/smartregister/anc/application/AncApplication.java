@@ -13,6 +13,7 @@ import com.flurry.android.FlurryAgent;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.vijay.jsonwizard.NativeFormLibrary;
 
+import org.slf4j.LoggerFactory;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.P2POptions;
@@ -36,6 +37,8 @@ import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
+
+import java.util.logging.Logger;
 
 import timber.log.Timber;
 
@@ -126,6 +129,11 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
                 .getInstance()
                 .setClientFormDao(CoreLibrary.getInstance().context().getClientFormRepository());
 
+    }
+
+    @Override
+    public void initializeCrashLyticsTree() {
+        Timber.plant((timber.log.Timber.Tree) new Timber.DebugTree());
     }
 
     private void setDefaultLanguage() {

@@ -10,6 +10,7 @@ import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rule;
+import org.jeasy.rules.api.RuleListener;
 import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.api.RulesEngine;
 import org.jeasy.rules.api.RulesEngineParameters;
@@ -24,6 +25,7 @@ import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.anc.library.YamlRuleDefinitionReaderExt;
 import org.smartregister.anc.library.rule.AlertRule;
 import org.smartregister.anc.library.rule.ContactRule;
 import org.smartregister.anc.library.util.ANCFormUtils;
@@ -53,7 +55,7 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
     private final RulesEngine defaultRulesEngine;
     private final Map<String, Rules> ruleMap;
     private JSONObject mJsonObject = new JSONObject();
-    private final YamlRuleDefinitionReader yamlRuleDefinitionReader = new YamlRuleDefinitionReader();
+    private final YamlRuleDefinitionReaderExt yamlRuleDefinitionReader = new YamlRuleDefinitionReaderExt();
     private final MVELRuleFactory mvelRuleFactory = new MVELRuleFactory(yamlRuleDefinitionReader);
 
     public AncRulesEngineHelper(Context context) {
@@ -61,6 +63,25 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
         this.inferentialRulesEngine = new InferenceRulesEngine();
         RulesEngineParameters parameters = new RulesEngineParameters().skipOnFirstAppliedRule(true);
         this.defaultRulesEngine = new DefaultRulesEngine(parameters);
+       /* ((DefaultRulesEngine) this.defaultRulesEngine).registerRuleListener(new RuleListener() {
+            @Override
+            public void beforeExecute(Rule rule, Facts facts) {
+                Timber.e("Putting facts in beforeExecute");
+                facts.put("facts", facts);
+            }
+
+            @Override
+            public void onSuccess(Rule rule, Facts facts) {
+                Timber.e("Putting facts in onSuccess");
+                facts.remove("facts");
+            }
+
+            @Override
+            public void onFailure(Rule rule, Facts facts, Exception exception) {
+                Timber.e("Putting facts in onFailure");
+                facts.remove("facts");
+            }
+        });*/
         this.ruleMap = new HashMap<>();
 
     }
