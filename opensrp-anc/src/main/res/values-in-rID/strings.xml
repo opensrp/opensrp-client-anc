@@ -1,0 +1,607 @@
+<resources>
+
+    <!-- ================================================ -->
+    <!-- * OVERRIDE OPENSRP-CLIENT-CORE LIBRARY STRINGS * -->
+    <!-- ================================================ -->
+
+
+    <!-- App Configuration -->
+    <!-- ================= -->
+
+    <string name="app_name">BUNDA</string>
+    <string name="app_version">Versi Aplikasi: %1$s (dibuat %2$s)</string>
+    <string name="outdated_app">This is an outdated app. Please update to the latest version to continue.</string>
+    <string name="app_reset_status">Status reset aplikasi</string>
+    <string name="clearing_application_data">Menghapus data aplikasi...</string>
+
+
+    <!-- Actions & Button Labels -->
+    <!-- ======================= -->
+
+    <string name="yes_button_label">Ya</string>
+    <string name="no_button_label">Tidak</string>
+    <string name="ok">Oke</string>
+    <string name="str_next">Lanjut &gt;&gt;</string>
+    <string name="str_previous">&lt;&lt; Kembali</string>
+    <string name="str_page_info">Halaman {0} dari {1}</string>
+    <string name="refresh">Refresh</string>
+    <string name="return_to_register">Kembali</string>
+
+
+    <!-- Authentication -->
+    <!-- ============== -->
+
+    <string name="login_text">Login</string>
+    <string name="logout_text">Logout</string>
+    <string name="loggin_in_dialog_title">Login</string>
+    <string name="loggin_in_dialog_message">Harap Tunggu</string>
+    <string name="login_failed_dialog_title">Login Gagal</string>
+    <string name="login_failed_dialog_message">Periksa username dan password.</string>
+    <string name="form_back_confirm_dialog_message">Yakin ingin kembali? Data yang sudah dimasukkan akan terhapus.</string>
+    <string name="form_back_confirm_dialog_title">Konfirmasi Tutup Form</string>
+    <string name="settings_logout_confirm_title">Konfirmasi Logout</string>
+    <string name="settings_logout_confirm_dialog_message">Yakin ingin logout? Data lokal pada perangkat ini akan terhapus.</string>
+    <string name="prompt_username">Username</string>
+    <string name="prompt_password">Password (opsional)</string>
+    <string name="action_sign_in">Login atau Daftar</string>
+    <string name="action_sign_in_short">Login</string>
+    <string name="error_invalid_username">Username tidak valid</string>
+    <string name="error_invalid_password">Password terlalu pendek</string>
+    <string name="error_incorrect_password">Password salah</string>
+    <string name="show_password_text">Tampilkan Password</string>
+    <string name="remote_login_generic_error">Terjadi error saat login terhadap server. Silakan coba lagi.</string>
+    <string name="remote_login_base_url_missing_error">Silakan konfigurasi OpenSRP Base URL terlebih dahulu.</string>
+    <string name="log_out_text">Logout</string>
+    <string name="unauthorized_group">Grup pengguna Anda tidak diizinkan untuk mengakses perangkat ini.</string>
+    <string name="no_internet_connectivity">Tidak ada koneksi internet. Harap pastikan konektivitas data berjalan.</string>
+    <string name="unknown_response">Login gagal. Coba lagi lain kali.</string>
+    <string name="unauthorized">Silakan periksa kredensial.</string>
+    <string name="account_disabled">Akun Nonaktif</string>
+    <string name="account_disabled_logged_off">Akun Anda dinonaktifkan. Silakan kontak admin.</string>
+    <string name="account_new_assignment_logged_off">Anda punya penugasan baru. Silakan login kembali.</string>
+    <string name="default_location_revoked_logged_off">Akses lokasi Anda telah dibatalkan.</string>
+    <string name="your_session_has_expired">Sesi berakhir. Silakan login kembali.</string>
+    <string name="new_db_encryption_version_migration">Enkripsi database berubah. Silakan login kembali.</string>
+    <string name="account_removed">Akun Anda telah dihapus. Silakan hubungi admin.</string>
+    <string name="no_client_available_for_url">Tidak ada klien autentikasi yang tersedia pada URL.</string>
+
+
+    <!-- Bottom Navigation Menu -->
+    <!-- ====================== -->
+
+    <string name="clients_menu">Ibu</string>
+    <string name="search_menu">Pencarian</string>
+    <string name="register_menu">Daftar</string>
+    <string name="library_menu">Pustaka</string>
+    <string name="me">Saya</string>
+
+
+    <!-- Data Key Fields -->
+    <!-- =============== -->
+
+    <string name="clients_key">clients</string>
+    <string name="events_key">events</string>
+
+
+    <!-- Dialogs & Messages -->
+    <!-- ================== -->
+
+    <string name="please_wait_message">Harap Tunggu</string>
+    <string name="cancelling">Membatalkan...</string>
+    <string name="stopping_services">Menghentikan layanan...</string>
+    <string name="performing_data_checks">Mengecek data...</string>
+    <string name="invalid_url_massage">Harap masukkan URL yang valid.</string>
+    <string name="clear_data_dialog_title">Apakah Anda mau menghapus data untuk login dengan akun berbeda?</string>
+    <string name="clear_data_dialog_message">Anda mencoba login dengan akun berbeda. Upload dan pembersihan data akun %s di tim %s diperlukan. Lanjutkan?</string>
+    <string name="msg_empty_url">URL tidak boleh kosong</string>
+
+
+    <!-- Forms & Inputs -->
+    <!-- ============== -->
+
+    <string name="error_field_required">Field ini harus diisi</string>
+    <string name="form_update_title">Pembaruan Form</string>
+    <string name="form_update_message">Terdapat pembaruan konten pada form ini</string>
+    <string name="current_corrupted_form">(Form Korup)</string>
+    <string name="rollback_dialog_title">Pilih form untuk rollback</string>
+    <string name="cannot_select_corrupted_form_rollback">Form ini tidak bisa dipilih karena korup.</string>
+    <string name="form_changed_reopen_to_take_effect">Form berhasil dipiih. Silakan buka kembali form ini.</string>
+    <string name="component_desc_image_upload_service">Upload gambar ke server OpenSRP</string>
+
+
+    <!-- Page: Client List -->
+    <!-- ================= -->
+
+    <string name="registration_info">Info Pendaftaran</string>
+    <string name="filter">Filter</string>
+    <string name="due_only">Hanya jatuh tempo</string>
+    <string name="search_hint">Cari Nama atau ID</string>
+    <string name="_0_clients_sort_updated">0 Ibu (Urutan: terkini)</string>
+    <string name="no_record">Tidak ada data</string>
+    <string name="clients">%1$d Ibu</string>
+    <string name="client">%1$d Ibu</string>
+
+
+    <string name="right_arrow">Panah Kanan</string>
+    <string name="settings">Pengaturan</string>
+
+
+    <!-- Page: Register -->
+    <!-- ============== -->
+
+    <string name="photo_captured">Foto diambil</string>
+
+
+    <!-- Page: Library -->
+    <!-- ============= -->
+
+    <string name="library_placeholder">Placeholder Pustaka</string>
+
+
+    <!-- Page: Me -->
+    <!-- ======== -->
+
+    <string name="service_location">Layanan Lokasi</string>
+    <string name="section_icon">Ikon Bagian</string>
+    <string name="me_page_location_text">Lokasi: </string>
+    <string name="language_change_prepend_message">"Bahasa diubah ke "</string>
+    <string name="language_change_append_message">Mohon restart aplikasi.</string>
+    <string name="currently_processing_transferred_records">Sedang memproses transfer data.</string>
+    <string name="do_not_edit_client_records_until_complete">Jangan edit data ibu atau kunjungan sampai proses selesai.</string>
+    <string name="processing_disclaimer">Rekaman akan diproses hingga 10 menit sebelum rekaman Anda diperbarui. Jangan mengubah data sampai proses selesai.</string>
+    <string name="log_data_type_provided_does_not_exist_in_the_sender">Tipe data %s tidak tersedia pada pengirim.</string>
+    <string name="component_desc_p2p_process_records_service">Memproses catatan saat menggunakan peer to peer untuk berbagi file</string>
+
+
+    <!-- QR Code Scan Feature -->
+    <!-- ==================== -->
+
+    <string name="scan_qr_code_title">Scan QR Code</string>
+    <string name="permission_camera_rationale">Akses ke kamera diperlukan untuk deteksi.</string>
+    <string name="no_camera_permission">Aplikasi ini tidak dapat dijalankan karena tidak memiliki izin untuk mengakses kamera. Aplikasi sekarang akan ditutup.</string>
+    <string name="low_storage_error">Ketergantungan detektor wajah tidak dapat diunduh karena penyimpanan perangkat tinggal sedikit.</string>
+    <string name="title_activity_main">Contoh Barcode Reader</string>
+    <string name="barcode_header">Klik &quot;Baca Barcode&quot; untuk membaca barcode.</string>
+    <string name="read_barcode">Baca Barcode</string>
+    <string name="auto_focus">Auto Focus</string>
+    <string name="use_flash">Gunakan Flash</string>
+    <string name="barcode_success">Barcode berhasil dibaca</string>
+    <string name="barcode_failure">Tidak ada barcode yang dibaca</string>
+    <string name="barcode_error">Gagal membaca barcode: %1$s</string>
+    <string name="allow_camera_management">Anda harus mengizinkan aplikasi menggunakan kamera untuk memindai QR Code&#8230;</string>
+
+
+    <!-- Synchronization -->
+    <!-- =============== -->
+
+    <string name="loading_client_settings">Memuat pengaturan ibu&#8230;</string>
+    <string name="unsynced_forms_count_message">Form tidak tersinkronisasi</string>
+    <string name="sync_failed_no_internet">Sinkronisasi gagal. Periksa koneksi internet Anda.</string>
+    <string name="syncing">Sinkronisasi...</string>
+    <string name="sync_failed">Sinkronisasi gagal</string>
+    <string name="sync_complete">Sinkronisasi selesai</string>
+    <string name="manual_sync_triggered">Sinkronisasi manual dimulai&#8230;</string>
+    <string name="data_synced">Sinkronisasi Data: %1$s at %2$s</string>
+    <string name="sync_failed_malformed_url">Sinkronisasi Gagal. Silakan periksa konfigurasi URL.</string>
+    <string name="sync_failed_timeout_error">Sinkronisasi Gagal. Tidak dapat terhubung ke server.</string>
+    <string name="download_database">Unduh Database</string>
+    <string name="view_sync_stats">Lihat Status Sinkronisasi</string>
+    <string name="export_db_notification">Mengekspor Database...</string>
+    <string name="database_download_success">Database berhasil diunduh</string>
+    <string name="synced_events">Kunjungan tersinkronisasi:</string>
+    <string name="unsynced_events">Kunjungan tidak tersinkronisasi:</string>
+    <string name="synced_clients">Ibu tersinkronisasi:</string>
+    <string name="unsynced_clients">Ibu tidak tersinkronisasi:</string>
+    <string name="validated_events">Kunjungan tervalidasi:</string>
+    <string name="validated_clients">Ibu tidak tervalidasi:</string>
+    <string name="task_unprocessed_events">Tugas kunjungan tidak terproses:</string>
+    <string name="summary_forms">Form Lainnya</string>
+    <string name="permission_write_external_storage_rationale">Akses ke penyimpanan internal perangkat diperlukan untuk mengunduh database.</string>
+    <string name="sync_upload_progress_float">Proses unggahan sinkronisasi %d%%</string>
+
+
+    <!-- Time & Duration -->
+    <!-- =============== -->
+
+    <string name="x_seconds">%1$dd</string>
+    <string name="x_minutes">%1$dm</string>
+    <string name="x_hours">%1$dj</string>
+    <string name="x_days">%1$dh</string>
+    <string name="x_weeks">%1$dmg</string>
+    <string name="x_weeks_days">%1$dmg %2$dh</string>
+    <string name="x_months">%1$dbln</string>
+    <string name="x_months_weeks">%1$dbln %2$dmg</string>
+    <string name="x_years">%1$dthn</string>
+    <string name="x_years_months">%1$dthn %2$dbln</string>
+
+
+    <!-- Needs More Inspections -->
+    <!-- ====================== -->
+
+    <string name="replication_error_occurred">Proses replikasi gagal</string>
+    <string name="component_desc_account_service">Mengelola autentikasi dan otorisasi pengguna</string>
+
+
+    <!-- Needs Refactoring -->
+    <!-- ================= -->
+
+    <string name="action_me">action_me</string>
+    <string name="url_separator">/</string>
+
+
+
+    <!-- ===================================== -->
+    <!-- * OPENSRP-CLIENT-ANC STRING RESOURCES * -->
+    <!-- ===================================== -->
+
+
+    <!-- App Configuration -->
+    <!-- ================= -->
+
+    <string name="antenatal_care_module">BUNDA</string>
+    <string name="form_manifest_version">Versi Form: v%1$s</string>
+
+
+    <!-- Authentication -->
+    <!-- ============== -->
+
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+
+
+    <!-- Actions -->
+    <!-- ======= -->
+
+    <string name="action_logout">Logout</string>
+    <string name="action_language">Bahasa</string>
+    <string name="scan_qr_code">Scan QR code</string>
+    <string name="complete">Tuntaskan</string>
+    <string name="remove_from_register">Hapus dari Daftar</string>
+    <string name="dismiss">Batalkan</string>
+    <string name="apply">Terapkan</string>
+    <string name="done">Selesai</string>
+    <string name="cancel">Batalkan</string>
+    <string name="copy_to_clipboard">Salin ke clipboard</string>
+    <string name="go_to_advanced_search">Pergi ke Pencarian Lanjutan</string>
+    <string name="go_to_client_profile">Pergi ke Profil Ibu</string>
+    <string name="send_summary_to_client">Kirim ringkasan ke ibu</string>
+    <string name="back">Kembali</string>
+    <string name="go_to_image">Pergi ke gambar</string>
+    <string name="attach_file">Sisipkan berkas</string>
+    <string name="continue_">Lanjutkan</string>
+    <string name="edit">Sunting</string>
+
+
+    <!-- Characteristics -->
+    <!-- =============== -->
+
+    <string name="yes">Ya</string>
+    <string name="no">Tidak</string>
+    <string name="welcome_site_characteristics">Selamat datang! Untuk memulai, harap tetapkan karakteristik tempat Anda.</string>
+    <string name="population_characteristics">Karakteristik Populasi</string>
+    <string name="continue_to_your_client_list">Lanjutkan ke Daftar Ibu</string>
+    <string name="your_site_characteristics_for_facility_name">Karakteristik tempat untuk %1$s sudah siap.</string>
+    <string name="site_characteristics_are_shared_for_all">Karakteristik tempat dibagikan oleh semua pengguna OpenSRP di fasilitas tersebut. Anda dapat memperbarui karakteristik tempat kapan saja.</string>
+    <string name="go_back_to_site_characteristics">Kembali ke Karakteristik Lokasi</string>
+
+
+    <!-- Client Data -->
+    <!-- =========== -->
+
+    <string name="anc_id_text">ID: %1$s</string>
+    <string name="age_text">Usia: %1$s</string>
+    <string name="ga_text">UK: %1$d weeks</string>
+    <string name="bullet">\u2022</string>
+
+
+    <!-- Contact -->
+    <!-- ======= -->
+
+    <string name="quick_check">Pemeriksaan Cepat</string>
+    <string name="profile">Profil</string>
+    <string name="symptoms_follow_up">Gejala dan Tindak Lanjut</string>
+    <string name="physical_exam">Pemeriksaan Fisik</string>
+    <string name="tests">Tes</string>
+    <string name="counselling_treatment">Konseling dan Tindakan</string>
+    <string name="contact_tasks_form">Tugas Kunjungan</string>
+    <string name="finalize">Finalisasi</string>
+    <string name="required_fields">%1$d harus diisi</string>
+    <string name="exit_contact_with">Keluar Kunjungan dengan %1$s</string>
+    <string name="exit_contact_title">Keluar dari Kunjungan?</string>
+    <string name="save_changes">Simpan kunjungan dan lanjutkan lain kali</string>
+    <string name="save_contact">Simpan Perubahan</string>
+    <string name="discard_contact">Batalkan Perubahan</string>
+    <string name="close_without_saving">Keluar tanpa menyimpan perubahan</string>
+    <string name="upcoming_contact_dates">Tanggal kunjungan berikutnya:</string>
+    <string name="accordion_ultrasound">Tes USG</string>
+    <string name="accordion_blood_type">Tes Golongan Darah</string>
+    <string name="accordion_hepatitis_b">Tes Hepatitis B</string>
+    <string name="accordion_hepatitis_c">HTes Hepatitis C</string>
+    <string name="accordion_syphilis">Tes Sifilis</string>
+    <string name="accordion_urine">Tes Urin</string>
+    <string name="accordion_blood_haemoglobin">Tes Hemoglobin Darah</string>
+    <string name="accordion_hiv">Tes HIV</string>
+    <string name="accordion_tb_screening">Pemindaian TB</string>
+    <string name="accordion_partner_hiv">Tes HIV Pasangan</string>
+    <string name="accordion_blood_glucose">Tes Glukosa Darah</string>
+    <string name="accordion_other_tests">Tes Lainnya</string>
+    <string name="contact_summary_data">Data Ringkasan Kunjungan - %1$s \n %2$s</string>
+    <string name="pdf_saved_successfully">\"PDF tersimpan di \"</string>
+    <string name="contact_summary_data_file">RingkasanKunjungan.pdf</string>
+
+
+    <!-- Dialogs & Messages -->
+    <!-- ================== -->
+
+    <string name="saving_dialog_title">Menyimpan...</string>
+    <string name="removing_dialog_title">Menghapus...</string>
+    <string name="no_openmrs_id">Tidak ada id unik yang ditemukan. Klik tombol sinkronisasi untuk mendapatkan lebih banyak dan jika kesalahan ini berlanjut, hubungi admin sistem.</string>
+    <string name="device_timezone_changed">Zona waktu perangkat berubah. Silakan login lagi.</string>
+    <string name="device_time_changed">Waktu perangkat telah berubah. Silakan login lagi.</string>
+    <string name="updating_dialog_title">Memperbarui...</string>
+    <string name="no_matching_woman_found_on_this_device">Tidak ditemukan ibu yang cocok di perangkat ini.</string>
+
+
+    <!-- Forms & Inputs -->
+    <!-- ============== -->
+
+    <string name="error_unable_to_start_form">Terjadi kesalahan saat memulai form</string>
+    <string name="specify">Tentukan</string>
+
+
+    <!-- Form: Quick Check -->
+    <!-- ================== -->
+
+    <string name="reason_for_coming_facility"><font fgcolor="black">Alasan berkunjung? </font><font fgcolor="red">*</font></string>
+    <string name="first_contact">Kunjungan Pertama</string>
+    <string name="scheduled_contact">Kunjungan Terjadwal</string>
+    <string name="specific_complaint">Keluhan Khusus</string>
+    <string name="specific_complaints"><font fgcolor="black">Keluhan Khusus</font><font fgcolor="red">*</font></string>
+    <string name="abnormal_discharge">Keputihan yang tidak normal</string>
+    <string name="altered_skin_color">Warna kulit yang berubah</string>
+    <string name="changes_in_bp">Perubahan tekanan darah</string>
+    <string name="constipation">Sembelit</string>
+    <string name="contractions">Kontraksi</string>
+    <string name="cough">Batuk</string>
+    <string name="depressive_anxious">Depresi / cemas</string>
+    <string name="dizziness">Pusing</string>
+    <string name="domestic_violence">KDRT</string>
+    <string name="extreme_pelvic_pain">Nyeri panggul ekstrem - tidak bisa berjalan (disfungsi simfisis pubis)</string>
+    <string name="fever">Demam</string>
+    <string name="full_abdominal_pain">Sakit perut menyeluruh</string>
+    <string name="flu_symptoms">Gejala flu</string>
+    <string name="fluid_loss">Kehilangan cairan</string>
+    <string name="headache">Sakit kepala</string>
+    <string name="heartburn">Maag</string>
+    <string name="leg_cramps">Keram kaki</string>
+    <string name="leg_pain">Nyeri di kaki</string>
+    <string name="leg_redness">Kemerahan di kaki</string>
+    <string name="low_back_pelvic_pain">Nyeri punggung bawah dan panggul</string>
+    <string name="nausea_vomiting_diarrhea">Mual/muntah/diare</string>
+    <string name="no_fetal_movement">Tidak ada gerakan janin</string>
+    <string name="oedema">Busung</string>
+    <string name="other_bleeding">Pendarahan lainnya</string>
+    <string name="other_pain">Nyeri lainnya</string>
+    <string name="other_psychological_symptoms">Gejala psikologis lainnya</string>
+    <string name="other_skin_disorder">Kelainan kulit lainnya</string>
+    <string name="other_types_of_voilence">Jenis kekerasan lainnya</string>
+    <string name="dysuria">Nyeri saat buang air kecil (disuria)</string>
+    <string name="pruritus">Pruritus</string>
+    <string name="reduced_fetal_movement">Gerakan janin berkurang atau buruk</string>
+    <string name="shortness_of_breath">Sesak napas</string>
+    <string name="tiredness">Kelelahan</string>
+    <string name="trauma">Trauma</string>
+    <string name="bleeding">Pendarahan vagina</string>
+    <string name="visual_disturbance">Gangguan penglihatan</string>
+    <string name="complaint_other_specify">Lainnya</string>
+    <string name="danger_signs"><font fgcolor="black">Tanda bahaya </font><font fgcolor="red">*</font></string>
+    <string name="danger_none">Tidak ada</string>
+    <string name="danger_bleeding">Pendarahan melalui vagina</string>
+    <string name="central_cyanosis">Sianosis sentral</string>
+    <string name="convulsing">Kejang</string>
+    <string name="danger_fever">Demam</string>
+    <string name="headache_visual_disturbance">Headache and visual disturbance</string>
+    <string name="imminent_delivery">Kelahiran segera</string>
+    <string name="labour">Melahirkan</string>
+    <string name="looks_very_ill">Terlihat sangat sakit</string>
+    <string name="severe_vomiting">Muntah parah</string>
+    <string name="severe_pain">Nyeri parah</string>
+    <string name="severe_abdominal_pain">Sakit perut yang parah</string>
+    <string name="unconscious">Tidak sadar</string>
+    <string name="proceed_to_normal_contact">Lanjutkan ke kunjungan normal</string>
+    <string name="refer_and_close_contact">Rujuk dan akhiri kunjungan</string>
+    <string name="validation_no_reason_selected">Silakan pilih alasan untuk datang ke fasilitas</string>
+    <string name="validation_no_specific_complaint">Harap pilih setidaknya satu keluhan</string>
+    <string name="validation_no_danger_sign">Silakan pilih Tidak Ada atau setidaknya satu tanda bahaya</string>
+    <string name="validation_no_valid_danger_sign">Harap setidaknya satu tanda bahaya selain Tidak Ada</string>
+    <string name="validation_unable_to_save_quick_check">Tidak dapat menyimpan pemeriksaan cepat</string>
+    <string name="cyanosis_info">Perubahan warna kebiruan di sekitar selaput lendir di mulut, bibir dan lidah</string>
+    <string name="any_treatment">Apakah tindakan yang diberikan sebelum rujukan?</string>
+
+
+    <!-- Page: Contact List -->
+    <!-- ================== -->
+
+    <string name="contact_dummy_text">Kunjungan&#10;22/05/2018</string>
+    <string name="search_name_or_id">Cari nama atau ID</string>
+    <string name="clear_filters">Hapus Filter</string>
+    <string name="has_tasks_due">Memiliki tugas jatuh tempo</string>
+    <string name="risky_pregnancy">Kehamilan berisiko</string>
+    <string name="syphilis_positive">Kehamilan sifilis</string>
+    <string name="hiv_positive">Kehamilan HIV</string>
+    <string name="hypertensive">Hipertensi</string>
+    <string name="record_birth">Catat Kelahiran</string>
+
+
+    <!-- Page: Advanced Search -->
+    <!-- ===================== -->
+
+    <string name="advanced_search">Pencarian Lanjutan</string>
+    <string name="out_and_inside">Di luar dan di dalam fasilitas kesehatan saya</string>
+    <string name="requires_internet_connection">(membutuhkan koneksi internet)</string>
+    <string name="my_catchment_area">Fasilitas kesehatan saya saja</string>
+    <string name="first_name">Nama Depan</string>
+    <string name="last_name">Nama Belakang</string>
+    <string name="anc_id">ID ANC</string>
+    <string name="id_number">ID ANC</string>
+    <string name="edd">HPL</string>
+    <string name="exp_date_of_delivery">Hari Perkiraan Lahir</string>
+    <string name="dob">TL</string>
+    <string name="date_of_birth">Tanggal Lahir</string>
+    <string name="mobile_phone_number">Nomor Telepon Seluler</string>
+    <string name="phone_number">Nomor Telepon</string>
+    <string name="alternate_contact_name">Nama Kontak Alternatif</string>
+    <string name="alt_contact_name">Nama Kontak Alternatif</string>
+    <string name="search">Cari</string>
+    <string name="search_results">Hasil Pencarian</string>
+    <string name="searching_dialog_title">Mencari…</string>
+    <string name="searching_dialog_message">Harap tunggu</string>
+    <string name="matching_results">%1$s cocok</string>
+    <string name="qr_code_label">QR Code</string>
+    <string name="clients_facility">Fasilitas Ibu</string>
+
+
+    <!-- Page: Registration -->
+    <!-- ================== -->
+
+    <string name="new_registration_saved">Pendaftaran baru disimpan &#x21;</string>
+    <string name="registration_info_updated">Informasi registrasi diperbarui &#x21;</string>
+
+
+    <!-- Page: Client Profile -->
+    <!-- ==================== -->
+
+    <string name="call">Telepon</string>
+    <string name="start_contact">Mulai Kunjungan</string>
+    <string name="overview">Ikhtisar</string>
+    <string name="contacts">Kunjungan</string>
+    <string name="tasks">Tugas</string>
+    <string name="close_anc_record">Tutup Catatan ANC</string>
+    <string name="allow_phone_call_management">Aplikasi BUNDA harus diizinkan untuk melakukan panggilan telepon&#8230;</string>
+    <string name="any_changes_you_make">Setiap perubahan akan hilang</string>
+    <string name="woman_name">Nama Ibu</string>
+    <string name="contact_weeks">Mulai\nKunjungan %1$s\n%2$s</string>
+    <string name="contact_weeks_no_break">Mulai Kunjungan %1$s - %2$s</string>
+    <string name="contact_in_progress">Kunjungan %1$s\n dalam Proses</string>
+    <string name="contact_in_progress_no_break">Kunjungan %1$s &#183; dalam Proses</string>
+    <string name="due_delivery">Jatuh Tempo\nMelahirkan</string>
+    <string name="record_birth_popup_message">UK: %1$d minggu\nHPL: %2$s (%3$s lalu)\n\n%4$s harus segera melahirkan.</string>
+    <string name="contact_number">Kunjungan %1$d</string>
+    <string name="contact_recorded">Kunjungan %1$d terekam</string>
+    <string name="info_icon_display">tampilan ikon info lebih lanjut</string>
+    <string name="status_icon_display">tampilan ikon status</string>
+    <string name="record">Rekam</string>
+    <string name="undo">Undo</string>
+    <string name="save_and_finish">Simpan + Selesaikan</string>
+    <string name="reason_for_visit">Alasan Berkunjung</string>
+    <string name="contact_recorded_today">Kunjungan %1$d\n dilakukan hari ini</string>
+    <string name="contact_recorded_today_no_break">Kunjungan %1$d &#183; dilakukan hari ini</string>
+    <string name="continue_contact">Lanjutkan Kunjungan %1$d</string>
+    <string name="finalizing_contact">Finalisasi kunjungan %1$d</string>
+    <string name="summarizing_contact_number">Menyimpulkan kunjungan %1$d</string>
+    <string name="contact_number_due">Kunjungan %1$d\n Jatuh Tempo \n %2$s</string>
+    <string name="contact_number_due_no_break">Kunjungan %1$d &#183; Jatuh Tempo &#183; %2$s</string>
+    <string name="last_contact">Kunjungan Terakhir</string>
+    <string name="key_figure">Gambaran Penting</string>
+    <string name="recent_test">Kunjungan Terkini: %1$s</string>
+    <string name="previous_contacts">Kunjungan Sebelumnya</string>
+    <string name="all_tests_results">Semua Hasil Tes</string>
+    <string name="contact_details">%1$s Minggu &#183; Kunjungan %2$s</string>
+    <string name="referral_contact_details">Kunjungan %1$s</string>
+    <string name="undo_test_result">Batalkan hasil %1$s?</string>
+    <string name="negative_contact_text">Kunjungan negatif berarti pasien dirujuk sehingga jadwal kunjungan tidak berubah dan tetap sama seperti sebelumnya</string>
+    <string name="previous_contacts_header">Kunjungan Sebelumnya</string>
+    <string name="previous_contacts_tests_header">Semua Hasil Tes</string>
+    <string name="expected_date_of_delivery">Hari Perkiraan Lahir</string>
+    <string name="ga_weeks">%1$s minggu</string>
+    <string name="timeline_away">%1$s minggu lagi</string>
+    <string name="all_results">Semua Hasil</string>
+    <string name="no_tests_available">Tidak ada tes tersedia</string>
+    <string name="hospital_referral">Rujukan Rumah Sakit</string>
+    <string name="no_contact_schedule">Belum ada jadwal kunjungan yang dibuat</string>
+    <string name="hospital_referral_title">Rujukan Rumah Sakit direkam</string>
+    <string name="tab_button_image">Gambar tombol tab</string>
+    <string name="tap_button_below">Tekan tombol berikut untuk mulai/lanjutkan kunjungan</string>
+    <string name="no_health_data_recorded">Tidak ada data kesehatan terekam</string>
+    <string name="tests_tasks_header">Tes</string>
+    <string name="view_anc_history">Lihat histori ANC</string>
+
+
+    <!-- Page: Me -->
+    <!-- ======== -->
+
+    <string name="me_page_placeholder">Placeholder Halaman Saya</string>
+    <string name="default_language_string">%1s</string>
+    <string name="select_language">Pilih Bahasa</string>
+    <string name="choose_language">Pilih Bahasa</string>
+    <string name="english_language">English</string>
+    <string name="french_language">French</string>
+    <string name="portuguese_brazil_language">Portuguese (Brazil)</string>
+    <string name="bahasa_indonesia_language">Bahasa Indonesia</string>
+    <string name="device_to_device">Sinkronisasi antarperangkat</string>
+
+
+    <!-- Synchronization -->
+    <!-- =============== -->
+
+    <string name="sync">Sinkronisasi</string>
+    <string name="sync_round_complete">Sinkronisasi selesai&#8230;</string>
+    <string name="retry">Ulangi</string>
+    <string name="sync_">Sinkronisasi%1$s</string>
+    <string name="last_sync">(terakhir %1$s)</string>
+    <string name="sync_data">Sinkronisasi data</string>
+
+
+    <!-- Needs More Research -->
+    <!-- =================== -->
+
+    <string name="alphabetical_sort">Abjad (Nama)</string>
+    <string name="name">Nama</string>
+    <string name="dose_d">DOSIS (D)</string>
+    <string name="id">ID</string>
+    <string name="patient_location">Lokasi: %1$s</string>
+    <string name="dose_given_date">Dosis %1$s diberikan %2$s</string>
+    <string name="opensrp_id">OpenSRP ID</string>
+    <string name="anc">WHO ANC</string>
+    <string name="the_qr_code_scanner_button">Tombal QR Code Scanner</string>
+    <string name="woman_filter">Filter</string>
+    <string name="register">Daftar</string>
+    <string name="library">Pustaka</string>
+    <string name="updated_recent_first">Terbaru</string>
+    <string name="ga_older_first">UK (Lanjut ke Awal)</string>
+    <string name="ga_younger_first">UK (Awal ke Lanjut)</string>
+    <string name="id_sort">ID</string>
+    <string name="first_name_a_to_z">Nama Depan (A ke Z)</string>
+    <string name="first_name_z_to_a">Nama Depan (Z ke A)</string>
+    <string name="last_name_a_to_z">Nama Belakang (A ke Z)</string>
+    <string name="last_name_z_to_a">Nama Belakang (Z ke A)</string>
+    <string name="no_location_picker">Tidak ada lokasi yang dipilih</string>
+    <string name="anc_clients">Ibu</string>
+    <string name="counseling_resources">Sumberdaya Konseling</string>
+    <string name="site_characteristics">Karakteristik Tempat</string>
+    <string name="contact_summary">Ringkasan Kunjungan</string>
+    <string name="navigation_drawer_close">Tutup navigasi</string>
+    <string name="navigation_drawer_open">Buka navigasi</string>
+
+
+    <!-- Needs Refactoring -->
+    <!-- ================= -->
+
+    <string name="yellow">Kuning</string>
+    <string name="red">Merah</string>
+
+
+    <!-- ==================== -->
+    <!-- * ADDITIONAL STRINGS * -->
+    <!-- ==================== -->
+
+
+    <!-- App Settings -->
+    <!-- ============ -->
+
+    <string name="app_settings_baseurl_title">OpenSRP Base URL</string>
+    <string name="app_settings_baseurl_summary">Alamat URL dari server OpenSRP</string>
+    <string name="app_settings_baseurl_dialog">Masukkan URL dari server OpenSRP</string>
+
+
+</resources>

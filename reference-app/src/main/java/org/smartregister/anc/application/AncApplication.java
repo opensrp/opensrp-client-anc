@@ -113,6 +113,9 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         //init Job Manager
         JobManager.create(this).addJobCreator(new AncJobCreator());
 
+        // Set default language
+        setDefaultLanguage();
+
         //Only integrate Flurry Analytics for  production. Remove negation to test in debug
         if (!BuildConfig.DEBUG) {
             new FlurryAgent.Builder()
@@ -130,7 +133,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 
     private void setDefaultLanguage() {
         try {
-            Utils.saveLanguage("en");
+            Utils.saveLanguage("in");
         } catch (Exception e) {
             Timber.e(e, " --> saveLanguage");
         }
