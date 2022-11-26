@@ -604,6 +604,12 @@
 	<string name="app_settings_baseurl_dialog">Enter Base Server URL</string>
 
 
+	<!-- Attention Flags -->
+	<!-- =============== -->
+
+	<string name="attention_flags_title">Attention Flags</string>
+
+
 	<!-- =================== -->
 	<!-- * NEEDS REFACTORING * -->
 	<!-- =================== -->

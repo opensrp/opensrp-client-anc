@@ -604,4 +604,10 @@
     <string name="app_settings_baseurl_dialog">Masukkan URL dari server OpenSRP</string>
 
 
+    <!-- Attention Flags -->
+    <!-- =============== -->
+
+    <string name="attention_flags_title">Tanda Bahaya</string>
+
+
 </resources>
