@@ -2,6 +2,7 @@ package org.smartregister.anc.library.model;
 
 import static org.smartregister.anc.library.util.ConstantsUtils.GLOBAL_IDENTIFIER;
 
+import android.content.Context;
 import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
@@ -38,8 +39,8 @@ import java.util.Set;
 public class RegisterFragmentModel implements RegisterFragmentContract.Model {
 
     @Override
-    public RegisterConfiguration defaultRegisterConfiguration() {
-        return ConfigHelperUtils.defaultRegisterConfiguration(AncLibrary.getInstance().getApplicationContext());
+    public RegisterConfiguration defaultRegisterConfiguration(Context context) {
+        return ConfigHelperUtils.defaultRegisterConfiguration(context);
     }
 
     @Override
