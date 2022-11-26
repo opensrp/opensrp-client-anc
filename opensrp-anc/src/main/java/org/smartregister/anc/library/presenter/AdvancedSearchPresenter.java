@@ -1,5 +1,6 @@
 package org.smartregister.anc.library.presenter;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.database.CursorJoiner;
 
@@ -21,18 +22,20 @@ public class AdvancedSearchPresenter extends RegisterFragmentPresenter
     public static final String TABLE_NAME = DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME;
     private WeakReference<AdvancedSearchContract.View> viewReference;
     private AdvancedSearchContract.Model model;
+    private Context context;
 
     public AdvancedSearchPresenter(AdvancedSearchContract.View view, String viewConfigurationIdentifier) {
         super(view, viewConfigurationIdentifier);
         this.viewReference = new WeakReference<>(view);
         model = new AdvancedSearchModel();
         interactor = new AdvancedSearchInteractor();
+        context = view.getContext();
     }
 
     public void search(String firstName, String lastName, String ancId, String edd, String dob, String phoneNumber,
                        String alternateContact, boolean isLocal) {
         String searchCriteria =
-                model.createSearchString(firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact);
+                model.createSearchString(this.context, firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact);
         if (StringUtils.isBlank(searchCriteria)) {
             return;
         }
