@@ -203,16 +203,16 @@
     <!-- Time & Duration -->
     <!-- =============== -->
 
-    <string name="x_seconds">%1$dd</string>
-    <string name="x_minutes">%1$dm</string>
-    <string name="x_hours">%1$dj</string>
-    <string name="x_days">%1$dh</string>
-    <string name="x_weeks">%1$dmg</string>
-    <string name="x_weeks_days">%1$dmg %2$dh</string>
-    <string name="x_months">%1$dbln</string>
-    <string name="x_months_weeks">%1$dbln %2$dmg</string>
-    <string name="x_years">%1$dthn</string>
-    <string name="x_years_months">%1$dthn %2$dbln</string>
+    <string name="x_seconds">%1$d detik</string>
+    <string name="x_minutes">%1$d menit</string>
+    <string name="x_hours">%1$d jam</string>
+    <string name="x_days">%1$d hari</string>
+    <string name="x_weeks">%1$d minggu</string>
+    <string name="x_weeks_days">%1$d minggu %2$d hari</string>
+    <string name="x_months">%1$d bulan</string>
+    <string name="x_months_weeks">%1$d bulan %2$d minggu</string>
+    <string name="x_years">%1$d tahun</string>
+    <string name="x_years_months">%1$d tahun %2$d bulan</string>
 
 
     <!-- Needs More Inspections -->
