@@ -446,9 +446,9 @@
     <string name="id_number">ID ANC</string>
     <string name="edd">HPL</string>
     <string name="exp_date_of_delivery">Hari Perkiraan Lahir</string>
-    <string name="dob">TL</string>
+    <string name="dob">Tgl. Lahir</string>
     <string name="date_of_birth">Tanggal Lahir</string>
-    <string name="mobile_phone_number">Nomor Telepon Seluler</string>
+    <string name="mobile_phone_number">Nomor Ponsel</string>
     <string name="phone_number">Nomor Telepon</string>
     <string name="alternate_contact_name">Nama Kontak Alternatif</string>
     <string name="alt_contact_name">Nama Kontak Alternatif</string>
