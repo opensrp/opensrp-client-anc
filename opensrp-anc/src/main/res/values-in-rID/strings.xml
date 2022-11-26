@@ -290,7 +290,7 @@
 
     <string name="anc_id_text">ID: %1$s</string>
     <string name="age_text">Usia: %1$s</string>
-    <string name="ga_text">UK: %1$d weeks</string>
+    <string name="ga_text">UK: %1$d Minggu</string>
     <string name="bullet">\u2022</string>
 
 
