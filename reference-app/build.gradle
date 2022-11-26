@@ -68,6 +68,7 @@ android {
         targetSdkVersion androidTargetSdkVersion
         versionCode generateVersionCode()
         versionName generateVersionName()
+        resConfigs "in-rID", "en"
         buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
         buildConfigField "boolean", "TIME_CHECK", "false"
         buildConfigField "String", "SYNC_TYPE", '"teamId"'
