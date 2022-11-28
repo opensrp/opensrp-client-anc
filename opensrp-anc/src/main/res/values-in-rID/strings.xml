@@ -230,6 +230,94 @@
 
 
 
+    <!-- ======================================================= -->
+    <!-- * OVERRIDE OPENSRP-CLIENT-NATIVE-FORM LIBRARY STRINGS * -->
+    <!-- ======================================================= -->
+
+
+    <!-- Actions -->
+    <!-- ======= -->
+
+    <string name="action_settings">Pengaturan</string>
+    <string name="record_location">Rekam Lokasi</string>
+    <string name="save">Simpan</string>
+    <string name="radio_button_tap_to_change">Ketuk untuk Mengubah</string>
+    <string name="select_one">Pilih Angka</string>
+    <string name="previous">Sebelum</string>
+    <string name="next">Lanjut</string>
+    <string name="submit">Submit</string>
+    <string name="go_to_step">Lanjut ke Step</string>
+    <string name="shows_image_on_dialog">Tampilkan gambar pada dialog</string>
+
+
+    <!-- Dialogs & Messages -->
+    <!-- ================== -->
+
+    <string name="badly_formed_date">Format tanggal salah</string>
+    <string name="badly_formed_time">Format waktu salah</string>
+    <string name="confirm_form_close">Konfirmasi Tutup Form</string>
+    <string name="confirm_form_close_explanation">Yakin akan kembali? Data yang sudah dimasukkan akan terhapus.</string>
+    <string name="loading_location">Memuat Lokasi</string>
+    <string name="could_not_get_your_location">Tidak bisa mendapatkan lokasi GPS</string>
+    <string name="using_provider">Menggunakan provider %s</string>
+    <string name="unknown_gps_accuracy">Akurasi tidak diketahui</string>
+    <string name="info_label">Label Info</string>
+    <string name="the_toaster_icon">Ikon Toaster</string>
+    <string name="please_wait_title">Harap Tunggu</string>
+    <string name="creating_repeating_group_title">Harap Tunggu</string>
+    <string name="creating_repeating_group_message">Membuat Grup Berulang</string>
+    <string name="launching_rdt_capture_message">Menjalankan RDT Capture Widget</string>
+    <string name="repeating_group_max_value_err_msg">Jumlah grup berulang tidak boleh lebih dari %1$d</string>
+    <string name="repeating_group_min_value_err_msg">Jumlah grup berulang harus lebih dari %1$d</string>
+    <string name="repeating_group_number_format_err_msg">Jumlah grup berulang harus berupa angka integer</string>
+    <string name="enter_number_of_repeating_group_items">Masukkan jumlah dari item grup berulang</string>
+    <string name="json_form_error_msg">Terdapat %d error pada form. Silakan perbaiki sebelum di-submit.</string>
+    <string name="json_form_on_next_error_msg">Silakan perbaiki error pada form untuk melanjutkan.</string>
+    <string name="simprints_guid">GUID tidak ditemukan</string>
+    <string name="simprints_init_fail">Project id, user id atau module id tidak ditemukan. Gunakan SimprintsLibrary.init</string>
+    <string name="permission_denied_title">Izin Ditolak</string>
+    <string name="permission_messege">Aplikasi memerlukan izin ini untuk mengambil informasi perangkat yang diperlukan saat mengirimkan form. Tanpa izin ini, aplikasi tidak akan berfungsi dengan baik. Apakah Anda yakin ingin menolak izin ini?</string>
+    <string name="multiselect_msg_on_item_added">Ditambah</string>
+    <string name="loading_multi_select_list">Memuat</string>
+    <string name="loading">Memuat</string>
+    <string name="loading_form_message">Form sedang dimuat. Harap tunggu sejenak...</string>
+    <string name="opening_forms">Membuat sub-form...</string>
+    <string name="multiselect_already_added_msg">%s sudah ditambah sebelumnya</string>
+    <string name="multi_select_list_msg_data_source_invalid">Sumber data eksternal tidak ditemukan atau diproses</string>
+    <string name="next_step_loading">Sedang menyiapkan langkah selanjutnya. Harap tunggu sejenak...</string>
+    <string name="repeating_group_not_generated_error_message">Klik tombol &#9989; untuk menyiapkan pertanyaan</string>
+    <string name="error_title">Error</string>
+    <string name="form_load_error">Terjadi error saat memuat form.</string>
+    <string name="select_one_option">Pilih salah satu opsi</string>
+    <string name="extended_radio_info_text_ensure_options_set">Pastikan opsi radio button sudah dipilih</string>
+    <string name="missing_client_info">Info ibu tidak lengkap</string>
+
+
+    <!-- OptiBP -->
+    <!-- ====== -->
+
+    <string name="optibp_btn_get_started">Get Started</string>
+    <string name="optibp_unable_to_receive">Unable to receive any result</string>
+    <string name="optibp_label">Measure the blood pressure using OptiBP</string>
+    <string name="optibp_values_error">No fields defined to populate BP values</string>
+
+
+    <!-- Labels & Details -->
+    <!-- ================ -->
+
+    <string name="latitude">Lintang: %s</string>
+    <string name="longitude">Bujur: %s</string>
+    <string name="altitude">Ketinggian: %s</string>
+    <string name="accuracy">Akurasi: %s</string>
+    <string name="repeating_group_item">Item</string>
+    <string name="repeating_group_label">repeating_group_label</string>
+    <string name="attention">Perhatian</string>
+    <string name="info_icon">Ikon info</string>
+    <string name="edit_button_label">Tombol Edit</string>
+    <string name="the_extra_info_icon">Ikon info ekstra</string>
+
+
+
     <!-- ===================================== -->
     <!-- * OPENSRP-CLIENT-ANC STRING RESOURCES * -->
     <!-- ===================================== -->
@@ -269,7 +357,7 @@
     <string name="go_to_image">Pergi ke gambar</string>
     <string name="attach_file">Sisipkan berkas</string>
     <string name="continue_">Lanjutkan</string>
-    <string name="edit">Sunting</string>
+    <string name="edit">Edit</string>
 
 
     <!-- Characteristics -->
