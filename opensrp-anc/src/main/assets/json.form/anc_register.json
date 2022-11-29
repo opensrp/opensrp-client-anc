@@ -112,8 +112,8 @@
       {
         "key": "uid",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person_identifier",
+        "openmrs_entity_id": "uid",
         "type": "edit_text",
         "hint": "{{anc_register.step1.uid.hint}}",
         "edit_type": "name",
@@ -205,7 +205,7 @@
         "hint": "{{anc_register.step1.ssn.hint}}",
         "edit_type": "name",
         "v_regex": {
-          "value": "[0-9]{11,13}",
+          "value": "^$[0-9]{11,13}",
           "err": "{{anc_register.step1.ssn.v_length.err}}"
         },
         "v_max_length": {
