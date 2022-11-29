@@ -39,4 +39,4 @@ description: Show "unknown_uid_reason" input field if "uid_unknown" option is se
 priority: 1
 condition: "(step1_phone_number_unknown.contains('phone_number_unknown'))"
 actions:
-  - "isRelevant = true"s
+  - "isRelevant = true"
