@@ -1,17 +1,17 @@
 ---
-name: step1_age_calculated
-description: Calculated Age
-priority: 1
-condition: "step1_dob_entered != ''"
-actions:
-  - 'calculation = helper.getDifferenceDays(step1_dob_entered) / 365.25'
----
 name: step1_dob_calculated
 description: Calculated D.O.B
 priority: 1
 condition: "step1_age_entered != ''"
 actions:
   - 'calculation = helper.getDOBFromAge(step1_age_entered)'
+---
+name: step1_age_calculated
+description: Calculated Age
+priority: 1
+condition: "step1_dob_entered != ''"
+actions:
+  - 'calculation = helper.getDifferenceDays(step1_dob_entered) / 365.25'
 ---
 name: step1_dob
 description: Final calculated DOB
