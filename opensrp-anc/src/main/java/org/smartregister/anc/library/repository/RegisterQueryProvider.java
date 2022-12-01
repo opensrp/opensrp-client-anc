@@ -70,6 +70,8 @@ public class RegisterQueryProvider {
 
     public String[] mainColumns() {
         return new String[]{
+
+            // Base WHO ANC fields
             DBConstantsUtils.KeyUtils.ANC_ID,
             DBConstantsUtils.KeyUtils.FIRST_NAME,
             DBConstantsUtils.KeyUtils.LAST_NAME,
@@ -97,7 +99,16 @@ public class RegisterQueryProvider {
             getDetailsTable() + "." + ConstantsUtils.SpinnerKeyConstants.DISTRICT,
             getDetailsTable() + "." + ConstantsUtils.SpinnerKeyConstants.SUB_DISTRICT,
             getDetailsTable() + "." + ConstantsUtils.SpinnerKeyConstants.FACILITY,
-            getDetailsTable() + "." + ConstantsUtils.SpinnerKeyConstants.VILLAGE
+            getDetailsTable() + "." + ConstantsUtils.SpinnerKeyConstants.VILLAGE,
+
+            // Additional local fields
+            DBConstantsUtils.KeyUtils.UID,
+            DBConstantsUtils.KeyUtils.SSN,
+            getDetailsTable() + "." + DBConstantsUtils.KeyUtils.UID_UNKNOWN,
+            getDetailsTable() + "." + DBConstantsUtils.KeyUtils.UID_UNKNOWN_REASON,
+            getDetailsTable() + "." + DBConstantsUtils.KeyUtils.PHONE_NUMBER_UNKNOWN,
+            getDetailsTable() + "." + DBConstantsUtils.KeyUtils.PHONE_NUMBER_UNKNOWN_REASON
+
         };
     }
 }
