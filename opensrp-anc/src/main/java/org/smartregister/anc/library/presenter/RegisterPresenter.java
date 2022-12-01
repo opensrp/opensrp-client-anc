@@ -24,6 +24,7 @@ import org.smartregister.view.LocationPickerView;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import timber.log.Timber;
 
@@ -120,9 +121,11 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
     @Override
     public void saveRegistrationForm(String jsonString, boolean isEditMode) {
         try {
-            if(!isProgressDialogVisible)
-            getView().showProgressDialog(R.string.saving_dialog_title);
-            isProgressDialogVisible = true;
+            if(!isProgressDialogVisible) {
+                Objects.requireNonNull(getView()).showProgressDialog(R.string.saving_dialog_title);
+                isProgressDialogVisible = true;
+            }
+
             Pair<Client, Event> pair = model.processRegistration(jsonString);
             if (pair == null) {
                 return;
