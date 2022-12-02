@@ -2,7 +2,7 @@
 name: step1_uid
 description: Hide "uid" input field if "uid_unknown" option is selected.
 priority: 1
-condition: "(!step1_uid_unknown.contains('uid_unknown'))"
+condition: "(!step1_uid_unknown.contains('yes'))"
 actions:
   - "isRelevant = true"
 ---
