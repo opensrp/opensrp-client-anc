@@ -19,6 +19,8 @@ import org.smartregister.P2POptions;
 import org.smartregister.anc.ANCEventBusIndex;
 import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.activity.LoginActivity;
+import org.smartregister.anc.library.AppConfig;
+import org.smartregister.anc.library.constants.Constants;
 import org.smartregister.anc.job.AncJobCreator;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.auth.AncCoreAuthorizationService;
@@ -133,7 +135,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 
     private void setDefaultLanguage() {
         try {
-            Utils.saveLanguage("in");
+            Utils.saveLanguage(AppConfig.DefaultLocale.getLanguage());
         } catch (Exception e) {
             Timber.e(e, " --> saveLanguage");
         }

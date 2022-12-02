@@ -3,6 +3,7 @@ package org.smartregister.anc.library.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -27,7 +28,9 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
 import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.anc.library.AppConfig;
 import org.smartregister.anc.library.R;
+import org.smartregister.anc.library.constants.Constants;
 import org.smartregister.anc.library.contract.RegisterContract;
 import org.smartregister.anc.library.domain.AttentionFlag;
 import org.smartregister.anc.library.domain.Contact;
@@ -51,6 +54,7 @@ import org.smartregister.configurableviews.model.Field;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.listener.BottomNavigationListener;
+import org.smartregister.util.LangUtils;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
@@ -58,6 +62,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import timber.log.Timber;
@@ -79,9 +84,25 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        if (savedInstanceState == null) {
+            setDefaultLocale();
+        }
+        super.onCreate(null);
         recordBirthAlertDialog = createAlertDialog();
         createAttentionFlagsAlertDialog();
+    }
+
+    public void setDefaultLocale() {
+        LangUtils.saveLanguage(getApplication(), AppConfig.DefaultLocale.getLanguage());
+        Utils.saveLanguage(AppConfig.DefaultLocale.getLanguage());
+    }
+
+    public void setLocale(Locale locale) {
+        if (locale != null) {
+            LangUtils.saveLanguage(getApplication(), locale.getLanguage());
+            Utils.saveLanguage(locale.getLanguage());
+            recreate();
+        }
     }
 
     @Override
