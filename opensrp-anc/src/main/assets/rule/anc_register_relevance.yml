@@ -1,0 +1,42 @@
+---
+name: step1_uid
+description: Hide "uid" input field if "uid_unknown" option is selected.
+priority: 1
+condition: "(!step1_uid_unknown.contains('yes'))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_uid_unknown_reason
+description: Show "unknown_uid_reason" input field if "uid_unknown" option is selected.
+priority: 1
+condition: "(step1_uid_unknown.contains('yes'))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_dob_entered
+description: Hide "dob_entered" input field if "dob_unknown" option is selected.
+priority: 1
+condition: "(!step1_dob_unknown.contains('yes'))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_age_entered
+description: Show "age_entered" input field if "dob_unknown" option is selected.
+priority: 1
+condition: "(step1_dob_unknown.contains('yes'))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_phone_number
+description: Hide "phone_number" input field if "phone_number_unknown" option is selected.
+priority: 1
+condition: "(!step1_phone_number_unknown.contains('yes'))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_phone_number_unknown_reason
+description: Show "unknown_uid_reason" input field if "uid_unknown" option is selected.
+priority: 1
+condition: "(step1_phone_number_unknown.contains('yes'))"
+actions:
+  - "isRelevant = true"

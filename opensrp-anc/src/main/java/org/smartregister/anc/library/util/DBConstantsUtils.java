@@ -14,6 +14,8 @@ public class DBConstantsUtils {
     }
 
     public static final class KeyUtils {
+
+        // Base WHO ANC fields
         public static final String ID = "_ID";
         public static final String ID_LOWER_CASE = "_id";
         public static final String STEPNAME = "stepName";
@@ -45,5 +47,14 @@ public class DBConstantsUtils {
         public static final String VISIT_START_DATE = "visit_start_date";
         public static final String IS_FIRST_VISIT = "is_first_visit";
         public static final String COHABITANTS = "cohabitants";
+
+        // Additional fields for local requirements
+        public static final String UID = "uid";
+        public static final String SSN = "ssn";
+        public static final String UID_UNKNOWN = "uid_unknown";
+        public static final String UID_UNKNOWN_REASON = "uid_unknown_reason";
+        public static final String PHONE_NUMBER_UNKNOWN = "phone_number_unknown";
+        public static final String PHONE_NUMBER_UNKNOWN_REASON = "phone_number_unknown_reason";
+
     }
 }
