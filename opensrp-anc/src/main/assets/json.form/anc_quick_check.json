@@ -448,9 +448,10 @@
 					"err": "{{anc_quick_check.step1.specific_complaint.v_required.err}}"
 				},
 				"relevance": {
-					"step1:contact_reason": {
-						"type": "string",
-						"ex": "equalTo(.,\"specific_complaint\")"
+					"rules-engine": {
+						"ex-rules": {
+							"rules-file": "anc_quick_check_relevance.yml"
+						}
 					}
 				}
 			},
@@ -467,14 +468,10 @@
 					"err": "{{anc_quick_check.step1.specific_complaint_other.v_regex.err}}"
 				},
 				"relevance": {
-					"step1:specific_complaint": {
-						"ex-checkbox": [
-							{
-								"or": [
-									"other_specify"
-								]
-							}
-						]
+					"rules-engine": {
+						"ex-rules": {
+							"rules-file": "anc_quick_check_relevance.yml"
+						}
 					}
 				}
 			},
@@ -626,7 +623,7 @@
 				"relevance": {
 					"rules-engine": {
 						"ex-rules": {
-							"rules-file": "quick_check_relevance_rules.yml"
+							"rules-file": "anc_quick_check_relevance.yml"
 						}
 					}
 				}
