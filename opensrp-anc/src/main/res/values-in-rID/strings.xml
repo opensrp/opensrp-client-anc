@@ -271,7 +271,7 @@
     <string name="repeating_group_min_value_err_msg">Jumlah grup berulang harus lebih dari %1$d</string>
     <string name="repeating_group_number_format_err_msg">Jumlah grup berulang harus berupa angka integer</string>
     <string name="enter_number_of_repeating_group_items">Masukkan jumlah dari item grup berulang</string>
-    <string name="json_form_error_msg">Terdapat %d error pada form. Silakan perbaiki sebelum di-submit.</string>
+    <string name="json_form_error_msg">Terdapat %d error pada form. Silakan perbaiki sebelum disimpan.</string>
     <string name="json_form_on_next_error_msg">Silakan perbaiki error pada form untuk melanjutkan.</string>
     <string name="simprints_guid">GUID tidak ditemukan</string>
     <string name="simprints_init_fail">Project id, user id atau module id tidak ditemukan. Gunakan SimprintsLibrary.init</string>
