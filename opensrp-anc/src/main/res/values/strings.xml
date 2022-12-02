@@ -415,7 +415,6 @@
 	<string name="contact_summary_data">Contact Summary Data  -  %1$s \n %2$s</string>
 	<string name="pdf_saved_successfully">\"PDF saved on location \"</string>
 	<string name="contact_summary_data_file">contactSummaryData.pdf</string>
-	<string name="device_to_device">Device-to-device sync</string>
 
 
 	<!-- Dialogs & Messages -->
@@ -621,11 +620,8 @@
 	<string name="me_page_placeholder">Me Page Placeholder</string>
 	<string name="default_language_string">Current language: %1s</string>
 	<string name="select_language">Select Language</string>
-	<string name="choose_language">Current language: %1s</string>
-	<string name="english_language">English</string>
-	<string name="french_language">French</string>
-	<string name="portuguese_brazil_language">Portuguese (Brazil)</string>
-	<string name="bahasa_indonesia_language">Bahasa (Indonesia)</string>
+	<string name="choose_language">Choose Language</string>
+	<string name="device_to_device">Device-to-device sync</string>
 
 
 	<!-- Synchronization -->

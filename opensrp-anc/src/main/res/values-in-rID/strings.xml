@@ -619,13 +619,9 @@
     <!-- ======== -->
 
     <string name="me_page_placeholder">Placeholder Halaman Saya</string>
-    <string name="default_language_string">%1s</string>
+    <string name="default_language_string">Bahasa %1s</string>
     <string name="select_language">Pilih Bahasa</string>
     <string name="choose_language">Pilih Bahasa</string>
-    <string name="english_language">English</string>
-    <string name="french_language">French</string>
-    <string name="portuguese_brazil_language">Portuguese (Brazil)</string>
-    <string name="bahasa_indonesia_language">Bahasa Indonesia</string>
     <string name="device_to_device">Sinkronisasi antarperangkat</string>
 
 
