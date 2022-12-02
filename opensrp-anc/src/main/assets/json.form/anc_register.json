@@ -170,6 +170,13 @@
             "openmrs_entity_id": ""
           },
           {
+            "key": "dont_bring",
+            "text": "{{anc_register.step1.uid_unknown_reason.options.dont_bring.text}}",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
             "key": "lost",
             "text": "{{anc_register.step1.uid_unknown_reason.options.lost.text}}",
             "openmrs_entity_parent": "",
@@ -312,8 +319,8 @@
         "type": "check_box",
         "options": [
           {
-            "key": "dob_unknown",
-            "text": "{{anc_register.step1.dob_unknown.options.dob_unknown.text}}",
+            "key": "yes",
+            "text": "{{anc_register.step1.dob_unknown.options.yes.text}}",
             "text_size": "18px",
             "value": "false"
           }
