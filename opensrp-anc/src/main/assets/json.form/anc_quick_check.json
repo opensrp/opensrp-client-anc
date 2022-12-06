@@ -58,6 +58,21 @@
 		"title": "{{anc_quick_check.step1.title}}",
 		"fields": [
 			{
+				"key": "visit_date",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "concept",
+				"openmrs_entity_id": "visit_date",
+				"type": "date_picker",
+				"hint": "{{anc_quick_check.step1.visit_date.hint}}",
+				"expanded": false,
+				"min_date": "today-30d",
+				"max_date": "today",
+				"v_required": {
+					"value": "true",
+					"err": "{{anc_quick_check.step1.visit_date.v_required.err}}"
+				}
+			},
+			{
 				"key": "contact_reason",
 				"openmrs_entity_parent": "",
 				"openmrs_entity": "concept",
