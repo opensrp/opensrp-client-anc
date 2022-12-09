@@ -1,6 +1,7 @@
 *.iml
 .gradle
 /local.properties
+/keystore.properties
 /.idea/libraries
 /.idea/modules.xml
 /.idea/workspace.xml
@@ -19,6 +20,7 @@ gen/
 out/
 target/
 local.properties
+keystore.properties
 drishti-app/tmp/
 classes/
 tmp/
@@ -33,3 +35,4 @@ jacoco.exec
 /build/
 /google-services.json
 *.log
+keystore.properties
