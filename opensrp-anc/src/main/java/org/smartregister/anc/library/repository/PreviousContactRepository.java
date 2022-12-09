@@ -22,7 +22,9 @@ import org.smartregister.anc.library.util.Utils;
 import org.smartregister.repository.BaseRepository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import timber.log.Timber;
@@ -320,91 +322,75 @@ public class PreviousContactRepository extends BaseRepository {
 
         // Validate input parameters
         // Return null if one of the parameters is invalid
-        if (StringUtils.isBlank(baseEntityId) || StringUtils.isBlank(contactNo)) return null;
+        if (StringUtils.isBlank(baseEntityId) || StringUtils.isBlank(contactNo) || contactNo == "0") return null;
 
         // Input parameters are validated
         // Get previous contact Facts
+
+        // Prepare to get data from SQLite database
+        Facts previousContactFacts = null;
+        SQLiteDatabase db = getReadableDatabase();
+
+        // Database query components
+        String selection = BASE_ENTITY_ID + " = ? AND " + CONTACT_NO + " = ?";
+        String[] selectionArgs = new String[]{ baseEntityId, contactNo };
+        String orderBy = "MAX(" + ID + ") DESC";
+
         try {
-
-            // Prepare to get data from SQLite database
-            Facts previousContactFacts = new Facts();
-            SQLiteDatabase db = getReadableDatabase();
-
-            // Database query components
-            String selection = BASE_ENTITY_ID + " = ? AND " + CONTACT_NO + " = ?";
-            String[] selectionArgs = new String[]{ baseEntityId, contactNo };
-            String orderBy = "MAX(" + ID + ") DESC";
 
             // Database cursor object
             Cursor cursor = db.query(TABLE_NAME, projectionArgs, selection, selectionArgs, KEY, null, orderBy, null);
 
             // If the cursor found data, process it as Facts object
-            if (cursor != null & Objects.requireNonNull(cursor).getCount() > 0) {
+            Map<String, String> processedData = new HashMap<>();
 
-                previousContactFacts.put(CONTACT_NO, contactNo);
+            // Process the retrieved data
+            while (cursor.moveToNext()) {
 
-                // Process the retrieved data
-                while (cursor.moveToNext()) {
+                // Process key and value
+                String key = "";
+                String value = "";
+                int keyColumnIndex = cursor.getColumnIndex(KEY);
+                int valueColumnIndex = cursor.getColumnIndex(VALUE);
 
-                    String key;
-                    String value;
-
-                    // -- Process key
-
-                    int keyColumnIndex = cursor.getColumnIndex(KEY);
-                    // If data doesn't have "key" column, break the while-loop process
-                    if (keyColumnIndex == -1) break;
-
+                if (keyColumnIndex >= 0 && valueColumnIndex >= 0) {
                     key = cursor.getString(keyColumnIndex);
-                    // If key is empty, break the while-loop process
-                    if (StringUtils.isBlank(key)) break;
-
-                    // -- Process value
-
-                    // Get and validate the "value" column
-                    int valueColumnIndex = cursor.getColumnIndex(VALUE);
-                    // If data doesn't have "value" column, break the while-loop process
-                    if (valueColumnIndex == -1) break;
-
-                    // Read the value string
                     value = cursor.getString(valueColumnIndex);
-                    // If the "value" column is empty, break the while-loop process
-                    if (StringUtils.isBlank(value)) break;
-
-                    // Check if value is a JSON, then process it accordingly
-                    try {
-                        JSONObject valueObject = new JSONObject(value);
-                        if (valueObject.has(JsonFormConstants.KEY) && valueObject.has(JsonFormConstants.TEXT)) {
-                            String text = valueObject.optString(JsonFormConstants.TEXT).trim();
-                            String translatedText = text;
-                            if (StringUtils.isNotBlank(text)) {
-                                translatedText = NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext());
-                            }
-                            previousContactFacts.put(key, translatedText);
-                        }
-                    }
-
-                    // Value is not a JSON, process it as is
-                    catch (JSONException exp) {
-                        previousContactFacts.put(key, value);
-                    }
-
                 }
 
-                // Return the result
-                return previousContactFacts;
+                // Check if value is a JSON, then process it accordingly
+                try {
+                    JSONObject valueObject = new JSONObject(value);
+                    String text = valueObject.optString(JsonFormConstants.TEXT).trim();
+                    String translatedText = (StringUtils.isBlank(text)) ? text : NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext());
+                    value = (StringUtils.isBlank(translatedText)) ? value : translatedText;
+                } catch (JSONException exp) {
+                    // Value is not JSON string, do not modify value
+                }
+
+                if (StringUtils.isNotBlank(key) && StringUtils.isNotBlank(value)) {
+                    processedData.put(key, value);
+                }
 
             }
 
-            // Data is not found, return null
-            return null;
+            // Assign Facts with processedData
+            if (processedData.size() > 0) {
+                previousContactFacts = new Facts();
+                previousContactFacts.put(CONTACT_NO, contactNo);
+                for (Map.Entry<String, String> entry : processedData.entrySet()) {
+                    previousContactFacts.put(entry.getKey(), entry.getValue());
+                }
+            }
+
         }
 
-        // Cannot get previous contact Facts, return null
+        // Cannot get previous contact Facts
         catch(Exception error) {
             Timber.d(error);
-            return null;
         }
+
+        return previousContactFacts;
     }
 
 
@@ -414,75 +400,33 @@ public class PreviousContactRepository extends BaseRepository {
      * @param baseEntityId  {@link String}
      * @param contactNo     {@link String}
      * @param checkNegative {@link Boolean}
-     * @return Previous contact Facts object if found, otherwise returns empty Facts object {@link Facts}
+     * @return Previous contact Facts if found, otherwise empty Facts object {@link Facts}
      */
     public Facts getPreviousContactFacts(String baseEntityId, String contactNo, boolean checkNegative) {
 
-        final int negativeContactsLimit = 10; // Maximum contactNo of negative contact to search for
+        // Maximum contactNo of negative contact to search for
+        final int maxNegativeContactNo = -10;
 
-        // Validate input parameters
-        // Return empty Facts object if one of the parameters is invalid
-        if (StringUtils.isBlank(baseEntityId) || StringUtils.isBlank(contactNo)) return new Facts();
+        // Facts object that holds the return value
+        Facts previousContactFacts = null;
 
-        // Input parameters are validated
-        // Continue the process
-        try {
+        // Search for current contactNo
+        previousContactFacts = getPreviousContactFacts(baseEntityId, contactNo);
 
-            Facts previousContactFacts = null;
-
-            // If the checkNegative parameter is true, search for negative contacts
-            if (checkNegative) {
-
-                Facts negativeContact = null;
-                int currentNegativeContactNo = (-1) * negativeContactsLimit;
-
-                // Search for a negative contact numbered -10 to -1 (-10, -9, -8, ..., -1)
-
-                while ((currentNegativeContactNo < 0) && (negativeContact == null)) {
-
-                    negativeContact = getPreviousContactFacts(baseEntityId, String.valueOf(currentNegativeContactNo));
-
-                    // Contact found
-                    if (negativeContact != null) {
-                        previousContactFacts = negativeContact;
-                    }
-                    // Negative contact not found, update the current number
-                    else {
-                        currentNegativeContactNo++;
-                    }
-                }
-
-                // Return if the previousContactFacts has been set by negativeContact
-                if (previousContactFacts != null) return previousContactFacts;
-
+        // If the checkNegative parameter is true, search for negative (referral) contacts
+        if (checkNegative) {
+            Facts negativeContact = null;
+            int currentContactNo = maxNegativeContactNo;
+            while ((currentContactNo < 0) && (negativeContact == null)) {
+                negativeContact = getPreviousContactFacts(baseEntityId, String.valueOf(currentContactNo));
+                currentContactNo++;
             }
-
-            // There is no negative contact or the checkNegative is false
-            // Search for current contactNo
-            int contactNumber = Integer.parseInt(contactNo);
-
-            // If contactNumber is zero, return empty Facts object
-            if (contactNumber == 0) return new Facts();
-
-            // contactNumber is greater than zero
-            if (contactNumber > 0) {
-                previousContactFacts = getPreviousContactFacts(baseEntityId, contactNo);
-            }
-
-            // Previous contact found, return the value
-            if (previousContactFacts != null) return previousContactFacts;
-
-            // Catch all if no previous contact found, return empty Facts object
-            return new Facts();
-
+            previousContactFacts = (negativeContact == null) ? previousContactFacts : negativeContact;
         }
 
-        // Something happens when processing the previous contact
-        // Return empty Facts object
-        catch (Exception error) {
-            Timber.d(error);
-            return new Facts();
-        }
+        // Return previous contact Facts
+        // Return empty Facts object if previousContactFacts is null
+        return (previousContactFacts == null) ? new Facts() : previousContactFacts;
 
     }
 
