@@ -322,7 +322,7 @@ public class PreviousContactRepository extends BaseRepository {
 
         // Validate input parameters
         // Return null if one of the parameters is invalid
-        if (StringUtils.isBlank(baseEntityId) || StringUtils.isBlank(contactNo) || contactNo == "0") return null;
+        if (StringUtils.isBlank(baseEntityId) || StringUtils.isBlank(contactNo) || contactNo.equals("0")) return null;
 
         // Input parameters are validated
         // Get previous contact Facts
