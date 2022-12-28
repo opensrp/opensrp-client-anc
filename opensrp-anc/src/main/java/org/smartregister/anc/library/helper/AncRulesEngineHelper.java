@@ -124,7 +124,7 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
 
             @Override
             public void onSuccess(Rule rule, Facts facts) {
-                Timber.e("Putting facts in onSuccess yo");
+                Timber.e("Putting facts in onSuccess");
                 HashMap<String, Object> myMap = facts.get("facts");
 
                 for (String key :
