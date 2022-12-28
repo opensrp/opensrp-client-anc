@@ -113,13 +113,18 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
 
                 Timber.e("Putting facts in beforeExecute");
                 HashMap<String, Object> myMap = new HashMap<>();
+                Map<String,Object> iterationFacts = facts.asMap();
+                for(String key: iterationFacts.keySet() )
+                {
+                    myMap.put(key, iterationFacts.get(key));
+                }
+
                 facts.put("facts", myMap);
             }
 
             @Override
             public void onSuccess(Rule rule, Facts facts) {
-
-                Timber.e("Putting facts in onSuccess");
+                Timber.e("Putting facts in onSuccess yo");
                 HashMap<String, Object> myMap = facts.get("facts");
 
                 for (String key :
@@ -206,7 +211,8 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
         relevanceFacts.put(RuleConstant.IS_RELEVANT, false);
 
         Rules rules = new Rules();
-        Rule mvelRule = new MVELRule().name(UUID.randomUUID().toString()).when(rule).then("isRelevant = true;");
+        Rule mvelRule = new MVELRule().name(UUID.randomUUID().toString()).when(rule)
+                .then("facts.isRelevant = true;");
         rules.register(mvelRule);
 
         processDefaultRules(rules, relevanceFacts);

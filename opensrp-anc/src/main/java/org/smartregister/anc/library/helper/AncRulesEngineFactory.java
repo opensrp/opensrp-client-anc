@@ -63,7 +63,7 @@ public class AncRulesEngineFactory extends RulesEngineFactory {
     public void onSuccess(Rule rule, Facts facts) {
         super.onSuccess(rule, facts);
 
-        Timber.e("Putting facts in onSuccess");
+        Timber.e("Putting facts in onSuccess  ");
         HashMap<String, Object> myMap = facts.get("facts");
 
         for (String key :
