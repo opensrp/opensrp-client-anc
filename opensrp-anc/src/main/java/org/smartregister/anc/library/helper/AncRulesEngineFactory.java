@@ -7,8 +7,6 @@ import com.vijay.jsonwizard.rules.RulesEngineFactory;
 
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rule;
-import org.jeasy.rules.mvel.MVELAction;
-import org.jeasy.rules.mvel.MVELRule;
 import org.json.JSONObject;
 
 import java.util.HashMap;

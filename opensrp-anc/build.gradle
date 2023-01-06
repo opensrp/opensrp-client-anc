@@ -253,8 +253,8 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
     implementation group: 'org.yaml', name: 'snakeyaml', version: '1.31'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
-    implementation 'org.jeasy:easy-rules-core:4.1.0'
-    implementation 'org.jeasy:easy-rules-mvel:4.1.0'
+    implementation 'org.jeasy:easy-rules-core:4.1.1-SNAPSHOT'
+    implementation 'org.jeasy:easy-rules-mvel:4.1.1-SNAPSHOT'
     implementation("com.itextpdf:itext7-core:7.2.4")
     implementation 'org.jacoco:org.jacoco.agent:0.7.9:runtime'
     testImplementation 'org.jacoco:org.jacoco.agent:0.7.9:runtime'
