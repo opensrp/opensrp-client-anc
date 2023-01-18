@@ -48,7 +48,7 @@ android {
                     keyPassword System.getenv("KEY_PASSWORD") ?: project.KEY_PASSWORD
                     storePassword System.getenv("KEYSTORE_PASSWORD") ?: project.KEYSTORE_PASSWORD
                     //Save your keystore file as ~/opensrp-release-upload-key.jks (in your home directory)
-                    storeFile file(System.getProperty("user.home") + "/who.anc.keystore.jks")
+                    storeFile file(System.getProperty("user.home") + "/anckey.keystore.jks")
                 }
             }
     useLibrary 'org.apache.http.legacy'
