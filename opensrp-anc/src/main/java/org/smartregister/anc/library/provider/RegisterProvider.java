@@ -182,8 +182,8 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
             yellowFlagView.setVisibility(View.GONE);
         }
 
-        // View dueButton = viewHolder.dueButton;
-        // attachAlertButtonOnclickListener(dueButton, client);
+         View dueButton = viewHolder.dueButton;
+         attachAlertButtonOnclickListener(dueButton, client);
 
     }
 
