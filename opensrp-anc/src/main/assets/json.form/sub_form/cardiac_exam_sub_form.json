@@ -13,6 +13,7 @@
         {
           "key": "heart_murmur",
           "text": "{{cardiac_exam_sub_form.step1.cardiac_exam_abnormal.options.heart_murmur.text}}",
+          "translation_text": "cardiac_exam_sub_form.step1.cardiac_exam_abnormal.options.heart_murmur.text",
           "value": false,
           "openmrs_entity_parent": "165368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "openmrs_entity_id": "139063AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -21,6 +22,7 @@
         {
           "key": "weak_pulse",
           "text": "{{cardiac_exam_sub_form.step1.cardiac_exam_abnormal.options.weak_pulse.text}}",
+          "translation_text": "cardiac_exam_sub_form.step1.cardiac_exam_abnormal.options.weak_pulse.text",
           "value": false,
           "openmrs_entity_parent": "165368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "openmrs_entity_id": "124823AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -29,6 +31,7 @@
         {
           "key": "tachycardia",
           "text": "{{cardiac_exam_sub_form.step1.cardiac_exam_abnormal.options.tachycardia.text}}",
+          "translation_text": "cardiac_exam_sub_form.step1.cardiac_exam_abnormal.options.tachycardia.text",
           "value": false,
           "openmrs_entity_parent": "165368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "openmrs_entity_id": "125063AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -37,6 +40,7 @@
         {
           "key": "bradycardia",
           "text": "{{cardiac_exam_sub_form.step1.cardiac_exam_abnormal.options.bradycardia.text}}",
+          "translation_text": "cardiac_exam_sub_form.step1.cardiac_exam_abnormal.options.bradycardia.text",
           "value": false,
           "openmrs_entity_parent": "165368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "openmrs_entity_id": "147020AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -45,6 +49,7 @@
         {
           "key": "arrhythmia",
           "text": "{{cardiac_exam_sub_form.step1.cardiac_exam_abnormal.options.arrhythmia.text}}",
+          "translation_text": "cardiac_exam_sub_form.step1.cardiac_exam_abnormal.options.arrhythmia.text",
           "value": false,
           "openmrs_entity_parent": "165368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "openmrs_entity_id": "120148AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -53,6 +58,7 @@
         {
           "key": "cyanosis",
           "text": "{{cardiac_exam_sub_form.step1.cardiac_exam_abnormal.options.cyanosis.text}}",
+          "translation_text": "cardiac_exam_sub_form.step1.cardiac_exam_abnormal.options.cyanosis.text",
           "value": false,
           "openmrs_entity_parent": "165368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "openmrs_entity_id": "143050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -61,6 +67,7 @@
         {
           "key": "cold_sweats",
           "text": "{{cardiac_exam_sub_form.step1.cardiac_exam_abnormal.options.cold_sweats.text}}",
+          "translation_text": "cardiac_exam_sub_form.step1.cardiac_exam_abnormal.options.cold_sweats.text",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165281AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -69,6 +76,7 @@
         {
           "key": "other",
           "text": "{{cardiac_exam_sub_form.step1.cardiac_exam_abnormal.options.other.text}}",
+          "translation_text": "cardiac_exam_sub_form.step1.cardiac_exam_abnormal.options.other.text",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
