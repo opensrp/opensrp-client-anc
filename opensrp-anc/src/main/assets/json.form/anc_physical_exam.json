@@ -1,7 +1,7 @@
 {
 	"validate_on_submit": true,
 	"display_scroll_bars": true,
-	"count": "4",
+	"count": "5",
 	"encounter_type": "anc_physical_exam",
 	"entity_id": "",
 	"relational_id": "",
