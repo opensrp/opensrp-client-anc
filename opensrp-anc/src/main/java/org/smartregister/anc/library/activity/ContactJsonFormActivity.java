@@ -3,6 +3,7 @@ package org.smartregister.anc.library.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -29,6 +30,7 @@ import org.smartregister.anc.library.util.ConstantsUtils;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -194,6 +196,13 @@ public class ContactJsonFormActivity extends FormConfigurationJsonFormActivity {
         } catch (JSONException e) {
             Timber.e(e, "An error occurred while trying to filter checkbox items");
         }
+    }
+
+    @Override
+    public JSONObject getObjectUsingAddress(String[] address, boolean popup) throws JSONException {
+        JSONObject result = super.getObjectUsingAddress(address, popup);
+        if (result == null) return new JSONObject();
+        return result;
     }
 
     /**
