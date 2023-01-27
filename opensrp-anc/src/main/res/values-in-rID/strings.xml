@@ -378,8 +378,8 @@
     <!-- =========== -->
 
     <string name="anc_id_text">ID: %1$s</string>
-    <string name="age_text">Usia: %1$s</string>
-    <string name="ga_text">UK: %1$d Minggu</string>
+    <string name="age_text">%1$s</string>
+    <string name="ga_text">%1$d Minggu</string>
     <string name="bullet">\u2022</string>
 
 
@@ -570,7 +570,7 @@
     <string name="any_changes_you_make">Setiap perubahan akan hilang</string>
     <string name="woman_name">Nama Ibu</string>
     <string name="contact_weeks">Mulai\nKunjungan %1$s\n%2$s</string>
-    <string name="contact_weeks_no_break">Mulai Kunjungan %1$s - %2$s</string>
+    <string name="contact_weeks_no_break">Mulai Kunjungan %1$s</string>
     <string name="contact_in_progress">Kunjungan %1$s\n dalam Proses</string>
     <string name="contact_in_progress_no_break">Kunjungan %1$s &#183; dalam Proses</string>
     <string name="due_delivery">Jatuh Tempo\nMelahirkan</string>

@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Environment;
@@ -535,9 +536,8 @@ public class Utils extends org.smartregister.util.Utils {
         Utils.processButtonAlertStatus(context, dueButton, null, buttonAlertStatus);
     }
 
-    public static void processButtonAlertStatus(Context context, Button dueButton, TextView
-            contactTextView,
-                                                ButtonAlertStatus buttonAlertStatus) {
+    public static void processButtonAlertStatus(Context context, Button dueButton, TextView contactTextView, ButtonAlertStatus buttonAlertStatus) {
+
         if (dueButton != null) {
             dueButton.setVisibility(View.VISIBLE);
             dueButton.setText(buttonAlertStatus.buttonText);
@@ -546,46 +546,35 @@ public class Utils extends org.smartregister.util.Utils {
             if (buttonAlertStatus.buttonAlertStatus != null) {
                 switch (buttonAlertStatus.buttonAlertStatus) {
                     case ConstantsUtils.AlertStatusUtils.IN_PROGRESS:
-                        dueButton.setBackgroundColor(context.getResources().getColor(R.color.progress_orange));
+                        dueButton.setBackgroundTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.progress_orange)));
                         dueButton.setTextColor(context.getResources().getColor(R.color.white));
                         break;
                     case ConstantsUtils.AlertStatusUtils.DUE:
-                        dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
-                        dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
-                        break;
-                    case ConstantsUtils.AlertStatusUtils.OVERDUE:
-                        dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
+                        dueButton.setBackgroundTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.vaccine_blue_bg_st)));
                         dueButton.setTextColor(context.getResources().getColor(R.color.white));
                         break;
-                    case ConstantsUtils.AlertStatusUtils.NOT_DUE:
-                        dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_not_due));
-                        dueButton.setTextColor(context.getResources().getColor(R.color.dark_grey));
+                    case ConstantsUtils.AlertStatusUtils.OVERDUE:
+                        dueButton.setBackgroundTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.vaccine_red_bg_st)));
+                        dueButton.setTextColor(context.getResources().getColor(R.color.white));
                         break;
                     case ConstantsUtils.AlertStatusUtils.DELIVERY_DUE:
-                        dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
-                        dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
+                        dueButton.setBackgroundTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.vaccine_red_bg_st)));
+                        dueButton.setTextColor(context.getResources().getColor(R.color.white));
                         dueButton.setText(context.getString(R.string.due_delivery));
                         break;
                     case ConstantsUtils.AlertStatusUtils.EXPIRED:
-                        dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
+                        dueButton.setBackgroundTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.vaccine_red_bg_st)));
                         dueButton.setTextColor(context.getResources().getColor(R.color.white));
                         dueButton.setText(context.getString(R.string.due_delivery));
                         break;
                     case ConstantsUtils.AlertStatusUtils.TODAY:
-                        if (contactTextView != null) {
-                            contactTextView.setText(String.format(context.getString(R.string.contact_recorded_today),
-                                    Utils.getTodayContact(String.valueOf(buttonAlertStatus.nextContact))));
-                            contactTextView.setPadding(2, 2, 2, 2);
-                        }
-                        dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_disabled));
-                        dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_disabled));
-                        dueButton.setTextColor(context.getResources().getColor(R.color.dark_grey));
-                        dueButton.setText(String.format(context.getString(R.string.contact_recorded_today_no_break),
-                                Utils.getTodayContact(String.valueOf(buttonAlertStatus.nextContact))));
+                        dueButton.setBackgroundTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.alert_complete_green)));
+                        dueButton.setTextColor(context.getResources().getColor(R.color.white));
+                        dueButton.setText(String.format(context.getString(R.string.contact_recorded_today_no_break), Utils.getTodayContact(String.valueOf(buttonAlertStatus.nextContact))));
                         break;
                     default:
-                        dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
-                        dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
+                        dueButton.setBackgroundTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.vaccine_blue_bg_st)));
+                        dueButton.setTextColor(context.getResources().getColor(R.color.white));
                         break;
                 }
 

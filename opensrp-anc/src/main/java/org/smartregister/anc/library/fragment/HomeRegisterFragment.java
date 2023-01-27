@@ -109,7 +109,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
         }
 
         //Risk view
-        View attentionFlag = view.findViewById(R.id.risk);
+        View attentionFlag = view.findViewById(R.id.red_flag);
         if (attentionFlag != null) {
             attentionFlag.setOnClickListener(registerActionHandler);
         }
