@@ -104,6 +104,7 @@ public class RegisterQueryProvider {
             // Additional local fields
             DBConstantsUtils.KeyUtils.UID,
             DBConstantsUtils.KeyUtils.SSN,
+            getDetailsTable() + "." + DBConstantsUtils.KeyUtils.SSN_STATUS,
             getDetailsTable() + "." + DBConstantsUtils.KeyUtils.UID_UNKNOWN,
             getDetailsTable() + "." + DBConstantsUtils.KeyUtils.UID_UNKNOWN_REASON,
             getDetailsTable() + "." + DBConstantsUtils.KeyUtils.PHONE_NUMBER_UNKNOWN,

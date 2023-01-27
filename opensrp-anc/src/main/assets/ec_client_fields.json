@@ -106,6 +106,12 @@
 					"json_mapping": {
 						"field": "attributes.uid_unknown_reason"
 					}
+				},{
+					"column_name": "ssn_status",
+					"type": "Client",
+					"json_mapping": {
+						"field": "attributes.ssn_status"
+					}
 				},
 				{
 					"column_name": "phone_number",
