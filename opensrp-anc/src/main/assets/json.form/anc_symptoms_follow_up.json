@@ -3,7 +3,7 @@
   "display_scroll_bars": true,
   "skip_blank_steps": true,
   "count": "4",
-  "encounter_type": "Symptoms and Follow-up",
+  "encounter_type": "anc_symptoms_follow_up",
   "entity_id": "",
   "relational_id": "",
   "form_version": "0.0.1",

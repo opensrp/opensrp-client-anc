@@ -344,7 +344,7 @@
     <string name="action_logout">Logout</string>
     <string name="action_language">Bahasa</string>
     <string name="scan_qr_code">Scan QR code</string>
-    <string name="complete">Tuntaskan</string>
+    <string name="complete">Selesai</string>
     <string name="remove_from_register">Hapus dari Daftar</string>
     <string name="dismiss">Batalkan</string>
     <string name="apply">Terapkan</string>

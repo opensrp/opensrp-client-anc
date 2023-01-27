@@ -2,7 +2,7 @@
 	"validate_on_submit": true,
 	"display_scroll_bars": true,
 	"count": "8",
-	"encounter_type": "Profile",
+	"encounter_type": "anc_profile",
 	"entity_id": "",
 	"relational_id": "",
 	"form_version": "0.0.15",
