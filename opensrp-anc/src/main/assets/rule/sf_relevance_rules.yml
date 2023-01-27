@@ -131,7 +131,7 @@ description: Intimate Partner Violence(IPV)
 priority: 1
 condition: "global_site_ipv_assess == true"
 actions:
-- "isRelevant = true"
+  - "isRelevant = true"
 ---
 name: step4_toaster23
 description: Intimate Partner Violence(IPV) Toaster
