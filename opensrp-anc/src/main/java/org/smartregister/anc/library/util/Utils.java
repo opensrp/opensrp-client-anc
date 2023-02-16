@@ -42,7 +42,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.jeasy.rules.api.Facts;
 import org.jetbrains.annotations.NotNull;
+import org.joda.time.Days;
+import org.joda.time.Duration;
+import org.joda.time.Interval;
 import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 import org.joda.time.Weeks;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -93,6 +97,7 @@ import java.util.List;
 import java.util.Map;
 
 import timber.log.Timber;
+import java.time.temporal.ChronoUnit;
 
 /**
  * Created by ndegwamartin on 14/03/2018.
@@ -454,6 +459,16 @@ public class Utils extends org.smartregister.util.Utils {
         }
     }
 
+    public static String getActualEDD(String edd, String recordDate, String visitDate) {
+        LocalDateTime date_edd = LocalDateTime.parse(edd);
+        LocalDateTime date_record = LocalDateTime.parse(recordDate);
+        LocalDateTime date_visit = LocalDateTime.parse(visitDate);
+        Days interval = Days.daysBetween(date_visit, date_record);
+        LocalDateTime date_actual = date_edd.minusDays(interval.getDays());
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
+        return formatter.print(date_actual);
+    }
+
     public static ButtonAlertStatus getButtonAlertStatus
             (Map<String, String> details, Context context, boolean isProfile) {
         String contactStatus = details.get(DBConstantsUtils.KeyUtils.CONTACT_STATUS);
@@ -464,10 +479,19 @@ public class Utils extends org.smartregister.util.Utils {
 
         String nextContactDate = details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE);
         String edd = details.get(DBConstantsUtils.KeyUtils.EDD);
+        String actualEdd;
+
+        // EDD
+        if (visitDate != null) {
+            actualEdd = getActualEDD(edd, lastContactRecordDate, visitDate);
+        } else {
+            actualEdd = edd;
+        }
+
         String alertStatus;
         Integer gestationAge = 0;
-        if (StringUtils.isNotBlank(edd)) {
-            gestationAge = Utils.getGestationAgeFromEDDate(edd);
+        if (StringUtils.isNotBlank(actualEdd)) {
+            gestationAge = Utils.getGestationAgeFromEDDate(actualEdd);
             AlertRule alertRule = new AlertRule(gestationAge, nextContactDate);
             alertStatus =
                     StringUtils.isNotBlank(contactStatus) && ConstantsUtils.AlertStatusUtils.ACTIVE.equals(contactStatus) ?
