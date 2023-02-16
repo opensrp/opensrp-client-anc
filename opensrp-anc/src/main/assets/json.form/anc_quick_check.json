@@ -65,7 +65,7 @@
 				"type": "date_picker",
 				"hint": "{{anc_quick_check.step1.visit_date.hint}}",
 				"expanded": false,
-				"min_date": "today-30d",
+				"min_date": "today-320d",
 				"max_date": "today",
 				"v_required": {
 					"value": "true",
