@@ -12,6 +12,7 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +22,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonParser;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
@@ -417,9 +420,47 @@ public class Utils extends org.smartregister.util.Utils {
         return (new LocalDate()).toString(SQLITE_DATE_DF);
     }
 
+    public static String getClientLastVisitDate(String entityId) {
+        try {
+            JSONObject client = AncLibrary.getInstance().getEventClientRepository().getEventsByBaseEntityId(entityId);
+            JSONArray events = client.getJSONArray("events");
+            ArrayList<String> visitDates = new ArrayList<String>();
+            for (int i = 0; i < events.length(); i++) {
+                JSONObject event = events.getJSONObject(i);
+                String eventType = event.getString("eventType");
+                if (eventType.equals("anc_quick_check")) {
+                    JSONArray obs = event.getJSONArray("obs");
+                    for (int j = 0; j < obs.length(); j++) {
+                        JSONObject field = obs.getJSONObject(j);
+                        String fieldCode = field.getString("fieldCode");
+                        if (fieldCode.equals("visit_date")) {
+                            JSONArray values = field.getJSONArray("values");
+                            String visitDate = values.getString(0);
+                            if (visitDate != null) {
+                                visitDates.add(visitDate);
+                            }
+                        }
+                    }
+                }
+            }
+            if (visitDates.size() == 0) return null;
+            String visitDate = visitDates.get(visitDates.size()-1);
+            String day = visitDate.substring(0,2);
+            String month = visitDate.substring(3,5);
+            String year = visitDate.substring(6,10);
+            return year + "-" + month + "-" + day;
+        } catch (JSONException e) {
+            return null;
+        }
+    }
+
     public static ButtonAlertStatus getButtonAlertStatus
             (Map<String, String> details, Context context, boolean isProfile) {
         String contactStatus = details.get(DBConstantsUtils.KeyUtils.CONTACT_STATUS);
+
+        // Encounter date
+        String visitDate = getClientLastVisitDate(details.get("base_entity_id"));
+        String lastContactRecordDate = details.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE);
 
         String nextContactDate = details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE);
         String edd = details.get(DBConstantsUtils.KeyUtils.EDD);
@@ -448,8 +489,11 @@ public class Utils extends org.smartregister.util.Utils {
         buttonAlertStatus.buttonText = String.format(getDisplayTemplate(context, alertStatus, isProfile), nextContact, (nextContactDate != null ? nextContactDate :
                 Utils.convertDateFormat(Calendar.getInstance().getTime(), Utils.CONTACT_DF)));
 
-        alertStatus =
-                Utils.processContactDoneToday(details.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE), alertStatus);
+        if (visitDate != null) {
+            alertStatus = Utils.processContactDoneToday(visitDate, alertStatus);
+        } else {
+            alertStatus = Utils.processContactDoneToday(lastContactRecordDate, alertStatus);
+        }
 
         buttonAlertStatus.buttonAlertStatus = alertStatus;
         buttonAlertStatus.gestationAge = gestationAge;
