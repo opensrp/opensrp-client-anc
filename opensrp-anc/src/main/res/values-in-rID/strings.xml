@@ -379,7 +379,9 @@
 
     <string name="anc_id_text">ID: %1$s</string>
     <string name="age_text">%1$s</string>
-    <string name="ga_text">%1$d Minggu</string>
+    <string name="age_text_years">%1$s Tahun</string>
+    <string name="ga_text">%1$d</string>
+    <string name="ga_text_weeks">%1$s Minggu</string>
     <string name="bullet">\u2022</string>
 
 
@@ -610,8 +612,8 @@
     <string name="no_contact_schedule">Belum ada jadwal kunjungan yang dibuat</string>
     <string name="hospital_referral_title">Rujukan Rumah Sakit direkam</string>
     <string name="tab_button_image">Gambar tombol tab</string>
-    <string name="tap_button_below">Tekan tombol berikut untuk mulai/lanjutkan kunjungan</string>
-    <string name="no_health_data_recorded">Tidak ada data kesehatan terekam</string>
+    <string name="tap_button_below">Tekan tombol di bawah</string>
+    <string name="no_health_data_recorded">Belum ada data</string>
     <string name="tests_tasks_header">Tes</string>
     <string name="view_anc_history">Lihat histori ANC</string>
 
