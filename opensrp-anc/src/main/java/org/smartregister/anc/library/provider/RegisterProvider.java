@@ -125,27 +125,30 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
     private void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client,
                                        RegisterViewHolder viewHolder) {
 
-        // - Patient Column
+        // - Encounter Date
+        String visitDate = Utils.getClientLastVisitDate(client.entityId());
 
+        // - Patient Column
         View patientColumnView = viewHolder.patientColumn;
         attachPatientOnclickListener(patientColumnView, client);
 
         // - Patient Name
-
         String firstName = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.FIRST_NAME, true);
         String lastName = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.LAST_NAME, true);
         String patientName = Utils.getName(firstName, lastName);
         fillValue(viewHolder.patientName, WordUtils.capitalize(patientName));
 
         // - Date of Birth
-
         String dobString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.DOB, false));
         dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
         fillValue((viewHolder.age), String.format(context.getString(R.string.age_text), dobString));
 
         // - Gestational Age
-
         String edd = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.EDD, false);
+        if (visitDate != null) {
+            String recordDate = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE, false);
+            edd = Utils.getActualEDD(edd, recordDate, visitDate);
+        }
         int gaValue = StringUtils.isNotBlank(edd) ? Utils.getGestationAgeFromEDDate(edd) : 0;
         String gaText = gaValue > 0 ? String.format(context.getString(R.string.ga_text), gaValue) : "-";
 
