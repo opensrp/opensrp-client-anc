@@ -1,7 +1,7 @@
-name: 'WHO ANC support request (Nepal Team).'
-description: 'Use this for the (Nepal Team) team to request for support form the ona team.'
+name: 'WHO ANC support request (Brazil team).'
+description: 'Use this for the (Brazil team) team to request for support form the Ona team.'
 title: '[Ona Support Request]: '
-labels: [Tech Partner (Nepal Team)]
+labels: [Tech Partner (Unicamp)]
 body:
   - type: markdown
     attributes:
