@@ -47,7 +47,7 @@ description: Ultrasound edd
 priority: 1
 condition: "step2_ultrasound_gest_age_wks != ''"
 actions:
-  - "calculation = helper.addDuration(helper.getSecondaryValue(step2_ultrasound_done_date), ( (280 - ( (new Integer(step2_ultrasound_gest_age_wks) * 7) +  new Integer(step2_ultrasound_gest_age_days != '' ? step2_ultrasound_gest_age_days : 0)) ) +'d'))"
+  - "calculation = helper.addDuration(helper.getSecondaryValue(global_visit_date), ( (280 - ( (new Integer(step2_ultrasound_gest_age_wks) * 7) +  new Integer(step2_ultrasound_gest_age_days != '' ? step2_ultrasound_gest_age_days : 0)) ) +'d'))"
 ---
 name: step2_ultrasound_gest_age
 description: Ultrasound  Gest age
@@ -61,7 +61,7 @@ description: SFH edd
 priority: 1
 condition: "step2_sfh_gest_age > 0"
 actions:
-  - "calculation = helper.addDuration((280 - (step2_sfh_gest_age * 7)) + 'd')"
+  - "calculation = helper.addDuration(helper.getSecondaryValue(global_visit_date), (280 - (step2_sfh_gest_age * 7)) + 'd')"
 ---
 name: step2_sfh_ga_hidden
 description: SFH edd
