@@ -26,7 +26,7 @@ description: LMP Gest age
 priority: 1
 condition: "step2_lmp_known == 'yes'"
 actions:
-  - "calculation = helper.getWeeksAndDaysFromDays(helper.getDifferenceDays(helper.getSecondaryValue(step2_lmp_known_date)))"
+  - "calculation = helper.getWeeksAndDaysFromDays(helper.getDifferenceDays(helper.getSecondaryValue(step2_lmp_known_date), helper.getSecondaryValue(global_visit_date)))"
 ---
 name: step2_ultrasound_gest_age_concept
 description: Ultrasound  Gest age concept
@@ -54,7 +54,7 @@ description: Ultrasound  Gest age
 priority: 1
 condition: "step2_ultrasound_done== 'yes'"
 actions:
-  - "calculation =  helper.getWeeksAndDaysFromDays( 280 - helper.getDifferenceDays(helper.getSecondaryValue(step2_ultrasound_edd)) - 1 )"
+  - "calculation =  helper.getWeeksAndDaysFromDays( helper.getDifferenceDays(helper.getSecondaryValue(step2_ultrasound_done_date), helper.getSecondaryValue(global_visit_date)) + (new Integer(step2_ultrasound_gest_age_wks) * 7) + (new Integer(step2_ultrasound_gest_age_days != '' ? step2_ultrasound_gest_age_days : 0)) )"
 ---
 name: step2_sfh_edd
 description: SFH edd

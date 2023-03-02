@@ -460,13 +460,17 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     public static String getActualEDD(String edd, String recordDate, String visitDate) {
-        LocalDateTime date_edd = LocalDateTime.parse(edd);
-        LocalDateTime date_record = LocalDateTime.parse(recordDate);
-        LocalDateTime date_visit = LocalDateTime.parse(visitDate);
-        Days interval = Days.daysBetween(date_visit, date_record);
-        LocalDateTime date_actual = date_edd.minusDays(interval.getDays());
-        DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
-        return formatter.print(date_actual);
+        try {
+            LocalDateTime date_edd = LocalDateTime.parse(edd);
+            LocalDateTime date_record = LocalDateTime.parse(recordDate);
+            LocalDateTime date_visit = LocalDateTime.parse(visitDate);
+            Days interval = Days.daysBetween(date_visit, date_record);
+            LocalDateTime date_actual = date_edd.minusDays(interval.getDays());
+            DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
+            return formatter.print(date_actual);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public static ButtonAlertStatus getButtonAlertStatus

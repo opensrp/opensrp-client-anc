@@ -147,7 +147,8 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         String edd = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.EDD, false);
         if (visitDate != null) {
             String recordDate = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE, false);
-            edd = Utils.getActualEDD(edd, recordDate, visitDate);
+            String actualEdd = Utils.getActualEDD(edd, recordDate, visitDate);
+            if (actualEdd != null) edd = actualEdd;
         }
         int gaValue = StringUtils.isNotBlank(edd) ? Utils.getGestationAgeFromEDDate(edd) : 0;
         String gaText = gaValue > 0 ? String.format(context.getString(R.string.ga_text), gaValue) : "-";
