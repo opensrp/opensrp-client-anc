@@ -457,7 +457,7 @@
 						"specify_info": "tentukkan tanggal",
 						"specify_widget": "date_picker",
 						"max_date": "today-14d",
-						"min_date": "today-280d"
+						"min_date": "today-14m"
 					},
 					{
 						"key": "no",
@@ -542,7 +542,7 @@
 						"specify_info": "tanggal USG",
 						"specify_widget": "date_picker",
 						"max_date": "today",
-						"min_date": "today-9m",
+						"min_date": "today-14m",
 						"default": "today"
 					},
 					{
