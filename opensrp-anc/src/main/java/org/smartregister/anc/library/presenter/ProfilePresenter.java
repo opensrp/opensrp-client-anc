@@ -2,6 +2,7 @@ package org.smartregister.anc.library.presenter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 
 import androidx.core.util.Pair;
@@ -148,17 +149,22 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
                 String age = String.valueOf(Utils.getAgeFromDate(client.get(DBConstantsUtils.KeyUtils.DOB)));
                 String recordDate = client.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE);
                 String lastVisit = Utils.getClientLastVisitDate(entityId);
-                String edd = client.get(DBConstantsUtils.KeyUtils.EDD);
-                String actualEdd = Utils.getActualEDD(edd, recordDate, lastVisit);
-                String ga = String.valueOf(Utils.getGestationAgeFromEDDate(actualEdd != null ? actualEdd : edd));
                 String phoneNumber = client.get(DBConstantsUtils.KeyUtils.EDD);
                 // Update text in UI
                 profile.setProfileImage(entityId);
                 profile.setProfileID(ancId);
                 profile.setProfileName(name);
                 profile.setProfileAge(age);
-                profile.setProfileGestationAge(ga);
-                profile.setPhoneNumber(phoneNumber);
+
+				// Contact-based details
+				if (recordDate != null) {
+					String edd = client.get(DBConstantsUtils.KeyUtils.EDD);
+					String actualEdd = Utils.getActualEDD(edd, recordDate, lastVisit);
+					String ga = String.valueOf(Utils.getGestationAgeFromEDDate(actualEdd != null ? actualEdd : edd));
+					profile.setProfileGestationAge(ga);
+					profile.setPhoneNumber(phoneNumber);
+				}
+
 
             } catch (Exception e) {
                 getProfileView().setProfileGestationAge("0");
