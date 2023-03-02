@@ -116,7 +116,10 @@
 				"openmrs_entity_id": "uid",
 				"type": "edit_text",
 				"hint": "{{anc_register.step1.uid.hint}}",
-				"edit_type": "name",
+				"v_numeric": {
+					"value": "true",
+					"err": "{{anc_register.step1.uid.v_numeric.err}}"
+				},
 				"v_required": {
 					"value": "true",
 					"err": "{{anc_register.step1.uid.v_required.err}}"
@@ -210,7 +213,10 @@
 				"openmrs_entity_id": "ssn",
 				"type": "edit_text",
 				"hint": "{{anc_register.step1.ssn.hint}}",
-				"edit_type": "name",
+				"v_numeric": {
+					"value": "true",
+					"err": "{{anc_register.step1.ssn.v_numeric.err}}"
+				},
 				"v_regex": {
 					"value": "^$|[0-9]{11,13}",
 					"err": "{{anc_register.step1.ssn.v_length.err}}"
