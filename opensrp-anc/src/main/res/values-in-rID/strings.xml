@@ -8,7 +8,7 @@
     <!-- App Configuration -->
     <!-- ================= -->
 
-    <string name="app_name">Bunda</string>
+    <string name="app_name">BUNDA</string>
     <string name="app_version">Versi Aplikasi: %1$s (dibuat %2$s)</string>
     <string name="outdated_app">This is an outdated app. Please update to the latest version to continue.</string>
     <string name="app_reset_status">Status reset aplikasi</string>
