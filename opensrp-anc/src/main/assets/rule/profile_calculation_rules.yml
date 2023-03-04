@@ -68,7 +68,7 @@ description: SFH edd
 priority: 1
 condition: "true"
 actions:
-  - "calculation = step2_sfh_gest_age > 0 && step2_sfh_gest_age <= 44 ? helper.getWeeksStringFromInteger(step2_sfh_gest_age) : 0"
+  - "calculation = step2_sfh_gest_age > 0 ? helper.getWeeksAndDaysFromDays(step2_sfh_gest_age * 7) : 0"
 ---
 name: step2_lmp_gest_age_selection
 description: Gest age
@@ -89,7 +89,7 @@ description: Gest age
 priority: 1
 condition: "true"
 actions:
-  - "calculation = ['sfh_gest_age':step2_sfh_ga_hidden,'sfh_edd':step2_sfh_edd]"
+  - "calculation = ['sfh_gest_age': step2_sfh_ga_hidden, 'sfh_edd': step2_sfh_edd]"
 ---
 name: step2_lmp_ultrasound_gest_age_selection
 description: Gest age
