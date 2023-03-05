@@ -8,6 +8,7 @@
       "type": "label",
       "label_text_style": "bold",
       "text": "{{cervical_exam_sub_form.step1.dilation_cm_label.text}}",
+      "translation_text": "cervical_exam_sub_form.step1.dilation_cm_label.text",
       "text_color": "#000000",
       "v_required": {
         "value": false
@@ -23,15 +24,15 @@
       "edit_type": "number",
       "v_numeric_integer": {
         "value": "true",
-        "err": "Enter valid cervical dilation in cm"
+        "err": "{{cervical_exam_sub_form.step1.dilation_cm.v_numeric_integer.err}}"
       },
       "v_min": {
         "value": "0",
-        "err": "Cervical dilation must be greater than or equal to 0"
+        "err": "{{cervical_exam_sub_form.step1.dilation_cm.v_min.err}}"
       },
       "v_max": {
         "value": "10",
-        "err": "Cervical dilation must be equal to or less than 10"
+        "err": "{{cervical_exam_sub_form.step1.dilation_cm.v_max.err}}"
       },
       "v_required": {
         "value": false,

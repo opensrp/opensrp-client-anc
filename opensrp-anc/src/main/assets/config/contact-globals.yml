@@ -1,6 +1,7 @@
 ---
 form: anc_counselling_treatment
 fields:
+  - "visit_date"
   - "hepc_positive"
   - "danger_signs"
   - "danger_signs_value"
@@ -122,6 +123,7 @@ fields:
 ---
 form: anc_profile
 fields:
+  - "visit_date"
   - "contact_no"
   - "no_of_fetuses"
   - "bmi"

@@ -12,7 +12,8 @@
       "options": [
         {
           "key": "done_today",
-          "text": "{{tests_blood_type_sub_form.step1.blood_type_test_status.options.done_today.text}}",
+          "text": "{{tests_blood_type_sub_form.step1.blood_type_test_status.done_today.text}}",
+          "translation_text": "tests_blood_type_sub_form.step1.blood_type_test_status.done_today.text",
           "type": "done_today",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -20,7 +21,8 @@
         },
         {
           "key": "done_earlier",
-          "text": "{{tests_blood_type_sub_form.step1.blood_type_test_status.options.done_earlier.text}}",
+          "text": "{{tests_blood_type_sub_form.step1.blood_type_test_status.done_earlier.text}}",
+          "translation_text": "tests_blood_type_sub_form.step1.blood_type_test_status.done_earlier.text",
           "type": "done_earlier",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -28,7 +30,8 @@
         },
         {
           "key": "ordered",
-          "text": "{{tests_blood_type_sub_form.step1.blood_type_test_status.options.ordered.text}}",
+          "text": "{{tests_blood_type_sub_form.step1.blood_type_test_status.ordered.text}}",
+          "translation_text": "tests_blood_type_sub_form.step1.blood_type_test_status.ordered.text",
           "type": "ordered",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -36,7 +39,8 @@
         },
         {
           "key": "not_done",
-          "text": "{{tests_blood_type_sub_form.step1.blood_type_test_status.options.not_done.text}}",
+          "text": "{{tests_blood_type_sub_form.step1.blood_type_test_status.not_done.text}}",
+          "translation_text": "tests_blood_type_sub_form.step1.blood_type_test_status.not_done.text",
           "type": "not_done",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -199,6 +203,7 @@
       "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "{{tests_blood_type_sub_form.step1.rh_factor_toaster.text}}",
+      "translation_text": "tests_blood_type_sub_form.step1.rh_factor_toaster.text",
       "toaster_info_text": "{{tests_blood_type_sub_form.step1.rh_factor_toaster.toaster_info_text}}",
       "toaster_info_title": "{{tests_blood_type_sub_form.step1.rh_factor_toaster.toaster_info_title}}",
       "toaster_type": "warning",

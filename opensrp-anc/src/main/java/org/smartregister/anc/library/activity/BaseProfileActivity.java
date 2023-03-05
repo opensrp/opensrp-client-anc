@@ -16,6 +16,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.anc.library.AppConfig;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.ProfileContract;
 import org.smartregister.anc.library.event.ClientDetailsFetchedEvent;
@@ -25,6 +26,7 @@ import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.util.LangUtils;
 import org.smartregister.view.activity.SecuredActivity;
 
 import timber.log.Timber;
@@ -49,6 +51,7 @@ public abstract class BaseProfileActivity extends SecuredActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setDefaultLocale();
         setContentView(getViewLayoutId());
         findViewById(R.id.btn_profile_registration_info).setOnClickListener(this);
 
@@ -170,5 +173,10 @@ public abstract class BaseProfileActivity extends SecuredActivity
 
     public void setProgressDialog(ProgressDialog progressDialog) {
         this.progressDialog = progressDialog;
+    }
+
+    public void setDefaultLocale() {
+        LangUtils.saveLanguage(getApplication(), AppConfig.DefaultLocale.getLanguage());
+        Utils.saveLanguage(AppConfig.DefaultLocale.getLanguage());
     }
 }

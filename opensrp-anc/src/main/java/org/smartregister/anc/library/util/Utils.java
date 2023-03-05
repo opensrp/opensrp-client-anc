@@ -5,12 +5,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +22,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonParser;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
@@ -38,7 +42,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.jeasy.rules.api.Facts;
 import org.jetbrains.annotations.NotNull;
+import org.joda.time.Days;
+import org.joda.time.Duration;
+import org.joda.time.Interval;
 import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 import org.joda.time.Weeks;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -89,6 +97,7 @@ import java.util.List;
 import java.util.Map;
 
 import timber.log.Timber;
+import java.time.temporal.ChronoUnit;
 
 /**
  * Created by ndegwamartin on 14/03/2018.
@@ -416,16 +425,77 @@ public class Utils extends org.smartregister.util.Utils {
         return (new LocalDate()).toString(SQLITE_DATE_DF);
     }
 
+    public static String getClientLastVisitDate(String entityId) {
+        try {
+            JSONObject client = AncLibrary.getInstance().getEventClientRepository().getEventsByBaseEntityId(entityId);
+            JSONArray events = client.getJSONArray("events");
+            ArrayList<String> visitDates = new ArrayList<String>();
+            for (int i = 0; i < events.length(); i++) {
+                JSONObject event = events.getJSONObject(i);
+                String eventType = event.getString("eventType");
+                if (eventType.equals("anc_quick_check")) {
+                    JSONArray obs = event.getJSONArray("obs");
+                    for (int j = 0; j < obs.length(); j++) {
+                        JSONObject field = obs.getJSONObject(j);
+                        String fieldCode = field.getString("fieldCode");
+                        if (fieldCode.equals("visit_date")) {
+                            JSONArray values = field.getJSONArray("values");
+                            String visitDate = values.getString(0);
+                            if (visitDate != null) {
+                                visitDates.add(visitDate);
+                            }
+                        }
+                    }
+                }
+            }
+            if (visitDates.size() == 0) return null;
+            String visitDate = visitDates.get(visitDates.size()-1);
+            String day = visitDate.substring(0,2);
+            String month = visitDate.substring(3,5);
+            String year = visitDate.substring(6,10);
+            return year + "-" + month + "-" + day;
+        } catch (JSONException e) {
+            return null;
+        }
+    }
+
+    public static String getActualEDD(String edd, String recordDate, String visitDate) {
+        try {
+            LocalDateTime date_edd = LocalDateTime.parse(edd);
+            LocalDateTime date_record = LocalDateTime.parse(recordDate);
+            LocalDateTime date_visit = LocalDateTime.parse(visitDate);
+            Days interval = Days.daysBetween(date_visit, date_record);
+            LocalDateTime date_actual = date_edd.minusDays(interval.getDays());
+            DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
+            return formatter.print(date_actual);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public static ButtonAlertStatus getButtonAlertStatus
             (Map<String, String> details, Context context, boolean isProfile) {
         String contactStatus = details.get(DBConstantsUtils.KeyUtils.CONTACT_STATUS);
 
+        // Encounter date
+        String visitDate = getClientLastVisitDate(details.get("base_entity_id"));
+        String lastContactRecordDate = details.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE);
+
         String nextContactDate = details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE);
         String edd = details.get(DBConstantsUtils.KeyUtils.EDD);
+        String actualEdd;
+
+        // EDD
+        if (visitDate != null) {
+            actualEdd = getActualEDD(edd, lastContactRecordDate, visitDate);
+        } else {
+            actualEdd = edd;
+        }
+
         String alertStatus;
         Integer gestationAge = 0;
-        if (StringUtils.isNotBlank(edd)) {
-            gestationAge = Utils.getGestationAgeFromEDDate(edd);
+        if (StringUtils.isNotBlank(actualEdd)) {
+            gestationAge = Utils.getGestationAgeFromEDDate(actualEdd);
             AlertRule alertRule = new AlertRule(gestationAge, nextContactDate);
             alertStatus =
                     StringUtils.isNotBlank(contactStatus) && ConstantsUtils.AlertStatusUtils.ACTIVE.equals(contactStatus) ?
@@ -447,8 +517,11 @@ public class Utils extends org.smartregister.util.Utils {
         buttonAlertStatus.buttonText = String.format(getDisplayTemplate(context, alertStatus, isProfile), nextContact, (nextContactDate != null ? nextContactDate :
                 Utils.convertDateFormat(Calendar.getInstance().getTime(), Utils.CONTACT_DF)));
 
-        alertStatus =
-                Utils.processContactDoneToday(details.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE), alertStatus);
+        if (visitDate != null) {
+            alertStatus = Utils.processContactDoneToday(visitDate, alertStatus);
+        } else {
+            alertStatus = Utils.processContactDoneToday(lastContactRecordDate, alertStatus);
+        }
 
         buttonAlertStatus.buttonAlertStatus = alertStatus;
         buttonAlertStatus.gestationAge = gestationAge;
@@ -535,9 +608,8 @@ public class Utils extends org.smartregister.util.Utils {
         Utils.processButtonAlertStatus(context, dueButton, null, buttonAlertStatus);
     }
 
-    public static void processButtonAlertStatus(Context context, Button dueButton, TextView
-            contactTextView,
-                                                ButtonAlertStatus buttonAlertStatus) {
+    public static void processButtonAlertStatus(Context context, Button dueButton, TextView contactTextView, ButtonAlertStatus buttonAlertStatus) {
+
         if (dueButton != null) {
             dueButton.setVisibility(View.VISIBLE);
             dueButton.setText(buttonAlertStatus.buttonText);
@@ -546,46 +618,35 @@ public class Utils extends org.smartregister.util.Utils {
             if (buttonAlertStatus.buttonAlertStatus != null) {
                 switch (buttonAlertStatus.buttonAlertStatus) {
                     case ConstantsUtils.AlertStatusUtils.IN_PROGRESS:
-                        dueButton.setBackgroundColor(context.getResources().getColor(R.color.progress_orange));
+                        dueButton.setBackgroundTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.progress_orange)));
                         dueButton.setTextColor(context.getResources().getColor(R.color.white));
                         break;
                     case ConstantsUtils.AlertStatusUtils.DUE:
-                        dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
-                        dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
-                        break;
-                    case ConstantsUtils.AlertStatusUtils.OVERDUE:
-                        dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
+                        dueButton.setBackgroundTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.vaccine_blue_bg_st)));
                         dueButton.setTextColor(context.getResources().getColor(R.color.white));
                         break;
-                    case ConstantsUtils.AlertStatusUtils.NOT_DUE:
-                        dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_not_due));
-                        dueButton.setTextColor(context.getResources().getColor(R.color.dark_grey));
+                    case ConstantsUtils.AlertStatusUtils.OVERDUE:
+                        dueButton.setBackgroundTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.vaccine_red_bg_st)));
+                        dueButton.setTextColor(context.getResources().getColor(R.color.white));
                         break;
                     case ConstantsUtils.AlertStatusUtils.DELIVERY_DUE:
-                        dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
-                        dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
+                        dueButton.setBackgroundTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.vaccine_red_bg_st)));
+                        dueButton.setTextColor(context.getResources().getColor(R.color.white));
                         dueButton.setText(context.getString(R.string.due_delivery));
                         break;
                     case ConstantsUtils.AlertStatusUtils.EXPIRED:
-                        dueButton.setBackgroundColor(context.getResources().getColor(R.color.vaccine_red_bg_st));
+                        dueButton.setBackgroundTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.vaccine_red_bg_st)));
                         dueButton.setTextColor(context.getResources().getColor(R.color.white));
                         dueButton.setText(context.getString(R.string.due_delivery));
                         break;
                     case ConstantsUtils.AlertStatusUtils.TODAY:
-                        if (contactTextView != null) {
-                            contactTextView.setText(String.format(context.getString(R.string.contact_recorded_today),
-                                    Utils.getTodayContact(String.valueOf(buttonAlertStatus.nextContact))));
-                            contactTextView.setPadding(2, 2, 2, 2);
-                        }
-                        dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_disabled));
-                        dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_disabled));
-                        dueButton.setTextColor(context.getResources().getColor(R.color.dark_grey));
-                        dueButton.setText(String.format(context.getString(R.string.contact_recorded_today_no_break),
-                                Utils.getTodayContact(String.valueOf(buttonAlertStatus.nextContact))));
+                        dueButton.setBackgroundTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.alert_complete_green)));
+                        dueButton.setTextColor(context.getResources().getColor(R.color.white));
+                        dueButton.setText(String.format(context.getString(R.string.contact_recorded_today_no_break), Utils.getTodayContact(String.valueOf(buttonAlertStatus.nextContact))));
                         break;
                     default:
-                        dueButton.setBackground(context.getResources().getDrawable(R.drawable.contact_due));
-                        dueButton.setTextColor(context.getResources().getColor(R.color.vaccine_blue_bg_st));
+                        dueButton.setBackgroundTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.vaccine_blue_bg_st)));
+                        dueButton.setTextColor(context.getResources().getColor(R.color.white));
                         break;
                 }
 

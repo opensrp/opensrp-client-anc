@@ -1,557 +1,781 @@
 {
-  "count": "1",
-  "encounter_type": "ANC Registration",
-  "entity_id": "",
-  "relational_id": "",
-  "metadata": {
-    "start": {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "concept",
-      "openmrs_data_type": "start",
-      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    },
-    "end": {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "concept",
-      "openmrs_data_type": "end",
-      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    },
-    "today": {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "encounter",
-      "openmrs_entity_id": "encounter_date"
-    },
-    "deviceid": {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "concept",
-      "openmrs_data_type": "deviceid",
-      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    },
-    "subscriberid": {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "concept",
-      "openmrs_data_type": "subscriberid",
-      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    },
-    "simserial": {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "concept",
-      "openmrs_data_type": "simserial",
-      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    },
-    "phonenumber": {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "concept",
-      "openmrs_data_type": "phonenumber",
-      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    },
-    "encounter_location": "",
-    "look_up": {
-      "entity_id": "",
-      "value": ""
-    }
-  },
-  "step1": {
-    "title": "{{anc_register.step1.title}}",
-    "fields": [
-      {
-        "key": "wom_image",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "choose_image",
-        "uploadButtonText": "Take a picture of the woman"
-      },
-      {
-        "key": "anc_id",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_identifier",
-        "openmrs_entity_id": "ANC_ID",
-        "type": "barcode",
-        "barcode_type": "qrcode",
-        "hint": "{{anc_register.step1.anc_id.hint}}",
-        "value": "0",
-        "scanButtonText": "Scan QR Code",
-        "v_numeric": {
-          "value": "true",
-          "err": "{{anc_register.step1.anc_id.v_numeric.err}}"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "{{anc_register.step1.anc_id.v_required.err}}"
-        }
-      },
-      {
-        "key": "first_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "first_name",
-        "type": "edit_text",
-        "hint": "{{anc_register.step1.first_name.hint}}",
-        "edit_type": "name",
-        "v_required": {
-          "value": "true",
-          "err": "{{anc_register.step1.first_name.v_required.err}}"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
-          "err": "{{anc_register.step1.first_name.v_regex.err}}"
-        }
-      },
-      {
-        "key": "last_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "last_name",
-        "type": "edit_text",
-        "hint": "{{anc_register.step1.last_name.hint}}",
-        "edit_type": "name",
-        "v_required": {
-          "value": "true",
-          "err": "{{anc_register.step1.last_name.v_required.err}}"
-        },
-        "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
-          "err": "{{anc_register.step1.last_name.v_regex.err}}"
-        }
-      },
-      {
-        "key": "gender",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "gender",
-        "type": "hidden",
-        "value": "F"
-      },
-      {
-        "key": "dob",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "birthdate",
-        "type": "hidden",
-        "value": "",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "registration_calculation_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "dob_calculated",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden",
-        "value": "",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "registration_calculation_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "dob_entered",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "date_picker",
-        "hint": "{{anc_register.step1.dob_entered.hint}}",
-        "expanded": false,
-        "duration": {
-          "label": "{{anc_register.step1.dob_entered.duration.label}}"
-        },
-        "min_date": "today-49y",
-        "max_date": "today-10y",
-        "v_required": {
-          "value": "true",
-          "err": "{{anc_register.step1.dob_entered.v_required.err}}"
-        },
-        "relevance": {
-          "step1:dob_unknown": {
-            "ex-checkbox": [
-              {
-                "not": [
-                  "dob_unknown"
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "key": "dob_unknown",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "birthdate_estimated",
-        "type": "check_box",
-        "options": [
-          {
-            "key": "dob_unknown",
-            "text": "{{anc_register.step1.dob_unknown.options.dob_unknown.text}}",
-            "translation_text": "anc_register.step1.dob_unknown.options.dob_unknown.text",
-            "text_size": "18px",
-            "value": "false",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
-          }
-        ]
-      },
-      {
-        "key": "age",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "age",
-        "type": "hidden",
-        "value": "",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "registration_calculation_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "age_calculated",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden",
-        "value": "",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "registration_calculation_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "age_entered",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "age",
-        "type": "edit_text",
-        "hint": "{{anc_register.step1.age_entered.hint}}",
-        "v_numeric": {
-          "value": "true",
-          "err": "{{anc_register.step1.age_entered.v_numeric.err}}"
-        },
-        "v_min": {
-          "value": "10",
-          "err": "Age must be equal to or greater than 10"
-        },
-        "v_max": {
-          "value": "49",
-          "err": "Age must be equal or less than 49"
-        },
-        "relevance": {
-          "step1:dob_unknown": {
-            "ex-checkbox": [
-              {
-                "and": [
-                  "dob_unknown"
-                ]
-              }
-            ]
-          }
-        },
-        "v_required": {
-          "value": "true",
-          "err": "{{anc_register.step1.age_entered.v_required.err}}"
-        }
-      },
-      {
-        "key": "home_address",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_address",
-        "openmrs_entity_id": "address2",
-        "type": "edit_text",
-        "hint": "{{anc_register.step1.home_address.hint}}",
-        "edit_type": "name",
-        "v_required": {
-          "value": "true",
-          "err": "{{anc_register.step1.home_address.v_required.err}}"
-        }
-      },
-      {
-        "key": "phone_number",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "phone_number",
-        "type": "edit_text",
-        "hint": "{{anc_register.step1.phone_number.hint}}",
-        "v_numeric": {
-          "value": "true",
-          "err": "{{anc_register.step1.phone_number.v_numeric.err}}"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "{{anc_register.step1.phone_number.v_required.err}}"
-        },
-        "v_max_length": {
-          "value": "12",
-          "err": "Phone number characters cannot exceed 12 characters"
-        }
-      },
-      {
-        "key": "reminders",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "reminders",
-        "type": "native_radio",
-        "label": "{{anc_register.step1.reminders.label}}",
-        "label_info_text": "{{anc_register.step1.reminders.label_info_text}}",
-        "label_text_style": "normal",
-        "text_color": "#000000",
-        "options": [
-          {
-            "key": "yes",
-            "text": "{{anc_register.step1.reminders.options.yes.text}}",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "no",
-            "text": "{{anc_register.step1.reminders.options.no.text}}",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ],
-        "v_required": {
-          "value": true,
-          "err": "{{anc_register.step1.reminders.v_required.err}}"
-        }
-      },
-      {
-        "key": "alt_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "alt_name",
-        "type": "edit_text",
-        "hint": "{{anc_register.step1.alt_name.hint}}",
-        "edit_type": "name",
-        "look_up": "true",
-        "entity_id": "",
-        "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
-          "err": "{{anc_register.step1.alt_name.v_regex.err}}"
-        }
-      },
-      {
-        "key": "alt_phone_number",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "alt_phone_number",
-        "type": "edit_text",
-        "hint": "{{anc_register.step1.alt_phone_number.hint}}",
-        "v_numeric": {
-          "value": "true",
-          "err": "{{anc_register.step1.alt_phone_number.v_numeric.err}}"
-        }
-      },
-      {
-        "key": "cohabitants",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "cohabitants",
-        "label": "{{anc_register.step1.cohabitants.label}}",
-        "label_info_text": "{{anc_register.step1.cohabitants.label_info_text}}",
-        "type": "check_box",
-        "exclusive": [
-          "no_one"
-        ],
-        "options": [
-          {
-            "key": "parents",
-            "text": "{{anc_register.step1.cohabitants.options.parents.text}}",
-            "text_size": "18px",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "siblings",
-            "text": "{{anc_register.step1.cohabitants.options.siblings.text}}",
-            "text_size": "18px",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "extended_family",
-            "text": "{{anc_register.step1.cohabitants.options.extended_family.text}}",
-            "text_size": "18px",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "partner",
-            "text": "{{anc_register.step1.cohabitants.options.partner.text}}",
-            "text_size": "18px",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "friends",
-            "text": "{{anc_register.step1.cohabitants.options.friends.text}}",
-            "text_size": "18px",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "no_one",
-            "text": "{{anc_register.step1.cohabitants.options.no_one.text}}",
-            "text_size": "18px",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
-          }
-        ]
-      },
-      {
-        "key": "next_contact",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "next_contact",
-        "type": "hidden",
-        "value": ""
-      },
-      {
-        "key": "edd",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "edd",
-        "type": "hidden",
-        "value": ""
-      },
-      {
-        "key": "next_contact_date",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "next_contact_date",
-        "type": "hidden",
-        "value": ""
-      },
-      {
-        "key": "contact_status",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "contact_status",
-        "type": "hidden",
-        "value": ""
-      },
-      {
-        "key": "previous_contact_status",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "contact_status",
-        "type": "hidden",
-        "value": ""
-      },
-      {
-        "key": "red_flag_count",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "red_flag_count",
-        "type": "hidden",
-        "value": ""
-      },
-      {
-        "key": "yellow_flag_count",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "yellow_flag_count",
-        "type": "hidden",
-        "value": ""
-      },
-      {
-        "key": "last_contact_record_date",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "last_contact_record_date",
-        "type": "hidden",
-        "value": ""
-      },
-      {
-        "key": "province",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "province",
-        "type": "spinner",
-        "sub_type": "location",
-        "hint": "Select Province",
-        "options" : [],
-        "v_required": {
-          "value": "true",
-          "err": "Please Select"
-        }
-      },
-      {
-        "key": "district",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "district",
-        "type": "spinner",
-        "sub_type": "location",
-        "hint": "Select District",
-        "options" : [],
-        "v_required": {
-          "value": "true",
-          "err": "Please Select"
-        }
-      },
-      {
-        "key": "subdistrict",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "subdistrict",
-        "type": "spinner",
-        "sub_type": "location",
-        "hint": "Select Sub-District",
-        "options" : [],
-        "v_required": {
-          "value": "true",
-          "err": "Please Select"
-        }
-      },
-      {
-        "key": "health_facility",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "health_facility",
-        "type": "spinner",
-        "sub_type": "location",
-        "hint": "Select Health Facility",
-        "options" : [],
-        "v_required": {
-          "value": "true",
-          "err": "Please Select"
-        }
-      },
-      {
-        "key": "village",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "village",
-        "type": "spinner",
-        "sub_type": "location",
-        "hint": "Select Village",
-        "options" : [],
-        "v_required": {
-          "value": "true",
-          "err": "Please Select"
-        }
-      }
-    ]
-  },
-  "properties_file_name": "anc_register"
+	"count": "1",
+	"encounter_type": "ANC Registration",
+	"entity_id": "",
+	"relational_id": "",
+	"metadata": {
+		"start": {
+			"openmrs_entity_parent": "",
+			"openmrs_entity": "concept",
+			"openmrs_data_type": "start",
+			"openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+		},
+		"end": {
+			"openmrs_entity_parent": "",
+			"openmrs_entity": "concept",
+			"openmrs_data_type": "end",
+			"openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+		},
+		"today": {
+			"openmrs_entity_parent": "",
+			"openmrs_entity": "encounter",
+			"openmrs_entity_id": "encounter_date"
+		},
+		"deviceid": {
+			"openmrs_entity_parent": "",
+			"openmrs_entity": "concept",
+			"openmrs_data_type": "deviceid",
+			"openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+		},
+		"subscriberid": {
+			"openmrs_entity_parent": "",
+			"openmrs_entity": "concept",
+			"openmrs_data_type": "subscriberid",
+			"openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+		},
+		"simserial": {
+			"openmrs_entity_parent": "",
+			"openmrs_entity": "concept",
+			"openmrs_data_type": "simserial",
+			"openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+		},
+		"phonenumber": {
+			"openmrs_entity_parent": "",
+			"openmrs_entity": "concept",
+			"openmrs_data_type": "phonenumber",
+			"openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+		},
+		"encounter_location": "",
+		"look_up": {
+			"entity_id": "",
+			"value": ""
+		}
+	},
+	"properties_file_name": "anc_register",
+	"step1": {
+		"title": "{{anc_register.step1.title}}",
+		"fields": [
+
+			{
+				"key": "spacer_id",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "",
+				"openmrs_entity_id": "spacer",
+				"type": "spacer",
+				"spacer_height": "20sp"
+			},
+
+			{
+				"key": "wom_image",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "",
+				"openmrs_entity_id": "wom_image",
+				"type": "choose_image",
+				"uploadButtonText": "{{anc_register.step1.wom_image.button_label}}"
+			},
+			{
+				"key": "anc_id",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "person_identifier",
+				"openmrs_entity_id": "ANC_ID",
+				"type": "barcode",
+				"barcode_type": "qrcode",
+				"hint": "{{anc_register.step1.anc_id.hint}}",
+				"value": "0",
+				"scanButtonText": "{{anc_register.step1.anc_id.qrcode_button_label}}",
+				"v_numeric": {
+					"value": "true",
+					"err": "{{anc_register.step1.anc_id.v_numeric.err}}"
+				},
+				"v_required": {
+					"value": "true",
+					"err": "{{anc_register.step1.anc_id.v_required.err}}"
+				}
+			},
+
+			{
+				"key": "spacer_identity",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "",
+				"openmrs_entity_id": "spacer",
+				"type": "spacer",
+				"spacer_height": "30sp"
+			},
+			{
+				"key": "group_identity",
+				"type": "label",
+				"label_text_style": "bold",
+				"text": "{{anc_register.step1.group_identity.text}}",
+				"text_color": "#228CC6",
+				"text_size": "16px"
+			},
+			{
+				"key": "uid",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "person_identifier",
+				"openmrs_entity_id": "uid",
+				"type": "edit_text",
+				"hint": "{{anc_register.step1.uid.hint}}",
+				"v_numeric": {
+					"value": "true",
+					"err": "{{anc_register.step1.uid.v_numeric.err}}"
+				},
+				"v_required": {
+					"value": "true",
+					"err": "{{anc_register.step1.uid.v_required.err}}"
+				},
+				"v_regex": {
+					"value": "[0-9]{16}",
+					"err": "{{anc_register.step1.uid.v_length.err}}"
+				},
+				"v_max_length": {
+					"value": "16",
+					"err": "{{anc_register.step1.uid.v_length.err}}"
+				},
+				"relevance": {
+					"rules-engine": {
+						"ex-rules": {
+							"rules-file": "anc_register_relevance.yml"
+						}
+					}
+				}
+			},
+			{
+				"key": "uid_unknown",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "person_attribute",
+				"openmrs_entity_id": "uid_unknown",
+				"type": "check_box",
+				"options": [
+					{
+						"key": "yes",
+						"text": "{{anc_register.step1.uid_unknown.options.yes.text}}",
+						"text_size": "18px",
+						"value": "false"
+					}
+				]
+			},
+			{
+				"key": "uid_unknown_reason",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "person_attribute",
+				"openmrs_entity_id": "uid_unknown_reason",
+				"label": "{{anc_register.step1.uid_unknown_reason.label}}",
+				"label_text_style": "bold",
+				"label_info_text": "{{anc_register.step1.uid_unknown_reason.label_info_text}}",
+				"type": "native_radio",
+				"options": [
+					{
+						"key": "dont_have",
+						"text": "{{anc_register.step1.uid_unknown_reason.options.dont_have.text}}",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "",
+						"openmrs_entity_id": ""
+					},
+					{
+						"key": "dont_bring",
+						"text": "{{anc_register.step1.uid_unknown_reason.options.dont_bring.text}}",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "",
+						"openmrs_entity_id": ""
+					},
+					{
+						"key": "lost",
+						"text": "{{anc_register.step1.uid_unknown_reason.options.lost.text}}",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "",
+						"openmrs_entity_id": ""
+					},
+					{
+						"key": "privacy",
+						"text": "{{anc_register.step1.uid_unknown_reason.options.privacy.text}}",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "",
+						"openmrs_entity_id": ""
+					}
+				],
+				"v_required": {
+					"value": "true",
+					"err": "{{anc_register.step1.uid_unknown_reason.v_required.err}}"
+				},
+				"relevance": {
+					"rules-engine": {
+						"ex-rules": {
+							"rules-file": "anc_register_relevance.yml"
+						}
+					}
+				}
+			},
+			{
+				"key": "ssn",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "person_identifier",
+				"openmrs_entity_id": "ssn",
+				"type": "edit_text",
+				"hint": "{{anc_register.step1.ssn.hint}}",
+				"v_numeric": {
+					"value": "true",
+					"err": "{{anc_register.step1.ssn.v_numeric.err}}"
+				},
+				"v_regex": {
+					"value": "^$|[0-9]{11,13}",
+					"err": "{{anc_register.step1.ssn.v_length.err}}"
+				},
+				"v_max_length": {
+					"value": "13",
+					"err": "{{anc_register.step1.ssn.v_length.err}}"
+				}
+			},
+			{
+				"key": "ssn_status",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "person_attribute",
+				"openmrs_entity_id": "ssn_status",
+				"label": "{{anc_register.step1.ssn_status.label}}",
+				"label_text_style": "bold",
+				"label_info_text": "{{anc_register.step1.ssn_status.label_info_text}}",
+				"type": "native_radio",
+				"options": [
+					{
+						"key": "active",
+						"text": "{{anc_register.step1.ssn_status.options.active.text}}",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "",
+						"openmrs_entity_id": ""
+					},
+					{
+						"key": "inactive",
+						"text": "{{anc_register.step1.ssn_status.options.inactive.text}}",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "",
+						"openmrs_entity_id": ""
+					},
+					{
+						"key": "dont_have",
+						"text": "{{anc_register.step1.ssn_status.options.dont_have.text}}",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "",
+						"openmrs_entity_id": ""
+					}
+				],
+				"v_required": {
+					"value": "true",
+					"err": "{{anc_register.step1.ssn_status.v_required.err}}"
+				}
+			},
+			{
+				"key": "first_name",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "person",
+				"openmrs_entity_id": "first_name",
+				"type": "edit_text",
+				"hint": "{{anc_register.step1.first_name.hint}}",
+				"edit_type": "name",
+				"v_required": {
+					"value": "true",
+					"err": "{{anc_register.step1.first_name.v_required.err}}"
+				},
+				"v_regex": {
+					"value": "[A-Za-z\\s\\.\\-]*",
+					"err": "{{anc_register.step1.first_name.v_regex.err}}"
+				}
+			},
+			{
+				"key": "last_name",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "person",
+				"openmrs_entity_id": "last_name",
+				"type": "edit_text",
+				"hint": "{{anc_register.step1.last_name.hint}}",
+				"edit_type": "name",
+				"v_required": {
+					"value": "true",
+					"err": "{{anc_register.step1.last_name.v_required.err}}"
+				},
+				"v_regex": {
+					"value": "[A-Za-z\\s\\.\\-]*",
+					"err": "{{anc_register.step1.last_name.v_regex.err}}"
+				}
+			},
+
+			{
+				"key": "spacer_age_dob",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "",
+				"openmrs_entity_id": "spacer",
+				"type": "spacer",
+				"spacer_height": "30sp"
+			},
+			{
+				"key": "group_age_dob",
+				"type": "label",
+				"label_text_style": "bold",
+				"text": "{{anc_register.step1.group_age_dob.text}}",
+				"text_color": "#228CC6",
+				"text_size": "16px"
+			},
+			{
+				"key": "dob",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "person",
+				"openmrs_entity_id": "birthdate",
+				"type": "hidden",
+				"value": "",
+				"calculation": {
+					"rules-engine": {
+						"ex-rules": {
+							"rules-file": "anc_register_calculation.yml"
+						}
+					}
+				}
+			},
+			{
+				"key": "dob_entered",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "",
+				"openmrs_entity_id": "",
+				"type": "date_picker",
+				"hint": "{{anc_register.step1.dob_entered.hint}}",
+				"expanded": false,
+				"duration": {
+					"label": "{{anc_register.step1.dob_entered.duration.label}}"
+				},
+				"min_date": "today-49y",
+				"max_date": "today-10y",
+				"v_required": {
+					"value": "true",
+					"err": "{{anc_register.step1.dob_entered.v_required.err}}"
+				},
+				"relevance": {
+					"rules-engine": {
+						"ex-rules": {
+							"rules-file": "anc_register_relevance.yml"
+						}
+					}
+				}
+			},
+			{
+				"key": "dob_unknown",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "person",
+				"openmrs_entity_id": "birthdate_estimated",
+				"type": "check_box",
+				"options": [
+					{
+						"key": "yes",
+						"text": "{{anc_register.step1.dob_unknown.options.yes.text}}",
+						"text_size": "18px",
+						"value": "false"
+					}
+				]
+			},
+			{
+				"key": "age_entered",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "person",
+				"openmrs_entity_id": "age",
+				"type": "edit_text",
+				"hint": "{{anc_register.step1.age_entered.hint}}",
+				"v_numeric": {
+					"value": "true",
+					"err": "{{anc_register.step1.age_entered.v_numeric.err}}"
+				},
+				"v_min": {
+					"value": "10",
+					"err": "{{anc_register.step1.age_entered.v_min.err}}"
+				},
+				"v_max": {
+					"value": "49",
+					"err": "{{anc_register.step1.age_entered.v_max.err}}"
+				},
+				"relevance": {
+					"rules-engine": {
+						"ex-rules": {
+							"rules-file": "anc_register_relevance.yml"
+						}
+					}
+				},
+				"v_required": {
+					"value": "true",
+					"err": "{{anc_register.step1.age_entered.v_required.err}}"
+				}
+			},
+
+			{
+				"key": "spacer_contact",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "",
+				"openmrs_entity_id": "spacer",
+				"type": "spacer",
+				"spacer_height": "30sp"
+			},
+			{
+				"key": "group_contact",
+				"type": "label",
+				"label_text_style": "bold",
+				"text": "{{anc_register.step1.group_contact.text}}",
+				"text_color": "#228CC6",
+				"text_size": "16px"
+			},
+			{
+				"key": "home_address",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "person_address",
+				"openmrs_entity_id": "address2",
+				"type": "edit_text",
+				"hint": "{{anc_register.step1.home_address.hint}}",
+				"edit_type": "name",
+				"v_required": {
+					"value": "true",
+					"err": "{{anc_register.step1.home_address.v_required.err}}"
+				}
+			},
+			{
+				"key": "phone_number",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "person_attribute",
+				"openmrs_entity_id": "phone_number",
+				"type": "edit_text",
+				"hint": "{{anc_register.step1.phone_number.hint}}",
+				"v_numeric": {
+					"value": "true",
+					"err": "{{anc_register.step1.phone_number.v_numeric.err}}"
+				},
+				"v_required": {
+					"value": "true",
+					"err": "{{anc_register.step1.phone_number.v_required.err}}"
+				},
+				"v_max_length": {
+					"value": "12",
+					"err": "{{anc_register.step1.phone_number.v_max_length.err}}"
+				},
+				"relevance": {
+					"rules-engine": {
+						"ex-rules": {
+							"rules-file": "anc_register_relevance.yml"
+						}
+					}
+				}
+			},
+			{
+				"key": "phone_number_unknown",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "person_attribute",
+				"openmrs_entity_id": "phone_number_unknown",
+				"type": "check_box",
+				"options": [
+					{
+						"key": "yes",
+						"text": "{{anc_register.step1.phone_number_unknown.options.yes.text}}",
+						"text_size": "18px",
+						"value": "false"
+					}
+				]
+			},
+			{
+				"key": "phone_number_unknown_reason",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "person_attribute",
+				"openmrs_entity_id": "phone_number_unknown_reason",
+				"label": "{{anc_register.step1.phone_number_unknown_reason.label}}",
+				"label_text_style": "bold",
+				"label_info_text": "{{anc_register.step1.phone_number_unknown_reason.label_info_text}}",
+				"type": "native_radio",
+				"options": [
+					{
+						"key": "dont_have",
+						"text": "{{anc_register.step1.phone_number_unknown_reason.options.dont_have.text}}",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "",
+						"openmrs_entity_id": ""
+					},
+					{
+						"key": "lost",
+						"text": "{{anc_register.step1.phone_number_unknown_reason.options.lost.text}}",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "",
+						"openmrs_entity_id": ""
+					},
+					{
+						"key": "privacy",
+						"text": "{{anc_register.step1.phone_number_unknown_reason.options.privacy.text}}",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "",
+						"openmrs_entity_id": ""
+					}
+				],
+				"v_required": {
+					"value": "true",
+					"err": "{{anc_register.step1.phone_number_unknown_reason.v_required.err}}"
+				},
+				"relevance": {
+					"rules-engine": {
+						"ex-rules": {
+							"rules-file": "anc_register_relevance.yml"
+						}
+					}
+				}
+			},
+			{
+				"key": "alt_name",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "person_attribute",
+				"openmrs_entity_id": "alt_name",
+				"type": "edit_text",
+				"hint": "{{anc_register.step1.alt_name.hint}}",
+				"edit_type": "name",
+				"look_up": "true",
+				"entity_id": "",
+				"v_regex": {
+					"value": "[A-Za-z\\s\\.\\-]*",
+					"err": "{{anc_register.step1.alt_name.v_regex.err}}"
+				}
+			},
+			{
+				"key": "alt_phone_number",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "person_attribute",
+				"openmrs_entity_id": "alt_phone_number",
+				"type": "edit_text",
+				"hint": "{{anc_register.step1.alt_phone_number.hint}}",
+				"v_numeric": {
+					"value": "true",
+					"err": "{{anc_register.step1.alt_phone_number.v_numeric.err}}"
+				},
+				"v_max_length": {
+					"value": "12",
+					"err": "{{anc_register.step1.alt_phone_number.v_max_length.err}}"
+				}
+			},
+			{
+				"key": "spacer_cohabitants",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "",
+				"openmrs_entity_id": "spacer",
+				"type": "spacer",
+				"spacer_height": "20sp"
+			},
+			{
+				"key": "cohabitants",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "person_attribute",
+				"openmrs_entity_id": "cohabitants",
+				"label": "{{anc_register.step1.cohabitants.label}}",
+				"label_info_text": "{{anc_register.step1.cohabitants.label_info_text}}",
+				"label_text_style": "bold",
+				"type": "check_box",
+				"exclusive": [
+					"no_one"
+				],
+				"options": [
+					{
+						"key": "parents",
+						"text": "{{anc_register.step1.cohabitants.options.parents.text}}",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "",
+						"openmrs_entity_id": ""
+					},
+					{
+						"key": "siblings",
+						"text": "{{anc_register.step1.cohabitants.options.siblings.text}}",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "",
+						"openmrs_entity_id": ""
+					},
+					{
+						"key": "extended_family",
+						"text": "{{anc_register.step1.cohabitants.options.extended_family.text}}",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "",
+						"openmrs_entity_id": ""
+					},
+					{
+						"key": "partner",
+						"text": "{{anc_register.step1.cohabitants.options.partner.text}}",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "",
+						"openmrs_entity_id": ""
+					},
+					{
+						"key": "friends",
+						"text": "{{anc_register.step1.cohabitants.options.friends.text}}",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "",
+						"openmrs_entity_id": ""
+					},
+					{
+						"key": "no_one",
+						"text": "{{anc_register.step1.cohabitants.options.no_one.text}}",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "",
+						"openmrs_entity_id": ""
+					}
+				]
+			},
+
+			{
+				"key": "spacer_additional",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "",
+				"openmrs_entity_id": "spacer",
+				"type": "spacer",
+				"spacer_height": "30sp"
+			},
+			{
+				"key": "group_additional",
+				"type": "label",
+				"label_text_style": "bold",
+				"text": "{{anc_register.step1.group_additional.text}}",
+				"text_color": "#228CC6",
+				"text_size": "16px"
+			},
+			{
+				"key": "reminders",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "person_attribute",
+				"openmrs_entity_id": "reminders",
+				"type": "native_radio",
+				"label": "{{anc_register.step1.reminders.label}}",
+				"label_info_text": "{{anc_register.step1.reminders.label_info_text}}",
+				"label_text_style": "bold",
+				"options": [
+					{
+						"key": "yes",
+						"text": "{{anc_register.step1.reminders.options.yes.text}}",
+						"openmrs_entity": "",
+						"openmrs_entity_id": ""
+					},
+					{
+						"key": "no",
+						"text": "{{anc_register.step1.reminders.options.no.text}}",
+						"openmrs_entity": "",
+						"openmrs_entity_id": ""
+					}
+				],
+				"v_required": {
+					"value": true,
+					"err": "{{anc_register.step1.reminders.v_required.err}}"
+				}
+			},
+
+			{
+				"key": "gender",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "person",
+				"openmrs_entity_id": "gender",
+				"type": "hidden",
+				"value": "F"
+			},
+			{
+				"key": "age",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "person_attribute",
+				"openmrs_entity_id": "age",
+				"type": "hidden",
+				"value": "",
+				"calculation": {
+					"rules-engine": {
+						"ex-rules": {
+							"rules-file": "anc_register_calculation.yml"
+						}
+					}
+				}
+			},
+			{
+				"key": "age_calculated",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "",
+				"openmrs_entity_id": "",
+				"type": "hidden",
+				"value": "",
+				"calculation": {
+					"rules-engine": {
+						"ex-rules": {
+							"rules-file": "anc_register_calculation.yml"
+						}
+					}
+				}
+			},
+			{
+				"key": "dob_calculated",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "",
+				"openmrs_entity_id": "",
+				"type": "hidden",
+				"value": "",
+				"calculation": {
+					"rules-engine": {
+						"ex-rules": {
+							"rules-file": "anc_register_calculation.yml"
+						}
+					}
+				}
+			},
+			{
+				"key": "edd",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "person_attribute",
+				"openmrs_entity_id": "edd",
+				"type": "hidden",
+				"value": ""
+			},
+			{
+				"key": "next_contact",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "person_attribute",
+				"openmrs_entity_id": "next_contact",
+				"type": "hidden",
+				"value": ""
+			},
+			{
+				"key": "next_contact_date",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "person_attribute",
+				"openmrs_entity_id": "next_contact_date",
+				"type": "hidden",
+				"value": ""
+			},
+			{
+				"key": "contact_status",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "person_attribute",
+				"openmrs_entity_id": "contact_status",
+				"type": "hidden",
+				"value": ""
+			},
+			{
+				"key": "previous_contact_status",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "person_attribute",
+				"openmrs_entity_id": "contact_status",
+				"type": "hidden",
+				"value": ""
+			},
+			{
+				"key": "last_contact_record_date",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "person_attribute",
+				"openmrs_entity_id": "last_contact_record_date",
+				"type": "hidden",
+				"value": ""
+			},
+			{
+				"key": "red_flag_count",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "person_attribute",
+				"openmrs_entity_id": "red_flag_count",
+				"type": "hidden",
+				"value": ""
+			},
+			{
+				"key": "yellow_flag_count",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "person_attribute",
+				"openmrs_entity_id": "yellow_flag_count",
+				"type": "hidden",
+				"value": ""
+			}
+
+		]
+	}
 }

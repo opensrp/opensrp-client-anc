@@ -28,6 +28,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.anc.library.AppConfig;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.adapter.ProfileViewPagerAdapter;
 import org.smartregister.anc.library.contract.ProfileContract;
@@ -43,6 +44,7 @@ import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.anc.library.view.CopyToClipboardDialog;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.util.LangUtils;
 import org.smartregister.util.PermissionUtils;
 import org.smartregister.view.activity.BaseProfileActivity;
 
@@ -76,9 +78,15 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         super.onCreation();
     }
 
+    public void setDefaultLocale() {
+        LangUtils.saveLanguage(getApplication(), AppConfig.DefaultLocale.getLanguage());
+        Utils.saveLanguage(AppConfig.DefaultLocale.getLanguage());
+    }
+
     @Override
     protected void onResumption() {
         super.onResumption();
+        setDefaultLocale();
         String baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
         registerEventBus();
         ((ProfilePresenter) presenter).refreshProfileView(baseEntityId);
@@ -353,13 +361,12 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
 
     @Override
     public void setProfileAge(String age) {
-        ageView.setText("AGE " + age);
-
+        ageView.setText(age);
     }
 
     @Override
     public void setProfileGestationAge(String gestationAge) {
-        gestationAgeView.setText(gestationAge != null ? "GA: " + gestationAge + " WEEKS" : "GA");
+        gestationAgeView.setText(gestationAge != null ? gestationAge : "-");
     }
 
     @Override

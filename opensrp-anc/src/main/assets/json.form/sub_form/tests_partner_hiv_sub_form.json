@@ -12,7 +12,8 @@
       "options": [
         {
           "key": "done_today",
-          "text": "{{tests_partner_hiv_sub_form.step1.hiv_test_partner_status.options.done_today.text}}",
+          "text": "{{tests_partner_hiv_sub_form.step1.hiv_test_partner_status.done_today.text}}",
+          "translation_text": "tests_partner_hiv_sub_form.step1.hiv_test_partner_status.done_today.text",
           "type": "done_today",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -20,7 +21,8 @@
         },
         {
           "key": "done_earlier",
-          "text": "{{tests_partner_hiv_sub_form.step1.hiv_test_partner_status.options.done_earlier.text}}",
+          "text": "{{tests_partner_hiv_sub_form.step1.hiv_test_partner_status.done_earlier.text}}",
+          "translation_text": "tests_partner_hiv_sub_form.step1.hiv_test_partner_status.done_earlier.text",
           "type": "done_earlier",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -28,7 +30,8 @@
         },
         {
           "key": "ordered",
-          "text": "{{tests_partner_hiv_sub_form.step1.hiv_test_partner_status.options.ordered.text}}",
+          "text": "{{tests_partner_hiv_sub_form.step1.hiv_test_partner_status.ordered.text}}",
+          "translation_text": "tests_partner_hiv_sub_form.step1.hiv_test_partner_status.ordered.text",
           "type": "ordered",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -36,7 +39,8 @@
         },
         {
           "key": "not_done",
-          "text": "{{tests_partner_hiv_sub_form.step1.hiv_test_partner_status.options.not_done.text}}",
+          "text": "{{tests_partner_hiv_sub_form.step1.hiv_test_partner_status.not_done.text}}",
+          "translation_text": "tests_partner_hiv_sub_form.step1.hiv_test_partner_status.not_done.text",
           "type": "not_done",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
@@ -111,6 +115,7 @@
         {
           "key": "positive",
           "text": "{{tests_partner_hiv_sub_form.step1.hiv_test_partner_result.options.positive.text}}",
+          "translation_text": "tests_partner_hiv_sub_form.step1.hiv_test_partner_result.options.positive.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -118,6 +123,7 @@
         {
           "key": "negative",
           "text": "{{tests_partner_hiv_sub_form.step1.hiv_test_partner_result.options.negative.text}}",
+          "translation_text": "tests_partner_hiv_sub_form.step1.hiv_test_partner_result.options.negative.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -125,6 +131,7 @@
         {
           "key": "inconclusive",
           "text": "{{tests_partner_hiv_sub_form.step1.hiv_test_partner_result.options.inconclusive.text}}",
+          "translation_text": "tests_partner_hiv_sub_form.step1.hiv_test_partner_result.options.inconclusive.text",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -163,6 +170,7 @@
       "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "{{tests_partner_hiv_sub_form.step1.partner_hiv_positive_toaster.text}}",
+      "translation_text": "tests_partner_hiv_sub_form.step1.partner_hiv_positive_toaster.text",
       "toaster_type": "warning",
       "relevance": {
         "step2:hiv_test_partner_result": {
@@ -192,6 +200,7 @@
       "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "{{tests_partner_hiv_sub_form.step1.hiv_risk_toaster.text}}",
+      "translation_text": "tests_partner_hiv_sub_form.step1.hiv_risk_toaster.text",
       "toaster_info_text": "{{tests_partner_hiv_sub_form.step1.hiv_risk_toaster.toaster_info_text}}",
       "toaster_info_title": "{{tests_partner_hiv_sub_form.step1.hiv_risk_toaster.toaster_info_title}}",
       "toaster_type": "problem",

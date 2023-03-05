@@ -69,18 +69,47 @@ public class RegisterQueryProvider {
     }
 
     public String[] mainColumns() {
-        return new String[]{DBConstantsUtils.KeyUtils.FIRST_NAME, DBConstantsUtils.KeyUtils.LAST_NAME, DBConstantsUtils.KeyUtils.DOB,
-                DBConstantsUtils.KeyUtils.DOB_UNKNOWN, getDetailsTable() + "." + DBConstantsUtils.KeyUtils.PHONE_NUMBER, getDetailsTable() + "." + DBConstantsUtils.KeyUtils.ALT_NAME,
-                getDetailsTable() + "." + DBConstantsUtils.KeyUtils.ALT_PHONE_NUMBER, getDemographicTable() + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID,
-                getDemographicTable() + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " as " + DBConstantsUtils.KeyUtils.ID_LOWER_CASE, DBConstantsUtils.KeyUtils.ANC_ID,
-                getDetailsTable() + "." + DBConstantsUtils.KeyUtils.REMINDERS, DBConstantsUtils.KeyUtils.HOME_ADDRESS, getDetailsTable() + "." + DBConstantsUtils.KeyUtils.EDD,
-                getDetailsTable() + "." + DBConstantsUtils.KeyUtils.CONTACT_STATUS, getDetailsTable() + "." + DBConstantsUtils.KeyUtils.PREVIOUS_CONTACT_STATUS,
-                getDetailsTable() + "." + DBConstantsUtils.KeyUtils.NEXT_CONTACT, getDetailsTable() + "." + DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE,
-                getDetailsTable() + "." + DBConstantsUtils.KeyUtils.VISIT_START_DATE, getDetailsTable() + "." + DBConstantsUtils.KeyUtils.RED_FLAG_COUNT,
-                getDetailsTable() + "." + DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT, getDetailsTable() + "." + DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE,
-                getDetailsTable() + "." + DBConstantsUtils.KeyUtils.COHABITANTS, getDemographicTable() + "." + DBConstantsUtils.KeyUtils.RELATIONAL_ID,
-                getDetailsTable() + "." + ConstantsUtils.SpinnerKeyConstants.PROVINCE, getDetailsTable() + "." + ConstantsUtils.SpinnerKeyConstants.DISTRICT,
-                getDetailsTable() + "." + ConstantsUtils.SpinnerKeyConstants.SUB_DISTRICT, getDetailsTable() + "." + ConstantsUtils.SpinnerKeyConstants.FACILITY,
-                getDetailsTable() + "." + ConstantsUtils.SpinnerKeyConstants.VILLAGE};
+        return new String[]{
+
+            // Base WHO ANC fields
+            DBConstantsUtils.KeyUtils.ANC_ID,
+            DBConstantsUtils.KeyUtils.FIRST_NAME,
+            DBConstantsUtils.KeyUtils.LAST_NAME,
+            DBConstantsUtils.KeyUtils.DOB,
+            DBConstantsUtils.KeyUtils.DOB_UNKNOWN,
+            DBConstantsUtils.KeyUtils.HOME_ADDRESS,
+            getDemographicTable() + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + " as " + DBConstantsUtils.KeyUtils.ID_LOWER_CASE,
+            getDemographicTable() + "." + DBConstantsUtils.KeyUtils.RELATIONAL_ID,
+            getDemographicTable() + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID,
+            getDetailsTable() + "." + DBConstantsUtils.KeyUtils.PHONE_NUMBER,
+            getDetailsTable() + "." + DBConstantsUtils.KeyUtils.ALT_NAME,
+            getDetailsTable() + "." + DBConstantsUtils.KeyUtils.ALT_PHONE_NUMBER,
+            getDetailsTable() + "." + DBConstantsUtils.KeyUtils.REMINDERS,
+            getDetailsTable() + "." + DBConstantsUtils.KeyUtils.EDD,
+            getDetailsTable() + "." + DBConstantsUtils.KeyUtils.CONTACT_STATUS,
+            getDetailsTable() + "." + DBConstantsUtils.KeyUtils.PREVIOUS_CONTACT_STATUS,
+            getDetailsTable() + "." + DBConstantsUtils.KeyUtils.NEXT_CONTACT,
+            getDetailsTable() + "." + DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE,
+            getDetailsTable() + "." + DBConstantsUtils.KeyUtils.VISIT_START_DATE,
+            getDetailsTable() + "." + DBConstantsUtils.KeyUtils.RED_FLAG_COUNT,
+            getDetailsTable() + "." + DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT,
+            getDetailsTable() + "." + DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE,
+            getDetailsTable() + "." + DBConstantsUtils.KeyUtils.COHABITANTS,
+            getDetailsTable() + "." + ConstantsUtils.SpinnerKeyConstants.PROVINCE,
+            getDetailsTable() + "." + ConstantsUtils.SpinnerKeyConstants.DISTRICT,
+            getDetailsTable() + "." + ConstantsUtils.SpinnerKeyConstants.SUB_DISTRICT,
+            getDetailsTable() + "." + ConstantsUtils.SpinnerKeyConstants.FACILITY,
+            getDetailsTable() + "." + ConstantsUtils.SpinnerKeyConstants.VILLAGE,
+
+            // Additional local fields
+            DBConstantsUtils.KeyUtils.UID,
+            DBConstantsUtils.KeyUtils.SSN,
+            getDetailsTable() + "." + DBConstantsUtils.KeyUtils.SSN_STATUS,
+            getDetailsTable() + "." + DBConstantsUtils.KeyUtils.UID_UNKNOWN,
+            getDetailsTable() + "." + DBConstantsUtils.KeyUtils.UID_UNKNOWN_REASON,
+            getDetailsTable() + "." + DBConstantsUtils.KeyUtils.PHONE_NUMBER_UNKNOWN,
+            getDetailsTable() + "." + DBConstantsUtils.KeyUtils.PHONE_NUMBER_UNKNOWN_REASON
+
+        };
     }
 }

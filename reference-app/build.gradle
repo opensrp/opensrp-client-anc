@@ -7,7 +7,8 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.3'
+//        classpath 'com.android.tools.build:gradle:4.1.3'
+        classpath 'com.android.tools.build:gradle:7.0.4'
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.3'
         classpath 'com.google.gms:google-services:4.3.9'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.7.1'
@@ -29,7 +30,7 @@ jacoco {
 // This variables are used by the version code & name generators
 ext.versionMajor = 1
 ext.versionMinor = 6
-ext.versionPatch = 14
+ext.versionPatch = 17
 ext.versionClassifier = null
 ext.isSnapshot = false
 ext.minimumSdkVersion = androidMinSdkVersion
@@ -68,9 +69,10 @@ android {
         targetSdkVersion androidTargetSdkVersion
         versionCode generateVersionCode()
         versionName generateVersionName()
+        resConfigs "in-rID", "en"
         buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
         buildConfigField "boolean", "TIME_CHECK", "false"
-        buildConfigField "String", "SYNC_TYPE", '"teamId"'
+        buildConfigField "String", "SYNC_TYPE", '"locationId"'
         buildConfigField "int", "MAX_SYNC_RETRIES", '3'
         buildConfigField "long", "BUILD_TIMESTAMP", System.currentTimeMillis() + "L"
         buildConfigField "boolean", "IS_SYNC_SETTINGS", "true"
@@ -139,7 +141,6 @@ android {
             zipAlignEnabled true
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rule.pro'
-            resValue "string", 'opensrp_url', '"https://anc.labs.smartregister.org/opensrp/"'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
@@ -152,10 +153,22 @@ android {
             buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '180'
             buildConfigField "int", "VIEW_SYNC_CONFIGURATIONS_MINUTES", '15'
             buildConfigField "int", "CLIENT_SETTINGS_SYNC_MINUTES", '15'
+
+            if (project.rootProject.file("local.properties").exists()) {
+                Properties properties = new Properties()
+                properties.load(project.rootProject.file("local.properties").newDataInputStream())
+                if (properties != null && properties.containsKey("oauth.client.id")) {
+                    buildConfigField "String", "OAUTH_CLIENT_ID", properties["oauth.client.id"]
+                    resValue "string", 'opensrp_url', properties["opensrp_url"]
+                } else {
+                    resValue "string", 'opensrp_url', '"https://anc.labs.smartregister.org/opensrp/"'
+                }
+            } else {
+                resValue "string", 'opensrp_url', '"https://anc.labs.smartregister.org/opensrp/"'
+            }
         }
 
         debug {
-            resValue "string", 'opensrp_url', '"https://anc.labs.smartregister.org/opensrp/"'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
@@ -170,6 +183,19 @@ android {
             buildConfigField "int", "CLIENT_SETTINGS_SYNC_MINUTES", '15'
             testCoverageEnabled true
             signingConfig signingConfigs.debug
+
+            if (project.rootProject.file("local.properties").exists()) {
+                Properties properties = new Properties()
+                properties.load(project.rootProject.file("local.properties").newDataInputStream())
+                if (properties != null && properties.containsKey("oauth.client.id")) {
+                    buildConfigField "String", "OAUTH_CLIENT_ID", properties["oauth.client.id"]
+                    resValue "string", 'opensrp_url', properties["opensrp_url"]
+                } else {
+                    resValue "string", 'opensrp_url', '"https://anc.labs.smartregister.org/opensrp/"'
+                }
+            } else {
+                resValue "string", 'opensrp_url', '"https://anc.labs.smartregister.org/opensrp/"'
+            }
         }
     }
 
