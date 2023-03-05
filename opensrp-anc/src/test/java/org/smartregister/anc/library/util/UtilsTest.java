@@ -520,6 +520,7 @@ public class UtilsTest extends BaseUnitTest {
 
         ArgumentCaptor<List<String>> listArgumentCaptor = ArgumentCaptor.forClass(List.class);
         Mockito.verify(ecSyncHelper, Mockito.times(1)).getEvents(listArgumentCaptor.capture());
+
         Assert.assertNotNull(listArgumentCaptor.getValue());
         Assert.assertEquals(2, listArgumentCaptor.getValue().size());
 

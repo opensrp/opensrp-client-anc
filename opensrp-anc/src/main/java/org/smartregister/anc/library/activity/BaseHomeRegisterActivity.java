@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
+import com.google.android.material.navigation.NavigationBarView;
 import com.vijay.jsonwizard.activities.FormConfigurationJsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
@@ -119,7 +120,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
                                         getResources()));
             }
 
-            bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
+            bottomNavigationView.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_LABELED);
 
             if (!isLibraryItemEnabled()) {
                 bottomNavigationView.getMenu().removeItem(R.id.action_library);

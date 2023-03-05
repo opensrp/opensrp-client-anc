@@ -228,7 +228,7 @@ public class PreviousContactRepository extends BaseRepository {
             if (mCursor != null) {
                 while (mCursor.moveToNext()) {
                     String jsonValue = mCursor.getString(mCursor.getColumnIndex(VALUE));
-                    if (StringUtils.isNotBlank(jsonValue) && jsonValue.trim().charAt(0) == '{') {
+                    if (StringUtils.isNotBlank(jsonValue) && jsonValue.trim().startsWith("{")) {
                         JSONObject valueObject = new JSONObject(jsonValue);
                         String text, translated_text;
                         text = valueObject.optString(JsonFormConstants.TEXT).trim();
@@ -261,7 +261,7 @@ public class PreviousContactRepository extends BaseRepository {
      */
     private Cursor getAllTests(String baseEntityId, SQLiteDatabase database) {
         String selection = "";
-        String orderBy = "MAX("+ ID + ") DESC";
+        String orderBy = "MAX( "+ID +") DESC";
         String[] selectionArgs = null;
 
         if (StringUtils.isNotBlank(baseEntityId)) {
@@ -471,4 +471,5 @@ public class PreviousContactRepository extends BaseRepository {
 
         return schedule;
     }
+
 }

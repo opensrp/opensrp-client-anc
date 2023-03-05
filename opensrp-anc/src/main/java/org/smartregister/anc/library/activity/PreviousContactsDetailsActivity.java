@@ -151,7 +151,7 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
 
                 if (factsToUpdate.asMap().get(ConstantsUtils.ATTENTION_FLAG_FACTS) != null) {
                     try {
-                        JSONObject jsonObject = new JSONObject((String) Objects.requireNonNull(factsToUpdate.asMap().get(ConstantsUtils.ATTENTION_FLAG_FACTS)));
+                        JSONObject jsonObject = new JSONObject((String) factsToUpdate.asMap().get(ConstantsUtils.ATTENTION_FLAG_FACTS));
                         Iterator<String> keys = jsonObject.keys();
 
                         while (keys.hasNext()) {

@@ -14,8 +14,6 @@ import org.apache.commons.lang3.StringUtils;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
@@ -226,13 +224,11 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
         }
     }
 
-    private void addAttentionFlagsRuleObjects(Facts facts) throws IOException {
+    private void addAttentionFlagsRuleObjects(Facts facts) {
         Iterable<Object> attentionFlagsRuleObjects = AncLibrary.getInstance().readYaml(FilePathUtils.FileUtils.ATTENTION_FLAGS);
-
         for (Object ruleObject : attentionFlagsRuleObjects) {
             YamlConfig attentionFlagConfig = (YamlConfig) ruleObject;
             for (YamlConfigItem yamlConfigItem : attentionFlagConfig.getFields()) {
-
                 if (AncLibrary.getInstance().getAncRulesEngineHelper()
                         .getRelevance(facts, yamlConfigItem.getRelevance())) {
                     lastContactDetails.add(new YamlConfigWrapper(null, null, yamlConfigItem));

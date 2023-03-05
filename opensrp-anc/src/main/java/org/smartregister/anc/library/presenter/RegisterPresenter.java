@@ -142,8 +142,6 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
         try {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getView().getContext());
             AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
-
-            Timber.d(jsonString);
             getView().showProgressDialog(jsonString.contains(ConstantsUtils.EventTypeUtils.CLOSE) ? R.string.removing_dialog_title :
                     R.string.saving_dialog_title);
 

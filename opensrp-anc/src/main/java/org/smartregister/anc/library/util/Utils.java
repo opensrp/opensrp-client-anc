@@ -978,8 +978,8 @@ public class Utils extends org.smartregister.util.Utils {
                 return jsonArray.optJSONObject(0) != null || jsonArray.optJSONObject(0).length() > 0;
             }
             return false;
-
         } catch (Exception e) {
+            Timber.e(e);
             return false;
         }
 
@@ -1028,13 +1028,11 @@ public class Utils extends org.smartregister.util.Utils {
                 return NativeFormLangUtils.translateDatabaseString(value.trim(), AncLibrary.getInstance().getApplicationContext());
             }
             return value;
-
         } catch (Exception e) {
             e.printStackTrace();
             Timber.e("Failed to translate String %s", e.toString());
             return "";
         }
-
     }
 
 
@@ -1223,5 +1221,24 @@ public class Utils extends org.smartregister.util.Utils {
             locationName = jsonFormView.getResources().getString(identifier);
         }
         return locationName;
+    }
+
+    public static String extractValuefromJSONObject(String jsonString)
+    {
+        if(jsonString == null)
+            return "";
+        if(jsonString.startsWith("{") && jsonString.endsWith("}")) {
+            try {
+
+                JSONObject valueObject = new JSONObject(jsonString);
+                return valueObject.getString(ConstantsUtils.KeyUtils.VALUE);
+            }
+            catch (JSONException e)
+            {
+                Timber.e(e);
+                return "";
+            }
+        }
+        return jsonString;
     }
 }
