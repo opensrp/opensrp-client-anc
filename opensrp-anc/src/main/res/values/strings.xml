@@ -583,7 +583,6 @@
 	<string name="record">Record</string>
 	<string name="undo">Undo</string>
 	<string name="save_and_finish">SAVE + FINISH</string>
-	<string name="reason_for_visit">REASON FOR VISIT</string>
 	<string name="contact_recorded_today">CONTACT %1$d\n DONE TODAY</string>
 	<string name="contact_recorded_today_no_break"> CONTACT %1$d &#183; DONE TODAY</string>
 	<string name="continue_contact">Continue Contact %1$d</string>
@@ -630,6 +629,36 @@
 	<string name="birth_plan_counseling">Birth Plan Counseling</string>
 	<string name="malaria_prophylaxis">Malaria Prophylaxis</string>
 	<string name="immunisation_status">Immunisation Status</string>
+
+	<string name="reason_for_visit">Reason for visit</string>
+	<string name="womans_behaviour">Woman\'s Behavior</string>
+	<string name="height_and_weight">Height and Weight</string>
+	<string name="blood_pressure">Blood Pressure</string>
+	<string name="maternal_exam">Maternal Exam</string>
+	<string name="fetal_assessment">Fetal Assessment</string>
+	<string name="ultrasound_test">Ultrasound Test</string>
+	<string name="blood_type_test">Blood Type Test</string>
+	<string name="hiv_test">HIV Test</string>
+	<string name="partner_hiv_test">Partner HIV Test</string>
+	<string name="hepatitis_b_test">Hepatitis B Test</string>
+	<string name="hepatitis_c_test">Hepatitis C Test</string>
+	<string name="syphilis_test">Syphilis Test</string>
+	<string name="urine_test">Urine Test</string>
+	<string name="blood_glucose_test">Blood Glucose Test</string>
+	<string name="blood_haemoglobin_test_and_ifa">Blood Haemoglobin Test and IFA</string>
+	<string name="tb_screening">TB Screening</string>
+	<string name="other_tests">Other Tests</string>
+	<string name="pre_eclampsia_risk">Pre-Eclampsia Risk</string>
+	<string name="hiv_risk_and_prep">HIV Risk and Prep</string>
+	<string name="diabetes_risk">Diabetes Risk</string>
+	<string name="danger_signs_counseling">Danger Signs Counseling</string>
+	<string name="anc_contacts_counseling">ANC Contacts Counseling</string>
+	<string name="family_planning_counseling">Family Planning Counseling</string>
+	<string name="breastfeeding_counseling">Breastfeeding Counseling</string>
+	<string name="anaemia_prevention">Anaemia Prevention</string>
+	<string name="deworming_and_malaria_prophylaxis">Deworming and Malaria Prophylaxis</string>
+	<string name="calcium_supplementation">Calcium Supplementation</string>
+	<string name="vitamin_a_supplementation">Vitamin A Supplementation</string>
 
 
 	<!-- Page: Me -->

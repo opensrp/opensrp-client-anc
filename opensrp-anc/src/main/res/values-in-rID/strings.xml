@@ -584,7 +584,6 @@
     <string name="record">Rekam</string>
     <string name="undo">Undo</string>
     <string name="save_and_finish">Simpan + Selesaikan</string>
-    <string name="reason_for_visit">Alasan Berkunjung</string>
     <string name="contact_recorded_today">Kunjungan %1$d\n dilakukan hari ini</string>
     <string name="contact_recorded_today_no_break">Kunjungan %1$d &#183; dilakukan hari ini</string>
     <string name="continue_contact">Lanjutkan Kunjungan %1$d</string>
@@ -631,6 +630,36 @@
     <string name="birth_plan_counseling">Konseling Rencana Kehamilan</string>
     <string name="malaria_prophylaxis">Profilaksis Malaria</string>
     <string name="immunisation_status">Status Imunisasi</string>
+
+    <string name="reason_for_visit">Alasan Berkunjung</string>
+    <string name="womans_behaviour">Perilaku Ibu</string>
+    <string name="height_and_weight">Tinggi dan Berat Badan</string>
+    <string name="blood_pressure">Tekanan Darah</string>
+    <string name="maternal_exam">Pemeriksaan Kehamilan</string>
+    <string name="fetal_assessment">Pemeriksaan Janin</string>
+    <string name="ultrasound_test">Tes USG</string>
+    <string name="blood_type_test">Tes Golongan Darah</string>
+    <string name="hiv_test">Tes HIV</string>
+    <string name="partner_hiv_test">Tes HIV Pasangan</string>
+    <string name="hepatitis_b_test">Tes Hepatitis B</string>
+    <string name="hepatitis_c_test">Tes Hepatitis C</string>
+    <string name="syphilis_test">Tes Sifilis</string>
+    <string name="urine_test">Tes Urin</string>
+    <string name="blood_glucose_test">Tes Glukosa Darah</string>
+    <string name="blood_haemoglobin_test_and_ifa">Tes HB dan IFA</string>
+    <string name="tb_screening">Pemeriksaan Tuberkulosis</string>
+    <string name="other_tests">Tes Lainnya</string>
+    <string name="pre_eclampsia_risk">Resiko Pre-Eklamsia</string>
+    <string name="hiv_risk_and_prep">Resiko HIV</string>
+    <string name="diabetes_risk">Resiko Diabetes</string>
+    <string name="danger_signs_counseling">Konseling Tanda Bahaya</string>
+    <string name="anc_contacts_counseling">Konseling Kunjungan ANC</string>
+    <string name="family_planning_counseling">Konseling KB</string>
+    <string name="breastfeeding_counseling">Konseling ASI</string>
+    <string name="anaemia_prevention">Pencegahan Anemia</string>
+    <string name="deworming_and_malaria_prophylaxis">Obat Cacing and Profilaksis Malaria</string>
+    <string name="calcium_supplementation">Suplemen Kalsium</string>
+    <string name="vitamin_a_supplementation">Suplemen Vitamin A</string>
 
 
     <!-- Page: Me -->
