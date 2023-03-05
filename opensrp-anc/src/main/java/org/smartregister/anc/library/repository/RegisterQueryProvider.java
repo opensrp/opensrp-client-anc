@@ -108,7 +108,8 @@ public class RegisterQueryProvider {
             getDetailsTable() + "." + DBConstantsUtils.KeyUtils.UID_UNKNOWN,
             getDetailsTable() + "." + DBConstantsUtils.KeyUtils.UID_UNKNOWN_REASON,
             getDetailsTable() + "." + DBConstantsUtils.KeyUtils.PHONE_NUMBER_UNKNOWN,
-            getDetailsTable() + "." + DBConstantsUtils.KeyUtils.PHONE_NUMBER_UNKNOWN_REASON
+            getDetailsTable() + "." + DBConstantsUtils.KeyUtils.PHONE_NUMBER_UNKNOWN_REASON,
+            getDetailsTable() + "." + DBConstantsUtils.KeyUtils.LAST_VISIT_DATE
 
         };
     }

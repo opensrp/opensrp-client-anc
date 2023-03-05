@@ -56,6 +56,7 @@ public class DBConstantsUtils {
 		public static final String UID_UNKNOWN_REASON = "uid_unknown_reason";
 		public static final String PHONE_NUMBER_UNKNOWN = "phone_number_unknown";
 		public static final String PHONE_NUMBER_UNKNOWN_REASON = "phone_number_unknown_reason";
+		public static final String LAST_VISIT_DATE = "last_visit_date";
 
 	}
 }

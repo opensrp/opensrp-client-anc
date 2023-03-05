@@ -487,7 +487,6 @@ public class Utils extends org.smartregister.util.Utils {
                     }
                 }
             }
-            Log.v("PAMPAM", isAlreadyExisted.toString());
             return isAlreadyExisted;
         } catch (JSONException e) {
             return false;

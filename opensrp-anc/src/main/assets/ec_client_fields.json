@@ -275,6 +275,13 @@
 					"json_mapping": {
 						"field": "attributes.visit_start_date"
 					}
+				},
+				{
+					"column_name": "last_visit_date",
+					"type": "Client",
+					"json_mapping": {
+						"field": "attributes.last_visit_date"
+					}
 				}
 			]
 		}
