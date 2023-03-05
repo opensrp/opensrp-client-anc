@@ -89,7 +89,6 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     @Override
     public void onCreate() {
         super.onCreate();
-
         mInstance = this;
         context = Context.getInstance();
         context.updateApplicationContext(getApplicationContext());
