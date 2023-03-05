@@ -616,6 +616,21 @@
 	<string name="tests_tasks_header">Tests</string>
 	<string name="view_anc_history">View Anc History</string>
 
+	<string name="visit_details">Visit Details</string>
+	<string name="overview_of_pregnancy">Overview of Pregnancy</string>
+	<string name="demographic_info">Demographic Info</string>
+	<string name="current_pregnancy">Current Pregnancy</string>
+	<string name="obstetric_history">Obstetric History</string>
+	<string name="medical_history">Medical History</string>
+	<string name="weight">Weight</string>
+	<string name="medications">Medications</string>
+	<string name="hospital_referral_reasons">Hospital Referral Reasons</string>
+	<string name="risks_and_diagnoses">Risks and Diagnoses</string>
+	<string name="physiological_symptoms">Physiological Symptoms</string>
+	<string name="birth_plan_counseling">Birth Plan Counseling</string>
+	<string name="malaria_prophylaxis">Malaria Prophylaxis</string>
+	<string name="immunisation_status">Immunisation Status</string>
+
 
 	<!-- Page: Me -->
 	<!-- ======== -->

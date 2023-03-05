@@ -617,6 +617,21 @@
     <string name="tests_tasks_header">Tes</string>
     <string name="view_anc_history">Lihat histori ANC</string>
 
+    <string name="visit_details">Detail Kunjungan</string>
+    <string name="overview_of_pregnancy">Ikhtisar Kehamilan</string>
+    <string name="demographic_info">Info Demografis</string>
+    <string name="current_pregnancy">Kehamilan Saat Ini</string>
+    <string name="obstetric_history">Riwayat Kehamilan</string>
+    <string name="medical_history">Riwayat Medis</string>
+    <string name="weight">Berat Badan</string>
+    <string name="medications">Pengobatan</string>
+    <string name="hospital_referral_reasons">Rujukan Rumah Sakit</string>
+    <string name="risks_and_diagnoses">Resiko dan Diagnosis</string>
+    <string name="physiological_symptoms">Gejala Fisiologis</string>
+    <string name="birth_plan_counseling">Konseling Rencana Kehamilan</string>
+    <string name="malaria_prophylaxis">Profilaksis Malaria</string>
+    <string name="immunisation_status">Status Imunisasi</string>
+
 
     <!-- Page: Me -->
     <!-- ======== -->
