@@ -8,7 +8,9 @@ import android.view.View;
 import androidx.core.util.Pair;
 
 import org.apache.commons.lang3.tuple.Triple;
+import org.jeasy.rules.api.Facts;
 import org.json.JSONObject;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.ProfileContract;
 import org.smartregister.anc.library.contract.RegisterContract;
@@ -150,17 +152,20 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
                 String recordDate = client.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE);
                 String lastVisit = Utils.getClientLastVisitDate(entityId);
                 String phoneNumber = client.get(DBConstantsUtils.KeyUtils.EDD);
+                String nextContact = client.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT);
+                Integer nextContactNo = nextContact != null ? new Integer(nextContact) : null;
+                Integer currentContactNo = (nextContactNo != null || nextContactNo >= 0) ? nextContactNo - 1 : null;
                 // Update text in UI
                 profile.setProfileImage(entityId);
                 profile.setProfileID(ancId);
                 profile.setProfileName(name);
                 profile.setProfileAge(age);
 
-				// Contact-based details
-				if (recordDate != null) {
-					String edd = client.get(DBConstantsUtils.KeyUtils.EDD);
-					String actualEdd = Utils.getActualEDD(edd, recordDate, lastVisit);
-					String ga = String.valueOf(Utils.getGestationAgeFromEDDate(actualEdd != null ? actualEdd : edd));
+				// Load contact details when she has previous records
+				if (recordDate != null && currentContactNo != null) {
+                    String edd = client.get(DBConstantsUtils.KeyUtils.EDD);
+                    String actualEdd = Utils.getActualEDD(edd, recordDate, lastVisit);
+					String ga = String.valueOf(Utils.getLastContactGA(edd, lastVisit));
 					profile.setProfileGestationAge(ga);
 					profile.setPhoneNumber(phoneNumber);
 				}

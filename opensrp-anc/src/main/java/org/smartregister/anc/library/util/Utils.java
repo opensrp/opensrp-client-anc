@@ -473,6 +473,22 @@ public class Utils extends org.smartregister.util.Utils {
         }
     }
 
+    public static int getLastContactGA(String edd, String lastVisit) {
+        try {
+            if (!"0".equals(edd) && edd.length() > 0) {
+                LocalDate date = SQLITE_DATE_DF.withOffsetParsed().parseLocalDate(edd);
+                LocalDate lmpDate = date.minusWeeks(ConstantsUtils.DELIVERY_DATE_WEEKS);
+                LocalDate visitDate = SQLITE_DATE_DF.withOffsetParsed().parseLocalDate(lastVisit);
+                Weeks weeks = Weeks.weeksBetween(lmpDate, visitDate);
+                return weeks.getWeeks();
+            } else {
+                return 0;
+            }
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
     public static ButtonAlertStatus getButtonAlertStatus
             (Map<String, String> details, Context context, boolean isProfile) {
         String contactStatus = details.get(DBConstantsUtils.KeyUtils.CONTACT_STATUS);
