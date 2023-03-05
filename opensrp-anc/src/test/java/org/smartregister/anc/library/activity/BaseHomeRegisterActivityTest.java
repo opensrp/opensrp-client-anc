@@ -2,10 +2,8 @@ package org.smartregister.anc.library.activity;
 
 import android.app.Activity;
 import android.content.Context;
-
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-
+import androidx.appcompat.app.AlertDialog;
 import com.google.common.collect.ImmutableMap;
 
 import org.junit.After;

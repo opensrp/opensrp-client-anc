@@ -7,6 +7,7 @@ import org.smartregister.anc.activity.LoginActivity;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.sync.intent.BaseSyncIntentService;
 import org.smartregister.view.activity.BaseLoginActivity;
 
 import java.util.List;
@@ -51,8 +52,10 @@ public class AncSyncConfiguration extends SyncConfiguration {
     public String getExtraStringSettingsParameters() {
         AllSharedPreferences sharedPreferences = AncLibrary.getInstance().getContext().userService().getAllSharedPreferences();
         String providerId = sharedPreferences.fetchRegisteredANM();
-
-        return ConstantsUtils.SettingsSyncParamsUtils.LOCATION_ID + "=" + sharedPreferences.fetchDefaultLocalityId(providerId) + "&" + ConstantsUtils.SettingsSyncParamsUtils.IDENTIFIER + "=" + POPULATION_CHARACTERISTICS;
+        BaseSyncIntentService.RequestParamsBuilder builder = new BaseSyncIntentService.RequestParamsBuilder()
+                .addParam(ConstantsUtils.SettingsSyncParamsUtils.LOCATION_ID, sharedPreferences.fetchDefaultLocalityId(providerId))
+                .addParam(ConstantsUtils.SettingsSyncParamsUtils.IDENTIFIER, POPULATION_CHARACTERISTICS);
+        return builder.toString();
     }
 
     @Override

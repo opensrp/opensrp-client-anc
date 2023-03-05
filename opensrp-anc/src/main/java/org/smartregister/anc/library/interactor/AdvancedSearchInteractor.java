@@ -33,12 +33,10 @@ public class AdvancedSearchInteractor implements AdvancedSearchContract.Interact
     @Override
     public void search(final Map<String, String> editMap, final AdvancedSearchContract.InteractorCallBack callBack,
                        final String ancId) {
-        Runnable runnable = () -> {
+        appExecutors.networkIO().execute(() -> {
             final Response<String> response = globalSearch(editMap);
             appExecutors.mainThread().execute(() -> callBack.onResultsFound(response, ancId));
-        };
-
-        appExecutors.networkIO().execute(runnable);
+        });
     }
 
     private Response<String> globalSearch(Map<String, String> map) {
