@@ -155,7 +155,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
         if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
             Utils.navigateToProfile(getActivity(), (HashMap<String, String>) pc.getColumnmaps());
         } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_ALERT_STATUS) {
-            if (Integer.valueOf(view.getTag(R.id.GESTATION_AGE).toString()) >= ConstantsUtils.DELIVERY_DATE_WEEKS) {
+            if (Integer.parseInt(view.getTag(R.id.GESTATION_AGE).toString()) >= ConstantsUtils.DELIVERY_DATE_WEEKS) {
                 baseHomeRegisterActivity.showRecordBirthPopUp((CommonPersonObjectClient) view.getTag());
             } else {
                 String baseEntityId = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.BASE_ENTITY_ID, false);
@@ -180,7 +180,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
     @Override
     public void showNotFoundPopup(String whoAncId) {
         NoMatchDialogFragment
-                .launchDialog((BaseRegisterActivity) Objects.requireNonNull(getActivity()), SecuredNativeSmartRegisterFragment.DIALOG_TAG, whoAncId);
+                .launchDialog((BaseRegisterActivity) requireActivity(), SecuredNativeSmartRegisterFragment.DIALOG_TAG, whoAncId);
     }
 
     @Override
