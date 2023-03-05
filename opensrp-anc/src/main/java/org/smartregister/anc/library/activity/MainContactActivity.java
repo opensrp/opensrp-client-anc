@@ -84,8 +84,10 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
         initializeMainContactContainers();
 
+        int requiredCount = getRequiredCountTotal();
+
         //Enable/Disable finalize button
-        findViewById(R.id.finalize_contact).setEnabled(getRequiredCountTotal() == 0);
+        findViewById(R.id.finalize_contact).setEnabled(requiredCount == 0);
     }
 
     private void initializeMainContactContainers() {
@@ -186,7 +188,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 count += entry.getValue();
             }
         }
-        return count;
+        return count <= 0 ? 0 : count;
     }
 
     private void loadContactGlobalsConfig() throws IOException {
