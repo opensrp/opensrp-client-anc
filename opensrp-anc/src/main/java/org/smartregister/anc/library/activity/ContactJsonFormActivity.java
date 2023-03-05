@@ -3,6 +3,7 @@ package org.smartregister.anc.library.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.fragment.app.Fragment;
@@ -84,6 +85,12 @@ public class ContactJsonFormActivity extends FormConfigurationJsonFormActivity {
             } else {
                 globalValues = new HashMap<>();
             }
+
+            if (getIntent() != null) {
+                String entityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
+                globalValues.put("entity_id", entityId);
+            }
+            Log.v("PAMPAM", globalValues.toString());
 
             rulesEngineFactory = new AncRulesEngineFactory(this, globalValues, getmJSONObject());
             setRulesEngineFactory(rulesEngineFactory);

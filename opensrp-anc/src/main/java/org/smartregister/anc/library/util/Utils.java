@@ -459,6 +459,41 @@ public class Utils extends org.smartregister.util.Utils {
         }
     }
 
+    public static Boolean isVisitDateValid(String entityId, String date) {
+        Boolean isAlreadyExisted = false;
+        try {
+            JSONObject client = AncLibrary.getInstance().getEventClientRepository().getEventsByBaseEntityId(entityId);
+            JSONArray events = client.getJSONArray("events");
+            ArrayList<String> visitDates = new ArrayList<String>();
+            for (int i = 0; i < events.length(); i++) {
+                JSONObject event = events.getJSONObject(i);
+                String eventType = event.getString("eventType");
+                if (eventType.equals("anc_quick_check")) {
+                    JSONArray obs = event.getJSONArray("obs");
+                    for (int j = 0; j < obs.length(); j++) {
+                        JSONObject field = obs.getJSONObject(j);
+                        String fieldCode = field.getString("fieldCode");
+                        if (fieldCode.equals("visit_date")) {
+                            JSONArray values = field.getJSONArray("values");
+                            String visitDate = values.getString(0);
+                            if (visitDate != null) {
+                                String day = visitDate.substring(0,2);
+                                String month = visitDate.substring(3,5);
+                                String year = visitDate.substring(6,10);
+                                String visitDateString = year + "-" + month + "-" + day;
+                                if (visitDateString.equals(date)) isAlreadyExisted = true;
+                            }
+                        }
+                    }
+                }
+            }
+            Log.v("PAMPAM", isAlreadyExisted.toString());
+            return isAlreadyExisted;
+        } catch (JSONException e) {
+            return false;
+        }
+    }
+
     public static String getActualEDD(String edd, String recordDate, String visitDate) {
         try {
             LocalDateTime date_edd = LocalDateTime.parse(edd);
@@ -1002,7 +1037,7 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     /**
-     * @param receives iterated keys and values and passes them through translation in nativeform
+     * @param Receives iterated keys and values and passes them through translation in nativeform
      *                 to return a string. It checks whether the value is an array, a json object or a normal string separated by ,
      * @return
      */

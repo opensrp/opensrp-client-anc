@@ -1,4 +1,11 @@
 ---
+name: step1_visit_date_toaster
+description: Shows when visit_date is invalid.
+priority: 1
+condition: "!helper.validateVisitDate(global_entity_id, step1_visit_date)"
+actions:
+  - "isRelevant = true"
+---
 name: step1_specific_complaint
 description: danger_signs
 priority: 1

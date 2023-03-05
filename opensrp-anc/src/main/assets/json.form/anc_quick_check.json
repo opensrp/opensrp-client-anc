@@ -72,6 +72,24 @@
 					"err": "{{anc_quick_check.step1.visit_date.v_required.err}}"
 				}
 			},
+
+			{
+				"key": "visit_date_toaster",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "",
+				"openmrs_entity_id": "",
+				"type": "toaster_notes",
+				"text": "Invalid Visit Date",
+				"toaster_type": "problem",
+				"relevance": {
+					"rules-engine": {
+						"ex-rules": {
+							"rules-file": "anc_quick_check_relevance.yml"
+						}
+					}
+				}
+			},
+
 			{
 				"key": "contact_reason",
 				"openmrs_entity_parent": "",

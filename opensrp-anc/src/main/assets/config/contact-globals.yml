@@ -1,4 +1,8 @@
 ---
+form: anc_quick_check
+fields:
+  - "entity_id"
+---
 form: anc_counselling_treatment
 fields:
   - "visit_date"
