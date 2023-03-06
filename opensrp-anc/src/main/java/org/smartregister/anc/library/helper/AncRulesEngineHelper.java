@@ -10,18 +10,22 @@ import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rule;
+import org.jeasy.rules.api.RuleListener;
 import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.api.RulesEngine;
+import org.jeasy.rules.api.RulesEngineParameters;
 import org.jeasy.rules.core.DefaultRulesEngine;
 import org.jeasy.rules.core.InferenceRulesEngine;
-import org.jeasy.rules.core.RulesEngineParameters;
+
 import org.jeasy.rules.mvel.MVELRule;
 import org.jeasy.rules.mvel.MVELRuleFactory;
-import org.jeasy.rules.support.YamlRuleDefinitionReader;
+
+import org.jeasy.rules.support.reader.YamlRuleDefinitionReader;
 import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.anc.library.YamlRuleDefinitionReaderExt;
 import org.smartregister.anc.library.rule.AlertRule;
 import org.smartregister.anc.library.rule.ContactRule;
 import org.smartregister.anc.library.util.ANCFormUtils;
@@ -51,14 +55,92 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
     private final RulesEngine defaultRulesEngine;
     private final Map<String, Rules> ruleMap;
     private JSONObject mJsonObject = new JSONObject();
-    private final YamlRuleDefinitionReader yamlRuleDefinitionReader = new YamlRuleDefinitionReader();
+    private final YamlRuleDefinitionReaderExt yamlRuleDefinitionReader = new YamlRuleDefinitionReaderExt();
     private final MVELRuleFactory mvelRuleFactory = new MVELRuleFactory(yamlRuleDefinitionReader);
 
     public AncRulesEngineHelper(Context context) {
         this.context = context;
-        this.inferentialRulesEngine = new InferenceRulesEngine();
+
+        InferenceRulesEngine rulesEngine = new InferenceRulesEngine();
+        rulesEngine.registerRuleListener(new RuleListener() {
+            @Override
+            public boolean beforeEvaluate(Rule rule, Facts facts) {
+                Timber.e("Putting facts in beforeExecute");
+                HashMap<String, Object> myMap = new HashMap<>();
+                Map<String,Object> iterationFacts = facts.asMap();
+                for(String key: iterationFacts.keySet() )
+                {
+                    myMap.put(key, iterationFacts.get(key));
+                }
+
+                facts.put("facts", myMap);
+                return true;
+            }
+
+            @Override
+            public void onSuccess(Rule rule, Facts facts) {
+                Timber.e("Putting facts in onSuccess");
+                HashMap<String, Object> myMap = facts.get("facts");
+
+                for (String key :
+                        myMap.keySet()) {
+                    facts.put(key, myMap.get(key));
+                }
+
+                facts.remove("facts");
+
+
+            }
+
+            @Override
+            public void onFailure(Rule rule, Facts facts, Exception exception) {
+
+                Timber.e("Putting facts in onFailure");
+                facts.remove("facts");
+
+            }
+        });
+
+        this.inferentialRulesEngine = rulesEngine;
         RulesEngineParameters parameters = new RulesEngineParameters().skipOnFirstAppliedRule(true);
         this.defaultRulesEngine = new DefaultRulesEngine(parameters);
+
+        ((DefaultRulesEngine) this.defaultRulesEngine).registerRuleListener(new RuleListener() {
+            @Override
+            public void beforeExecute(Rule rule, Facts facts) {
+//                Timber.e("Putting facts in beforeExecute");
+//                facts.put("facts", facts);
+
+                Timber.e("Putting facts in beforeExecute");
+                HashMap<String, Object> myMap = new HashMap<>();
+                Map<String,Object> iterationFacts = facts.asMap();
+                for(String key: iterationFacts.keySet() )
+                {
+                    myMap.put(key, iterationFacts.get(key));
+                }
+
+                facts.put("facts", myMap);
+            }
+
+            @Override
+            public void onSuccess(Rule rule, Facts facts) {
+                Timber.e("Putting facts in onSuccess");
+                HashMap<String, Object> myMap = facts.get("facts");
+
+                for (String key :
+                        myMap.keySet()) {
+                    facts.put(key, myMap.get(key));
+                }
+
+                facts.remove("facts");
+            }
+
+            @Override
+            public void onFailure(Rule rule, Facts facts, Exception exception) {
+                Timber.e("Putting facts in onFailure");
+                facts.remove("facts");
+            }
+        });
         this.ruleMap = new HashMap<>();
 
     }
@@ -129,7 +211,8 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
         relevanceFacts.put(RuleConstant.IS_RELEVANT, false);
 
         Rules rules = new Rules();
-        Rule mvelRule = new MVELRule().name(UUID.randomUUID().toString()).when(rule).then("isRelevant = true;");
+        Rule mvelRule = new MVELRule().name(UUID.randomUUID().toString()).when(rule)
+                .then("facts.isRelevant = true;");
         rules.register(mvelRule);
 
         processDefaultRules(rules, relevanceFacts);
