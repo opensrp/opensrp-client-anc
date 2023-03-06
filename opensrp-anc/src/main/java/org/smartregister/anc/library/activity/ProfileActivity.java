@@ -228,11 +228,13 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
             Utils.navigateToHomeRegister(this, false, AncLibrary.getInstance().getActivityConfiguration().getHomeRegisterActivityClass());
         } else {
             String contactButtonText = getString(R.string.start_contact);
+            String lastVisitDate = detailMap.get(DBConstantsUtils.KeyUtils.LAST_VISIT_DATE);
+            Integer nextContact = Integer.valueOf(detailMap.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT));
 
-            if (buttonAlertStatus.equals(ConstantsUtils.AlertStatusUtils.TODAY)) {
-                contactButtonText = String.format(getString(R.string.contact_recorded_today_no_break), Utils.getTodayContact(detailMap.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
-            } else if (buttonAlertStatus.equals(ConstantsUtils.AlertStatusUtils.IN_PROGRESS)) {
-                contactButtonText = String.format(getString(R.string.continue_contact), Integer.valueOf(detailMap.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT)));
+            if (buttonAlertStatus.equals(ConstantsUtils.AlertStatusUtils.IN_PROGRESS)) {
+                contactButtonText = String.format(getString(R.string.continue_contact), nextContact);
+            } else if (lastVisitDate != null) {
+                contactButtonText = String.format(getString(R.string.contact_number), nextContact - 1) + " (" + lastVisitDate + ")";
             }
 
             attachAlertDialog(contactButtonText);
