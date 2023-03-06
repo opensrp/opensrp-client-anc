@@ -151,7 +151,7 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
                 String age = String.valueOf(Utils.getAgeFromDate(client.get(DBConstantsUtils.KeyUtils.DOB)));
                 String recordDate = client.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE);
                 String lastVisit = Utils.getClientLastVisitDate(entityId);
-                String phoneNumber = client.get(DBConstantsUtils.KeyUtils.EDD);
+                String phoneNumber = client.get(DBConstantsUtils.KeyUtils.PHONE_NUMBER);
                 String nextContact = client.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT);
                 Integer nextContactNo = nextContact != null ? new Integer(nextContact) : null;
                 Integer currentContactNo = (nextContactNo != null || nextContactNo >= 0) ? nextContactNo - 1 : null;

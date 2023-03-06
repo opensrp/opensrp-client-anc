@@ -57,8 +57,8 @@ public class ContactScheduleAdapter extends RecyclerView.Adapter<ContactSchedule
                         .setText(new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(locateDate));
                 String formattedEdd = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(locateDate);
                 String timeAway = String.valueOf(generateTimeAway(formattedEdd));
-                viewHolder.timeAwayDisplay
-                        .setText(String.format(context.getResources().getString(R.string.timeline_away), timeAway));
+                // viewHolder.timeAwayDisplay.setText(String.format(context.getResources().getString(R.string.timeline_away), timeAway));
+                viewHolder.timeAwayDisplay.setVisibility(View.GONE);
             }
         }
     }

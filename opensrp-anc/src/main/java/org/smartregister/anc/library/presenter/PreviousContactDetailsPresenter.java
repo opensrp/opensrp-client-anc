@@ -67,6 +67,7 @@ public class PreviousContactDetailsPresenter implements PreviousContactsDetails.
     @Override
     public void loadPreviousContactSchedule(String baseEntityId, String contactNo, String edd) {
         try {
+
             Facts immediatePreviousSchedule = getPreviousContactRepository()
                     .getImmediatePreviousSchedule(baseEntityId, contactNo);
             String contactScheduleString = "";

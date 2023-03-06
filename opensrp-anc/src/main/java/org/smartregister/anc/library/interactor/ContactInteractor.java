@@ -88,7 +88,6 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                     addThePreviousContactSchedule(baseEntityId, details, integerList);
                     getDetailsRepository().add(baseEntityId, ConstantsUtils.DetailsKeyUtils.CONTACT_SCHEDULE, jsonObject.toString(),
                             Calendar.getInstance().getTimeInMillis());
-                    //convert String to LocalDate ;
                     LocalDate localDate = new LocalDate(details.get(DBConstantsUtils.KeyUtils.EDD));
                     nextContactVisitDate =
                             localDate.minusWeeks(ConstantsUtils.DELIVERY_DATE_WEEKS).plusWeeks(nextContactVisitWeeks).toString();
@@ -97,6 +96,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                     nextContact = Integer.parseInt(details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT));
                     nextContactVisitDate = details.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE);
                 }
+
 
                 if (referral == null) {
                     List<Task> doneTasks = utils.getContactTasksRepositoryHelper().getClosedTasks(baseEntityId);
@@ -140,6 +140,8 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
                     JSONObject updateClientEventJson = new JSONObject(ANCJsonFormUtils.gson.toJson(eventPair.second));
                     AncLibrary.getInstance().getEcSyncHelper().addEvent(baseEntityId, updateClientEventJson);
                 }
+
+
             } catch (Exception e) {
                 Timber.e(e, "%s --> finalizeContactForm", this.getClass().getCanonicalName());
             }
@@ -255,8 +257,13 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
     }
 
     public int getGestationAge(Map<String, String> details) {
-        return details.containsKey(DBConstantsUtils.KeyUtils.EDD) && details.get(DBConstantsUtils.KeyUtils.EDD) != null ? Utils
-                .getGestationAgeFromEDDate(details.get(DBConstantsUtils.KeyUtils.EDD)) : 4;
+        if (!details.containsKey(DBConstantsUtils.KeyUtils.EDD) || details.get(DBConstantsUtils.KeyUtils.EDD) == null) return 4;
+        String edd = details.get(DBConstantsUtils.KeyUtils.EDD);
+        String visitDate = details.get(DBConstantsUtils.KeyUtils.LAST_VISIT_DATE);
+
+        if (visitDate == null) return Utils.getGestationAgeFromEDDate(edd);
+        int ga = Utils.getGAFromEDDateOnVisitDate(edd, visitDate);
+        return ga;
     }
 
 

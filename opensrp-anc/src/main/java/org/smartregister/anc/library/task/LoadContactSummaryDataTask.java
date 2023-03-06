@@ -76,7 +76,12 @@ public class LoadContactSummaryDataTask {
             clientDetails = new HashMap<>();
         }
         String edd = StringUtils.isNotBlank(facts.get(DBConstantsUtils.KeyUtils.EDD)) ? facts.get(DBConstantsUtils.KeyUtils.EDD) : clientDetails != null ? Utils.reverseHyphenSeperatedValues(clientDetails.get(ConstantsUtils.EDD), "-") : "";
+        String visitDate = StringUtils.isNotBlank(facts.get("visit_date")) ? facts.get("visit_date") : null;
         String contactNo = String.valueOf(intent.getExtras().getInt(ConstantsUtils.IntentKeyUtils.CONTACT_NO));
+
+        if (visitDate != null) {
+            PatientRepository.updateLastVisitDate(baseEntityId, Utils.reverseHyphenSeperatedValues(visitDate, "-"));
+        }
 
         if (edd != null && ((ContactSummaryFinishActivity) context).saveFinishMenuItem != null) {
             PatientRepository.updateEDDDate(baseEntityId, Utils.reverseHyphenSeperatedValues(edd, "-"));
