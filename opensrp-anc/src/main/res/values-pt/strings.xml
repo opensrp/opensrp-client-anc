@@ -575,4 +575,25 @@
     <!--  Form Values  -->
     <string name="value_positive">Positivo</string>
     <string name="value_negative">Negativo</string>
+
+    <string name="advanced_search">Busca Avançada</string>
+    <string name="out_and_inside">Fora e dentro da minha unidade de saúde</string>
+    <string name="requires_internet_connection">(requer conexão com a internet)</string>
+    <string name="my_catchment_area">Apenas minha unidade de saúde</string>
+    <string name="first_name">Primeiro nome</string>
+    <string name="last_name">Sobrenome</string>
+    <string name="anc_id">ANC ID</string>
+    <string name="id_number">ANC ID</string>
+    <string name="edd">Edd</string>
+    <string name="exp_date_of_delivery">Data prevista de entrega</string>
+    <string name="dob">Dob</string>
+    <string name="date_of_birth">Data de nascimento</string>
+    <string name="mobile_phone_number">número de celular</string>
+    <string name="phone_number">Número de telefone</string>
+    <string name="alternate_contact_name">Nome de contato alternativo</string>
+    <string name="alt_contact_name">Nome de contato alternativo</string>
+    <string name="searching_dialog_title">Procurando…</string>
+    <string name="searching_dialog_message">Por favor, aguarde</string>
+    <string name="matching_results">%1$s partidas</string>
+    <string name="scan_qr_code">Escanear código QR</string>
 </resources>
