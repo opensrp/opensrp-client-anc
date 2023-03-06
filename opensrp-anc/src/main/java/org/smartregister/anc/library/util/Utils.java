@@ -537,13 +537,11 @@ public class Utils extends org.smartregister.util.Utils {
 
         String alertStatus;
         Integer gestationAge = 0;
-        if (StringUtils.isNotBlank(edd)) {
-            gestationAge = Utils.getGestationAgeFromEDDate(edd);
+        if (StringUtils.isNotBlank(edd) && StringUtils.isNotBlank((contactStatus))) {
+            gestationAge = Utils.getGAFromEDDateOnVisitDate(edd, lastVisitDate != null ? lastVisitDate : visitDate);
             AlertRule alertRule = new AlertRule(gestationAge, nextContactDate);
-            alertStatus =
-                    StringUtils.isNotBlank(contactStatus) && ConstantsUtils.AlertStatusUtils.ACTIVE.equals(contactStatus) ?
-                            ConstantsUtils.AlertStatusUtils.IN_PROGRESS : AncLibrary.getInstance().getAncRulesEngineHelper()
-                            .getButtonAlertStatus(alertRule, ConstantsUtils.RulesFileUtils.ALERT_RULES);
+            if (contactStatus.equals(ConstantsUtils.AlertStatusUtils.ACTIVE)) alertStatus = ConstantsUtils.AlertStatusUtils.IN_PROGRESS;
+            else alertStatus = AncLibrary.getInstance().getAncRulesEngineHelper().getButtonAlertStatus(alertRule, ConstantsUtils.RulesFileUtils.ALERT_RULES);
         } else {
             alertStatus = StringUtils.isNotBlank(contactStatus) ? ConstantsUtils.AlertStatusUtils.IN_PROGRESS : "DEAD";
         }
