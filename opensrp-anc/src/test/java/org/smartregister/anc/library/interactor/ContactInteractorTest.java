@@ -240,6 +240,7 @@ public class ContactInteractorTest extends BaseUnitTest {
         long id = 7346;
         String value = "{\"value\":\"first_contact\",\"text\":\"First contact\"}";
         String contactNo = "1";
+        PreviousContact previousContact = new PreviousContact(baseEntityId, key, value, contactNo);
         Mockito.when(ancLibrary.getPreviousContactRepository()).thenReturn(previousContactRepository);
 
 
