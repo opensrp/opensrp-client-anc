@@ -225,7 +225,7 @@ public class PreviousContactRepository extends BaseRepository {
             if (mCursor != null) {
                 while (mCursor.moveToNext()) {
                     String jsonValue = mCursor.getString(mCursor.getColumnIndex(VALUE));
-                    if (StringUtils.isNotBlank(jsonValue) && jsonValue.trim().charAt(0) == '{') {
+                    if (StringUtils.isNotBlank(jsonValue) && jsonValue.trim().startsWith("{")) {
                         JSONObject valueObject = new JSONObject(jsonValue);
                         String text, translated_text;
                         text = valueObject.optString(JsonFormConstants.TEXT).trim();
@@ -335,7 +335,7 @@ public class PreviousContactRepository extends BaseRepository {
             if (mCursor != null && mCursor.getCount() > 0) {
                 while (mCursor.moveToNext()) {
                     String previousContactValue = mCursor.getString(mCursor.getColumnIndex(VALUE));
-                    if (StringUtils.isNotBlank(previousContactValue) && previousContactValue.trim().charAt(0) == '{') {
+                    if (StringUtils.isNotBlank(previousContactValue) && previousContactValue.trim().startsWith("{")) {
                         JSONObject previousContactObject = new JSONObject(previousContactValue);
                         if (previousContactObject.has(JsonFormConstants.KEY) && previousContactObject.has(JsonFormConstants.TEXT)) {
                             String translated_text, text;
@@ -424,4 +424,5 @@ public class PreviousContactRepository extends BaseRepository {
 
         return schedule;
     }
+
 }

@@ -626,7 +626,6 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
             if (fieldObject.has(JsonFormConstants.OPTIONS_FIELD_NAME)) {
                 boolean addDefaults = true;
-
                 for (int m = 0; m < fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).length(); m++) {
                     String optionValue;
                     if (fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m)
@@ -661,16 +660,16 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 }
             }
         }
-
         if (fieldObject.getString(JsonFormConstants.KEY).equals(ANCJsonFormConstants.KeyConstants.OPTIBP_BUTTON)
                 || fieldObject.getString(JsonFormConstants.KEY).equals(ANCJsonFormConstants.KeyConstants.OPTIBP_BUTTON_SECOND)) {
             if (fieldObject.has(JsonFormConstants.OptibpConstants.OPTIBP_KEY_DATA)) {
                 fieldObject.remove(JsonFormConstants.OptibpConstants.OPTIBP_KEY_DATA);
             }
-            JSONObject optiBPData = FormUtils.createOptiBPDataObject(baseEntityId, womanOpenSRPId);
+            String optibpButtonKey = fieldObject.getString(JsonFormConstants.KEY).equals(ANCJsonFormConstants.KeyConstants.OPTIBP_BUTTON) ? ANCJsonFormConstants.KeyConstants.OPTIBP_BUTTON : ANCJsonFormConstants.KeyConstants.OPTIBP_BUTTON_SECOND;
+            String previousContactBpValue = getMapValue(optibpButtonKey) == null ? "" : getMapValue(optibpButtonKey);
+            JSONObject optiBPData = FormUtils.createOptiBPDataObject(baseEntityId, womanOpenSRPId, previousContactBpValue);
             fieldObject.put(JsonFormConstants.OptibpConstants.OPTIBP_KEY_DATA, optiBPData);
         }
-
     }
 
     private void getValueMap(JSONObject object) throws JSONException {
@@ -810,6 +809,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && data != null) {
             formInvalidFields = data.getStringExtra("formInvalidFields");
         }
