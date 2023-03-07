@@ -748,98 +748,98 @@
 	<!-- Page: Library -->
 	<!-- ============= -->
 
-	<string name="birth_and_emergency_plan" translatable="false">Birth and Emergency plan</string>
-	<string name="physical_activity" translatable="false">Physical Activity</string>
-	<string name="balanced_nutrition" translatable="false">Balanced Nutrition</string>
-	<string name="balanced_nutrition_source" translatable="false">SOURCE: World Health Organization. Integrated Management of Pregnancy and Childbirth – Pregnancy, Childbirth, Postpartum and Newborn Care: A guide for essential practice. 2015. Geneva.</string>
-	<string name="string_bullet" translatable="false">•</string>
-	<string name="birth_and_emergency" translatable="false">Birth and Emergency</string>
-	<string name="develop_a_birth_and_emergency_plan_header" translatable="false">Develop a birth and emergency plan</string>
-	<string name="facility_delivery_header" translatable="false">Facility delivery</string>
-	<string name="explain_why_birth_in_a_facility_is_recommended" translatable="false">Explain why birth in a facility is recommended</string>
-	<string name="any_complication_can_develop_during_delivery_they_are_not_always_predictable" translatable="false">Any complication can develop during delivery - they are not always predictable.</string>
-	<string name="lots_of_supplies" translatable="false">A facility has staff, equipment, supplies and drugs available to provide best care if needed, and a referral system.</string>
-	<string name="if_hiv_infected_she_will_need_appropriate_arv_treatment_for_herself_and_her_baby_during_childbirth" translatable="false">If HIV-infected she will need appropriate ARV treatment for herself and her baby during childbirth.</string>
-	<string name="complications_are_more_common_in_hiv_infected_women_and_their_newborns_hiv_infected_women_should_deliver_in_a_facility" translatable="false">Complications are more common in HIV-infected women and their newborns. HIV-infected women should deliver in a facility.</string>
-	<string name="advise_how_to_prepare" translatable="false">Advise how to prepare</string>
-	<string name="review_the_arrangements_for_delivery" translatable="false">Review the arrangements for delivery:</string>
-	<string name="how_will_she_get_there_will_she_have_to_pay_for_transport" translatable="false">How will she get there? Will she have to pay for transport?</string>
-	<string name="how_much_will_it_cost_to_deliver_at_the_facility_how_will_she_pay" translatable="false">How much will it cost to deliver at the facility? How will she pay?</string>
-	<string name="can_she_start_saving_straight_away" translatable="false">Can she start saving straight away?</string>
-	<string name="who_will_go_with_her_for_support_during_labour_and_delivery" translatable="false">Who will go with her for support during labour and delivery?</string>
-	<string name="who_will_help_while_she_is_away_to_care_for_her_home_and_other_children" translatable="false">Who will help while she is away to care for her home and other children?</string>
-	<string name="advise_when_to_go" translatable="false">Advise when to go</string>
-	<string name="if_the_woman_lives_near_the_facility_she_should_go_at_the_first_signs_of_labour" translatable="false">If the woman lives near the facility, she should go at the first signs of labour.</string>
-	<string name="if_living_far_from_the_facility_she_should_go_2_3_weeks_before_baby_due_date_and_stay_either_at_the_maternity_waiting_home_or_with_family_or_friends_near_the_facility" translatable="false">If living far from the facility, she should go 2-3 weeks before baby due date and stay either at the maternity waiting home or with family or friends near the facility.</string>
-	<string name="advise_to_ask_for_help_from_the_community_if_needed" translatable="false">Advise to ask for help from the community, if needed.</string>
-	<string name="advise_what_to_bring" translatable="false">Advise what to bring</string>
-	<string name="home_based_maternal_record" translatable="false">Home-based maternal record.</string>
-	<string name="clean_cloths_for_washing_drying_and_wrapping_the_baby" translatable="false">Clean cloths for washing, drying and wrapping the baby.</string>
-	<string name="additional_clean_cloths_to_use_as_sanitary_pads_after_birth" translatable="false">Additional clean cloths to use as sanitary pads after birth.</string>
-	<string name="clothes_for_mother_and_baby" translatable="false">Clothes for mother and baby.</string>
-	<string name="food_and_water_for_woman_and_support_person" translatable="false">Food and water for woman and support person.</string>
-	<string name="home_delivery_with_a_skilled_attendant" translatable="false">Home delivery with a skilled attendant</string>
-	<string name="review_the_following_with_her" translatable="false">Review the following with her:</string>
-	<string name="who_will_be_the_companion_during_labour_and_delivery" translatable="false">Who will be the companion during labour and delivery?</string>
-	<string name="who_will_be_close_by_for_at_least_24_hours_after_delivery" translatable="false">Who will be close by for at least 24 hours after delivery?</string>
-	<string name="who_will_help_to_care_for_her_home_and_other_children" translatable="false">Who will help to care for her home and other children?</string>
-	<string name="advise_to_call_the_skilled_attendant_at_the_first_signs_of_labour" translatable="false">Advise to call the skilled attendant at the first signs of labour.</string>
-	<string name="advise_to_have_her_home_based_maternal_record_ready" translatable="false">Advise to have her home-based maternal record ready.</string>
-	<string name="advise_asking_for_help_from_the_community_if_needed" translatable="false">Advise asking for help from the community, if needed.</string>
-	<string name="explain_supplies_needed_for_home_delivery" translatable="false">Explain supplies needed for home delivery</string>
-	<string name="clean_cloths_of_different_sizes_for_the_bed_for_drying_and_wrapping_the_baby_for_cleaning_the_baby_s_eyes_for_the_birth_attendant_to_wash_and_dry_her_hands_for_use_as_sanitary_pads" translatable="false">Clean cloths of different sizes: for the bed, for drying and wrapping the baby, for cleaning the baby’s eyes, for the birth attendant to wash and dry her hands, for use as sanitary pads.</string>
-	<string name="blankets" translatable="false">Blankets.</string>
-	<string name="buckets_of_clean_water_and_some_way_to_heat_this_water" translatable="false">Buckets of clean water and some way to heat this water.</string>
-	<string name="soap" translatable="false">Soap.</string>
-	<string name="bowls_2_for_washing_and_1_for_the_placenta" translatable="false">Bowls: 2 for washing and 1 for the placenta.</string>
-	<string name="plastic_for_wrapping_the_placenta" translatable="false">Plastic for wrapping the placenta.</string>
-	<string name="physical_exam_disclaimer" translatable="false">DISCLAIMER: WHO is not responsible for the content of these additional materials.</string>
-	<string name="physical_exam_content_one" translatable="false">Physical activity is any bodily movement produced by the skeletal muscles that uses energy. This includes sports, exercise, and other activities such as playing, walking, household chores, gardening, and dancing. Any activity, be it for work, to walk or cycle to and from places, or as part of leisure time, has a health benefit.</string>
-	<string name="people_who_are_physically_active" translatable="false">People who are physically active:</string>
-	<string name="improve_their_muscular_and_cardio_respiratory_fitness" translatable="false">improve their muscular and cardio-respiratory fitness;</string>
-	<string name="improve_their_bone_and_functional_health" translatable="false">improve their bone and functional health;</string>
-	<string name="lower_diesease_rates" translatable="false">have lower rates of coronary heart disease, high blood pressure, stroke, diabetes, cancer (including colon and breast cancer), and depression;</string>
-	<string name="have_a_lower_risk_of_falling_and_of_hip_or_vertebral_fractures_and" translatable="false">have a lower risk of falling and of hip or vertebral fractures; and</string>
-	<string name="are_more_likely_to_maintain_their_weight" translatable="false">are more likely to maintain their weight.</string>
-	<string name="physical_activity_content_two" translatable="false">Exercise can be any activity requiring physical effort, carried out to sustain or improve health or fitness, and these can be either prescribed/unsupervised (e.g. 30 minutes of daily walking), supervised (e.g. a weekly supervised group exercise class) or both. Physical activity is also fundamental to energy balance and weight control.</string>
-	<string name="physical_activity_content_three" translatable="false">A healthy lifestyle includes aerobic physical activity and strength-conditioning exercise aimed at maintaining a good level of fitness throughout pregnancy, without trying to reach peak fitness level or train for athletic competition. Women should choose activities with minimal risk of loss of balance and fetal trauma. Pregnant, postpartum women and persons with cardiac events may need to take extra precautions and seek medical advice before striving to achieve the recommended levels of physical activity.</string>
-	<string name="for_more_information_please_access" translatable="false">For more information please access:</string>
-	<string name="physical_activity_url_one" translatable="false">https://apps.who.int/iris/bitstream/handle/10665/44399/9789241599979_eng.pdf?sequence=1</string>
-	<string name="physical_activity_url_two" translatable="false">https://extranet.who.int/rhl/pt-br/node/151040</string>
-	<string name="birth_plan_source_text" translatable="false">SOURCE: World Health Organization. Integrated Management of Pregnancy and Childbirth – Pregnancy, Childbirth, Postpartum and Newborn Care: A guide for essential practice. 2015. Geneva.</string>
-	<string name="balanced_diet_content_one" translatable="false">Maintaining good nutrition and a healthy diet during pregnancy is critical for the health of the mother and unborn child. When providing nutrition education and counselling to improve the nutritional status of women during pregnancy, please focus primarily on:</string>
-	<string name="balanced_diet_content_two" translatable="false">promoting a healthy diet by increasing the diversity and amount of foods consumed</string>
-	<string name="balanced_diet_content_three" translatable="false">promoting adequate weight gain through sufficient and balanced protein and energy intake</string>
-	<string name="balanced_diet_content_four" translatable="false">promoting consistent and continued use of micronutrient supplements, food supplements or fortified foods</string>
-	<string name="balanced_diet_content_five" translatable="false">Local as well as cultural adaptations may be necessary to meet individual needs and ensure compliance with the recommendations.</string>
-	<string name="for_adults_a_healthy_diet_contains" translatable="false">For adults a healthy diet contains:</string>
-	<string name="balanced_diet_content_six" translatable="false">Fruits, vegetables, legumes (e.g. lentils, beans), nuts and whole grains (e.g. unprocessed maize, millet, oats, wheat, brown rice).</string>
-	<string name="balanced_diet_content_seven" translatable="false">At least 400 g (5 portions) of fruits and vegetables a day. Potatoes, sweet potatoes, cassava and other starchy roots are not classified as fruits or vegetables.</string>
-	<string name="balanced_diet_content_eight" translatable="false">Less than 10% of total energy intake from free sugars which is equivalent to 50 g (or around 12 level teaspoons) for a person of healthy body weight consuming approximately 2000 calories per day, but ideally less than 5% of total energy intake for additional health benefits. Most free sugars are added to foods or drinks by the manufacturer, cook or consumer, and can also be found in sugars naturally present in honey, syrups, fruit juices and fruit juice concentrates.</string>
-	<string name="balanced_diet_content_nine" translatable="false">Less than 30% of total energy intake from fats. Unsaturated fats (e.g. found in fish, avocado, nuts, sunflower, canola and olive oils) are preferable to saturated fats (e.g. found in fatty meat, butter, palm and coconut oil, cream, cheese, ghee and lard). Industrial trans fats (found in processed food, fast food, snack food, fried food, frozen pizza, pies, cookies, margarines and spreads) are not part of a healthy diet.</string>
-	<string name="balanced_diet_content_ten" translatable="false">Less than 5 g of salt (equivalent to approximately 1 teaspoon) per day and use iodized salt.</string>
-	<string name="balanced_diet_url_one" translatable="false">http://www.who.int/en/news-room/fact-sheets/detail/healthy-diet</string>
-	<string name="balanced_diet_url_two" translatable="false">https://mediumredpotion.wordpress.com/2011/12/14/that-old-healthy-food-pyramid/</string>
-	<string name="source" translatable="false">Source</string>
-	<string name="example_sources_of_protein" translatable="false">Example sources of protein:</string>
-	<string name="balanced_diet_content_eleven" translatable="false">Please add to list and modify to local standards where possible.</string>
-	<string name="balanced_diet_url_three" translatable="false">http://www.bendifulblog.com/your-guide-to-protein-what-you-should-know/</string>
-	<string name="balanced_diet_url_four" translatable="false">https://co.pinterest.com/pin/208291551498329651/</string>
-	<string name="example_sources_of_calcium" translatable="false">Example sources of calcium:</string>
-	<string name="example_sources_of_energy" translatable="false">Example sources of energy:</string>
-	<string name="balanced_diet_content_12_info" translatable="false">Please add to list and modify to local standards where possible.</string>
-	<string name="balanced_diet_url_4" translatable="false"><![CDATA[https://www.google.com/url?q=https://cyclonecup.com/blogs/news/13218465-12-healthy-foods-to-eat-for-high-energy&sa=D&ust=1580808439831000]]></string>
-	<string name="example_sources_of_iron" translatable="false">Example sources of iron:</string>
-	<string name="balanced_diet_url_5" translatable="false">https://www.wholesomebabyfoodguide.com/iron-and-iron-rich-baby-foods-what-iron-rich-foods-can-baby-eat/</string>
-	<string name="balanced_diet_url_6" translatable="false">https://bit.ly/2RUH0VU</string>
-	<string name="balanced_diet_url_7" translatable="false">https://i.pinimg.com/originals/21/f2/e3/21f2e3fc203e6b475616e971f3c874f3.jpg</string>
-	<string name="example_sources_of_vitamin_a" translatable="false">Example sources of Vitamin A:</string>
-	<string name="balanced_diet_url_8" translatable="false">https://www.myfooddata.com/articles/food-sources-of-vitamin-A.php</string>
-	<string name="balanced_diet_url_9" translatable="false">https://www.medindia.net/patients/lifestyleandwellness/vitamin-a-rich-foods.htm</string>
-	<string name="example_sources_of_vitamin_c" translatable="false">Example sources of Vitamin C:</string>
-	<string name="balanced_diet_url_10" translatable="false">https://www.myfooddata.com/articles/vitamin-c-foods.php#printable</string>
-	<string name="caffeine_intake" translatable="false">Caffeine intake</string>
-	<string name="balanced_diet_content_13" translatable="false">The maximum daily dose of caffeine intake for a pregnant woman is 300mg, is equivalent to:</string>
-	<string name="balanced_diet_url_11" translatable="false">ftp://ftp.caism.unicamp.br/pub/astec/CARTILHA_DE_EXERCISIO_FISICO_NA_GRAVIDEZ_Publico.pdf</string>
+	<string name="birth_and_emergency_plan">Birth and Emergency plan</string>
+	<string name="physical_activity">Physical Activity</string>
+	<string name="balanced_nutrition">Balanced Nutrition</string>
+	<string name="balanced_nutrition_source">SOURCE: World Health Organization. Integrated Management of Pregnancy and Childbirth – Pregnancy, Childbirth, Postpartum and Newborn Care: A guide for essential practice. 2015. Geneva.</string>
+	<string name="string_bullet">•</string>
+	<string name="birth_and_emergency">Birth and Emergency</string>
+	<string name="develop_a_birth_and_emergency_plan_header">Develop a birth and emergency plan</string>
+	<string name="facility_delivery_header">Facility delivery</string>
+	<string name="explain_why_birth_in_a_facility_is_recommended">Explain why birth in a facility is recommended</string>
+	<string name="any_complication_can_develop_during_delivery_they_are_not_always_predictable">Any complication can develop during delivery - they are not always predictable.</string>
+	<string name="lots_of_supplies">A facility has staff, equipment, supplies and drugs available to provide best care if needed, and a referral system.</string>
+	<string name="if_hiv_infected_she_will_need_appropriate_arv_treatment_for_herself_and_her_baby_during_childbirth">If HIV-infected she will need appropriate ARV treatment for herself and her baby during childbirth.</string>
+	<string name="complications_are_more_common_in_hiv_infected_women_and_their_newborns_hiv_infected_women_should_deliver_in_a_facility">Complications are more common in HIV-infected women and their newborns. HIV-infected women should deliver in a facility.</string>
+	<string name="advise_how_to_prepare">Advise how to prepare</string>
+	<string name="review_the_arrangements_for_delivery">Review the arrangements for delivery:</string>
+	<string name="how_will_she_get_there_will_she_have_to_pay_for_transport">How will she get there? Will she have to pay for transport?</string>
+	<string name="how_much_will_it_cost_to_deliver_at_the_facility_how_will_she_pay">How much will it cost to deliver at the facility? How will she pay?</string>
+	<string name="can_she_start_saving_straight_away">Can she start saving straight away?</string>
+	<string name="who_will_go_with_her_for_support_during_labour_and_delivery">Who will go with her for support during labour and delivery?</string>
+	<string name="who_will_help_while_she_is_away_to_care_for_her_home_and_other_children">Who will help while she is away to care for her home and other children?</string>
+	<string name="advise_when_to_go">Advise when to go</string>
+	<string name="if_the_woman_lives_near_the_facility_she_should_go_at_the_first_signs_of_labour">If the woman lives near the facility, she should go at the first signs of labour.</string>
+	<string name="if_living_far_from_the_facility_she_should_go_2_3_weeks_before_baby_due_date_and_stay_either_at_the_maternity_waiting_home_or_with_family_or_friends_near_the_facility">If living far from the facility, she should go 2-3 weeks before baby due date and stay either at the maternity waiting home or with family or friends near the facility.</string>
+	<string name="advise_to_ask_for_help_from_the_community_if_needed">Advise to ask for help from the community, if needed.</string>
+	<string name="advise_what_to_bring">Advise what to bring</string>
+	<string name="home_based_maternal_record">Home-based maternal record.</string>
+	<string name="clean_cloths_for_washing_drying_and_wrapping_the_baby">Clean cloths for washing, drying and wrapping the baby.</string>
+	<string name="additional_clean_cloths_to_use_as_sanitary_pads_after_birth">Additional clean cloths to use as sanitary pads after birth.</string>
+	<string name="clothes_for_mother_and_baby">Clothes for mother and baby.</string>
+	<string name="food_and_water_for_woman_and_support_person">Food and water for woman and support person.</string>
+	<string name="home_delivery_with_a_skilled_attendant">Home delivery with a skilled attendant</string>
+	<string name="review_the_following_with_her">Review the following with her:</string>
+	<string name="who_will_be_the_companion_during_labour_and_delivery">Who will be the companion during labour and delivery?</string>
+	<string name="who_will_be_close_by_for_at_least_24_hours_after_delivery">Who will be close by for at least 24 hours after delivery?</string>
+	<string name="who_will_help_to_care_for_her_home_and_other_children">Who will help to care for her home and other children?</string>
+	<string name="advise_to_call_the_skilled_attendant_at_the_first_signs_of_labour">Advise to call the skilled attendant at the first signs of labour.</string>
+	<string name="advise_to_have_her_home_based_maternal_record_ready">Advise to have her home-based maternal record ready.</string>
+	<string name="advise_asking_for_help_from_the_community_if_needed">Advise asking for help from the community, if needed.</string>
+	<string name="explain_supplies_needed_for_home_delivery">Explain supplies needed for home delivery</string>
+	<string name="clean_cloths_of_different_sizes_for_the_bed_for_drying_and_wrapping_the_baby_for_cleaning_the_baby_s_eyes_for_the_birth_attendant_to_wash_and_dry_her_hands_for_use_as_sanitary_pads">Clean cloths of different sizes: for the bed, for drying and wrapping the baby, for cleaning the baby’s eyes, for the birth attendant to wash and dry her hands, for use as sanitary pads.</string>
+	<string name="blankets">Blankets.</string>
+	<string name="buckets_of_clean_water_and_some_way_to_heat_this_water">Buckets of clean water and some way to heat this water.</string>
+	<string name="soap">Soap.</string>
+	<string name="bowls_2_for_washing_and_1_for_the_placenta">Bowls: 2 for washing and 1 for the placenta.</string>
+	<string name="plastic_for_wrapping_the_placenta">Plastic for wrapping the placenta.</string>
+	<string name="physical_exam_disclaimer">DISCLAIMER: WHO is not responsible for the content of these additional materials.</string>
+	<string name="physical_exam_content_one">Physical activity is any bodily movement produced by the skeletal muscles that uses energy. This includes sports, exercise, and other activities such as playing, walking, household chores, gardening, and dancing. Any activity, be it for work, to walk or cycle to and from places, or as part of leisure time, has a health benefit.</string>
+	<string name="people_who_are_physically_active">People who are physically active:</string>
+	<string name="improve_their_muscular_and_cardio_respiratory_fitness">improve their muscular and cardio-respiratory fitness;</string>
+	<string name="improve_their_bone_and_functional_health">improve their bone and functional health;</string>
+	<string name="lower_diesease_rates">have lower rates of coronary heart disease, high blood pressure, stroke, diabetes, cancer (including colon and breast cancer), and depression;</string>
+	<string name="have_a_lower_risk_of_falling_and_of_hip_or_vertebral_fractures_and">have a lower risk of falling and of hip or vertebral fractures; and</string>
+	<string name="are_more_likely_to_maintain_their_weight">are more likely to maintain their weight.</string>
+	<string name="physical_activity_content_two">Exercise can be any activity requiring physical effort, carried out to sustain or improve health or fitness, and these can be either prescribed/unsupervised (e.g. 30 minutes of daily walking), supervised (e.g. a weekly supervised group exercise class) or both. Physical activity is also fundamental to energy balance and weight control.</string>
+	<string name="physical_activity_content_three">A healthy lifestyle includes aerobic physical activity and strength-conditioning exercise aimed at maintaining a good level of fitness throughout pregnancy, without trying to reach peak fitness level or train for athletic competition. Women should choose activities with minimal risk of loss of balance and fetal trauma. Pregnant, postpartum women and persons with cardiac events may need to take extra precautions and seek medical advice before striving to achieve the recommended levels of physical activity.</string>
+	<string name="for_more_information_please_access">For more information please access:</string>
+	<string name="physical_activity_url_one">https://apps.who.int/iris/bitstream/handle/10665/44399/9789241599979_eng.pdf?sequence=1</string>
+	<string name="physical_activity_url_two">https://extranet.who.int/rhl/pt-br/node/151040</string>
+	<string name="birth_plan_source_text">SOURCE: World Health Organization. Integrated Management of Pregnancy and Childbirth – Pregnancy, Childbirth, Postpartum and Newborn Care: A guide for essential practice. 2015. Geneva.</string>
+	<string name="balanced_diet_content_one">Maintaining good nutrition and a healthy diet during pregnancy is critical for the health of the mother and unborn child. When providing nutrition education and counselling to improve the nutritional status of women during pregnancy, please focus primarily on:</string>
+	<string name="balanced_diet_content_two">promoting a healthy diet by increasing the diversity and amount of foods consumed</string>
+	<string name="balanced_diet_content_three">promoting adequate weight gain through sufficient and balanced protein and energy intake</string>
+	<string name="balanced_diet_content_four">promoting consistent and continued use of micronutrient supplements, food supplements or fortified foods</string>
+	<string name="balanced_diet_content_five">Local as well as cultural adaptations may be necessary to meet individual needs and ensure compliance with the recommendations.</string>
+	<string name="for_adults_a_healthy_diet_contains">For adults a healthy diet contains:</string>
+	<string name="balanced_diet_content_six">Fruits, vegetables, legumes (e.g. lentils, beans), nuts and whole grains (e.g. unprocessed maize, millet, oats, wheat, brown rice).</string>
+	<string name="balanced_diet_content_seven">At least 400 g (5 portions) of fruits and vegetables a day. Potatoes, sweet potatoes, cassava and other starchy roots are not classified as fruits or vegetables.</string>
+	<string name="balanced_diet_content_eight">Less than 10% of total energy intake from free sugars which is equivalent to 50 g (or around 12 level teaspoons) for a person of healthy body weight consuming approximately 2000 calories per day, but ideally less than 5% of total energy intake for additional health benefits. Most free sugars are added to foods or drinks by the manufacturer, cook or consumer, and can also be found in sugars naturally present in honey, syrups, fruit juices and fruit juice concentrates.</string>
+	<string name="balanced_diet_content_nine">Less than 30% of total energy intake from fats. Unsaturated fats (e.g. found in fish, avocado, nuts, sunflower, canola and olive oils) are preferable to saturated fats (e.g. found in fatty meat, butter, palm and coconut oil, cream, cheese, ghee and lard). Industrial trans fats (found in processed food, fast food, snack food, fried food, frozen pizza, pies, cookies, margarines and spreads) are not part of a healthy diet.</string>
+	<string name="balanced_diet_content_ten">Less than 5 g of salt (equivalent to approximately 1 teaspoon) per day and use iodized salt.</string>
+	<string name="balanced_diet_url_one">http://www.who.int/en/news-room/fact-sheets/detail/healthy-diet</string>
+	<string name="balanced_diet_url_two">https://mediumredpotion.wordpress.com/2011/12/14/that-old-healthy-food-pyramid/</string>
+	<string name="source">Source</string>
+	<string name="example_sources_of_protein">Example sources of protein:</string>
+	<string name="balanced_diet_content_eleven">Please add to list and modify to local standards where possible.</string>
+	<string name="balanced_diet_url_three">http://www.bendifulblog.com/your-guide-to-protein-what-you-should-know/</string>
+	<string name="balanced_diet_url_four">https://co.pinterest.com/pin/208291551498329651/</string>
+	<string name="example_sources_of_calcium">Example sources of calcium:</string>
+	<string name="example_sources_of_energy">Example sources of energy:</string>
+	<string name="balanced_diet_content_12_info">Please add to list and modify to local standards where possible.</string>
+	<string name="balanced_diet_url_4"><![CDATA[https://www.google.com/url?q=https://cyclonecup.com/blogs/news/13218465-12-healthy-foods-to-eat-for-high-energy&sa=D&ust=1580808439831000]]></string>
+	<string name="example_sources_of_iron">Example sources of iron:</string>
+	<string name="balanced_diet_url_5">https://www.wholesomebabyfoodguide.com/iron-and-iron-rich-baby-foods-what-iron-rich-foods-can-baby-eat/</string>
+	<string name="balanced_diet_url_6">https://bit.ly/2RUH0VU</string>
+	<string name="balanced_diet_url_7">https://i.pinimg.com/originals/21/f2/e3/21f2e3fc203e6b475616e971f3c874f3.jpg</string>
+	<string name="example_sources_of_vitamin_a">Example sources of Vitamin A:</string>
+	<string name="balanced_diet_url_8">https://www.myfooddata.com/articles/food-sources-of-vitamin-A.php</string>
+	<string name="balanced_diet_url_9">https://www.medindia.net/patients/lifestyleandwellness/vitamin-a-rich-foods.htm</string>
+	<string name="example_sources_of_vitamin_c">Example sources of Vitamin C:</string>
+	<string name="balanced_diet_url_10">https://www.myfooddata.com/articles/vitamin-c-foods.php#printable</string>
+	<string name="caffeine_intake">Caffeine intake</string>
+	<string name="balanced_diet_content_13">The maximum daily dose of caffeine intake for a pregnant woman is 300mg, is equivalent to:</string>
+	<string name="balanced_diet_url_11">ftp://ftp.caism.unicamp.br/pub/astec/CARTILHA_DE_EXERCISIO_FISICO_NA_GRAVIDEZ_Publico.pdf</string>
 
 </resources>
