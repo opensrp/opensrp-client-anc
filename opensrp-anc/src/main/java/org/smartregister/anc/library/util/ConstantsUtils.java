@@ -297,4 +297,12 @@ public abstract class ConstantsUtils {
         public static final String FACILITY = "FACILITY";
         public static final String VILLAGE = "VILLAGE";
     }
+    public static final class PractitionerConstants {
+        public static final String PRACTITIONERID = "providerBaseEntityId";
+        public static final String PRACTITIONERNAME = "providerId";
+        public static final String TEAMID = "teamId";
+        public static final String TEAM = "team";
+        public static final String LOCATIONID = "locationId";
+        public static final String PRACTITIONERDETAILS = "providerDetails";
+    }
 }
