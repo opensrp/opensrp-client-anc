@@ -322,6 +322,7 @@ public class PreviousContactRepository extends BaseRepository {
         String[] selectionArgs = null;
         Facts previousContactFacts = new Facts();
         try {
+            int contactNumber = Integer.parseInt(contactNo);
             SQLiteDatabase db = getReadableDatabase();
 
             if (StringUtils.isNotBlank(baseEntityId) && StringUtils.isNotBlank(contactNo)) {
@@ -351,7 +352,7 @@ public class PreviousContactRepository extends BaseRepository {
                 }
                 previousContactFacts.put(CONTACT_NO, selectionArgs[1]);
                 return previousContactFacts;
-            } else if (Integer.parseInt(contactNo) > 0) {
+            } else if (contactNumber > 0) {
                 return getPreviousContactFacts(baseEntityId, contactNo, false);
             }
         } catch (Exception e) {

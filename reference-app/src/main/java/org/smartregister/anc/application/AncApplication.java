@@ -8,10 +8,9 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.crashlytics.android.Crashlytics;
-import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
 import com.flurry.android.FlurryAgent;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.vijay.jsonwizard.NativeFormLibrary;
 
 import org.smartregister.Context;
@@ -24,8 +23,8 @@ import org.smartregister.anc.job.AncJobCreator;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.auth.AncCoreAuthorizationService;
 import org.smartregister.anc.library.sync.BaseAncClientProcessorForJava;
-import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.ANCFailSafeRecalledID;
+import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.anc.repository.AncRepository;
 import org.smartregister.commonregistry.CommonFtsObject;
@@ -38,7 +37,6 @@ import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
-import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
 /**
@@ -109,7 +107,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         TimeChangedBroadcastReceiver.init(this);
         TimeChangedBroadcastReceiver.getInstance().addOnTimeChangedListener(this);
         LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.DEFAULT_LOCATION_LEVEL);
-        Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
+        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(!BuildConfig.DEBUG);
 
         //init Job Manager
         JobManager.create(this).addJobCreator(new AncJobCreator());

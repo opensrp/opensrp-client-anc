@@ -73,6 +73,7 @@ public class AncLibrary {
     private final ActivityConfiguration activityConfiguration;
     private AncMetadata ancMetadata = new AncMetadata();
     private AppExecutors appExecutors;
+    private static boolean eventHandlerSetup = false;
 
 
     private AncLibrary(@NonNull Context context, int dbVersion, @NonNull ActivityConfiguration activityConfiguration, @Nullable SubscriberInfoIndex subscriberInfoIndex, @Nullable RegisterQueryProvider registerQueryProvider) {
@@ -173,7 +174,9 @@ public class AncLibrary {
                 eventBusBuilder.addIndex(subscriberInfoIndex);
             }
 
+            if(!eventHandlerSetup)
             eventBusBuilder.installDefaultEventBus();
+            eventHandlerSetup = true;
         } catch (Exception e) {
             Timber.e(e, " --> setUpEventHandling");
         }
