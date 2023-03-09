@@ -4,6 +4,7 @@ import android.content.ContentValues;
 
 import androidx.annotation.VisibleForTesting;
 import androidx.core.util.Pair;
+import androidx.work.Data;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
@@ -28,6 +29,8 @@ import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.sync.ClientProcessorForJava;
+import org.smartregister.sync.wm.worker.PullUniqueIdsWorker;
+import org.smartregister.sync.wm.workerrequest.WorkRequest;
 
 import java.util.Collections;
 import java.util.Date;
@@ -68,7 +71,7 @@ public class RegisterInteractor implements RegisterContract.Interactor {
             appExecutors.mainThread().execute(() -> {
                 if (StringUtils.isBlank(entityId)) {
                     callBack.onNoUniqueId();
-                    PullUniqueIdsServiceJob.scheduleJobImmediately(PullUniqueIdsServiceJob.TAG); //Non were found...lets trigger this againz
+                    WorkRequest.runImmediately(AncLibrary.getInstance().getContext().applicationContext(), PullUniqueIdsWorker.class, PullUniqueIdsWorker.TAG, Data.EMPTY);
                 } else {
                     callBack.onUniqueIdFetched(triple, entityId);
                 }

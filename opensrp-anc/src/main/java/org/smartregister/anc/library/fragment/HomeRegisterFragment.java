@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import androidx.fragment.app.Fragment;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
+import androidx.work.Data;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.library.AncLibrary;
@@ -34,6 +35,10 @@ import org.smartregister.domain.FetchStatus;
 import org.smartregister.job.DocumentConfigurationServiceJob;
 import org.smartregister.job.SyncSettingsServiceJob;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
+import org.smartregister.sync.wm.worker.DocumentConfigurationWorker;
+import org.smartregister.sync.wm.worker.SettingsSyncWorker;
+import org.smartregister.sync.wm.worker.SyncAllLocationsWorker;
+import org.smartregister.sync.wm.workerrequest.WorkRequest;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 import org.smartregister.view.fragment.SecuredNativeSmartRegisterFragment;
@@ -121,8 +126,8 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
         syncButton = view.findViewById(R.id.sync_refresh);
         if (syncButton != null) {
             syncButton.setOnClickListener(view1 -> {
-                SyncSettingsServiceJob.scheduleJobImmediately(SyncSettingsServiceJob.TAG);
-                DocumentConfigurationServiceJob.scheduleJobImmediately(DocumentConfigurationServiceJob.TAG);
+                WorkRequest.runImmediately(view.getContext(), SettingsSyncWorker.class, SettingsSyncWorker.TAG, Data.EMPTY);
+                WorkRequest.runImmediately(view.getContext(), DocumentConfigurationWorker.class, DocumentConfigurationWorker.TAG, Data.EMPTY);
             });
         }
     }

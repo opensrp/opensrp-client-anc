@@ -21,10 +21,12 @@ import android.widget.TextView;
 
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
+import androidx.work.Data;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.vijay.jsonwizard.customviews.RadioButton;
 
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.anc.library.contract.AdvancedSearchContract;
@@ -40,8 +42,9 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.RecyclerViewFragment;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
-import org.smartregister.job.SyncServiceJob;
-import org.smartregister.job.SyncSettingsServiceJob;
+import org.smartregister.sync.wm.worker.SettingsSyncWorker;
+import org.smartregister.sync.wm.worker.SyncWorker;
+import org.smartregister.sync.wm.workerrequest.WorkRequest;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 
@@ -129,8 +132,8 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
             Utils.navigateToProfile(getActivity(),
                     (HashMap<String, String>) ((CommonPersonObjectClient) view.getTag()).getColumnmaps());
         } else if (view.getId() == R.id.sync) {
-            SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
-            SyncSettingsServiceJob.scheduleJobImmediately(SyncSettingsServiceJob.TAG);
+            WorkRequest.runImmediately(requireContext(), SyncWorker.class, SyncWorker.TAG, Data.EMPTY);
+            WorkRequest.runImmediately(requireContext(), SettingsSyncWorker.class, SettingsSyncWorker.TAG, Data.EMPTY);
             //Todo add the move to catchment area
         }
     }
