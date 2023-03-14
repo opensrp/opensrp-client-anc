@@ -668,8 +668,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
             }
             String optibpButtonKey = fieldObject.getString(JsonFormConstants.KEY).equals(ANCJsonFormConstants.KeyConstants.OPTIBP_BUTTON) ? ANCJsonFormConstants.KeyConstants.OPTIBP_BUTTON : ANCJsonFormConstants.KeyConstants.OPTIBP_BUTTON_SECOND;
             String previousContactBpValue = getMapValue(optibpButtonKey) == null ? "" : getMapValue(optibpButtonKey);
-            // JSONObject optiBPData = FormUtils.createOptiBPDataObject(baseEntityId, womanOpenSRPId, previousContactBpValue);
-            JSONObject optiBPData = FormUtils.createOptiBPDataObject(baseEntityId, womanOpenSRPId);
+            JSONObject optiBPData = FormUtils.createOptiBPDataObject(baseEntityId, womanOpenSRPId, previousContactBpValue);
             fieldObject.put(JsonFormConstants.OptibpConstants.OPTIBP_KEY_DATA, optiBPData);
         }
     }
