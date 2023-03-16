@@ -144,13 +144,13 @@
                 android:resource="@xml/captured_images_path" />
         </provider>
 
-        <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService" android:exported="true" />
-        <service android:name="org.smartregister.sync.intent.SyncIntentService" android:exported="true"/>
-        <service android:name="org.smartregister.sync.intent.ValidateIntentService" android:exported="true" />
-        <service android:name="org.smartregister.sync.intent.ExtendedSyncIntentService"  android:exported="true"/>
-        <service android:name="org.smartregister.sync.intent.SettingsSyncIntentService"  android:exported="true"/>
-        <service android:name="org.smartregister.sync.intent.DocumentConfigurationIntentService" android:exported="true" />
-        <service android:name="org.smartregister.sync.intent.SyncAllLocationsIntentService" android:exported="true" />
+<!--        <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService" android:exported="true" />-->
+<!--        <service android:name="org.smartregister.sync.intent.SyncIntentService" android:exported="true"/>-->
+<!--        <service android:name="org.smartregister.sync.intent.ValidateIntentService" android:exported="true" />-->
+<!--        <service android:name="org.smartregister.sync.intent.ExtendedSyncIntentService"  android:exported="true"/>-->
+<!--        <service android:name="org.smartregister.sync.intent.SettingsSyncIntentService"  android:exported="true"/>-->
+<!--        <service android:name="org.smartregister.sync.intent.DocumentConfigurationIntentService" android:exported="true" />-->
+<!--        <service android:name="org.smartregister.sync.intent.SyncAllLocationsIntentService" android:exported="true" />-->
 
         <uses-library
             android:name="org.apache.http.legacy"
