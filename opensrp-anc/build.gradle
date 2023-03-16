@@ -170,8 +170,8 @@ dependencies {
     // explicitly depend on RxJava's latest version for bug fixes and new features.
     implementation 'io.reactivex.rxjava2:rxjava:2.2.15'
     implementation 'com.evernote:android-job:1.2.6'
-    implementation 'com.github.lecho:hellocharts-android:v1.5.8'
-    implementation 'id.zelory:compressor:2.1.0'
+    implementation 'com.github.lecho:hellocharts-android:1.5.8'
+    implementation 'id.zelory:compressor:2.1.1'
     implementation('com.google.android.material:material:1.0.0') {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'cardview-v7'

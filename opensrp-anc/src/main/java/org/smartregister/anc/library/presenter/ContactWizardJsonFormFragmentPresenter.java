@@ -37,12 +37,20 @@ public class ContactWizardJsonFormFragmentPresenter extends JsonWizardFormFragme
     protected boolean moveToNextWizardStep() {
         String nextStep = getFormFragment().getJsonApi().nextStep();
         if (StringUtils.isNotBlank(nextStep)) {
-            JsonFormFragment next = ContactWizardJsonFormFragment.getFormFragment(nextStep);
-            JsonFormFragmentView jsonFormFragmentView = getView();
-            if (jsonFormFragmentView != null) {
-                jsonFormFragmentView.hideKeyBoard();
-                jsonFormFragmentView.transactThis(next);
-            }
+
+            getFormFragment().getJsonApi().getAppExecutors().mainThread().execute(new Runnable() {
+                @Override
+                public void run() {
+
+                    JsonFormFragment next = ContactWizardJsonFormFragment.getFormFragment(nextStep);
+                    JsonFormFragmentView jsonFormFragmentView = getView();
+                    if (jsonFormFragmentView != null) {
+                        jsonFormFragmentView.hideKeyBoard();
+                        jsonFormFragmentView.transactThis(next);
+                    }
+                }
+            });
+
             return true;
         }
         return false;
