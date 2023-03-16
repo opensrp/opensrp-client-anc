@@ -67,9 +67,16 @@ public abstract class ConstantsUtils {
     public static final String DUE = "Due";
     public static final String OPEN_TEST_TASKS = "open_test_tasks";
     public static final String ANDROID_SWITCHER = "android:switcher:";
+    public static final String IS_FIRST_CONTACT = "is_first_contact";
 
     public interface Properties {
         String CAN_SAVE_SITE_INITIAL_SETTING = "CAN_SAVE_INITIAL_SITE_SETTING";
+        String MAX_CONTACT_SCHEDULE_DISPLAYED = "MAX_CONTACT_SCHEDULE_DISPLAYED";
+        String DUE_CHECK_STRATEGY = "DUE_CHECK_STRATEGY";
+    }
+
+    public interface DueCheckStrategy {
+        String CHECK_FOR_FIRST_CONTACT = "check_for_first_contact";
     }
 
     public interface TemplateUtils {
@@ -79,6 +86,10 @@ public abstract class ConstantsUtils {
             String LOCATION_ID = "locationId";
             String PROVIDER_ID = "providerId";
         }
+    }
+
+    public interface ClosedNature {
+        String TRANSFERRED = "transferred";
     }
 
     public static class AncRadioButtonOptionTypesUtils {
@@ -105,6 +116,7 @@ public abstract class ConstantsUtils {
         public static final String CLOSE = "ANC Close";
         public static final String SITE_CHARACTERISTICS = "Site Characteristics";
         public static final String CONTACT_VISIT = "Contact Visit";
+        public static final String ANC_MATERNITY_TRANSFER = "anc_maternity_transfer";
     }
 
     public static class JsonFormUtils {
@@ -141,6 +153,9 @@ public abstract class ConstantsUtils {
         public static final String STEP1 = "step1";
         public static final String FIELDS = "fields";
         public static final String VILLAGE = "village";
+        public static final String PREVIOUS_VISITS = "previous_visits";
+        public static final String VISIT_DATE = "visit_date";
+        public static final String PREVIOUS_VISITS_MAP = "previous_visits_map";
     }
 
     public static class JsonFormExtraUtils {

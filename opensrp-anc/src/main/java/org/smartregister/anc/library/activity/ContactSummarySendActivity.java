@@ -1,16 +1,17 @@
 package org.smartregister.anc.library.activity;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.adapter.ContactSummaryAdapter;
@@ -106,11 +107,24 @@ public class ContactSummarySendActivity extends AppCompatActivity
 
     @Override
     public void displayUpcomingContactDates(List<ContactSummaryModel> models) {
-        if (models.size() <= 0) {
+        if (models == null || models.isEmpty()) {
             contactDatesRecyclerView.setVisibility(View.GONE);
             contactScheduleHeadingTextView.setVisibility(View.GONE);
+            return;
         }
-        contactSummaryAdapter.setContactDates(models.size() > 5 ? models.subList(0, 4) : models);
+        String maxContactToDisplay = Utils.getProperties(getApplicationContext()).getProperty(ConstantsUtils.Properties.MAX_CONTACT_SCHEDULE_DISPLAYED, "");
+        if (StringUtils.isNotBlank(maxContactToDisplay)) {
+            try {
+                int count = Integer.parseInt(maxContactToDisplay);
+                contactSummaryAdapter.setContactDates(models.size() > count ? models.subList(0, (count - 1)) : models);
+            } catch (NumberFormatException e) {
+                contactSummaryAdapter.setContactDates(models);
+                Timber.e(e);
+            }
+        } else {
+            contactSummaryAdapter.setContactDates(models);
+        }
+
     }
 
     @Override

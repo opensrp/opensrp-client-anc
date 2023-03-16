@@ -1,5 +1,7 @@
 package org.smartregister.anc.library.model;
 
+import androidx.annotation.Nullable;
+
 import org.json.JSONObject;
 
 import java.util.Date;
@@ -67,5 +69,14 @@ public class ContactSummaryModel extends BaseContactModel {
 
     public void setLocalDate(Date localDate) {
         this.localDate = localDate;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        String key = ((ContactSummaryModel) obj).getContactName();
+        return this.getContactName().equals(key);
     }
 }

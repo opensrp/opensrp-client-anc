@@ -3,8 +3,10 @@ package org.smartregister.anc.library.fragment;
 import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
+
+import androidx.fragment.app.Fragment;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -65,7 +67,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
     public void setUniqueID(String qrCode) {
         BaseRegisterActivity baseRegisterActivity = (BaseRegisterActivity) getActivity();
         if (baseRegisterActivity != null) {
-            android.support.v4.app.Fragment currentFragment =
+            Fragment currentFragment =
                     baseRegisterActivity.findFragmentByPosition(BaseRegisterActivity.ADVANCED_SEARCH_POSITION);
             if (currentFragment instanceof AdvancedSearchFragment) {
                 ((AdvancedSearchFragment) currentFragment).getAncId().setText(qrCode);
@@ -78,7 +80,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
     public void setAdvancedSearchFormData(HashMap<String, String> formData) {
         BaseRegisterActivity baseRegisterActivity = (BaseRegisterActivity) getActivity();
         if (baseRegisterActivity != null) {
-            android.support.v4.app.Fragment currentFragment =
+            Fragment currentFragment =
                     baseRegisterActivity.findFragmentByPosition(BaseRegisterActivity.ADVANCED_SEARCH_POSITION);
             ((AdvancedSearchFragment) currentFragment).setSearchFormData(formData);
         }
@@ -123,7 +125,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
 
     @Override
     protected void startRegistration() {
-        ((BaseHomeRegisterActivity) getActivity()).startFormActivity(ConstantsUtils.JsonFormUtils.ANC_REGISTER, null, null);
+        ((BaseHomeRegisterActivity) getActivity()).startFormActivity(ConstantsUtils.JsonFormUtils.ANC_REGISTER, null, "");
     }
 
     @Override

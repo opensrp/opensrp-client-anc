@@ -2,7 +2,7 @@ package org.smartregister.anc.library.presenter;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.v4.util.Pair;
+import androidx.core.util.Pair;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
@@ -136,7 +136,6 @@ public class RegisterPresenter implements RegisterContract.Presenter, RegisterCo
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getView().getContext());
             AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
 
-            Timber.d(jsonString);
             getView().showProgressDialog(jsonString.contains(ConstantsUtils.EventTypeUtils.CLOSE) ? R.string.removing_dialog_title :
                     R.string.saving_dialog_title);
 

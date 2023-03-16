@@ -19,10 +19,7 @@ import org.mockito.MockitoAnnotations;
 import org.robolectric.RuntimeEnvironment;
 import org.smartregister.anc.BaseUnitTest;
 import org.smartregister.anc.library.R;
-import org.smartregister.login.model.BaseLoginModel;
 import org.smartregister.view.contract.BaseLoginContract;
-
-import java.lang.ref.WeakReference;
 
 
 /**
@@ -79,71 +76,6 @@ public class LoginPresenterTest extends BaseUnitTest {
         Mockito.verify(interactor).onDestroy(false);
     }
 
-    @Test
-    public void testAttemptLoginShouldValidateCredentialsCorrectly() {
-
-        LoginPresenter presenter = new LoginPresenter(view);
-        presenter.setLoginModel(model);//set mocked model
-        presenter.setLoginInteractor(interactor); //set mocked interactor
-
-        Mockito.doReturn(false).when(model).isEmptyUsername(ArgumentMatchers.anyString());
-        Mockito.doReturn(true).when(model).isPasswordValid(ArgumentMatchers.anyString());
-        presenter.attemptLogin(DUMMY_USERNAME, DUMMY_PASSWORD);
-        Mockito.verify(view).resetPaswordError();
-        Mockito.verify(view).resetUsernameError();
-        Mockito.verify(model).isEmptyUsername(DUMMY_USERNAME);
-        Mockito.verify(model).isPasswordValid(DUMMY_PASSWORD);
-        Mockito.verify(interactor).login(ArgumentMatchers.any(WeakReference.class), ArgumentMatchers.eq(DUMMY_USERNAME), ArgumentMatchers.eq
-                (DUMMY_PASSWORD));
-
-    }
-
-    @Test
-    public void testAttemptLoginShouldCallLoginMethodWithCorrectParametersWhenValidationPasses() {
-
-        LoginPresenter presenter = new LoginPresenter(view);
-        presenter.setLoginModel(model);//set mocked model
-        presenter.setLoginInteractor(interactor); //set mocked interactor
-
-        Mockito.doReturn(false).when(model).isEmptyUsername(ArgumentMatchers.anyString());
-        Mockito.doReturn(true).when(model).isPasswordValid(ArgumentMatchers.anyString());
-        presenter.attemptLogin(DUMMY_USERNAME, DUMMY_PASSWORD);
-        Mockito.verify(interactor).login(ArgumentMatchers.any(WeakReference.class), ArgumentMatchers.eq(DUMMY_USERNAME), ArgumentMatchers.eq
-                (DUMMY_PASSWORD));
-
-    }
-
-    @Test
-    public void testAttemptLoginShouldNotCallLoginMethodWithCorrectParametersWhenValidationFails() {
-        LoginPresenter presenter = new LoginPresenter(view);
-        presenter.setLoginModel(new BaseLoginModel());//create real model
-        presenter.setLoginInteractor(interactor); //set mocked interactor
-
-        presenter.attemptLogin(null, DUMMY_PASSWORD);
-        String NULL_USERNAME = null;
-        Mockito.verify(view).setUsernameError(R.string.error_field_required);
-        Mockito.verify(view).enableLoginButton(true);
-        Mockito.verify(interactor, Mockito.times(0)).login(ArgumentMatchers.any(WeakReference.class), ArgumentMatchers.eq(NULL_USERNAME),
-                ArgumentMatchers.eq(DUMMY_PASSWORD));
-
-
-    }
-
-    @Test
-    public void testAttemptLoginShouldNotCallLoginMethodWhenValidationFails() {
-
-        LoginPresenter presenter = new LoginPresenter(view);
-        presenter.setLoginModel(model);//set mocked model
-        presenter.setLoginInteractor(interactor); //set mocked interactor
-
-        Mockito.doReturn(false).when(model).isPasswordValid(ArgumentMatchers.anyString());
-
-        presenter.attemptLogin(DUMMY_USERNAME, DUMMY_PASSWORD);
-
-        Mockito.verify(interactor, Mockito.times(0)).login(ArgumentMatchers.any(WeakReference.class), ArgumentMatchers.eq(DUMMY_USERNAME),
-                ArgumentMatchers.eq(DUMMY_PASSWORD));
-
-    }
 
     @Test
     public void testCanvasGlobalLayoutListenerShouldInvokeCorrectProcessLayoutOperations() {

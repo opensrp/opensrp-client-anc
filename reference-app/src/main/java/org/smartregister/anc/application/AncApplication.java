@@ -1,7 +1,7 @@
 package org.smartregister.anc.application;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
@@ -154,13 +154,13 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         return repository;
     }
 
-    public String getPassword() {
-        if (password == null) {
-            String username = getContext().userService().getAllSharedPreferences().fetchRegisteredANM();
-            password = getContext().userService().getGroupId(username);
-        }
-        return password;
-    }
+//    public String getPassword() {
+//        if (password == null) {
+//            String username = getContext().userService().getAllSharedPreferences().fetchRegisteredANM();
+//            password = getContext().userService().getGroupId(username);
+//        }
+//        return password;
+//    }
 
     @NonNull
     @Override
@@ -192,15 +192,16 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     @Override
     public void onTimeChanged() {
         Utils.showToast(this, this.getString(org.smartregister.anc.library.R.string.device_time_changed));
-        context.userService().forceRemoteLogin();
+        String username = getContext().userService().getAllSharedPreferences().fetchRegisteredANM();
+        context.userService().forceRemoteLogin(username);
         logoutCurrentUser();
     }
 
     @Override
     public void onTimeZoneChanged() {
         Utils.showToast(this, this.getString(org.smartregister.anc.library.R.string.device_timezone_changed));
-        context.userService().forceRemoteLogin();
-
+        String username = getContext().userService().getAllSharedPreferences().fetchRegisteredANM();
+        context.userService().forceRemoteLogin(username);
         logoutCurrentUser();
     }
 

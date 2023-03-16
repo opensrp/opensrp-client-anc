@@ -1,9 +1,10 @@
 package org.smartregister.anc.library.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,13 +14,18 @@ import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Facts;
+import org.joda.time.LocalDate;
+import org.joda.time.Weeks;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.domain.LastContactDetailsWrapper;
 import org.smartregister.anc.library.domain.YamlConfigWrapper;
-import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.ANCJsonFormUtils;
+import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.Utils;
 
 import java.util.List;
+
+import timber.log.Timber;
 
 public class LastContactAdapter extends RecyclerView.Adapter<LastContactAdapter.ViewHolder> {
     private List<LastContactDetailsWrapper> lastContactDetailsList;
@@ -56,6 +62,8 @@ public class LastContactAdapter extends RecyclerView.Adapter<LastContactAdapter.
                 contactNo = lastContactDetails.getContactNo();
             }
 
+            gestAge = updateGABasedOnDueStrategy(gestAge, contactNo, lastContactDetails);
+
             if (!StringUtils.isEmpty(gestAge)) {
                 viewHolder.contactTextView.setText(
                         !StringUtils.isEmpty(contactNo) ? String
@@ -76,6 +84,36 @@ public class LastContactAdapter extends RecyclerView.Adapter<LastContactAdapter.
 
             createContactDetailsView(lastContactDetails.getExtraInformation(), facts, viewHolder);
         }
+    }
+
+    private String updateGABasedOnDueStrategy(@Nullable String gestAge, @NonNull String contactNo, @NonNull LastContactDetailsWrapper lastContactDetails) {
+        String tempGestAge = gestAge;
+        if (ConstantsUtils.DueCheckStrategy.CHECK_FOR_FIRST_CONTACT.equals(Utils.getDueCheckStrategy())) {
+            Facts facts = lastContactDetails.getFacts();
+
+            if (StringUtils.isBlank(tempGestAge)) {
+                if ("1".equals(contactNo.trim()))
+                    tempGestAge = "-";
+                else if (lastContactDetailsList.size() > 1) {
+                    try {
+                        LastContactDetailsWrapper firstLastContactDetailsWrapper = lastContactDetailsList.get(0);
+                        Facts firstFacts = firstLastContactDetailsWrapper.getFacts();
+                        String edd = Utils.reverseHyphenSeperatedValues(firstFacts.get(ConstantsUtils.EDD), "-");
+                        if (firstFacts.get(ConstantsUtils.GEST_AGE_OPENMRS) == null) {
+                            String contactDate = facts.get(ConstantsUtils.CONTACT_DATE);
+                            int diffWeeks = ConstantsUtils.DELIVERY_DATE_WEEKS - Math.abs(Weeks.weeksBetween(LocalDate.parse(edd), LocalDate.parse(contactDate)).getWeeks());
+                            tempGestAge = String.valueOf(diffWeeks);
+                        } else {
+                            tempGestAge = firstFacts.get(ConstantsUtils.GEST_AGE_OPENMRS);
+                        }
+                    } catch (IllegalArgumentException e) {
+                        tempGestAge = "-";
+                        Timber.e(e);
+                    }
+                }
+            }
+        }
+        return tempGestAge;
     }
 
     private void createContactDetailsView(List<YamlConfigWrapper> data, Facts facts, ViewHolder viewHolder) {

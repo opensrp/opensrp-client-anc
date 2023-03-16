@@ -78,7 +78,12 @@ public class ContactSummaryPresenter
         if ((upcomingContacts == null || upcomingContacts.isEmpty()) && lastContact >= 0) {
             return;
         }
-        this.upcomingContacts.addAll(upcomingContacts);
+        this.upcomingContacts.clear();
+        for (ContactSummaryModel contactSummaryModel : upcomingContacts) {
+            if (!this.upcomingContacts.contains(contactSummaryModel)) {
+                this.upcomingContacts.add(contactSummaryModel);
+            }
+        }
         addUpcomingContactsToView();
         getView().updateRecordedContact(lastContact);
     }

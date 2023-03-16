@@ -2,8 +2,8 @@ package org.smartregister.anc.library.activity;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AlertDialog;
 
 import com.google.common.collect.ImmutableMap;
 
@@ -56,6 +56,7 @@ public class BaseHomeRegisterActivityTest extends BaseActivityUnitTest {
 
     @Mock
     private List<Field> filterList;
+
     @Mock
     private Field sortField;
 

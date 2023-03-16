@@ -1,7 +1,6 @@
 package org.smartregister.anc.library.presenter;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
@@ -18,6 +17,8 @@ import org.smartregister.anc.library.model.ContactModel;
 
 import java.lang.ref.WeakReference;
 import java.util.Map;
+
+import timber.log.Timber;
 
 public class ContactPresenter implements ContactContract.Presenter, ContactContract.InteractorCallback {
 
@@ -136,10 +137,10 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
                     getView().startFormActivity(form, contact);
                 }
             } catch (JSONException e) {
-                Log.e(TAG, Log.getStackTraceString(e));
+                Timber.e(e);
             }
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
             getView().displayToast(R.string.error_unable_to_start_form);
         }
     }

@@ -9,8 +9,8 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.DisplayMetrics;
@@ -42,7 +42,6 @@ import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.anc.library.activity.ContactJsonFormActivity;
 import org.smartregister.anc.library.activity.ContactSummaryFinishActivity;
-import org.smartregister.anc.library.activity.ProfileActivity;
 import org.smartregister.anc.library.domain.ButtonAlertStatus;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.event.BaseEvent;
@@ -50,8 +49,12 @@ import org.smartregister.anc.library.model.ContactModel;
 import org.smartregister.anc.library.model.PartialContact;
 import org.smartregister.anc.library.model.Task;
 import org.smartregister.anc.library.repository.ContactTasksRepository;
+import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.rule.AlertRule;
+import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.util.FormUtils;
+import org.smartregister.util.JsonFormUtils;
 import org.smartregister.view.activity.DrishtiApplication;
 
 import java.io.IOException;
@@ -64,6 +67,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -201,7 +205,6 @@ public class Utils extends org.smartregister.util.Utils {
         try {
 
             Intent intent = new Intent(context.getApplicationContext(), ContactJsonFormActivity.class);
-
             Contact quickCheck = new Contact();
             quickCheck.setName(context.getResources().getString(R.string.quick_check));
             quickCheck.setFormName(ConstantsUtils.JsonFormUtils.ANC_QUICK_CHECK);
@@ -211,6 +214,7 @@ public class Utils extends org.smartregister.util.Utils {
             quickCheck.setBackIcon(R.drawable.ic_clear);
             quickCheck.setWizard(false);
             quickCheck.setHideSaveLabel(true);
+
 
             //partial contact exists?
             PartialContact partialContactRequest = new PartialContact();
@@ -223,6 +227,13 @@ public class Utils extends org.smartregister.util.Utils {
 
             ContactModel baseContactModel = new ContactModel();
             JSONObject form = baseContactModel.getFormAsJson(quickCheck.getFormName(), baseEntityId, locationId);
+
+            JSONObject globals = new JSONObject();
+            globals.put(ConstantsUtils.CONTACT_NO, personObjectClient.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT));
+            if (ConstantsUtils.DueCheckStrategy.CHECK_FOR_FIRST_CONTACT.equals(Utils.getDueCheckStrategy())) {
+                globals.put(ConstantsUtils.IS_FIRST_CONTACT, PatientRepository.isFirstVisit(personObjectClient.get(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID)));
+            }
+            form.put(ConstantsUtils.GLOBAL, globals);
 
             String processedForm = ANCFormUtils.getFormJsonCore(partialContactRequest, form).toString();
 
@@ -379,7 +390,7 @@ public class Utils extends org.smartregister.util.Utils {
     }
 
     public static void navigateToProfile(Context context, HashMap<String, String> patient) {
-        Intent intent = new Intent(context, ProfileActivity.class);
+        Intent intent = new Intent(context, AncLibrary.getInstance().getActivityConfiguration().getProfileActivityClass());
         intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, patient.get(DBConstantsUtils.KeyUtils.ID_LOWER_CASE));
         intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, patient);
         context.startActivity(intent);
@@ -646,6 +657,167 @@ public class Utils extends org.smartregister.util.Utils {
         return false;
     }
 
+    public static String getDueCheckStrategy() {
+        return getProperties(AncLibrary.getInstance().getApplicationContext()).getProperty(ConstantsUtils.Properties.DUE_CHECK_STRATEGY, "");
+    }
+
+    /***
+     * Creates a map for repeating group fields and values
+     * @param fields {@link JSONArray}
+     * @param fieldName {@link String}
+     * @return {@link HashMap}
+     * @throws JSONException
+     */
+    public static HashMap<String, HashMap<String, String>> buildRepeatingGroupValues(@NonNull JSONArray fields, @NonNull String fieldName) throws JSONException {
+        ArrayList<String> keysArrayList = new ArrayList<>();
+        JSONObject jsonObject = JsonFormUtils.getFieldJSONObject(fields, fieldName);
+        HashMap<String, HashMap<String, String>> repeatingGroupMap = new LinkedHashMap<>();
+        if (jsonObject != null) {
+            JSONArray jsonArray = jsonObject.optJSONArray(JsonFormConstants.VALUE);
+            if (jsonArray != null) {
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject valueField = jsonArray.optJSONObject(i);
+                    String fieldKey = valueField.optString(JsonFormConstants.KEY);
+                    keysArrayList.add(fieldKey);
+                }
+
+                for (int k = 0; k < fields.length(); k++) {
+                    JSONObject valueField = fields.optJSONObject(k);
+                    String fieldKey = valueField.optString(JsonFormConstants.KEY);
+                    String fieldValue = valueField.optString(JsonFormConstants.VALUE);
+
+                    if (fieldKey.contains("_")) {
+                        fieldKey = fieldKey.substring(0, fieldKey.lastIndexOf("_"));
+                        if (keysArrayList.contains(fieldKey) && StringUtils.isNotBlank(fieldValue)) {
+                            String fieldKeyId = valueField.optString(JsonFormConstants.KEY).substring(fieldKey.length() + 1);
+                            HashMap<String, String> hashMap = repeatingGroupMap.get(fieldKeyId) == null ? new HashMap<>() : repeatingGroupMap.get(fieldKeyId);
+                            hashMap.put(fieldKey, fieldValue);
+                            repeatingGroupMap.put(fieldKeyId, hashMap);
+                        }
+                    }
+                }
+            }
+        }
+        return repeatingGroupMap;
+    }
+
+    /***
+     * Creates contact visit event after each visit
+     * @param formSubmissionIDs {@link List}
+     * @param womanDetails {@link Map}
+     * @param openTasks {@link String}
+     * @return {@link Event}
+     */
+    public static Event createContactVisitEvent(@NonNull List<String> formSubmissionIDs,
+                                                @NonNull Map<String, String> womanDetails,
+                                                @Nullable String openTasks) {
+
+        try {
+            String contactNo = womanDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT);
+            String contactStartDate = womanDetails.get(DBConstantsUtils.KeyUtils.VISIT_START_DATE);
+            String baseEntityId = womanDetails.get(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID);
+
+            Event contactVisitEvent = (Event) new Event().withBaseEntityId(baseEntityId).withEventDate(new Date())
+                    .withEventType(ConstantsUtils.EventTypeUtils.CONTACT_VISIT).withEntityType(DBConstantsUtils.CONTACT_ENTITY_TYPE)
+                    .withFormSubmissionId(ANCJsonFormUtils.generateRandomUUIDString())
+                    .withDateCreated(ANCJsonFormUtils.getContactStartDate(contactStartDate));
+
+            String currentContactNo;
+
+            if (womanDetails.get(ConstantsUtils.REFERRAL) == null) {
+                currentContactNo = ConstantsUtils.CONTACT + " " + contactNo;
+            } else {
+                currentContactNo = ConstantsUtils.CONTACT + " " + womanDetails.get(ConstantsUtils.REFERRAL);
+            }
+
+            contactVisitEvent.addDetails(ConstantsUtils.CONTACT, currentContactNo);
+            contactVisitEvent.addDetails(ConstantsUtils.FORM_SUBMISSION_IDS, formSubmissionIDs.toString());
+            contactVisitEvent.addDetails(ConstantsUtils.OPEN_TEST_TASKS, openTasks);
+
+            ANCJsonFormUtils.tagSyncMetadata(getAllSharedPreferences(), contactVisitEvent);
+
+            PatientRepository.updateContactVisitStartDate(baseEntityId, null);//reset contact visit date
+
+            return contactVisitEvent;
+
+        } catch (NullPointerException e) {
+            Timber.e(e, " --> createContactVisitEvent");
+            return null;
+        }
+
+    }
+
+    /***
+     * Creates partial previous visit events for clients from the registration form
+     * @param strGroup {@link String}
+     * @param baseEntityId {@link String}
+     * @throws JSONException
+     */
+    public static void createPreviousVisitFromGroup(@NonNull String strGroup, @NonNull String baseEntityId) throws JSONException {
+        JSONObject jsonObject = new JSONObject(strGroup);
+        Iterator<String> repeatingGroupKeys = jsonObject.keys();
+        List<String> currentFormSubmissionIds = new ArrayList<>();
+
+        int count = 0;
+
+        while (repeatingGroupKeys.hasNext()) {
+
+            ++count;
+
+            JSONObject jsonSingleVisitObject = jsonObject.optJSONObject(repeatingGroupKeys.next());
+
+            String contactDate = Utils.reverseHyphenSeperatedValues(jsonSingleVisitObject.optString(ConstantsUtils.JsonFormKeyUtils.VISIT_DATE), "-");
+
+            Facts entries = new Facts();
+
+            entries.put(ConstantsUtils.CONTACT_DATE, contactDate);
+
+            HashMap<String, String> womanDetails = new HashMap<>();
+
+            womanDetails.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, String.valueOf(count + 1));
+
+            womanDetails.put(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID, baseEntityId);
+
+            Event contactVisitEvent = Utils.createContactVisitEvent(new ArrayList<>(), womanDetails, null);
+
+            if (contactVisitEvent != null) {
+                JSONObject factsJsonObject = new JSONObject(ANCJsonFormUtils.gson.toJson(entries.asMap()));
+                Event event = Utils.addContactVisitDetails("", contactVisitEvent, null, factsJsonObject.toString());
+                JSONObject eventJson = new JSONObject(ANCJsonFormUtils.gson.toJson(event));
+                AncLibrary.getInstance().getEcSyncHelper().addEvent(baseEntityId, eventJson);
+                currentFormSubmissionIds.add(event.getFormSubmissionId());
+            }
+        }
+
+        long lastSyncTimeStamp = getAllSharedPreferences().fetchLastUpdatedAtDate(0);
+        Date lastSyncDate = new Date(lastSyncTimeStamp);
+        try {
+            AncLibrary.getInstance().getClientProcessorForJava().processClient(AncLibrary.getInstance().getEcSyncHelper().getEvents(currentFormSubmissionIds));
+            getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    public static Event addContactVisitDetails(String attentionFlagsString, Event event,
+                                               String referral, String currentContactState) {
+        event.addDetails(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS, attentionFlagsString);
+        if (currentContactState != null && referral == null) {
+            event.addDetails(ConstantsUtils.DetailsKeyUtils.PREVIOUS_CONTACTS, currentContactState);
+        }
+        return event;
+    }
+
+    public static FormUtils getFormUtils() {
+        FormUtils formUtils = null;
+        try {
+            formUtils = FormUtils.getInstance(AncLibrary.getInstance().getApplicationContext());
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return formUtils;
+    }
+
     /**
      * Loads yaml files that contain rules for the profile displays
      *
@@ -710,4 +882,5 @@ public class Utils extends org.smartregister.util.Utils {
     public ContactTasksRepository getContactTasksRepositoryHelper() {
         return AncLibrary.getInstance().getContactTasksRepository();
     }
+
 }
