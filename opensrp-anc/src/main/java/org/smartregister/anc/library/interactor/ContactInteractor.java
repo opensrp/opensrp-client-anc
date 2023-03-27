@@ -47,6 +47,8 @@ import static org.smartregister.anc.library.util.ConstantsUtils.GEST_AGE_OPENMRS
 public class ContactInteractor extends BaseContactInteractor implements ContactContract.Interactor {
     private Utils utils = new Utils();
 
+    private String edd = null;
+
     public ContactInteractor() {
         this(new AppExecutors());
     }
@@ -130,6 +132,7 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
 
                 addTheContactDate(baseEntityId, details);
                 updateWomanDetails(details, womanDetail);
+                edd = details.get(DBConstantsUtils.KeyUtils.EDD);
                 if (referral != null && !TextUtils.isEmpty(details.get(DBConstantsUtils.KeyUtils.EDD))) {
                     addReferralGa(baseEntityId, details);
                 }
@@ -237,10 +240,17 @@ public class ContactInteractor extends BaseContactInteractor implements ContactC
     private String getCurrentContactState(String baseEntityId) throws JSONException {
         List<PreviousContact> previousContactList = getPreviousContactRepository().getPreviousContacts(baseEntityId, null);
         JSONObject stateObject = null;
+        String lastContactNo = null;
         if (previousContactList != null) {
             stateObject = new JSONObject();
 
             for (PreviousContact previousContact : previousContactList) {
+                if(lastContactNo == null)
+                    lastContactNo = previousContact.getContactNo();
+
+                if(!lastContactNo.equals(previousContact.getContactNo()) && !stateObject.has(GEST_AGE_OPENMRS) && !TextUtils.isEmpty(edd))
+                    stateObject.put(GEST_AGE_OPENMRS,String.valueOf(Utils.getGestationAgeFromEDDate(edd)));
+
                 if(previousContact.getKey().equals(CONTACT_DATE) && stateObject.has(CONTACT_DATE))
                     continue;
                 if(stateObject.has(previousContact.getKey()))

@@ -3,7 +3,6 @@ package org.smartregister.anc.library.activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -610,17 +609,23 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
 
     private void updateDefaultValues(JSONArray stepArray, int i, JSONObject fieldObject) throws JSONException {
         if (defaultValueFields.contains(fieldObject.getString(JsonFormConstants.KEY))) {
-
+            String secondaryValue = null;
             if (!fieldObject.has(JsonFormConstants.VALUE) ||
                     TextUtils.isEmpty(fieldObject.getString(JsonFormConstants.VALUE))) {
 
                 String defaultKey = fieldObject.getString(JsonFormConstants.KEY);
                 String mapValue = getMapValue(defaultKey);
-
+                if(fieldObject.has(ANCJsonFormConstants.KeyConstants.SECONDARY_VALUE_FIELD))
+                    secondaryValue = getMapValue(fieldObject.getString(ANCJsonFormConstants.KeyConstants.SECONDARY_VALUE_FIELD));
                 if (mapValue != null) {
-                    fieldObject.put(JsonFormConstants.VALUE, mapValue);
-                    fieldObject.put(JsonFormConstants.EDITABLE, editableFields.contains(defaultKey));
-                    fieldObject.put(JsonFormConstants.READ_ONLY, editableFields.contains(defaultKey));
+                    if(mapValue.startsWith("{")) {
+                        fieldObject.put(JsonFormConstants.VALUE, new JSONObject(mapValue));
+                    }
+                    else {
+                        fieldObject.put(JsonFormConstants.VALUE, mapValue);
+                        fieldObject.put(JsonFormConstants.EDITABLE, editableFields.contains(defaultKey));
+                        fieldObject.put(JsonFormConstants.READ_ONLY, editableFields.contains(defaultKey));
+                    }
                 }
 
             }
@@ -629,6 +634,12 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 boolean addDefaults = true;
                 for (int m = 0; m < fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).length(); m++) {
                     String optionValue;
+                    JSONObject optionsObject =  fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m);
+                    if(optionsObject.has(JsonFormConstants.CONTENT_WIDGET) && secondaryValue != null)
+                    {
+                        JSONObject secondaryValueObject = ANCJsonFormUtils.populateSecondaryValues(secondaryValue,optionsObject);
+                        optionsObject.put(JsonFormConstants.SECONDARY_VALUE,new JSONArray().put(secondaryValueObject));
+                    }
                     if (fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m)
                             .has(JsonFormConstants.VALUE)) {
                         optionValue = fieldObject.getJSONArray(JsonFormConstants.OPTIONS_FIELD_NAME).getJSONObject(m)
