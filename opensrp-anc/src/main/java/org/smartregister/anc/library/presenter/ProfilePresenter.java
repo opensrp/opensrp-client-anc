@@ -2,11 +2,15 @@ package org.smartregister.anc.library.presenter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
+import android.view.View;
 
 import androidx.core.util.Pair;
 
 import org.apache.commons.lang3.tuple.Triple;
+import org.jeasy.rules.api.Facts;
 import org.json.JSONObject;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.ProfileContract;
 import org.smartregister.anc.library.contract.RegisterContract;
@@ -138,22 +142,38 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
     @Override
     public void refreshProfileTopSection(Map<String, String> client) {
         if (client != null) {
-            getProfileView()
-                    .setProfileName(client.get(DBConstantsUtils.KeyUtils.FIRST_NAME) + " " + client.get(DBConstantsUtils.KeyUtils.LAST_NAME));
-            getProfileView().setProfileAge(String.valueOf(Utils.getAgeFromDate(client.get(DBConstantsUtils.KeyUtils.DOB))));
+            ProfileContract.View profile = getProfileView();
             try {
-                if(client.containsKey(DBConstantsUtils.KeyUtils.EDD) && client.get(DBConstantsUtils.KeyUtils.EDD) != null)
-                    if(Utils.getGestationAgeFromEDDate(client.get(DBConstantsUtils.KeyUtils.EDD)) <= 40) {
-                        getProfileView().setProfileGestationAge(
-                                String.valueOf(Utils.getGestationAgeFromEDDate(client.get(DBConstantsUtils.KeyUtils.EDD))));
-                    }
+                // Retrieve client's data
+                String ancId = client.get(DBConstantsUtils.KeyUtils.ANC_ID);
+                String entityId = client.get(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID);
+                String name = client.get(DBConstantsUtils.KeyUtils.FIRST_NAME) + " " + client.get(DBConstantsUtils.KeyUtils.LAST_NAME);
+                String age = String.valueOf(Utils.getAgeFromDate(client.get(DBConstantsUtils.KeyUtils.DOB)));
+                String recordDate = client.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE);
+                String lastVisit = Utils.getClientLastVisitDate(entityId);
+                String phoneNumber = client.get(DBConstantsUtils.KeyUtils.PHONE_NUMBER);
+                String nextContact = client.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT);
+                Integer nextContactNo = nextContact != null ? new Integer(nextContact) : null;
+                Integer currentContactNo = (nextContactNo != null || nextContactNo >= 0) ? nextContactNo - 1 : null;
+                // Update text in UI
+                profile.setProfileImage(entityId);
+                profile.setProfileID(ancId);
+                profile.setProfileName(name);
+                profile.setProfileAge(age);
+
+				// Load contact details when she has previous records
+				if (recordDate != null && currentContactNo != null) {
+                    String edd = client.get(DBConstantsUtils.KeyUtils.EDD);
+                    String actualEdd = Utils.getActualEDD(edd, recordDate, lastVisit);
+					String ga = String.valueOf(Utils.getLastContactGA(edd, lastVisit));
+					profile.setProfileGestationAge(ga);
+					profile.setPhoneNumber(phoneNumber);
+				}
+
 
             } catch (Exception e) {
                 getProfileView().setProfileGestationAge("0");
             }
-            getProfileView().setProfileID(client.get(DBConstantsUtils.KeyUtils.ANC_ID));
-            getProfileView().setProfileImage(client.get(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID));
-            getProfileView().setPhoneNumber(client.get(DBConstantsUtils.KeyUtils.PHONE_NUMBER));
         }
     }
 

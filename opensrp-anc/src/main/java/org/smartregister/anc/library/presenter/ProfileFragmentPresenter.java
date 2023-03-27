@@ -1,5 +1,6 @@
 package org.smartregister.anc.library.presenter;
 
+import android.annotation.SuppressLint;
 import android.text.TextUtils;
 
 import org.apache.commons.lang3.StringUtils;
@@ -54,12 +55,12 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
         }
     }
 
+    @SuppressLint("NewApi")
     @Override
     public Facts getImmediatePreviousContact(Map<String, String> clientDetails, String baseEntityId, String contactNo) {
         Facts facts = new Facts();
         try {
             facts = AncLibrary.getInstance().getPreviousContactRepository().getPreviousContactFacts(baseEntityId, contactNo, true);
-
             Map<String, Object> factsAsMap = facts.asMap();
             String attentionFlags = "";
             if (factsAsMap.containsKey(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS)) {

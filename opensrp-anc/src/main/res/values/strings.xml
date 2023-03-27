@@ -1,446 +1,845 @@
 <resources>
-    <!-- Actions -->
-    <string name="action_logout">Logout</string>
-    <string name="action_language">Language</string>
 
-    <!-- General -->
-    <string name="app_name">WHO ANC</string>
-    <string name="saving_dialog_title">Saving…</string>
-    <string name="removing_dialog_title">Removing…</string>
-    <string name="please_wait_message">Please wait</string>
-    <string name="scan_qr_code">Scan QR code</string>
-    <string name="select_language">Select Language</string>
-    <string name="no_openmrs_id">No unique ids found. Click on the sync button to get more and if this error persists contact the system admin.</string>
-    <string name="alphabetical_sort">Alphabetical (Name)</string>
-    <string name="name">Name</string>
-    <string name="dismiss">Cancel</string>
-    <string name="dose_d">DOSE (D)</string>
-    <string name="id">ID</string>
-    <string name="patient_location">Location: %1$s</string>
-    <string name="dose_given_date">Dose %1$s given %2$s</string>
+	<!-- ================================================ -->
+	<!-- * OVERRIDE OPENSRP-CLIENT-CORE LIBRARY STRINGS * -->
+	<!-- ================================================ -->
 
 
-    <string name="unauthorized">Please check the credentials</string>
-    <string name="unauthorized_group">Your user group is not allowed to access this device</string>
-    <string name="unknown_response">login failed. Try later</string>
-    <string name="no_internet_connectivity">No internet connection. Please ensure data connectivity</string>
-    <string name="login_text">Log In</string>
-    <string name="show_password_text">Show password</string>
-    <string name="complete">Complete</string>
-    <string name="updating_dialog_title">Updating…</string>
-    <string name="remove_from_register">REMOVE FROM REGISTER</string>
-    <string name="url_separator">/</string>
-    <string name="clients_key">clients</string>
-    <string name="events_key">events</string>
-    <string name="sync">Sync</string>
-    <string name="sync_round_complete">Sync round complete&#8230;</string>
-    <string name="device_timezone_changed">"The device's timezone changed. Please login again."</string>
-    <string name="device_time_changed">"The device's time has changed. Please login again."</string>
+	<!-- App Configuration -->
+	<!-- ================= -->
 
-    <!-- sync -->
-    <string name="sync_failed_no_internet">Sync failed. Check your internet connection.</string>
-    <string name="syncing">Syncing...</string>
-    <string name="sync_failed">Sync failed</string>
-    <string name="retry">Retry</string>
-    <string name="sync_complete">Sync complete</string>
-    <string name="sync_">Sync%1$s</string>
-    <string name="last_sync">(last %1$s)</string>
-    <string name="manual_sync_triggered">Manual Sync triggered&#8230;</string>
+	<string name="app_name">BUNDA</string>
+	<string name="app_version">App Version: %1$s (built on %2$s)</string>
+	<string name="outdated_app">This is an outdated app. Please update to the latest version to continue.</string>
+	<string name="app_reset_status">App Reset Status</string>
+	<string name="clearing_application_data">Clearing application data...</string>
 
-    <!-- login -->
-    <string name="prompt_username">Username</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_username">This username is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="registration_info">Registration info</string>
 
-    <!-- register -->
-    <string name="opensrp_id">OpenSRP ID</string>
-    <string name="anc">WHO ANC</string>
-    <string name="error_unable_to_start_form">An error occurred when starting the form</string>
-    <string name="search_name_or_id">Search name or ID</string>
-    <string name="filter">Filter</string>
-    <string name="clear_filters">CLEAR FILTERS</string>
-    <string name="apply">APPLY</string>
-    <string name="done">DONE</string>
-    <string name="has_tasks_due">Has tasks due</string>
-    <string name="risky_pregnancy">Risky pregnancy</string>
-    <string name="syphilis_positive">Syphilis pregnancy</string>
-    <string name="hiv_positive">HIV pregnancy</string>
-    <string name="hypertensive">Hypertensive</string>
-    <string name="updated_recent_first">Updated (recent first)</string>
-    <string name="ga_older_first">GA (older first)</string>
-    <string name="ga_younger_first">GA (younger first)</string>
-    <string name="id_sort">ID</string>
-    <string name="first_name_a_to_z">First name (A to Z)</string>
-    <string name="first_name_z_to_a">First name (Z to A)</string>
-    <string name="last_name_a_to_z">Last name (A to Z)</string>
-    <string name="last_name_z_to_a">Last name (Z to A)</string>
-    <string name="no_location_picker">No location selected </string>
+	<!-- Actions & Button Labels -->
+	<!-- ======================= -->
 
-    <!-- advanced search -->
-    <string name="advanced_search">Advanced Search</string>
-    <string name="out_and_inside">Outside and inside my health facility</string>
-    <string name="requires_internet_connection">(requires internet connection)</string>
-    <string name="my_catchment_area">My health facility only</string>
-    <string name="first_name">First name</string>
-    <string name="last_name">Last name</string>
-    <string name="anc_id">ANC ID</string>
-    <string name="id_number">ANC ID</string>
-    <string name="edd">Edd</string>
-    <string name="exp_date_of_delivery">Expected date of delivery</string>
-    <string name="dob">Dob</string>
-    <string name="date_of_birth">Date of birth</string>
-    <string name="mobile_phone_number">Mobile phone number</string>
-    <string name="phone_number">Phone number</string>
-    <string name="alternate_contact_name">Alternate contact name</string>
-    <string name="alt_contact_name">Alternate contact name</string>
-    <string name="search">Search</string>
-    <string name="search_results">Search Results</string>
-    <string name="searching_dialog_title">Searching…</string>
-    <string name="searching_dialog_message">Please wait</string>
-    <string name="matching_results">%1$s matches</string>
+	<string name="yes_button_label">Yes</string>
+	<string name="no_button_label">No</string>
+	<string name="ok">OK</string>
+	<string name="str_next">Next &gt;&gt;</string>
+	<string name="str_previous">&lt;&lt; Previous</string>
+	<string name="str_page_info">Page {0} of {1}</string>
+	<string name="refresh">Refresh</string>
+	<string name="return_to_register">Return</string>
 
-    <!-- side nav -->
-    <string name="anc_clients">ANC clients</string>
-    <string name="counseling_resources">Counseling resources</string>
-    <string name="site_characteristics">Site characteristics</string>
-    <string name="contact_summary">Contact Summary</string>
-    <string name="sync_data">Sync data</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="antenatal_care_module">Antenatal Care \n Module</string>
-    <string name="anc_id_text">ID: %1$s</string>
-    <string name="age_text">Age: %1$s</string>
-    <string name="ga_text">GA: %1$d weeks</string>
-    <string name="bullet">\u2022</string>
 
-    <string name="overview">OVERVIEW</string>
-    <string name="contacts">CONTACTS</string>
-    <string name="tasks">TASKS</string>
+	<!-- Authentication -->
+	<!-- ============== -->
 
-    <string name="new_registration_saved">New registration saved &#x21;</string>
-    <string name="registration_info_updated">Registration info updated &#x21;</string>
+	<string name="login_text">Log In</string>
+	<string name="logout_text">Logout</string>
+	<string name="loggin_in_dialog_title">Logging in…</string>
+	<string name="loggin_in_dialog_message">Please Wait</string>
+	<string name="login_failed_dialog_title">Log In Failed</string>
+	<string name="login_failed_dialog_message">Please Check The Credentials</string>
+	<string name="form_back_confirm_dialog_message">Are you sure you want to go back? All the data you have entered in this form will be cleared.</string>
+	<string name="form_back_confirm_dialog_title">Confirm Form Close</string>
+	<string name="settings_logout_confirm_title">Confirm Logout</string>
+	<string name="settings_logout_confirm_dialog_message">Are you sure you want to log out? All the data will be cleared.</string>
+	<string name="prompt_username">Username</string>
+	<string name="prompt_password">Password (optional)</string>
+	<string name="action_sign_in">Sign in or register</string>
+	<string name="action_sign_in_short">Sign in</string>
+	<string name="error_invalid_username">This username is invalid</string>
+	<string name="error_invalid_password">This password is too short</string>
+	<string name="error_incorrect_password">This password is incorrect</string>
+	<string name="show_password_text">Show Password</string>
+	<string name="remote_login_generic_error">Error occurred during Login in with server. Please try again.</string>
+	<string name="remote_login_base_url_missing_error">OpenSRP Base URL is missing. Please add it in Setting and try again</string>
+	<string name="log_out_text">Logout</string>
+	<string name="unauthorized_group">Your user group is not allowed to access this device.</string>
+	<string name="no_internet_connectivity">No internet connection. Please ensure data connectivity.</string>
+	<string name="unknown_response">Login Failed. Please try later.</string>
+	<string name="unauthorized">Please check the credentials.</string>
+	<string name="account_disabled">Account Disabled</string>
+	<string name="account_disabled_logged_off">You have been logged off as your account has been disabled. Please contact your administrator.</string>
+	<string name="account_new_assignment_logged_off">You have been logged off as your account has new assignments. Log in again so that new assignments take effect</string>
+	<string name="default_location_revoked_logged_off">You have been logged off as access to your default location has been revoked</string>
+	<string name="your_session_has_expired">Your session has expired. Please log in again.</string>
+	<string name="new_db_encryption_version_migration">You have been logged off as your application database encryption version has changed. Please login in again to complete the upgrade.</string>
+	<string name="account_removed">You have been logged off as your account has been removed from the accounts manager.</string>
+	<string name="no_client_available_for_url">No auth client available for the URL</string>
 
-    <string name="call">Call</string>
-    <string name="start_contact">Start Contact</string>
-    <string name="close_anc_record">Close ANC Record</string>
-    <string name="copy_to_clipboard">Copy to clipboard</string>
-    <string name="no_matching_woman_found_on_this_device">No matching woman found on this device.</string>
-    <string name="go_to_advanced_search">Go to advanced search</string>
-    <string name="cancel">Cancel</string>
-    <string name="yellow">YELLOW</string>
-    <string name="red">RED</string>
-    <string name="record_birth">Record birth</string>
-    <string name="the_qr_code_scanner_button">The QR Code Scanner button</string>
-    <string name="woman_filter">Filter</string>
-    <string name="clients">%1$d clients</string>
-    <string name="client">%1$d client</string>
-    <string name="register">Register</string>
-    <string name="library">Library</string>
-    <string name="me">Me</string>
-    <string name="clients_menu">Clients</string>
-    <string name="_0_clients_sort_updated">0 Clients (Sort: updated)</string>
 
-    <string name="reason_for_coming_facility"><font fgcolor="black">Reason for coming to facility? </font><font fgcolor="red">*</font></string>
+	<!-- Bottom Navigation Menu -->
+	<!-- ====================== -->
 
-    <string name="first_contact">First contact</string>
-    <string name="scheduled_contact">Scheduled contact</string>
-    <string name="specific_complaint">Specific complaint</string>
+	<string name="clients_menu">Clients</string>
+	<string name="search_menu">Search</string>
+	<string name="register_menu">Register</string>
+	<string name="library_menu">Library</string>
+	<string name="me">Me</string>
 
-    <string name="specific_complaints"><font fgcolor="black">Specific complaint(s) </font><font fgcolor="red">*</font></string>
 
-    <string name="abnormal_discharge">Abnormal vaginal discharge</string>
-    <string name="altered_skin_color">Altered skin colour</string>
-    <string name="changes_in_bp">Changes in blood pressure</string>
-    <string name="constipation">Constipation</string>
-    <string name="contractions">Contractions</string>
-    <string name="cough">Cough</string>
-    <string name="depressive_anxious">Depressive / anxious</string>
-    <string name="dizziness">Dizziness</string>
-    <string name="domestic_violence">Domestic violence</string>
-    <string name="extreme_pelvic_pain">Extreme pelvic pain - can\'t walk (symphysis pubis dysfunction)</string>
-    <string name="fever">Fever</string>
-    <string name="full_abdominal_pain">Full abdominal pain</string>
-    <string name="flu_symptoms">Flu symptoms</string>
-    <string name="fluid_loss">Fluid loss</string>
-    <string name="headache">Headache</string>
-    <string name="heartburn">Heartburn</string>
-    <string name="leg_cramps">Leg cramps</string>
-    <string name="leg_pain">Leg pain</string>
-    <string name="leg_redness">Leg redness</string>
-    <string name="low_back_pelvic_pain">Low back and pelvic pain</string>
-    <string name="nausea_vomiting_diarrhea">Nausea / vomiting / diarrhea</string>
-    <string name="no_fetal_movement">No fetal movement</string>
-    <string name="oedema">Oedema</string>
-    <string name="other_bleeding">Other bleeding</string>
-    <string name="other_pain">Other pain</string>
-    <string name="other_psychological_symptoms">Other psychological symptoms</string>
-    <string name="other_skin_disorder">Other skin disorder</string>
-    <string name="other_types_of_voilence">Other types of violence</string>
-    <string name="dysuria">Pain during urination (dysuria)</string>
-    <string name="pruritus">Pruritus</string>
-    <string name="reduced_fetal_movement">Reduced or poor fetal movement</string>
-    <string name="shortness_of_breath">Shortness of breath</string>
-    <string name="tiredness">Tiredness</string>
-    <string name="trauma">Trauma</string>
-    <string name="bleeding">Vaginal bleeding</string>
-    <string name="visual_disturbance">Visual disturbance</string>
-    <string name="complaint_other_specify">Other</string>
+	<!-- Data Key Fields -->
+	<!-- =============== -->
 
-    <string name="danger_signs"><font fgcolor="black">Danger signs </font><font fgcolor="red">*</font></string>
+	<string name="clients_key">clients</string>
+	<string name="events_key">events</string>
 
-    <string name="danger_none">None</string>
-    <string name="danger_bleeding">Bleeding vaginally</string>
-    <string name="central_cyanosis">Central cyanosis</string>
-    <string name="convulsing">Convulsing</string>
-    <string name="danger_fever">Fever</string>
-    <string name="headache_visual_disturbance">Headache and visual disturbance</string>
-    <string name="imminent_delivery">Imminent delivery</string>
-    <string name="labour">Labour</string>
-    <string name="looks_very_ill">Looks very ill</string>
-    <string name="severe_vomiting">Severe vomiting</string>
-    <string name="severe_pain">Severe pain</string>
-    <string name="severe_abdominal_pain">Severe abdominal pain</string>
-    <string name="unconscious">Unconscious</string>
 
-    <string name="specify">Specify</string>
+	<!-- Dialogs & Messages -->
+	<!-- ================== -->
 
-    <string name="proceed_to_normal_contact">Proceed to normal contact</string>
-    <string name="refer_and_close_contact">Refer and close contact</string>
+	<string name="please_wait_message">Please Wait</string>
+	<string name="cancelling">Cancelling...</string>
+	<string name="stopping_services">Stopping services...</string>
+	<string name="performing_data_checks">Performing data checks...</string>
+	<string name="invalid_url_massage">Please enter a valid url.</string>
+	<string name="clear_data_dialog_title">Do you want to clear data to login with a different team/location</string>
+	<string name="clear_data_dialog_message">You are trying to login with a user in a different team/location. Upload of pending data and clearing of data for user %s in Team %s is required. Do you want to continue?</string>
+	<string name="msg_empty_url">The URL cannot be empty</string>
 
-    <string name="validation_no_reason_selected">Please select a reason for coming to facility</string>
-    <string name="validation_no_specific_complaint">Please select at least one specific complaint</string>
-    <string name="validation_no_danger_sign">Please select None or at least one danger sign</string>
-    <string name="validation_no_valid_danger_sign">Please at least one danger sign other than None</string>
-    <string name="validation_unable_to_save_quick_check">Unable to save quick check event</string>
 
-    <string name="cyanosis_info">Bluish discolouration around the mucous membranes in the mouth, lips and tongue</string>
+	<!-- Forms & Inputs -->
+	<!-- ============== -->
 
-    <string name="any_treatment">Any treatment given\nbefore referral?</string>
-    <string name="welcome_site_characteristics">Welcome!\n\nTo get started, please set your site characteristics.</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
-    <string name="contact_dummy_text">CONTACT&#10;22/05/2018</string>
-    <string name="library_placeholder">Library Placeholder</string>
-    <string name="me_page_placeholder">Me Page Placeholder</string>
-    <string name="population_characteristics">Population characteristics</string>
-    <string name="continue_">continue</string>
-    <string name="continue_to_your_client_list">CONTINUE TO YOUR CLIENT LIST</string>
-    <string name="your_site_characteristics_for_facility_name">Your site characteristics for %1$s are all set.</string>
-    <string name="site_characteristics_are_shared_for_all">Site characteristics are shared by all OpenSRP users at the facility. You can update site characteristics at any time.</string>
-    <string name="go_back_to_site_characteristics">Go back to site characteristics</string>
-    <string name="edit"> edit </string>
+	<string name="error_field_required">This field is required</string>
+	<string name="form_update_title">Form Update</string>
+	<string name="form_update_message">This form has content updates</string>
+	<string name="current_corrupted_form">(Current Corrupted Form)</string>
+	<string name="rollback_dialog_title">Select a rollback form</string>
+	<string name="cannot_select_corrupted_form_rollback">You cannot select this form because it\'s corrupted!</string>
+	<string name="form_changed_reopen_to_take_effect">Form has been successfully selected! Reopen this form for the changes to take effect</string>
+	<string name="component_desc_image_upload_service">Uploads images to the OpenSRP server</string>
 
-    <!-- contact -->
-    <string name="quick_check">Quick Check</string>
-    <string name="profile">Profile</string>
-    <string name="symptoms_follow_up">Symptoms and Follow-up</string>
-    <string name="physical_exam">Physical Exam</string>
-    <string name="tests">Tests</string>
-    <string name="counselling_treatment">Counselling and Treatment</string>
-    <string name="contact_tasks_form">Contact Tasks</string>
 
-    <string name="finalize">Finalize</string>
-    <string name="required_fields">%1$d required fields</string>
+	<!-- Page: Client List -->
+	<!-- ================= -->
 
-    <string name="view_anc_history">View Anc History</string>
+	<string name="registration_info">Registration info</string>
+	<string name="filter">Filter</string>
+	<string name="due_only">Due only</string>
+	<string name="search_hint">Find name or ID</string>
+	<string name="_0_clients_sort_updated">0 Clients (Sort: updated)</string>
+	<string name="no_record">No Record</string>
+	<string name="clients">%1$d Clients</string>
+	<string name="client">%1$d Client</string>
 
-    <string name="exit_contact_with">Exit Contact with\n%1$s</string>
-    <string name="exit_contact_title">Exit contact?</string>
-    <string name="save_changes">Save Changes\nContinue with this contact at\na later time</string>
-    <string name="save_contact">Save changes</string>
-    <string name="discard_contact">Ignore changes</string>
-    <string name="close_without_saving">Close without saving\nLose updates you\'ve made in\nthis contact</string>
 
-    <string name="me_page_location_text">Location: </string>
-    <string name="right_arrow">Right Arrow</string>
-    <string name="section_icon">Section Icon</string>
-    <string name="settings">Settings</string>
-    <string name="app_version">App version: %1$s (built on %2$s)</string>
-    <string name="form_manifest_version">Form Release version: v%1$s</string>
+	<string name="right_arrow">Right Arrow</string>
+	<string name="settings">Settings</string>
 
-    <string name="data_synced">Data synced: %1$s at %2$s</string>
-    <string name="qr_code_label">QR Code</string>
-    <string name="clients_facility">Client\'s facility</string>
-    <!-- Form container -->
-    <string name="upcoming_contact_dates">Upcoming contact dates:</string>
-    <string name="go_to_client_profile">GO TO CLIENT PROFILE</string>
-    <string name="send_summary_to_client">SEND SUMMARY TO CLIENT</string>
-    <string name="loading_client_settings">Loading client settings&#8230;</string>
-    <string name="allow_phone_call_management">You need to allow the WHO ANC app to manage phone calls to enable calling&#8230;</string>
-    <string name="any_changes_you_make">Any changes you make will be lost</string>
-    <string name="woman_name">Woman Name</string>
-    <string name="contact_weeks">START\nCONTACT %1$s\n%2$s</string>
-    <string name="contact_weeks_no_break">START &#183; CONTACT %1$s &#183; %2$s</string>
-    <string name="contact_in_progress">CONTACT %1$s\n IN PROGRESS</string>
-    <string name="contact_in_progress_no_break">CONTACT %1$s &#183; IN PROGRESS</string>
-    <string name="due_delivery">DUE\nDELIVERY</string>
-    <string name="record_birth_popup_message">GA: %1$d weeks\nEDD: %2$s (%3$s ago)\n\n%4$s should come in immediately for delivery.</string>
-    <string name="contact_number">Contact %1$d</string>
-    <string name="contact_recorded">Contact %1$d recorded</string>
-    <string name="info_icon_display">the more info icon display</string>
-    <string name="status_icon_display">the status icon display</string>
-    <string name="record">Record</string>
-    <string name="undo">Undo</string>
-    <string name="save_and_finish">SAVE + FINISH</string>
-    <string name="reason_for_visit">REASON FOR VISIT</string>
-    <string name="contact_recorded_today">CONTACT %1$d\n DONE TODAY</string>
-    <string name="contact_recorded_today_no_break"> CONTACT %1$d &#183; DONE TODAY</string>
-    <string name="continue_contact">Continue Contact %1$d</string>
-    <string name="username">Username</string>
-    <string name="password">Password</string>
-    <string name="finalizing_contact">Finalizing Contact %1$d</string>
-    <string name="summarizing_contact_number">Summarizing Contact %1$d</string>
-    <string name="contact_number_due">CONTACT %1$d\n DUE \n %2$s</string>
-    <string name="contact_number_due_no_break">CONTACT %1$d &#183; DUE &#183; %2$s</string>
-    <string name="last_contact">LAST CONTACT</string>
-    <string name="key_figure">KEY FIGURES</string>
-    <string name="recent_test">RECENT TEST: %1$s</string>
-    <string name="previous_contacts">PREVIOUS CONTACTS</string>
-    <string name="all_tests_results">All Tests Results</string>
-    <string name="contact_details">%1$s Weeks &#183; Contact %2$s</string>
-    <string name="referral_contact_details">Contact %1$s</string>
-    <string name="undo_test_result">Undo the %1$s result?</string>
-    <string name="negative_contact_text">A negative contact means that the patient was referred so her contact schedule does not change and remains the same as before</string>
-    <string name="previous_contacts_header">Previous Contacts</string>
-    <string name="previous_contacts_tests_header">All Test Results</string>
-    <string name="expected_date_of_delivery">Expected Date of Delivery</string>
-    <string name="ga_weeks">%1$s weeks</string>
-    <string name="timeline_away">%1$sw away</string>
-    <string name="all_results">All results</string>
-    <string name="no_tests_available">No Tests Available</string>
-    <string name="hospital_referral">Hospital referral</string>
-    <string name="no_contact_schedule">No contact schedule generated yet</string>
-    <string name="hospital_referral_title">Hospital referral recorded</string>
-    <string name="back">Back</string>
-    <string name="tab_button_image">Tab button image</string>
-    <string name="tap_button_below">Tap the button below to start/complete a contact</string>
-    <string name="no_health_data_recorded">No health data recorded</string>
-    <string name="tests_tasks_header">Tests</string>
-    <string name="go_to_image">Go to image</string>
-    <string name="attach_file">Attach file</string>
-    <string name="birth_and_emergency_plan">Birth and Emergency plan</string>
-    <string name="physical_activity">Physical Activity</string>
-    <string name="balanced_nutrition">Balanced Nutrition</string>
 
-    <string name="balanced_nutrition_source">SOURCE: World Health Organization. Integrated Management of Pregnancy and Childbirth – Pregnancy, Childbirth, Postpartum and Newborn Care: A guide for essential practice. 2015. Geneva.</string>
-    <string name="string_bullet">•</string>
-    <string name="birth_and_emergency"></string>
-    <string name="develop_a_birth_and_emergency_plan_header">Develop a birth and emergency plan</string>
-    <string name="facility_delivery_header">Facility delivery</string>
-    <string name="explain_why_birth_in_a_facility_is_recommended">Explain why birth in a facility is recommended</string>
-    <string name="any_complication_can_develop_during_delivery_they_are_not_always_predictable">Any complication can develop during delivery - they are not always predictable.</string>
-    <string name="lots_of_supplies">A facility has staff, equipment, supplies and drugs available to provide best care if needed, and a referral system.</string>
-    <string name="if_hiv_infected_she_will_need_appropriate_arv_treatment_for_herself_and_her_baby_during_childbirth">If HIV-infected she will need appropriate ARV treatment for herself and her baby during childbirth.</string>
-    <string name="complications_are_more_common_in_hiv_infected_women_and_their_newborns_hiv_infected_women_should_deliver_in_a_facility">Complications are more common in HIV-infected women and their newborns. HIV-infected women should deliver in a facility.</string>
-    <string name="advise_how_to_prepare">Advise how to prepare</string>
-    <string name="review_the_arrangements_for_delivery">Review the arrangements for delivery:</string>
-    <string name="how_will_she_get_there_will_she_have_to_pay_for_transport">How will she get there? Will she have to pay for transport?</string>
-    <string name="how_much_will_it_cost_to_deliver_at_the_facility_how_will_she_pay">How much will it cost to deliver at the facility? How will she pay?</string>
-    <string name="can_she_start_saving_straight_away">Can she start saving straight away?</string>
-    <string name="who_will_go_with_her_for_support_during_labour_and_delivery">Who will go with her for support during labour and delivery?</string>
-    <string name="who_will_help_while_she_is_away_to_care_for_her_home_and_other_children">Who will help while she is away to care for her home and other children?</string>
-    <string name="advise_when_to_go">Advise when to go</string>
-    <string name="if_the_woman_lives_near_the_facility_she_should_go_at_the_first_signs_of_labour">If the woman lives near the facility, she should go at the first signs of labour.</string>
-    <string name="if_living_far_from_the_facility_she_should_go_2_3_weeks_before_baby_due_date_and_stay_either_at_the_maternity_waiting_home_or_with_family_or_friends_near_the_facility">If living far from the facility, she should go 2-3 weeks before baby due date and stay either at the maternity waiting home or with family or friends near the facility.</string>
-    <string name="advise_to_ask_for_help_from_the_community_if_needed">Advise to ask for help from the community, if needed.</string>
-    <string name="advise_what_to_bring">Advise what to bring</string>
-    <string name="home_based_maternal_record">Home-based maternal record.</string>
-    <string name="clean_cloths_for_washing_drying_and_wrapping_the_baby">Clean cloths for washing, drying and wrapping the baby.</string>
-    <string name="additional_clean_cloths_to_use_as_sanitary_pads_after_birth">Additional clean cloths to use as sanitary pads after birth.</string>
-    <string name="clothes_for_mother_and_baby">Clothes for mother and baby.</string>
-    <string name="food_and_water_for_woman_and_support_person">Food and water for woman and support person.</string>
-    <string name="home_delivery_with_a_skilled_attendant">Home delivery with a skilled attendant</string>
-    <string name="review_the_following_with_her">Review the following with her:</string>
-    <string name="who_will_be_the_companion_during_labour_and_delivery">Who will be the companion during labour and delivery?</string>
-    <string name="who_will_be_close_by_for_at_least_24_hours_after_delivery">Who will be close by for at least 24 hours after delivery?</string>
-    <string name="who_will_help_to_care_for_her_home_and_other_children">Who will help to care for her home and other children?</string>
-    <string name="advise_to_call_the_skilled_attendant_at_the_first_signs_of_labour">Advise to call the skilled attendant at the first signs of labour.</string>
-    <string name="advise_to_have_her_home_based_maternal_record_ready">Advise to have her home-based maternal record ready.</string>
-    <string name="advise_asking_for_help_from_the_community_if_needed">Advise asking for help from the community, if needed.</string>
-    <string name="explain_supplies_needed_for_home_delivery">Explain supplies needed for home delivery</string>
-    <string name="clean_cloths_of_different_sizes_for_the_bed_for_drying_and_wrapping_the_baby_for_cleaning_the_baby_s_eyes_for_the_birth_attendant_to_wash_and_dry_her_hands_for_use_as_sanitary_pads">Clean cloths of different sizes: for the bed, for drying and wrapping the baby, for cleaning the baby’s eyes, for the birth attendant to wash and dry her hands, for use as sanitary pads.</string>
-    <string name="blankets">Blankets.</string>
-    <string name="buckets_of_clean_water_and_some_way_to_heat_this_water">Buckets of clean water and some way to heat this water.</string>
-    <string name="soap">Soap.</string>
-    <string name="bowls_2_for_washing_and_1_for_the_placenta">Bowls: 2 for washing and 1 for the placenta.</string>
-    <string name="plastic_for_wrapping_the_placenta">Plastic for wrapping the placenta.</string>
-    <string name="physical_exam_disclaimer">DISCLAIMER: WHO is not responsible for the content of these additional materials.</string>
-    <string name="physical_exam_content_one">Physical activity is any bodily movement produced by the skeletal muscles that uses energy. This includes sports, exercise, and other activities such as playing, walking, household chores, gardening, and dancing. Any activity, be it for work, to walk or cycle to and from places, or as part of leisure time, has a health benefit.</string>
-    <string name="people_who_are_physically_active">People who are physically active:</string>
-    <string name="improve_their_muscular_and_cardio_respiratory_fitness">improve their muscular and cardio-respiratory fitness;</string>
-    <string name="improve_their_bone_and_functional_health">improve their bone and functional health;</string>
-    <string name="lower_diesease_rates">have lower rates of coronary heart disease, high blood pressure, stroke, diabetes, cancer (including colon and breast cancer), and depression;</string>
-    <string name="have_a_lower_risk_of_falling_and_of_hip_or_vertebral_fractures_and">have a lower risk of falling and of hip or vertebral fractures; and</string>
-    <string name="are_more_likely_to_maintain_their_weight">are more likely to maintain their weight.</string>
-    <string name="physical_activity_content_two">Exercise can be any activity requiring physical effort, carried out to sustain or improve health or fitness, and these can be either prescribed/unsupervised (e.g. 30 minutes of daily walking), supervised (e.g. a weekly supervised group exercise class) or both. Physical activity is also fundamental to energy balance and weight control.</string>
-    <string name="physical_activity_content_three">A healthy lifestyle includes aerobic physical activity and strength-conditioning exercise aimed at maintaining a good level of fitness throughout pregnancy, without trying to reach peak fitness level or train for athletic competition. Women should choose activities with minimal risk of loss of balance and fetal trauma. Pregnant, postpartum women and persons with cardiac events may need to take extra precautions and seek medical advice before striving to achieve the recommended levels of physical activity.</string>
-    <string name="for_more_information_please_access">For more information please access:</string>
-    <string name="physical_activity_url_one">https://apps.who.int/iris/bitstream/handle/10665/44399/9789241599979_eng.pdf?sequence=1</string>
-    <string name="physical_activity_url_two">https://extranet.who.int/rhl/pt-br/node/151040</string>
-    <string name="birth_plan_source_text">SOURCE: World Health Organization. Integrated Management of Pregnancy and Childbirth – Pregnancy, Childbirth, Postpartum and Newborn Care: A guide for essential practice. 2015. Geneva.</string>
-    <string name="balanced_diet_content_one">Maintaining good nutrition and a healthy diet during pregnancy is critical for the health of the mother and unborn child. When providing nutrition education and counselling to improve the nutritional status of women during pregnancy, please focus primarily on:</string>
-    <string name="balanced_diet_content_two">promoting a healthy diet by increasing the diversity and amount of foods consumed</string>
-    <string name="balanced_diet_content_three">promoting adequate weight gain through sufficient and balanced protein and energy intake</string>
-    <string name="balanced_diet_content_four">promoting consistent and continued use of micronutrient supplements, food supplements or fortified foods</string>
-    <string name="balanced_diet_content_five">Local as well as cultural adaptations may be necessary to meet individual needs and ensure compliance with the recommendations.</string>
-    <string name="for_adults_a_healthy_diet_contains">For adults a healthy diet contains:</string>
-    <string name="balanced_diet_content_six">Fruits, vegetables, legumes (e.g. lentils, beans), nuts and whole grains (e.g. unprocessed maize, millet, oats, wheat, brown rice).</string>
-    <string name="balanced_diet_content_seven">At least 400 g (5 portions) of fruits and vegetables a day. Potatoes, sweet potatoes, cassava and other starchy roots are not classified as fruits or vegetables.</string>
-    <string name="balanced_diet_content_eight">Less than 10% of total energy intake from free sugars which is equivalent to 50 g (or around 12 level teaspoons) for a person of healthy body weight consuming approximately 2000 calories per day, but ideally less than 5% of total energy intake for additional health benefits. Most free sugars are added to foods or drinks by the manufacturer, cook or consumer, and can also be found in sugars naturally present in honey, syrups, fruit juices and fruit juice concentrates.</string>
-    <string name="balanced_diet_content_nine">Less than 30% of total energy intake from fats. Unsaturated fats (e.g. found in fish, avocado, nuts, sunflower, canola and olive oils) are preferable to saturated fats (e.g. found in fatty meat, butter, palm and coconut oil, cream, cheese, ghee and lard). Industrial trans fats (found in processed food, fast food, snack food, fried food, frozen pizza, pies, cookies, margarines and spreads) are not part of a healthy diet.</string>
-    <string name="balanced_diet_content_ten">Less than 5 g of salt (equivalent to approximately 1 teaspoon) per day and use iodized salt.</string>
-    <string name="balanced_diet_url_one">http://www.who.int/en/news-room/fact-sheets/detail/healthy-diet</string>
-    <string name="balanced_diet_url_two">https://mediumredpotion.wordpress.com/2011/12/14/that-old-healthy-food-pyramid/</string>
-    <string name="source">Source</string>
-    <string name="example_sources_of_protein">Example sources of protein:</string>
-    <string name="balanced_diet_content_eleven">Please add to list and modify to local standards where possible.</string>
-    <string name="balanced_diet_url_three">http://www.bendifulblog.com/your-guide-to-protein-what-you-should-know/</string>
-    <string name="balanced_diet_url_four">https://co.pinterest.com/pin/208291551498329651/</string>
-    <string name="example_sources_of_calcium">Example sources of calcium:</string>
-    <string name="example_sources_of_energy">Example sources of energy:</string>
-    <string name="balanced_diet_content_12_info">Please add to list and modify to local standards where possible.</string>
-    <string name="balanced_diet_url_4"><![CDATA[https://www.google.com/url?q=https://cyclonecup.com/blogs/news/13218465-12-healthy-foods-to-eat-for-high-energy&sa=D&ust=1580808439831000]]></string>
-    <string name="example_sources_of_iron">Example sources of iron:</string>
-    <string name="balanced_diet_url_5">https://www.wholesomebabyfoodguide.com/iron-and-iron-rich-baby-foods-what-iron-rich-foods-can-baby-eat/</string>
-    <string name="balanced_diet_url_6">https://bit.ly/2RUH0VU</string>
-    <string name="balanced_diet_url_7">https://i.pinimg.com/originals/21/f2/e3/21f2e3fc203e6b475616e971f3c874f3.jpg</string>
-    <string name="example_sources_of_vitamin_a">Example sources of Vitamin A:</string>
-    <string name="balanced_diet_url_8">https://www.myfooddata.com/articles/food-sources-of-vitamin-A.php</string>
-    <string name="balanced_diet_url_9">https://www.medindia.net/patients/lifestyleandwellness/vitamin-a-rich-foods.htm</string>
-    <string name="example_sources_of_vitamin_c">Example sources of Vitamin C:</string>
-    <string name="balanced_diet_url_10">https://www.myfooddata.com/articles/vitamin-c-foods.php#printable</string>
-    <string name="caffeine_intake">Caffeine intake</string>
-    <string name="balanced_diet_content_13">The maximum daily dose of caffeine intake for a pregnant woman is 300mg, is equivalent to:</string>
-    <string name="balanced_diet_url_11">ftp://ftp.caism.unicamp.br/pub/astec/CARTILHA_DE_EXERCISIO_FISICO_NA_GRAVIDEZ_Publico.pdf</string>
-    <string name="default_language_string">Current language: %1s</string>
+	<!-- Page: Register -->
+	<!-- ============== -->
 
-    <string name="choose_language">Choose language</string>
-    <string name="english_language">English</string>
-    <string name="french_language">French</string>
-    <string name="portuguese_brazil_language">Portuguese (Brazil)</string>
-    <string name="bahasa_indonesia_language">Bahasa (Indonesia)</string>
+	<string name="photo_captured">Photo Captured</string>
 
-    <string name="accordion_ultrasound">Ultrasound test</string>
-    <string name="accordion_blood_type">Blood Type test</string>
-    <string name="accordion_hepatitis_b">Hepatitis B test</string>
-    <string name="accordion_hepatitis_c">Hepatitis C test</string>
-    <string name="accordion_syphilis">Syphilis test</string>
-    <string name="accordion_urine">Urine test</string>
-    <string name="accordion_blood_haemoglobin">Blood Haemoglobin test</string>
-    <string name="accordion_hiv">HIV test</string>
-    <string name="accordion_tb_screening">TB Screening</string>
-    <string name="accordion_partner_hiv">Partner HIV test</string>
-    <string name="accordion_blood_glucose">Blood Glucose test</string>
-    <string name="accordion_other_tests">Other test</string>
-    <string name="contact_summary_data">Contact Summary Data  -  %1$s \n %2$s</string>
-    <string name="pdf_saved_successfully">\"Pdf saved successfully to location \"</string>
-    <string name="contact_summary_data_file">contactSummaryData.pdf</string>
-    <string name="device_to_device">Device-to-device sync</string>
+
+	<!-- Page: Library -->
+	<!-- ============= -->
+
+	<string name="library_placeholder">Library Placeholder</string>
+
+
+	<!-- Page: Me -->
+	<!-- ======== -->
+
+	<string name="service_location">Service Location</string>
+	<string name="section_icon">Section Icon</string>
+	<string name="me_page_location_text">Location: </string>
+	<string name="language_change_prepend_message">Language preference set to</string>
+	<string name="language_change_append_message">Please restart the application.</string>
+	<string name="currently_processing_transferred_records">Currently processing transferred records.</string>
+	<string name="do_not_edit_client_records_until_complete">Do not edit client records until complete.</string>
+	<string name="processing_disclaimer">Records will be processed for up to 10 minutes before your records will be updated. Do not edit medical records until the process is complete.</string>
+	<string name="log_data_type_provided_does_not_exist_in_the_sender">The data type %s provided does not exist in the sender.</string>
+	<string name="component_desc_p2p_process_records_service">Processes the records when using peer to peer for file sharing</string>
+
+
+	<!-- QR Code Scan Feature -->
+	<!-- ==================== -->
+
+	<string name="scan_qr_code_title">Scan QR Code</string>
+	<string name="permission_camera_rationale">Access to the camera is needed for detection.</string>
+	<string name="no_camera_permission">This application cannot run because it does not have permission to access the camera. The application will now exit.</string>
+	<string name="low_storage_error">Face detector dependencies cannot be downloaded due to low device storage</string>
+	<string name="title_activity_main">Barcode Reader Sample</string>
+	<string name="barcode_header">Click &quot;Read Barcode&quot; to read a barcode</string>
+	<string name="read_barcode">Read Barcode</string>
+	<string name="auto_focus">Auto Focus</string>
+	<string name="use_flash">Use Flash</string>
+	<string name="barcode_success">Barcode read successfully</string>
+	<string name="barcode_failure">No barcode captured</string>
+	<string name="barcode_error">"Error reading barcode: %1$s"</string>
+	<string name="allow_camera_management">You need to allow the app to use the camera to scan QR codes&#8230;</string>
+
+
+	<!-- Synchronization -->
+	<!-- =============== -->
+
+	<string name="loading_client_settings">Loading client settings&#8230;</string>
+	<string name="unsynced_forms_count_message">Forms Unsynced</string>
+	<string name="sync_failed_no_internet">Sync failed. Check your internet connection.</string>
+	<string name="syncing">Syncing...</string>
+	<string name="sync_failed">Sync Failed</string>
+	<string name="sync_complete">Sync Complete</string>
+	<string name="manual_sync_triggered">Manual Sync Triggered&#8230;</string>
+	<string name="data_synced">Data synced: %1$s at %2$s</string>
+	<string name="sync_failed_malformed_url">Sync Failed. Please check the URL configuration.</string>
+	<string name="sync_failed_timeout_error">Sync Failed. Could not connect to the server.</string>
+	<string name="download_database">Download Database</string>
+	<string name="view_sync_stats">Show Sync Stats</string>
+	<string name="export_db_notification">Exporting Database…</string>
+	<string name="database_download_success">Database download successful</string>
+	<string name="synced_events">Synced events:</string>
+	<string name="unsynced_events">Unsynced events:</string>
+	<string name="synced_clients">Synced clients:</string>
+	<string name="unsynced_clients">Unsynced clients:</string>
+	<string name="validated_events">Validated events:</string>
+	<string name="validated_clients">Validated clients:</string>
+	<string name="task_unprocessed_events">Task unprocessed events:</string>
+	<string name="summary_forms">Other Forms</string>
+	<string name="permission_write_external_storage_rationale">Write access to the device internal storage is required for database download.</string>
+	<string name="sync_upload_progress_float">Sync upload progress %d%%</string>
+
+
+	<!-- Time & Duration -->
+	<!-- =============== -->
+
+	<string name="x_seconds">%1$ds</string>
+	<string name="x_minutes">%1$dm</string>
+	<string name="x_hours">%1$dh</string>
+	<string name="x_days">%1$dd</string>
+	<string name="x_weeks">%1$dw</string>
+	<string name="x_weeks_days">%1$dw %2$dd</string>
+	<string name="x_months">%1$dm</string>
+	<string name="x_months_weeks">%1$dm %2$dw</string>
+	<string name="x_years">%1$dy</string>
+	<string name="x_years_months">%1$dy %2$dm</string>
+
+
+	<!-- Needs More Inspections -->
+	<!-- ====================== -->
+
+	<string name="replication_error_occurred">Replication error occurred</string>
+	<string name="component_desc_account_service">Manages user authentication and authorization</string>
+
+
+	<!-- Needs Refactoring -->
+	<!-- ================= -->
+
+	<string name="action_me">action_me</string>
+	<string name="url_separator">/</string>
+
+
+	<!-- ======================================================= -->
+	<!-- * OVERRIDE OPENSRP-CLIENT-NATIVE-FORM LIBRARY STRINGS * -->
+	<!-- ======================================================= -->
+
+
+	<!-- Actions -->
+	<!-- ======= -->
+
+	<string name="action_settings">Settings</string>
+	<string name="record_location">Record Location</string>
+	<string name="save">Save</string>
+	<string name="radio_button_tap_to_change">Tap to Change</string>
+	<string name="select_one">Select a Number</string>
+	<string name="previous">Previous</string>
+	<string name="next">Next</string>
+	<string name="submit">Submit</string>
+	<string name="go_to_step">Go to Step</string>
+	<string name="shows_image_on_dialog">Shows image on dialog</string>
+
+
+	<!-- Dialogs & Messages -->
+	<!-- ================== -->
+
+	<string name="badly_formed_date">Badly formed date</string>
+	<string name="badly_formed_time">Badly formed time</string>
+	<string name="confirm_form_close">Confirm Form Close</string>
+	<string name="confirm_form_close_explanation">Are you sure you want to go back? All data you have entered in this form will be cleared.</string>
+	<string name="loading_location">Loading Location</string>
+	<string name="could_not_get_your_location">Could not get your GPS location</string>
+	<string name="using_provider">Using %s provider</string>
+	<string name="unknown_gps_accuracy">Accuracy is Unknown</string>
+	<string name="info_label">Info Label</string>
+	<string name="the_toaster_icon">The toaster icon</string>
+	<string name="please_wait_title">Please Wait</string>
+	<string name="creating_repeating_group_title">Please Wait</string>
+	<string name="creating_repeating_group_message">Creating Repeating Group</string>
+	<string name="launching_rdt_capture_message">Launching RDT capture widget</string>
+	<string name="repeating_group_max_value_err_msg">The number of repeating groups cannot be greater than %1$d</string>
+	<string name="repeating_group_min_value_err_msg">The number of repeating groups must greater than %1$d</string>
+	<string name="repeating_group_number_format_err_msg">The number of repeating groups must be an integer value</string>
+	<string name="enter_number_of_repeating_group_items">Enter # of repeating group items</string>
+	<string name="json_form_error_msg">Found %d error(s) in the form. Please correct them to submit.</string>
+	<string name="json_form_on_next_error_msg">Please correct the error(s) in the form to proceed.</string>
+	<string name="simprints_guid">GUID not found</string>
+	<string name="simprints_init_fail">Project id, user id or module id were not found. Please use SimprintsLibrary.init</string>
+	<string name="permission_denied_title">Permission Denied</string>
+	<string name="permission_messege">The app needs this permission to capture the device information required when submitting forms. Without this permission the app will not function properly. Are you sure you want to deny this permission?</string>
+	<string name="multiselect_msg_on_item_added">Added</string>
+	<string name="loading_multi_select_list">Loading</string>
+	<string name="loading">Loading</string>
+	<string name="loading_form_message">Please wait as we load your form...</string>
+	<string name="opening_forms">Loading sub forms...</string>
+	<string name="multiselect_already_added_msg">%s is already added</string>
+	<string name="multi_select_list_msg_data_source_invalid">External DataSource not found or processed</string>
+	<string name="next_step_loading">Please wait as we prepare the next step.</string>
+	<string name="repeating_group_not_generated_error_message">Please click the &#9989; button to generate the questions</string>
+	<string name="error_title">Error</string>
+	<string name="form_load_error">Sorry, a fatal error occurred when loading the form. Please contact a developer for further assistance.</string>
+	<string name="select_one_option">Please select one option</string>
+	<string name="extended_radio_info_text_ensure_options_set">Please make sure you have set the radio button options</string>
+	<string name="missing_client_info">Missing client info</string>
+
+
+	<!-- OptiBP -->
+	<!-- ====== -->
+
+	<string name="optibp_btn_get_started">Get Started</string>
+	<string name="optibp_unable_to_receive">Unable to receive any result</string>
+	<string name="optibp_label">Measure the blood pressure using OptiBP</string>
+	<string name="optibp_values_error">No fields defined to populate BP values</string>
+
+
+	<!-- Labels & Details -->
+	<!-- ================ -->
+
+	<string name="latitude">Latitude: %s</string>
+	<string name="longitude">Longitude: %s</string>
+	<string name="altitude">Altitude: %s</string>
+	<string name="accuracy">Accuracy: %s</string>
+	<string name="repeating_group_item">Item</string>
+	<string name="repeating_group_label">repeating_group_label</string>
+	<string name="the_extra_info_icon">The extra info icon</string>
+	<string name="edit_button_label">Edit Button</string>
+	<string name="info_icon">Info icon</string>
+	<string name="attention">Attention</string>
+
+
+
+	<!-- ===================================== -->
+	<!-- * OPENSRP-CLIENT-ANC STRING RESOURCES * -->
+	<!-- ===================================== -->
+
+
+	<!-- App Configuration -->
+	<!-- ================= -->
+
+	<string name="antenatal_care_module">Antenatal Care Module</string>
+	<string name="app_tagline">Bersinergi Untuk Dampingi Kesehatan Ibu dan Anak</string>
+	<string name="form_manifest_version">Form Release version: v%1$s</string>
+
+
+	<!-- Authentication -->
+	<!-- ============== -->
+
+	<string name="username">Username</string>
+	<string name="password">Password</string>
+
+
+	<!-- Actions -->
+	<!-- ======= -->
+
+	<string name="action_logout">Logout</string>
+	<string name="action_language">Language</string>
+	<string name="scan_qr_code">Scan QR code</string>
+	<string name="complete">Complete</string>
+	<string name="remove_from_register">Remove from Register</string>
+	<string name="dismiss">Cancel</string>
+	<string name="apply">Apply</string>
+	<string name="done">Done</string>
+	<string name="cancel">Cancel</string>
+	<string name="copy_to_clipboard">Copy to clipboard</string>
+	<string name="go_to_advanced_search">Go to Advanced Search</string>
+	<string name="go_to_client_profile">Go to Client Profile</string>
+	<string name="send_summary_to_client">Send Summary to Client</string>
+	<string name="back">Back</string>
+	<string name="go_to_image">Go to image</string>
+	<string name="attach_file">Attach file</string>
+	<string name="continue_">continue</string>
+	<string name="edit"> edit </string>
+
+
+	<!-- Characteristics -->
+	<!-- =============== -->
+
+	<string name="yes">Yes</string>
+	<string name="no">No</string>
+	<string name="welcome_site_characteristics">Welcome! To get started, please set your site characteristics.</string>
+	<string name="population_characteristics">Population characteristics</string>
+	<string name="continue_to_your_client_list">CONTINUE TO YOUR CLIENT LIST</string>
+	<string name="your_site_characteristics_for_facility_name">Your site characteristics for %1$s are all set.</string>
+	<string name="site_characteristics_are_shared_for_all">Site characteristics are shared by all OpenSRP users at the facility. You can update site characteristics at any time.</string>
+	<string name="go_back_to_site_characteristics">Go back to site characteristics</string>
+
+
+	<!-- Client Data -->
+	<!-- =========== -->
+
+	<string name="anc_id_text">ID: %1$s</string>
+	<string name="age_text">%1$s</string>
+	<string name="age_text_years">%1$s YO</string>
+	<string name="ga_text">%1$d</string>
+	<string name="ga_text_weeks">%1$s Weeks</string>
+	<string name="bullet">\u2022</string>
+
+
+	<!-- Contact -->
+	<!-- ======= -->
+
+	<string name="quick_check">Quick Check</string>
+	<string name="profile">Profile</string>
+	<string name="symptoms_follow_up">Symptoms and Follow-up</string>
+	<string name="physical_exam">Physical Exam</string>
+	<string name="tests">Tests</string>
+	<string name="counselling_treatment">Counselling and Treatment</string>
+	<string name="contact_tasks_form">Contact Tasks</string>
+	<string name="finalize">Finalize</string>
+	<string name="required_fields">%1$d required fields</string>
+	<string name="exit_contact_with">Exit Contact with\n%1$s</string>
+	<string name="exit_contact_title">Exit contact?</string>
+	<string name="save_changes">Save Changes Continue with this contact at a later time</string>
+	<string name="save_contact">Save changes</string>
+	<string name="discard_contact">Ignore changes</string>
+	<string name="close_without_saving">Close without saving Lose updates you\'ve made in this contact</string>
+	<string name="upcoming_contact_dates">Upcoming contact dates:</string>
+	<string name="accordion_ultrasound">Ultrasound test</string>
+	<string name="accordion_blood_type">Blood Type test</string>
+	<string name="accordion_hepatitis_b">Hepatitis B test</string>
+	<string name="accordion_hepatitis_c">Hepatitis C test</string>
+	<string name="accordion_syphilis">Syphilis test</string>
+	<string name="accordion_urine">Urine test</string>
+	<string name="accordion_blood_haemoglobin">Blood Haemoglobin test</string>
+	<string name="accordion_hiv">HIV test</string>
+	<string name="accordion_tb_screening">TB Screening</string>
+	<string name="accordion_partner_hiv">Partner HIV test</string>
+	<string name="accordion_blood_glucose">Blood Glucose test</string>
+	<string name="accordion_other_tests">Other test</string>
+	<string name="contact_summary_data">Contact Summary Data  -  %1$s \n %2$s</string>
+	<string name="pdf_saved_successfully">\"PDF saved on location \"</string>
+	<string name="contact_summary_data_file">contactSummaryData.pdf</string>
+
+
+	<!-- Dialogs & Messages -->
+	<!-- ================== -->
+
+	<string name="saving_dialog_title">Saving...</string>
+	<string name="removing_dialog_title">Removing...</string>
+	<string name="no_openmrs_id">No unique ids found. Click on the sync button to get more and if this error persists contact the system admin.</string>
+	<string name="device_timezone_changed">"The device's timezone changed. Please login again."</string>
+	<string name="device_time_changed">"The device's time has changed. Please login again."</string>
+	<string name="updating_dialog_title">Updating...</string>
+	<string name="no_matching_woman_found_on_this_device">No matching woman found on this device.</string>
+
+
+	<!-- Forms & Inputs -->
+	<!-- ============== -->
+
+	<string name="error_unable_to_start_form">An error occurred when starting the form</string>
+	<string name="specify">Specify</string>
+
+
+	<!-- Form: Quick Check -->
+	<!-- ================== -->
+
+	<string name="reason_for_coming_facility"><font fgcolor="black">Reason for coming to facility? </font><font fgcolor="red">*</font></string>
+	<string name="first_contact">First contact</string>
+	<string name="scheduled_contact">Scheduled contact</string>
+	<string name="specific_complaint">Specific complaint</string>
+	<string name="specific_complaints"><font fgcolor="black">Specific complaint(s) </font><font fgcolor="red">*</font></string>
+	<string name="abnormal_discharge">Abnormal vaginal discharge</string>
+	<string name="altered_skin_color">Altered skin colour</string>
+	<string name="changes_in_bp">Changes in blood pressure</string>
+	<string name="constipation">Constipation</string>
+	<string name="contractions">Contractions</string>
+	<string name="cough">Cough</string>
+	<string name="depressive_anxious">Depressive / anxious</string>
+	<string name="dizziness">Dizziness</string>
+	<string name="domestic_violence">Domestic violence</string>
+	<string name="extreme_pelvic_pain">Extreme pelvic pain - can\'t walk (symphysis pubis dysfunction)</string>
+	<string name="fever">Fever</string>
+	<string name="full_abdominal_pain">Full abdominal pain</string>
+	<string name="flu_symptoms">Flu symptoms</string>
+	<string name="fluid_loss">Fluid loss</string>
+	<string name="headache">Headache</string>
+	<string name="heartburn">Heartburn</string>
+	<string name="leg_cramps">Leg cramps</string>
+	<string name="leg_pain">Leg pain</string>
+	<string name="leg_redness">Leg redness</string>
+	<string name="low_back_pelvic_pain">Low back and pelvic pain</string>
+	<string name="nausea_vomiting_diarrhea">Nausea / vomiting / diarrhea</string>
+	<string name="no_fetal_movement">No fetal movement</string>
+	<string name="oedema">Oedema</string>
+	<string name="other_bleeding">Other bleeding</string>
+	<string name="other_pain">Other pain</string>
+	<string name="other_psychological_symptoms">Other psychological symptoms</string>
+	<string name="other_skin_disorder">Other skin disorder</string>
+	<string name="other_types_of_voilence">Other types of violence</string>
+	<string name="dysuria">Pain during urination (dysuria)</string>
+	<string name="pruritus">Pruritus</string>
+	<string name="reduced_fetal_movement">Reduced or poor fetal movement</string>
+	<string name="shortness_of_breath">Shortness of breath</string>
+	<string name="tiredness">Tiredness</string>
+	<string name="trauma">Trauma</string>
+	<string name="bleeding">Vaginal bleeding</string>
+	<string name="visual_disturbance">Visual disturbance</string>
+	<string name="complaint_other_specify">Other</string>
+	<string name="danger_signs"><font fgcolor="black">Danger signs </font><font fgcolor="red">*</font></string>
+	<string name="danger_none">None</string>
+	<string name="danger_bleeding">Bleeding vaginally</string>
+	<string name="central_cyanosis">Central cyanosis</string>
+	<string name="convulsing">Convulsing</string>
+	<string name="danger_fever">Fever</string>
+	<string name="headache_visual_disturbance">Headache and visual disturbance</string>
+	<string name="imminent_delivery">Imminent delivery</string>
+	<string name="labour">Labour</string>
+	<string name="looks_very_ill">Looks very ill</string>
+	<string name="severe_vomiting">Severe vomiting</string>
+	<string name="severe_pain">Severe pain</string>
+	<string name="severe_abdominal_pain">Severe abdominal pain</string>
+	<string name="unconscious">Unconscious</string>
+	<string name="proceed_to_normal_contact">Proceed to normal contact</string>
+	<string name="refer_and_close_contact">Refer and close contact</string>
+	<string name="validation_no_reason_selected">Please select a reason for coming to facility</string>
+	<string name="validation_no_specific_complaint">Please select at least one specific complaint</string>
+	<string name="validation_no_danger_sign">Please select None or at least one danger sign</string>
+	<string name="validation_no_valid_danger_sign">Please at least one danger sign other than None</string>
+	<string name="validation_unable_to_save_quick_check">Unable to save quick check event</string>
+	<string name="cyanosis_info">Bluish discolouration around the mucous membranes in the mouth, lips and tongue</string>
+	<string name="any_treatment">Any treatment given before referral?</string>
+
+
+	<!-- Page: Contact List -->
+	<!-- ================== -->
+
+	<string name="contact_dummy_text">CONTACT&#10;22/05/2018</string>
+	<string name="search_name_or_id">Search by Name or ID</string>
+	<string name="clear_filters">Clear Filters</string>
+	<string name="has_tasks_due">Has tasks due</string>
+	<string name="risky_pregnancy">Risky pregnancy</string>
+	<string name="syphilis_positive">Syphilis pregnancy</string>
+	<string name="hiv_positive">HIV pregnancy</string>
+	<string name="hypertensive">Hypertensive</string>
+	<string name="record_birth">Record birth</string>
+
+
+	<!-- Page: Advanced Search -->
+	<!-- ===================== -->
+
+	<string name="advanced_search">Advanced Search</string>
+	<string name="out_and_inside">Outside and inside my health facility</string>
+	<string name="requires_internet_connection">(requires internet connection)</string>
+	<string name="my_catchment_area">My health facility only</string>
+	<string name="first_name">First name</string>
+	<string name="last_name">Last name</string>
+	<string name="anc_id">ANC ID</string>
+	<string name="id_number">ANC ID</string>
+	<string name="edd">Edd</string>
+	<string name="exp_date_of_delivery">Expected date of delivery</string>
+	<string name="dob">Dob</string>
+	<string name="date_of_birth">Date of birth</string>
+	<string name="mobile_phone_number">Mobile phone number</string>
+	<string name="phone_number">Phone number</string>
+	<string name="alternate_contact_name">Alternate contact name</string>
+	<string name="alt_contact_name">Alternate contact name</string>
+	<string name="search">Search</string>
+	<string name="search_results">Search Results</string>
+	<string name="searching_dialog_title">Searching…</string>
+	<string name="searching_dialog_message">Please wait</string>
+	<string name="matching_results">%1$s matches</string>
+	<string name="qr_code_label">QR Code</string>
+	<string name="clients_facility">Client\'s facility</string>
+
+
+	<!-- Page: Registration -->
+	<!-- ================== -->
+
+	<string name="new_registration_saved">New registration saved &#x21;</string>
+	<string name="registration_info_updated">Registration info updated &#x21;</string>
+
+
+	<!-- Page: Client Profile -->
+	<!-- ==================== -->
+
+	<string name="call">Call</string>
+	<string name="start_contact">Start Contact</string>
+	<string name="overview">OVERVIEW</string>
+	<string name="contacts">CONTACTS</string>
+	<string name="tasks">TASKS</string>
+	<string name="close_anc_record">Close ANC Record</string>
+	<string name="allow_phone_call_management">You need to allow the WHO ANC app to manage phone calls to enable calling&#8230;</string>
+	<string name="any_changes_you_make">Any changes you make will be lost</string>
+	<string name="woman_name">Woman Name</string>
+	<string name="contact_weeks">START\nCONTACT %1$s\n%2$s</string>
+	<string name="contact_weeks_no_break">START &#183; CONTACT %1$s &#183; %2$s</string>
+	<string name="contact_in_progress">CONTACT %1$s\n IN PROGRESS</string>
+	<string name="contact_in_progress_no_break">CONTACT %1$s &#183; IN PROGRESS</string>
+	<string name="due_delivery">DUE\nDELIVERY</string>
+	<string name="record_birth_popup_message">GA: %1$d weeks\nEDD: %2$s (%3$s ago)\n\n%4$s should come in immediately for delivery.</string>
+	<string name="contact_number">Contact %1$d</string>
+	<string name="contact_recorded">Contact %1$d recorded</string>
+	<string name="info_icon_display">the more info icon display</string>
+	<string name="status_icon_display">the status icon display</string>
+	<string name="record">Record</string>
+	<string name="undo">Undo</string>
+	<string name="save_and_finish">SAVE + FINISH</string>
+	<string name="contact_recorded_today">CONTACT %1$d\n DONE TODAY</string>
+	<string name="contact_recorded_today_no_break"> CONTACT %1$d &#183; DONE TODAY</string>
+	<string name="continue_contact">Continue Contact %1$d</string>
+	<string name="finalizing_contact">Finalizing Contact %1$d</string>
+	<string name="summarizing_contact_number">Summarizing Contact %1$d</string>
+	<string name="contact_number_due">CONTACT %1$d\n DUE \n %2$s</string>
+	<string name="contact_number_due_no_break">CONTACT %1$d &#183; DUE &#183; %2$s</string>
+	<string name="last_contact">LAST CONTACT</string>
+	<string name="key_figure">KEY FIGURES</string>
+	<string name="recent_test">RECENT TEST: %1$s</string>
+	<string name="previous_contacts">PREVIOUS CONTACTS</string>
+	<string name="all_tests_results">All Tests Results</string>
+	<string name="contact_details">%1$s Weeks &#183; Contact %2$s</string>
+	<string name="referral_contact_details">Contact %1$s</string>
+	<string name="undo_test_result">Undo the %1$s result?</string>
+	<string name="negative_contact_text">A negative contact means that the patient was referred so her contact schedule does not change and remains the same as before</string>
+	<string name="previous_contacts_header">Previous Contacts</string>
+	<string name="previous_contacts_tests_header">All Test Results</string>
+	<string name="expected_date_of_delivery">Expected Date of Delivery</string>
+	<string name="ga_weeks">%1$s weeks</string>
+	<string name="timeline_away">%1$sw away</string>
+	<string name="all_results">All results</string>
+	<string name="no_tests_available">No Tests Available</string>
+	<string name="hospital_referral">Hospital referral</string>
+	<string name="no_contact_schedule">No contact schedule generated yet</string>
+	<string name="hospital_referral_title">Hospital referral recorded</string>
+	<string name="tab_button_image">Tab button image</string>
+	<string name="tap_button_below">Tap the button below to start/complete a contact</string>
+	<string name="no_health_data_recorded">No health data recorded</string>
+	<string name="tests_tasks_header">Tests</string>
+	<string name="view_anc_history">View Anc History</string>
+
+	<string name="visit_details">Visit Details</string>
+	<string name="overview_of_pregnancy">Overview of Pregnancy</string>
+	<string name="demographic_info">Demographic Info</string>
+	<string name="current_pregnancy">Current Pregnancy</string>
+	<string name="obstetric_history">Obstetric History</string>
+	<string name="medical_history">Medical History</string>
+	<string name="weight">Weight</string>
+	<string name="medications">Medications</string>
+	<string name="hospital_referral_reasons">Hospital Referral Reasons</string>
+	<string name="risks_and_diagnoses">Risks and Diagnoses</string>
+	<string name="physiological_symptoms">Physiological Symptoms</string>
+	<string name="birth_plan_counseling">Birth Plan Counseling</string>
+	<string name="malaria_prophylaxis">Malaria Prophylaxis</string>
+	<string name="immunisation_status">Immunisation Status</string>
+
+	<string name="reason_for_visit">Reason for visit</string>
+	<string name="womans_behaviour">Woman\'s Behavior</string>
+	<string name="height_and_weight">Height and Weight</string>
+	<string name="blood_pressure">Blood Pressure</string>
+	<string name="maternal_exam">Maternal Exam</string>
+	<string name="fetal_assessment">Fetal Assessment</string>
+	<string name="ultrasound_test">Ultrasound Test</string>
+	<string name="blood_type_test">Blood Type Test</string>
+	<string name="hiv_test">HIV Test</string>
+	<string name="partner_hiv_test">Partner HIV Test</string>
+	<string name="hepatitis_b_test">Hepatitis B Test</string>
+	<string name="hepatitis_c_test">Hepatitis C Test</string>
+	<string name="syphilis_test">Syphilis Test</string>
+	<string name="urine_test">Urine Test</string>
+	<string name="blood_glucose_test">Blood Glucose Test</string>
+	<string name="blood_haemoglobin_test_and_ifa">Blood Haemoglobin Test and IFA</string>
+	<string name="tb_screening">TB Screening</string>
+	<string name="other_tests">Other Tests</string>
+	<string name="pre_eclampsia_risk">Pre-Eclampsia Risk</string>
+	<string name="hiv_risk_and_prep">HIV Risk and Prep</string>
+	<string name="diabetes_risk">Diabetes Risk</string>
+	<string name="danger_signs_counseling">Danger Signs Counseling</string>
+	<string name="anc_contacts_counseling">ANC Contacts Counseling</string>
+	<string name="family_planning_counseling">Family Planning Counseling</string>
+	<string name="breastfeeding_counseling">Breastfeeding Counseling</string>
+	<string name="anaemia_prevention">Anaemia Prevention</string>
+	<string name="deworming_and_malaria_prophylaxis">Deworming and Malaria Prophylaxis</string>
+	<string name="calcium_supplementation">Calcium Supplementation</string>
+	<string name="vitamin_a_supplementation">Vitamin A Supplementation</string>
+
+
+	<!-- Page: Me -->
+	<!-- ======== -->
+
+	<string name="me_page_placeholder">Me Page Placeholder</string>
+	<string name="default_language_string">Current language: %1s</string>
+	<string name="select_language">Select Language</string>
+	<string name="choose_language">Choose Language</string>
+	<string name="device_to_device">Device-to-device sync</string>
+
+
+	<!-- Synchronization -->
+	<!-- =============== -->
+
+	<string name="sync">Sync</string>
+	<string name="sync_round_complete">Sync round complete&#8230;</string>
+	<string name="retry">Retry</string>
+	<string name="sync_">Sync%1$s</string>
+	<string name="last_sync">(last %1$s)</string>
+	<string name="sync_data">Sync data</string>
+
+
+	<!-- Needs More Research -->
+	<!-- =================== -->
+
+	<string name="alphabetical_sort">Alphabetical (Name)</string>
+	<string name="name">Name</string>
+	<string name="dose_d">DOSE (D)</string>
+	<string name="id">ID</string>
+	<string name="patient_location">Location: %1$s</string>
+	<string name="dose_given_date">Dose %1$s given %2$s</string>
+	<string name="opensrp_id">OpenSRP ID</string>
+	<string name="anc">WHO ANC</string>
+	<string name="the_qr_code_scanner_button">The QR Code Scanner button</string>
+	<string name="woman_filter">Filter</string>
+	<string name="register">Register</string>
+	<string name="library">Library</string>
+	<string name="updated_recent_first">Updated (recent first)</string>
+	<string name="ga_older_first">GA (older first)</string>
+	<string name="ga_younger_first">GA (younger first)</string>
+	<string name="id_sort">ID</string>
+	<string name="first_name_a_to_z">First name (A to Z)</string>
+	<string name="first_name_z_to_a">First name (Z to A)</string>
+	<string name="last_name_a_to_z">Last name (A to Z)</string>
+	<string name="last_name_z_to_a">Last name (Z to A)</string>
+	<string name="no_location_picker">No location selected </string>
+	<string name="anc_clients">ANC clients</string>
+	<string name="counseling_resources">Counseling resources</string>
+	<string name="site_characteristics">Site characteristics</string>
+	<string name="contact_summary">Contact Summary</string>
+	<string name="navigation_drawer_close">Close navigation drawer</string>
+	<string name="navigation_drawer_open">Open navigation drawer</string>
+
+
+	<!-- Needs Refactoring -->
+	<!-- ================= -->
+
+	<string name="yellow">YELLOW</string>
+	<string name="red">RED</string>
+
+
+	<!-- ==================== -->
+	<!-- * ADDITIONAL STRINGS * -->
+	<!-- ==================== -->
+
+
+	<!-- App Settings -->
+	<!-- ============ -->
+
+	<string name="app_settings_baseurl_title">OpenSRP Base URL</string>
+	<string name="app_settings_baseurl_summary">Defines the base server URL that handles requests</string>
+	<string name="app_settings_baseurl_dialog">Enter Base Server URL</string>
+
+
+	<!-- Attention Flags -->
+	<!-- =============== -->
+
+	<string name="attention_flags_title">Attention Flags</string>
+
+
+	<!-- =================== -->
+	<!-- * NEEDS REFACTORING * -->
+	<!-- =================== -->
+
+
+	<!-- Page: Library -->
+	<!-- ============= -->
+
+	<string name="birth_and_emergency_plan">Birth and Emergency plan</string>
+	<string name="physical_activity">Physical Activity</string>
+	<string name="balanced_nutrition">Balanced Nutrition</string>
+	<string name="balanced_nutrition_source">SOURCE: World Health Organization. Integrated Management of Pregnancy and Childbirth – Pregnancy, Childbirth, Postpartum and Newborn Care: A guide for essential practice. 2015. Geneva.</string>
+	<string name="string_bullet">•</string>
+	<string name="birth_and_emergency">Birth and Emergency</string>
+	<string name="develop_a_birth_and_emergency_plan_header">Develop a birth and emergency plan</string>
+	<string name="facility_delivery_header">Facility delivery</string>
+	<string name="explain_why_birth_in_a_facility_is_recommended">Explain why birth in a facility is recommended</string>
+	<string name="any_complication_can_develop_during_delivery_they_are_not_always_predictable">Any complication can develop during delivery - they are not always predictable.</string>
+	<string name="lots_of_supplies">A facility has staff, equipment, supplies and drugs available to provide best care if needed, and a referral system.</string>
+	<string name="if_hiv_infected_she_will_need_appropriate_arv_treatment_for_herself_and_her_baby_during_childbirth">If HIV-infected she will need appropriate ARV treatment for herself and her baby during childbirth.</string>
+	<string name="complications_are_more_common_in_hiv_infected_women_and_their_newborns_hiv_infected_women_should_deliver_in_a_facility">Complications are more common in HIV-infected women and their newborns. HIV-infected women should deliver in a facility.</string>
+	<string name="advise_how_to_prepare">Advise how to prepare</string>
+	<string name="review_the_arrangements_for_delivery">Review the arrangements for delivery:</string>
+	<string name="how_will_she_get_there_will_she_have_to_pay_for_transport">How will she get there? Will she have to pay for transport?</string>
+	<string name="how_much_will_it_cost_to_deliver_at_the_facility_how_will_she_pay">How much will it cost to deliver at the facility? How will she pay?</string>
+	<string name="can_she_start_saving_straight_away">Can she start saving straight away?</string>
+	<string name="who_will_go_with_her_for_support_during_labour_and_delivery">Who will go with her for support during labour and delivery?</string>
+	<string name="who_will_help_while_she_is_away_to_care_for_her_home_and_other_children">Who will help while she is away to care for her home and other children?</string>
+	<string name="advise_when_to_go">Advise when to go</string>
+	<string name="if_the_woman_lives_near_the_facility_she_should_go_at_the_first_signs_of_labour">If the woman lives near the facility, she should go at the first signs of labour.</string>
+	<string name="if_living_far_from_the_facility_she_should_go_2_3_weeks_before_baby_due_date_and_stay_either_at_the_maternity_waiting_home_or_with_family_or_friends_near_the_facility">If living far from the facility, she should go 2-3 weeks before baby due date and stay either at the maternity waiting home or with family or friends near the facility.</string>
+	<string name="advise_to_ask_for_help_from_the_community_if_needed">Advise to ask for help from the community, if needed.</string>
+	<string name="advise_what_to_bring">Advise what to bring</string>
+	<string name="home_based_maternal_record">Home-based maternal record.</string>
+	<string name="clean_cloths_for_washing_drying_and_wrapping_the_baby">Clean cloths for washing, drying and wrapping the baby.</string>
+	<string name="additional_clean_cloths_to_use_as_sanitary_pads_after_birth">Additional clean cloths to use as sanitary pads after birth.</string>
+	<string name="clothes_for_mother_and_baby">Clothes for mother and baby.</string>
+	<string name="food_and_water_for_woman_and_support_person">Food and water for woman and support person.</string>
+	<string name="home_delivery_with_a_skilled_attendant">Home delivery with a skilled attendant</string>
+	<string name="review_the_following_with_her">Review the following with her:</string>
+	<string name="who_will_be_the_companion_during_labour_and_delivery">Who will be the companion during labour and delivery?</string>
+	<string name="who_will_be_close_by_for_at_least_24_hours_after_delivery">Who will be close by for at least 24 hours after delivery?</string>
+	<string name="who_will_help_to_care_for_her_home_and_other_children">Who will help to care for her home and other children?</string>
+	<string name="advise_to_call_the_skilled_attendant_at_the_first_signs_of_labour">Advise to call the skilled attendant at the first signs of labour.</string>
+	<string name="advise_to_have_her_home_based_maternal_record_ready">Advise to have her home-based maternal record ready.</string>
+	<string name="advise_asking_for_help_from_the_community_if_needed">Advise asking for help from the community, if needed.</string>
+	<string name="explain_supplies_needed_for_home_delivery">Explain supplies needed for home delivery</string>
+	<string name="clean_cloths_of_different_sizes_for_the_bed_for_drying_and_wrapping_the_baby_for_cleaning_the_baby_s_eyes_for_the_birth_attendant_to_wash_and_dry_her_hands_for_use_as_sanitary_pads">Clean cloths of different sizes: for the bed, for drying and wrapping the baby, for cleaning the baby’s eyes, for the birth attendant to wash and dry her hands, for use as sanitary pads.</string>
+	<string name="blankets">Blankets.</string>
+	<string name="buckets_of_clean_water_and_some_way_to_heat_this_water">Buckets of clean water and some way to heat this water.</string>
+	<string name="soap">Soap.</string>
+	<string name="bowls_2_for_washing_and_1_for_the_placenta">Bowls: 2 for washing and 1 for the placenta.</string>
+	<string name="plastic_for_wrapping_the_placenta">Plastic for wrapping the placenta.</string>
+	<string name="physical_exam_disclaimer">DISCLAIMER: WHO is not responsible for the content of these additional materials.</string>
+	<string name="physical_exam_content_one">Physical activity is any bodily movement produced by the skeletal muscles that uses energy. This includes sports, exercise, and other activities such as playing, walking, household chores, gardening, and dancing. Any activity, be it for work, to walk or cycle to and from places, or as part of leisure time, has a health benefit.</string>
+	<string name="people_who_are_physically_active">People who are physically active:</string>
+	<string name="improve_their_muscular_and_cardio_respiratory_fitness">improve their muscular and cardio-respiratory fitness;</string>
+	<string name="improve_their_bone_and_functional_health">improve their bone and functional health;</string>
+	<string name="lower_diesease_rates">have lower rates of coronary heart disease, high blood pressure, stroke, diabetes, cancer (including colon and breast cancer), and depression;</string>
+	<string name="have_a_lower_risk_of_falling_and_of_hip_or_vertebral_fractures_and">have a lower risk of falling and of hip or vertebral fractures; and</string>
+	<string name="are_more_likely_to_maintain_their_weight">are more likely to maintain their weight.</string>
+	<string name="physical_activity_content_two">Exercise can be any activity requiring physical effort, carried out to sustain or improve health or fitness, and these can be either prescribed/unsupervised (e.g. 30 minutes of daily walking), supervised (e.g. a weekly supervised group exercise class) or both. Physical activity is also fundamental to energy balance and weight control.</string>
+	<string name="physical_activity_content_three">A healthy lifestyle includes aerobic physical activity and strength-conditioning exercise aimed at maintaining a good level of fitness throughout pregnancy, without trying to reach peak fitness level or train for athletic competition. Women should choose activities with minimal risk of loss of balance and fetal trauma. Pregnant, postpartum women and persons with cardiac events may need to take extra precautions and seek medical advice before striving to achieve the recommended levels of physical activity.</string>
+	<string name="for_more_information_please_access">For more information please access:</string>
+	<string name="physical_activity_url_one">https://apps.who.int/iris/bitstream/handle/10665/44399/9789241599979_eng.pdf?sequence=1</string>
+	<string name="physical_activity_url_two">https://extranet.who.int/rhl/pt-br/node/151040</string>
+	<string name="birth_plan_source_text">SOURCE: World Health Organization. Integrated Management of Pregnancy and Childbirth – Pregnancy, Childbirth, Postpartum and Newborn Care: A guide for essential practice. 2015. Geneva.</string>
+	<string name="balanced_diet_content_one">Maintaining good nutrition and a healthy diet during pregnancy is critical for the health of the mother and unborn child. When providing nutrition education and counselling to improve the nutritional status of women during pregnancy, please focus primarily on:</string>
+	<string name="balanced_diet_content_two">promoting a healthy diet by increasing the diversity and amount of foods consumed</string>
+	<string name="balanced_diet_content_three">promoting adequate weight gain through sufficient and balanced protein and energy intake</string>
+	<string name="balanced_diet_content_four">promoting consistent and continued use of micronutrient supplements, food supplements or fortified foods</string>
+	<string name="balanced_diet_content_five">Local as well as cultural adaptations may be necessary to meet individual needs and ensure compliance with the recommendations.</string>
+	<string name="for_adults_a_healthy_diet_contains">For adults a healthy diet contains:</string>
+	<string name="balanced_diet_content_six">Fruits, vegetables, legumes (e.g. lentils, beans), nuts and whole grains (e.g. unprocessed maize, millet, oats, wheat, brown rice).</string>
+	<string name="balanced_diet_content_seven">At least 400 g (5 portions) of fruits and vegetables a day. Potatoes, sweet potatoes, cassava and other starchy roots are not classified as fruits or vegetables.</string>
+	<string name="balanced_diet_content_eight">Less than 10% of total energy intake from free sugars which is equivalent to 50 g (or around 12 level teaspoons) for a person of healthy body weight consuming approximately 2000 calories per day, but ideally less than 5% of total energy intake for additional health benefits. Most free sugars are added to foods or drinks by the manufacturer, cook or consumer, and can also be found in sugars naturally present in honey, syrups, fruit juices and fruit juice concentrates.</string>
+	<string name="balanced_diet_content_nine">Less than 30% of total energy intake from fats. Unsaturated fats (e.g. found in fish, avocado, nuts, sunflower, canola and olive oils) are preferable to saturated fats (e.g. found in fatty meat, butter, palm and coconut oil, cream, cheese, ghee and lard). Industrial trans fats (found in processed food, fast food, snack food, fried food, frozen pizza, pies, cookies, margarines and spreads) are not part of a healthy diet.</string>
+	<string name="balanced_diet_content_ten">Less than 5 g of salt (equivalent to approximately 1 teaspoon) per day and use iodized salt.</string>
+	<string name="balanced_diet_url_one">http://www.who.int/en/news-room/fact-sheets/detail/healthy-diet</string>
+	<string name="balanced_diet_url_two">https://mediumredpotion.wordpress.com/2011/12/14/that-old-healthy-food-pyramid/</string>
+	<string name="source">Source</string>
+	<string name="example_sources_of_protein">Example sources of protein:</string>
+	<string name="balanced_diet_content_eleven">Please add to list and modify to local standards where possible.</string>
+	<string name="balanced_diet_url_three">http://www.bendifulblog.com/your-guide-to-protein-what-you-should-know/</string>
+	<string name="balanced_diet_url_four">https://co.pinterest.com/pin/208291551498329651/</string>
+	<string name="example_sources_of_calcium">Example sources of calcium:</string>
+	<string name="example_sources_of_energy">Example sources of energy:</string>
+	<string name="balanced_diet_content_12_info">Please add to list and modify to local standards where possible.</string>
+	<string name="balanced_diet_url_4"><![CDATA[https://www.google.com/url?q=https://cyclonecup.com/blogs/news/13218465-12-healthy-foods-to-eat-for-high-energy&sa=D&ust=1580808439831000]]></string>
+	<string name="example_sources_of_iron">Example sources of iron:</string>
+	<string name="balanced_diet_url_5">https://www.wholesomebabyfoodguide.com/iron-and-iron-rich-baby-foods-what-iron-rich-foods-can-baby-eat/</string>
+	<string name="balanced_diet_url_6">https://bit.ly/2RUH0VU</string>
+	<string name="balanced_diet_url_7">https://i.pinimg.com/originals/21/f2/e3/21f2e3fc203e6b475616e971f3c874f3.jpg</string>
+	<string name="example_sources_of_vitamin_a">Example sources of Vitamin A:</string>
+	<string name="balanced_diet_url_8">https://www.myfooddata.com/articles/food-sources-of-vitamin-A.php</string>
+	<string name="balanced_diet_url_9">https://www.medindia.net/patients/lifestyleandwellness/vitamin-a-rich-foods.htm</string>
+	<string name="example_sources_of_vitamin_c">Example sources of Vitamin C:</string>
+	<string name="balanced_diet_url_10">https://www.myfooddata.com/articles/vitamin-c-foods.php#printable</string>
+	<string name="caffeine_intake">Caffeine intake</string>
+	<string name="balanced_diet_content_13">The maximum daily dose of caffeine intake for a pregnant woman is 300mg, is equivalent to:</string>
+	<string name="balanced_diet_url_11">ftp://ftp.caism.unicamp.br/pub/astec/CARTILHA_DE_EXERCISIO_FISICO_NA_GRAVIDEZ_Publico.pdf</string>
 
 </resources>

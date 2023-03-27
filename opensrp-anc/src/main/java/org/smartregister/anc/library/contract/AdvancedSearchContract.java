@@ -1,5 +1,6 @@
 package org.smartregister.anc.library.contract;
 
+import android.content.Context;
 import android.database.Cursor;
 
 import org.smartregister.domain.Response;
@@ -28,8 +29,7 @@ public interface AdvancedSearchContract {
         Map<String, String> createEditMap(String firstName, String lastName, String ancId, String edd, String dob,
                                           String phoneNumber, String alternateContact, boolean isLocal);
 
-        String createSearchString(String firstName, String lastName, String ancId, String edd, String dob,
-                                  String phoneNumber, String alternateContact);
+        String createSearchString(Context context, String firstName, String lastName, String ancId, String edd, String dob, String phoneNumber, String alternateContact);
 
         String getMainConditionString(Map<String, String> editMap);
 

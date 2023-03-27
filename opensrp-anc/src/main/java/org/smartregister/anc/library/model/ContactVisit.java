@@ -26,7 +26,6 @@ import org.smartregister.anc.library.util.FilePathUtils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.util.JsonFormUtils;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -114,6 +113,7 @@ public class ContactVisit {
     }
 
     /**
+     * StringUtils.isNotBlank(previousContactValue)
      * Returns a {@link Map} of the tasks keys and task id.  These are used to delete the tasks in case a test with the same key is completed doing the current contact.
      *
      * @param baseEntityId {@link String} Client's base entity id.
@@ -178,7 +178,7 @@ public class ContactVisit {
         return womanDetail;
     }
 
-    private void processAttentionFlags(WomanDetail patientDetail, Facts facts) throws IOException {
+    private void processAttentionFlags(WomanDetail patientDetail, Facts facts) {
         Iterable<Object> ruleObjects = AncLibrary.getInstance().readYaml(FilePathUtils.FileUtils.ATTENTION_FLAGS);
         int redCount = 0;
         int yellowCount = 0;

@@ -13,6 +13,7 @@
         {
           "key": "dyspnoea",
           "text": "{{respiratory_exam_sub_form.step1.respiratory_exam_abnormal.options.dyspnoea.text}}",
+          "translation_text": "respiratory_exam_sub_form.step1.respiratory_exam_abnormal.options.dyspnoea.text",
           "value": false,
           "openmrs_entity_parent": "165367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "openmrs_entity": "concept",
@@ -21,6 +22,7 @@
         {
           "key": "cough",
           "text": "{{respiratory_exam_sub_form.step1.respiratory_exam_abnormal.options.cough.text}}",
+          "translation_text": "respiratory_exam_sub_form.step1.respiratory_exam_abnormal.options.cough.text",
           "value": false,
           "openmrs_entity_parent": "165367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "openmrs_entity": "concept",
@@ -29,6 +31,7 @@
         {
           "key": "rapid_breathing",
           "text": "{{respiratory_exam_sub_form.step1.respiratory_exam_abnormal.options.rapid_breathing.text}}",
+          "translation_text": "respiratory_exam_sub_form.step1.respiratory_exam_abnormal.options.rapid_breathing.text",
           "value": false,
           "openmrs_entity_parent": "165367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "openmrs_entity": "concept",
@@ -37,6 +40,7 @@
         {
           "key": "slow_breathing",
           "text": "{{respiratory_exam_sub_form.step1.respiratory_exam_abnormal.options.slow_breathing.text}}",
+          "translation_text": "respiratory_exam_sub_form.step1.respiratory_exam_abnormal.options.slow_breathing.text",
           "value": false,
           "openmrs_entity_parent": "165367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "openmrs_entity": "concept",
@@ -45,6 +49,7 @@
         {
           "key": "wheezing",
           "text": "{{respiratory_exam_sub_form.step1.respiratory_exam_abnormal.options.wheezing.text}}",
+          "translation_text": "respiratory_exam_sub_form.step1.respiratory_exam_abnormal.options.wheezing.text",
           "value": false,
           "openmrs_entity_parent": "165367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "openmrs_entity": "concept",
@@ -53,6 +58,7 @@
         {
           "key": "rales",
           "text": "{{respiratory_exam_sub_form.step1.respiratory_exam_abnormal.options.rales.text}}",
+          "translation_text": "respiratory_exam_sub_form.step1.respiratory_exam_abnormal.options.rales.text",
           "value": false,
           "openmrs_entity_parent": "165367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "openmrs_entity": "concept",
@@ -61,6 +67,7 @@
         {
           "key": "other",
           "text": "{{respiratory_exam_sub_form.step1.respiratory_exam_abnormal.options.other.text}}",
+          "translation_text": "respiratory_exam_sub_form.step1.respiratory_exam_abnormal.options.other.text",
           "value": false,
           "openmrs_entity_parent": "1123AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "openmrs_entity": "concept",

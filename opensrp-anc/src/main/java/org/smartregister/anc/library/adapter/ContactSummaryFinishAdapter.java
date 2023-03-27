@@ -25,12 +25,14 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
     private List<YamlConfig> mData;
     private LayoutInflater mInflater;
     private Facts facts;
+    private Context context;
 
     // data is passed into the constructor
     public ContactSummaryFinishAdapter(Context context, List<YamlConfig> data, Facts facts) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.facts = facts;
+        this.context = context;
     }
 
     // inflates the row layout from xml when needed
@@ -43,7 +45,7 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.sectionHeader.setText(processUnderscores(mData.get(position).getGroup()));
+        holder.sectionHeader.setText(getString(mData.get(position).getGroup()));
         List<YamlConfigItem> fields = mData.get(position).getFields();
         StringBuilder outputBuilder = new StringBuilder();
         for (YamlConfigItem yamlConfigItem : fields) {
@@ -68,6 +70,11 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
         }
 
 
+    }
+
+    private String getString(String key) {
+        int identifier = context.getResources().getIdentifier(key, "string", context.getPackageName());
+        return context.getString(identifier);
     }
 
     // total number of rows

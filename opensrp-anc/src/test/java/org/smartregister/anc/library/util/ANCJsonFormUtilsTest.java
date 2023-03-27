@@ -2,6 +2,9 @@ package org.smartregister.anc.library.util;
 
 import android.content.ContentValues;
 import android.graphics.Bitmap;
+import androidx.core.util.Pair;
+
+import net.sqlcipher.database.SQLiteDatabase;
 
 import androidx.core.util.Pair;
 
@@ -840,6 +843,26 @@ public class ANCJsonFormUtilsTest {
         Assert.assertTrue(nextContactDateJsonObject.optString(JsonFormConstants.VALUE).isEmpty());
         Assert.assertEquals("2020-04-04", lastContactDateJsonObject.optString(JsonFormConstants.VALUE));
         Assert.assertNotNull(result);
+    }
+
+    @Test
+    public void testPopulateSecondaryValues() throws JSONException
+    {
+        JSONObject optionsObject  = new JSONObject();
+        String secondaryValue  = "[{\\\"id\\\":\\\"101\\\",\\\"name\\\":\\\"test\\\",\\\"value\\\":\\\"test value\\\"},\n" +
+                "{\\\"id\\\":\\\"102\\\",\\\"name\\\":\\\"test 1\\\",\\\"value\\\":\\\"test_value\\\"},\n" +
+                "{\\\"id\\\":\\\"103\\\",\\\"name\\\":\\\"test 2\\\",\\\"value \\\":\\\"test_value1\\\"}]";
+
+        optionsObject.put(JsonFormConstants.KEY, "KEY");
+        optionsObject.put(JsonFormConstants.CONTENT_WIDGET, "test_widget");
+
+        JSONObject returnedObject = ANCJsonFormUtils.populateSecondaryValues(secondaryValue, optionsObject);
+        Assert.assertNotNull(returnedObject);
+        Assert.assertNotNull(returnedObject.getJSONArray(JsonFormConstants.VALUES));
+        Assert.assertNotNull(returnedObject.getString(JsonFormConstants.KEY));
+        Assert.assertNotNull(returnedObject.getString(JsonFormConstants.TYPE));
+
+
     }
 
 }

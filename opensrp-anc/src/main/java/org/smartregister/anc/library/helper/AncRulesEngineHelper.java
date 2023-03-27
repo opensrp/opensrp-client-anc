@@ -25,6 +25,7 @@ import org.json.JSONObject;
 import org.smartregister.anc.library.rule.AlertRule;
 import org.smartregister.anc.library.rule.ContactRule;
 import org.smartregister.anc.library.util.ANCFormUtils;
+import org.smartregister.anc.library.util.Utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -253,4 +254,14 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
     public int compareDateAgainstToday(String theDate) {
         return compareTwoDates(theDate, (new LocalDate()).toString(FormUtils.NATIIVE_FORM_DATE_FORMAT_PATTERN));
     }
+
+    public Boolean validateVisitDate(String entityId, String visitDate) {
+        // Valid if visitDate is null or an empty string
+        if (visitDate == null || visitDate.equals("")) return true;
+        // Validate visit date
+        return Utils.isVisitDateValid(entityId, visitDate);
+    }
+
+
+
 }

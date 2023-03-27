@@ -96,6 +96,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
     protected void loadContactSummaryData() {
         try {
+            Facts thefacts = facts;
             new LoadContactSummaryDataTask(this, getIntent(), mProfilePresenter, facts, baseEntityId).execute();
         } catch (Exception e) {
             Timber.e(e, "%s loadContactSummaryData()", this.getClass().getCanonicalName());
@@ -295,15 +296,10 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     }
 
     protected boolean isPermissionGranted() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
-        {
-            if(Environment.isExternalStorageManager())
-                return true;
-            else
-                return false;
-        }
-        else
-        return PermissionUtils.isPermissionGranted(this, Manifest.permission.WRITE_EXTERNAL_STORAGE, PermissionUtils.WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            return Environment.isExternalStorageManager();
+        } else
+            return PermissionUtils.isPermissionGranted(this, Manifest.permission.WRITE_EXTERNAL_STORAGE, PermissionUtils.WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
     }
 
     public List<YamlConfig> getYamlConfigList() {

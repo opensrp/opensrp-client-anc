@@ -7,10 +7,13 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.anc.library.AppConfig;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.SiteCharacteristicsContract;
 import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.Utils;
+import org.smartregister.util.LangUtils;
 
 import java.util.Map;
 
@@ -46,6 +49,7 @@ public abstract class BaseActivity extends AppCompatActivity implements SiteChar
 
     @Override
     public void launchSiteCharacteristicsSettingsForm() {
+        setDefaultLocale();
         ANCJsonFormUtils.launchSiteCharacteristicsForm(this);
     }
 
@@ -99,5 +103,10 @@ public abstract class BaseActivity extends AppCompatActivity implements SiteChar
         } catch (Exception e) {
             Timber.e(e);
         }
+    }
+
+    public void setDefaultLocale() {
+        LangUtils.saveLanguage(getApplication(), AppConfig.DefaultLocale.getLanguage());
+        Utils.saveLanguage(AppConfig.DefaultLocale.getLanguage());
     }
 }

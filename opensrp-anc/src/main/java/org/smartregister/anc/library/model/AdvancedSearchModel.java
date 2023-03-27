@@ -1,6 +1,9 @@
 package org.smartregister.anc.library.model;
 
+import android.content.Context;
+
 import org.apache.commons.lang3.StringUtils;
+import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.AdvancedSearchContract;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 
@@ -58,30 +61,31 @@ public class AdvancedSearchModel extends RegisterFragmentModel implements Advanc
     }
 
     @Override
-    public String createSearchString(String firstName, String lastName, String ancId, String edd, String dob,
+    public String createSearchString(Context context, String firstName, String lastName, String ancId, String edd, String dob,
                                      String phoneNumber, String alternateContact) {
+
         String searchCriteria = "";
 
         if (StringUtils.isNotBlank(firstName)) {
-            searchCriteria += " " + FIRST_NAME + " " + firstName + ";";
+            searchCriteria += " " + context.getString(R.string.first_name) + ": " + firstName + ";";
         }
         if (StringUtils.isNotBlank(lastName)) {
-            searchCriteria += " " + LAST_NAME + " " + lastName + ";";
+            searchCriteria += " " + context.getString(R.string.last_name) + ": " + lastName + ";";
         }
         if (StringUtils.isNotBlank(ancId)) {
-            searchCriteria += " " + SEARCH_TERM_ANC_ID + " " + ancId + ";";
+            searchCriteria += " " + context.getString(R.string.anc_id) + ": " + ancId + ";";
         }
         if (StringUtils.isNotBlank(edd)) {
-            searchCriteria += " " + EDD + " " + edd + ";";
+            searchCriteria += " " + context.getString(R.string.edd) + ": " + edd + ";";
         }
         if (StringUtils.isNotBlank(dob)) {
-            searchCriteria += " " + DOB + " " + dob + ";";
+            searchCriteria += " " + context.getString(R.string.dob) + ": " + dob + ";";
         }
         if (StringUtils.isNotBlank(phoneNumber)) {
-            searchCriteria += " " + MOBILE_PHONE_NUMBER + " " + phoneNumber + ";";
+            searchCriteria += " " + context.getString(R.string.mobile_phone_number) + ": " + phoneNumber + ";";
         }
         if (StringUtils.isNotBlank(alternateContact)) {
-            searchCriteria += " " + ALTERNATE_CONTACT_NAME + " " + alternateContact + ";";
+            searchCriteria += " " + context.getString(R.string.alt_contact_name) + ": " + alternateContact + ";";
         }
         return removeLastSemiColon(searchCriteria);
     }

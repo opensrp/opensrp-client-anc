@@ -125,85 +125,93 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
     private void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client,
                                        RegisterViewHolder viewHolder) {
 
+        // - Encounter Date
+        String visitDate = Utils.getClientLastVisitDate(client.entityId());
+
+        // - Patient Column
+        View patientColumnView = viewHolder.patientColumn;
+        attachPatientOnclickListener(patientColumnView, client);
+
+        // - Patient Name
         String firstName = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.FIRST_NAME, true);
         String lastName = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.LAST_NAME, true);
         String patientName = Utils.getName(firstName, lastName);
-
         fillValue(viewHolder.patientName, WordUtils.capitalize(patientName));
 
+        // - Date of Birth
         String dobString = Utils.getDuration(Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.DOB, false));
         dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
         fillValue((viewHolder.age), String.format(context.getString(R.string.age_text), dobString));
 
-
+        // - Gestational Age
         String edd = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.EDD, false);
+        Integer ga = 0;
+        if (visitDate != null) {
+            String recordDate = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE, false);
+            String actualEdd = Utils.getActualEDD(edd, recordDate, visitDate);
+            ga = Utils.getLastContactGA(edd, visitDate);
+            if (actualEdd != null) edd = actualEdd;
+        }
+        int gaValue = StringUtils.isNotBlank(edd) && ga != 0 ? ga : 0;
+        String gaText = gaValue > 0 ? String.format(context.getString(R.string.ga_weeks), String.valueOf(gaValue)) : "-";
 
-        if (StringUtils.isNotBlank(edd)) {
-            if(Utils.getGestationAgeFromEDDate(edd) > 40)
-            {
-                fillValue(viewHolder.ga, "");
-            }
-            else {
-                fillValue((viewHolder.ga),
-                        String.format(context.getString(R.string.ga_text), Utils.getGestationAgeFromEDDate(edd)));
-                viewHolder.period.setVisibility(View.VISIBLE);
-            }
-        } else {
+        TextView gaView = viewHolder.ga;
+        TextView gaWarningView = viewHolder.gaWarning;
 
-            fillValue((viewHolder.ga), "");
+        fillValue(gaView, gaText);
+        if (gaValue < 42) {
+            gaWarningView.setVisibility(View.GONE);
         }
 
-        View patient = viewHolder.patientColumn;
-        attachPatientOnclickListener(patient, client);
-
-
-        View dueButton = viewHolder.dueButton;
-        attachAlertButtonOnclickListener(dueButton, client);
-
+        // Attention Flag
 
         String redFlagCountRaw = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.RED_FLAG_COUNT, false);
         String yellowFlagCountRaw = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT, false);
 
         int redFlagCount = !TextUtils.isEmpty(redFlagCountRaw) ? Integer.valueOf(redFlagCountRaw) : 0;
         int yellowFlagCount = !TextUtils.isEmpty(yellowFlagCountRaw) ? Integer.valueOf(yellowFlagCountRaw) : 0;
-        int totalFlagCount = yellowFlagCount + redFlagCount;
 
-        TextView riskLayout = viewHolder.risk;
+        TextView redFlagView = viewHolder.redFlag;
+        TextView yellowFlagView = viewHolder.yellowFlag;
 
-        if (totalFlagCount > 0) {
-            riskLayout.setCompoundDrawablesWithIntrinsicBounds(
-                    redFlagCount > 0 ? R.drawable.ic_red_flag : R.drawable.ic_yellow_flag, 0, 0, 0);
-            riskLayout.setText(String.valueOf(totalFlagCount));
-            riskLayout.setVisibility(View.VISIBLE);
-
-            attachRiskLayoutOnclickListener(riskLayout, client);
+        if (redFlagCount > 0) {
+            redFlagView.setText(String.valueOf(redFlagCount));
+            attachRiskLayoutOnclickListener(redFlagView, client);
         } else {
-            riskLayout.setVisibility(View.GONE);
+            redFlagView.setVisibility(View.GONE);
         }
+
+        if (yellowFlagCount > 0) {
+            yellowFlagView.setText(String.valueOf(yellowFlagCount));
+            attachRiskLayoutOnclickListener(yellowFlagView, client);
+        } else {
+            yellowFlagView.setVisibility(View.GONE);
+        }
+
+         View dueButton = viewHolder.dueButton;
+         attachAlertButtonOnclickListener(dueButton, client);
+
     }
 
     private void populateIdentifierColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
-        String ancId = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.ANC_ID, false);
-        fillValue(viewHolder.ancId, String.format(context.getString(R.string.anc_id_text), ancId));
+        // String ancId = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.ANC_ID, false);
+        // fillValue(viewHolder.ancId, String.format(context.getString(R.string.anc_id_text), ancId));
     }
 
     private void populateLastColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
+
         if (commonRepository != null) {
             CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(pc.entityId());
             if (commonPersonObject != null) {
-                viewHolder.sync.setVisibility(View.GONE);
-                ButtonAlertStatus buttonAlertStatus =
-                        Utils.getButtonAlertStatus(pc.getColumnmaps(), context, false);
-                Utils.processButtonAlertStatus(context, viewHolder.dueButton, viewHolder.contactDoneTodayButton,
-                        buttonAlertStatus);
-
+                ButtonAlertStatus buttonAlertStatus = Utils.getButtonAlertStatus(pc.getColumnmaps(), context, false);
+                Utils.processButtonAlertStatus(context, viewHolder.dueButton, viewHolder.contactDoneTodayButton, buttonAlertStatus);
             } else {
-                viewHolder.dueButton.setVisibility(View.GONE);
-                viewHolder.sync.setVisibility(View.VISIBLE);
-
-                attachSyncOnclickListener(viewHolder.sync, pc);
+                // viewHolder.dueButton.setVisibility(View.GONE);
+                // viewHolder.sync.setVisibility(View.VISIBLE);
+                // attachSyncOnclickListener(viewHolder.sync, pc);
             }
         }
+
     }
 
     public static void fillValue(TextView v, String value) {
@@ -244,8 +252,10 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         private TextView age;
         private TextView period;
         private TextView ga;
+        private TextView gaWarning;
         private TextView ancId;
-        private TextView risk;
+        private TextView redFlag;
+        private TextView yellowFlag;
         private Button dueButton;
         private Button sync;
         private View patientColumn;
@@ -253,16 +263,20 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
 
         public RegisterViewHolder(View itemView) {
             super(itemView);
+            patientColumn = itemView.findViewById(R.id.patient_column);
             patientName = itemView.findViewById(R.id.patient_name);
             age = itemView.findViewById(R.id.age);
             ga = itemView.findViewById(R.id.ga);
-            period = itemView.findViewById(R.id.period);
-            ancId = itemView.findViewById(R.id.anc_id);
-            risk = itemView.findViewById(R.id.risk);
+            gaWarning = itemView.findViewById(R.id.ga_warning);
+            redFlag = itemView.findViewById(R.id.red_flag);
+            yellowFlag = itemView.findViewById(R.id.yellow_flag);
             dueButton = itemView.findViewById(R.id.due_button);
-            sync = itemView.findViewById(R.id.sync);
-            patientColumn = itemView.findViewById(R.id.patient_column);
-            contactDoneTodayButton = itemView.findViewById(R.id.contact_today_text);
+
+            // period = itemView.findViewById(R.id.period);
+            // ancId = itemView.findViewById(R.id.anc_id);
+            // risk = itemView.findViewById(R.id.risk);
+            // sync = itemView.findViewById(R.id.sync);
+            // contactDoneTodayButton = itemView.findViewById(R.id.contact_today_text);
         }
     }
 

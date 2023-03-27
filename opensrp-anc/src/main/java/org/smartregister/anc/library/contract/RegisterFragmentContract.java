@@ -1,5 +1,7 @@
 package org.smartregister.anc.library.contract;
 
+import android.content.Context;
+
 import org.json.JSONArray;
 import org.smartregister.anc.library.cursor.AdvancedMatrixCursor;
 import org.smartregister.configurableviews.model.Field;
@@ -32,7 +34,7 @@ public interface RegisterFragmentContract {
 
     interface Model {
 
-        RegisterConfiguration defaultRegisterConfiguration();
+        RegisterConfiguration defaultRegisterConfiguration(Context context);
 
         ViewConfiguration getViewConfiguration(String viewConfigurationIdentifier);
 

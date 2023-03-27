@@ -30,7 +30,7 @@ actions:
 name: step1_accordion_hepatitis_c
 description: Hepatitis C test
 priority: 1
-condition: "helper.getValueFromAccordion('accordion_hiv', 'step1_hiv_positive') == '1' || global_alcohol_substance_use.contains('injectable_drugs') || global_occupation.contains('informal_employment_sex_worker') || global_previous_hepc_test_status.contains('') || global_previous_hepc_test_status.contains('not_done') || global_previous_hepc_test_status.contains ('ordered')"
+condition: "((helper.getValueFromAccordion('accordion_hiv', 'step1_hiv_positive') == '1' || global_pop_hepc == true || (!global_alcohol_substance_use.isEmpty() && global_alcohol_substance_use.contains('injectable_drugs')) || (!global_occupation.isEmpty() && global_occupation.contains('informal_employment_sex_worker')))) && (global_contact_no == 1 || (global_contact_no > 1 && (global_previous_hepc_test_status == '' || global_previous_hepc_test_status == 'not_done' || global_previous_hepc_test_status == 'ordered')))"
 actions:
   - "isRelevant = true"
 ---
@@ -100,7 +100,7 @@ actions:
 name: step2_accordion_partner_hiv
 description: Partner HIV test
 priority: 1
-condition: "global_partner_hiv_status.contains('dont_know') || global_partner_hiv_status == ''"
+condition: "(global_partner_hiv_status == 'dont_know' || global_partner_hiv_status == '') && (global_contact_no == 1 || (global_contact_no > 1 && ((global_previous_hiv_test_partner_status == 'done_earlier' || global_previous_hiv_test_partner_status == 'done_today') && global_previous_hiv_test_partner_result == 'inconclusive') || global_previous_hiv_test_partner_status == ''))"
 actions:
   - "isRelevant = true"
 ---
@@ -111,7 +111,6 @@ condition: "global_contact_no == 1 || (global_contact_no > 1 && (global_previous
 actions:
   - "isRelevant = true"
 ---
-
 name: step2_accordion_blood_type
 description: step2 blood type accordion
 priority: 1
@@ -130,19 +129,5 @@ name: step2_accordion_blood_haemoglobin
 description: hb_test_status
 priority: 1
 condition: "(global_contact_no > 1  && (global_previous_hb_test_status != '' && (global_previous_hb_test_status == 'done_earlier' || global_previous_hb_test_status == 'done_today')))"
-actions:
-  - "isRelevant = true"
----
-name: step2_accordion_covid-19
-description: accordion_covid-19
-priority: 1
-condition: "1 == 1"
-actions:
-  - "isRelevant = true"
----
-name: step2_accordion_toxo
-description: accordion_covid-19
-priority: 1
-condition: "1 == 1"
 actions:
   - "isRelevant = true"
