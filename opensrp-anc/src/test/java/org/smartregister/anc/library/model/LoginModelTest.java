@@ -37,7 +37,7 @@ public class LoginModelTest extends BaseUnitTest {
     // opensrp-client-core library which provides this data
 
     //This test is already covered in Login Interactor
-    @Ignore
+
     @Test
     public void testIsUserLoggedOutShouldReturnTrue() {
         Assert.assertTrue(model.isUserLoggedOut());
