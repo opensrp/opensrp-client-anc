@@ -168,10 +168,10 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
 
                 addTestsRuleObjects(facts);
 
-                String contactDate = (String) facts.asMap().get(ConstantsUtils.CONTACT_DATE);
+                String contactDate = (String) facts.asMap().get("visit_date");
                 String displayContactDate = "";
                 if (!TextUtils.isEmpty(contactDate)) {
-                    Date lastContactDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(contactDate);
+                    Date lastContactDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(contactDate);
                     displayContactDate = new SimpleDateFormat("dd MMM " + "yyyy", Locale.getDefault())
                             .format(lastContactDate);
                 }

@@ -3,6 +3,7 @@ package org.smartregister.anc.library.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -79,7 +80,8 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
 
         if (!TextUtils.isEmpty(mData.get(position).getGroup())) {
 
-            holder.sectionHeader.setText(processUnderscores(mData.get(position).getGroup()));
+            String headerKey = mData.get(position).getGroup();
+            holder.sectionHeader.setText(getString(headerKey));
             holder.sectionHeader.setVisibility(View.VISIBLE);
 
         } else {
@@ -88,7 +90,8 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
         }
 
         if (!TextUtils.isEmpty(mData.get(position).getSubGroup())) {
-            holder.subSectionHeader.setText(processUnderscores(mData.get(position).getSubGroup()));
+            String headerKey = mData.get(position).getSubGroup();
+            holder.subSectionHeader.setText(getString(headerKey));
             holder.subSectionHeader.setVisibility(View.VISIBLE);
         } else {
             holder.subSectionHeader.setVisibility(View.GONE);
@@ -138,6 +141,11 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
 
     private String processUnderscores(String string) {
         return string.replace("_", " ").toUpperCase();
+    }
+
+    private String getString(String key) {
+        int identifier = context.getResources().getIdentifier(key, "string", context.getPackageName());
+        return context.getString(identifier);
     }
 
     private Template getTemplate(String rawTemplate) {

@@ -13,6 +13,7 @@
         {
           "key": "nodule",
           "text": "{{breast_exam_sub_form.step1.breast_exam_abnormal.options.nodule.text}}",
+          "translation_text": "breast_exam_sub_form.step1.breast_exam_abnormal.options.nodule.text",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "146931AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -21,6 +22,7 @@
         {
           "key": "discharge",
           "text": "{{breast_exam_sub_form.step1.breast_exam_abnormal.options.discharge.text}}",
+          "translation_text": "breast_exam_sub_form.step1.breast_exam_abnormal.options.discharge.text",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "142248AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -29,6 +31,7 @@
         {
           "key": "flushing",
           "text": "{{breast_exam_sub_form.step1.breast_exam_abnormal.options.flushing.text}}",
+          "translation_text": "breast_exam_sub_form.step1.breast_exam_abnormal.options.flushing.text",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "140039AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -37,6 +40,7 @@
         {
           "key": "local_pain",
           "text": "{{breast_exam_sub_form.step1.breast_exam_abnormal.options.local_pain.text}}",
+          "translation_text": "breast_exam_sub_form.step1.breast_exam_abnormal.options.local_pain.text",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "131021AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -45,6 +49,7 @@
         {
           "key": "bleeding",
           "text": "{{breast_exam_sub_form.step1.breast_exam_abnormal.options.bleeding.text}}",
+          "translation_text": "breast_exam_sub_form.step1.breast_exam_abnormal.options.bleeding.text",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "147236AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -53,6 +58,7 @@
         {
           "key": "increased_temperature",
           "text": "{{breast_exam_sub_form.step1.breast_exam_abnormal.options.increased_temperature.text}}",
+          "translation_text": "breast_exam_sub_form.step1.breast_exam_abnormal.options.increased_temperature.text",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -61,6 +67,7 @@
         {
           "key": "other",
           "text": "{{breast_exam_sub_form.step1.breast_exam_abnormal.options.other.text}}",
+          "translation_text": "breast_exam_sub_form.step1.breast_exam_abnormal.options.other.text",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

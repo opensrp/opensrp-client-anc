@@ -1,637 +1,650 @@
 {
-  "validate_on_submit": true,
-  "display_scroll_bars": true,
-  "count": "1",
-  "encounter_type": "Quick Check",
-  "entity_id": "",
-  "relational_id": "",
-  "form_version": "0.0.6",
-  "metadata": {
-    "start": {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "concept",
-      "openmrs_data_type": "start",
-      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    },
-    "end": {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "concept",
-      "openmrs_data_type": "end",
-      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    },
-    "today": {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "encounter",
-      "openmrs_entity_id": "encounter_date"
-    },
-    "deviceid": {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "concept",
-      "openmrs_data_type": "deviceid",
-      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    },
-    "subscriberid": {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "concept",
-      "openmrs_data_type": "subscriberid",
-      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    },
-    "simserial": {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "concept",
-      "openmrs_data_type": "simserial",
-      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    },
-    "phonenumber": {
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "concept",
-      "openmrs_data_type": "phonenumber",
-      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    },
-    "encounter_location": "",
-    "look_up": {
-      "entity_id": "",
-      "value": ""
-    }
-  },
-  "step1": {
-    "title": "{{anc_quick_check.step1.title}}",
-    "fields": [
-      {
-        "key": "contact_reason",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "160288AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "native_radio",
-        "label": "{{anc_quick_check.step1.contact_reason.label}}",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "first_contact",
-            "text": "{{anc_quick_check.step1.contact_reason.options.first_contact.text}}",
-            "translation_text": "anc_quick_check.step1.contact_reason.options.first_contact.text",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165269AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "scheduled_contact",
-            "text": "{{anc_quick_check.step1.contact_reason.options.scheduled_contact.text}}",
-            "translation_text": "anc_quick_check.step1.contact_reason.options.scheduled_contact.text",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "specific_complaint",
-            "text": "{{anc_quick_check.step1.contact_reason.options.specific_complaint.text}}",
-            "translation_text": "anc_quick_check.step1.contact_reason.options.specific_complaint.text",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "{{anc_quick_check.step1.contact_reason.v_required.err}}"
-        }
-      },
-      {
-        "key": "specific_complaint",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "check_box",
-        "label": "{{anc_quick_check.step1.specific_complaint.label}}",
-        "label_text_style": "bold",
-        "text_color": "#000000",
-        "options": [
-          {
-            "key": "abnormal_discharge",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.abnormal_discharge.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "123395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "changes_in_bp",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.changes_in_bp.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "changes_in_bp_down",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.changes_in_bp_down.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "constipation",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.constipation.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "996AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "contractions",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.contractions.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "163750AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "cough",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.cough.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "143264AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "diarrhea",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.diarrhea.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "dizziness",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.dizziness.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "156046AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "no_fetal_movement",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.no_fetal_movement.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1452AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "reduced_fetal_movement",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.reduced_fetal_movement.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "113377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "fever",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.fever.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "flu_symptoms",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.flu_symptoms.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "137162AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "fluid_loss",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.fluid_loss.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "148968AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "headache",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.headache.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "139084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "heartburn",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.heartburn.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "139059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "trauma",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.trauma.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "124193AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "domestic_violence",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.domestic_violence.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "141814AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "altered_skin_color",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.altered_skin_color.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "leg_cramps",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.leg_cramps.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "135969AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "leg_redness",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.leg_redness.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165215AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "anxiety",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.anxiety.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "121543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "depression",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.depression.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "119537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "other_psychological_symptoms",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.other_psychological_symptoms.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "160198AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "nausea_vomiting_diarrhea",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.nausea_vomiting_diarrhea.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "157892AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "oedema",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.oedema.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "other_bleeding",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.other_bleeding.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "147241AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "other_skin_disorder",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.other_skin_disorder.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "119022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "other_types_of_violence",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.other_types_of_violence.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "158358AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "full_abdominal_pain",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.full_abdominal_pain.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "139547AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "dysuria",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.dysuria.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "118771AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "extreme_pelvic_pain",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.extreme_pelvic_pain.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165270AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "leg_pain",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.leg_pain.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "114395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "low_back_pain",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.low_back_pain.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "116225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "other_pain",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.other_pain.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "114403AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "pelvic_pain",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.pelvic_pain.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "131034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "pruritus",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.pruritus.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "shortness_of_breath",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.shortness_of_breath.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "141600AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "tiredness",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.tiredness.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "124628AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "bleeding",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.bleeding.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "147232AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "visual_disturbance",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.visual_disturbance.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "123074AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "vomiting",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.vomiting.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "other_specify",
-            "text": "{{anc_quick_check.step1.specific_complaint.options.other_specify.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "{{anc_quick_check.step1.specific_complaint.v_required.err}}"
-        },
-        "relevance": {
-          "step1:contact_reason": {
-            "type": "string",
-            "ex": "equalTo(.,\"specific_complaint\")"
-          }
-        }
-      },
-      {
-        "key": "specific_complaint_other",
-        "openmrs_entity_parent": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "normal_edit_text",
-        "edit_text_style": "bordered",
-        "hint": "{{anc_quick_check.step1.specific_complaint_other.hint}}",
-        "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
-          "err": "{{anc_quick_check.step1.specific_complaint_other.v_regex.err}}"
-        },
-        "relevance": {
-          "step1:specific_complaint": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "other_specify"
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "key": "danger_signs",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "160939AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "check_box",
-        "label": "{{anc_quick_check.step1.danger_signs.label}}",
-        "label_text_style": "bold",
-        "text_color": "#000000",
-        "exclusive": [
-          "danger_none"
-        ],
-        "options": [
-          {
-            "key": "danger_none",
-            "text": "{{anc_quick_check.step1.danger_signs.options.danger_none.text}}",
-            "translation_text": "anc_quick_check.step1.danger_signs.options.danger_none.text",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "danger_bleeding",
-            "text": "{{anc_quick_check.step1.danger_signs.options.danger_bleeding.text}}",
-            "translation_text": "anc_quick_check.step1.danger_signs.options.danger_bleeding.text",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "150802AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "central_cyanosis",
-            "text": "{{anc_quick_check.step1.danger_signs.options.central_cyanosis.text}}",
-            "translation_text": "anc_quick_check.step1.danger_signs.options.danger_none.text",
-            "label_info_text": "Bluish discolouration around the mucous membranes in the mouth, lips and tongue",
-            "label_info_title": "Central cyanosis",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165216AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "convulsing",
-            "text": "{{anc_quick_check.step1.danger_signs.options.convulsing.text}}",
-            "translation_text": "anc_quick_check.step1.danger_signs.options.convulsing.text",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "164483AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "danger_fever",
-            "text": "{{anc_quick_check.step1.danger_signs.options.danger_fever.text}}",
-            "translation_text": "anc_quick_check.step1.danger_signs.options.danger_fever.text",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "severe_headache",
-            "text": "{{anc_quick_check.step1.danger_signs.options.severe_headache.text}}",
-            "translation_text": "anc_quick_check.step1.danger_signs.options.severe_headache.text",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "139081AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "visual_disturbance",
-            "text": "{{anc_quick_check.step1.danger_signs.options.visual_disturbance.text}}",
-            "translation_text": "anc_quick_check.step1.danger_signs.options.visual_disturbance.text",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "123074AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "imminent_delivery",
-            "text": "{{anc_quick_check.step1.danger_signs.options.imminent_delivery.text}}",
-            "translation_text": "anc_quick_check.step1.danger_signs.options.imminent_delivery.text",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "162818AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "labour",
-            "text": "{{anc_quick_check.step1.danger_signs.options.labour.text}}",
-            "translation_text": "anc_quick_check.step1.danger_signs.options.labour.text",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "145AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "looks_very_ill",
-            "text": "{{anc_quick_check.step1.danger_signs.options.looks_very_ill.text}}",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "163293AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "severe_vomiting",
-            "text": "{{anc_quick_check.step1.danger_signs.options.severe_vomiting.text}}",
-            "translation_text": "anc_quick_check.step1.danger_signs.options.severe_vomiting.text",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "118477AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "severe_pain",
-            "text": "{{anc_quick_check.step1.danger_signs.options.severe_pain.text}}",
-            "translation_text": "anc_quick_check.step1.danger_signs.options.severe_pain.text",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "163477AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "severe_abdominal_pain",
-            "text": "{{anc_quick_check.step1.danger_signs.options.severe_abdominal_pain.text}}",
-            "translation_text": "anc_quick_check.step1.danger_signs.options.severe_abdominal_pain.text",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "unconscious",
-            "text": "{{anc_quick_check.step1.danger_signs.options.unconscious.text}}",
-            "translation_text": "anc_quick_check.step1.danger_signs.options.unconscious.text",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "123818AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "{{anc_quick_check.step1.danger_signs.v_required.err}}"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "quick_check_relevance_rules.yml"
-            }
-          }
-        }
-      }
-    ]
-  },
-  "properties_file_name": "anc_quick_check"
+	"validate_on_submit": true,
+	"display_scroll_bars": true,
+	"count": "1",
+	"encounter_type": "anc_quick_check",
+	"entity_id": "",
+	"relational_id": "",
+	"form_version": "0.0.6",
+	"metadata": {
+		"start": {
+			"openmrs_entity_parent": "",
+			"openmrs_entity": "concept",
+			"openmrs_data_type": "start",
+			"openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+		},
+		"end": {
+			"openmrs_entity_parent": "",
+			"openmrs_entity": "concept",
+			"openmrs_data_type": "end",
+			"openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+		},
+		"today": {
+			"openmrs_entity_parent": "",
+			"openmrs_entity": "encounter",
+			"openmrs_entity_id": "encounter_date"
+		},
+		"deviceid": {
+			"openmrs_entity_parent": "",
+			"openmrs_entity": "concept",
+			"openmrs_data_type": "deviceid",
+			"openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+		},
+		"subscriberid": {
+			"openmrs_entity_parent": "",
+			"openmrs_entity": "concept",
+			"openmrs_data_type": "subscriberid",
+			"openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+		},
+		"simserial": {
+			"openmrs_entity_parent": "",
+			"openmrs_entity": "concept",
+			"openmrs_data_type": "simserial",
+			"openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+		},
+		"phonenumber": {
+			"openmrs_entity_parent": "",
+			"openmrs_entity": "concept",
+			"openmrs_data_type": "phonenumber",
+			"openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+		},
+		"encounter_location": "",
+		"look_up": {
+			"entity_id": "",
+			"value": ""
+		}
+	},
+	"step1": {
+		"title": "{{anc_quick_check.step1.title}}",
+		"fields": [
+			{
+				"key": "visit_date",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "concept",
+				"openmrs_entity_id": "visit_date",
+				"type": "date_picker",
+				"hint": "{{anc_quick_check.step1.visit_date.hint}}",
+				"expanded": false,
+				"min_date": "today-14m",
+				"max_date": "today",
+				"v_required": {
+					"value": "true",
+					"err": "{{anc_quick_check.step1.visit_date.v_required.err}}"
+				}
+			},
+
+			{
+				"key": "contact_reason",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "concept",
+				"openmrs_entity_id": "contact_reason",
+				"type": "native_radio",
+				"label": "{{anc_quick_check.step1.contact_reason.label}}",
+				"label_text_style": "bold",
+				"options": [
+					{
+						"key": "first_contact",
+						"text": "{{anc_quick_check.step1.contact_reason.options.first_contact.text}}",
+						"translation_text": "anc_quick_check.step1.contact_reason.options.first_contact.text",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "first_contact"
+					},
+					{
+						"key": "scheduled_contact",
+						"text": "{{anc_quick_check.step1.contact_reason.options.scheduled_contact.text}}",
+						"translation_text": "anc_quick_check.step1.contact_reason.options.scheduled_contact.text",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					},
+					{
+						"key": "specific_complaint",
+						"text": "{{anc_quick_check.step1.contact_reason.options.specific_complaint.text}}",
+						"translation_text": "anc_quick_check.step1.contact_reason.options.specific_complaint.text",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "specific_complaint"
+					}
+				],
+				"v_required": {
+					"value": "true",
+					"err": "{{anc_quick_check.step1.contact_reason.v_required.err}}"
+				}
+			},
+			{
+				"key": "specific_complaint",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "concept",
+				"openmrs_entity_id": "specific_complaint",
+				"type": "check_box",
+				"label": "{{anc_quick_check.step1.specific_complaint.label}}",
+				"label_text_style": "bold",
+				"text_color": "#000000",
+				"options": [
+					{
+						"key": "abnormal_discharge",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.abnormal_discharge.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "abnormal_discharge"
+					},
+					{
+						"key": "changes_in_bp",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.changes_in_bp.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "changes_in_bp"
+					},
+					{
+						"key": "changes_in_bp_down",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.changes_in_bp_down.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "changes_in_bp_down"
+					},
+					{
+						"key": "constipation",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.constipation.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "constipation"
+					},
+					{
+						"key": "contractions",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.contractions.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "contractions"
+					},
+					{
+						"key": "cough",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.cough.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "cough"
+					},
+					{
+						"key": "diarrhea",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.diarrhea.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "diarrhea"
+					},
+					{
+						"key": "dizziness",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.dizziness.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "dizziness"
+					},
+					{
+						"key": "no_fetal_movement",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.no_fetal_movement.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "no_fetal_movement"
+					},
+					{
+						"key": "reduced_fetal_movement",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.reduced_fetal_movement.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "reduced_fetal_movement"
+					},
+					{
+						"key": "fever",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.fever.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "fever"
+					},
+					{
+						"key": "flu_symptoms",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.flu_symptoms.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "flu_symptoms"
+					},
+					{
+						"key": "fluid_loss",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.fluid_loss.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "fluid_loss"
+					},
+					{
+						"key": "headache",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.headache.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "headache"
+					},
+					{
+						"key": "heartburn",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.heartburn.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "heartburn"
+					},
+					{
+						"key": "trauma",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.trauma.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "trauma"
+					},
+					{
+						"key": "domestic_violence",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.domestic_violence.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "domestic_violence"
+					},
+					{
+						"key": "altered_skin_color",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.altered_skin_color.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "altered_skin_color"
+					},
+					{
+						"key": "leg_cramps",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.leg_cramps.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "leg_cramps"
+					},
+					{
+						"key": "leg_redness",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.leg_redness.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "leg_redness"
+					},
+					{
+						"key": "anxiety",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.anxiety.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "anxiety"
+					},
+					{
+						"key": "depression",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.depression.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "depression"
+					},
+					{
+						"key": "other_psychological_symptoms",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.other_psychological_symptoms.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "other_psychological_symptoms"
+					},
+					{
+						"key": "nausea_vomiting_diarrhea",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.nausea_vomiting_diarrhea.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "nausea_vomiting_diarrhea"
+					},
+					{
+						"key": "oedema",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.oedema.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "oedema"
+					},
+					{
+						"key": "other_bleeding",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.other_bleeding.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "other_bleeding"
+					},
+					{
+						"key": "other_skin_disorder",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.other_skin_disorder.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "other_skin_disorder"
+					},
+					{
+						"key": "other_types_of_violence",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.other_types_of_violence.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "other_types_of_violence"
+					},
+					{
+						"key": "full_abdominal_pain",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.full_abdominal_pain.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "full_abdominal_pain"
+					},
+					{
+						"key": "dysuria",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.dysuria.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "dysuria"
+					},
+					{
+						"key": "extreme_pelvic_pain",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.extreme_pelvic_pain.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "extreme_pelvic_pain"
+					},
+					{
+						"key": "leg_pain",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.leg_pain.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "leg_pain"
+					},
+					{
+						"key": "low_back_pain",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.low_back_pain.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "low_back_pain"
+					},
+					{
+						"key": "other_pain",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.other_pain.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "other_pain"
+					},
+					{
+						"key": "pelvic_pain",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.pelvic_pain.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "pelvic_pain"
+					},
+					{
+						"key": "pruritus",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.pruritus.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "pruritus"
+					},
+					{
+						"key": "shortness_of_breath",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.shortness_of_breath.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "shortness_of_breath"
+					},
+					{
+						"key": "tiredness",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.tiredness.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "tiredness"
+					},
+					{
+						"key": "bleeding",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.bleeding.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "bleeding"
+					},
+					{
+						"key": "visual_disturbance",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.visual_disturbance.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "visual_disturbance"
+					},
+					{
+						"key": "vomiting",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.vomiting.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "vomiting"
+					},
+					{
+						"key": "other_specify",
+						"text": "{{anc_quick_check.step1.specific_complaint.options.other_specify.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "other_specify"
+					}
+				],
+				"v_required": {
+					"value": "true",
+					"err": "{{anc_quick_check.step1.specific_complaint.v_required.err}}"
+				},
+				"relevance": {
+					"rules-engine": {
+						"ex-rules": {
+							"rules-file": "anc_quick_check_relevance.yml"
+						}
+					}
+				}
+			},
+			{
+				"key": "specific_complaint_other",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "concept",
+				"openmrs_entity_id": "specific_complaint_other",
+				"type": "normal_edit_text",
+				"edit_text_style": "bordered",
+				"hint": "{{anc_quick_check.step1.specific_complaint_other.hint}}",
+				"v_regex": {
+					"value": "[A-Za-z\\s\\.\\-]*",
+					"err": "{{anc_quick_check.step1.specific_complaint_other.v_regex.err}}"
+				},
+				"relevance": {
+					"rules-engine": {
+						"ex-rules": {
+							"rules-file": "anc_quick_check_relevance.yml"
+						}
+					}
+				}
+			},
+			{
+				"key": "danger_signs",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "concept",
+				"openmrs_entity_id": "danger_signs",
+				"type": "check_box",
+				"label": "{{anc_quick_check.step1.danger_signs.label}}",
+				"label_text_style": "bold",
+				"text_color": "#000000",
+				"exclusive": [
+					"danger_none"
+				],
+				"options": [
+					{
+						"key": "danger_none",
+						"text": "{{anc_quick_check.step1.danger_signs.options.danger_none.text}}",
+						"translation_text": "anc_quick_check.step1.danger_signs.options.danger_none.text",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "danger_none"
+					},
+					{
+						"key": "danger_bleeding",
+						"text": "{{anc_quick_check.step1.danger_signs.options.danger_bleeding.text}}",
+						"translation_text": "anc_quick_check.step1.danger_signs.options.danger_bleeding.text",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "danger_bleeding"
+					},
+					{
+						"key": "central_cyanosis",
+						"text": "{{anc_quick_check.step1.danger_signs.options.central_cyanosis.text}}",
+						"translation_text": "anc_quick_check.step1.danger_signs.options.central_cyanosis.text}",
+						"label_info_title": "{{anc_quick_check.step1.danger_signs.options.central_cyanosis.label_info_title}}",
+						"label_info_text": "{{anc_quick_check.step1.danger_signs.options.central_cyanosis.label_info_text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "central_cyanosis"
+					},
+					{
+						"key": "convulsing",
+						"text": "{{anc_quick_check.step1.danger_signs.options.convulsing.text}}",
+						"translation_text": "anc_quick_check.step1.danger_signs.options.convulsing.text",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "convulsing"
+					},
+					{
+						"key": "danger_fever",
+						"text": "{{anc_quick_check.step1.danger_signs.options.danger_fever.text}}",
+						"translation_text": "anc_quick_check.step1.danger_signs.options.danger_fever.text",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "danger_fever"
+					},
+					{
+						"key": "severe_headache",
+						"text": "{{anc_quick_check.step1.danger_signs.options.severe_headache.text}}",
+						"translation_text": "anc_quick_check.step1.danger_signs.options.severe_headache.text",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "severe_headache"
+					},
+					{
+						"key": "visual_disturbance",
+						"text": "{{anc_quick_check.step1.danger_signs.options.visual_disturbance.text}}",
+						"translation_text": "anc_quick_check.step1.danger_signs.options.visual_disturbance.text",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "visual_disturbance"
+					},
+					{
+						"key": "imminent_delivery",
+						"text": "{{anc_quick_check.step1.danger_signs.options.imminent_delivery.text}}",
+						"translation_text": "anc_quick_check.step1.danger_signs.options.imminent_delivery.text",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "imminent_delivery"
+					},
+					{
+						"key": "labour",
+						"text": "{{anc_quick_check.step1.danger_signs.options.labour.text}}",
+						"translation_text": "anc_quick_check.step1.danger_signs.options.labour.text",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "labour"
+					},
+					{
+						"key": "looks_very_ill",
+						"text": "{{anc_quick_check.step1.danger_signs.options.looks_very_ill.text}}",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "looks_very_ill"
+					},
+					{
+						"key": "severe_vomiting",
+						"text": "{{anc_quick_check.step1.danger_signs.options.severe_vomiting.text}}",
+						"translation_text": "anc_quick_check.step1.danger_signs.options.severe_vomiting.text",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "severe_vomiting"
+					},
+					{
+						"key": "severe_pain",
+						"text": "{{anc_quick_check.step1.danger_signs.options.severe_pain.text}}",
+						"translation_text": "anc_quick_check.step1.danger_signs.options.severe_pain.text",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "severe_pain"
+					},
+					{
+						"key": "severe_abdominal_pain",
+						"text": "{{anc_quick_check.step1.danger_signs.options.severe_abdominal_pain.text}}",
+						"translation_text": "anc_quick_check.step1.danger_signs.options.severe_abdominal_pain.text",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "severe_abdominal_pain"
+					},
+					{
+						"key": "unconscious",
+						"text": "{{anc_quick_check.step1.danger_signs.options.unconscious.text}}",
+						"translation_text": "anc_quick_check.step1.danger_signs.options.unconscious.text",
+						"value": false,
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "unconscious"
+					}
+				],
+				"v_required": {
+					"value": "true",
+					"err": "{{anc_quick_check.step1.danger_signs.v_required.err}}"
+				},
+				"relevance": {
+					"rules-engine": {
+						"ex-rules": {
+							"rules-file": "anc_quick_check_relevance.yml"
+						}
+					}
+				}
+			}
+		]
+	},
+	"properties_file_name": "anc_quick_check"
 }

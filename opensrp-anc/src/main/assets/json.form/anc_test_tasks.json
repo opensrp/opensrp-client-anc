@@ -2,7 +2,7 @@
   "validate_on_submit": true,
   "display_scroll_bars": true,
   "count": "1",
-  "encounter_type": "Contact Tasks",
+  "encounter_type": "anc_test_tasks",
   "entity_id": "",
   "relational_id": "",
   "form_version": "0.0.1",
@@ -56,9 +56,8 @@
   },
   "step1": {
     "display_back_button": "true",
-    "title": "Due",
-    "fields": [
-    ]
+    "title": "{{anc_test.step1.title}}",
+    "fields": []
   },
   "properties_file_name": "anc_test"
 }

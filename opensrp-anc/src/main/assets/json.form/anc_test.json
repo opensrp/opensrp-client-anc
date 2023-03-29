@@ -2,7 +2,7 @@
   "validate_on_submit": true,
   "display_scroll_bars": true,
   "count": "2",
-  "encounter_type": "Tests",
+  "encounter_type": "anc_test",
   "entity_id": "",
   "relational_id": "",
   "form_version": "0.0.1",
@@ -352,44 +352,6 @@
         "accordion_info_title": "{{anc_test.step2.accordion_hepatitis_c.accordion_info_title}}",
         "type": "expansion_panel",
         "content_form": "tests_hepatitis_c_sub_form",
-        "container": "anc_test",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "tests_expansion_panel_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "accordion_covid-19",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "text": "{{anc_test.step2.accordion_covid_19.text}}",
-        "accordion_info_text": "{{anc_test.step2.accordion_covid_19.text}}",
-        "accordion_info_title": "{{anc_test.step2.accordion_covid_19.text}}",
-        "type": "expansion_panel",
-        "content_form": "tests_covid_19_sub_form",
-        "container": "anc_test",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "tests_expansion_panel_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "accordion_toxo",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "text": "{{anc_test.step2.accordion_toxo.text}}",
-        "accordion_info_text": "{{anc_test.step2.accordion_toxo.info.text}}",
-        "accordion_info_title": "{{anc_test.step2.accordion_toxo.text}}",
-        "type": "expansion_panel",
-        "content_form": "tests_toxo_sub_form",
         "container": "anc_test",
         "relevance": {
           "rules-engine": {

@@ -2,7 +2,7 @@
 name: step1_danger_signs_toaster
 description: Danger sign problem toaster
 priority: 1
-condition: "!global_danger_signs.isEmpty() && !global_danger_signs.contains('danger_none') && global_danger_signs_value != 'None'"
+condition: "global_danger_signs && !global_danger_signs.isEmpty() && !global_danger_signs.contains('danger_none') && global_danger_signs_value != 'None'"
 actions:
   - "isRelevant = true"
 ---
@@ -107,7 +107,7 @@ actions:
 name: step1_referred_hosp
 description: Referred to hospital
 priority: 1
-condition: "(global_severe_hypertension != '' && global_severe_hypertension == 1) || (!global_danger_signs.isEmpty() && !global_danger_signs.contains('danger_none') && global_danger_signs_value != 'None') || (global_hypertension != '' && global_hypertension == 1 && !global_symp_sev_preeclampsia.isEmpty() && !global_symp_sev_preeclampsia.contains('none')) || (global_preeclampsia != '' && global_preeclampsia == 1) || (global_severe_preeclampsia != ''  && global_severe_preeclampsia == 1) || (global_body_temp_repeat != '' && global_body_temp_repeat >= 38) || global_pulse_rate_repeat != '' && (global_pulse_rate_repeat < 60 || global_pulse_rate_repeat > 100) || global_respiratory_exam == 3 || global_cardiac_exam == 3 || global_breast_exam == 3 || global_abdominal_exam == 3 || global_pelvic_exam == 3 || (global_fetal_heartbeat == 'no' && global_gest_age_openmrs > 20) || global_fetal_heart_rate_repeat != '' && (global_fetal_heart_rate_repeat < 110 || global_fetal_heart_rate_repeat > 160)"
+condition: "(global_danger_signs && global_severe_hypertension != '' && global_severe_hypertension == 1) || (!global_danger_signs.isEmpty() && !global_danger_signs.contains('danger_none') && global_danger_signs_value != 'None') || (global_hypertension != '' && global_hypertension == 1 && !global_symp_sev_preeclampsia.isEmpty() && !global_symp_sev_preeclampsia.contains('none')) || (global_preeclampsia != '' && global_preeclampsia == 1) || (global_severe_preeclampsia != ''  && global_severe_preeclampsia == 1) || (global_body_temp_repeat != '' && global_body_temp_repeat >= 38) || global_pulse_rate_repeat != '' && (global_pulse_rate_repeat < 60 || global_pulse_rate_repeat > 100) || global_respiratory_exam == 3 || global_cardiac_exam == 3 || global_breast_exam == 3 || global_abdominal_exam == 3 || global_pelvic_exam == 3 || (global_fetal_heartbeat == 'no' && global_gest_age_openmrs > 20) || global_fetal_heart_rate_repeat != '' && (global_fetal_heart_rate_repeat < 110 || global_fetal_heart_rate_repeat > 160)"
 actions:
   - "isRelevant = true"
 ---
@@ -233,14 +233,14 @@ actions:
 name: step4_increase_energy_counsel
 description: Increase daily energy and protein intake counseling
 priority: 1
-condition: "global_pop_undernourish == true && global_weight_cat == 'Underweight'"
+condition: "global_pop_undernourish == true && global_weight_cat == helper.weightIMT('Underweight')"
 actions:
   - "isRelevant = true"
 ---
 name: step4_balanced_energy_counsel
 description: Balanced energy and protein dietary supplementation counseling
 priority: 1
-condition: "global_pop_undernourish == true && global_weight_cat == 'Underweight'"
+condition: "global_pop_undernourish == true && global_weight_cat == helper.weightIMT('Underweight')"
 actions:
   - "isRelevant = true"
 ---

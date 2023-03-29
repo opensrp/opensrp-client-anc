@@ -7,7 +7,8 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.3'
+//        classpath 'com.android.tools.build:gradle:4.1.3'
+        classpath 'com.android.tools.build:gradle:7.0.4'
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.3'
         classpath 'com.google.gms:google-services:4.3.9'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.7.1'
@@ -21,6 +22,7 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'org.smartregister.gradle.jarjar'
 apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'com.google.firebase.firebase-perf'
+apply from: '../properties.gradle'
 
 jacoco {
     toolVersion = jacocoVersion
@@ -28,7 +30,7 @@ jacoco {
 // This variables are used by the version code & name generators
 ext.versionMajor = 1
 ext.versionMinor = 6
-ext.versionPatch = 15
+ext.versionPatch = 18
 ext.versionClassifier = null
 ext.isSnapshot = false
 ext.minimumSdkVersion = androidMinSdkVersion
@@ -38,27 +40,18 @@ android {
     * This allows you to run the app in the release variant.  make sure to add this configs to the
     * local.properties files when you need to use them
     * */
-    if (project.rootProject.file("local.properties").exists()) {
-        Properties properties = new Properties()
-        properties.load(project.rootProject.file("local.properties").newDataInputStream())
-        if (properties != null && properties.containsKey("store.file") && properties.containsKey("store.password") && properties.containsKey("key.password")) {
             signingConfigs {
                 release {
-                    storeFile file(properties['store.file'])
-                    storePassword properties['store.password']
-                    keyAlias = 'release'
-                    keyPassword properties['key.password']
-                }
-                debug {
-                    storeFile file(properties['store.file'])
-                    storePassword properties['store.password']
-                    keyAlias = 'release'
-                    keyPassword properties['key.password']
+                    //Store your local.properties file in the project root folder
+                    v1SigningEnabled true
+                    v2SigningEnabled true
+                    keyAlias System.getenv("KEYSTORE_ALIAS") ?: project.KEYSTORE_ALIAS
+                    keyPassword System.getenv("KEY_PASSWORD") ?: project.KEY_PASSWORD
+                    storePassword System.getenv("KEYSTORE_PASSWORD") ?: project.KEYSTORE_PASSWORD
+                    //Save your keystore file as ~/opensrp-release-upload-key.jks (in your home directory)
+                    storeFile file(System.getProperty("user.home") + "/anckey.keystore.jks")
                 }
             }
-        }
-    }
-
     useLibrary 'org.apache.http.legacy'
     compileSdkVersion androidCompileSdkVersion
     buildToolsVersion androidBuildToolsVersion
@@ -76,9 +69,10 @@ android {
         targetSdkVersion androidTargetSdkVersion
         versionCode generateVersionCode()
         versionName generateVersionName()
+        resConfigs "in-rID", "en"
         buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
         buildConfigField "boolean", "TIME_CHECK", "false"
-        buildConfigField "String", "SYNC_TYPE", '"teamId"'
+        buildConfigField "String", "SYNC_TYPE", '"locationId"'
         buildConfigField "int", "MAX_SYNC_RETRIES", '3'
         buildConfigField "long", "BUILD_TIMESTAMP", System.currentTimeMillis() + "L"
         buildConfigField "boolean", "IS_SYNC_SETTINGS", "true"
@@ -145,8 +139,8 @@ android {
         release {
             minifyEnabled false
             zipAlignEnabled true
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rule.pro'
-            resValue "string", 'opensrp_url', '"https://anc.labs.smartregister.org/opensrp/"'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
@@ -159,10 +153,22 @@ android {
             buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '180'
             buildConfigField "int", "VIEW_SYNC_CONFIGURATIONS_MINUTES", '15'
             buildConfigField "int", "CLIENT_SETTINGS_SYNC_MINUTES", '15'
+
+            if (project.rootProject.file("local.properties").exists()) {
+                Properties properties = new Properties()
+                properties.load(project.rootProject.file("local.properties").newDataInputStream())
+                if (properties != null && properties.containsKey("oauth.client.id")) {
+                    buildConfigField "String", "OAUTH_CLIENT_ID", properties["oauth.client.id"]
+                    resValue "string", 'opensrp_url', properties["opensrp_url"]
+                } else {
+                    resValue "string", 'opensrp_url', '"https://anc.labs.smartregister.org/opensrp/"'
+                }
+            } else {
+                resValue "string", 'opensrp_url', '"https://anc.labs.smartregister.org/opensrp/"'
+            }
         }
 
         debug {
-            resValue "string", 'opensrp_url', '"https://anc.labs.smartregister.org/opensrp/"'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
@@ -176,6 +182,20 @@ android {
             buildConfigField "int", "VIEW_SYNC_CONFIGURATIONS_MINUTES", '15'
             buildConfigField "int", "CLIENT_SETTINGS_SYNC_MINUTES", '15'
             testCoverageEnabled true
+            signingConfig signingConfigs.debug
+
+            if (project.rootProject.file("local.properties").exists()) {
+                Properties properties = new Properties()
+                properties.load(project.rootProject.file("local.properties").newDataInputStream())
+                if (properties != null && properties.containsKey("oauth.client.id")) {
+                    buildConfigField "String", "OAUTH_CLIENT_ID", properties["oauth.client.id"]
+                    resValue "string", 'opensrp_url', properties["opensrp_url"]
+                } else {
+                    resValue "string", 'opensrp_url', '"https://anc.labs.smartregister.org/opensrp/"'
+                }
+            } else {
+                resValue "string", 'opensrp_url', '"https://anc.labs.smartregister.org/opensrp/"'
+            }
         }
     }
 
@@ -233,7 +253,7 @@ dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
     def powerMockVersion = '2.0.7'
     implementation project(":opensrp-anc")
-    implementation('org.smartregister:opensrp-client-native-form:3.1.1-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:3.1.2-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -245,7 +265,7 @@ dependencies {
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
 
-    implementation('org.smartregister:opensrp-client-core:6.0.0-BETA3-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:6.0.0-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'

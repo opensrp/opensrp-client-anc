@@ -1,0 +1,840 @@
+<resources>
+
+    <!-- ================================================ -->
+    <!-- * OVERRIDE OPENSRP-CLIENT-CORE LIBRARY STRINGS * -->
+    <!-- ================================================ -->
+
+
+    <!-- App Configuration -->
+    <!-- ================= -->
+
+    <string name="app_name">BUNDA</string>
+    <string name="app_version">Versi Aplikasi: %1$s (dibuat %2$s)</string>
+    <string name="outdated_app">This is an outdated app. Please update to the latest version to continue.</string>
+    <string name="app_reset_status">Status reset aplikasi</string>
+    <string name="clearing_application_data">Menghapus data aplikasi...</string>
+
+
+    <!-- Actions & Button Labels -->
+    <!-- ======================= -->
+
+    <string name="yes_button_label">Ya</string>
+    <string name="no_button_label">Tidak</string>
+    <string name="ok">Oke</string>
+    <string name="str_next">Lanjut &gt;&gt;</string>
+    <string name="str_previous">&lt;&lt; Kembali</string>
+    <string name="str_page_info">Halaman {0} dari {1}</string>
+    <string name="refresh">Refresh</string>
+    <string name="return_to_register">Kembali</string>
+
+
+    <!-- Authentication -->
+    <!-- ============== -->
+
+    <string name="login_text">Login</string>
+    <string name="logout_text">Logout</string>
+    <string name="loggin_in_dialog_title">Login</string>
+    <string name="loggin_in_dialog_message">Harap Tunggu</string>
+    <string name="login_failed_dialog_title">Login Gagal</string>
+    <string name="login_failed_dialog_message">Periksa username dan password.</string>
+    <string name="form_back_confirm_dialog_message">Yakin ingin kembali? Data yang sudah dimasukkan akan terhapus.</string>
+    <string name="form_back_confirm_dialog_title">Konfirmasi Tutup Form</string>
+    <string name="settings_logout_confirm_title">Konfirmasi Logout</string>
+    <string name="settings_logout_confirm_dialog_message">Yakin ingin logout? Data lokal pada perangkat ini akan terhapus.</string>
+    <string name="prompt_username">Username</string>
+    <string name="prompt_password">Password (opsional)</string>
+    <string name="action_sign_in">Login atau Daftar</string>
+    <string name="action_sign_in_short">Login</string>
+    <string name="error_invalid_username">Username tidak valid</string>
+    <string name="error_invalid_password">Password terlalu pendek</string>
+    <string name="error_incorrect_password">Password salah</string>
+    <string name="show_password_text">Tampilkan Password</string>
+    <string name="remote_login_generic_error">Terjadi error saat login terhadap server. Silakan coba lagi.</string>
+    <string name="remote_login_base_url_missing_error">Silakan konfigurasi OpenSRP Base URL terlebih dahulu.</string>
+    <string name="log_out_text">Logout</string>
+    <string name="unauthorized_group">Grup pengguna Anda tidak diizinkan untuk mengakses perangkat ini.</string>
+    <string name="no_internet_connectivity">Tidak ada koneksi internet. Harap pastikan konektivitas data berjalan.</string>
+    <string name="unknown_response">Login gagal. Coba lagi lain kali.</string>
+    <string name="unauthorized">Silakan periksa kredensial.</string>
+    <string name="account_disabled">Akun Nonaktif</string>
+    <string name="account_disabled_logged_off">Akun Anda dinonaktifkan. Silakan kontak admin.</string>
+    <string name="account_new_assignment_logged_off">Anda punya penugasan baru. Silakan login kembali.</string>
+    <string name="default_location_revoked_logged_off">Akses lokasi Anda telah dibatalkan.</string>
+    <string name="your_session_has_expired">Sesi berakhir. Silakan login kembali.</string>
+    <string name="new_db_encryption_version_migration">Enkripsi database berubah. Silakan login kembali.</string>
+    <string name="account_removed">Akun Anda telah dihapus. Silakan hubungi admin.</string>
+    <string name="no_client_available_for_url">Tidak ada klien autentikasi yang tersedia pada URL.</string>
+
+
+    <!-- Bottom Navigation Menu -->
+    <!-- ====================== -->
+
+    <string name="clients_menu">Ibu</string>
+    <string name="search_menu">Pencarian</string>
+    <string name="register_menu">Daftar</string>
+    <string name="library_menu">Pustaka</string>
+    <string name="me">Saya</string>
+
+
+    <!-- Data Key Fields -->
+    <!-- =============== -->
+
+    <string name="clients_key">clients</string>
+    <string name="events_key">events</string>
+
+
+    <!-- Dialogs & Messages -->
+    <!-- ================== -->
+
+    <string name="please_wait_message">Harap Tunggu</string>
+    <string name="cancelling">Membatalkan...</string>
+    <string name="stopping_services">Menghentikan layanan...</string>
+    <string name="performing_data_checks">Mengecek data...</string>
+    <string name="invalid_url_massage">Harap masukkan URL yang valid.</string>
+    <string name="clear_data_dialog_title">Apakah Anda mau menghapus data untuk login dengan akun berbeda?</string>
+    <string name="clear_data_dialog_message">Anda mencoba login dengan akun berbeda. Upload dan pembersihan data akun %s di tim %s diperlukan. Lanjutkan?</string>
+    <string name="msg_empty_url">URL tidak boleh kosong</string>
+
+
+    <!-- Forms & Inputs -->
+    <!-- ============== -->
+
+    <string name="error_field_required">Field ini harus diisi</string>
+    <string name="form_update_title">Pembaruan Form</string>
+    <string name="form_update_message">Terdapat pembaruan konten pada form ini</string>
+    <string name="current_corrupted_form">(Form Korup)</string>
+    <string name="rollback_dialog_title">Pilih form untuk rollback</string>
+    <string name="cannot_select_corrupted_form_rollback">Form ini tidak bisa dipilih karena korup.</string>
+    <string name="form_changed_reopen_to_take_effect">Form berhasil dipiih. Silakan buka kembali form ini.</string>
+    <string name="component_desc_image_upload_service">Upload gambar ke server OpenSRP</string>
+
+
+    <!-- Page: Client List -->
+    <!-- ================= -->
+
+    <string name="registration_info">Info Pendaftaran</string>
+    <string name="filter">Filter</string>
+    <string name="due_only">Hanya jatuh tempo</string>
+    <string name="search_hint">Cari Nama atau ID</string>
+    <string name="_0_clients_sort_updated">0 Ibu (Urutan: terkini)</string>
+    <string name="no_record">Tidak ada data</string>
+    <string name="clients">%1$d Ibu</string>
+    <string name="client">%1$d Ibu</string>
+
+
+    <string name="right_arrow">Panah Kanan</string>
+    <string name="settings">Pengaturan</string>
+
+
+    <!-- Page: Register -->
+    <!-- ============== -->
+
+    <string name="photo_captured">Foto diambil</string>
+
+
+    <!-- Page: Library -->
+    <!-- ============= -->
+
+    <string name="library_placeholder">Placeholder Pustaka</string>
+
+
+    <!-- Page: Me -->
+    <!-- ======== -->
+
+    <string name="service_location">Layanan Lokasi</string>
+    <string name="section_icon">Ikon Bagian</string>
+    <string name="me_page_location_text">Lokasi: </string>
+    <string name="language_change_prepend_message">"Bahasa diubah ke "</string>
+    <string name="language_change_append_message">Mohon restart aplikasi.</string>
+    <string name="currently_processing_transferred_records">Sedang memproses transfer data.</string>
+    <string name="do_not_edit_client_records_until_complete">Jangan edit data ibu atau kunjungan sampai proses selesai.</string>
+    <string name="processing_disclaimer">Rekaman akan diproses hingga 10 menit sebelum rekaman Anda diperbarui. Jangan mengubah data sampai proses selesai.</string>
+    <string name="log_data_type_provided_does_not_exist_in_the_sender">Tipe data %s tidak tersedia pada pengirim.</string>
+    <string name="component_desc_p2p_process_records_service">Memproses catatan saat menggunakan peer to peer untuk berbagi file</string>
+
+
+    <!-- QR Code Scan Feature -->
+    <!-- ==================== -->
+
+    <string name="scan_qr_code_title">Scan QR Code</string>
+    <string name="permission_camera_rationale">Akses ke kamera diperlukan untuk deteksi.</string>
+    <string name="no_camera_permission">Aplikasi ini tidak dapat dijalankan karena tidak memiliki izin untuk mengakses kamera. Aplikasi sekarang akan ditutup.</string>
+    <string name="low_storage_error">Ketergantungan detektor wajah tidak dapat diunduh karena penyimpanan perangkat tinggal sedikit.</string>
+    <string name="title_activity_main">Contoh Barcode Reader</string>
+    <string name="barcode_header">Klik &quot;Baca Barcode&quot; untuk membaca barcode.</string>
+    <string name="read_barcode">Baca Barcode</string>
+    <string name="auto_focus">Auto Focus</string>
+    <string name="use_flash">Gunakan Flash</string>
+    <string name="barcode_success">Barcode berhasil dibaca</string>
+    <string name="barcode_failure">Tidak ada barcode yang dibaca</string>
+    <string name="barcode_error">Gagal membaca barcode: %1$s</string>
+    <string name="allow_camera_management">Anda harus mengizinkan aplikasi menggunakan kamera untuk memindai QR Code&#8230;</string>
+
+
+    <!-- Synchronization -->
+    <!-- =============== -->
+
+    <string name="loading_client_settings">Memuat pengaturan ibu&#8230;</string>
+    <string name="unsynced_forms_count_message">Form tidak tersinkronisasi</string>
+    <string name="sync_failed_no_internet">Sinkronisasi gagal. Periksa koneksi internet Anda.</string>
+    <string name="syncing">Sinkronisasi...</string>
+    <string name="sync_failed">Sinkronisasi gagal</string>
+    <string name="sync_complete">Sinkronisasi selesai</string>
+    <string name="manual_sync_triggered">Sinkronisasi manual dimulai&#8230;</string>
+    <string name="data_synced">Sinkronisasi Data: %1$s at %2$s</string>
+    <string name="sync_failed_malformed_url">Sinkronisasi Gagal. Silakan periksa konfigurasi URL.</string>
+    <string name="sync_failed_timeout_error">Sinkronisasi Gagal. Tidak dapat terhubung ke server.</string>
+    <string name="download_database">Unduh Database</string>
+    <string name="view_sync_stats">Lihat Status Sinkronisasi</string>
+    <string name="export_db_notification">Mengekspor Database...</string>
+    <string name="database_download_success">Database berhasil diunduh</string>
+    <string name="synced_events">Kunjungan tersinkronisasi:</string>
+    <string name="unsynced_events">Kunjungan tidak tersinkronisasi:</string>
+    <string name="synced_clients">Ibu tersinkronisasi:</string>
+    <string name="unsynced_clients">Ibu tidak tersinkronisasi:</string>
+    <string name="validated_events">Kunjungan tervalidasi:</string>
+    <string name="validated_clients">Ibu tidak tervalidasi:</string>
+    <string name="task_unprocessed_events">Tugas kunjungan tidak terproses:</string>
+    <string name="summary_forms">Form Lainnya</string>
+    <string name="permission_write_external_storage_rationale">Akses ke penyimpanan internal perangkat diperlukan untuk mengunduh database.</string>
+    <string name="sync_upload_progress_float">Proses unggahan sinkronisasi %d%%</string>
+
+
+    <!-- Time & Duration -->
+    <!-- =============== -->
+
+    <string name="x_seconds">%1$d detik</string>
+    <string name="x_minutes">%1$d menit</string>
+    <string name="x_hours">%1$d jam</string>
+    <string name="x_days">%1$d hari</string>
+    <string name="x_weeks">%1$d minggu</string>
+    <string name="x_weeks_days">%1$d minggu %2$d hari</string>
+    <string name="x_months">%1$d bulan</string>
+    <string name="x_months_weeks">%1$d bulan %2$d minggu</string>
+    <string name="x_years">%1$d tahun</string>
+    <string name="x_years_months">%1$d tahun %2$d bulan</string>
+
+
+    <!-- Needs More Inspections -->
+    <!-- ====================== -->
+
+    <string name="replication_error_occurred">Proses replikasi gagal</string>
+    <string name="component_desc_account_service">Mengelola autentikasi dan otorisasi pengguna</string>
+
+
+    <!-- Needs Refactoring -->
+    <!-- ================= -->
+
+    <string name="action_me">action_me</string>
+    <string name="url_separator">/</string>
+
+
+
+    <!-- ======================================================= -->
+    <!-- * OVERRIDE OPENSRP-CLIENT-NATIVE-FORM LIBRARY STRINGS * -->
+    <!-- ======================================================= -->
+
+
+    <!-- Actions -->
+    <!-- ======= -->
+
+    <string name="action_settings">Pengaturan</string>
+    <string name="record_location">Rekam Lokasi</string>
+    <string name="save">Simpan</string>
+    <string name="radio_button_tap_to_change">Ketuk untuk Mengubah</string>
+    <string name="select_one">Pilih Angka</string>
+    <string name="previous">Sebelum</string>
+    <string name="next">Lanjut</string>
+    <string name="submit">Submit</string>
+    <string name="go_to_step">Lanjut ke Step</string>
+    <string name="shows_image_on_dialog">Tampilkan gambar pada dialog</string>
+
+
+    <!-- Dialogs & Messages -->
+    <!-- ================== -->
+
+    <string name="badly_formed_date">Format tanggal salah</string>
+    <string name="badly_formed_time">Format waktu salah</string>
+    <string name="confirm_form_close">Konfirmasi Tutup Form</string>
+    <string name="confirm_form_close_explanation">Yakin akan kembali? Data yang sudah dimasukkan akan terhapus.</string>
+    <string name="loading_location">Memuat Lokasi</string>
+    <string name="could_not_get_your_location">Tidak bisa mendapatkan lokasi GPS</string>
+    <string name="using_provider">Menggunakan provider %s</string>
+    <string name="unknown_gps_accuracy">Akurasi tidak diketahui</string>
+    <string name="info_label">Label Info</string>
+    <string name="the_toaster_icon">Ikon Toaster</string>
+    <string name="please_wait_title">Harap Tunggu</string>
+    <string name="creating_repeating_group_title">Harap Tunggu</string>
+    <string name="creating_repeating_group_message">Membuat Grup Berulang</string>
+    <string name="launching_rdt_capture_message">Menjalankan RDT Capture Widget</string>
+    <string name="repeating_group_max_value_err_msg">Jumlah grup berulang tidak boleh lebih dari %1$d</string>
+    <string name="repeating_group_min_value_err_msg">Jumlah grup berulang harus lebih dari %1$d</string>
+    <string name="repeating_group_number_format_err_msg">Jumlah grup berulang harus berupa angka integer</string>
+    <string name="enter_number_of_repeating_group_items">Masukkan jumlah dari item grup berulang</string>
+    <string name="json_form_error_msg">Terdapat %d error pada form. Silakan perbaiki sebelum disimpan.</string>
+    <string name="json_form_on_next_error_msg">Silakan perbaiki error pada form untuk melanjutkan.</string>
+    <string name="simprints_guid">GUID tidak ditemukan</string>
+    <string name="simprints_init_fail">Project id, user id atau module id tidak ditemukan. Gunakan SimprintsLibrary.init</string>
+    <string name="permission_denied_title">Izin Ditolak</string>
+    <string name="permission_messege">Aplikasi memerlukan izin ini untuk mengambil informasi perangkat yang diperlukan saat mengirimkan form. Tanpa izin ini, aplikasi tidak akan berfungsi dengan baik. Apakah Anda yakin ingin menolak izin ini?</string>
+    <string name="multiselect_msg_on_item_added">Ditambah</string>
+    <string name="loading_multi_select_list">Memuat</string>
+    <string name="loading">Memuat</string>
+    <string name="loading_form_message">Form sedang dimuat. Harap tunggu sejenak...</string>
+    <string name="opening_forms">Membuat sub-form...</string>
+    <string name="multiselect_already_added_msg">%s sudah ditambah sebelumnya</string>
+    <string name="multi_select_list_msg_data_source_invalid">Sumber data eksternal tidak ditemukan atau diproses</string>
+    <string name="next_step_loading">Sedang menyiapkan langkah selanjutnya. Harap tunggu sejenak...</string>
+    <string name="repeating_group_not_generated_error_message">Klik tombol &#9989; untuk menyiapkan pertanyaan</string>
+    <string name="error_title">Error</string>
+    <string name="form_load_error">Terjadi error saat memuat form.</string>
+    <string name="select_one_option">Pilih salah satu opsi</string>
+    <string name="extended_radio_info_text_ensure_options_set">Pastikan opsi radio button sudah dipilih</string>
+    <string name="missing_client_info">Info ibu tidak lengkap</string>
+
+
+    <!-- OptiBP -->
+    <!-- ====== -->
+
+    <string name="optibp_btn_get_started">Get Started</string>
+    <string name="optibp_unable_to_receive">Unable to receive any result</string>
+    <string name="optibp_label">Measure the blood pressure using OptiBP</string>
+    <string name="optibp_values_error">No fields defined to populate BP values</string>
+
+
+    <!-- Labels & Details -->
+    <!-- ================ -->
+
+    <string name="latitude">Lintang: %s</string>
+    <string name="longitude">Bujur: %s</string>
+    <string name="altitude">Ketinggian: %s</string>
+    <string name="accuracy">Akurasi: %s</string>
+    <string name="repeating_group_item">Item</string>
+    <string name="repeating_group_label">repeating_group_label</string>
+    <string name="attention">Perhatian</string>
+    <string name="info_icon">Ikon info</string>
+    <string name="edit_button_label">Tombol Edit</string>
+    <string name="the_extra_info_icon">Ikon info ekstra</string>
+
+
+
+    <!-- ===================================== -->
+    <!-- * OPENSRP-CLIENT-ANC STRING RESOURCES * -->
+    <!-- ===================================== -->
+
+
+    <!-- App Configuration -->
+    <!-- ================= -->
+
+    <string name="antenatal_care_module">BUNDA</string>
+    <string name="app_tagline">Bersinergi Untuk Dampingi Kesehatan Ibu dan Anak</string>
+    <string name="form_manifest_version">Versi Form: v%1$s</string>
+
+
+    <!-- Authentication -->
+    <!-- ============== -->
+
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+
+
+    <!-- Actions -->
+    <!-- ======= -->
+
+    <string name="action_logout">Logout</string>
+    <string name="action_language">Bahasa</string>
+    <string name="scan_qr_code">Scan QR code</string>
+    <string name="complete">Selesai</string>
+    <string name="remove_from_register">Hapus dari Daftar</string>
+    <string name="dismiss">Batalkan</string>
+    <string name="apply">Terapkan</string>
+    <string name="done">Selesai</string>
+    <string name="cancel">Batalkan</string>
+    <string name="copy_to_clipboard">Salin ke clipboard</string>
+    <string name="go_to_advanced_search">Pergi ke Pencarian Lanjutan</string>
+    <string name="go_to_client_profile">Pergi ke Profil Ibu</string>
+    <string name="send_summary_to_client">Kirim ringkasan ke ibu</string>
+    <string name="back">Kembali</string>
+    <string name="go_to_image">Pergi ke gambar</string>
+    <string name="attach_file">Sisipkan berkas</string>
+    <string name="continue_">Lanjutkan</string>
+    <string name="edit">Edit</string>
+
+
+    <!-- Characteristics -->
+    <!-- =============== -->
+
+    <string name="yes">Ya</string>
+    <string name="no">Tidak</string>
+    <string name="welcome_site_characteristics">Selamat datang! Untuk memulai, harap tetapkan karakteristik tempat Anda.</string>
+    <string name="population_characteristics">Karakteristik Populasi</string>
+    <string name="continue_to_your_client_list">Lanjutkan ke Daftar Ibu</string>
+    <string name="your_site_characteristics_for_facility_name">Karakteristik tempat untuk %1$s sudah siap.</string>
+    <string name="site_characteristics_are_shared_for_all">Karakteristik tempat dibagikan oleh semua pengguna OpenSRP di fasilitas tersebut. Anda dapat memperbarui karakteristik tempat kapan saja.</string>
+    <string name="go_back_to_site_characteristics">Kembali ke Karakteristik Lokasi</string>
+
+
+    <!-- Client Data -->
+    <!-- =========== -->
+
+    <string name="anc_id_text">ID: %1$s</string>
+    <string name="age_text">%1$s</string>
+    <string name="age_text_years">%1$s Tahun</string>
+    <string name="ga_text">%1$d</string>
+    <string name="ga_text_weeks">%1$s Minggu</string>
+    <string name="bullet">\u2022</string>
+
+
+    <!-- Contact -->
+    <!-- ======= -->
+
+    <string name="quick_check">Pemeriksaan Cepat</string>
+    <string name="profile">Profil</string>
+    <string name="symptoms_follow_up">Gejala dan Tindak Lanjut</string>
+    <string name="physical_exam">Pemeriksaan Fisik</string>
+    <string name="tests">Tes</string>
+    <string name="counselling_treatment">Konseling dan Tindakan</string>
+    <string name="contact_tasks_form">Tugas Kunjungan</string>
+    <string name="finalize">Finalisasi</string>
+    <string name="required_fields">%1$d harus diisi</string>
+    <string name="exit_contact_with">Keluar Kunjungan dengan %1$s</string>
+    <string name="exit_contact_title">Keluar dari Kunjungan?</string>
+    <string name="save_changes">Simpan kunjungan dan lanjutkan lain kali</string>
+    <string name="save_contact">Simpan Perubahan</string>
+    <string name="discard_contact">Batalkan Perubahan</string>
+    <string name="close_without_saving">Keluar tanpa menyimpan perubahan</string>
+    <string name="upcoming_contact_dates">Tanggal kunjungan berikutnya:</string>
+    <string name="accordion_ultrasound">Tes USG</string>
+    <string name="accordion_blood_type">Tes Golongan Darah</string>
+    <string name="accordion_hepatitis_b">Tes Hepatitis B</string>
+    <string name="accordion_hepatitis_c">HTes Hepatitis C</string>
+    <string name="accordion_syphilis">Tes Sifilis</string>
+    <string name="accordion_urine">Tes Urin</string>
+    <string name="accordion_blood_haemoglobin">Tes Hemoglobin Darah</string>
+    <string name="accordion_hiv">Tes HIV</string>
+    <string name="accordion_tb_screening">Pemindaian TB</string>
+    <string name="accordion_partner_hiv">Tes HIV Pasangan</string>
+    <string name="accordion_blood_glucose">Tes Glukosa Darah</string>
+    <string name="accordion_other_tests">Tes Lainnya</string>
+    <string name="contact_summary_data">Data Ringkasan Kunjungan - %1$s \n %2$s</string>
+    <string name="pdf_saved_successfully">\"PDF tersimpan di \"</string>
+    <string name="contact_summary_data_file">RingkasanKunjungan.pdf</string>
+
+
+    <!-- Dialogs & Messages -->
+    <!-- ================== -->
+
+    <string name="saving_dialog_title">Menyimpan...</string>
+    <string name="removing_dialog_title">Menghapus...</string>
+    <string name="no_openmrs_id">Tidak ada id unik yang ditemukan. Klik tombol sinkronisasi untuk mendapatkan lebih banyak dan jika kesalahan ini berlanjut, hubungi admin sistem.</string>
+    <string name="device_timezone_changed">Zona waktu perangkat berubah. Silakan login lagi.</string>
+    <string name="device_time_changed">Waktu perangkat telah berubah. Silakan login lagi.</string>
+    <string name="updating_dialog_title">Memperbarui...</string>
+    <string name="no_matching_woman_found_on_this_device">Tidak ditemukan ibu yang cocok di perangkat ini.</string>
+
+
+    <!-- Forms & Inputs -->
+    <!-- ============== -->
+
+    <string name="error_unable_to_start_form">Terjadi kesalahan saat memulai form</string>
+    <string name="specify">Tentukan</string>
+
+
+    <!-- Form: Quick Check -->
+    <!-- ================== -->
+
+    <string name="reason_for_coming_facility"><font fgcolor="black">Alasan berkunjung? </font><font fgcolor="red">*</font></string>
+    <string name="first_contact">Kunjungan Pertama</string>
+    <string name="scheduled_contact">Kunjungan Terjadwal</string>
+    <string name="specific_complaint">Keluhan Khusus</string>
+    <string name="specific_complaints"><font fgcolor="black">Keluhan Khusus</font><font fgcolor="red">*</font></string>
+    <string name="abnormal_discharge">Keputihan yang tidak normal</string>
+    <string name="altered_skin_color">Warna kulit yang berubah</string>
+    <string name="changes_in_bp">Perubahan tekanan darah</string>
+    <string name="constipation">Sembelit</string>
+    <string name="contractions">Kontraksi</string>
+    <string name="cough">Batuk</string>
+    <string name="depressive_anxious">Depresi / cemas</string>
+    <string name="dizziness">Pusing</string>
+    <string name="domestic_violence">KDRT</string>
+    <string name="extreme_pelvic_pain">Nyeri panggul ekstrem - tidak bisa berjalan (disfungsi simfisis pubis)</string>
+    <string name="fever">Demam</string>
+    <string name="full_abdominal_pain">Sakit perut menyeluruh</string>
+    <string name="flu_symptoms">Gejala flu</string>
+    <string name="fluid_loss">Kehilangan cairan</string>
+    <string name="headache">Sakit kepala</string>
+    <string name="heartburn">Maag</string>
+    <string name="leg_cramps">Keram kaki</string>
+    <string name="leg_pain">Nyeri di kaki</string>
+    <string name="leg_redness">Kemerahan di kaki</string>
+    <string name="low_back_pelvic_pain">Nyeri punggung bawah dan panggul</string>
+    <string name="nausea_vomiting_diarrhea">Mual/muntah/diare</string>
+    <string name="no_fetal_movement">Tidak ada gerakan janin</string>
+    <string name="oedema">Busung</string>
+    <string name="other_bleeding">Pendarahan lainnya</string>
+    <string name="other_pain">Nyeri lainnya</string>
+    <string name="other_psychological_symptoms">Gejala psikologis lainnya</string>
+    <string name="other_skin_disorder">Kelainan kulit lainnya</string>
+    <string name="other_types_of_voilence">Jenis kekerasan lainnya</string>
+    <string name="dysuria">Nyeri saat buang air kecil (disuria)</string>
+    <string name="pruritus">Pruritus</string>
+    <string name="reduced_fetal_movement">Gerakan janin berkurang atau buruk</string>
+    <string name="shortness_of_breath">Sesak napas</string>
+    <string name="tiredness">Kelelahan</string>
+    <string name="trauma">Trauma</string>
+    <string name="bleeding">Pendarahan vagina</string>
+    <string name="visual_disturbance">Gangguan penglihatan</string>
+    <string name="complaint_other_specify">Lainnya</string>
+    <string name="danger_signs"><font fgcolor="black">Tanda bahaya </font><font fgcolor="red">*</font></string>
+    <string name="danger_none">Tidak ada</string>
+    <string name="danger_bleeding">Pendarahan melalui vagina</string>
+    <string name="central_cyanosis">Sianosis sentral</string>
+    <string name="convulsing">Kejang</string>
+    <string name="danger_fever">Demam</string>
+    <string name="headache_visual_disturbance">Headache and visual disturbance</string>
+    <string name="imminent_delivery">Kelahiran segera</string>
+    <string name="labour">Melahirkan</string>
+    <string name="looks_very_ill">Terlihat sangat sakit</string>
+    <string name="severe_vomiting">Muntah parah</string>
+    <string name="severe_pain">Nyeri parah</string>
+    <string name="severe_abdominal_pain">Sakit perut yang parah</string>
+    <string name="unconscious">Tidak sadar</string>
+    <string name="proceed_to_normal_contact">Lanjutkan ke kunjungan normal</string>
+    <string name="refer_and_close_contact">Rujuk dan akhiri kunjungan</string>
+    <string name="validation_no_reason_selected">Silakan pilih alasan untuk datang ke fasilitas</string>
+    <string name="validation_no_specific_complaint">Harap pilih setidaknya satu keluhan</string>
+    <string name="validation_no_danger_sign">Silakan pilih Tidak Ada atau setidaknya satu tanda bahaya</string>
+    <string name="validation_no_valid_danger_sign">Harap setidaknya satu tanda bahaya selain Tidak Ada</string>
+    <string name="validation_unable_to_save_quick_check">Tidak dapat menyimpan pemeriksaan cepat</string>
+    <string name="cyanosis_info">Perubahan warna kebiruan di sekitar selaput lendir di mulut, bibir dan lidah</string>
+    <string name="any_treatment">Apakah tindakan yang diberikan sebelum rujukan?</string>
+
+
+    <!-- Page: Contact List -->
+    <!-- ================== -->
+
+    <string name="contact_dummy_text">Kunjungan&#10;22/05/2018</string>
+    <string name="search_name_or_id">Cari nama atau ID</string>
+    <string name="clear_filters">Hapus Filter</string>
+    <string name="has_tasks_due">Memiliki tugas jatuh tempo</string>
+    <string name="risky_pregnancy">Kehamilan berisiko</string>
+    <string name="syphilis_positive">Kehamilan sifilis</string>
+    <string name="hiv_positive">Kehamilan HIV</string>
+    <string name="hypertensive">Hipertensi</string>
+    <string name="record_birth">Catat Kelahiran</string>
+
+
+    <!-- Page: Advanced Search -->
+    <!-- ===================== -->
+
+    <string name="advanced_search">Pencarian Lanjutan</string>
+    <string name="out_and_inside">Di luar dan di dalam fasilitas kesehatan saya</string>
+    <string name="requires_internet_connection">(membutuhkan koneksi internet)</string>
+    <string name="my_catchment_area">Fasilitas kesehatan saya saja</string>
+    <string name="first_name">Nama Depan</string>
+    <string name="last_name">Nama Belakang</string>
+    <string name="anc_id">ID ANC</string>
+    <string name="id_number">ID ANC</string>
+    <string name="edd">HPL</string>
+    <string name="exp_date_of_delivery">Hari Perkiraan Lahir</string>
+    <string name="dob">Tgl. Lahir</string>
+    <string name="date_of_birth">Tanggal Lahir</string>
+    <string name="mobile_phone_number">Nomor Ponsel</string>
+    <string name="phone_number">Nomor Telepon</string>
+    <string name="alternate_contact_name">Nama Kontak Alternatif</string>
+    <string name="alt_contact_name">Nama Kontak Alternatif</string>
+    <string name="search">Cari</string>
+    <string name="search_results">Hasil Pencarian</string>
+    <string name="searching_dialog_title">Mencari…</string>
+    <string name="searching_dialog_message">Harap tunggu</string>
+    <string name="matching_results">%1$s cocok</string>
+    <string name="qr_code_label">QR Code</string>
+    <string name="clients_facility">Fasilitas Ibu</string>
+
+
+    <!-- Page: Registration -->
+    <!-- ================== -->
+
+    <string name="new_registration_saved">Pendaftaran baru disimpan &#x21;</string>
+    <string name="registration_info_updated">Informasi registrasi diperbarui &#x21;</string>
+
+
+    <!-- Page: Client Profile -->
+    <!-- ==================== -->
+
+    <string name="call">Telepon</string>
+    <string name="start_contact">Mulai Kunjungan</string>
+    <string name="overview">Ikhtisar</string>
+    <string name="contacts">Kunjungan</string>
+    <string name="tasks">Tugas</string>
+    <string name="close_anc_record">Tutup Catatan ANC</string>
+    <string name="allow_phone_call_management">Aplikasi BUNDA harus diizinkan untuk melakukan panggilan telepon&#8230;</string>
+    <string name="any_changes_you_make">Setiap perubahan akan hilang</string>
+    <string name="woman_name">Nama Ibu</string>
+    <string name="contact_weeks">Mulai\nKunjungan %1$s\n%2$s</string>
+    <string name="contact_weeks_no_break">Mulai Kunjungan %1$s</string>
+    <string name="contact_in_progress">Kunjungan %1$s\n dalam Proses</string>
+    <string name="contact_in_progress_no_break">Kunjungan %1$s &#183; dalam Proses</string>
+    <string name="due_delivery">Jatuh Tempo\nMelahirkan</string>
+    <string name="record_birth_popup_message">UK: %1$d minggu\nHPL: %2$s (%3$s lalu)\n\n%4$s harus segera melahirkan.</string>
+    <string name="contact_number">Kunjungan %1$d</string>
+    <string name="contact_recorded">Kunjungan %1$d terekam</string>
+    <string name="info_icon_display">tampilan ikon info lebih lanjut</string>
+    <string name="status_icon_display">tampilan ikon status</string>
+    <string name="record">Rekam</string>
+    <string name="undo">Undo</string>
+    <string name="save_and_finish">Simpan + Selesaikan</string>
+    <string name="contact_recorded_today">Kunjungan %1$d\n dilakukan hari ini</string>
+    <string name="contact_recorded_today_no_break">Kunjungan %1$d &#183; dilakukan hari ini</string>
+    <string name="continue_contact">Lanjutkan Kunjungan %1$d</string>
+    <string name="finalizing_contact">Finalisasi kunjungan %1$d</string>
+    <string name="summarizing_contact_number">Menyimpulkan kunjungan %1$d</string>
+    <string name="contact_number_due">Kunjungan %1$d\n Jatuh Tempo \n %2$s</string>
+    <string name="contact_number_due_no_break">Kunjungan %1$d &#183; Jatuh Tempo &#183; %2$s</string>
+    <string name="last_contact">Kunjungan Terakhir</string>
+    <string name="key_figure">Gambaran Penting</string>
+    <string name="recent_test">Kunjungan Terkini: %1$s</string>
+    <string name="previous_contacts">Kunjungan Sebelumnya</string>
+    <string name="all_tests_results">Semua Hasil Tes</string>
+    <string name="contact_details">%1$s Minggu &#183; Kunjungan %2$s</string>
+    <string name="referral_contact_details">Kunjungan %1$s</string>
+    <string name="undo_test_result">Batalkan hasil %1$s?</string>
+    <string name="negative_contact_text">Kunjungan negatif berarti pasien dirujuk sehingga jadwal kunjungan tidak berubah dan tetap sama seperti sebelumnya</string>
+    <string name="previous_contacts_header">Kunjungan Sebelumnya</string>
+    <string name="previous_contacts_tests_header">Semua Hasil Tes</string>
+    <string name="expected_date_of_delivery">Hari Perkiraan Lahir</string>
+    <string name="ga_weeks">%1$s minggu</string>
+    <string name="timeline_away">%1$s minggu lagi</string>
+    <string name="all_results">Semua Hasil</string>
+    <string name="no_tests_available">Tidak ada tes tersedia</string>
+    <string name="hospital_referral">Rujukan Rumah Sakit</string>
+    <string name="no_contact_schedule">Belum ada jadwal kunjungan yang dibuat</string>
+    <string name="hospital_referral_title">Rujukan Rumah Sakit direkam</string>
+    <string name="tab_button_image">Gambar tombol tab</string>
+    <string name="tap_button_below">Tekan tombol di bawah</string>
+    <string name="no_health_data_recorded">Belum ada data</string>
+    <string name="tests_tasks_header">Tes</string>
+    <string name="view_anc_history">Lihat histori ANC</string>
+
+    <string name="visit_details">Detail Kunjungan</string>
+    <string name="overview_of_pregnancy">Ikhtisar Kehamilan</string>
+    <string name="demographic_info">Info Demografis</string>
+    <string name="current_pregnancy">Kehamilan Saat Ini</string>
+    <string name="obstetric_history">Riwayat Kehamilan</string>
+    <string name="medical_history">Riwayat Medis</string>
+    <string name="weight">Berat Badan</string>
+    <string name="medications">Pengobatan</string>
+    <string name="hospital_referral_reasons">Rujukan Rumah Sakit</string>
+    <string name="risks_and_diagnoses">Resiko dan Diagnosis</string>
+    <string name="physiological_symptoms">Gejala Fisiologis</string>
+    <string name="birth_plan_counseling">Konseling Rencana Kehamilan</string>
+    <string name="malaria_prophylaxis">Profilaksis Malaria</string>
+    <string name="immunisation_status">Status Imunisasi</string>
+
+    <string name="reason_for_visit">Alasan Berkunjung</string>
+    <string name="womans_behaviour">Perilaku Ibu</string>
+    <string name="height_and_weight">Tinggi dan Berat Badan</string>
+    <string name="blood_pressure">Tekanan Darah</string>
+    <string name="maternal_exam">Pemeriksaan Kehamilan</string>
+    <string name="fetal_assessment">Pemeriksaan Janin</string>
+    <string name="ultrasound_test">Tes USG</string>
+    <string name="blood_type_test">Tes Golongan Darah</string>
+    <string name="hiv_test">Tes HIV</string>
+    <string name="partner_hiv_test">Tes HIV Pasangan</string>
+    <string name="hepatitis_b_test">Tes Hepatitis B</string>
+    <string name="hepatitis_c_test">Tes Hepatitis C</string>
+    <string name="syphilis_test">Tes Sifilis</string>
+    <string name="urine_test">Tes Urin</string>
+    <string name="blood_glucose_test">Tes Glukosa Darah</string>
+    <string name="blood_haemoglobin_test_and_ifa">Tes HB dan IFA</string>
+    <string name="tb_screening">Pemeriksaan Tuberkulosis</string>
+    <string name="other_tests">Tes Lainnya</string>
+    <string name="pre_eclampsia_risk">Resiko Pre-Eklamsia</string>
+    <string name="hiv_risk_and_prep">Resiko HIV</string>
+    <string name="diabetes_risk">Resiko Diabetes</string>
+    <string name="danger_signs_counseling">Konseling Tanda Bahaya</string>
+    <string name="anc_contacts_counseling">Konseling Kunjungan ANC</string>
+    <string name="family_planning_counseling">Konseling KB</string>
+    <string name="breastfeeding_counseling">Konseling ASI</string>
+    <string name="anaemia_prevention">Pencegahan Anemia</string>
+    <string name="deworming_and_malaria_prophylaxis">Obat Cacing and Profilaksis Malaria</string>
+    <string name="calcium_supplementation">Suplemen Kalsium</string>
+    <string name="vitamin_a_supplementation">Suplemen Vitamin A</string>
+
+
+    <!-- Page: Me -->
+    <!-- ======== -->
+
+    <string name="me_page_placeholder">Placeholder Halaman Saya</string>
+    <string name="default_language_string">Bahasa %1s</string>
+    <string name="select_language">Pilih Bahasa</string>
+    <string name="choose_language">Pilih Bahasa</string>
+    <string name="device_to_device">Sinkronisasi antarperangkat</string>
+
+
+    <!-- Synchronization -->
+    <!-- =============== -->
+
+    <string name="sync">Sinkronisasi</string>
+    <string name="sync_round_complete">Sinkronisasi selesai&#8230;</string>
+    <string name="retry">Ulangi</string>
+    <string name="sync_">Sinkronisasi%1$s</string>
+    <string name="last_sync">(terakhir %1$s)</string>
+    <string name="sync_data">Sinkronisasi data</string>
+
+
+    <!-- Needs More Research -->
+    <!-- =================== -->
+
+    <string name="alphabetical_sort">Abjad (Nama)</string>
+    <string name="name">Nama</string>
+    <string name="dose_d">DOSIS (D)</string>
+    <string name="id">ID</string>
+    <string name="patient_location">Lokasi: %1$s</string>
+    <string name="dose_given_date">Dosis %1$s diberikan %2$s</string>
+    <string name="opensrp_id">OpenSRP ID</string>
+    <string name="anc">WHO ANC</string>
+    <string name="the_qr_code_scanner_button">Tombal QR Code Scanner</string>
+    <string name="woman_filter">Filter</string>
+    <string name="register">Daftar</string>
+    <string name="library">Pustaka</string>
+    <string name="updated_recent_first">Terbaru</string>
+    <string name="ga_older_first">UK (Lanjut ke Awal)</string>
+    <string name="ga_younger_first">UK (Awal ke Lanjut)</string>
+    <string name="id_sort">ID</string>
+    <string name="first_name_a_to_z">Nama Depan (A ke Z)</string>
+    <string name="first_name_z_to_a">Nama Depan (Z ke A)</string>
+    <string name="last_name_a_to_z">Nama Belakang (A ke Z)</string>
+    <string name="last_name_z_to_a">Nama Belakang (Z ke A)</string>
+    <string name="no_location_picker">Tidak ada lokasi yang dipilih</string>
+    <string name="anc_clients">Ibu</string>
+    <string name="counseling_resources">Sumberdaya Konseling</string>
+    <string name="site_characteristics">Karakteristik Tempat</string>
+    <string name="contact_summary">Ringkasan Kunjungan</string>
+    <string name="navigation_drawer_close">Tutup navigasi</string>
+    <string name="navigation_drawer_open">Buka navigasi</string>
+
+
+    <!-- Needs Refactoring -->
+    <!-- ================= -->
+
+    <string name="yellow">Kuning</string>
+    <string name="red">Merah</string>
+
+
+    <!-- ==================== -->
+    <!-- * ADDITIONAL STRINGS * -->
+    <!-- ==================== -->
+
+
+    <!-- App Settings -->
+    <!-- ============ -->
+
+    <string name="app_settings_baseurl_title">OpenSRP Base URL</string>
+    <string name="app_settings_baseurl_summary">Alamat URL dari server OpenSRP</string>
+    <string name="app_settings_baseurl_dialog">Masukkan URL dari server OpenSRP</string>
+
+
+    <!-- Attention Flags -->
+    <!-- =============== -->
+
+    <string name="attention_flags_title">Tanda Bahaya</string>
+
+    <!-- Page: Library -->
+    <!-- ============= -->
+
+    <string name="birth_and_emergency_plan">Rencana Kelahiran dan Darurat</string>
+    <string name="physical_activity">Aktivitas Fisik</string>
+    <string name="balanced_nutrition">Nutrisi Seimbang</string>
+    <string name="balanced_nutrition_source">SUMBER: Organisasi Kesehatan Dunia. Manajemen Terpadu Kehamilan dan Persalinan – Perawatan Kehamilan, Persalinan, Nifas dan Bayi Baru Lahir: Panduan untuk praktik penting. 2015. Jenewa.</string>
+    <string name="string_bullet" translateable="false">•</string>
+    <string name="birth_and_emergency">Kelahiran dan Keadaan Darurat</string>
+    <string name="develop_a_birth_and_emergency_plan_header">Kembangkan rencana persalinan dan darurat</string>
+    <string name="facility_delivery_header">Pengiriman fasilitas</string>
+    <string name="explain_why_birth_in_a_facility_is_recommended">Jelaskan mengapa disarankan melahirkan di fasilitas</string>
+    <string name="any_complication_can_develop_during_delivery_they_are_not_always_predictable">Kerumitan apa pun dapat terjadi selama pengiriman - tidak selalu dapat diprediksi.</string>
+    <string name="lots_of_supplies">Fasilitas memiliki staf, peralatan, perlengkapan, dan obat-obatan yang tersedia untuk memberikan perawatan terbaik jika diperlukan, dan sistem rujukan.</string>
+    <string name="if_hiv_infected_she_will_need_appropriate_arv_treatment_for_herself_and_her_baby_during_childbirth">Jika terinfeksi HIV, dia memerlukan perawatan ARV yang sesuai untuk dirinya dan bayinya saat melahirkan.</string>
+    <string name="complications_are_more_common_in_hiv_infected_women_and_their_newborns_hiv_infected_women_should_deliver_in_a_facility">Komplikasi lebih sering terjadi pada wanita yang terinfeksi HIV dan bayi mereka yang baru lahir. Wanita yang terinfeksi HIV harus melahirkan di fasilitas.</string>
+    <string name="advise_how_to_prepare">Sarankan cara mempersiapkan</string>
+    <string name="review_the_arrangements_for_delivery">Tinjau pengaturan pengiriman:</string>
+    <string name="how_will_she_get_there_will_she_have_to_pay_for_transport">Bagaimana dia bisa sampai di sana? Apakah dia harus membayar transportasi?</string>
+    <string name="how_much_will_it_cost_to_deliver_at_the_facility_how_will_she_pay">Berapa biaya pengiriman di fasilitas? Bagaimana dia akan membayar?</string>
+    <string name="can_she_start_saving_straight_away">Bisakah dia langsung mulai menabung?</string>
+    <string name="who_will_go_with_her_for_support_during_labour_and_delivery">Siapa yang akan mendampinginya selama persalinan dan persalinan?</string>
+    <string name="who_will_help_while_she_is_away_to_care_for_her_home_and_other_children">Siapa yang akan membantu saat dia pergi untuk mengurus rumahnya dan anak-anak lainnya?</string>
+    <string name="advise_when_to_go">Sarankan kapan harus pergi</string>
+    <string name="if_the_woman_lives_near_the_facility_she_should_go_at_the_first_signs_of_labour">Jika wanita tersebut tinggal di dekat fasilitas, dia harus pergi saat tanda-tanda persalinan pertama.</string>
+    <string name="if_living_far_from_the_facility_she_should_go_2_3_weeks_before_baby_due_date_and_stay_either_at_the_maternity_waiting_home_or_with_family_or_friends_near_the_facility">Jika tinggal jauh dari fasilitas, dia harus pergi 2-3 minggu sebelum tanggal lahir bayi dan tinggal di rumah tunggu bersalin atau bersama keluarga atau teman di dekat fasilitas.</string>
+    <string name="advise_to_ask_for_help_from_the_community_if_needed">Sarankan untuk meminta bantuan dari komunitas, jika diperlukan.</string>
+    <string name="advise_what_to_bring">Sarankan apa yang harus dibawa</string>
+    <string name="home_based_maternal_record">Catatan ibu berbasis rumahan.</string>
+    <string name="clean_cloths_for_washing_drying_and_wrapping_the_baby">Kain bersih untuk mencuci, menjemur, dan membungkus bayi.</string>
+    <string name="additional_clean_cloths_to_use_as_sanitary_pads_after_birth">Kain bersih tambahan untuk digunakan sebagai pembalut setelah melahirkan.</string>
+    <string name="clothes_for_mother_and_baby">Pakaian untuk ibu dan bayi.</string>
+    <string name="food_and_water_for_woman_and_support_person">Makanan dan air untuk wanita dan pendukung.</string>
+    <string name="home_delivery_with_a_skilled_attendant">Pengiriman ke rumah dengan petugas terlatih</string>
+    <string name="review_the_following_with_her">Ulas hal berikut dengannya:</string>
+    <string name="who_will_be_the_companion_during_labour_and_delivery">Siapa yang akan menjadi pendamping selama persalinan dan persalinan?</string>
+    <string name="who_will_be_close_by_for_at_least_24_hours_after_delivery">Siapa yang akan dekat setidaknya 24 jam setelah melahirkan?</string>
+    <string name="who_will_help_to_care_for_her_home_and_other_children">Siapa yang akan membantu merawat rumah dan anak-anaknya yang lain?</string>
+    <string name="advise_to_call_the_skilled_attendant_at_the_first_signs_of_labour">Sarankan untuk memanggil petugas ahli pada tanda-tanda awal persalinan.</string>
+    <string name="advise_to_have_her_home_based_maternal_record_ready">Sarankan untuk menyiapkan catatan keibuannya di rumah.</string>
+    <string name="advise_asking_for_help_from_the_community_if_needed">Sarankan untuk meminta bantuan dari komunitas, jika diperlukan.</string>
+    <string name="explain_supplies_needed_for_home_delivery">Jelaskan persediaan yang diperlukan untuk pengiriman ke rumah</string>
+    <string name="clean_cloths_of_different_sizes_for_the_bed_for_drying_and_wrapping_the_baby_for_cleaning_the_baby_s_eyes_for_the_birth_attendant_to_wash_and_dry_her_hands_for_use_as_sanitary_pads">Kain bersih dengan berbagai ukuran: untuk tempat tidur, untuk mengeringkan dan membungkus bayi, untuk membersihkan bayi untuk mencuci tangan dan untuk mengeringkan tangan pembalut.</string>
+    <string name="blankets">Selimut.</string>
+    <string name="buckets_of_clean_water_and_some_way_to_heat_this_water">Ember air bersih dan beberapa cara untuk memanaskan air ini.</string>
+    <string name="soap">Sabun.</string>
+    <string name="bowls_2_for_washing_and_1_for_the_placenta">Mangkuk: 2 untuk mencuci dan 1 untuk plasenta.</string>
+    <string name="plastic_for_wrapping_the_placenta">Plastik untuk membungkus plasenta.</string>
+    <string name="physical_exam_disclaimer">PENAFIAN: WHO tidak bertanggung jawab atas isi materi tambahan ini.</string>
+    <string name="physical_exam_content_one">Aktivitas fisik adalah setiap gerakan tubuh yang dihasilkan oleh otot rangka yang menggunakan energi. Ini termasuk olahraga, olahraga, dan aktivitas lain seperti bermain, berjalan, pekerjaan rumah tangga, berkebun, dan menari. Aktivitas apa pun, baik untuk bekerja, berjalan atau bersepeda ke dan dari suatu tempat, atau sebagai bagian dari waktu senggang, memiliki manfaat kesehatan.</string>
+    <string name="people_who_are_physically_active">Orang yang aktif secara fisik:</string>
+    <string name="improve_their_muscular_and_cardio_respiratory_fitness">meningkatkan kebugaran otot dan kardio-pernafasan mereka;</string>
+    <string name="improve_their_bone_and_functional_health">meningkatkan kesehatan tulang dan fungsional mereka;</string>
+    <string name="lower_diesease_rates">memiliki tingkat penyakit jantung koroner, tekanan darah tinggi, stroke, diabetes, kanker (termasuk kanker usus besar dan payudara), dan depresi yang lebih rendah;</string>
+    <string name="have_a_lower_risk_of_falling_and_of_hip_or_vertebral_fractures_and">memiliki risiko lebih rendah untuk jatuh dan patah tulang pinggul atau tulang belakang; dan</string>
+    <string name="are_more_likely_to_maintain_their_weight">lebih cenderung mempertahankan berat badannya.</string>
+    <string name="physical_activity_content_two">Olahraga dapat berupa aktivitas apa pun yang memerlukan upaya fisik, dilakukan untuk mempertahankan atau meningkatkan kesehatan atau kebugaran, dan ini dapat ditentukan/tidak diawasi (mis. berjalan kaki 30 menit setiap hari), diawasi (misalnya kelas latihan kelompok mingguan yang diawasi) atau keduanya. Aktivitas fisik juga penting untuk keseimbangan energi dan pengendalian berat badan.</string>
+    <string name="physical_activity_content_three">Gaya hidup sehat meliputi aktivitas fisik aerobik dan latihan kekuatan yang ditujukan untuk mempertahankan tingkat kebugaran yang baik selama kehamilan, tanpa berusaha mencapai tingkat kebugaran puncak atau berlatih untuk kompetisi atletik. Wanita sebaiknya memilih aktivitas dengan risiko kehilangan keseimbangan dan trauma janin yang minimal. Wanita hamil, pascapersalinan, dan orang dengan serangan jantung mungkin perlu melakukan tindakan pencegahan ekstra dan mencari nasihat medis sebelum berupaya mencapai tingkat aktivitas fisik yang disarankan.</string>
+    <string name="for_more_information_please_access">Untuk informasi selengkapnya, silakan akses:</string>
+    <string name="physical_activity_url_one">https://apps.who.int/iris/bitstream/handle/10665/44399/9789241599979_eng.pdf?sequence=1</string>
+    <string name="physical_activity_url_two">https://extranet.who.int/rhl/pt-br/node/151040</string>
+    <string name="birth_plan_source_text">SUMBER: Organisasi Kesehatan Dunia. Manajemen Terpadu Kehamilan dan Persalinan – Perawatan Kehamilan, Persalinan, Nifas dan Bayi Baru Lahir: Panduan untuk praktik penting. 2015. Jenewa.</string>
+    <string name="balanced_diet_content_one">Menjaga nutrisi yang baik dan pola makan yang sehat selama kehamilan sangat penting untuk kesehatan ibu dan janin. Saat memberikan pendidikan dan konseling gizi untuk meningkatkan status gizi ibu selama kehamilan, harap fokus terutama pada:</string>
+    <string name="balanced_diet_content_two">mempromosikan diet sehat dengan meningkatkan keragaman dan jumlah makanan yang dikonsumsi</string>
+    <string name="balanced_diet_content_three">mempromosikan penambahan berat badan yang cukup melalui asupan protein dan energi yang cukup dan seimbang</string>
+    <string name="balanced_diet_content_four">mempromosikan penggunaan suplemen mikronutrien, suplemen makanan, atau makanan yang diperkaya secara konsisten dan berkelanjutan</string>
+    <string name="balanced_diet_content_five">Adaptasi budaya dan lokal mungkin diperlukan untuk memenuhi kebutuhan individu dan memastikan kepatuhan terhadap rekomendasi.</string>
+    <string name="for_adults_a_healthy_diet_contains">Untuk orang dewasa diet sehat mengandung:</string>
+    <string name="balanced_diet_content_six">Buah-buahan, sayuran, polong-polongan (mis. miju-miju, buncis), kacang-kacangan, dan biji-bijian (mis. jagung yang belum diproses, jawawut, oat, gandum, beras merah).</string>
+    <string name="balanced_diet_content_seven">Setidaknya 400 g (5 porsi) buah dan sayuran sehari. Kentang, ubi jalar, singkong, dan akar bertepung lainnya tidak diklasifikasikan sebagai buah atau sayuran.</string>
+    <string name="balanced_diet_content_eight">Kurang dari 10% total asupan energi dari gula bebas yang setara dengan 50 g (atau sekitar 12 sendok teh) untuk orang dengan berat badan sehat yang mengonsumsi sekitar 2000 kalori per hari , tetapi idealnya kurang dari 5% dari total asupan energi untuk manfaat kesehatan tambahan. Sebagian besar gula gratis ditambahkan ke makanan atau minuman oleh produsen, juru masak, atau konsumen, dan juga dapat ditemukan dalam gula yang secara alami terdapat dalam madu, sirup, jus buah, dan konsentrat jus buah.</string>
+    <string name="balanced_diet_content_nine">Kurang dari 30% asupan energi total berasal dari lemak. Lemak tak jenuh (misalnya ditemukan pada ikan, alpukat, kacang-kacangan, bunga matahari, kanola, dan minyak zaitun) lebih disukai daripada lemak jenuh (misalnya ditemukan pada daging berlemak, mentega, minyak sawit dan minyak kelapa, krim, keju, ghee, dan lemak babi). Lemak trans industri (ditemukan dalam makanan olahan, makanan cepat saji, makanan ringan, gorengan, pizza beku, pai, biskuit, margarin, dan olesan) bukan bagian dari diet sehat.</string>
+    <string name="balanced_diet_content_ten">Kurangi 5 g garam (setara dengan kurang lebih 1 sendok teh) per hari dan gunakan garam beryodium.</string>
+    <string name="balanced_diet_url_one">http://www.who.int/en/news-room/fact-sheets/detail/healthy-diet</string>
+    <string name="balanced_diet_url_two">https://mediumredpotion.wordpress.com/2011/12/14/that-old-healthy-food-pyramid/</string>
+    <string name="source">Sumber</string>
+    <string name="example_sources_of_protein">Contoh sumber protein:</string>
+    <string name="balanced_diet_content_eleven">Harap tambahkan ke daftar dan ubah ke standar lokal jika memungkinkan.</string>
+    <string name="balanced_diet_url_three">http://www.bendifulblog.com/your-guide-to-protein-what-you-should-know/</string>
+    <string name="balanced_diet_url_four">https://co.pinterest.com/pin/208291551498329651/</string>
+    <string name="example_sources_of_calcium">Contoh sumber kalsium:</string>
+    <string name="example_sources_of_energy">Contoh sumber energi:</string>
+    <string name="balanced_diet_content_12_info">Harap tambahkan ke daftar dan ubah ke standar lokal jika memungkinkan.</string>
+    <string name="balanced_diet_url_4"><![CDATA[https://www.google.com/url?q=https://cyclonecup.com/blogs/news/13218465-12-healthy- makanan-untuk-makan-untuk-energi-tinggi&sa=D&ust=1580808439831000]]></string>
+    <string name="example_sources_of_iron">Contoh sumber besi:</string>
+    <string name="balanced_diet_url_5">https://www.wholesomebabyfoodguide.com/iron-and-iron-rich-baby-foods-what-iron-rich-foods-can-baby-eat/</string>
+    <string name="balanced_diet_url_6">https://bit.ly/2RUH0VU</string>
+    <string name="balanced_diet_url_7">https://i.pinimg.com/originals/21/f2/e3/21f2e3fc203e6b475616e971f3c874f3.jpg</string>
+    <string name="example_sources_of_vitamin_a">Contoh sumber Vitamin A:</string>
+    <string name="balanced_diet_url_8">https://www.myfooddata.com/articles/food-sources-of-vitamin-A.php</string>
+    <string name="balanced_diet_url_9">https://www.medindia.net/patients/lifestyleandwellness/vitamin-a-rich-foods.htm</string>
+    <string name="example_sources_of_vitamin_c">Contoh sumber Vitamin C:</string>
+    <string name="balanced_diet_url_10">https://www.myfooddata.com/articles/vitamin-c-foods.php#printable</string>
+    <string name="caffeine_intake">Asupan kafein</string>
+    <string name="balanced_diet_content_13">Dosis harian maksimum asupan kafein untuk wanita hamil adalah 300mg, setara dengan:</string>
+    <string name="balanced_diet_url_11">ftp://ftp.caism.unicamp.br/pub/astec/CARTILHA_DE_EXERCISIO_FISICO_NA_GRAVIDEZ_Publico.pdf</string>
+
+</resources>

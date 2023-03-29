@@ -271,26 +271,3 @@ priority: 1
 condition: "step2_hb_test_status != '' && step2_hb_test_status == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
----
-name: step1_covid_positive
-description: covid_positive
-priority: 1
-condition: "(step1_covid_pcr_test == 'positive') || (step1_covid_antigen_test == 'positive') || (step1_covid_igg_test == 'positive') || (step1_covid_igm_test == 'positive')"
-actions:
-  - "calculation = 1"
----
-name: step1_covid_date_today_hidden
-description: Covid_test_date
-priority: 1
-condition: "step1_covid_status != '' && step1_covid_status == 'done_today'"
-actions:
-  - "calculation = helper.getDateToday()"
----
-name: step1_toxo_test_date
-description: toxo_test_date
-priority: 1
-condition: "step1_toxo_test_status == 'done_today'"
-actions:
-  - "calculation = helper.getDateToday()"
-
-

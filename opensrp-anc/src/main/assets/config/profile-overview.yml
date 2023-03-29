@@ -6,7 +6,13 @@ fields:
   - template: "{{profile_overview.overview_of_pregnancy.demographic_info.occupation}}: {occupation_value}"
     relevance: "occupation.contains('informal_employment_sex_worker')"
     isRedFont: "true"
-
+---
+sub_group: visit_details
+fields:
+  - template: "{{profile_overview.overview_of_pregnancy.current_pregnancy.visit_date}}: {visit_date}"
+    relevance: "visit_date != ''"
+  - template: "{{profile_overview.overview_of_pregnancy.current_pregnancy.contact_date}}: {contact_date}"
+    relevance: "contact_date != ''"
 ---
 sub_group: current_pregnancy
 fields:
@@ -33,7 +39,6 @@ fields:
   - template: "{{profile_overview.overview_of_pregnancy.current_pregnancy.placenta_location}}: {placenta_location}"
     relevance: "placenta_location != ''"
     isRedFont: "placenta_location.contains('Previa')"
-
 ---
 sub_group: obstetric_history
 fields:
