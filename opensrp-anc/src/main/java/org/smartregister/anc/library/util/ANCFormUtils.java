@@ -20,6 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.model.PartialContact;
 import org.smartregister.anc.library.model.PreviousContact;
@@ -32,10 +33,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import timber.log.Timber;
 
 public class ANCFormUtils extends FormUtils {
+    static Pattern pattern = Pattern.compile("\\b([0-9]|[1-9][0-9]|100)\\b weeks \\b([0-9]|[1-9][0-9]|100)\\b days");
 
     public static String obtainValue(String key, JSONArray value) throws JSONException {
         String result = "";
@@ -515,6 +518,7 @@ public class ANCFormUtils extends FormUtils {
      */
     @SuppressLint("NewApi")
     public static String getListValuesAsString(List<String> list) {
+        //week_days
         List<String> returnList = new ArrayList<>();
         if (list.size() != 0) {
             for (int i = 0; i < list.size(); i++) {
@@ -576,6 +580,11 @@ public class ANCFormUtils extends FormUtils {
                 }
             } else {
                 returnValue = value;
+            }
+            if(pattern.matcher(returnValue).matches())
+            {
+                Context context = AncLibrary.getInstance().getApplicationContext();
+               returnValue =  returnValue.replace("weeks",context.getString(R.string.weeks)).replace("days",context.getString(R.string.days));
             }
             return returnValue;
         } catch (Exception e) {

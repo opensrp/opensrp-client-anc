@@ -26,7 +26,7 @@ fields:
   - template: "{{contact_summary.hospital_referral.fever}}: {body_temp_repeat}ºC"
     relevance: "body_temp_repeat_value >= 38"
 
-  - template: "{{contact_summary.hospital_referral.abnormal_pulse_rate}}: {pulse_rate_repeat}bpm"
+  - template: "{{contact_summary.hospital_referral.abnormal_pulse_rate}}: {pulse_rate_repeat}kpm"
     relevance: "pulse_rate_repeat_value < 60 || pulse_rate_repeat_value > 100"
 
   - template: "{{contact_summary.hospital_referral.respiratory_distress}}: {respiratory_exam_abnormal}"
@@ -50,7 +50,7 @@ fields:
   - template: "{{contact_summary.hospital_referral.no_fetal_heartbeat_observed}}"
     relevance: "fetal_heartbeat_value == 'no'"
 
-  - template: "{{contact_summary.hospital_referral.abnormal_fetal_heart_rate}}: {fetal_heart_rate_repeat}bpm"
+  - template: "{{contact_summary.hospital_referral.abnormal_fetal_heart_rate}}: {fetal_heart_rate_repeat}kpm"
     relevance: "fetal_heart_rate_repeat_value < 100 || fetal_heart_rate_repeat_value > 180"
 
 ---
@@ -420,10 +420,10 @@ fields:
   - template: "{{contact_summary.maternal_exam.second_temperature}}: {body_temp_repeat}ºC"
     relevance: "body_temp_repeat != ''"
 
-  - template: "{{contact_summary.maternal_exam.pulse_rate}}: {pulse_rate} bpm"
+  - template: "{{contact_summary.maternal_exam.pulse_rate}}: {pulse_rate} kpm"
     relevance: "pulse_rate != ''"
 
-  - template: "{{contact_summary.maternal_exam.second_pulse_rate}}: {pulse_rate_repeat} bpm"
+  - template: "{{contact_summary.maternal_exam.second_pulse_rate}}: {pulse_rate_repeat} kpm"
     relevance: "pulse_rate_repeat != ''"
 
   - template: "{{contact_summary.maternal_exam.pallor_present}}: {pallor_value}"
@@ -489,10 +489,10 @@ fields:
   - template: "{{contact_summary.maternal_exam.fetal_heartbeat_present}}: {fetal_heartbeat}"
     relevance: "fetal_heartbeat != ''"
 
-  - template: "{{contact_summary.maternal_exam.fetal_heart_rate}}: {fetal_heart_rate} bpm"
+  - template: "{{contact_summary.maternal_exam.fetal_heart_rate}}: {fetal_heart_rate} kpm"
     relevance: "fetal_heart_rate != ''"
 
-  - template: "{{contact_summary.maternal_exam.second_fetal_heart_rate}}: {fetal_heart_rate_repeat} bpm"
+  - template: "{{contact_summary.maternal_exam.second_fetal_heart_rate}}: {fetal_heart_rate_repeat} kpm"
     relevance: "fetal_heart_rate_repeat != ''"
 ---
 group: ultrasound_test

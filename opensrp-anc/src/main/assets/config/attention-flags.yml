@@ -108,7 +108,7 @@ fields:
   - template: "{{attention_flags.red.fever}}: {body_temp_repeat}ºC"
     relevance: "body_temp_repeat >= 38"
 
-  - template: "{{attention_flags.red.abnormal_pulse_rate}}: {pulse_rate_repeat}bpm"
+  - template: "{{attention_flags.red.abnormal_pulse_rate}}: {pulse_rate_repeat}kpm"
     relevance: "pulse_rate_repeat < 60 || pulse_rate_repeat > 100"
 
   - template: "{{attention_flags.red.anaemia_diagnosis}}"
@@ -129,7 +129,7 @@ fields:
   - template: "{{attention_flags.red.no_fetal_heartbeat_observed}}"
     relevance: "fetal_heartbeat == 'no' && gest_age >= 16"
 
-  - template: "{{attention_flags.red.abnormal_fetal_heart_rate}}: {fetal_heart_rate_repeat}bpm"
+  - template: "{{attention_flags.red.abnormal_fetal_heart_rate}}: {fetal_heart_rate_repeat}kpm"
     relevance: "fetal_heart_rate_repeat < 100 || fetal_heart_rate_repeat > 180"
 
   - template: "{{attention_flags.red.no_of_fetuses}}: {no_of_fetuses}"

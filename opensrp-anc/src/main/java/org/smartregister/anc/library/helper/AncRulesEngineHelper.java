@@ -22,6 +22,8 @@ import org.joda.time.LocalDate;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.rule.AlertRule;
 import org.smartregister.anc.library.rule.ContactRule;
 import org.smartregister.anc.library.util.ANCFormUtils;
@@ -156,6 +158,12 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
         return ga;
     }
 
+    public static String replaceTranslatedWeeks(String gestAge)
+    {
+        Context context = AncLibrary.getInstance().getApplicationContext();
+        return gestAge.replace("weeks",context.getString(R.string.weeks)).replace("days",context.getString(R.string.days));
+    }
+
     /***
      * Gets value form accordion
      * @param accordion accordion to get the value from
@@ -263,5 +271,9 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
     }
 
 
-
+    @Override
+    public String getWeeksAndDaysFromDays(Integer days) {
+        Context context = AncLibrary.getInstance().getApplicationContext();
+        return super.getWeeksAndDaysFromDays(days).replace("weeks",context.getString(R.string.weeks)).replace("days",context.getString(R.string.days));
+    }
 }

@@ -841,5 +841,10 @@
 	<string name="caffeine_intake">Caffeine intake</string>
 	<string name="balanced_diet_content_13">The maximum daily dose of caffeine intake for a pregnant woman is 300mg, is equivalent to:</string>
 	<string name="balanced_diet_url_11">ftp://ftp.caism.unicamp.br/pub/astec/CARTILHA_DE_EXERCISIO_FISICO_NA_GRAVIDEZ_Publico.pdf</string>
+    <string name="completed">Completed</string>
+	<string name="upcoming_contacts">Upcoming Contacts</string>
+	<string name="age">AGE</string>
+	<string name="weeks">weeks</string>
+	<string name= "days">days</string>
 
 </resources>

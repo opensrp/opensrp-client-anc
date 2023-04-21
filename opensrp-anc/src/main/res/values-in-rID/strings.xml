@@ -245,7 +245,7 @@
     <string name="select_one">Pilih Angka</string>
     <string name="previous">Sebelum</string>
     <string name="next">Lanjut</string>
-    <string name="submit">Submit</string>
+    <string name="submit">Kirim</string>
     <string name="go_to_step">Lanjut ke Step</string>
     <string name="shows_image_on_dialog">Tampilkan gambar pada dialog</string>
 
@@ -261,7 +261,7 @@
     <string name="could_not_get_your_location">Tidak bisa mendapatkan lokasi GPS</string>
     <string name="using_provider">Menggunakan provider %s</string>
     <string name="unknown_gps_accuracy">Akurasi tidak diketahui</string>
-    <string name="info_label">Label Info</string>
+    <string name="info_label">Informasi label</string>
     <string name="the_toaster_icon">Ikon Toaster</string>
     <string name="please_wait_title">Harap Tunggu</string>
     <string name="creating_repeating_group_title">Harap Tunggu</string>
@@ -286,20 +286,20 @@
     <string name="multi_select_list_msg_data_source_invalid">Sumber data eksternal tidak ditemukan atau diproses</string>
     <string name="next_step_loading">Sedang menyiapkan langkah selanjutnya. Harap tunggu sejenak...</string>
     <string name="repeating_group_not_generated_error_message">Klik tombol &#9989; untuk menyiapkan pertanyaan</string>
-    <string name="error_title">Error</string>
+    <string name="error_title">Kesalahan</string>
     <string name="form_load_error">Terjadi error saat memuat form.</string>
     <string name="select_one_option">Pilih salah satu opsi</string>
     <string name="extended_radio_info_text_ensure_options_set">Pastikan opsi radio button sudah dipilih</string>
     <string name="missing_client_info">Info ibu tidak lengkap</string>
 
 
-    <!-- OptiBP -->
+    <!-- OptiBP -->ya
     <!-- ====== -->
 
-    <string name="optibp_btn_get_started">Get Started</string>
-    <string name="optibp_unable_to_receive">Unable to receive any result</string>
-    <string name="optibp_label">Measure the blood pressure using OptiBP</string>
-    <string name="optibp_values_error">No fields defined to populate BP values</string>
+    <string name="optibp_btn_get_started">Mulai</string>
+    <string name="optibp_unable_to_receive">Tidak dapat menerima hasil apa pun</string>
+    <string name="optibp_label">Ukur tekanan darah menggunakan OptiBP</string>
+    <string name="optibp_values_error">Tidak ada kolom yang ditentukan untuk mengisi nilai BP</string>
 
 
     <!-- Labels & Details -->
@@ -334,8 +334,8 @@
     <!-- Authentication -->
     <!-- ============== -->
 
-    <string name="username">Username</string>
-    <string name="password">Password</string>
+    <string name="username">Nama belakang</string>
+    <string name="password">Kata sandi</string>
 
 
     <!-- Actions -->
@@ -836,5 +836,10 @@
     <string name="caffeine_intake">Asupan kafein</string>
     <string name="balanced_diet_content_13">Dosis harian maksimum asupan kafein untuk wanita hamil adalah 300mg, setara dengan:</string>
     <string name="balanced_diet_url_11">ftp://ftp.caism.unicamp.br/pub/astec/CARTILHA_DE_EXERCISIO_FISICO_NA_GRAVIDEZ_Publico.pdf</string>
+    <string name="completed">TELAH SELESAI</string>
+    <string name="upcoming_contacts">KUNJUNGAN BERIKUTNYA</string>
+    <string name="age">Umur</string>
+    <string name="weeks">minggu</string>
+    <string name= "days">hari</string>
 
 </resources>

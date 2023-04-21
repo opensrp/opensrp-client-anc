@@ -149,8 +149,8 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
                 String entityId = client.get(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID);
                 String name = client.get(DBConstantsUtils.KeyUtils.FIRST_NAME) + " " + client.get(DBConstantsUtils.KeyUtils.LAST_NAME);
                 String age = String.valueOf(Utils.getAgeFromDate(client.get(DBConstantsUtils.KeyUtils.DOB)));
-                String recordDate = client.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE);
-                String lastVisit = Utils.getClientLastVisitDate(entityId);
+                String recordDate = client.get(DBConstantsUtils.KeyUtils.LAST_VISIT_DATE);
+                String lastVisit = client.get(DBConstantsUtils.KeyUtils.LAST_VISIT_DATE);
                 String phoneNumber = client.get(DBConstantsUtils.KeyUtils.PHONE_NUMBER);
                 String nextContact = client.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT);
                 Integer nextContactNo = nextContact != null ? new Integer(nextContact) : null;

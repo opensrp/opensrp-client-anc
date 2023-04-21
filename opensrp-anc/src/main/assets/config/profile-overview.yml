@@ -164,7 +164,7 @@ fields:
     relevance: "body_temp_repeat >= 38"
     isRedFont: "true"
 
-  - template: "{{profile_overview.hospital_referral_reasons.abnormal_pulse_rate}}: {pulse_rate_repeat} bpm"
+  - template: "{{profile_overview.hospital_referral_reasons.abnormal_pulse_rate}}: {pulse_rate_repeat} kpm"
     relevance: "pulse_rate_repeat < 60 || pulse_rate_repeat > 100"
 
   - template: "{{profile_overview.hospital_referral_reasons.respiratory_distress}}: {respiratory_exam_abnormal_value}"
@@ -190,105 +190,105 @@ fields:
     relevance: "fetal_heartbeat == 'No'"
     isRedFont: "true"
 
-  - template: "{{profile_overview.hospital_referral_reasons.abnormal_fetal_heart_rate}}: {fetal_heart_rate_repeat} bpm"
+  - template: "{{profile_overview.hospital_referral_reasons.abnormal_fetal_heart_rate}}: {fetal_heart_rate_repeat} kpm"
     relevance: "fetal_heart_rate_repeat < 100 || fetal_heart_rate_repeat > 180"
 
 ---
 group: risks_and_diagnoses
 fields:
-  - template: "High daily consumption of caffeine: {caffeine_intake_value}"
+  - template: "{{profile_overview.high_caffine}}: {caffeine_intake_value}"
     relevance: "caffeine_intake != '' && caffeine_intake != 'none'"
     isRedFont: "true"
 
-  - template: "Tobacco user or recently quit: {tobacco_user}"
+  - template: "{{profile_overview.tobacco_user_quit}}: {tobacco_user}"
     relevance: "tobacco_user != '' && tobacco_user != 'no'"
     isRedFont: "true"
 
-  - template: "Second-hand exposure to tobacco smoke: {shs_exposure}"
+  - template: "{{profile_overview.second_hand_smoke}}: {shs_exposure}"
     relevance: "shs_exposure == 'yes'"
     isRedFont: "true"
 
-  - template: "Woman and her partner(s) do not use condoms: {condom_use}"
+  - template: "{{profile_overview.condoms_not_used}}: {condom_use}"
     relevance: "condom_use == 'no'"
     isRedFont: "true"
 
-  - template: "Alcohol / substances currently using: {alcohol_substance_use_value}, {other_substance_use_value}"
+  - template: "{{profile_overview.alcohol_substances}}: {alcohol_substance_use_value}, {other_substance_use_value}"
     relevance: "!alcohol_substance_use.isEmpty() && !alcohol_substance_use.contains('none')"
     isRedFont: "true"
 
-  - template: "Reduced or no fetal movement perceived by woman: {mat_percept_fetal_move}"
+  - template: "{{profile_overview.reduced_fetal_movement}}: {mat_percept_fetal_move}"
     relevance: "mat_percept_fetal_move != '' && mat_percept_fetal_move != 'normal_fetal_move'"
     isRedFont: "true"
 
-  - template: "Pre-eclampsia risk: {preeclampsia_risk}"
+  - template: "{{profile_overview.pre_eclampsia_risk}}: {preeclampsia_risk}"
     relevance: "preeclampsia_risk == 1"
     isRedFont: "true"
 
-  - template: "HIV risk: {date}"
+  - template: "{{profile_overview.pre_hiv_risk}}: {date}"
     relevance: "hiv_risk == 1"
     isRedFont: "true"
 
-  - template: "Diabetes risk: {date} "
+  - template: "{{profile_overview.diabetes_risk}}: {date} "
     relevance: "gdm_risk == 1"
     isRedFont: "true"
 
-  - template: "Hypertension: {date}"
+  - template: "{{profile_overview.hypertension}}: {date}"
     relevance: "hypertension == 1"
     isRedFont: "true"
 
-  - template: "Severe hypertension: {date}: {date}"
+  - template: "{{profile_overview.severe_hypertension}}: {date}: {date}"
     relevance: "severe_hypertension == 1"
     isRedFont: "true"
 
-  - template: "Pre-eclampsia: {date}"
+  - template: "{{profile_overview.pre_eclampsia}}: {date}"
     relevance: "preeclampsia == 1"
     isRedFont: "true"
 
-  - template: "Severe pre-eclampsia: {date}"
+  - template: "{{profile_overview.severe_pre_eclampsia}}: {date}"
     relevance: "severe_preeclampsia == 1"
     isRedFont: "true"
 
-  - template: "Rh factor : {rh_factor}"
+  - template: "{{profile_overview.rh_factor_negative}}: {rh_factor}"
     relevance: "rh_factor == 'negative'"
     isRedFont: "true"
 
-  - template: "HIV Status: {hiv_test_result}"
+  - template: "{{profile_overview.hiv_positive}}: {hiv_test_result}"
     relevance: "hiv_positive == 1"
     isRedFont: "true"
 
-  - template: "Hepatitis B positive: {date}"
+  - template: "{{profile_overview.hepatitis_b_positive}}: {date}"
     relevance: "hepb_positive == 1"
     isRedFont: "true"
 
-  - template: "Hepatitis C positive: {date}"
+  - template: "{{profile_overview.hepatitis_c_positive}}: {date}"
     relevance: "hepc_positive == 1"
     isRedFont: "true"
 
-  - template: "Syphilis positive: {date}"
+  - template: "{{profile_overview.syphilis_positive}}: {date}"
     relevance: "syphilis_positive == 1"
     isRedFont: "true"
 
-  - template: "Asymptomatic bacteriuria (ASB) infection: {date}"
+  - template: "{{profile_overview.asb}}: {date}"
     relevance: "asb_positive == 1"
     isRedFont: "true"
 
-  - template: "Positive for Group B Streptococcus (GBS): {date}"
+  - template: "{{profile_overview.gbs}}: {date}"
     relevance: "urine_culture == 'positive - group b streptococcus (gbs)'"
     isRedFont: "true"
 
-  - template: "Gestational Diabetes Mellitus (GDM): {date}"
+  - template: "{{profile_overview.gdm}}: {date}"
     relevance: "gdm = 1"
     isRedFont: "true"
 
-  - template: "Diabetes Mellitus (DM) in pregnancy: {date}"
+  - template: "{{profile_overview.dm}}: {date}"
     relevance: "dm_in_preg = 1"
     isRedFont: "true"
 
-  - template: "Anaemia diagnosis: {date}"
+  - template: "{{profile_overview.anaemia_diagnosis}}: {date}"
     relevance: "anaemic = 1"
     isRedFont: "true"
 
-  - template: "TB screening positive: {date}"
+  - template: "{{profile_overview.tb_positive}}: {date}"
     relevance: "tb_screening_result == 'positive'"
     isRedFont: "true"
 

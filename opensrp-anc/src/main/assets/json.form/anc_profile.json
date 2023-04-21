@@ -521,6 +521,25 @@
 				}
 			},
 			{
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "",
+				"openmrs_entity_id": "",
+				"key": "lmp_gest_age_tr",
+				"type": "hidden",
+				"label_text_style": "bold",
+				"text_color": "#FF0000",
+				"v_required": {
+					"value": false
+				},
+				"calculation": {
+					"rules-engine": {
+						"ex-rules": {
+							"rules-file": "profile_calculation_rules.yml"
+						}
+					}
+				}
+			},
+			{
 				"key": "ultrasound_done",
 				"openmrs_entity_parent": "",
 				"openmrs_entity": "concept",
@@ -745,6 +764,26 @@
 					}
 				}
 			},
+			{
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "",
+				"openmrs_entity_id": "",
+				"key": "ultrasound_gest_age_tr",
+				"type": "hidden",
+				"label_text_style": "bold",
+				"text_color": "#FF0000",
+				"v_required": {
+					"value": false
+				},
+				"calculation": {
+					"rules-engine": {
+						"ex-rules": {
+							"rules-file": "profile_calculation_rules.yml"
+						}
+					}
+				}
+			},
+
 			{
 				"key": "sfh_gest_age",
 				"openmrs_entity_parent": "",
