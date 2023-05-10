@@ -175,7 +175,7 @@ public class AncLibrary {
             }
 
             if(!eventHandlerSetup)
-            eventBusBuilder.installDefaultEventBus();
+                eventBusBuilder.installDefaultEventBus();
             eventHandlerSetup = true;
         } catch (Exception e) {
             Timber.e(e, " --> setUpEventHandling");

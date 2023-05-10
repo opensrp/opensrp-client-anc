@@ -426,7 +426,7 @@ fields:
   - template: "{{contact_summary.maternal_exam.second_pulse_rate}}: {pulse_rate_repeat} kpm"
     relevance: "pulse_rate_repeat != ''"
 
-  - template: "{{contact_summary.maternal_exam.pallor_present}}: {pallor_value}"
+  - template: "{{contact_summary.maternal_exam.pallor_present}}: {pallor_value_value}"
     relevance: "pallor != ''"
 
   - template: "{{contact_summary.maternal_exam.respiratory_exam}}: {respiratory_exam_value}"
