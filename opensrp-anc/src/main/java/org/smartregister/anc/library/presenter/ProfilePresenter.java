@@ -149,12 +149,12 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
                 String entityId = client.get(DBConstantsUtils.KeyUtils.BASE_ENTITY_ID);
                 String name = client.get(DBConstantsUtils.KeyUtils.FIRST_NAME) + " " + client.get(DBConstantsUtils.KeyUtils.LAST_NAME);
                 String age = String.valueOf(Utils.getAgeFromDate(client.get(DBConstantsUtils.KeyUtils.DOB)));
-                String recordDate = client.get(DBConstantsUtils.KeyUtils.LAST_VISIT_DATE);
+                String recordDate = client.get(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE);
                 String lastVisit = client.get(DBConstantsUtils.KeyUtils.LAST_VISIT_DATE);
                 String phoneNumber = client.get(DBConstantsUtils.KeyUtils.PHONE_NUMBER);
                 String nextContact = client.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT);
                 Integer nextContactNo = nextContact != null ? new Integer(nextContact) : null;
-                Integer currentContactNo = (nextContactNo != null || nextContactNo >= 0) ? nextContactNo - 1 : null;
+                Integer currentContactNo = (nextContactNo != null || nextContactNo >= 2) ? nextContactNo - 1 : null;
                 // Update text in UI
                 profile.setProfileImage(entityId);
                 profile.setProfileID(ancId);
@@ -165,6 +165,12 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
 				if (recordDate != null && currentContactNo != null) {
                     String edd = client.get(DBConstantsUtils.KeyUtils.EDD);
                     String actualEdd = Utils.getActualEDD(edd, recordDate, lastVisit);
+                    Facts facts = AncLibrary.getInstance().getPreviousContactRepository().getPreviousContactFacts(entityId,"1");
+                    if(facts == null)
+                       lastVisit = Utils.getTodaysDate();
+                    else if(!recordDate.isEmpty())
+                        lastVisit = recordDate;
+                    Log.d("record date", recordDate);
 					String ga = String.valueOf(Utils.getLastContactGA(edd, lastVisit));
 					profile.setProfileGestationAge(ga);
 					profile.setPhoneNumber(phoneNumber);

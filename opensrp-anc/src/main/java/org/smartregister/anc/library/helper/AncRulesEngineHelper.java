@@ -2,6 +2,7 @@ package org.smartregister.anc.library.helper;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
@@ -275,5 +276,15 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
     public String getWeeksAndDaysFromDays(Integer days) {
         Context context = AncLibrary.getInstance().getApplicationContext();
         return super.getWeeksAndDaysFromDays(days).replace("weeks",context.getString(R.string.weeks)).replace("days",context.getString(R.string.days));
+    }
+
+    public String addEncounterDate(String entityId, String visitDate)
+    {
+        Facts facts = AncLibrary.getInstance().getPreviousContactRepository().getPreviousContactFacts(entityId, "1");
+        if(facts!= null && facts.get("visit_date") != null )
+        {
+            return  facts.get("visit_date");
+        }
+        return  visitDate;
     }
 }

@@ -18,6 +18,7 @@ import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
 import com.vijay.jsonwizard.utils.NativeFormLangUtils;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jeasy.rules.api.Facts;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,6 +27,7 @@ import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.fragment.ContactWizardJsonFormFragment;
 import org.smartregister.anc.library.helper.AncRulesEngineFactory;
+import org.smartregister.anc.library.repository.PreviousContactRepository;
 import org.smartregister.anc.library.util.ANCFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
 
@@ -88,6 +90,22 @@ public class ContactJsonFormActivity extends FormConfigurationJsonFormActivity {
 
             if (getIntent() != null) {
                 String entityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
+                String visitDate = getContact().getContactNumber()+"";
+                if(getContact().getContactNumber() > 1) {
+                    try {
+                        Facts facts = AncLibrary.getInstance().getPreviousContactRepository().getPreviousContactFacts(entityId, "1");
+                        String visit_date = facts.get("visit_date");
+                        Log.d("visit number of the contact", visitDate);
+                        Log.d("visit date", visit_date);
+                        globalValues.put("entity_id",entityId);
+                        globalValues.put("first_encounter_date", visit_date);
+                    }
+                    catch (Exception e)
+                    {
+                        Timber.e(e);
+                    }
+
+                }
                 globalValues.put("entity_id", entityId);
             }
             Log.v("PAMPAM", globalValues.toString());
