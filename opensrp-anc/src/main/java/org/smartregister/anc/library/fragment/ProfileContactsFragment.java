@@ -172,7 +172,7 @@ public class ProfileContactsFragment extends BaseProfileFragment implements Prof
                 String displayContactDate = "";
                 if (!TextUtils.isEmpty(contactDate)) {
                     Date lastContactDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(contactDate);
-                    displayContactDate = new SimpleDateFormat("dd MMM " + "yyyy", Locale.getDefault())
+                    displayContactDate = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
                             .format(lastContactDate);
                 }
 

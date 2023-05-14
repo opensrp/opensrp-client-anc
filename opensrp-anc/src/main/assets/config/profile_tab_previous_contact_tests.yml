@@ -47,7 +47,7 @@ fields:
 
   - template: "{{profile_contact_test.hiv_tests.hiv_test_result}}: {hiv_test_result}"
     relevance: "hiv_test_result != '' && helper.compareDateAgainstContactDate(hiv_test_date, contact_date)"
-test_results: "['hiv_test_result:hiv_test_date:Hiv tests results']"
+test_results: "['hiv_test_result:hiv_test_date:HIV tests results']"
 
 ---
 sub_group: hepatitis_b_test_results

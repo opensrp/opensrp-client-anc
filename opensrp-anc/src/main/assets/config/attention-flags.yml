@@ -111,7 +111,7 @@ fields:
   - template: "{{attention_flags.red.abnormal_pulse_rate}}: {pulse_rate_repeat}kpm"
     relevance: "pulse_rate_repeat < 60 || pulse_rate_repeat > 100"
 
-  - template: "{{attention_flags.red.anaemia_diagnosis}}"
+  - template: "{{attention_flags.red.anaemia_diagnosis}} : {{attention_flags.yes}}"
     relevance: "anaemic == 1"
 
   - template: "{{attention_flags.red.respiratory_distress}}: {respiratory_exam_abnormal_value}"

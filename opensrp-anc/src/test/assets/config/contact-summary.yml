@@ -539,7 +539,7 @@ fields:
   - template: "{{contact_summary.hiv_tests.hiv_test_date}}: {hiv_test_date}"
     relevance: "hiv_test_date != ''"
 
-  - template: "{{contact_summary.hiv_tests.hiv_test_result}}: {hiv_test_result_value}"
+  - template: "{{contact_summary.hiv_tests.hiv_test_result}}: {hiv_test_result_value_value}"
     relevance: "hiv_test_result != ''"
 
   - template: "{{contact_summary.hiv_tests.hiv_positive_counseling_done}}"
@@ -632,7 +632,7 @@ fields:
   - template: "{{contact_summary.syphilis_test.syphilis_test_date}}: {syphilis_test_date}"
     relevance: "syphilis_test_date != ''"
 
-  - template: "{{contact_summary.syphilis_test.rapid_syphilis_test_rst_result}}: {rapid_syphilis_test}"
+  - template: "{{contact_summary.syphilis_test.rapid_syphilis_test_rst_result}}: {rapid_syphilis_test_value_value}"
     relevance: "rapid_syphilis_test != ''"
 
   - template: "{{contact_summary.syphilis_test.rapid_plasma_reagin_rpr_test_result}}: {rpr_syphilis_test}"

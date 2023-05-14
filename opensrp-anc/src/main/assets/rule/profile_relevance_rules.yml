@@ -1,6 +1,6 @@
 ---
 name: step1_hiv_risk_counseling_toaster
-description: Hiv Risk counselling
+description: HIV Risk counselling
 priority: 1
 condition: "(step1_hiv_risk == 1)"
 actions:
@@ -161,14 +161,14 @@ actions:
   - "isRelevant = true"
 ---
 name: step7_hiv_counselling_toaster
-description: Hiv Risk counselling
+description: HIV Risk counselling
 priority: 1
 condition: "(step7_hiv_risk == 1)"
 actions:
   - "isRelevant = true"
 ---
 name: step8_hiv_risk_counselling_toaster
-description: Hiv Risk counselling
+description: HIV Risk counselling
 priority: 1
 condition: "(step8_hiv_risk == 1)"
 actions:
