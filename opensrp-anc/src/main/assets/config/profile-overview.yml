@@ -33,10 +33,10 @@ fields:
   - template: "{{profile_overview.overview_of_pregnancy.current_pregnancy.fetal_presentation}}: {fetal_presentation}"
     relevance: "fetal_presentation != ''"
 
-  - template: "{{profile_overview.overview_of_pregnancy.current_pregnancy.amniotic_fluid}}: {amniotic_fluid}"
+  - template: "{{profile_overview.overview_of_pregnancy.current_pregnancy.amniotic_fluid}}: {amniotic_fluid_value}"
     relevance: "amniotic_fluid != ''"
 
-  - template: "{{profile_overview.overview_of_pregnancy.current_pregnancy.placenta_location}}: {placenta_location}"
+  - template: "{{profile_overview.overview_of_pregnancy.current_pregnancy.placenta_location}}: {placenta_location_value}"
     relevance: "placenta_location != ''"
     isRedFont: "placenta_location.contains('Previa')"
 ---
@@ -248,7 +248,7 @@ fields:
     relevance: "severe_preeclampsia == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.rh_factor_negative}}: {rh_factor}"
+  - template: "{{profile_overview.rh_factor_negative}}: {rh_factor_value}"
     relevance: "rh_factor == 'negative'"
     isRedFont: "true"
 
@@ -308,7 +308,7 @@ fields:
   - template: "{{profile_overview.birth_plan_counseling.planned_birth_place}}: {delivery_place}"
     relevance: "delivery_place != ''"
 
-  - template: "{{profile_overview.birth_plan_counseling.fp_method_accepted}}: {family_planning_type}"
+  - template: "{{profile_overview.birth_plan_counseling.fp_method_accepted}}: {family_planning_type_value}"
     relevance: "family_planning_type != ''"
 
 ---

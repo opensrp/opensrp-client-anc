@@ -105,7 +105,12 @@ public class ProfileOverviewAdapter extends RecyclerView.Adapter<ProfileOverview
             Template template = getTemplate(yamlConfigItem.getTemplate());
             String output = Utils.fillTemplate(template.detail, this.facts);
 
+            // ensure any occurrence of Hiv or hiv is all changed to uppercase
+            output = output.replaceAll("(?i)Hiv",  "HIV");
+
+
             holder.sectionDetailTitle.setText(template.title);
+
             holder.sectionDetails.setText(output);//Perhaps refactor to use Json Form Parser Implementation
 
             if (AncLibrary.getInstance().getAncRulesEngineHelper().getRelevance(facts, yamlConfigItem.getIsRedFont())) {

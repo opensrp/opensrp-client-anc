@@ -242,7 +242,7 @@ test_results: "['tb_screening_result: TB Screening tests results']"
 ---
 sub_group: partner_hiv_test_results
 fields:
-  - template: "{{profile_contact_test.partner_hiv_test.partner_hiv_test_status}}: {hiv_test_partner_status}"
+  - template: "{{profile_contact_test.partner_hiv_test.partner_hiv_test_status}}: {hiv_test_partner_status_value}"
     relevance: "hiv_test_partner_status != '' && helper.compareDateAgainstContactDate(hiv_test_partner_date, contact_date)"
 
   - template: "{{profile_contact_test.partner_hiv_test.partner_hiv_test_done_date}}: {hiv_test_partner_date}"

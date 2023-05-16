@@ -1,10 +1,14 @@
 package org.smartregister.anc.library.presenter;
 
+import android.app.Application;
+import android.content.Context;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.BaseUnitTest;
@@ -35,11 +39,14 @@ public class AdvancedSearchPresenterTest extends BaseUnitTest {
     @Mock
     private AncLibrary ancLibrary;
 
+    private Context context;
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         ReflectionHelpers.setStaticField(AncLibrary.class, "instance", ancLibrary);
         presenter = new AdvancedSearchPresenter(view, "advancedSearch");
+        context = RuntimeEnvironment.application;
     }
 
     @Test
@@ -68,7 +75,8 @@ public class AdvancedSearchPresenterTest extends BaseUnitTest {
         String mainSelect = "Select * from table";
 
 
-        Mockito.doReturn(searchCriteria).when(model).createSearchString(firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact);
+
+        Mockito.doReturn(searchCriteria).when(model).createSearchString(context,firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact);
         Mockito.doReturn(editMap).when(model).createEditMap(firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact, isLocal);
         Mockito.doReturn(mainCondition).when(model).getMainConditionString(editMap);
         Mockito.doReturn(countSelect).when(model).countSelect(AdvancedSearchPresenter.TABLE_NAME, mainCondition);
@@ -76,7 +84,7 @@ public class AdvancedSearchPresenterTest extends BaseUnitTest {
 
         advancedSearchPresenter.search(firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact, isLocal);
 
-        Mockito.verify(model).createSearchString(firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact);
+        Mockito.verify(model).createSearchString(context, firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact);
         Mockito.verify(view).updateSearchCriteria(searchCriteria);
         Mockito.verify(model).createEditMap(firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact, isLocal);
         Mockito.verify(view).showProgressView();
@@ -113,12 +121,12 @@ public class AdvancedSearchPresenterTest extends BaseUnitTest {
         editMap.put("2", "two");
         editMap.put("3", "three");
 
-        Mockito.doReturn(searchCriteria).when(model).createSearchString(firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact);
+        Mockito.doReturn(searchCriteria).when(model).createSearchString(context, firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact);
         Mockito.doReturn(editMap).when(model).createEditMap(firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact, isLocal);
 
         advancedSearchPresenter.search(firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact, isLocal);
 
-        Mockito.verify(model).createSearchString(firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact);
+        Mockito.verify(model).createSearchString(context, firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact);
         Mockito.verify(view).updateSearchCriteria(searchCriteria);
         Mockito.verify(model).createEditMap(firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact, isLocal);
         Mockito.verify(view).showProgressView();
@@ -141,11 +149,11 @@ public class AdvancedSearchPresenterTest extends BaseUnitTest {
         String alternateContact = "alternate_contact";
         boolean isLocal = false;
 
-        Mockito.doReturn("").when(model).createSearchString(firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact);
+        Mockito.doReturn("").when(model).createSearchString(context, firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact);
 
         advancedSearchPresenter.search(firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact, isLocal);
 
-        Mockito.verify(model).createSearchString(firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact);
+        Mockito.verify(model).createSearchString(context, firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact);
 
         // Method should return after verifying search criteria is blank
         Mockito.verify(view, Mockito.times(0)).updateSearchCriteria(Mockito.anyString());
@@ -166,11 +174,11 @@ public class AdvancedSearchPresenterTest extends BaseUnitTest {
         String alternateContact = "alternate_contact";
         boolean isLocal = false;
 
-        Mockito.doReturn(null).when(model).createSearchString(firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact);
+        Mockito.doReturn(null).when(model).createSearchString(context, firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact);
 
         advancedSearchPresenter.search(firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact, isLocal);
 
-        Mockito.verify(model).createSearchString(firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact);
+        Mockito.verify(model).createSearchString(context, firstName, lastName, ancId, edd, dob, phoneNumber, alternateContact);
 
         // Method should return after verifying search criteria is null
         Mockito.verify(view, Mockito.times(0)).updateSearchCriteria(Mockito.anyString());

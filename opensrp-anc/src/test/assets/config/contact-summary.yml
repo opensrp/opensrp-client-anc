@@ -467,7 +467,7 @@ fields:
   - template: "{{contact_summary.maternal_exam.cervix_dilated}}: {dilation_cm_value} cm"
     relevance: "dilation_cm != ''"
 
-  - template: "{{contact_summary.maternal_exam.oedema_present}}: {oedema_value}"
+  - template: "{{contact_summary.maternal_exam.oedema_present}}: {oedema_value_value}"
     relevance: "oedema != ''"
 
   - template: "{{contact_summary.maternal_exam.oedema_type}}: {oedema_type_value}"
@@ -551,7 +551,7 @@ fields:
 group: partner_hiv_test
 fields:
 
-  - template: "{{contact_summary.partner_hiv_test.partner_hiv_test_status}}: {partner_hiv_status_value}"
+  - template: "{{contact_summary.partner_hiv_test.partner_hiv_test_status}}: {partner_hiv_status_value_value}"
     relevance: "partner_hiv_status != ''"
 
   - template: "{{contact_summary.partner_hiv_test.partner_hiv_test_date}}: {hiv_test_partner_date}"
@@ -665,7 +665,7 @@ fields:
   - template: "{{contact_summary.urine_tests.urine_test_date}}: {urine_test_date}"
     relevance: "urine_test_date != ''"
 
-  - template: "{{contact_summary.urine_tests.midstream_urine_culture_result}}: {urine_culture_value}"
+  - template: "{{contact_summary.urine_tests.midstream_urine_culture_result}}: {urine_culture_value_value}"
     relevance: "urine_culture != ''"
 
   - template: "{{contact_summary.urine_tests.midstream_urine_gram_staining_result}}: {urine_gram_stain_value}"

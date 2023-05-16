@@ -978,7 +978,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
         if (!TextUtils.isEmpty(template.detail)) {
             output = Utils.fillTemplate(template.detail, facts);
         }
-
+        output = output.replaceAll("(?i)Hiv", "HIV");
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ConstraintLayout constraintLayout =
                 (ConstraintLayout) inflater.inflate(R.layout.previous_contacts_preview_row, null);

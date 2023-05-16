@@ -16,6 +16,8 @@ import org.smartregister.anc.library.domain.YamlConfigItem;
 import org.smartregister.anc.library.util.Utils;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by ndegwamartin on 04/12/2018.
@@ -57,7 +59,11 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
             }
         }
         String output = outputBuilder.toString();
-
+        Pattern regex = Pattern.compile("(?i)hiv");
+        Matcher matcher = regex.matcher(output);
+        if(matcher.find()){
+            output = output.replaceAll("(?i)hiv", "HIV");
+        }
         holder.sectionDetails.setText(output);
 
         if (output.trim().isEmpty()) {

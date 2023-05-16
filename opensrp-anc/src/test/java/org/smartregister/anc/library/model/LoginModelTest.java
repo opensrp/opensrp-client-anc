@@ -2,7 +2,6 @@ package org.smartregister.anc.library.model;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.robolectric.RuntimeEnvironment;
@@ -10,6 +9,7 @@ import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.login.model.BaseLoginModel;
+import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.contract.BaseLoginContract;
 
 /**
@@ -27,6 +27,8 @@ public class LoginModelTest extends BaseUnitTest {
         Context context = Mockito.spy(Context.getInstance());
         android.content.Context androidContext = RuntimeEnvironment.application;
         context.updateApplicationContext(androidContext);
+        DrishtiApplication mocDrishtiApplicaton = Mockito.mock(DrishtiApplication.class);
+        Mockito.when(mocDrishtiApplicaton.getUsername()).thenReturn("demo");
         CoreLibrary.init(context);
     }
 
