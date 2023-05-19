@@ -149,7 +149,7 @@ public class RegisterProvider implements RecyclerViewProvider<RegisterProvider.R
         if (visitDate != null) {
             String recordDate = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE, false);
             String actualEdd = Utils.getActualEDD(edd, recordDate, visitDate);
-            ga = Utils.getLastContactGA(edd, recordDate);
+            ga = Utils.getLastContactGA(edd, visitDate);
             if (actualEdd != null) edd = actualEdd;
         }
         int gaValue = StringUtils.isNotBlank(edd) && ga != 0 ? ga : 0;

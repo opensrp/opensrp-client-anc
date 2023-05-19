@@ -7,6 +7,8 @@ import android.view.View;
 
 import androidx.core.util.Pair;
 
+import com.vijay.jsonwizard.rules.RulesEngineDateUtil;
+
 import org.apache.commons.lang3.tuple.Triple;
 import org.jeasy.rules.api.Facts;
 import org.json.JSONObject;
@@ -39,12 +41,14 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
     private ProfileContract.Interactor mProfileInteractor;
     private RegisterContract.Interactor mRegisterInteractor;
     private ContactInteractor contactInteractor;
+    private RulesEngineDateUtil rulesEngineDateUtil;
 
     public ProfilePresenter(ProfileContract.View profileView) {
         mProfileView = new WeakReference<>(profileView);
         mProfileInteractor = new ProfileInteractor(this);
         mRegisterInteractor = new RegisterInteractor();
         contactInteractor = new ContactInteractor();
+        rulesEngineDateUtil = new RulesEngineDateUtil();
     }
 
     @Override
@@ -168,7 +172,7 @@ public class ProfilePresenter implements ProfileContract.Presenter, RegisterCont
                     Facts facts = AncLibrary.getInstance().getPreviousContactRepository().getPreviousContactFacts(entityId,"1");
                     if(facts == null)
                        lastVisit = Utils.getTodaysDate();
-                    else if(!recordDate.isEmpty())
+                    else if(!recordDate.isEmpty() && lastVisit.isEmpty())
                         lastVisit = recordDate;
                     Log.d("record date", recordDate);
 					String ga = String.valueOf(Utils.getLastContactGA(edd, lastVisit));

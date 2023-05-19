@@ -599,7 +599,7 @@ public class Utils extends org.smartregister.util.Utils {
             } else {
                 return 0;
             }
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             Timber.e(e, " --> getGestationAgeFromEDDate");
             return 0;
         }
