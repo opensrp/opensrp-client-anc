@@ -5,7 +5,7 @@ fields:
   - template: "{{contact_summary.hospital_referral.woman_referred_to_hospital}}"
     relevance: "referred_hosp_value == 'yes'"
 
-  - template: "{{contact_summary.hospital_referral.woman_not_referred_to_hospital}}: {referred_hosp_notdone}"
+  - template: "{{contact_summary.hospital_referral.woman_not_referred_to_hospital}}: {referred_hosp_notdone_value}"
     relevance: "referred_hosp_value == 'no'"
 
   - template: "{{contact_summary.hospital_referral.danger_signs}}: {danger_signs}"
@@ -29,22 +29,22 @@ fields:
   - template: "{{contact_summary.hospital_referral.abnormal_pulse_rate}}: {pulse_rate_repeat}kpm"
     relevance: "pulse_rate_repeat_value < 60 || pulse_rate_repeat_value > 100"
 
-  - template: "{{contact_summary.hospital_referral.respiratory_distress}}: {respiratory_exam_abnormal}"
+  - template: "{{contact_summary.hospital_referral.respiratory_distress}}: {respiratory_exam_abnormal_value_value}"
     relevance: "!respiratory_exam_abnormal_value.contains('none') && !respiratory_exam_abnormal_value.isEmpty()"
 
   - template: "{{contact_summary.hospital_referral.low_oximetry}}: {oximetry}%"
     relevance: "oximetry_value < 92"
 
-  - template: "{{contact_summary.hospital_referral.abnormal_cardiac_exam}}: {cardiac_exam_abnormal}"
+  - template: "{{contact_summary.hospital_referral.abnormal_cardiac_exam}}: {cardiac_exam_abnormal_value_value}"
     relevance: "!cardiac_exam_abnormal_value.contains('none') && !cardiac_exam_abnormal_value.isEmpty()"
 
-  - template: "{{contact_summary.hospital_referral.abnormal_breast_exam}}: {breast_exam_abnormal}"
+  - template: "{{contact_summary.hospital_referral.abnormal_breast_exam}}: {breast_exam_abnormal_value_value}"
     relevance: "!breast_exam_abnormal_value.contains('none') && !breast_exam_abnormal_value.isEmpty()"
 
-  - template: "{{contact_summary.hospital_referral.abnormal_abdominal_exam}}: {abdominal_exam_abnormal}"
+  - template: "{{contact_summary.hospital_referral.abnormal_abdominal_exam}}: {abdominal_exam_abnormal_value_value}"
     relevance: "!abdominal_exam_abnormal_value.contains('none') && !abdominal_exam_abnormal_value.isEmpty()"
 
-  - template: "{{contact_summary.hospital_referral.abnormal_pelvic_exam}}: {pelvic_exam_abnormal}"
+  - template: "{{contact_summary.hospital_referral.abnormal_pelvic_exam}}: {pelvic_exam_abnormal_value_value}"
     relevance: "!pelvic_exam_abnormal_value.contains('none') && !pelvic_exam_abnormal_value.isEmpty()"
 
   - template: "{{contact_summary.hospital_referral.no_fetal_heartbeat_observed}}"
@@ -56,22 +56,22 @@ fields:
 ---
 group: reason_for_visit
 fields:
-  - template: "{{contact_summary.reason_for_visit.reason_for_coming_to_facility}}: {contact_reason}"
+  - template: "{{contact_summary.reason_for_visit.reason_for_coming_to_facility}}: {contact_reason_value_value}"
     relevance: "contact_reason_value != ''"
 
-  - template: "{{contact_summary.reason_for_visit.health_complaint}}: {specific_complaint}"
+  - template: "{{contact_summary.reason_for_visit.health_complaint}}: {specific_complaint_value}"
     relevance: "specific_complaint_value != ''"
 
 ---
 group: demographic_info
 fields:
-  - template: "{{contact_summary.demographic_info.educ_level}}: {educ_level}"
+  - template: "{{contact_summary.demographic_info.educ_level}}: {educ_level_value}"
     relevance: "educ_level_value != ''"
 
-  - template: "{{contact_summary.demographic_info.marital_status}}: {marital_status}"
+  - template: "{{contact_summary.demographic_info.marital_status}}: {marital_status_value}"
     relevance: "marital_status_value != ''"
 
-  - template: "{{contact_summary.demographic_info.occupation}}: {occupation}"
+  - template: "{{contact_summary.demographic_info.occupation}}: {occupation_value}"
     relevance: "occupation_value != ''"
 
 ---
@@ -89,7 +89,7 @@ fields:
   - template: "{{contact_summary.current_pregnancy.no_of_fetuses}}: {no_of_fetuses}"
     relevance: "no_of_fetuses_value != ''"
 
-  - template: "{{contact_summary.current_pregnancy.fetal_presentation}}: {fetal_presentation}"
+  - template: "{{contact_summary.current_pregnancy.fetal_presentation}}: {fetal_presentation_value}"
     relevance: "fetal_presentation_value != ''"
 
   - template: "{{contact_summary.current_pregnancy.amniotic_fluid}}: {amniotic_fluid_value}"
@@ -116,7 +116,7 @@ fields:
   - template: "{{contact_summary.obstetric_history.no_of_c_sections}}: {c_sections}"
     relevance: "c_sections_value > 0"
 
-  - template: "{{contact_summary.obstetric_history.past_pregnancy_problems}}: {prev_preg_comps}"
+  - template: "{{contact_summary.obstetric_history.past_pregnancy_problems}}: {prev_preg_comps_value}"
     relevance: "(!prev_preg_comps_value.contains('dont_know') || !prev_preg_comps_value.contains('none'))"
 
   - template: "{{contact_summary.obstetric_history.past_substances_used}}: {substances_used_value}"
@@ -125,13 +125,13 @@ fields:
 ---
 group: medical_history
 fields:
-  - template: "{{contact_summary.medical_history.allergies}}: {allergies}"
+  - template: "{{contact_summary.medical_history.allergies}}: {allergies_value}"
     relevance: "!allergies_value.isEmpty()"
 
-  - template: "{{contact_summary.medical_history.surgeries}}: {surgeries}"
+  - template: "{{contact_summary.medical_history.surgeries}}: {surgeries_value}"
     relevance: "!surgeries_value.isEmpty()"
 
-  - template: "{{contact_summary.medical_history.chronic_health_conditions}}: {health_conditions}"
+  - template: "{{contact_summary.medical_history.chronic_health_conditions}}: {health_conditions_value}"
     relevance: "!health_conditions_value.isEmpty()"
 
   - template: "{{contact_summary.medical_history.hiv_diagnosis_date}}: {hiv_diagnosis_date}"
@@ -143,7 +143,7 @@ fields:
 group: immunisation_status
 fields:
 
-  - template: "{{contact_summary.immunisation_status.tt_immunisation_status}}: {tt_immun_status}"
+  - template: "{{contact_summary.immunisation_status.tt_immunisation_status}}: {tt_immun_status_value}"
     relevance: "tt_immun_status_value != ''"
 
   - template: "{{contact_summary.immunisation_status.tt_dose_1}}: {tt1_date_done_date_today_hidden} {tt1_date_done}"
@@ -152,22 +152,22 @@ fields:
   - template: "{{contact_summary.immunisation_status.tt_dose_2}}:{tt2_date_done_date_today_hidden} {tt2_date_done}"
     relevance: "tt2_date_value == 'done_today' || tt2_date_value == 'done_earlier'"
 
-  - template: "{{contact_summary.immunisation_status.tt_dose_not_given}}: {tt_dose_notdone}"
+  - template: "{{contact_summary.immunisation_status.tt_dose_not_given}}: {tt_dose_notdone_value}"
     relevance: "tt1_date_value == 'not_done' || tt2_date_value == 'not_done'"
 
-  - template: "{{contact_summary.immunisation_status.flu_immunisation_status}}: {flu_immun_status}"
+  - template: "{{contact_summary.immunisation_status.flu_immunisation_status}}: {flu_immun_status_value}"
     relevance: "flu_immun_status_value != ''"
 
   - template: "{{contact_summary.immunisation_status.flu_dose}}: {flu_date}"
     relevance: "flu_date_value == 'done_today' || flu_date_value == 'done_earlier'"
 
-  - template: "{{contact_summary.immunisation_status.flu_dose_not_given}}: {flu_dose_notdone}"
+  - template: "{{contact_summary.immunisation_status.flu_dose_not_given}}: {flu_dose_notdone_value}"
     relevance: "flu_date_value == 'not_done'"
 ---
 group: medications
 fields:
 
-  - template: "{{contact_summary.medications.current_medications}}: {medications}"
+  - template: "{{contact_summary.medications.current_medications}}: {medications_value}"
     relevance: "!medications_value.isEmpty()"
 
   - template: "{{contact_summary.medications.medications_prescribed}}: {vita}, {alben_meben}, {mag_calc}, {nausea_pharma}, {antacid}, {penicillin}, {antibiotic}, {prep}, {sp}, {ifa}, {ifa_medication}, {aspirin}, {calcium}"
@@ -198,46 +198,46 @@ fields:
 group: womans_behaviour
 fields:
 
-  - template: "{{contact_summary.woman_behaviour.persisting_behaviours}}: {behaviour_persist}"
+  - template: "{{contact_summary.woman_behaviour.persisting_behaviours}}: {behaviour_persist_value}"
     relevance: "behaviour_persist_value != ''"
 
-  - template: "{{contact_summary.woman_behaviour.caffeine_intake}}: {caffeine_intake}"
+  - template: "{{contact_summary.woman_behaviour.caffeine_intake}}: {caffeine_intake_value}"
     relevance: "caffeine_intake_value != ''"
 
-  - template: "{{contact_summary.woman_behaviour.caffeine_reduction_counseling}}: {caffeine_counsel}"
+  - template: "{{contact_summary.woman_behaviour.caffeine_reduction_counseling}}: {caffeine_counsel_value}"
     relevance: "caffeine_counsel_value == 'done'"
 
-  - template: "{{contact_summary.woman_behaviour.caffeine_reduction_not_counseling}}: {caffeine_counsel_notdone}"
+  - template: "{{contact_summary.woman_behaviour.caffeine_reduction_not_counseling}}: {caffeine_counsel_notdone_value}"
     relevance: "caffeine_counsel_value == 'not_done'"
 
-  - template: "{{contact_summary.woman_behaviour.tobacco_user}}: {tobacco_user}"
+  - template: "{{contact_summary.woman_behaviour.tobacco_user}}: {tobacco_user_value}"
     relevance: "tobacco_user_value != ''"
 
   - template: "{{contact_summary.woman_behaviour.tobacco_cessation_counseling_done}}"
     relevance: "tobacco_counsel_value == 'done'"
 
-  - template: "{{contact_summary.woman_behaviour.tobacco_cessation_counseling_done}}: {tobacco_counsel_notdone}"
+  - template: "{{contact_summary.woman_behaviour.tobacco_cessation_counseling_done}}: {tobacco_counsel_notdone_value}"
     relevance: "tobacco_counsel_value == 'not_done'"
 
-  - template: "{{contact_summary.woman_behaviour.shs_exposure}}: {shs_exposure}"
+  - template: "{{contact_summary.woman_behaviour.shs_exposure}}: {shs_exposure_value}"
     relevance: "shs_exposure_value != ''"
 
   - template: "{{contact_summary.woman_behaviour.shs_counseling_done}}"
     relevance: "shs_counsel_value == 'done'"
 
-  - template: "{{contact_summary.woman_behaviour.shs_counseling_not_done}}: {shs_counsel_notdone}"
+  - template: "{{contact_summary.woman_behaviour.shs_counseling_not_done}}: {shs_counsel_notdone_value}"
     relevance: "shs_counsel_value == 'not_done'"
 
-  - template: "{{contact_summary.woman_behaviour.condom_use}}: {condom_use}"
+  - template: "{{contact_summary.woman_behaviour.condom_use}}: {condom_use_value}"
     relevance: "condom_use_value != ''"
 
   - template: "{{contact_summary.woman_behaviour.condom_counseling_done}}"
     relevance: "condom_counsel_value == 'done'"
 
-  - template: "{{contact_summary.woman_behaviour.condom_counseling_not_done}}: {condom_counsel_notdone}"
+  - template: "{{contact_summary.woman_behaviour.condom_counseling_not_done}}: {condom_counsel_notdone_value}"
     relevance: "condom_counsel_value == 'not_done'"
 
-  - template: "{{contact_summary.woman_behaviour.alcohol_substance_enquiry}}: {alcohol_substance_enquiry}"
+  - template: "{{contact_summary.woman_behaviour.alcohol_substance_enquiry}}: {alcohol_substance_enquiry_value}"
     relevance: "alcohol_substance_enquiry_value != ''"
 
   - template: "{{contact_summary.woman_behaviour.alcohol_substances_used}}: {alcohol_substance_use_value}, {other_substance_use}"
@@ -246,91 +246,91 @@ fields:
   - template: "{{contact_summary.woman_behaviour.alcohol_substances_use_counseling_done}}"
     relevance: "alcohol_substance_counsel_value == 'done'"
 
-  - template: "{{contact_summary.woman_behaviour.alcohol_substances_use_counseling_not_done}}: {alcohol_substance_counsel_notdone}"
+  - template: "{{contact_summary.woman_behaviour.alcohol_substances_use_counseling_not_done}}: {alcohol_substance_counsel_notdone_value}"
     relevance: "alcohol_substance_counsel_value == 'not_done'"
 ---
 group: physiological_symptoms
 fields:
 
-  - template: "{{contact_summary.physiological_symptoms.persisting_physiological_symptoms}}: {phys_symptoms_persist}"
+  - template: "{{contact_summary.physiological_symptoms.persisting_physiological_symptoms}}: {phys_symptoms_persist_value}"
     relevance: "phys_symptoms_persist_value != ''"
 
-  - template: "{{contact_summary.physiological_symptoms.physiological_symptoms}}: {phys_symptoms}"
+  - template: "{{contact_summary.physiological_symptoms.physiological_symptoms}}: {phys_symptoms_value}"
     relevance: "phys_symptoms_value != ''"
 
-  - template: "{{contact_summary.physiological_symptoms.low_back_and_pelvic_pain_other_symptoms}}: {other_sym_lbpp}"
+  - template: "{{contact_summary.physiological_symptoms.low_back_and_pelvic_pain_other_symptoms}}: {other_sym_lbpp_value}"
     relevance: "other_sym_lbpp_value != ''"
 
-  - template: "{{contact_summary.physiological_symptoms.varicose_veins_or_oedema_other_symptoms}}: {other_sym_vvo}"
+  - template: "{{contact_summary.physiological_symptoms.varicose_veins_or_oedema_other_symptoms}}: {other_sym_vvo_value}"
     relevance: "other_sym_vvo_value != ''"
 
   - template: "{{contact_summary.physiological_symptoms.non_pharma_nausea_and_vomiting_counseling_done}}"
     relevance: "nausea_counsel_value == 'done'"
 
-  - template: "{{contact_summary.physiological_symptoms.non_pharma_nausea_and_vomiting_counseling_not_done}}: {nausea_counsel_notdone}"
+  - template: "{{contact_summary.physiological_symptoms.non_pharma_nausea_and_vomiting_counseling_not_done}}: {nausea_counsel_notdone_value}"
     relevance: "nausea_counsel_value == 'not_done'"
 
   - template: "{{contact_summary.physiological_symptoms.pharma_nausea_and_vomiting_counseling_done}}"
     relevance: "nausea_not_relieved_counsel_value == 'done'"
 
-  - template: "{{contact_summary.physiological_symptoms.pharma_nausea_and_vomiting_counseling_not_done}}: {nausea_not_relieved_counsel_notdone}"
+  - template: "{{contact_summary.physiological_symptoms.pharma_nausea_and_vomiting_counseling_not_done}}: {nausea_not_relieved_counsel_notdone_value}"
     relevance: "nausea_not_relieved_counsel_value == 'not_done'"
 
   - template: "{{contact_summary.physiological_symptoms.diet_heartburn_counseling_done}}"
     relevance: "heartburn_counsel_value == 'done'"
 
-  - template: "{{contact_summary.physiological_symptoms.diet_heartburn_counseling_not_done}}: {heartburn_counsel_notdone}"
+  - template: "{{contact_summary.physiological_symptoms.diet_heartburn_counseling_not_done}}: {heartburn_counsel_notdone_value}"
     relevance: "heartburn_counsel_value == 'not_done'"
 
   - template: "{{contact_summary.physiological_symptoms.antacid_heartburn_counseling_done}}"
     relevance: "heartburn_not_relieved_counsel_value == 'done'"
 
-  - template: "{{contact_summary.physiological_symptoms.antacid_heartburn_counseling_not_done}}: {heartburn_not_relieved_counsel_notdone}"
+  - template: "{{contact_summary.physiological_symptoms.antacid_heartburn_counseling_not_done}}: {heartburn_not_relieved_counsel_notdone_value}"
     relevance: "heartburn_not_relieved_counsel_value == 'not_done'"
 
   - template: "{{contact_summary.physiological_symptoms.no_pharma_legs_cramps_counseling_done}}"
     relevance: "leg_cramp_counsel_value == 'done'"
 
-  - template: "{{contact_summary.physiological_symptoms.no_pharma_legs_cramps_counseling_not_done}}: {leg_cramp_counsel_notdone}"
+  - template: "{{contact_summary.physiological_symptoms.no_pharma_legs_cramps_counseling_not_done}}: {leg_cramp_counsel_notdone_value}"
     relevance: "leg_cramp_counsel_value == 'not_done'"
 
   - template: "{{contact_summary.physiological_symptoms.calcium_legs_cramps_counseling_done}}"
     relevance: "leg_cramp_not_relieved_counsel_value == 'done'"
 
-  - template: "{{contact_summary.physiological_symptoms.calcium_legs_cramps_counseling_not_done}}: {leg_cramp_not_relieved_counsel_notdone}"
+  - template: "{{contact_summary.physiological_symptoms.calcium_legs_cramps_counseling_not_done}}: {leg_cramp_not_relieved_counsel_notdone_value}"
     relevance: "leg_cramp_not_relieved_counsel_value == 'not_done'"
 
   - template: "{{contact_summary.physiological_symptoms.dietary_modifications_counseling_done}}"
     relevance: "constipation_counsel_value == 'done'"
 
-  - template: "{{contact_summary.physiological_symptoms.dietary_modifications_counseling_not_done}}: {constipation_counsel_notdone}"
+  - template: "{{contact_summary.physiological_symptoms.dietary_modifications_counseling_not_done}}: {constipation_counsel_notdone_value}"
     relevance: "constipation_counsel_value == 'not_done'"
 
   - template: "{{contact_summary.physiological_symptoms.fiber_relieve_constipation_counseling_done}}"
     relevance: "constipation_not_relieved_counsel_value == 'done'"
 
-  - template: "{{contact_summary.physiological_symptoms.fiber_relieve_constipation_counseling_not_done}}: {constipation_not_relieved_counsel_notdone}"
+  - template: "{{contact_summary.physiological_symptoms.fiber_relieve_constipation_counseling_not_done}}: {constipation_not_relieved_counsel_notdone_value}"
     relevance: "constipation_not_relieved_counsel_value == 'not_done'"
 
   - template: "{{contact_summary.physiological_symptoms.regular_low_back_pelvic_pain_counseling_done}}"
     relevance: "back_pelvic_pain_counsel_value == 'done'"
 
-  - template: "{{contact_summary.physiological_symptoms.regular_low_back_pelvic_pain_counseling_not_done}}: {back_pelvic_pain_counsel_notdone}"
+  - template: "{{contact_summary.physiological_symptoms.regular_low_back_pelvic_pain_counseling_not_done}}: {back_pelvic_pain_counsel_notdone_value}"
     relevance: "back_pelvic_pain_counsel_value == 'not_done'"
 
   - template: "{{contact_summary.physiological_symptoms.pharma_oedema_counseling_done}}"
     relevance: "varicose_oedema_counsel_value == 'done'"
 
-  - template: "{{contact_summary.physiological_symptoms.pharma_oedema_counseling_not_done}}: {varicose_oedema_counsel_notdone}"
+  - template: "{{contact_summary.physiological_symptoms.pharma_oedema_counseling_not_done}}: {varicose_oedema_counsel_notdone_value}"
     relevance: "varicose_oedema_counsel_value == 'not_done'"
 
-  - template: "{{contact_summary.physiological_symptoms.other_persisting_symptoms}}: {other_symptoms_persist}"
+  - template: "{{contact_summary.physiological_symptoms.other_persisting_symptoms}}: {other_symptoms_persist_value}"
     relevance: "other_symptoms_persist_value != ''"
 
-  - template: "{{contact_summary.physiological_symptoms.other_symptoms}}: {other_symptoms}"
+  - template: "{{contact_summary.physiological_symptoms.other_symptoms}}: {other_symptoms_value}"
     relevance: "other_symptoms_value != ''"
 
-  - template: "{{contact_summary.physiological_symptoms.fetal_movement_felt_by_woman}}: {mat_percept_fetal_move}"
+  - template: "{{contact_summary.physiological_symptoms.fetal_movement_felt_by_woman}}: {mat_percept_fetal_move_value}"
     relevance: "mat_percept_fetal_move_value != ''"
 ---
 group: height_and_weight
@@ -363,19 +363,19 @@ fields:
   - template: "{{contact_summary.height_and_weight.health_eating_counseling_done}}"
     relevance: "eat_exercise_counsel_value == 'done'"
 
-  - template: "{{contact_summary.height_and_weight.health_eating_counseling_not_done}}: {eat_exercise_counsel}"
+  - template: "{{contact_summary.height_and_weight.health_eating_counseling_not_done}}: {eat_exercise_counsel_notdone_value}"
     relevance: "eat_exercise_counsel_value == 'not_done'"
 
   - template: "{{contact_summary.height_and_weight.daily_energy_protein_counseling_done}}"
     relevance: "increase_energy_counsel_value == 'done'"
 
-  - template: "{{contact_summary.height_and_weight.daily_energy_protein_counseling_not_done}}: {increase_energy_counsel}"
+  - template: "{{contact_summary.height_and_weight.daily_energy_protein_counseling_not_done}}: {increase_energy_counsel_notdone_value}"
     relevance: "increase_energy_counsel_value == 'not_done'"
 
   - template: "{{contact_summary.height_and_weight.balanced_protein_dietary_counseling_done}}"
     relevance: "balanced_energy_counsel_value == 'done'"
 
-  - template: "{{contact_summary.height_and_weight.balanced_protein_dietary_counseling_not_done}}: {balanced_energy_counsel}"
+  - template: "{{contact_summary.height_and_weight.balanced_protein_dietary_counseling_not_done}}: {balanced_energy_counsel_notdone_value}"
     relevance: "balanced_energy_counsel_value == 'not_done'"
 ---
 group: blood_pressure
@@ -429,10 +429,10 @@ fields:
   - template: "{{contact_summary.maternal_exam.pallor_present}}: {pallor_value_value}"
     relevance: "pallor != ''"
 
-  - template: "{{contact_summary.maternal_exam.respiratory_exam}}: {respiratory_exam_value}"
+  - template: "{{contact_summary.maternal_exam.respiratory_exam}}: {respiratory_exam_value_value}"
     relevance: "respiratory_exam != ''"
 
-  - template: "{{contact_summary.maternal_exam.abnormal_specify}}: {respiratory_exam_abnormal_value}"
+  - template: "{{contact_summary.maternal_exam.abnormal_specify}}: {respiratory_exam_abnormal_value_value}"
     relevance: "!respiratory_exam_abnormal.contains('none') && !respiratory_exam_abnormal.isEmpty()"
 
   - template: "{{contact_summary.maternal_exam.oximetry}}: {oximetry}%"
@@ -441,25 +441,25 @@ fields:
   - template: "{{contact_summary.maternal_exam.cardiac_exam}}: {cardiac_exam_value}"
     relevance: "cardiac_exam != ''"
 
-  - template: "{{contact_summary.maternal_exam.abnormal_specify}}: {cardiac_exam_abnormal_value}"
+  - template: "{{contact_summary.maternal_exam.abnormal_specify}}: {cardiac_exam_abnormal_value_value}"
     relevance: "!cardiac_exam_abnormal.isEmpty()"
 
-  - template: "{{contact_summary.maternal_exam.breast_exam}}: {breast_exam_value}"
+  - template: "{{contact_summary.maternal_exam.breast_exam}}: {breast_exam_value_value}"
     relevance: "breast_exam != ''"
 
-  - template: "{{contact_summary.maternal_exam.abnormal_specify}}: {breast_exam_abnormal_value}"
+  - template: "{{contact_summary.maternal_exam.abnormal_specify}}: {breast_exam_abnormal_value_value}"
     relevance: "!breast_exam_abnormal.isEmpty()"
 
-  - template: "{{contact_summary.maternal_exam.abdominal_exam}}: {abdominal_exam_value}"
+  - template: "{{contact_summary.maternal_exam.abdominal_exam}}: {abdominal_exam_value_value}"
     relevance: "abdominal_exam != ''"
 
-  - template: "{{contact_summary.maternal_exam.abnormal_specify}}: {abdominal_exam_abnormal_value}"
+  - template: "{{contact_summary.maternal_exam.abnormal_specify}}: {abdominal_exam_abnormal_value_value}"
     relevance: "!abdominal_exam_abnormal.isEmpty()"
 
   - template: "{{contact_summary.maternal_exam.pelvic_exam}}: {pelvic_exam_value}"
     relevance: "pelvic_exam != ''"
 
-  - template: "{{contact_summary.maternal_exam.abnormal_specify}}: {pelvic_exam_abnormal_value}"
+  - template: "{{contact_summary.maternal_exam.abnormal_specify}}: {pelvic_exam_abnormal_value_value}"
     relevance: "!pelvic_exam_abnormal.isEmpty()"
 
   - template: "{{contact_summary.maternal_exam.cervical_exam}}: {cervical_exam_value}"
@@ -558,7 +558,7 @@ fields:
   - template: "{{contact_summary.partner_hiv_test.partner_hiv_test_date}}: {hiv_test_partner_date}"
     relevance: "hiv_test_partner_date != ''"
 
-  - template: "{{contact_summary.partner_hiv_test.partner_hiv_test_result}}: {hiv_test_partner_result_value}"
+  - template: "{{contact_summary.partner_hiv_test.partner_hiv_test_result}}: {hiv_test_partner_result_value_value}"
     relevance: "hiv_test_partner_result != ''"
 
   - template: "{{contact_summary.partner_hiv_test.partner_hiv_test_ordered}}"
