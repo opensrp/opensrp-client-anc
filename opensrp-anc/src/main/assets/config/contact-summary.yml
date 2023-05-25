@@ -59,7 +59,7 @@ fields:
   - template: "{{contact_summary.reason_for_visit.reason_for_coming_to_facility}}: {contact_reason_value_value}"
     relevance: "contact_reason_value != ''"
 
-  - template: "{{contact_summary.reason_for_visit.health_complaint}}: {specific_complaint_value}"
+  - template: "{{contact_summary.reason_for_visit.health_complaint}}: {specific_complaint}"
     relevance: "specific_complaint_value != ''"
 
 ---
@@ -68,7 +68,7 @@ fields:
   - template: "{{contact_summary.demographic_info.educ_level}}: {educ_level_value}"
     relevance: "educ_level_value != ''"
 
-  - template: "{{contact_summary.demographic_info.marital_status}}: {marital_status_value}"
+  - template: "{{contact_summary.demographic_info.marital_status}}: {marital_status_value_value}"
     relevance: "marital_status_value != ''"
 
   - template: "{{contact_summary.demographic_info.occupation}}: {occupation_value}"
@@ -125,13 +125,13 @@ fields:
 ---
 group: medical_history
 fields:
-  - template: "{{contact_summary.medical_history.allergies}}: {allergies_value}"
+  - template: "{{contact_summary.medical_history.allergies}}: {allergies}"
     relevance: "!allergies_value.isEmpty()"
 
-  - template: "{{contact_summary.medical_history.surgeries}}: {surgeries_value}"
+  - template: "{{contact_summary.medical_history.surgeries}}: {surgeries}"
     relevance: "!surgeries_value.isEmpty()"
 
-  - template: "{{contact_summary.medical_history.chronic_health_conditions}}: {health_conditions_value}"
+  - template: "{{contact_summary.medical_history.chronic_health_conditions}}: {health_conditions}"
     relevance: "!health_conditions_value.isEmpty()"
 
   - template: "{{contact_summary.medical_history.hiv_diagnosis_date}}: {hiv_diagnosis_date}"
@@ -143,7 +143,7 @@ fields:
 group: immunisation_status
 fields:
 
-  - template: "{{contact_summary.immunisation_status.tt_immunisation_status}}: {tt_immun_status_value}"
+  - template: "{{contact_summary.immunisation_status.tt_immunisation_status}}: {tt_immun_status_value_value}"
     relevance: "tt_immun_status_value != ''"
 
   - template: "{{contact_summary.immunisation_status.tt_dose_1}}: {tt1_date_done_date_today_hidden} {tt1_date_done}"
@@ -189,7 +189,7 @@ fields:
   - template: "{{contact_summary.medications.aspirin_compliance}}: {aspirin_comply}"
     relevance: "aspirin_comply_value != ''"
 
-  - template: "{{contact_summary.medications.vitamin_a_compliance}}: {vita_comply}"
+  - template: "{{contact_summary.medications.vitamin_a_compliance}}: {vita_comply_value_value}"
     relevance: "vita_comply_value != ''"
 
   - template: "{{contact_summary.medications.penicillin_compliance}}: {penicillin_comply}"
@@ -210,7 +210,7 @@ fields:
   - template: "{{contact_summary.woman_behaviour.caffeine_reduction_not_counseling}}: {caffeine_counsel_notdone_value}"
     relevance: "caffeine_counsel_value == 'not_done'"
 
-  - template: "{{contact_summary.woman_behaviour.tobacco_user}}: {tobacco_user_value}"
+  - template: "{{contact_summary.woman_behaviour.tobacco_user}}: {tobacco_user_value_value}"
     relevance: "tobacco_user_value != ''"
 
   - template: "{{contact_summary.woman_behaviour.tobacco_cessation_counseling_done}}"
@@ -228,7 +228,7 @@ fields:
   - template: "{{contact_summary.woman_behaviour.shs_counseling_not_done}}: {shs_counsel_notdone_value}"
     relevance: "shs_counsel_value == 'not_done'"
 
-  - template: "{{contact_summary.woman_behaviour.condom_use}}: {condom_use_value}"
+  - template: "{{contact_summary.woman_behaviour.condom_use}}: {condom_use_value_value}"
     relevance: "condom_use_value != ''"
 
   - template: "{{contact_summary.woman_behaviour.condom_counseling_done}}"
@@ -237,7 +237,7 @@ fields:
   - template: "{{contact_summary.woman_behaviour.condom_counseling_not_done}}: {condom_counsel_notdone_value}"
     relevance: "condom_counsel_value == 'not_done'"
 
-  - template: "{{contact_summary.woman_behaviour.alcohol_substance_enquiry}}: {alcohol_substance_enquiry_value}"
+  - template: "{{contact_summary.woman_behaviour.alcohol_substance_enquiry}}: {alcohol_substance_enquiry_value_value}"
     relevance: "alcohol_substance_enquiry_value != ''"
 
   - template: "{{contact_summary.woman_behaviour.alcohol_substances_used}}: {alcohol_substance_use_value}, {other_substance_use}"
@@ -258,7 +258,7 @@ fields:
   - template: "{{contact_summary.physiological_symptoms.physiological_symptoms}}: {phys_symptoms_value}"
     relevance: "phys_symptoms_value != ''"
 
-  - template: "{{contact_summary.physiological_symptoms.low_back_and_pelvic_pain_other_symptoms}}: {other_sym_lbpp_value}"
+  - template: "{{contact_summary.physiological_symptoms.low_back_and_pelvic_pain_other_symptoms}}: {other_sym_lbpp}"
     relevance: "other_sym_lbpp_value != ''"
 
   - template: "{{contact_summary.physiological_symptoms.varicose_veins_or_oedema_other_symptoms}}: {other_sym_vvo_value}"
@@ -327,7 +327,7 @@ fields:
   - template: "{{contact_summary.physiological_symptoms.other_persisting_symptoms}}: {other_symptoms_persist_value}"
     relevance: "other_symptoms_persist_value != ''"
 
-  - template: "{{contact_summary.physiological_symptoms.other_symptoms}}: {other_symptoms_value}"
+  - template: "{{contact_summary.physiological_symptoms.other_symptoms}}: {other_symptoms}"
     relevance: "other_symptoms_value != ''"
 
   - template: "{{contact_summary.physiological_symptoms.fetal_movement_felt_by_woman}}: {mat_percept_fetal_move_value}"
@@ -519,7 +519,7 @@ fields:
   - template: "{{contact_summary.blood_type_test.blood_type}}: {blood_type_value}"
     relevance: "blood_type != ''"
 
-  - template: "{{contact_summary.blood_type_test.rh_factor}}: {rh_factor_value}"
+  - template: "{{contact_summary.blood_type_test.rh_factor}}: {rh_factor_value_value}"
     relevance: "rh_factor != ''"
 
   - template: "{{contact_summary.blood_type_test.rh_factor_negative_counseling_done}}"
@@ -669,7 +669,7 @@ fields:
   - template: "{{contact_summary.urine_tests.midstream_urine_culture_result}}: {urine_culture_value_value}"
     relevance: "urine_culture != ''"
 
-  - template: "{{contact_summary.urine_tests.midstream_urine_gram_staining_result}}: {urine_gram_stain_value}"
+  - template: "{{contact_summary.urine_tests.midstream_urine_gram_staining_result}}: {urine_gram_stain_value_value}"
     relevance: "urine_gram_stain != ''"
 
   - template: "{{contact_summary.urine_tests.urine_nitrites}}: {urine_nitrites_value}"
@@ -870,7 +870,7 @@ fields:
   - template: "{{contact_summary.family_planning_counseling.pfp_counseling_not_done}}"
     relevance: "family_planning_counsel == 'not_done'"
 
-  - template: "{{contact_summary.family_planning_counseling.fp_method_accepted}}: {family_planning_type_value}"
+  - template: "{{contact_summary.family_planning_counseling.fp_method_accepted}}: {family_planning_type_value_value}"
     relevance: "family_planning_type != ''"
 ---
 group: birth_plan_counseling

@@ -167,23 +167,23 @@ fields:
   - template: "{{profile_overview.hospital_referral_reasons.abnormal_pulse_rate}}: {pulse_rate_repeat} kpm"
     relevance: "pulse_rate_repeat < 60 || pulse_rate_repeat > 100"
 
-  - template: "{{profile_overview.hospital_referral_reasons.respiratory_distress}}: {respiratory_exam_abnormal_value_value}"
+  - template: "{{profile_overview.hospital_referral_reasons.respiratory_distress}}: {respiratory_exam_abnormal_value}"
     relevance: "respiratory_exam_abnormal != ''"
 
   - template: "{{profile_overview.hospital_referral_reasons.low_oximetry}}: {oximetry}%"
     relevance: "oximetry < 92"
     isRedFont: "true"
 
-  - template: "{{profile_overview.hospital_referral_reasons.abnormal_cardiac_exam}}: {cardiac_exam_abnormal_value_value}"
+  - template: "{{profile_overview.hospital_referral_reasons.abnormal_cardiac_exam}}: {cardiac_exam_abnormal_value}"
     relevance: "!cardiac_exam_abnormal.contains('none')"
 
-  - template: "{{profile_overview.hospital_referral_reasons.abnormal_breast_exam}}: {breast_exam_abnormal_value_value}"
+  - template: "{{profile_overview.hospital_referral_reasons.abnormal_breast_exam}}: {breast_exam_abnormal_value}"
     relevance: "!breast_exam_abnormal.contains('none')"
 
-  - template: "{{profile_overview.hospital_referral_reasons.abnormal_abdominal_exam}}: {abdominal_exam_abnormal_value_value}"
+  - template: "{{profile_overview.hospital_referral_reasons.abnormal_abdominal_exam}}: {abdominal_exam_abnormal_value}"
     relevance: "!abdominal_exam_abnormal.contains('none')"
 
-  - template: "{{profile_overview.hospital_referral_reasons.abnormal_pelvic_exam}}: {pelvic_exam_abnormal_value_value}"
+  - template: "{{profile_overview.hospital_referral_reasons.abnormal_pelvic_exam}}: {pelvic_exam_abnormal_value}"
     relevance: "!pelvic_exam_abnormal.contains('none')"
 
   - template: "{{profile_overview.hospital_referral_reasons.no_fetal_heartbeat_observed}}"
@@ -224,27 +224,27 @@ fields:
     relevance: "preeclampsia_risk == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.pre_hiv_risk}}: {date}"
+  - template: "{{profile_overview.pre_hiv_risk}}"
     relevance: "hiv_risk == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.diabetes_risk}}: {date} "
+  - template: "{{profile_overview.diabetes_risk}} "
     relevance: "gdm_risk == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.hypertension}}: {date}"
+  - template: "{{profile_overview.hypertension}}"
     relevance: "hypertension == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.severe_hypertension}}: {date}: {date}"
+  - template: "{{profile_overview.severe_hypertension}}"
     relevance: "severe_hypertension == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.pre_eclampsia}}: {date}"
+  - template: "{{profile_overview.pre_eclampsia}}"
     relevance: "preeclampsia == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.severe_pre_eclampsia}}: {date}"
+  - template: "{{profile_overview.severe_pre_eclampsia}}"
     relevance: "severe_preeclampsia == 1"
     isRedFont: "true"
 
@@ -252,11 +252,11 @@ fields:
     relevance: "rh_factor == 'negative'"
     isRedFont: "true"
 
-  - template: "{{profile_overview.hiv_positive}}: {hiv_test_result}"
+  - template: "{{profile_overview.hiv_positive}}"
     relevance: "hiv_positive == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.hepatitis_b_positive}}: {date}"
+  - template: "{{profile_overview.hepatitis_b_positive}}"
     relevance: "hepb_positive == 1"
     isRedFont: "true"
 
@@ -264,7 +264,7 @@ fields:
     relevance: "hepc_positive == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.syphilis_positive}}: {date}"
+  - template: "{{profile_overview.syphilis_positive}}"
     relevance: "syphilis_positive == 1"
     isRedFont: "true"
 

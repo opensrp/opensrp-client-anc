@@ -24,7 +24,7 @@ fields:
   - template: "{{attention_flags.yellow.diabetes_risk}}: {{attention_flags.yes}}"
     relevance: "gdm_risk == 1"
 
-  - template: "{{attention_flags.yellow.surgeries}}: {surgeries_value}"
+  - template: "{{attention_flags.yellow.surgeries}}: {surgeries_value_value}"
     relevance: "!surgeries.isEmpty() && !surgeries.contains('none')"
 
   - template: "{{attention_flags.yellow.chronic_health_conditions}}: {health_conditions_value}"
@@ -54,10 +54,10 @@ fields:
   - template: "{{attention_flags.yellow.abnormal_pelvic_exam}}: {pelvic_exam_abnormal_value_value}"
     relevance: "!pelvic_exam_abnormal.contains('none') && !pelvic_exam_abnormal.isEmpty()"
 
-  - template: "{{attention_flags.yellow.oedema_present}}: {oedema_value}"
+  - template: "{{attention_flags.yellow.oedema_present}}: {oedema_value_value}"
     relevance: "oedema == 'yes'"
 
-  - template: "{{attention_flags.yellow.rh_factor_negative}}: {rh_factor_value}"
+  - template: "{{attention_flags.yellow.rh_factor_negative}}: {rh_factor_value_value}"
     relevance: "rh_factor == 'negative'"
 ---
 group: red_attention_flag
