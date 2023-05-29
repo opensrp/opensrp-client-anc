@@ -252,19 +252,19 @@ fields:
     relevance: "rh_factor == 'negative'"
     isRedFont: "true"
 
-  - template: "{{profile_overview.hiv_positive}}"
+  - template: "{{profile_overview.hiv_positive}}: {hiv_diagnosis_date}"
     relevance: "hiv_positive == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.hepatitis_b_positive}}"
+  - template: "{{profile_overview.hepatitis_b_positive}}: {hepb_test_date}"
     relevance: "hepb_positive == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.hepatitis_c_positive}}: {date}"
+  - template: "{{profile_overview.hepatitis_c_positive}}: {hepc_test_date}"
     relevance: "hepc_positive == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.syphilis_positive}}"
+  - template: "{{profile_overview.syphilis_positive}}: {syphilis_test_date}"
     relevance: "syphilis_positive == 1"
     isRedFont: "true"
 
@@ -272,7 +272,7 @@ fields:
     relevance: "asb_positive == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.gbs}}: {date}"
+  - template: "{{profile_overview.gbs}}: {urine_test_date}"
     relevance: "urine_culture == 'positive - group b streptococcus (gbs)'"
     isRedFont: "true"
 
