@@ -22,9 +22,11 @@ public class CharacteristicsAdapter extends RecyclerView.Adapter<Characteristics
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
+    private Context mContext;
     public CharacteristicsAdapter(Context context, List<ServerSetting> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
+        this.mContext = context;
     }
 
     @Override
@@ -37,7 +39,7 @@ public class CharacteristicsAdapter extends RecyclerView.Adapter<Characteristics
     public void onBindViewHolder(ViewHolder holder, int position) {
         ServerSetting characteristic = mData.get(position);String label = characteristic.getLabel() != null ? characteristic.getLabel() : "";
         holder.labelTextView.setText(label);
-        holder.valueTextView.setText(characteristic.getValue() ? "Yes" : "No");
+        holder.valueTextView.setText(characteristic.getValue() ? mContext.getString(R.string.yes) : mContext.getString(R.string.no));
         holder.info.setTag(characteristic.getKey());
         holder.info.setTag(R.id.CHARACTERISTIC_DESC, characteristic.getDescription());
     }
