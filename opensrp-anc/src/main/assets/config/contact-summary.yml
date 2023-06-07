@@ -255,7 +255,7 @@ fields:
   - template: "{{contact_summary.physiological_symptoms.persisting_physiological_symptoms}}: {phys_symptoms_persist_value}"
     relevance: "phys_symptoms_persist_value != ''"
 
-  - template: "{{contact_summary.physiological_symptoms.physiological_symptoms}}: {phys_symptoms_value}"
+  - template: "{{contact_summary.physiological_symptoms.physiological_symptoms}}: {phys_symptoms}"
     relevance: "phys_symptoms_value != ''"
 
   - template: "{{contact_summary.physiological_symptoms.low_back_and_pelvic_pain_other_symptoms}}: {other_sym_lbpp}"
@@ -471,7 +471,7 @@ fields:
   - template: "{{contact_summary.maternal_exam.oedema_present}}: {oedema_value_value}"
     relevance: "oedema != ''"
 
-  - template: "{{contact_summary.maternal_exam.oedema_type}}: {oedema_type_value}"
+  - template: "{{contact_summary.maternal_exam.oedema_type}}: {oedema_type_value_value}"
     relevance: "oedema_type != ''"
 
   - template: "{{contact_summary.maternal_exam.oedema_severity}}: {oedema_severity_value}"
@@ -636,7 +636,7 @@ fields:
   - template: "{{contact_summary.syphilis_test.rapid_syphilis_test_rst_result}}: {rapid_syphilis_test_value_value}"
     relevance: "rapid_syphilis_test != ''"
 
-  - template: "{{contact_summary.syphilis_test.rapid_plasma_reagin_rpr_test_result}}: {rpr_syphilis_test}"
+  - template: "{{contact_summary.syphilis_test.rapid_plasma_reagin_rpr_test_result}}: {rpr_syphilis_test_value}"
     relevance: "rpr_syphilis_test != ''"
 
   - template: "{{contact_summary.syphilis_test.Off_site_lab_test_for_syphilis_result}}: {lab_syphilis_test}"

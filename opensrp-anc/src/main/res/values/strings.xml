@@ -659,6 +659,20 @@
 	<string name="deworming_and_malaria_prophylaxis">Deworming and Malaria Prophylaxis</string>
 	<string name="calcium_supplementation">Calcium Supplementation</string>
 	<string name="vitamin_a_supplementation">Vitamin A Supplementation</string>
+	<string name="seven_day_antibiotic">Seven-day antibiotic for ASB</string>
+	<string name="magnesium_and_calcium_for_cramps">Magnesium and calcium for persistent leg cramps</string>
+	<string name="pharmacologicals_for_persistent_nausea_and_vomiting">Pharmacologicals for persistent nausea and vomiting</string>
+	<string name="antacids_for_persistent_heartburn">Antacids for persistent heartburn</string>
+	<string name="erythromycin_or_azithromycin">Erythromycin 500 mg orally four times daily for 14 days or Azithromycin 2 g once orally.</string>
+	<string name="penicillin_for_syphilis">Penicillin for syphilis</string>
+	<string name="iron_and_folic_acid_for_anaemia">Iron &amp; folic acid for anaemia treatment</string>
+	<string name="asprin_for_pre_eclampsia_risk">Aspirin for pre-eclampsia risk</string>
+	<string name="prep">HIV Pre-exposure prophylaxis (PrEP)</string>
+	<string name="iron_and_folic_supplement">Iron &amp; folic acid supplement</string>
+	<string name="albendazole_mebendazole_for_deworming">Albendazole/mebendazole for deworming</string>
+	<string name="sulfadoxine_pyrimethamine_for_malaria_prevention">Sulfadoxine-pyrimethamine (SP) for malaria prevention</string>
+
+
 
 
 	<!-- Page: Me -->

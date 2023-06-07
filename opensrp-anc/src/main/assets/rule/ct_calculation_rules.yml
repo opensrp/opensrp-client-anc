@@ -102,42 +102,42 @@ description: mag_calc
 priority: 1
 condition: "true"
 actions:
- - 'calculation =   (step3_leg_cramp_not_relieved_counsel == "done" ? "Magnesium and calcium for persistent leg cramps" : "")'
+ - 'calculation =   (step3_leg_cramp_not_relieved_counsel == "done" ? helper.getTranslatedValues('magnesium_and_calcium_for_cramps') : "")'
 ---
 name: step3_nausea_pharma
 description: nausea_pharma
 priority: 1
 condition: "true"
 actions:
- - 'calculation = (step3_nausea_not_relieved_counsel == "done" ? "Pharmacologicals for persistent nausea and vomiting" : "")'
+ - 'calculation = (step3_nausea_not_relieved_counsel == "done" ? helper.getTranslatedValues('pharmacologicals_for_persistent_nausea_and_vomiting') : "")'
 ---
 name: step3_antacid
 description: antacid
 priority: 1
 condition: "true"
 actions:
- - 'calculation = (step3_heartburn_not_relieved_counsel == "done" ? "Antacids for persistent heartburn" : "")'
+ - 'calculation = (step3_heartburn_not_relieved_counsel == "done" ? helper.getTranslatedValues('antacids_for_persistent_heartburn'): "")'
 ---
 name: step5_penicillin
 description: penicillin
 priority: 1
 condition: "true"
 actions:
- - 'calculation = (step5_syphilis_high_prev_counsel == "done" || step5_syphilis_low_prev_counsel == "done"  ?  ((!global_allergies.isEmpty() && global_allergies.contains("penicillin")) ? "Erythromycin 500 mg orally four times daily for 14 days or Azithromycin 2 g once orally." : "Penicillin for syphilis") : "") '
+ - 'calculation = (step5_syphilis_high_prev_counsel == "done" || step5_syphilis_low_prev_counsel == "done"  ?  ((!global_allergies.isEmpty() && global_allergies.contains("penicillin")) ? helper.getTranslatedValues('erythromycin_or_azithromycin') : helper.getTranslatedValues('penicillin_for_syphilis')) : "") '
 ---
 name: step5_ifa_medication
 description: ifa_medication
 priority: 1
 condition: "true"
 actions:
- - 'calculation = (step5_ifa_anaemia == "done" ? "Iron & folic acid for anaemia treatment" : "") '
+ - 'calculation = (step5_ifa_anaemia == "done" ? helper.getTranslatedValues('iron_and_folic_acid_for_anaemia') : "") '
 ---
 name: step5_antibiotic
 description: antibiotic
 priority: 1
 condition: "true"
 actions:
- - 'calculation = (step5_asb_positive_counsel == "done" ? "Seven-day antibiotic for ASB" : "") '
+ - 'calculation = (step5_asb_positive_counsel == "done" ? helper.getTranslatedValues('seven_day_antibiotic') : "") '
 ---
 name: step5_low_prev_allergy_toaster
 description: Displays the womans allergies .
@@ -158,21 +158,21 @@ description: aspirin
 priority: 1
 condition: "true"
 actions:
- - 'calculation = ((step6_pe_risk_aspirin == "done" || step6_pe_risk_aspirin_calcium == "done") ? "Aspirin for pre-eclampsia risk" : "") '
+ - 'calculation = ((step6_pe_risk_aspirin == "done" || step6_pe_risk_aspirin_calcium == "done") ? helper.getTranslatedValues('asprin_for_pre_eclampsia_risk') : "") '
 ---
 name: step6_prep
 description: prep
 priority: 1
 condition: "true"
 actions:
- - 'calculation = (step6_hiv_prep == "done" ? "HIV Pre-exposure prophylaxis (PrEP)" : "") '
+ - 'calculation = (step6_hiv_prep == "done" ? helper.getTranslatedValues('prep') : "") '
 ---
 name: step9_ifa
 description: ifa
 priority: 1
 condition: "true"
 actions:
- - 'calculation = ((step9_ifa_high_prev == "done" || step9_ifa_low_prev == "done") ? "Iron & folic acid supplement" : "") '
+ - 'calculation = ((step9_ifa_high_prev == "done" || step9_ifa_low_prev == "done") ? helper.getTranslatedValues('iron_and_folic_supplement') : "") '
 ---
 name: step9_ifa_high_prev_toaster
 description: Displays the womans allergies .
@@ -193,7 +193,7 @@ description: alben_meben
 priority: 1
 condition: "true"
 actions:
- - 'calculation = (step10_deworm == "done" ? "Albendazole/mebendazole for deworming" : "")'
+ - 'calculation = (step10_deworm == "done" ? " helper.getTranslatedValues('albendazole_mebendazole_for_deworming') : "")'
 ---
 name: step10_deworm_toaster
 description: Displays the womans allergies .
@@ -207,21 +207,21 @@ description: sp
 priority: 1
 condition: "true"
 actions:
- - 'calculation = (step10_iptp_sp1 == "done" ? "Sulfadoxine-pyrimethamine (SP) for malaria prevention" : "") '
+ - 'calculation = (step10_iptp_sp1 == "done" ? helper.getTranslatedValues('sulfadoxine_pyrimethamine_for_malaria_prevention') : "") '
 ---
 name: step9_calcium
 description: calcium
 priority: 1
 condition: "true"
 actions:
- - 'calculation = (step9_calcium_supp == "done" ? "Calcium supplement" : "") '
+ - 'calculation = (step9_calcium_supp == "done" ? helper.getTranslatedValues('calcium_supplementation') : "") '
 ---
 name: step9_vita
 description: vita
 priority: 1
 condition: "true"
 actions:
- - 'calculation = (step9_vita_supp == "done" ? "Vitamin A supplement" : "") '
+ - 'calculation = (step9_vita_supp == "done" ?   helper.getTranslatedValues('vitamin_a_supplementation') : "") '
 ---
 name: step10_iptp_sp1_dose_number
 description: iptp_sp1_dose_number
