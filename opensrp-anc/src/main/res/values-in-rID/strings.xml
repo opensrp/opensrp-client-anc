@@ -660,6 +660,18 @@
     <string name="deworming_and_malaria_prophylaxis">Obat Cacing and Profilaksis Malaria</string>
     <string name="calcium_supplementation">Suplemen Kalsium</string>
     <string name="vitamin_a_supplementation">Suplemen Vitamin A</string>
+    <string name="seven_day_antibiotic">Antibiotik tujuh hari untuk ASB</string>
+    <string name="magnesium_and_calcium_for_cramps">Farmakologis untuk mual dan muntah yang terus-menerus</string>
+    <string name="pharmacologicals_for_persistent_nausea_and_vomiting">Magnesium dan kalsium untuk kram kaki yang terus-menerus</string>
+    <string name="antacids_for_persistent_heartburn">Antasida untuk mulas yang terus-menerus</string>
+    <string name="erythromycin_or_azithromycin">Eritromisin 500 mg per oral empat kali sehari selama 14 hari atau Azitromisin 2 g sekali per oral.</string>
+    <string name="penicillin_for_syphilis">Penisilin untuk sifilis</string>
+    <string name="iron_and_folic_acid_for_anaemia">Zat besi &amp; asam folat untuk pengobatan anemia</string>
+    <string name="asprin_for_pre_eclampsia_risk">Aspirin untuk risiko pre-eklamsia</string>
+    <string name="prep">Profilaksis pra pajanan HIV (PrEP)</string>
+    <string name="iron_and_folic_supplement">Suplemen zat besi &amp; asam folat</string>
+    <string name="albendazole_mebendazole_for_deworming">Albendazole/mebendazole untuk obat cacing</string>
+    <string name="sulfadoxine_pyrimethamine_for_malaria_prevention">Sulfadoksin-pirimetamin (SP) untuk pencegahan malaria</string>
 
 
     <!-- Page: Me -->

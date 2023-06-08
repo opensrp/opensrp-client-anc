@@ -33,10 +33,10 @@ fields:
   - template: "{{profile_overview.overview_of_pregnancy.current_pregnancy.fetal_presentation}}: {fetal_presentation}"
     relevance: "fetal_presentation != ''"
 
-  - template: "{{profile_overview.overview_of_pregnancy.current_pregnancy.amniotic_fluid}}: {amniotic_fluid}"
+  - template: "{{profile_overview.overview_of_pregnancy.current_pregnancy.amniotic_fluid}}: {amniotic_fluid_value}"
     relevance: "amniotic_fluid != ''"
 
-  - template: "{{profile_overview.overview_of_pregnancy.current_pregnancy.placenta_location}}: {placenta_location}"
+  - template: "{{profile_overview.overview_of_pregnancy.current_pregnancy.placenta_location}}: {placenta_location_value}"
     relevance: "placenta_location != ''"
     isRedFont: "placenta_location.contains('Previa')"
 ---
@@ -224,47 +224,47 @@ fields:
     relevance: "preeclampsia_risk == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.pre_hiv_risk}}: {date}"
+  - template: "{{profile_overview.pre_hiv_risk}}"
     relevance: "hiv_risk == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.diabetes_risk}}: {date} "
+  - template: "{{profile_overview.diabetes_risk}} "
     relevance: "gdm_risk == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.hypertension}}: {date}"
+  - template: "{{profile_overview.hypertension}}"
     relevance: "hypertension == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.severe_hypertension}}: {date}: {date}"
+  - template: "{{profile_overview.severe_hypertension}}"
     relevance: "severe_hypertension == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.pre_eclampsia}}: {date}"
+  - template: "{{profile_overview.pre_eclampsia}}"
     relevance: "preeclampsia == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.severe_pre_eclampsia}}: {date}"
+  - template: "{{profile_overview.severe_pre_eclampsia}}"
     relevance: "severe_preeclampsia == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.rh_factor_negative}}: {rh_factor}"
+  - template: "{{profile_overview.rh_factor_negative}}: {rh_factor_value}"
     relevance: "rh_factor == 'negative'"
     isRedFont: "true"
 
-  - template: "{{profile_overview.hiv_positive}}: {hiv_test_result}"
+  - template: "{{profile_overview.hiv_positive}}: {hiv_diagnosis_date}"
     relevance: "hiv_positive == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.hepatitis_b_positive}}: {date}"
+  - template: "{{profile_overview.hepatitis_b_positive}}: {hepb_test_date}"
     relevance: "hepb_positive == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.hepatitis_c_positive}}: {date}"
+  - template: "{{profile_overview.hepatitis_c_positive}}: {hepc_test_date}"
     relevance: "hepc_positive == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.syphilis_positive}}: {date}"
+  - template: "{{profile_overview.syphilis_positive}}: {syphilis_test_date}"
     relevance: "syphilis_positive == 1"
     isRedFont: "true"
 
@@ -272,7 +272,7 @@ fields:
     relevance: "asb_positive == 1"
     isRedFont: "true"
 
-  - template: "{{profile_overview.gbs}}: {date}"
+  - template: "{{profile_overview.gbs}}: {urine_test_date}"
     relevance: "urine_culture == 'positive - group b streptococcus (gbs)'"
     isRedFont: "true"
 
@@ -308,7 +308,7 @@ fields:
   - template: "{{profile_overview.birth_plan_counseling.planned_birth_place}}: {delivery_place}"
     relevance: "delivery_place != ''"
 
-  - template: "{{profile_overview.birth_plan_counseling.fp_method_accepted}}: {family_planning_type}"
+  - template: "{{profile_overview.birth_plan_counseling.fp_method_accepted}}: {family_planning_type_value}"
     relevance: "family_planning_type != ''"
 
 ---
