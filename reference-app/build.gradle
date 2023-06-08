@@ -75,7 +75,7 @@ android {
         buildConfigField "String", "SYNC_TYPE", '"locationId"'
         buildConfigField "int", "MAX_SYNC_RETRIES", '3'
         buildConfigField "long", "BUILD_TIMESTAMP", System.currentTimeMillis() + "L"
-        buildConfigField "boolean", "IS_SYNC_SETTINGS", "true"
+        buildConfigField "boolean", "IS_SYNC_SETTINGS", "false"
         buildConfigField "long", "EVENT_VERSION", System.currentTimeMillis() + "L"
         buildConfigField "boolean", "RESOLVE_SETTINGS", "true"
         buildConfigField "boolean", "HAS_EXTRA_SETTINGS_SYNC_FILTER", "true"
@@ -265,7 +265,7 @@ dependencies {
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
 
-    implementation('org.smartregister:opensrp-client-core:6.0.0-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:6.1.2-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'

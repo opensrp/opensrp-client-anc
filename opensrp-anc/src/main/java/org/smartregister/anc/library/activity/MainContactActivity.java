@@ -70,10 +70,9 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         super.onResume();
 
         baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
-        contactNo = getIntent().getIntExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, 1);
-        @SuppressWarnings("unchecked") Map<String, String> womanDetails =
-                (Map<String, String>) getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
-        if (womanDetails != null && womanDetails.size() > 0) {
+        Map<String,String> womanDetails = PatientRepository.getWomanProfileDetails(baseEntityId);
+        contactNo = new Integer(womanDetails.get(DBConstantsUtils.KeyUtils.NEXT_CONTACT));
+              if (womanDetails != null && womanDetails.size() > 0) {
             womanAge = String.valueOf(Utils.getAgeFromDate(womanDetails.get(DBConstantsUtils.KeyUtils.DOB)));
             womanOpenSRPId = womanDetails.get(DBConstantsUtils.KeyUtils.ANC_ID);
         }

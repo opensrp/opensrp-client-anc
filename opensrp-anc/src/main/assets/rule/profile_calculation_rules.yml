@@ -61,7 +61,7 @@ description: Ultrasound  Gest age
 priority: 1
 condition: "step2_ultrasound_done== 'yes'"
 actions:
-  - "calculation =  helper.getWeeksAndDaysFromDays( 280 - helper.getDifferenceDays(helper.getSecondaryValue(step2_ultrasound_edd),global_visit_date) - 1 )"
+  - "calculation =  helper.getWeeksAndDaysFromDays( 280 - helper.getDifferenceDays(helper.getSecondaryValue(step2_ultrasound_edd),global_visit_date))"
 ---
 name: step2_ultrasound_gest_age_tr
 description: Ultrasound  Gest age

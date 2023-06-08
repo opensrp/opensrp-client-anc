@@ -590,7 +590,7 @@ public class Utils extends org.smartregister.util.Utils {
 
     public static int getGAFromEDDateOnVisitDate(String expectedDeliveryDate, String visitDate) {
         try {
-            if (!"0".equals(expectedDeliveryDate) && expectedDeliveryDate.length() > 0) {
+            if (!"0".equals(expectedDeliveryDate) && expectedDeliveryDate.length() > 0 && visitDate!= null) {
                 LocalDate date = SQLITE_DATE_DF.withOffsetParsed().parseLocalDate(expectedDeliveryDate);
                 LocalDate visitDateLocal = SQLITE_DATE_DF.withOffsetParsed().parseLocalDate(visitDate);
                 LocalDate lmpDate = date.minusWeeks(ConstantsUtils.DELIVERY_DATE_WEEKS);

@@ -19,7 +19,11 @@ import org.jeasy.rules.core.RulesEngineParameters;
 import org.jeasy.rules.mvel.MVELRule;
 import org.jeasy.rules.mvel.MVELRuleFactory;
 import org.jeasy.rules.support.YamlRuleDefinitionReader;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -253,6 +257,25 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
         return compareDateAgainstToday(addDuration(dateString, duration));
     }
 
+    @Override
+    public String addDuration(String dateString, String durationString) {
+        return ancAddDuration(dateString,durationString);
+    }
+
+    public  String ancAddDuration (String date , String duration)
+    {
+                String givenDate = date;
+                int daysToAdd = Integer.parseInt(duration.replace("d",""));
+                // Convert the given date string to a DateTime object
+                DateTimeFormatter formatter = DateTimeFormat.forPattern("dd-MM-yyyy");
+                DateTime dateObj = DateTime.parse(givenDate, formatter);
+                // Add days to the given date
+                DateTime newDate = dateObj.plusDays(daysToAdd);
+                // Format the new date as a string
+                String resultDate = newDate.toString(formatter);
+                return  resultDate;
+    }
+
     /**
      * Compares date against today's date
      *
@@ -286,5 +309,18 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
             return  facts.get("visit_date");
         }
         return  visitDate;
+    }
+
+    @Override
+    public long getDifferenceDays(String dateString, String dateString2) {
+
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd-MM-yyyy");
+        // Convert the provided date string to a DateTime object
+        DateTime firstDateObject = DateTime.parse(dateString, formatter);
+        // Get the current date
+        DateTime secondDateObject = DateTime.parse(dateString2, formatter);
+        // Calculate the date difference in days
+        int dateDifference = Days.daysBetween(firstDateObject, secondDateObject).getDays();
+        return Math.abs(dateDifference);
     }
 }
