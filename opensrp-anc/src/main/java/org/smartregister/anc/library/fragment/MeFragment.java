@@ -2,7 +2,6 @@ package org.smartregister.anc.library.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.AncP2pModeSelectActivity;
-import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.anc.library.activity.PopulationCharacteristicsActivity;
 import org.smartregister.anc.library.activity.SiteCharacteristicsActivity;
 import org.smartregister.anc.library.constants.Constants;
@@ -27,9 +25,7 @@ import org.smartregister.util.LangUtils;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.contract.MeContract;
 
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
 import timber.log.Timber;
 
@@ -121,7 +117,8 @@ public class MeFragment extends org.smartregister.view.fragment.MeFragment imple
                 if (MeFragment.this.getActivity() != null) {
                     String selectedLanguage = languages[position];
                     languageSwitcherText.setText(String.format(MeFragment.this.getActivity().getResources().getString(R.string.default_language_string), selectedLanguage));
-                    saveLanguage(locales[position]);
+                    saveLanguage(String.valueOf(locales[position]));
+                    MeFragment.this.reloadClass();
                     AncLibrary.getInstance().notifyAppContextChange();
                 }
             });
@@ -131,12 +128,22 @@ public class MeFragment extends org.smartregister.view.fragment.MeFragment imple
         }
     }
 
-    private void saveLanguage(Locale selectedLocale) {
-        if (MeFragment.this.getActivity() != null && selectedLocale != null) {
-            if (getActivity() instanceof BaseHomeRegisterActivity) {
-                BaseHomeRegisterActivity parentActivity = (BaseHomeRegisterActivity) getActivity();
-                parentActivity.setLocale(selectedLocale);
+    private void saveLanguage(String selectedLanguage) {
+        if (MeFragment.this.getActivity() != null && StringUtils.isNotBlank(selectedLanguage)) {
+            Locale selectedLanguageLocale = getLocale(selectedLanguage);
+            if (selectedLanguageLocale != null) {
+                LangUtils.saveLanguage(MeFragment.this.getActivity().getApplication(), getFullLanguage(selectedLanguageLocale));
+            } else {
+                Timber.i("Language could not be set");
             }
+        }
+    }
+
+    private void reloadClass() {
+        if (getActivity() != null) {
+            Intent intent = getActivity().getIntent();
+            getActivity().finish();
+            getActivity().startActivity(intent);
         }
     }
 
@@ -155,11 +162,20 @@ public class MeFragment extends org.smartregister.view.fragment.MeFragment imple
     private void setLocaleList() {
         locales = new Locale[]{
             Constants.Locales.ENGLISH_US,
-            Constants.Locales.FRANCE_RW,
-            Constants.Locales.INDONESIAN_ID,
-            Constants.Locales.NEPALI_NP,
-            Constants.Locales.PORTUGESE_BR,
+            Constants.Locales.INDONESIAN_ID
         };
+    }
+
+    private String getFullLanguage(Locale locale) {
+        return StringUtils.isNotEmpty(locale.getCountry()) ? locale.getLanguage() + "_" + locale.getCountry() : locale.getLanguage();
+    }
+    private Locale getLocale(String localeString){
+        for (int i = 0; i < locales.length; i++) {
+            if(locales[i].toString().equals(localeString)){
+               return locales[i];
+            }
+        }
+        return null;
     }
 
 }
