@@ -25,7 +25,9 @@ import org.smartregister.util.LangUtils;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.contract.MeContract;
 
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import timber.log.Timber;
 
@@ -35,7 +37,7 @@ public class MeFragment extends org.smartregister.view.fragment.MeFragment imple
     private RelativeLayout languageSwitcherSection;
     private RelativeLayout p2pSyncSetion;
     private TextView languageSwitcherText;
-    private Locale[] locales;
+    private final Map<String, Locale> locales = new HashMap<>();
     private String[] languages;
 
     @Nullable
@@ -117,7 +119,8 @@ public class MeFragment extends org.smartregister.view.fragment.MeFragment imple
                 if (MeFragment.this.getActivity() != null) {
                     String selectedLanguage = languages[position];
                     languageSwitcherText.setText(String.format(MeFragment.this.getActivity().getResources().getString(R.string.default_language_string), selectedLanguage));
-                    saveLanguage(String.valueOf(locales[position]));
+
+                    saveLanguage(selectedLanguage);
                     MeFragment.this.reloadClass();
                     AncLibrary.getInstance().notifyAppContextChange();
                 }
@@ -130,7 +133,7 @@ public class MeFragment extends org.smartregister.view.fragment.MeFragment imple
 
     private void saveLanguage(String selectedLanguage) {
         if (MeFragment.this.getActivity() != null && StringUtils.isNotBlank(selectedLanguage)) {
-            Locale selectedLanguageLocale = getLocale(selectedLanguage);
+            Locale selectedLanguageLocale = locales.get(selectedLanguage);
             if (selectedLanguageLocale != null) {
                 LangUtils.saveLanguage(MeFragment.this.getActivity().getApplication(), getFullLanguage(selectedLanguageLocale));
             } else {
@@ -149,33 +152,29 @@ public class MeFragment extends org.smartregister.view.fragment.MeFragment imple
 
     private void registerLanguageSwitcher() {
         if (getActivity() != null) {
-            setLocaleList();
-            languages = new String[locales.length];
-            Locale currentLocale = getActivity().getResources().getConfiguration().getLocales().get(0);
-            for (int index = 0; index < locales.length; index++) {
-                languages[index] = locales[index].getDisplayLanguage() + " (" + locales[index].getDisplayCountry() + ")";
-            }
-            languageSwitcherText.setText(String.format(getActivity().getResources().getString(R.string.default_language_string), currentLocale.getDisplayLanguage()));
-        }
-    }
+            addLanguages();
 
-    private void setLocaleList() {
-        locales = new Locale[]{
-            Constants.Locales.ENGLISH_US,
-            Constants.Locales.INDONESIAN_ID
-        };
+            languages = new String[locales.size()];
+            Locale current = getActivity().getResources().getConfiguration().locale;
+            int x = 0;
+            for (Map.Entry<String, Locale> language : locales.entrySet()) {
+                languages[x] = language.getKey(); //Update the languages strings array with the languages to be displayed on the alert dialog
+                x++;
+
+                if (getFullLanguage(current).equalsIgnoreCase(getFullLanguage(language.getValue()))) {
+                    languageSwitcherText.setText(String.format(getActivity().getResources().getString(R.string.default_language_string), language.getKey()));
+                }
+            }
+        }
     }
 
     private String getFullLanguage(Locale locale) {
         return StringUtils.isNotEmpty(locale.getCountry()) ? locale.getLanguage() + "_" + locale.getCountry() : locale.getLanguage();
     }
-    private Locale getLocale(String localeString){
-        for (int i = 0; i < locales.length; i++) {
-            if(locales[i].toString().equals(localeString)){
-               return locales[i];
-            }
-        }
-        return null;
+
+    private void addLanguages() {
+        locales.put(getString(R.string.english_language), Constants.Locales.ENGLISH_US);
+        locales.put(getString(R.string.bahasa_indonesia_language),   Constants.Locales.INDONESIAN_ID);
     }
 
 }

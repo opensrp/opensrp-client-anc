@@ -853,5 +853,7 @@
     <string name="age">Umur</string>
     <string name="weeks">minggu</string>
     <string name= "days">hari</string>
+    <string name="english_language">Ingriss</string>
+    <string name="bahasa_indonesia_language">Bahasa</string>
 
 </resources>

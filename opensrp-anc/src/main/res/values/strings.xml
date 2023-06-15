@@ -861,4 +861,7 @@
 	<string name="weeks">weeks</string>
 	<string name= "days">days</string>
 
+	<string name="english_language">English</string>
+	<string name="bahasa_indonesia_language">Bahasa (Indonesia)</string>
+
 </resources>
