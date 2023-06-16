@@ -18,6 +18,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import timber.log.Timber;
+
 public class ContactSummaryAdapter extends RecyclerView.Adapter<ContactSummaryAdapter.ViewHolder> {
     private List<ContactSummaryModel> contactDates;
 
@@ -39,15 +41,20 @@ public class ContactSummaryAdapter extends RecyclerView.Adapter<ContactSummaryAd
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        ContactSummaryModel model = contactDates.get(position);
+        try {
+            ContactSummaryModel model = contactDates.get(position);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+            Date date = dateFormat.parse(model.getContactDate());
+            String parsedDate = dateFormat.format(date);
+            assert parsedDate != null;
+            holder.contactDate.setText((CharSequence) parsedDate);
 
-        Date date = new Date(model.getContactDate());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
-        String parsedDate = dateFormat.format(date);
-        assert parsedDate != null;
-        holder.contactDate.setText((CharSequence) parsedDate);
-
-        holder.contactName.setText(model.getContactName());
+            holder.contactName.setText(model.getContactName());
+        }
+        catch (ParseException e)
+        {
+            Timber.e(e);
+        }
 
     }
 
