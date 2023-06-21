@@ -56,7 +56,7 @@ fields:
 ---
 group: reason_for_visit
 fields:
-  - template: "{{contact_summary.reason_for_visit.reason_for_coming_to_facility}}: {contact_reason_value_value}"
+  - template: "{{contact_summary.reason_for_visit.reason_for_coming_to_facility}}: {contact_reason_value}"
     relevance: "contact_reason_value != ''"
 
   - template: "{{contact_summary.reason_for_visit.health_complaint}}: {specific_complaint}"
@@ -65,7 +65,7 @@ fields:
 ---
 group: demographic_info
 fields:
-  - template: "{{contact_summary.demographic_info.educ_level}}: {educ_level_value}"
+  - template: "{{contact_summary.demographic_info.educ_level}}: {educ_level}"
     relevance: "educ_level_value != ''"
 
   - template: "{{contact_summary.demographic_info.marital_status}}: {marital_status_value_value}"

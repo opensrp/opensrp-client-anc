@@ -68,14 +68,14 @@
                         android:id="@+id/age_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Usia Ibu" />
+                        android:text="@string/mother_age" />
 
                     <TextView
                         android:id="@+id/age"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
-                        android:text="25 Tahun"
+                        android:text="@string/x_months_weeks"
                         android:textColor="#3C3C3C" />
                 </LinearLayout>
 
@@ -89,14 +89,14 @@
                         android:id="@+id/ga_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Usia Kehamilan" />
+                        android:text="@string/gestational_age" />
 
                     <TextView
                         android:id="@+id/ga"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="8dp"
-                        android:text="32"
+                        android:text="@string/x_years"
                         android:textColor="#3C3C3C" />
                 </LinearLayout>
 
@@ -126,7 +126,7 @@
             android:layout_marginBottom="20dp"
             android:background="#FFF3F3"
             android:padding="8dp"
-            android:text="UK lebih dari 42 minggu, harus konsultasi ke dokter."
+            android:text="@string/gestational_age_warning"
             android:textColor="#8C0404" />
     </LinearLayout>
 

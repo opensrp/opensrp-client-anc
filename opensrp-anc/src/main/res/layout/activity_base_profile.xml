@@ -97,7 +97,7 @@
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:paddingStart="4dp"
-                            android:text="Tahun"
+                            android:text="@string/years"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small"
                             android:textColor="@color/white" />
 
@@ -130,7 +130,7 @@
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:paddingStart="4dp"
-                            android:text="Minggu"
+                            android:text="@string/label_weeks"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small"
                             android:textColor="@color/white" />
                     </LinearLayout>

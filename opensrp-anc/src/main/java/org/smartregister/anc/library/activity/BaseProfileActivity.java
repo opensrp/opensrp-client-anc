@@ -51,7 +51,6 @@ public abstract class BaseProfileActivity extends SecuredActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setDefaultLocale();
         setContentView(getViewLayoutId());
         findViewById(R.id.btn_profile_registration_info).setOnClickListener(this);
 
@@ -173,10 +172,5 @@ public abstract class BaseProfileActivity extends SecuredActivity
 
     public void setProgressDialog(ProgressDialog progressDialog) {
         this.progressDialog = progressDialog;
-    }
-
-    public void setDefaultLocale() {
-        LangUtils.saveLanguage(getApplication(), AppConfig.DefaultLocale.getLanguage());
-        Utils.saveLanguage(AppConfig.DefaultLocale.getLanguage());
     }
 }
