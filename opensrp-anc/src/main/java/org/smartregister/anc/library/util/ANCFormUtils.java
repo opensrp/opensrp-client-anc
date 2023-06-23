@@ -563,7 +563,7 @@ public class ANCFormUtils extends FormUtils {
         String returnValue = "";
         try {
             if (value.trim().length() > 0 && value.trim().charAt(0) == '[') {
-                if (Utils.checkJsonArrayString(value)) {
+                if (Utils.checkIsJsonArrayString(value)) {
                     JSONArray jsonArray = new JSONArray(value);
                     List<String> list = new ArrayList<>();
                     for (int i = 0; i < jsonArray.length(); i++) {

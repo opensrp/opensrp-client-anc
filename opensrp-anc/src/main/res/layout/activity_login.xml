@@ -155,7 +155,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:alpha="0.75"
-                android:text="Didukung oleh"
+                android:text="@string/didukung_oleh"
                 android:textAlignment="center"
                 android:textColor="@color/login_text"
                 android:textStyle="bold" />

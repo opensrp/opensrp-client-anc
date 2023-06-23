@@ -860,5 +860,6 @@
     <string name="mother_age">Usia Ibu</string>
     <string name="gestational_age">Usia Kehamilan</string>
     <string name="gestational_age_warning">UK lebih dari 42 minggu, harus konsultasi ke dokter.</string>
+    <string name="didukung_oleh">Didukung oleh</string>
 
 </resources>

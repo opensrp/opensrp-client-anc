@@ -326,7 +326,7 @@
 	<!-- ================= -->
 
 	<string name="antenatal_care_module">Antenatal Care Module</string>
-	<string name="app_tagline">Bersinergi Untuk Dampingi Kesehatan Ibu dan Anak</string>
+	<string name="app_tagline">Synergize To Accompany Maternal and Child Health</string>
 	<string name="form_manifest_version">Form Release version: v%1$s</string>
 
 
@@ -868,5 +868,6 @@
     <string name="mother_age">Mother\'s Age</string>
 	<string name="gestational_age">Gestational Age</string>
 	<string name="gestational_age_warning">UK more than 42 weeks, must consult a doctor.</string>
+	<string name="didukung_oleh">Powered by</string>
 
 </resources>
