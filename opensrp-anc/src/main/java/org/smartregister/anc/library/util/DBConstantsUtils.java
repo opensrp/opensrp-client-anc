@@ -31,6 +31,7 @@ public class DBConstantsUtils {
 		public static final String LAST_INTERACTED_WITH = "last_interacted_with";
 		public static final String DATE_REMOVED = "date_removed";
 		public static final String PHONE_NUMBER = "phone_number";
+		public static final String PHONE_NUMBER_REPEAT = "phone_number_repeat";
 		public static final String ALT_NAME = "alt_name";
 		public static final String ALT_PHONE_NUMBER = "alt_phone_number";
 		public static final String HOME_ADDRESS = "home_address";
@@ -50,7 +51,15 @@ public class DBConstantsUtils {
 
 		// Additional fields for local requirements
 		public static final String UID = "uid";
+		public static final String UID_REPEAT = "uid_repeat";
+
 		public static final String SSN = "ssn";
+		public static final String SSN_REPEAT = "ssn_repeat";
+
+		public static final String ADDITIONAL_ID_TYPE = "additional_id_type";
+		public static final String ADDITIONAL_ID_NUMBER = "additional_id_number";
+		public static final String ADDITIONAL_ID_NUMBER_REPEAT = "additional_id_number_repeat";
+
 		public static final String SSN_STATUS = "ssn_status";
 		public static final String UID_UNKNOWN = "uid_unknown";
 		public static final String UID_UNKNOWN_REASON = "uid_unknown_reason";

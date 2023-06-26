@@ -40,3 +40,11 @@ priority: 1
 condition: "(step1_phone_number_unknown.contains('yes'))"
 actions:
   - "isRelevant = true"
+---
+
+name: step1_ssn_repeat
+description: relevance for the additional id to appear
+priority: 1
+condition: "step1_ssn != ''"
+actions:
+  - "isRelevant = true"

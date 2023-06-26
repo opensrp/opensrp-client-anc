@@ -25,10 +25,45 @@
 					}
 				},
 				{
+					"column_name": "uid_repeat",
+					"type": "Client",
+					"json_mapping": {
+						"field": "identifiers.uid_repeat"
+					}
+				},
+				{
 					"column_name": "ssn",
 					"type": "Client",
 					"json_mapping": {
 						"field": "identifiers.ssn"
+					}
+				},
+				{
+					"column_name": "ssn_repeat",
+					"type": "Client",
+					"json_mapping": {
+						"field": "identifiers.ssn_repeat"
+					}
+				},
+				{
+					"column_name": "additional_id_type",
+					"type": "Client",
+					"json_mapping": {
+						"field": "identifiers.additional_id_type"
+					}
+				},
+				{
+					"column_name": "additional_id_number",
+					"type": "Client",
+					"json_mapping": {
+						"field": "identifiers.additional_id_number"
+					}
+				},
+				{
+					"column_name": "additional_id_number_repeat",
+					"type": "Client",
+					"json_mapping": {
+						"field": "identifiers.additional_id_number_repeat"
 					}
 				},
 				{
@@ -118,6 +153,13 @@
 					"type": "Client",
 					"json_mapping": {
 						"field": "attributes.phone_number"
+					}
+				},
+				{
+					"column_name": "phone_number_repeat",
+					"type": "Client",
+					"json_mapping": {
+						"field": "attributes.phone_number_repeat"
 					}
 				},
 				{
