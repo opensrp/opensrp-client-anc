@@ -24,7 +24,7 @@ fields:
   - template: "{{attention_flags.yellow.diabetes_risk}}: {{attention_flags.yes}}"
     relevance: "gdm_risk == 1"
 
-  - template: "{{attention_flags.yellow.surgeries}}: {surgeries_value_value}"
+  - template: "{{attention_flags.yellow.surgeries}}: {surgeries_value}"
     relevance: "!surgeries.isEmpty() && !surgeries.contains('none')"
 
   - template: "{{attention_flags.yellow.chronic_health_conditions}}: {health_conditions_value}"
@@ -45,19 +45,19 @@ fields:
   - template: "{{attention_flags.yellow.weight_category}}: {weight_cat_value}"
     relevance: "weight_cat != '' && (weight_cat == 'underweight' || weight_cat == 'overweight' || weight_cat == 'obese')"
 
-  - template: "{{attention_flags.yellow.abnormal_breast_exam}}: {breast_exam_abnormal_value_value}"
+  - template: "{{attention_flags.yellow.abnormal_breast_exam}}: {breast_exam_abnormal_value}"
     relevance: "!breast_exam_abnormal.contains('none') && !breast_exam_abnormal.isEmpty()"
 
-  - template: "{{attention_flags.yellow.abnormal_abdominal_exam}}: {abdominal_exam_abnormal_value_value}"
+  - template: "{{attention_flags.yellow.abnormal_abdominal_exam}}: {abdominal_exam_abnormal_value}"
     relevance: "!abdominal_exam_abnormal.contains('none') && !abdominal_exam_abnormal.isEmpty()"
 
-  - template: "{{attention_flags.yellow.abnormal_pelvic_exam}}: {pelvic_exam_abnormal_value_value}"
+  - template: "{{attention_flags.yellow.abnormal_pelvic_exam}}: {pelvic_exam_abnormal_value}"
     relevance: "!pelvic_exam_abnormal.contains('none') && !pelvic_exam_abnormal.isEmpty()"
 
-  - template: "{{attention_flags.yellow.oedema_present}}: {oedema_value_value}"
+  - template: "{{attention_flags.yellow.oedema_present}}: {oedema_value}"
     relevance: "oedema == 'yes'"
 
-  - template: "{{attention_flags.yellow.rh_factor_negative}}: {rh_factor_value_value}"
+  - template: "{{attention_flags.yellow.rh_factor_negative}}: {rh_factor_value}"
     relevance: "rh_factor == 'negative'"
 ---
 group: red_attention_flag
@@ -114,13 +114,13 @@ fields:
   - template: "{{attention_flags.red.anaemia_diagnosis}} : {{attention_flags.yes}}"
     relevance: "anaemic == 1"
 
-  - template: "{{attention_flags.red.respiratory_distress}}: {respiratory_exam_abnormal_value_value}"
+  - template: "{{attention_flags.red.respiratory_distress}}: {respiratory_exam_abnormal_value}"
     relevance: "!respiratory_exam_abnormal.contains('none') && !respiratory_exam_abnormal.isEmpty()"
 
   - template: "{{attention_flags.red.low_oximetry}}: {oximetry}%"
     relevance: "oximetry < 92"
 
-  - template: "{{attention_flags.red.abnormal_cardiac_exam}}: {cardiac_exam_abnormal_value_value}"
+  - template: "{{attention_flags.red.abnormal_cardiac_exam}}: {cardiac_exam_abnormal_value}"
     relevance: "!cardiac_exam_abnormal.contains('none') && !cardiac_exam_abnormal.isEmpty()"
 
   - template: "{{attention_flags.red.cervix_dilated}}: {dilation_cm} cm"

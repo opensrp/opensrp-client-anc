@@ -78,15 +78,9 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
         super.onCreation();
     }
 
-    public void setDefaultLocale() {
-        LangUtils.saveLanguage(getApplication(), AppConfig.DefaultLocale.getLanguage());
-        Utils.saveLanguage(AppConfig.DefaultLocale.getLanguage());
-    }
-
     @Override
     protected void onResumption() {
         super.onResumption();
-        setDefaultLocale();
         String baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
         registerEventBus();
         ((ProfilePresenter) presenter).refreshProfileView(baseEntityId);

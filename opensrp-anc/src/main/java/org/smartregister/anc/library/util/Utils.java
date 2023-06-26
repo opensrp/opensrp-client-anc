@@ -12,7 +12,6 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
@@ -22,8 +21,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonParser;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
@@ -43,8 +40,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.jeasy.rules.api.Facts;
 import org.jetbrains.annotations.NotNull;
 import org.joda.time.Days;
-import org.joda.time.Duration;
-import org.joda.time.Interval;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.Weeks;
@@ -97,7 +92,6 @@ import java.util.List;
 import java.util.Map;
 
 import timber.log.Timber;
-import java.time.temporal.ChronoUnit;
 
 /**
  * Created by ndegwamartin on 14/03/2018.
@@ -1029,7 +1023,7 @@ public class Utils extends org.smartregister.util.Utils {
         return newValue;
     }
 
-    public static boolean checkJsonArrayString(String input) {
+    public static boolean checkIsJsonArrayString(String input) {
         try {
             if (StringUtils.isNotBlank(input)) {
                 JSONArray jsonArray = new JSONArray(input);
@@ -1052,7 +1046,7 @@ public class Utils extends org.smartregister.util.Utils {
     public static String returnTranslatedStringJoinedValue(String value) {
         try {
             if (StringUtils.isNotBlank(value) && value.startsWith("[")) {
-                if (Utils.checkJsonArrayString(value)) {
+                if (Utils.checkIsJsonArrayString(value)) {
                     JSONArray jsonArray = new JSONArray(value);
                     List<String> translatedList = new ArrayList<>();
                     for (int i = 0; i < jsonArray.length(); i++) {
@@ -1096,7 +1090,7 @@ public class Utils extends org.smartregister.util.Utils {
     public static String getFactInputValue(String input) {
         try {
             if (StringUtils.isNotBlank(input) && input.startsWith("[")) {
-                if (Utils.checkJsonArrayString(input)) {
+                if (Utils.checkIsJsonArrayString(input)) {
                     JSONArray jsonArray = new JSONArray(input);
                     List<String> valueList = new ArrayList<>();
                     for (int i = 0; i < jsonArray.length(); i++) {

@@ -454,7 +454,7 @@
 						"openmrs_entity_parent": "",
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						"specify_info": "tentukkan tanggal",
+						"specify_info": "{{anc_profile.step2.lmp_known.options.specify_set_date.text}}",
 						"specify_widget": "date_picker",
 						"max_date": "today-14d",
 						"min_date": "today-14m"
@@ -558,7 +558,7 @@
 						"openmrs_entity_parent": "",
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						"specify_info": "tanggal USG",
+						"specify_info": "{{anc_profile.step2.lmp_known.options.specify_date.text}}",
 						"specify_widget": "date_picker",
 						"max_date": "today",
 						"min_date": "today-14m",
@@ -878,7 +878,7 @@
 						"openmrs_entity_id": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"text": "{{anc_profile.step2.lmp_gest_age_selection.options.lmp.text}}",
 						"translation_text": "anc_profile.step2.lmp_gest_age_selection.options.lmp.text",
-						"extra_info": "Usia Kehamilan: {lmp_gest_age} <br> HPL: {lmp_edd}"
+						"extra_info": "{{anc_profile.step2.lmp_gest_age_selection.options.lmp.extra_info}}"
 					}
 				],
 				"v_required": {
@@ -914,7 +914,7 @@
 						"openmrs_entity_parent": "",
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "159618AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						"extra_info": "Usia Kehamilan: {ultrasound_gest_age} <br/> HPL: {ultrasound_edd} "
+						"extra_info": "{{anc_profile.step2.ultrasound_gest_age_selection.options.ultrasound.extra_info}} "
 					}
 				],
 				"v_required": {
@@ -950,7 +950,7 @@
 						"openmrs_entity_parent": "",
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "1439AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						"extra_info": "Usia Kehamilan: {sfh_gest_age} <br/> HPL: {sfh_edd} "
+						"extra_info": "{{anc_profile.step2.sfh_gest_age_selection.options.sfh.extra_info}}"
 					}
 				],
 				"v_required": {
@@ -986,7 +986,7 @@
 						"openmrs_entity_id": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"text": "{{anc_profile.step2.lmp_ultrasound_gest_age_selection.options.lmp.text}}",
 						"translation_text": "anc_profile.step2.lmp_ultrasound_gest_age_selection.options.lmp.text",
-						"extra_info": "Usia Kehamilan: {lmp_gest_age}  <br/>HPL: {lmp_edd} "
+						"extra_info": "{{anc_profile.step2.lmp_ultrasound_gest_age_selection.options.lmp.extra_info}} "
 					},
 					{
 						"key": "ultrasound",
@@ -995,7 +995,7 @@
 						"openmrs_entity_parent": "",
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "159618AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						"extra_info": "Usia Kehamilan: {ultrasound_gest_age} <br/> HPL: {ultrasound_edd} "
+						"extra_info": "{{anc_profile.step2.lmp_ultrasound_gest_age_selection.options.ultrasound.extra_info}} "
 					}
 				],
 				"v_required": {
@@ -1031,7 +1031,7 @@
 						"openmrs_entity_parent": "",
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "159618AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-						"extra_info": "Usia Kehamilan: {ultrasound_gest_age} <br/> HPL: {ultrasound_edd} "
+						"extra_info": "{{anc_profile.step2.sfh_ultrasound_gest_age_selection.options.ultrasound.extra_info}} "
 					},
 					{
 						"key": "sfh",

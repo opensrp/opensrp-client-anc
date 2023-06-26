@@ -855,5 +855,11 @@
     <string name= "days">hari</string>
     <string name="english_language">Ingriss</string>
     <string name="bahasa_indonesia_language">Bahasa</string>
+    <string name="years">Tahun</string>
+    <string name="label_weeks">Minggu</string>
+    <string name="mother_age">Usia Ibu</string>
+    <string name="gestational_age">Usia Kehamilan</string>
+    <string name="gestational_age_warning">UK lebih dari 42 minggu, harus konsultasi ke dokter.</string>
+    <string name="didukung_oleh">Didukung oleh</string>
 
 </resources>

@@ -105,8 +105,4 @@ public abstract class BaseActivity extends AppCompatActivity implements SiteChar
         }
     }
 
-    public void setDefaultLocale() {
-        LangUtils.saveLanguage(getApplication(), AppConfig.DefaultLocale.getLanguage());
-        Utils.saveLanguage(AppConfig.DefaultLocale.getLanguage());
-    }
 }
