@@ -43,15 +43,14 @@ public class ContactSummaryAdapter extends RecyclerView.Adapter<ContactSummaryAd
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         try {
             ContactSummaryModel model = contactDates.get(position);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
-            Date date = dateFormat.parse(model.getContactDate());
+           SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+            Date date = model.getLocalDate();
             String parsedDate = dateFormat.format(date);
             assert parsedDate != null;
-            holder.contactDate.setText((CharSequence) parsedDate);
-
+            holder.contactDate.setText(parsedDate);
             holder.contactName.setText(model.getContactName());
         }
-        catch (ParseException e)
+        catch (Exception e)
         {
             Timber.e(e);
         }
