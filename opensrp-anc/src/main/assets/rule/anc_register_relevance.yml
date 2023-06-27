@@ -6,6 +6,13 @@ condition: "(!step1_uid_unknown.contains('yes'))"
 actions:
   - "isRelevant = true"
 ---
+name: step1_uid_repeat
+description: Hide "uid" input field if "uid_unknown" option is selected.
+priority: 1
+condition: "(!step1_uid_unknown.contains('yes'))"
+actions:
+  - "isRelevant = true"
+---
 name: step1_uid_unknown_reason
 description: Show "unknown_uid_reason" input field if "uid_unknown" option is selected.
 priority: 1

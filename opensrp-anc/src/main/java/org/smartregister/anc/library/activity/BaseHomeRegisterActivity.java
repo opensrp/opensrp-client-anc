@@ -85,6 +85,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
     private String advancedSearchQrText = "";
     private HashMap<String, String> advancedSearchFormData = new HashMap<>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(null);
@@ -294,6 +295,21 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
             switchToFragment(BaseRegisterActivity.LIBRARY_POSITION);
             setSelectedBottomBarMenuItem(org.smartregister.R.id.action_library);
         }
+        checkLanguage();
+    }
+
+    private void checkLanguage()
+    {
+        AllSharedPreferences allSharedPreferences = new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
+        String current = allSharedPreferences.fetchLanguagePreference();
+        Locale currenLocale = getApplicationContext().getResources().getConfiguration().locale;
+        if(!currenLocale.getLanguage().equals(current))
+        {
+            LangUtils.setAppLocale(getApplicationContext(),current);
+            AncLibrary.getInstance().notifyAppContextChange();
+            recreate();
+        }
+
     }
 
     @Override

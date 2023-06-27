@@ -163,6 +163,13 @@
 				"v_equals": {
 					"value": "step1:uid",
 					"err": "{{anc_register.step1.uid_repeat_field_dont_match.text}}"
+				},
+				"relevance": {
+					"rules-engine": {
+						"ex-rules": {
+							"rules-file": "anc_register_relevance.yml"
+						}
+					}
 				}
 			},
 			{
