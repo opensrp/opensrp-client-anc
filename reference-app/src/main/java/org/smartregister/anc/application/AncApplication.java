@@ -21,7 +21,6 @@ import org.smartregister.anc.ANCEventBusIndex;
 import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.activity.LoginActivity;
 import org.smartregister.anc.library.AppConfig;
-import org.smartregister.anc.library.constants.Constants;
 import org.smartregister.anc.job.AncJobCreator;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.auth.AncCoreAuthorizationService;
@@ -38,6 +37,7 @@ import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.DrishtiSyncScheduler;
+import org.smartregister.util.LangUtils;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
@@ -139,6 +139,9 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
             AllSharedPreferences allSharedPreferences = new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
             String current = allSharedPreferences.fetchLanguagePreference();
             if(current==null) Utils.saveLanguage(AppConfig.DefaultLocale.getLanguage());
+            else Utils.saveLanguage(current);
+            LangUtils.setAppLocale(this,current);
+            AncLibrary.getInstance().notifyAppContextChange();
         } catch (Exception e) {
             Timber.e(e, " --> saveLanguage");
         }
