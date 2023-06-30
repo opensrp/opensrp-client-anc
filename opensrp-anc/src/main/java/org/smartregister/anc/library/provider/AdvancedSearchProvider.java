@@ -265,7 +265,7 @@ public class AdvancedSearchProvider implements RecyclerViewProvider<AdvancedSear
             age = itemView.findViewById(R.id.age);
             ga = itemView.findViewById(R.id.ga);
             ancId = itemView.findViewById(R.id.anc_id);
-            risk = itemView.findViewById(R.id.risk);
+            risk = itemView.findViewById(R.id.red_flag);
             profile = itemView.findViewById(R.id.profile);
             sync = itemView.findViewById(R.id.sync);
 

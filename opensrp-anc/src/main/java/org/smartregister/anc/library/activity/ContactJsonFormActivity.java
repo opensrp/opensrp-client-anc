@@ -3,6 +3,8 @@ package org.smartregister.anc.library.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -16,6 +18,7 @@ import com.vijay.jsonwizard.fragments.JsonWizardFormFragment;
 import com.vijay.jsonwizard.utils.NativeFormLangUtils;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jeasy.rules.api.Facts;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,11 +27,13 @@ import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.fragment.ContactWizardJsonFormFragment;
 import org.smartregister.anc.library.helper.AncRulesEngineFactory;
+import org.smartregister.anc.library.repository.PreviousContactRepository;
 import org.smartregister.anc.library.util.ANCFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -82,6 +87,28 @@ public class ContactJsonFormActivity extends FormConfigurationJsonFormActivity {
             } else {
                 globalValues = new HashMap<>();
             }
+
+            if (getIntent() != null) {
+                String entityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
+                String visitDate = getContact().getContactNumber()+"";
+                if(getContact().getContactNumber() > 1) {
+                    try {
+                        Facts facts = AncLibrary.getInstance().getPreviousContactRepository().getPreviousContactFacts(entityId, "1");
+                        String visit_date = facts.get("visit_date");
+                        Log.d("visit number of the contact", visitDate);
+                        Log.d("visit date", visit_date);
+                        globalValues.put("entity_id",entityId);
+                        globalValues.put("first_encounter_date", visit_date);
+                    }
+                    catch (Exception e)
+                    {
+                        Timber.e(e);
+                    }
+
+                }
+                globalValues.put("entity_id", entityId);
+            }
+            Log.v("PAMPAM", globalValues.toString());
 
             rulesEngineFactory = new AncRulesEngineFactory(this, globalValues, getmJSONObject());
             setRulesEngineFactory(rulesEngineFactory);
@@ -196,6 +223,13 @@ public class ContactJsonFormActivity extends FormConfigurationJsonFormActivity {
         }
     }
 
+    @Override
+    public JSONObject getObjectUsingAddress(String[] address, boolean popup) throws JSONException {
+        JSONObject result = super.getObjectUsingAddress(address, popup);
+        if (result == null) return new JSONObject();
+        return result;
+    }
+
     /**
      * Finds gets the currently selected dangers signs on the quick change page and sets the none {@link Boolean} and other
      * {@link Boolean} so as  to identify times to show the refer and proceed buttons on quick check
@@ -284,6 +318,7 @@ public class ContactJsonFormActivity extends FormConfigurationJsonFormActivity {
 
         int contactNo = getIntent().getIntExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, 0);
         String baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
+
 
         intent.putExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID, baseEntityId);
         intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP));

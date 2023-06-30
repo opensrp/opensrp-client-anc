@@ -1,5 +1,6 @@
 package org.smartregister.anc.library.presenter;
 
+import android.annotation.SuppressLint;
 import android.text.TextUtils;
 
 import org.apache.commons.lang3.StringUtils;
@@ -14,8 +15,11 @@ import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
 
 import java.lang.ref.WeakReference;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Objects;
 
 import timber.log.Timber;
 
@@ -54,14 +58,25 @@ public class ProfileFragmentPresenter implements ProfileFragmentContract.Present
         }
     }
 
+    @SuppressLint("NewApi")
     @Override
     public Facts getImmediatePreviousContact(Map<String, String> clientDetails, String baseEntityId, String contactNo) {
         Facts facts = new Facts();
         try {
             facts = AncLibrary.getInstance().getPreviousContactRepository().getPreviousContactFacts(baseEntityId, contactNo, true);
-
             Map<String, Object> factsAsMap = facts.asMap();
             String attentionFlags = "";
+
+            if(facts.get("contact_date") != null){
+                    // format date to dd-MM-yyyy
+                    DateTimeFormatter originalFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    DateTimeFormatter desiredFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                    String desiredFormattedDate = LocalDate.parse(facts.get("contact_date"), originalFormatter)
+                            .format(desiredFormatter);
+                    facts.put("contact_date", desiredFormattedDate);
+
+            }
+
             if (factsAsMap.containsKey(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS)) {
                 attentionFlags = (String) factsAsMap.get(ConstantsUtils.DetailsKeyUtils.ATTENTION_FLAG_FACTS);
             }

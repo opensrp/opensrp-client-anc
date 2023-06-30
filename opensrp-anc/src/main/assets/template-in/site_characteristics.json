@@ -1,0 +1,26 @@
+{
+  "identifier": "site_characteristics",
+  "settings": [
+    {
+      "description": "\"Apakah semua hal berikut ada di fasilitas Anda: \r\n1. Protokol atau prosedur operasi standar untuk Kekerasan Mitra Intim (IPV); \r\n2. Petugas kesehatan dilatih tentang cara bertanya tentang IPV dan cara memberikan respons minimal atau lebih;\r\n3. A private setting; \r\n4. Cara untuk memastikan kerahasiaan; \r\n5. Time to allow for appropriate disclosure; and\r\n6. Waktu untuk memungkinkan pengungkapan yang sesuai; Dan. \"",
+      "label": "Persyaratan minimum untuk penilaian IPV",
+      "key": "site_ipv_assess"
+    },
+    {
+      "description": "Apakah prevalensi HIV secara konsisten > 1% pada wanita hamil yang datang ke klinik antenatal di fasilitas Anda?",
+      "label": "Epidemi HIV umum",
+      "key": "site_anc_hiv"
+    },
+    {
+      "description": "Apakah mesin ultrasound tersedia dan berfungsi di fasilitas Anda dan petugas kesehatan terlatih tersedia untuk menggunakannya?",
+      "label": "USG tersedia",
+      "key": "site_ultrasound"
+    },
+    {
+      "description": "Apakah fasilitas Anda menggunakan alat pengukur tekanan darah (BP) otomatis?",
+      "label": "Alat pengukur BP otomatis",
+      "key": "site_bp_tool"
+    }
+  ],
+  "type": "SettingConfiguration"
+  }

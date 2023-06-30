@@ -1,0 +1,28 @@
+---
+name: step1_visit_date_toaster
+description: Shows when visit_date is invalid.
+priority: 1
+condition: "!helper.validateVisitDate(global_entity_id, step1_visit_date)"
+actions:
+  - "isRelevant = true"
+---
+name: step1_specific_complaint
+description: danger_signs
+priority: 1
+condition: "!step1_contact_reason.isEmpty() && step1_contact_reason == 'specific_complaint'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_specific_complaint_other
+description: danger_signs
+priority: 1
+condition: "step1_specific_complaint.contains('other_specify')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_danger_signs
+description: danger_signs
+priority: 1
+condition: "!step1_contact_reason.isEmpty()"
+actions:
+  - "isRelevant = true"

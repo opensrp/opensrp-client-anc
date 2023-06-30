@@ -2,6 +2,7 @@ package org.smartregister.anc.library.helper;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.rules.RuleConstant;
@@ -18,13 +19,20 @@ import org.jeasy.rules.core.RulesEngineParameters;
 import org.jeasy.rules.mvel.MVELRule;
 import org.jeasy.rules.mvel.MVELRuleFactory;
 import org.jeasy.rules.support.YamlRuleDefinitionReader;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.rule.AlertRule;
 import org.smartregister.anc.library.rule.ContactRule;
 import org.smartregister.anc.library.util.ANCFormUtils;
+import org.smartregister.anc.library.util.Utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -155,6 +163,12 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
         return ga;
     }
 
+    public static String replaceTranslatedWeeks(String gestAge)
+    {
+        Context context = AncLibrary.getInstance().getApplicationContext();
+        return gestAge.replace("weeks",context.getString(R.string.weeks)).replace("days",context.getString(R.string.days));
+    }
+
     /***
      * Gets value form accordion
      * @param accordion accordion to get the value from
@@ -243,6 +257,25 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
         return compareDateAgainstToday(addDuration(dateString, duration));
     }
 
+    @Override
+    public String addDuration(String dateString, String durationString) {
+        return ancAddDuration(dateString,durationString);
+    }
+
+    public  String ancAddDuration (String date , String duration)
+    {
+                String givenDate = date;
+                int daysToAdd = Integer.parseInt(duration.replace("d",""));
+                // Convert the given date string to a DateTime object
+                DateTimeFormatter formatter = DateTimeFormat.forPattern("dd-MM-yyyy");
+                DateTime dateObj = DateTime.parse(givenDate, formatter);
+                // Add days to the given date
+                DateTime newDate = dateObj.plusDays(daysToAdd);
+                // Format the new date as a string
+                String resultDate = newDate.toString(formatter);
+                return  resultDate;
+    }
+
     /**
      * Compares date against today's date
      *
@@ -252,5 +285,79 @@ public class AncRulesEngineHelper extends RulesEngineHelper {
      */
     public int compareDateAgainstToday(String theDate) {
         return compareTwoDates(theDate, (new LocalDate()).toString(FormUtils.NATIIVE_FORM_DATE_FORMAT_PATTERN));
+    }
+
+    public Boolean validateVisitDate(String entityId, String visitDate) {
+        // Valid if visitDate is null or an empty string
+        if (visitDate == null || visitDate.equals("")) return true;
+        // Validate visit date
+        return Utils.isVisitDateValid(entityId, visitDate);
+    }
+
+
+    @Override
+    public String getWeeksAndDaysFromDays(Integer days) {
+        Context context = AncLibrary.getInstance().getApplicationContext();
+        return super.getWeeksAndDaysFromDays(days).replace("weeks",context.getString(R.string.weeks)).replace("days",context.getString(R.string.days));
+    }
+
+
+    public String getTranslatedValues(String stringKey)
+    {
+        Context context = AncLibrary.getInstance().getApplicationContext();
+        Timber.e("MACUM %s %s  ", stringKey, R.string.magnesium_and_calcium_for_cramps);
+        switch (stringKey){
+            case "calcium_supplementation":
+                return context.getString(R.string.calcium_supplementation);
+            case "vitamin_a_supplementation":
+                return context.getString(R.string.vitamin_a_supplementation);
+            case "seven_day_antibiotic":
+                return context.getString(R.string.seven_day_antibiotic);
+            case "magnesium_and_calcium_for_cramps":
+                return context.getString(R.string.magnesium_and_calcium_for_cramps);
+            case "pharmacologicals_for_persistent_nausea_and_vomiting":
+                return context.getString(R.string.pharmacologicals_for_persistent_nausea_and_vomiting);
+            case "antacids_for_persistent_heartburn":
+                return context.getString(R.string.antacids_for_persistent_heartburn);
+            case "erythromycin_or_azithromycin":
+                return context.getString(R.string.erythromycin_or_azithromycin);
+            case "penicillin_for_syphilis":
+                return context.getString(R.string.penicillin_for_syphilis);
+            case "iron_and_folic_acid_for_anaemia":
+                return context.getString(R.string.iron_and_folic_acid_for_anaemia);
+            case "asprin_for_pre_eclampsia_risk":
+                return context.getString(R.string.asprin_for_pre_eclampsia_risk);
+            case "prep":
+                return context.getString(R.string.prep);
+            case "iron_and_folic_supplement":
+                return context.getString(R.string.iron_and_folic_supplement);
+            case "albendazole_mebendazole_for_deworming":
+                return context.getString(R.string.albendazole_mebendazole_for_deworming);
+
+        }
+        return "";
+    }
+
+    public String addEncounterDate(String entityId, String visitDate)
+    {
+        Facts facts = AncLibrary.getInstance().getPreviousContactRepository().getPreviousContactFacts(entityId, "1");
+        if(facts!= null && facts.get("visit_date") != null )
+        {
+            return  facts.get("visit_date");
+        }
+        return  visitDate;
+    }
+
+    @Override
+    public long getDifferenceDays(String dateString, String dateString2) {
+
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd-MM-yyyy");
+        // Convert the provided date string to a DateTime object
+        DateTime firstDateObject = DateTime.parse(dateString, formatter);
+        // Get the current date
+        DateTime secondDateObject = DateTime.parse(dateString2, formatter);
+        // Calculate the date difference in days
+        int dateDifference = Days.daysBetween(firstDateObject, secondDateObject).getDays();
+        return Math.abs(dateDifference);
     }
 }

@@ -30,6 +30,7 @@ import org.smartregister.anc.library.task.FinalizeContactTask;
 import org.smartregister.anc.library.task.LoadContactSummaryDataTask;
 import org.smartregister.anc.library.util.ANCFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.FilePathUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.helper.ImageRenderHelper;
@@ -65,7 +66,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         super.onCreate(savedInstanceState);
 
         baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
-        contactNo = getIntent().getExtras().getInt(ConstantsUtils.IntentKeyUtils.CONTACT_NO);
+        contactNo = new Integer(PatientRepository.getWomanProfileDetails(baseEntityId).get(DBConstantsUtils.KeyUtils.NEXT_CONTACT));
 
         setUpViews();
 
@@ -87,7 +88,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
         collapsingToolbarLayout.setTitleEnabled(false);
         if (contactNo > 0) {
             actionBar.setTitle(String.format(this.getString(R.string.contact_number),
-                    getIntent().getExtras().getInt(ConstantsUtils.IntentKeyUtils.CONTACT_NO)));
+                    contactNo));
         } else {
             actionBar.setTitle(R.string.back);
         }
@@ -96,6 +97,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
     protected void loadContactSummaryData() {
         try {
+            Facts thefacts = facts;
             new LoadContactSummaryDataTask(this, getIntent(), mProfilePresenter, facts, baseEntityId).execute();
         } catch (Exception e) {
             Timber.e(e, "%s loadContactSummaryData()", this.getClass().getCanonicalName());
@@ -131,7 +133,7 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
         List<PartialContact> partialContacts = getPartialContactRepository()
                 .getPartialContacts(getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID),
-                        getIntent().getIntExtra(ConstantsUtils.IntentKeyUtils.CONTACT_NO, 1));
+                        contactNo);
 
         if (partialContacts != null && !partialContacts.isEmpty()) {
             for (PartialContact partialContact : partialContacts) {
@@ -221,13 +223,13 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
 
     @Override
     public void setProfileAge(String age) {
-        ageView.setText("AGE " + age);
+        ageView.setText(getString(R.string.age)+" " + age);
 
     }
 
     @Override
     public void setProfileGestationAge(String gestationAge) {
-        gestationAgeView.setText(gestationAge != null ? "GA: " + gestationAge + " WEEKS" : "GA");
+        gestationAgeView.setText(gestationAge != null ? "GA: " + gestationAge + " "+getString(R.string.weeks)+"" : "GA");
     }
 
     @Override
@@ -295,15 +297,10 @@ public class ContactSummaryFinishActivity extends BaseProfileActivity implements
     }
 
     protected boolean isPermissionGranted() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
-        {
-            if(Environment.isExternalStorageManager())
-                return true;
-            else
-                return false;
-        }
-        else
-        return PermissionUtils.isPermissionGranted(this, Manifest.permission.WRITE_EXTERNAL_STORAGE, PermissionUtils.WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            return Environment.isExternalStorageManager();
+        } else
+            return PermissionUtils.isPermissionGranted(this, Manifest.permission.WRITE_EXTERNAL_STORAGE, PermissionUtils.WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
     }
 
     public List<YamlConfig> getYamlConfigList() {

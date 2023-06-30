@@ -151,7 +151,7 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
 
                 if (factsToUpdate.asMap().get(ConstantsUtils.ATTENTION_FLAG_FACTS) != null) {
                     try {
-                        JSONObject jsonObject = new JSONObject((String) Objects.requireNonNull(factsToUpdate.asMap().get(ConstantsUtils.ATTENTION_FLAG_FACTS)));
+                        JSONObject jsonObject = new JSONObject((String) factsToUpdate.asMap().get(ConstantsUtils.ATTENTION_FLAG_FACTS));
                         Iterator<String> keys = jsonObject.keys();
 
                         while (keys.hasNext()) {
@@ -172,8 +172,8 @@ public class PreviousContactsDetailsActivity extends AppCompatActivity implement
 
                 addOtherRuleObjects(factsToUpdate);
                 addAttentionFlagsRuleObjects(factsToUpdate);
-                Date lastContactDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                        .parse(String.valueOf(factsToUpdate.asMap().get(ConstantsUtils.CONTACT_DATE)));
+                Date lastContactDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+                        .parse(String.valueOf(factsToUpdate.asMap().get("visit_date")));
 
                 String displayContactDate = new SimpleDateFormat("dd MMM " + "yyyy", Locale.getDefault())
                         .format(lastContactDate);

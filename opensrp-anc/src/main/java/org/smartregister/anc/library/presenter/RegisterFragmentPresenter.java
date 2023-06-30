@@ -1,5 +1,7 @@
 package org.smartregister.anc.library.presenter;
 
+import android.util.Log;
+
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.smartregister.anc.library.AncLibrary;
@@ -35,8 +37,7 @@ public class RegisterFragmentPresenter
         this.viewReference = new WeakReference<>(view);
         this.model = new RegisterFragmentModel();
         this.viewConfigurationIdentifier = viewConfigurationIdentifier;
-        this.config = model.defaultRegisterConfiguration();
-
+        this.config = model.defaultRegisterConfiguration(view.getContext());
         this.interactor = new AdvancedSearchInteractor();
     }
 

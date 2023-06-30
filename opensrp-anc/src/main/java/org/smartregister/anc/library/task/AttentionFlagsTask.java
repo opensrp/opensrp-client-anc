@@ -70,7 +70,7 @@ public class AttentionFlagsTask {
                 }
             }
         } catch (Exception e) {
-            Timber.e(e, " --> ");
+            Timber.e(e);
         }
     }
 

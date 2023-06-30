@@ -25,7 +25,7 @@ fields:
   - template: "{{contact_summary.hospital_referral.fever}}: {body_temp_repeat}ºC"
     relevance: "body_temp_repeat >= 38"
 
-  - template: "{{contact_summary.hospital_referral.abnormal_pulse_rate}}: {pulse_rate_repeat}bpm"
+  - template: "{{contact_summary.hospital_referral.abnormal_pulse_rate}}: {pulse_rate_repeat}kpm"
     relevance: "pulse_rate_repeat < 60 || pulse_rate_repeat > 100"
 
   - template: "{{contact_summary.hospital_referral.respiratory_distress}}: {respiratory_exam_abnormal_value}"
@@ -49,7 +49,7 @@ fields:
   - template: "{{contact_summary.hospital_referral.no_fetal_heartbeat_observed}}"
     relevance: "fetal_heartbeat == 'no'"
 
-  - template: "{{contact_summary.hospital_referral.abnormal_fetal_heart_rate}}: {fetal_heart_rate_repeat}bpm"
+  - template: "{{contact_summary.hospital_referral.abnormal_fetal_heart_rate}}: {fetal_heart_rate_repeat}kpm"
     relevance: "fetal_heart_rate_repeat < 100 || fetal_heart_rate_repeat > 180"
 
 ---
@@ -254,7 +254,7 @@ fields:
   - template: "{{contact_summary.physiological_symptoms.persisting_physiological_symptoms}}: {phys_symptoms_persist_value}"
     relevance: "phys_symptoms_persist != ''"
 
-  - template: "{{contact_summary.physiological_symptoms.physiological_symptoms}}: {phys_symptoms_value}"
+  - template: "{{contact_summary.physiological_symptoms.physiological_symptoms}}: {phys_symptoms_value_value}"
     relevance: "phys_symptoms != ''"
 
   - template: "{{contact_summary.physiological_symptoms.low_back_and_pelvic_pain_other_symptoms}}: {other_sym_lbpp_value}"
@@ -419,10 +419,10 @@ fields:
   - template: "{{contact_summary.maternal_exam.second_temperature}}: {body_temp_repeat}ºC"
     relevance: "body_temp_repeat != ''"
 
-  - template: "{{contact_summary.maternal_exam.pulse_rate}}: {pulse_rate} bpm"
+  - template: "{{contact_summary.maternal_exam.pulse_rate}}: {pulse_rate} kpm"
     relevance: "pulse_rate != ''"
 
-  - template: "{{contact_summary.maternal_exam.second_pulse_rate}}: {pulse_rate_repeat} bpm"
+  - template: "{{contact_summary.maternal_exam.second_pulse_rate}}: {pulse_rate_repeat} kpm"
     relevance: "pulse_rate_repeat != ''"
 
   - template: "{{contact_summary.maternal_exam.pallor_present}}: {pallor_value}"
@@ -467,7 +467,7 @@ fields:
   - template: "{{contact_summary.maternal_exam.cervix_dilated}}: {dilation_cm_value} cm"
     relevance: "dilation_cm != ''"
 
-  - template: "{{contact_summary.maternal_exam.oedema_present}}: {oedema_value}"
+  - template: "{{contact_summary.maternal_exam.oedema_present}}: {oedema_value_value}"
     relevance: "oedema != ''"
 
   - template: "{{contact_summary.maternal_exam.oedema_type}}: {oedema_type_value}"
@@ -488,10 +488,10 @@ fields:
   - template: "{{contact_summary.maternal_exam.fetal_heartbeat_present}}: {fetal_heartbeat}"
     relevance: "fetal_heartbeat != ''"
 
-  - template: "{{contact_summary.maternal_exam.fetal_heart_rate}}: {fetal_heart_rate} bpm"
+  - template: "{{contact_summary.maternal_exam.fetal_heart_rate}}: {fetal_heart_rate} kpm"
     relevance: "fetal_heart_rate != ''"
 
-  - template: "{{contact_summary.maternal_exam.second_fetal_heart_rate}}: {fetal_heart_rate_repeat} bpm"
+  - template: "{{contact_summary.maternal_exam.second_fetal_heart_rate}}: {fetal_heart_rate_repeat} kpm"
     relevance: "fetal_heart_rate_repeat != ''"
 ---
 group: ultrasound_test
@@ -539,7 +539,7 @@ fields:
   - template: "{{contact_summary.hiv_tests.hiv_test_date}}: {hiv_test_date}"
     relevance: "hiv_test_date != ''"
 
-  - template: "{{contact_summary.hiv_tests.hiv_test_result}}: {hiv_test_result_value}"
+  - template: "{{contact_summary.hiv_tests.hiv_test_result}}: {hiv_test_result_value_value}"
     relevance: "hiv_test_result != ''"
 
   - template: "{{contact_summary.hiv_tests.hiv_positive_counseling_done}}"
@@ -551,7 +551,7 @@ fields:
 group: partner_hiv_test
 fields:
 
-  - template: "{{contact_summary.partner_hiv_test.partner_hiv_test_status}}: {partner_hiv_status_value}"
+  - template: "{{contact_summary.partner_hiv_test.partner_hiv_test_status}}: {partner_hiv_status_value_value}"
     relevance: "partner_hiv_status != ''"
 
   - template: "{{contact_summary.partner_hiv_test.partner_hiv_test_date}}: {hiv_test_partner_date}"
@@ -632,7 +632,7 @@ fields:
   - template: "{{contact_summary.syphilis_test.syphilis_test_date}}: {syphilis_test_date}"
     relevance: "syphilis_test_date != ''"
 
-  - template: "{{contact_summary.syphilis_test.rapid_syphilis_test_rst_result}}: {rapid_syphilis_test}"
+  - template: "{{contact_summary.syphilis_test.rapid_syphilis_test_rst_result}}: {rapid_syphilis_test_value_value}"
     relevance: "rapid_syphilis_test != ''"
 
   - template: "{{contact_summary.syphilis_test.rapid_plasma_reagin_rpr_test_result}}: {rpr_syphilis_test}"
@@ -665,7 +665,7 @@ fields:
   - template: "{{contact_summary.urine_tests.urine_test_date}}: {urine_test_date}"
     relevance: "urine_test_date != ''"
 
-  - template: "{{contact_summary.urine_tests.midstream_urine_culture_result}}: {urine_culture_value}"
+  - template: "{{contact_summary.urine_tests.midstream_urine_culture_result}}: {urine_culture_value_value}"
     relevance: "urine_culture != ''"
 
   - template: "{{contact_summary.urine_tests.midstream_urine_gram_staining_result}}: {urine_gram_stain_value}"

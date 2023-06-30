@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -977,7 +978,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
         if (!TextUtils.isEmpty(template.detail)) {
             output = Utils.fillTemplate(template.detail, facts);
         }
-
+        output = output.replaceAll("(?i)Hiv", "HIV");
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ConstraintLayout constraintLayout =
                 (ConstraintLayout) inflater.inflate(R.layout.previous_contacts_preview_row, null);
@@ -1023,5 +1024,23 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
     public class Template {
         public String title = "";
         public String detail = "";
+    }
+
+    public static JSONObject populateSecondaryValues(String secondaryValue , JSONObject optionsObject)
+    {
+        JSONObject secondaryValueObject = new JSONObject();
+        JSONArray  secondaryValueArray = new JSONArray();
+        try {
+            secondaryValueArray.put(secondaryValue);
+            secondaryValueObject.put(JsonFormConstants.KEY, optionsObject.getString(JsonFormConstants.KEY));
+            secondaryValueObject.put(JsonFormConstants.VALUES, secondaryValueArray);
+            secondaryValueObject.put(JsonFormConstants.TYPE, optionsObject.getString(JsonFormConstants.CONTENT_WIDGET));
+        }
+        catch (JSONException e)
+        {
+            Timber.e(e);
+        }
+        return secondaryValueObject;
+
     }
 }
