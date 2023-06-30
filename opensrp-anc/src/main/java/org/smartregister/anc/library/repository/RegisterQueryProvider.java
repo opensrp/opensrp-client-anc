@@ -103,14 +103,14 @@ public class RegisterQueryProvider {
                 getDetailsTable() + "." + ConstantsUtils.SpinnerKeyConstants.VILLAGE,
 
                 // Additional local fields
-                DBConstantsUtils.KeyUtils.UID,
-                DBConstantsUtils.KeyUtils.UID_REPEAT,
-                DBConstantsUtils.KeyUtils.SSN,
-                DBConstantsUtils.KeyUtils.SSN_REPEAT,
+                getDemographicTable() + "." + DBConstantsUtils.KeyUtils.UID,
+                getDemographicTable() + "." + DBConstantsUtils.KeyUtils.UID_REPEAT,
+                getDemographicTable() + "." + DBConstantsUtils.KeyUtils.SSN,
+                getDemographicTable() + "." + DBConstantsUtils.KeyUtils.SSN_REPEAT,
 
-                DBConstantsUtils.KeyUtils.ADDITIONAL_ID_TYPE,
-                DBConstantsUtils.KeyUtils.ADDITIONAL_ID_NUMBER,
-                DBConstantsUtils.KeyUtils.ADDITIONAL_ID_NUMBER_REPEAT,
+                getDemographicTable() + "." + DBConstantsUtils.KeyUtils.ADDITIONAL_ID_TYPE,
+                getDemographicTable() + "." + DBConstantsUtils.KeyUtils.ADDITIONAL_ID_NUMBER,
+                getDemographicTable() + "." + DBConstantsUtils.KeyUtils.ADDITIONAL_ID_NUMBER_REPEAT,
                 getDetailsTable() + "." + DBConstantsUtils.KeyUtils.SSN_STATUS,
                 getDetailsTable() + "." + DBConstantsUtils.KeyUtils.UID_UNKNOWN,
                 getDetailsTable() + "." + DBConstantsUtils.KeyUtils.UID_UNKNOWN_REASON,
