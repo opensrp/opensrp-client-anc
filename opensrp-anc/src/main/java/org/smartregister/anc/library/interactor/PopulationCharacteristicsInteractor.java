@@ -9,6 +9,7 @@ import org.smartregister.anc.library.task.FetchPopulationCharacteristicsTask;
  */
 public class PopulationCharacteristicsInteractor implements BaseCharacteristicsContract.Interactor {
     private PopulationCharacteristicsContract.Presenter presenter;
+    private String locale;
 
     public PopulationCharacteristicsInteractor(PopulationCharacteristicsContract.Presenter presenter) {
         this.presenter = presenter;
