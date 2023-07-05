@@ -625,6 +625,13 @@
 				"v_max_length": {
 					"value": "12",
 					"err": "{{anc_register.step1.phone_number.v_max_length.err}}"
+				},
+				"relevance": {
+					"rules-engine": {
+						"ex-rules": {
+							"rules-file": "anc_register_relevance.yml"
+						}
+					}
 				}
 			},
 			{
