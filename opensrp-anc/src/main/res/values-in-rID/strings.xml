@@ -725,6 +725,7 @@
     <string name="contact_summary">Ringkasan Kunjungan</string>
     <string name="navigation_drawer_close">Tutup navigasi</string>
     <string name="navigation_drawer_open">Buka navigasi</string>
+    <string name= "ga">UK</string>
 
 
     <!-- Needs Refactoring -->

@@ -108,7 +108,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
                             android:paddingStart="20dp"
-                            android:text="UK"
+                            android:text="@string/ga"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small"
                             android:textColor="@color/white" />
 
