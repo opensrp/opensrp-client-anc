@@ -89,7 +89,7 @@ fields:
   - template: "{{contact_summary.current_pregnancy.no_of_fetuses}}: {no_of_fetuses}"
     relevance: "no_of_fetuses_value != ''"
 
-  - template: "{{contact_summary.current_pregnancy.fetal_presentation}}: {fetal_presentation_value}"
+  - template: "{{contact_summary.current_pregnancy.fetal_presentation}}: {fetal_presentation_value_value}"
     relevance: "fetal_presentation_value != ''"
 
   - template: "{{contact_summary.current_pregnancy.amniotic_fluid}}: {amniotic_fluid_value}"
@@ -131,7 +131,7 @@ fields:
   - template: "{{contact_summary.medical_history.surgeries}}: {surgeries}"
     relevance: "!surgeries_value.isEmpty()"
 
-  - template: "{{contact_summary.medical_history.chronic_health_conditions}}: {health_conditions}"
+  - template: "{{contact_summary.medical_history.chronic_health_conditions}}: {health_conditions_value}"
     relevance: "!health_conditions_value.isEmpty()"
 
   - template: "{{contact_summary.medical_history.hiv_diagnosis_date}}: {hiv_diagnosis_date}"
@@ -143,7 +143,7 @@ fields:
 group: immunisation_status
 fields:
 
-  - template: "{{contact_summary.immunisation_status.tt_immunisation_status}}: {tt_immun_status_value}"
+  - template: "{{contact_summary.immunisation_status.tt_immunisation_status}}: {tt_immun_status_value_value}"
     relevance: "tt_immun_status_value != ''"
 
   - template: "{{contact_summary.immunisation_status.tt_dose_1}}: {tt1_date_done_date_today_hidden} {tt1_date_done}"
@@ -167,7 +167,7 @@ fields:
 group: medications
 fields:
 
-  - template: "{{contact_summary.medications.current_medications}}: {medications_value}"
+  - template: "{{contact_summary.medications.current_medications}}: {medications_value_value}"
     relevance: "!medications_value.isEmpty()"
 
   - template: "{{contact_summary.medications.medications_prescribed}}: {vita}, {alben_meben}, {mag_calc}, {nausea_pharma}, {antacid}, {penicillin}, {antibiotic}, {prep}, {sp}, {ifa}, {ifa_medication}, {aspirin}, {calcium}"
@@ -201,7 +201,7 @@ fields:
   - template: "{{contact_summary.woman_behaviour.persisting_behaviours}}: {behaviour_persist_value}"
     relevance: "behaviour_persist_value != ''"
 
-  - template: "{{contact_summary.woman_behaviour.caffeine_intake}}: {caffeine_intake_value}"
+  - template: "{{contact_summary.woman_behaviour.caffeine_intake}}: {caffeine_intake_value_value}"
     relevance: "caffeine_intake_value != ''"
 
   - template: "{{contact_summary.woman_behaviour.caffeine_reduction_counseling}}: {caffeine_counsel_value}"
@@ -210,7 +210,7 @@ fields:
   - template: "{{contact_summary.woman_behaviour.caffeine_reduction_not_counseling}}: {caffeine_counsel_notdone_value}"
     relevance: "caffeine_counsel_value == 'not_done'"
 
-  - template: "{{contact_summary.woman_behaviour.tobacco_user}}: {tobacco_user_value}"
+  - template: "{{contact_summary.woman_behaviour.tobacco_user}}: {tobacco_user_value_value}"
     relevance: "tobacco_user_value != ''"
 
   - template: "{{contact_summary.woman_behaviour.tobacco_cessation_counseling_done}}"
@@ -219,7 +219,7 @@ fields:
   - template: "{{contact_summary.woman_behaviour.tobacco_cessation_counseling_done}}: {tobacco_counsel_notdone_value}"
     relevance: "tobacco_counsel_value == 'not_done'"
 
-  - template: "{{contact_summary.woman_behaviour.shs_exposure}}: {shs_exposure_value}"
+  - template: "{{contact_summary.woman_behaviour.shs_exposure}}: {shs_exposure_value_value}"
     relevance: "shs_exposure_value != ''"
 
   - template: "{{contact_summary.woman_behaviour.shs_counseling_done}}"
@@ -228,7 +228,7 @@ fields:
   - template: "{{contact_summary.woman_behaviour.shs_counseling_not_done}}: {shs_counsel_notdone_value}"
     relevance: "shs_counsel_value == 'not_done'"
 
-  - template: "{{contact_summary.woman_behaviour.condom_use}}: {condom_use_value}"
+  - template: "{{contact_summary.woman_behaviour.condom_use}}: {condom_use_value_value}"
     relevance: "condom_use_value != ''"
 
   - template: "{{contact_summary.woman_behaviour.condom_counseling_done}}"
@@ -237,7 +237,7 @@ fields:
   - template: "{{contact_summary.woman_behaviour.condom_counseling_not_done}}: {condom_counsel_notdone_value}"
     relevance: "condom_counsel_value == 'not_done'"
 
-  - template: "{{contact_summary.woman_behaviour.alcohol_substance_enquiry}}: {alcohol_substance_enquiry_value}"
+  - template: "{{contact_summary.woman_behaviour.alcohol_substance_enquiry}}: {alcohol_substance_enquiry_value_value}"
     relevance: "alcohol_substance_enquiry_value != ''"
 
   - template: "{{contact_summary.woman_behaviour.alcohol_substances_used}}: {alcohol_substance_use_value}, {other_substance_use}"
@@ -471,7 +471,7 @@ fields:
   - template: "{{contact_summary.maternal_exam.oedema_present}}: {oedema_value}"
     relevance: "oedema != ''"
 
-  - template: "{{contact_summary.maternal_exam.oedema_type}}: {oedema_type_value}"
+  - template: "{{contact_summary.maternal_exam.oedema_type}}: {oedema_type_value_value}"
     relevance: "oedema_type != ''"
 
   - template: "{{contact_summary.maternal_exam.oedema_severity}}: {oedema_severity_value}"
@@ -486,7 +486,7 @@ fields:
   - template: "{{contact_summary.maternal_exam.fetal_movement_felt}}: {fetal_movement}"
     relevance: "fetal_movement != ''"
 
-  - template: "{{contact_summary.maternal_exam.fetal_heartbeat_present}}: {fetal_heartbeat}"
+  - template: "{{contact_summary.maternal_exam.fetal_heartbeat_present}}: {fetal_heartbeat_value}"
     relevance: "fetal_heartbeat != ''"
 
   - template: "{{contact_summary.maternal_exam.fetal_heart_rate}}: {fetal_heart_rate} kpm"
@@ -708,19 +708,19 @@ fields:
   - template: "{{contact_summary.blood_glucose_tests.blood_glucose_test_date}}: {glucose_test_date}"
     relevance: "glucose_test_date != ''"
 
-  - template: "{{contact_summary.blood_glucose_tests.fasting_plasma_glucose_results_mg_dl}}: {fasting_plasma_gluc} mg/dl"
+  - template: "{{contact_summary.blood_glucose_tests.fasting_plasma_glucose_results_mg_dl}}: {fasting_plasma_gluc} mg/dL"
     relevance: "fasting_plasma_gluc != ''"
 
-  - template: "{{contact_summary.blood_glucose_tests.75g_ogtt_fasting_glucose_results_mg_dl}}: {ogtt_fasting} mg/dl"
+  - template: "{{contact_summary.blood_glucose_tests.75g_ogtt_fasting_glucose_results_mg_dl}}: {ogtt_fasting} mg/dL"
     relevance: "ogtt_fasting != ''"
 
-  - template: "{{contact_summary.blood_glucose_tests.75g_ogtt_1_hr_results_mg_dl}}: {ogtt_1} mg/dl"
+  - template: "{{contact_summary.blood_glucose_tests.75g_ogtt_1_hr_results_mg_dl}}: {ogtt_1} mg/dL"
     relevance: "ogtt_1 != ''"
 
-  - template: "{{contact_summary.blood_glucose_tests.75g_ogtt_2_hrs_results_mg_dl}}: {ogtt_2} mg/dl"
+  - template: "{{contact_summary.blood_glucose_tests.75g_ogtt_2_hrs_results_mg_dl}}: {ogtt_2} mg/dL"
     relevance: "ogtt_2 != ''"
 
-  - template: "{{contact_summary.blood_glucose_tests.random_plasma_glucose_results_mg_dl}}: {random_plasma} mg/dl"
+  - template: "{{contact_summary.blood_glucose_tests.random_plasma_glucose_results_mg_dl}}: {random_plasma} mg/dL"
     relevance: "random_plasma != ''"
 
   - template: "{{contact_summary.blood_glucose_tests.diabetes_counseling_done}}"
@@ -741,13 +741,13 @@ fields:
   - template: "{{contact_summary.blood_haemoglobin_test.blood_haemoglobin_test_date}}: {hb_test_date}"
     relevance: "hb_test_date != ''"
 
-  - template: "{{contact_summary.blood_haemoglobin_test.complete_blood_count_test_result_g_dl}}: {cbc} g/dl"
+  - template: "{{contact_summary.blood_haemoglobin_test.complete_blood_count_test_result_g_dl}}: {cbc} g/dL"
     relevance: "cbc != ''"
 
-  - template: "{{contact_summary.blood_haemoglobin_test.rhb_test_result_haemoglobinometer_g_dl}}: {hb_gmeter} g/dl"
+  - template: "{{contact_summary.blood_haemoglobin_test.rhb_test_result_haemoglobinometer_g_dl}}: {hb_gmeter} g/dL"
     relevance: "hb_gmeter != ''"
 
-  - template: "{{contact_summary.blood_haemoglobin_test.hb_test_result_haemoglobin_colour_scale_g_dl}}: {hb_colour} g/dl"
+  - template: "{{contact_summary.blood_haemoglobin_test.hb_test_result_haemoglobin_colour_scale_g_dl}}: {hb_colour} g/dL"
     relevance: "hb_colour != ''"
 
   - template: "{{contact_summary.blood_haemoglobin_test.hematocrit_ht}}: {ht}"

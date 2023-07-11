@@ -707,19 +707,19 @@ fields:
   - template: "{{contact_summary.blood_glucose_tests.blood_glucose_test_date}}: {glucose_test_date}"
     relevance: "glucose_test_date != ''"
 
-  - template: "{{contact_summary.blood_glucose_tests.fasting_plasma_glucose_results_mg_dl}}: {fasting_plasma_gluc} mg/dl"
+  - template: "{{contact_summary.blood_glucose_tests.fasting_plasma_glucose_results_mg_dl}}: {fasting_plasma_gluc} mg/dL"
     relevance: "fasting_plasma_gluc != ''"
 
-  - template: "{{contact_summary.blood_glucose_tests.75g_ogtt_fasting_glucose_results_mg_dl}}: {ogtt_fasting} mg/dl"
+  - template: "{{contact_summary.blood_glucose_tests.75g_ogtt_fasting_glucose_results_mg_dl}}: {ogtt_fasting} mg/dL"
     relevance: "ogtt_fasting != ''"
 
-  - template: "{{contact_summary.blood_glucose_tests.75g_ogtt_1_hr_results_mg_dl}}: {ogtt_1} mg/dl"
+  - template: "{{contact_summary.blood_glucose_tests.75g_ogtt_1_hr_results_mg_dl}}: {ogtt_1} mg/dL"
     relevance: "ogtt_1 != ''"
 
-  - template: "{{contact_summary.blood_glucose_tests.75g_ogtt_2_hrs_results_mg_dl}}: {ogtt_2} mg/dl"
+  - template: "{{contact_summary.blood_glucose_tests.75g_ogtt_2_hrs_results_mg_dl}}: {ogtt_2} mg/dL"
     relevance: "ogtt_2 != ''"
 
-  - template: "{{contact_summary.blood_glucose_tests.random_plasma_glucose_results_mg_dl}}: {random_plasma} mg/dl"
+  - template: "{{contact_summary.blood_glucose_tests.random_plasma_glucose_results_mg_dl}}: {random_plasma} mg/dL"
     relevance: "random_plasma != ''"
 
   - template: "{{contact_summary.blood_glucose_tests.diabetes_counseling_done}}"
@@ -740,13 +740,13 @@ fields:
   - template: "{{contact_summary.blood_haemoglobin_test.blood_haemoglobin_test_date}}: {hb_test_date}"
     relevance: "hb_test_date != ''"
 
-  - template: "{{contact_summary.blood_haemoglobin_test.complete_blood_count_test_result_g_dl}}: {cbc} g/dl"
+  - template: "{{contact_summary.blood_haemoglobin_test.complete_blood_count_test_result_g_dl}}: {cbc} g/dL"
     relevance: "cbc != ''"
 
-  - template: "{{contact_summary.blood_haemoglobin_test.rhb_test_result_haemoglobinometer_g_dl}}: {hb_gmeter} g/dl"
+  - template: "{{contact_summary.blood_haemoglobin_test.rhb_test_result_haemoglobinometer_g_dl}}: {hb_gmeter} g/dL"
     relevance: "hb_gmeter != ''"
 
-  - template: "{{contact_summary.blood_haemoglobin_test.hb_test_result_haemoglobin_colour_scale_g_dl}}: {hb_colour} g/dl"
+  - template: "{{contact_summary.blood_haemoglobin_test.hb_test_result_haemoglobin_colour_scale_g_dl}}: {hb_colour} g/dL"
     relevance: "hb_colour != ''"
 
   - template: "{{contact_summary.blood_haemoglobin_test.hematocrit_ht}}: {ht}"

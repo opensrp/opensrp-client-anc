@@ -6,6 +6,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
+
 import com.google.common.collect.ImmutableMap;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.ExpansionPanelItemModel;
@@ -33,6 +35,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import timber.log.Timber;
@@ -859,5 +862,35 @@ public class ANCFormUtils extends FormUtils {
             Timber.e(e, " --> getTranslatedFormTitle");
         }
         return "";
+    }
+
+    @NonNull
+    public static String replaceCapitalizedAbbreviation(StringBuilder outputBuilder) {
+        String output = outputBuilder.toString();
+
+        String regexString = null;
+        String replacementString = null;
+        HashMap<String, String> replacementsMap = getReplacementsMap();
+        for (String rgx:replacementsMap.keySet()
+             ) {
+            Pattern regex = Pattern.compile(rgx);
+            Matcher matcher = regex.matcher(output);
+            if(matcher.find()){
+                output = output.replaceAll(rgx, replacementsMap.get(rgx));
+            }
+        }
+
+        return output;
+    }
+
+    public static HashMap<String, String> getReplacementsMap(){
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put("(?i)Hiv", " HIV");
+        map.put("(?i)dmpa-im", " DMPA-IM");
+        map.put("(?i)sma", " SMA");
+        map.put("(?i)smp", " SMP");
+        return map;
+
     }
 }

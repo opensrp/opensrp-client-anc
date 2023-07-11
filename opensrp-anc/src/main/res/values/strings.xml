@@ -628,7 +628,7 @@
 	<string name="physiological_symptoms">Physiological Symptoms</string>
 	<string name="birth_plan_counseling">Birth Plan Counseling</string>
 	<string name="malaria_prophylaxis">Malaria Prophylaxis</string>
-	<string name="immunisation_status">Immunisation Status</string>
+	<string name="immunisation_status">Immunization Status</string>
 
 	<string name="reason_for_visit">Reason for visit</string>
 	<string name="womans_behaviour">Woman\'s Behavior</string>
@@ -868,6 +868,7 @@
 	<string name="label_weeks">Weeks</string>
     <string name="mother_age">Mother\'s Age</string>
 	<string name="gestational_age">Gestational Age</string>
+	<string name="gestational_age_abrv">GA</string>
 	<string name="gestational_age_warning">UK more than 42 weeks, must consult a doctor.</string>
 	<string name="didukung_oleh">Powered by</string>
 
