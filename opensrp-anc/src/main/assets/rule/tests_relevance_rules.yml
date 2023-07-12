@@ -679,35 +679,35 @@ actions:
   - "isRelevant = true"
 ---
 name: step2_fasting_plasma_gluc
-description: Fasting plasma glucose results (mg/dl)
+description: Fasting plasma glucose results (mg/dL)
 priority: 1
 condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'fasting_plasma'"
 actions:
   - "isRelevant = true"
 ---
 name: step2_ogtt_fasting
-description: 75g OGTT - fasting glucose results (mg/dl)
+description: 75g OGTT - fasting glucose results (mg/dL)
 priority: 1
 condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'ogtt_75'"
 actions:
   - "isRelevant = true"
 ---
 name: step2_ogtt_1
-description: 75g OGTT - 1 hr results (mg/dl)
+description: 75g OGTT - 1 hr results (mg/dL)
 priority: 1
 condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'ogtt_75'"
 actions:
   - "isRelevant = true"
 ---
 name: step2_ogtt_2
-description: 75g OGTT - 2 hrs results (mg/dl)
+description: 75g OGTT - 2 hrs results (mg/dL)
 priority: 1
 condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'ogtt_75'"
 actions:
   - "isRelevant = true"
 ---
 name: step2_random_plasma
-description: Random plasma glucose results (mg/dl)
+description: Random plasma glucose results (mg/dL)
 priority: 1
 condition: "(step2_glucose_test_status == 'done_today' || step2_glucose_test_status == 'done_earlier') && step2_glucose_test_type == 'random_plasma'"
 actions:

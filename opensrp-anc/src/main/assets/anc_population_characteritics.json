@@ -10,13 +10,13 @@
           "key": "pop_undernourish"
         },
         {
-          "description": "The proportion of pregnant women in the population with anaemia (haemoglobin level less than 11 g/dl) is 40% or higher.",
+          "description": "The proportion of pregnant women in the population with anaemia (haemoglobin level less than 11 g/dL) is 40% or higher.",
           "label": "Anaemia prevalence 40% or higher",
           "value": "false",
           "key": "pop_anaemia_40"
         },
         {
-          "description": "The proportion of pregnant women in the population with anaemia (haemoglobin level less than 11 g/dl) is 20% or lower.",
+          "description": "The proportion of pregnant women in the population with anaemia (haemoglobin level less than 11 g/dL) is 20% or lower.",
           "label": "Anaemia prevalence 20% or lower",
           "value": "true",
           "key": "pop_anaemia_20"

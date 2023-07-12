@@ -19,6 +19,7 @@ import org.smartregister.anc.library.util.AppExecutors;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
+import org.smartregister.client.utils.constants.JsonFormConstants;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -98,9 +99,15 @@ public class LoadContactSummaryDataTask {
             String key = entry.getKey();
             Object valueObject = entry.getValue();
             String text = valueObject != null ? Utils.returnTranslatedStringJoinedValue(valueObject.toString()) : "";
-            String value = Utils.getFactInputValue(valueObject.toString());
+            String valueObjectStr = valueObject.toString();
+            String value = Utils.getFactInputValue(valueObjectStr);
             populatedFacts.put(key, text);
             populatedFacts.put(key + "_value", value);
+            if(StringUtils.isNotBlank(valueObjectStr)  && (valueObjectStr.contains(".")
+                    && valueObjectStr.contains(JsonFormConstants.TEXT))
+                    || (StringUtils.isNotBlank(valueObjectStr) || valueObjectStr.charAt(0) == '['
+                    && valueObjectStr.contains("{") && valueObjectStr.contains(JsonFormConstants.TEXT)) )
+                populatedFacts.put(key + "_value", text);
         }
 
         ContactSummaryFinishAdapter adapter = new ContactSummaryFinishAdapter(context, ((ContactSummaryFinishActivity) context).getYamlConfigList(), populatedFacts);
