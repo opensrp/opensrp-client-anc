@@ -29,22 +29,22 @@ fields:
   - template: "{{contact_summary.hospital_referral.abnormal_pulse_rate}}: {pulse_rate_repeat}kpm"
     relevance: "pulse_rate_repeat_value < 60 || pulse_rate_repeat_value > 100"
 
-  - template: "{{contact_summary.hospital_referral.respiratory_distress}}: {respiratory_exam_abnormal_value}"
+  - template: "{{contact_summary.hospital_referral.respiratory_distress}}: {respiratory_exam_abnormal_value_value}"
     relevance: "!respiratory_exam_abnormal_value.contains('none') && !respiratory_exam_abnormal_value.isEmpty()"
 
   - template: "{{contact_summary.hospital_referral.low_oximetry}}: {oximetry}%"
     relevance: "oximetry_value < 92"
 
-  - template: "{{contact_summary.hospital_referral.abnormal_cardiac_exam}}: {cardiac_exam_abnormal_value}"
+  - template: "{{contact_summary.hospital_referral.abnormal_cardiac_exam}}: {cardiac_exam_abnormal_value_value}"
     relevance: "!cardiac_exam_abnormal_value.contains('none') && !cardiac_exam_abnormal_value.isEmpty()"
 
-  - template: "{{contact_summary.hospital_referral.abnormal_breast_exam}}: {breast_exam_abnormal_value}"
+  - template: "{{contact_summary.hospital_referral.abnormal_breast_exam}}: {breast_exam_abnormal_value_value}"
     relevance: "!breast_exam_abnormal_value.contains('none') && !breast_exam_abnormal_value.isEmpty()"
 
-  - template: "{{contact_summary.hospital_referral.abnormal_abdominal_exam}}: {abdominal_exam_abnormal_value}"
+  - template: "{{contact_summary.hospital_referral.abnormal_abdominal_exam}}: {abdominal_exam_abnormal_value_value}"
     relevance: "!abdominal_exam_abnormal_value.contains('none') && !abdominal_exam_abnormal_value.isEmpty()"
 
-  - template: "{{contact_summary.hospital_referral.abnormal_pelvic_exam}}: {pelvic_exam_abnormal_value}"
+  - template: "{{contact_summary.hospital_referral.abnormal_pelvic_exam}}: {pelvic_exam_abnormal_value_value}"
     relevance: "!pelvic_exam_abnormal_value.contains('none') && !pelvic_exam_abnormal_value.isEmpty()"
 
   - template: "{{contact_summary.hospital_referral.no_fetal_heartbeat_observed}}"
