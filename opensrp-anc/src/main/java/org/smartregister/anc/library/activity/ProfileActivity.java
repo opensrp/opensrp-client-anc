@@ -281,8 +281,14 @@ public class ProfileActivity extends BaseProfileActivity implements ProfileContr
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
-        presenter.onDestroy(isChangingConfigurations());
+        try {
+            super.onDestroy();
+            presenter.onDestroy(isChangingConfigurations());
+        }
+        catch (Exception e)
+        {
+            Timber.e(e);
+        }
     }
 
     @Override

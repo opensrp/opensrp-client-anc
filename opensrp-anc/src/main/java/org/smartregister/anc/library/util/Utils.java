@@ -1027,7 +1027,14 @@ public class Utils extends org.smartregister.util.Utils {
         try {
             if (StringUtils.isNotBlank(input)) {
                 JSONArray jsonArray = new JSONArray(input);
-                return jsonArray.optJSONObject(0) != null || jsonArray.optJSONObject(0).length() > 0;
+                if(jsonArray.optJSONObject(0) != null)
+                {
+                    if(jsonArray.optJSONObject(0).length() > 0)
+                    {
+                        return true;
+                    }
+                    return true;
+                }
             }
             return false;
         } catch (Exception e) {
@@ -1083,7 +1090,7 @@ public class Utils extends org.smartregister.util.Utils {
         } catch (Exception e) {
             e.printStackTrace();
             Timber.e("Failed to translate String %s", e.toString());
-            return "";
+            return value;
         }
     }
 
@@ -1131,7 +1138,7 @@ public class Utils extends org.smartregister.util.Utils {
         } catch (Exception e) {
             e.printStackTrace();
             Timber.e("Failed to translate String %s", e.toString());
-            return "";
+            return input;
         }
     }
 

@@ -14,6 +14,7 @@ import com.flurry.android.FlurryAgent;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.vijay.jsonwizard.NativeFormLibrary;
 
+import org.smartregister.AllConstants;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.P2POptions;
@@ -113,6 +114,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.DEFAULT_LOCATION_LEVEL);
         FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true);
 
+
         //init Job Manager
         JobManager.create(this).addJobCreator(new AncJobCreator());
 
@@ -137,8 +139,11 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     private void setDefaultLanguage() {
         try {
             AllSharedPreferences allSharedPreferences = new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
-            String current = allSharedPreferences.fetchLanguagePreference();
-            if(current==null) Utils.saveLanguage(AppConfig.DefaultLocale.getLanguage());
+            String current = allSharedPreferences.getPreferences().getString(AllConstants.LANGUAGE_PREFERENCE_KEY,null);
+            if(current==null) {
+                Utils.saveLanguage(AppConfig.DefaultLocale.getLanguage());
+                current = AppConfig.DefaultLocale.getLanguage();
+            }
             else Utils.saveLanguage(current);
             LangUtils.setAppLocale(this,current);
             AncLibrary.getInstance().notifyAppContextChange();
