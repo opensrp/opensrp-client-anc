@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -559,7 +558,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
         } else if (jsonObject.getString(ANCJsonFormUtils.KEY).equalsIgnoreCase(ConstantsUtils.JsonFormKeyUtils.ANC_ID)) {
             jsonObject.put(ANCJsonFormUtils.VALUE, womanClient.get(DBConstantsUtils.KeyUtils.ANC_ID).replace("-", ""));
-        }  else if (womanClient.containsKey(jsonObject.getString(ANCJsonFormUtils.KEY))) {
+        } else if (womanClient.containsKey(jsonObject.getString(ANCJsonFormUtils.KEY))) {
             jsonObject.put(ANCJsonFormUtils.READ_ONLY, false);
             jsonObject.put(ANCJsonFormUtils.VALUE, womanClient.get(jsonObject.getString(ANCJsonFormUtils.KEY)));
         } else {
@@ -762,7 +761,7 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
                 if (!"label".equals(fields.getJSONObject(i).getString(ConstantsUtils.KeyUtils.TYPE))) {
                     settings.put(fields.getJSONObject(i).getString(ConstantsUtils.KeyUtils.KEY),
                             StringUtils.isBlank(fields.getJSONObject(i).getString(ConstantsUtils.KeyUtils.VALUE)) ? "0" :
-                                    fields.getJSONObject(i).getString(ConstantsUtils.KeyUtils.VALUE));
+                                    getSelectedOptionValue(fields.getJSONObject(i).getString(ConstantsUtils.KeyUtils.VALUE)));
                 }
             }
 
@@ -772,6 +771,27 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
             return null;
         }
     }
+
+    private static String getSelectedOptionValue(String value) {
+        return isValidJsonObject(value)
+                ? getValueFromSettingField(value)
+                : value;
+    }
+
+    private static boolean isValidJsonObject(String json) {
+        return json.startsWith("{") && json.endsWith("}");
+    }
+
+    public static String getValueFromSettingField(String value) {
+        try {
+            JSONObject valueObject = new JSONObject(value);
+            return valueObject.getString(ConstantsUtils.KeyUtils.VALUE);
+        } catch (JSONException e) {
+            Timber.e(e);
+        }
+        return "";
+    }
+
 
     public static String getAutoPopulatedSiteCharacteristicsEditFormString(Context context,
                                                                            Map<String, String> characteristics) {
@@ -1026,18 +1046,15 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
         public String detail = "";
     }
 
-    public static JSONObject populateSecondaryValues(String secondaryValue , JSONObject optionsObject)
-    {
+    public static JSONObject populateSecondaryValues(String secondaryValue, JSONObject optionsObject) {
         JSONObject secondaryValueObject = new JSONObject();
-        JSONArray  secondaryValueArray = new JSONArray();
+        JSONArray secondaryValueArray = new JSONArray();
         try {
             secondaryValueArray.put(secondaryValue);
             secondaryValueObject.put(JsonFormConstants.KEY, optionsObject.getString(JsonFormConstants.KEY));
             secondaryValueObject.put(JsonFormConstants.VALUES, secondaryValueArray);
             secondaryValueObject.put(JsonFormConstants.TYPE, optionsObject.getString(JsonFormConstants.CONTENT_WIDGET));
-        }
-        catch (JSONException e)
-        {
+        } catch (JSONException e) {
             Timber.e(e);
         }
         return secondaryValueObject;
