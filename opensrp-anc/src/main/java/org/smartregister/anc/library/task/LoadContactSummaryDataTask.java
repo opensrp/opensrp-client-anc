@@ -105,7 +105,7 @@ public class LoadContactSummaryDataTask {
             populatedFacts.put(key + "_value", value);
             if(StringUtils.isNotBlank(valueObjectStr)  && (valueObjectStr.contains(".")
                     && valueObjectStr.contains(JsonFormConstants.TEXT))
-                    || (StringUtils.isNotBlank(valueObjectStr) || valueObjectStr.charAt(0) == '['
+                    || (StringUtils.isNotBlank(valueObjectStr) && valueObjectStr.charAt(0) == '['
                     && valueObjectStr.contains("{") && valueObjectStr.contains(JsonFormConstants.TEXT)) )
                 populatedFacts.put(key + "_value", text);
         }
