@@ -5,8 +5,8 @@ fields:
   - template: "{{contact_summary.hospital_referral.woman_referred_to_hospital}}"
     relevance: "referred_hosp_value == 'yes'"
 
-  - template: "{{contact_summary.hospital_referral.woman_not_referred_to_hospital}}: {referred_hosp_notdone_value}"
-    relevance: "referred_hosp_value == 'no'"
+  - template: "{{contact_summary.hospital_referral.woman_not_referred_to_hospital}}: {referred_hosp_notdone}"
+    relevance: "referred_hosp == 'no'"
 
   - template: "{{contact_summary.hospital_referral.danger_signs}}: {danger_signs}"
     relevance: "!danger_signs_value.isEmpty() && !danger_signs_value.contains('danger_none')"
@@ -14,7 +14,7 @@ fields:
   - template: "{{contact_summary.hospital_referral.severe_hypertension}}: {bp_systolic_repeat}/{bp_diastolic_repeat} mmHg"
     relevance: "severe_hypertension_value == 1"
 
-  - template: "{{contact_summary.hospital_referral.hypertension_and_symptom_of_severe_pre_eclampsia}}: {symp_sev_preeclampsia_value}"
+  - template: "{{contact_summary.hospital_referral.hypertension_and_symptom_of_severe_pre_eclampsia}}: {symp_sev_preeclampsia}"
     relevance: "hypertension_value == 1 && symp_sev_preeclampsia_value != '' && !symp_sev_preeclampsia_value.contains('none')"
 
   - template: "{{contact_summary.hospital_referral.pre_eclampsia_diagnosis}}"
@@ -68,7 +68,7 @@ fields:
   - template: "{{contact_summary.demographic_info.educ_level}}: {educ_level}"
     relevance: "educ_level_value != ''"
 
-  - template: "{{contact_summary.demographic_info.marital_status}}: {marital_status_value}"
+  - template: "{{contact_summary.demographic_info.marital_status}}: {marital_status}"
     relevance: "marital_status_value != ''"
 
   - template: "{{contact_summary.demographic_info.occupation}}: {occupation_value}"

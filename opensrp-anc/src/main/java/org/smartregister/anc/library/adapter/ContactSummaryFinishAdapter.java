@@ -75,6 +75,7 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
 
     }
 
+
     private String getString(String key) {
         int identifier = context.getResources().getIdentifier(key, "string", context.getPackageName());
         return context.getString(identifier);
