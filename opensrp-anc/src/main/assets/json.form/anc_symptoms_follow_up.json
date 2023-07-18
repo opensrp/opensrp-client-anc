@@ -112,7 +112,6 @@
 						"key": "none",
 						"text": "{{anc_symptoms_follow_up.step1.medications.options.none.text}}",
 						"translation_text": "anc_symptoms_follow_up.step1.medications.options.none.text",
-						"value": false,
 						"openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": "",
 						"openmrs_entity": "concept"
@@ -121,7 +120,6 @@
 						"key": "dont_know",
 						"text": "{{anc_symptoms_follow_up.step1.medications.options.dont_know.text}}",
 						"translation_text": "anc_symptoms_follow_up.step1.medications.options.dont_know.text",
-						"value": false,
 						"openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": "",
 						"openmrs_entity": "concept"
@@ -130,7 +128,6 @@
 						"key": "antacids",
 						"text": "{{anc_symptoms_follow_up.step1.medications.options.antacids.text}}",
 						"translation_text": "anc_symptoms_follow_up.step1.medications.options.antacids.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "944AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -139,7 +136,6 @@
 						"key": "aspirin",
 						"text": "{{anc_symptoms_follow_up.step1.medications.options.aspirin.text}}",
 						"translation_text": "anc_symptoms_follow_up.step1.medications.options.aspirin.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "71617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -148,7 +144,6 @@
 						"key": "calcium",
 						"text": "{{anc_symptoms_follow_up.step1.medications.options.calcium.text}}",
 						"translation_text": "anc_symptoms_follow_up.step1.medications.options.calcium.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "72650AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -157,7 +152,6 @@
 						"key": "doxylamine",
 						"text": "{{anc_symptoms_follow_up.step1.medications.options.doxylamine.text}}",
 						"translation_text": "anc_symptoms_follow_up.step1.medications.options.doxylamine.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "75229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -166,7 +160,6 @@
 						"key": "folic_acid",
 						"text": "{{anc_symptoms_follow_up.step1.medications.options.folic_acid.text}}",
 						"translation_text": "anc_symptoms_follow_up.step1.medications.options.folic_acid.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "76613AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -175,7 +168,6 @@
 						"key": "iron",
 						"text": "{{anc_symptoms_follow_up.step1.medications.options.iron.text}}",
 						"translation_text": "anc_symptoms_follow_up.step1.medications.options.iron.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "78218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -184,7 +176,6 @@
 						"key": "magnesium",
 						"text": "{{anc_symptoms_follow_up.step1.medications.options.magnesium.text}}",
 						"translation_text": "anc_symptoms_follow_up.step1.medications.options.magnesium.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "79224AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -193,7 +184,6 @@
 						"key": "metoclopramide",
 						"text": "{{anc_symptoms_follow_up.step1.medications.options.metoclopramide.text}}",
 						"translation_text": "anc_symptoms_follow_up.step1.medications.options.metoclopramide.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "79755AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -202,7 +192,6 @@
 						"key": "vitamina",
 						"text": "{{anc_symptoms_follow_up.step1.medications.options.vitamina.text}}",
 						"translation_text": "anc_symptoms_follow_up.step1.medications.options.vitamina.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "86339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -211,7 +200,6 @@
 						"key": "analgesic",
 						"text": "{{anc_symptoms_follow_up.step1.medications.options.analgesic.text}}",
 						"translation_text": "anc_symptoms_follow_up.step1.medications.options.analgesic.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "165231AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -220,7 +208,6 @@
 						"key": "anti_convulsive",
 						"text": "{{anc_symptoms_follow_up.step1.medications.options.anti_convulsive.text}}",
 						"translation_text": "anc_symptoms_follow_up.step1.medications.options.anti_convulsive.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "165230AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -229,7 +216,6 @@
 						"key": "anti_diabetic",
 						"text": "{{anc_symptoms_follow_up.step1.medications.options.anti_diabetic.text}}",
 						"translation_text": "anc_symptoms_follow_up.step1.medications.options.anti_diabetic.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "159460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -238,7 +224,6 @@
 						"key": "anthelmintic",
 						"text": "{{anc_symptoms_follow_up.step1.medications.options.anthelmintic.text}}",
 						"translation_text": "anc_symptoms_follow_up.step1.medications.options.anthelmintic.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "165238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -247,7 +232,6 @@
 						"key": "anti_hypertensive",
 						"text": "{{anc_symptoms_follow_up.step1.medications.options.anti_hypertensive.text}}",
 						"translation_text": "anc_symptoms_follow_up.step1.medications.options.anti_hypertensive.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "165237AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -256,7 +240,6 @@
 						"key": "anti_malarials",
 						"text": "{{anc_symptoms_follow_up.step1.medications.options.anti_malarials.text}}",
 						"translation_text": "anc_symptoms_follow_up.step1.medications.options.anti_malarials.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "5839AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -265,7 +248,6 @@
 						"key": "antivirals",
 						"text": "{{anc_symptoms_follow_up.step1.medications.options.antivirals.text}}",
 						"translation_text": "anc_symptoms_follow_up.step1.medications.options.antivirals.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "165236AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -274,7 +256,6 @@
 						"key": "arvs",
 						"text": "{{anc_symptoms_follow_up.step1.medications.options.arvs.text}}",
 						"translation_text": "anc_symptoms_follow_up.step1.medications.options.arvs.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "1085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -283,7 +264,6 @@
 						"key": "prep_hiv",
 						"text": "{{anc_symptoms_follow_up.step1.medications.options.prep_hiv.text}}",
 						"translation_text": "anc_symptoms_follow_up.step1.medications.options.prep_hiv.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "",
 						"openmrs_entity_parent": ""
@@ -292,7 +272,6 @@
 						"key": "antitussive",
 						"text": "{{anc_symptoms_follow_up.step1.medications.options.antitussive.text}}",
 						"translation_text": "anc_symptoms_follow_up.step1.medications.options.antitussive.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "165235AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -301,7 +280,6 @@
 						"key": "asthma",
 						"text": "{{anc_symptoms_follow_up.step1.medications.options.asthma.text}}",
 						"translation_text": "anc_symptoms_follow_up.step1.medications.options.asthma.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "165234AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -310,7 +288,6 @@
 						"key": "cotrimoxazole",
 						"text": "{{anc_symptoms_follow_up.step1.medications.options.cotrimoxazole.text}}",
 						"translation_text": "anc_symptoms_follow_up.step1.medications.options.cotrimoxazole.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "105281AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -319,7 +296,6 @@
 						"key": "antibiotics",
 						"text": "{{anc_symptoms_follow_up.step1.medications.options.antibiotics.text}}",
 						"translation_text": "anc_symptoms_follow_up.step1.medications.options.antibiotics.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "1195AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -328,7 +304,6 @@
 						"key": "hematinic",
 						"text": "{{anc_symptoms_follow_up.step1.medications.options.hematinic.text}}",
 						"translation_text": "anc_symptoms_follow_up.step1.medications.options.hematinic.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "165233AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -337,7 +312,6 @@
 						"key": "hemorrhoidal",
 						"text": "{{anc_symptoms_follow_up.step1.medications.options.hemorrhoidal.text}}",
 						"translation_text": "anc_symptoms_follow_up.step1.medications.options.hemorrhoidal.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "165255AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -346,7 +320,6 @@
 						"key": "multivitamin",
 						"text": "{{anc_symptoms_follow_up.step1.medications.options.multivitamin.text}}",
 						"translation_text": "anc_symptoms_follow_up.step1.medications.options.multivitamin.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "461AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -355,7 +328,6 @@
 						"key": "thyroid",
 						"text": "{{anc_symptoms_follow_up.step1.medications.options.thyroid.text}}",
 						"translation_text": "anc_symptoms_follow_up.step1.medications.options.thyroid.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "165232AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -364,7 +336,6 @@
 						"key": "other",
 						"text": "{{anc_symptoms_follow_up.step1.medications.options.other.text}}",
 						"translation_text": "anc_symptoms_follow_up.step1.medications.options.other.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -703,7 +674,6 @@
 						"key": "none",
 						"text": "{{anc_symptoms_follow_up.step2.behaviour_persist.options.none.text}}",
 						"translation_text": "anc_symptoms_follow_up.step2.behaviour_persist.options.none.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -712,7 +682,6 @@
 						"key": "caffeine_intake",
 						"text": "{{anc_symptoms_follow_up.step2.behaviour_persist.options.caffeine_intake.text}}",
 						"translation_text": "anc_symptoms_follow_up.step2.behaviour_persist.options.caffeine_intake.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "165249AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"label_info_text": "{{anc_symptoms_follow_up.step2.behaviour_persist.caffeine_intake.label_info_text}}",
@@ -723,7 +692,6 @@
 						"key": "tobacco_user",
 						"text": "{{anc_symptoms_follow_up.step2.behaviour_persist.options.tobacco_user.text}}",
 						"translation_text": "anc_symptoms_follow_up.step2.behaviour_persist.options.tobacco_user.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "152722AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -732,7 +700,6 @@
 						"key": "shs_exposure",
 						"text": "{{anc_symptoms_follow_up.step2.behaviour_persist.options.shs_exposure.text}}",
 						"translation_text": "anc_symptoms_follow_up.step2.behaviour_persist.options.shs_exposure.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "152721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -741,7 +708,6 @@
 						"key": "condom_use",
 						"text": "{{anc_symptoms_follow_up.step2.behaviour_persist.options.condom_use.text}}",
 						"translation_text": "anc_symptoms_follow_up.step2.behaviour_persist.options.condom_use.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "165250AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -750,7 +716,6 @@
 						"key": "alcohol_use",
 						"text": "{{anc_symptoms_follow_up.step2.behaviour_persist.options.alcohol_use.text}}",
 						"translation_text": "anc_symptoms_follow_up.step2.behaviour_persist.options.alcohol_use.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "143098AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -759,7 +724,6 @@
 						"key": "substance_use",
 						"text": "{{anc_symptoms_follow_up.step2.behaviour_persist.options.substance_use.text}}",
 						"translation_text": "anc_symptoms_follow_up.step2.behaviour_persist.options.substance_use.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "160246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -920,7 +884,6 @@
 						"key": "none",
 						"text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.none.text}}",
 						"translation_text": "anc_symptoms_follow_up.step3.phys_symptoms_persist.options.none.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -929,7 +892,6 @@
 						"key": "nausea_vomiting",
 						"text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.nausea_vomiting.text}}",
 						"translation_text": "anc_symptoms_follow_up.step3.phys_symptoms_persist.options.nausea_vomiting.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "133473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -938,7 +900,6 @@
 						"key": "heartburn",
 						"text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.heartburn.text}}",
 						"translation_text": "anc_symptoms_follow_up.step3.phys_symptoms_persist.options.heartburn.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "139059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -947,7 +908,6 @@
 						"key": "leg_cramps",
 						"text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.leg_cramps.text}}",
 						"translation_text": "anc_symptoms_follow_up.step3.phys_symptoms_persist.options.leg_cramps.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "135969AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -956,7 +916,6 @@
 						"key": "constipation",
 						"text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.constipation.text}}",
 						"translation_text": "anc_symptoms_follow_up.step3.phys_symptoms_persist.options.constipation.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "996AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -965,7 +924,6 @@
 						"key": "low_back_pain",
 						"text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.low_back_pain.text}}",
 						"translation_text": "anc_symptoms_follow_up.step3.phys_symptoms_persist.options.low_back_pain.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "116225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -974,7 +932,6 @@
 						"key": "pelvic_pain",
 						"text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.pelvic_pain.text}}",
 						"translation_text": "anc_symptoms_follow_up.step3.phys_symptoms_persist.options.pelvic_pain.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "131034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -983,7 +940,6 @@
 						"key": "varicose_veins",
 						"text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.varicose_veins.text}}",
 						"translation_text": "anc_symptoms_follow_up.step3.phys_symptoms_persist.options.varicose_veins.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "156666AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -992,7 +948,6 @@
 						"key": "oedema",
 						"text": "{{anc_symptoms_follow_up.step3.phys_symptoms_persist.options.oedema.text}}",
 						"translation_text": "anc_symptoms_follow_up.step3.phys_symptoms_persist.options.oedema.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1027,7 +982,6 @@
 						"key": "none",
 						"text": "{{anc_symptoms_follow_up.step3.other_sym_lbpp.options.none.text}}",
 						"translation_text": "anc_symptoms_follow_up.step3.other_sym_lbpp.options.none.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1036,7 +990,6 @@
 						"key": "contractions",
 						"text": "{{anc_symptoms_follow_up.step3.other_sym_lbpp.options.contractions.text}}",
 						"translation_text": "anc_symptoms_follow_up.step3.other_sym_lbpp.options.contractions.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "163750AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1045,7 +998,6 @@
 						"key": "dysuria",
 						"text": "{{anc_symptoms_follow_up.step3.other_sym_lbpp.options.dysuria.text}}",
 						"translation_text": "anc_symptoms_follow_up.step3.other_sym_lbpp.options.dysuria.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "118771AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1054,7 +1006,6 @@
 						"key": "pelvic_pains",
 						"text": "{{anc_symptoms_follow_up.step3.other_sym_lbpp.options.pelvic_pains.text}}",
 						"translation_text": "anc_symptoms_follow_up.step3.other_sym_lbpp.options.pelvic_pains.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "165270AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1094,7 +1045,6 @@
 						"key": "none",
 						"text": "{{anc_symptoms_follow_up.step3.other_sym_vvo.options.none.text}}",
 						"translation_text": "anc_symptoms_follow_up.step3.other_sym_vvo.options.none.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1103,7 +1053,6 @@
 						"key": "leg_pain",
 						"text": "{{anc_symptoms_follow_up.step3.other_sym_vvo.options.leg_pain.text}}",
 						"translation_text": "anc_symptoms_follow_up.step3.other_sym_vvo.options.leg_pain.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "114395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1112,7 +1061,6 @@
 						"key": "leg_redness",
 						"text": "{{anc_symptoms_follow_up.step3.other_sym_vvo.options.leg_redness.text}}",
 						"translation_text": "anc_symptoms_follow_up.step3.other_sym_vvo.options.leg_redness.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "165215AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1349,7 +1297,6 @@
 						"key": "none",
 						"text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.none.text}}",
 						"translation_text": "anc_symptoms_follow_up.step3.other_symptoms_persist.options.none.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1358,7 +1305,6 @@
 						"key": "abnormal_vaginal_discharge",
 						"text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.abnormal_vaginal_discharge.text}}",
 						"translation_text": "anc_symptoms_follow_up.step3.other_symptoms_persist.options.abnormal_vaginal_discharge.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "123395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1367,7 +1313,6 @@
 						"key": "breathing_difficulty",
 						"text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.breathing_difficulty.text}}",
 						"translation_text": "anc_symptoms_follow_up.step3.other_symptoms_persist.options.breathing_difficulty.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1376,7 +1321,6 @@
 						"key": "breathless",
 						"text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.breathless.text}}",
 						"translation_text": "anc_symptoms_follow_up.step3.other_symptoms_persist.options.breathless.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "110265AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1385,7 +1329,6 @@
 						"key": "cough",
 						"text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.cough.text}}",
 						"translation_text": "anc_symptoms_follow_up.step3.other_symptoms_persist.options.cough.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "1487AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1394,7 +1337,6 @@
 						"key": "fever",
 						"text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.fever.text}}",
 						"translation_text": "anc_symptoms_follow_up.step3.other_symptoms_persist.options.fever.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1403,7 +1345,6 @@
 						"key": "easily_tired",
 						"text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.easily_tired.text}}",
 						"translation_text": "anc_symptoms_follow_up.step3.other_symptoms_persist.options.easily_tired.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "140501AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1412,7 +1353,6 @@
 						"key": "headache",
 						"text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.headache.text}}",
 						"translation_text": "anc_symptoms_follow_up.step3.other_symptoms_persist.options.headache.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "139084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1421,7 +1361,6 @@
 						"key": "vaginal_bleeding",
 						"text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.vaginal_bleeding.text}}",
 						"translation_text": "anc_symptoms_follow_up.step3.other_symptoms_persist.options.vaginal_bleeding.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "147232AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1430,7 +1369,6 @@
 						"key": "visual_disturbance",
 						"text": "{{anc_symptoms_follow_up.step3.other_symptoms_persist.options.visual_disturbance.text}}",
 						"translation_text": "anc_symptoms_follow_up.step3.other_symptoms_persist.options.visual_disturbance.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "123074AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1466,7 +1404,6 @@
 						"key": "none",
 						"text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.none.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.phys_symptoms.options.none.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1475,7 +1412,6 @@
 						"key": "nausea_vomiting",
 						"text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.nausea_vomiting.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.phys_symptoms.options.nausea_vomiting.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "133473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1484,7 +1420,6 @@
 						"key": "heartburn",
 						"text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.heartburn.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.phys_symptoms.options.heartburn.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "139059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1493,7 +1428,6 @@
 						"key": "leg_cramps",
 						"text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.leg_cramps.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.phys_symptoms.options.leg_cramps.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "135969AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1502,7 +1436,6 @@
 						"key": "constipation",
 						"text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.constipation.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.phys_symptoms.options.constipation.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "996AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1511,7 +1444,6 @@
 						"key": "low_back_pain",
 						"text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.low_back_pain.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.phys_symptoms.options.low_back_pain.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "116225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1520,7 +1452,6 @@
 						"key": "pelvic_pain",
 						"text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.pelvic_pain.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.phys_symptoms.options.pelvic_pain.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "131034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1529,7 +1460,6 @@
 						"key": "varicose_veins",
 						"text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.varicose_veins.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.phys_symptoms.options.varicose_veins.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "156666AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1538,7 +1468,6 @@
 						"key": "oedema",
 						"text": "{{anc_symptoms_follow_up.step4.phys_symptoms.options.oedema.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.phys_symptoms.options.oedema.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1566,7 +1495,6 @@
 						"key": "none",
 						"text": "{{anc_symptoms_follow_up.step4.other_sym_lbpp.options.none.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.other_sym_lbpp.options.none.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1575,7 +1503,6 @@
 						"key": "contractions",
 						"text": "{{anc_symptoms_follow_up.step4.other_sym_lbpp.options.contractions.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.other_sym_lbpp.options.contractions.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "163750AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1584,7 +1511,6 @@
 						"key": "dysuria",
 						"text": "{{anc_symptoms_follow_up.step4.other_sym_lbpp.options.dysuria.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.other_sym_lbpp.options.dysuria.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "118771AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1593,7 +1519,6 @@
 						"key": "pelvic_pains",
 						"text": "{{anc_symptoms_follow_up.step4.other_sym_lbpp.options.pelvic_pains.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.other_sym_lbpp.options.pelvic_pains.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "165270AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1633,7 +1558,6 @@
 						"key": "none",
 						"text": "{{anc_symptoms_follow_up.step4.other_sym_vvo.options.none.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.other_sym_vvo.options.none.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1642,7 +1566,6 @@
 						"key": "leg_pain",
 						"text": "{{anc_symptoms_follow_up.step4.other_sym_vvo.options.leg_pain.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.other_sym_vvo.options.leg_pain.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "114395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1651,7 +1574,6 @@
 						"key": "leg_redness",
 						"text": "{{anc_symptoms_follow_up.step4.other_sym_vvo.options.leg_redness.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.other_sym_vvo.options.leg_redness.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "165215AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1885,7 +1807,6 @@
 						"key": "none",
 						"text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.none.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.other_symptoms.options.none.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1894,7 +1815,6 @@
 						"key": "abnormal_vaginal_discharge",
 						"text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.abnormal_vaginal_discharge.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.other_symptoms.options.abnormal_vaginal_discharge.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "123395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1903,7 +1823,6 @@
 						"key": "breathing_difficulty",
 						"text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.breathing_difficulty.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.other_symptoms.options.breathing_difficulty.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1912,7 +1831,6 @@
 						"key": "breathless",
 						"text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.breathless.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.other_symptoms.options.breathless.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "110265AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1921,7 +1839,6 @@
 						"key": "cough",
 						"text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.cough.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.other_symptoms.options.cough.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "1487AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1930,7 +1847,6 @@
 						"key": "fever",
 						"text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.fever.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.other_symptoms.options.fever.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1939,7 +1855,6 @@
 						"key": "easily_tired",
 						"text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.easily_tired.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.other_symptoms.options.easily_tired.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "140501AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1948,7 +1863,6 @@
 						"key": "headache",
 						"text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.headache.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.other_symptoms.options.headache.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "139084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1957,7 +1871,6 @@
 						"key": "vaginal_bleeding",
 						"text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.vaginal_bleeding.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.other_symptoms.options.vaginal_bleeding.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "147232AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1966,7 +1879,6 @@
 						"key": "visual_disturbance",
 						"text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.visual_disturbance.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.other_symptoms.options.visual_disturbance.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "123074AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -1975,7 +1887,6 @@
 						"key": "other",
 						"text": "{{anc_symptoms_follow_up.step4.other_symptoms.options.other.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.other_symptoms.options.other.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -2028,7 +1939,6 @@
 						"key": "none",
 						"text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.none.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.none.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "",
 						"openmrs_entity_parent": ""
@@ -2037,7 +1947,6 @@
 						"key": "stress",
 						"text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.stress.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.stress.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "",
 						"openmrs_entity_parent": ""
@@ -2046,7 +1955,6 @@
 						"key": "anxiety",
 						"text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.anxiety.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.anxiety.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "",
 						"openmrs_entity_parent": ""
@@ -2055,7 +1963,6 @@
 						"key": "depression",
 						"text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.depression.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.depression.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "",
 						"openmrs_entity_parent": ""
@@ -2064,7 +1971,6 @@
 						"key": "emotional_health_issues",
 						"text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.emotional_health_issues.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.emotional_health_issues.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "",
 						"openmrs_entity_parent": ""
@@ -2073,7 +1979,6 @@
 						"key": "alcohol_misuse",
 						"text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.alcohol_misuse.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.alcohol_misuse.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "",
 						"openmrs_entity_parent": ""
@@ -2082,7 +1987,6 @@
 						"key": "drugs_misuse",
 						"text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.drugs_misuse.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.drugs_misuse.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "",
 						"openmrs_entity_parent": ""
@@ -2091,7 +1995,6 @@
 						"key": "harmful_behaviour",
 						"text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.harmful_behaviour.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.harmful_behaviour.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "",
 						"openmrs_entity_parent": ""
@@ -2100,7 +2003,6 @@
 						"key": "suicide_thoughts",
 						"text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.suicide_thoughts.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.suicide_thoughts.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "",
 						"openmrs_entity_parent": ""
@@ -2109,7 +2011,6 @@
 						"key": "suicide_plans",
 						"text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.suicide_plans.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.suicide_plans.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "",
 						"openmrs_entity_parent": ""
@@ -2118,7 +2019,6 @@
 						"key": "suicide_acts",
 						"text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.suicide_acts.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.suicide_acts.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "",
 						"openmrs_entity_parent": ""
@@ -2127,7 +2027,6 @@
 						"key": "repeat_stis",
 						"text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.repeat_stis.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.repeat_stis.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "",
 						"openmrs_entity_parent": ""
@@ -2136,7 +2035,6 @@
 						"key": "unwanted_pregnancies",
 						"text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.unwanted_pregnancies.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.unwanted_pregnancies.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "",
 						"openmrs_entity_parent": ""
@@ -2145,7 +2043,6 @@
 						"key": "chronic_pain",
 						"text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.chronic_pain.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.chronic_pain.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "",
 						"openmrs_entity_parent": ""
@@ -2154,7 +2051,6 @@
 						"key": "gastro_symptoms",
 						"text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.gastro_symptoms.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.gastro_symptoms.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "",
 						"openmrs_entity_parent": ""
@@ -2163,7 +2059,6 @@
 						"key": "genitourinary_symptoms",
 						"text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.genitourinary_symptoms.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.genitourinary_symptoms.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "",
 						"openmrs_entity_parent": ""
@@ -2172,7 +2067,6 @@
 						"key": "adverse_repro_outcomes",
 						"text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.adverse_repro_outcomes.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.adverse_repro_outcomes.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "",
 						"openmrs_entity_parent": ""
@@ -2181,7 +2075,6 @@
 						"key": "unexplained_repro_symptoms",
 						"text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.unexplained_repro_symptoms.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.unexplained_repro_symptoms.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "",
 						"openmrs_entity_parent": ""
@@ -2190,7 +2083,6 @@
 						"key": "repeat_vaginal_bleeding",
 						"text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.repeat_vaginal_bleeding.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.repeat_vaginal_bleeding.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "",
 						"openmrs_entity_parent": ""
@@ -2199,7 +2091,6 @@
 						"key": "injury_abdomen",
 						"text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.injury_abdomen.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.injury_abdomen.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "",
 						"openmrs_entity_parent": ""
@@ -2208,7 +2099,6 @@
 						"key": "injury_other",
 						"text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.injury_other.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.injury_other.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "",
 						"openmrs_entity_parent": ""
@@ -2217,7 +2107,6 @@
 						"key": "problems_cns",
 						"text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.problems_cns.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.problems_cns.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "",
 						"openmrs_entity_parent": ""
@@ -2226,7 +2115,6 @@
 						"key": "repeat_health_consultations",
 						"text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.repeat_health_consultations.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.repeat_health_consultations.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "",
 						"openmrs_entity_parent": ""
@@ -2235,7 +2123,6 @@
 						"key": "intrusive_partner",
 						"text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.intrusive_partner.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.intrusive_partner.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "",
 						"openmrs_entity_parent": ""
@@ -2244,7 +2131,6 @@
 						"key": "misses_appointments",
 						"text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.misses_appointments.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.misses_appointments.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "",
 						"openmrs_entity_parent": ""
@@ -2253,7 +2139,6 @@
 						"key": "children_emotional_problems",
 						"text": "{{anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.children_emotional_problems.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.ipv_signs_symptoms.options.children_emotional_problems.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "",
 						"openmrs_entity_parent": ""
@@ -2337,7 +2222,6 @@
 						"key": "normal_fetal_move",
 						"text": "{{anc_symptoms_follow_up.step4.mat_percept_fetal_move.options.normal_fetal_move.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.mat_percept_fetal_move.options.normal_fetal_move.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "162108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -2346,7 +2230,6 @@
 						"key": "reduced_fetal_move",
 						"text": "{{anc_symptoms_follow_up.step4.mat_percept_fetal_move.options.reduced_fetal_move.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.mat_percept_fetal_move.options.reduced_fetal_move.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "113377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -2355,7 +2238,6 @@
 						"key": "no_fetal_move",
 						"text": "{{anc_symptoms_follow_up.step4.mat_percept_fetal_move.options.no_fetal_move.text}}",
 						"translation_text": "anc_symptoms_follow_up.step4.mat_percept_fetal_move.options.no_fetal_move.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "1452AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
