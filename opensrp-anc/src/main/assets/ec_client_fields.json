@@ -18,55 +18,6 @@
 					}
 				},
 				{
-					"column_name": "uid",
-					"type": "Client",
-					"json_mapping": {
-						"field": "identifiers.uid"
-					}
-				},
-				{
-					"column_name": "uid_repeat",
-					"type": "Client",
-					"json_mapping": {
-						"field": "identifiers.uid_repeat"
-					}
-				},
-				{
-					"column_name": "ssn",
-					"type": "Client",
-					"json_mapping": {
-						"field": "identifiers.ssn"
-					}
-				},
-				{
-					"column_name": "ssn_repeat",
-					"type": "Client",
-					"json_mapping": {
-						"field": "identifiers.ssn_repeat"
-					}
-				},
-				{
-					"column_name": "additional_id_type",
-					"type": "Client",
-					"json_mapping": {
-						"field": "identifiers.additional_id_type"
-					}
-				},
-				{
-					"column_name": "additional_id_number",
-					"type": "Client",
-					"json_mapping": {
-						"field": "identifiers.additional_id_number"
-					}
-				},
-				{
-					"column_name": "additional_id_number_repeat",
-					"type": "Client",
-					"json_mapping": {
-						"field": "identifiers.additional_id_number_repeat"
-					}
-				},
-				{
 					"column_name": "first_name",
 					"type": "Client",
 					"json_mapping": {
@@ -121,6 +72,55 @@
 		{
 			"name": "ec_mother_details",
 			"columns": [
+				{
+					"column_name": "uid",
+					"type": "Client",
+					"json_mapping": {
+						"field": "attributes.uid"
+					}
+				},
+				{
+					"column_name": "uid_repeat",
+					"type": "Client",
+					"json_mapping": {
+						"field": "attributes.uid_repeat"
+					}
+				},
+				{
+					"column_name": "ssn",
+					"type": "Client",
+					"json_mapping": {
+						"field": "attributes.ssn"
+					}
+				},
+				{
+					"column_name": "ssn_repeat",
+					"type": "Client",
+					"json_mapping": {
+						"field": "attributes.ssn_repeat"
+					}
+				},
+				{
+					"column_name": "additional_id_type",
+					"type": "Client",
+					"json_mapping": {
+						"field": "attributes.additional_id_type"
+					}
+				},
+				{
+					"column_name": "additional_id_number",
+					"type": "Client",
+					"json_mapping": {
+						"field": "attributes.additional_id_number"
+					}
+				},
+				{
+					"column_name": "additional_id_number_repeat",
+					"type": "Client",
+					"json_mapping": {
+						"field": "attributes.additional_id_number_repeat"
+					}
+				},
 				{
 					"column_name": "base_entity_id",
 					"type": "Client",

@@ -60,7 +60,13 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
                 outputBuilder.append(Utils.fillTemplate(yamlConfigItem.getTemplate(), this.facts)).append("\n\n");
             }
         }
-        String output = ANCFormUtils.replaceCapitalizedAbbreviation(outputBuilder);
+
+        String output = "";
+        if(mData.get(position).getGroup().equals("birth_plan_counseling"))
+            output = outputBuilder.toString();
+        else
+            output = ANCFormUtils.replaceCapitalizedAbbreviation(outputBuilder);
+
         holder.sectionDetails.setText(output);
 
         if (output.trim().isEmpty()) {
@@ -77,7 +83,7 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
 
     private String getString(String key) {
         int identifier = context.getResources().getIdentifier(key, "string", context.getPackageName());
-        return context.getString(identifier);
+            return context.getString(identifier);
     }
 
     // total number of rows

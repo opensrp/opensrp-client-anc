@@ -103,14 +103,14 @@ public class RegisterQueryProvider {
                 getDetailsTable() + "." + ConstantsUtils.SpinnerKeyConstants.VILLAGE,
 
                 // Additional local fields
-                getDemographicTable() + "." + DBConstantsUtils.KeyUtils.UID,
-                getDemographicTable() + "." + DBConstantsUtils.KeyUtils.UID_REPEAT,
-                getDemographicTable() + "." + DBConstantsUtils.KeyUtils.SSN,
-                getDemographicTable() + "." + DBConstantsUtils.KeyUtils.SSN_REPEAT,
+                getDetailsTable() + "." + DBConstantsUtils.KeyUtils.UID,
+                getDetailsTable() + "." + DBConstantsUtils.KeyUtils.UID_REPEAT,
+                getDetailsTable() + "." + DBConstantsUtils.KeyUtils.SSN,
+                getDetailsTable() + "." + DBConstantsUtils.KeyUtils.SSN_REPEAT,
 
-                getDemographicTable() + "." + DBConstantsUtils.KeyUtils.ADDITIONAL_ID_TYPE,
-                getDemographicTable() + "." + DBConstantsUtils.KeyUtils.ADDITIONAL_ID_NUMBER,
-                getDemographicTable() + "." + DBConstantsUtils.KeyUtils.ADDITIONAL_ID_NUMBER_REPEAT,
+                getDetailsTable() + "." + DBConstantsUtils.KeyUtils.ADDITIONAL_ID_TYPE,
+                getDetailsTable() + "." + DBConstantsUtils.KeyUtils.ADDITIONAL_ID_NUMBER,
+                getDetailsTable() + "." + DBConstantsUtils.KeyUtils.ADDITIONAL_ID_NUMBER_REPEAT,
                 getDetailsTable() + "." + DBConstantsUtils.KeyUtils.SSN_STATUS,
                 getDetailsTable() + "." + DBConstantsUtils.KeyUtils.UID_UNKNOWN,
                 getDetailsTable() + "." + DBConstantsUtils.KeyUtils.UID_UNKNOWN_REASON,

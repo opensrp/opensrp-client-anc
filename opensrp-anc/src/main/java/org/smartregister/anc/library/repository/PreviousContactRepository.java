@@ -125,6 +125,7 @@ public class PreviousContactRepository extends BaseRepository {
         PreviousContact previousContact = new PreviousContact();
         previousContact.setId(cursor.getLong(cursor.getColumnIndex(ID)));
         previousContact.setKey(cursor.getString(cursor.getColumnIndex(KEY)));
+        previousContact.setContactNo(cursor.getString(cursor.getColumnIndex(CONTACT_NO)));
         previousContact.setValue(cursor.getString(cursor.getColumnIndex(VALUE)));
         previousContact.setBaseEntityId(cursor.getString(cursor.getColumnIndex(BASE_ENTITY_ID)));
         previousContact.setVisitDate(cursor.getString(cursor.getColumnIndex(CREATED_AT)));

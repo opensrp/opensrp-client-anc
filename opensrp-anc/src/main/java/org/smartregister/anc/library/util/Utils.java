@@ -1137,7 +1137,7 @@ public class Utils extends org.smartregister.util.Utils {
             return input;
         } catch (Exception e) {
             e.printStackTrace();
-            Timber.e("Failed to translate String %s", e.toString());
+            Timber.e(e);
             return input;
         }
     }

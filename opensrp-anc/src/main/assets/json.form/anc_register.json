@@ -112,7 +112,7 @@
 			{
 				"key": "uid",
 				"openmrs_entity_parent": "",
-				"openmrs_entity": "person_identifier",
+				"openmrs_entity": "person_attribute",
 				"openmrs_entity_id": "uid",
 				"type": "edit_text",
 				"edit_type":"password",
@@ -144,7 +144,7 @@
 			{
 				"key": "uid_repeat",
 				"openmrs_entity_parent": "",
-				"openmrs_entity": "person_identifier",
+				"openmrs_entity": "person_attribute",
 				"openmrs_entity_id": "uid_repeat",
 				"type": "edit_text",
 				"edit_type":"password",
@@ -243,7 +243,7 @@
 			{
 				"key": "additional_id_type",
 				"openmrs_entity_parent": "",
-				"openmrs_entity": "person_identifier",
+				"openmrs_entity": "person_attribute",
 				"openmrs_entity_id": "additional_id_type",
 				"type": "edit_text",
 				"hint": "{{anc_register.step1.additional_id_type.hint}}",
@@ -268,7 +268,7 @@
 			{
 				"key": "additional_id_number",
 				"openmrs_entity_parent": "",
-				"openmrs_entity": "person_identifier",
+				"openmrs_entity": "person_attribute",
 				"openmrs_entity_id": "additional_id_number",
 				"type": "edit_text",
 				"edit_type":"password",
@@ -294,7 +294,7 @@
 			{
 				"key": "additional_id_number_repeat",
 				"openmrs_entity_parent": "",
-				"openmrs_entity": "person_identifier",
+				"openmrs_entity": "person_attribute",
 				"openmrs_entity_id": "additional_id_number_repeat",
 				"type": "edit_text",
 				"edit_type":"password",
@@ -356,7 +356,7 @@
 			{
 				"key": "ssn",
 				"openmrs_entity_parent": "",
-				"openmrs_entity": "person_identifier",
+				"openmrs_entity": "person_attribute",
 				"openmrs_entity_id": "ssn",
 				"type": "edit_text",
 				"edit_type":"password",
@@ -377,7 +377,7 @@
 			{
 				"key": "ssn_repeat",
 				"openmrs_entity_parent": "",
-				"openmrs_entity": "person_identifier",
+				"openmrs_entity": "person_attribute",
 				"openmrs_entity_id": "ssn_repeat",
 				"type": "edit_text",
 				"edit_type":"password",
