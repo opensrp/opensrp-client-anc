@@ -865,4 +865,13 @@ public class ANCJsonFormUtilsTest {
 
     }
 
+    @Test
+    public void testGetSelectedOptionValueShouldSelectCorectValueInJson() {
+        String extractedValue = ReflectionHelpers.callStaticMethod(ANCJsonFormUtils.class, "getSelectedOptionValue", ReflectionHelpers.ClassParameter.from(String.class, "0"));
+        Assert.assertEquals("0", extractedValue);
+
+        extractedValue = ReflectionHelpers.callStaticMethod(ANCJsonFormUtils.class, "getSelectedOptionValue", ReflectionHelpers.ClassParameter.from(String.class, "{\"value\":\"1\",\"text\":\"\"}"));
+        Assert.assertEquals("1", extractedValue);
+    }
+
 }

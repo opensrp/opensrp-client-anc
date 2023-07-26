@@ -139,7 +139,8 @@
 		"ultrasound_gest_age_selection",
 		"sfh_gest_age_selection",
 		"lmp_ultrasound_gest_age_selection",
-		"sfh_ultrasound_gest_age_selection"
+		"sfh_ultrasound_gest_age_selection",
+		"covid_vaccine_status"
 	],
 	"global_previous": [
 		"age"
@@ -2099,7 +2100,6 @@
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"key": "none",
-						"value": false,
 						"text": "{{anc_profile.step4.surgeries.options.none.text}}",
 						"translation_text": "anc_profile.step4.surgeries.options.none.text"
 					},
@@ -2108,7 +2108,6 @@
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"key": "dont_know",
-						"value": false,
 						"text": "{{anc_profile.step4.surgeries.options.dont_know.text}}",
 						"translation_text": "anc_profile.step4.surgeries.options.dont_know.text"
 					},
@@ -2117,7 +2116,6 @@
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "1637AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"key": "dilation_and_curettage",
-						"value": false,
 						"text": "{{anc_profile.step4.surgeries.options.dilation_and_curettage.text}}",
 						"translation_text": "anc_profile.step4.surgeries.options.dilation_and_curettage.text"
 					},
@@ -2126,7 +2124,6 @@
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "161829AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"key": "removal_of_fibroid",
-						"value": false,
 						"text": "{{anc_profile.step4.surgeries.options.removal_of_fibroid.text}}",
 						"translation_text": "anc_profile.step4.surgeries.options.removal_of_fibroid.text"
 					},
@@ -2135,7 +2132,6 @@
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "165262AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"key": "removal_of_ovarian_cysts",
-						"value": false,
 						"text": "{{anc_profile.step4.surgeries.options.removal_of_ovarian_cysts.text}}",
 						"translation_text": "anc_profile.step4.surgeries.options.removal_of_ovarian_cysts.text"
 					},
@@ -2144,7 +2140,6 @@
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "161844AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"key": "removal_of_ovary",
-						"value": false,
 						"text": "{{anc_profile.step4.surgeries.options.removal_of_ovary.text}}",
 						"translation_text": "anc_profile.step4.surgeries.options.removal_of_ovary.text"
 					},
@@ -2262,7 +2257,6 @@
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"key": "none",
-						"value": false,
 						"text": "{{anc_profile.step4.health_conditions.options.none.text}}",
 						"translation_text": "anc_profile.step4.health_conditions.options.none.text"
 					},
@@ -2271,7 +2265,6 @@
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"key": "dont_know",
-						"value": false,
 						"text": "{{anc_profile.step4.health_conditions.options.dont_know.text}}",
 						"translation_text": "anc_profile.step4.health_conditions.options.dont_know.text"
 					},
@@ -2280,7 +2273,6 @@
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "148117AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"key": "autoimmune_disease",
-						"value": false,
 						"text": "{{anc_profile.step4.health_conditions.options.autoimmune_disease.text}}",
 						"translation_text": "anc_profile.step4.health_conditions.options.autoimmune_disease.text"
 					},
@@ -2289,7 +2281,6 @@
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "165223AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"key": "blood_disorder",
-						"value": false,
 						"text": "{{anc_profile.step4.health_conditions.options.blood_disorder.text}}",
 						"translation_text": "anc_profile.step4.health_conditions.options.blood_disorder.text"
 					},
@@ -2298,7 +2289,6 @@
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "151286AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"key": "cancer",
-						"value": false,
 						"text": "{{anc_profile.step4.health_conditions.options.cancer.text}}",
 						"translation_text": "anc_profile.step4.health_conditions.options.cancer.text"
 					},
@@ -2307,7 +2297,6 @@
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "",
 						"key": "cancer_other",
-						"value": false,
 						"text": "{{anc_profile.step4.health_conditions.options.cancer_other.text}}",
 						"translation_text": "anc_profile.step4.health_conditions.options.cancer_other.text"
 					},
@@ -2316,7 +2305,6 @@
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "",
 						"key": "gest_diabetes",
-						"value": false,
 						"text": "{{anc_profile.step4.health_conditions.options.gest_diabetes.text}}",
 						"translation_text": "anc_profile.step4.health_conditions.options.gest_diabetes.text"
 					},
@@ -2325,7 +2313,6 @@
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "",
 						"key": "diabetes_other",
-						"value": false,
 						"text": "{{anc_profile.step4.health_conditions.options.diabetes_other.text}}",
 						"translation_text": "anc_profile.step4.health_conditions.options.diabetes_other.text"
 					},
@@ -2334,7 +2321,6 @@
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "119481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"key": "diabetes",
-						"value": false,
 						"text": "{{anc_profile.step4.health_conditions.options.diabetes.text}}",
 						"translation_text": "anc_profile.step4.health_conditions.options.diabetes.text"
 					},
@@ -2343,7 +2329,6 @@
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "",
 						"key": "diabetes_type2",
-						"value": false,
 						"text": "{{anc_profile.step4.health_conditions.options.diabetes_type2.text}}",
 						"translation_text": "anc_profile.step4.health_conditions.options.diabetes_type2.text"
 					},
@@ -2352,7 +2337,6 @@
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "155AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"key": "epilepsy",
-						"value": false,
 						"text": "{{anc_profile.step4.health_conditions.options.epilepsy.text}}",
 						"translation_text": "anc_profile.step4.health_conditions.options.epilepsy.text"
 					},
@@ -2361,7 +2345,6 @@
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "138571AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"key": "hiv",
-						"value": false,
 						"text": "{{anc_profile.step4.health_conditions.options.hiv.text}}",
 						"translation_text": "anc_profile.step4.health_conditions.options.hiv.text"
 					},
@@ -2370,7 +2353,6 @@
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"key": "hypertension",
-						"value": false,
 						"text": "{{anc_profile.step4.health_conditions.options.hypertension.text}}",
 						"translation_text": "anc_profile.step4.health_conditions.options.hypertension.text"
 					},
@@ -2379,7 +2361,6 @@
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "6033AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"key": "kidney_disease",
-						"value": false,
 						"text": "{{anc_profile.step4.health_conditions.options.kidney_disease.text}}",
 						"translation_text": "anc_profile.step4.health_conditions.options.kidney_disease.text"
 					},
@@ -2388,7 +2369,6 @@
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"key": "other",
-						"value": false,
 						"text": "{{anc_profile.step4.health_conditions.options.other.text}}",
 						"translation_text": "anc_profile.step4.health_conditions.options.other.text"
 					}
@@ -2569,8 +2549,8 @@
 			{
 				"key": "covid_vaccine_status",
 				"openmrs_entity_parent": "",
-				"openmrs_entity": "concept",
-				"openmrs_entity_id": "covid_vaccine_status",
+				"openmrs_entity": "",
+				"openmrs_entity_id": "",
 				"type": "native_radio",
 				"label": "{{anc_profile.step5.covid_vaccine_status.label}}",
 				"label_text_style": "bold",
@@ -2580,41 +2560,41 @@
 						"key": "partial1",
 						"text": "{{anc_profile.step5.covid_vaccine_status.options.partial1.text}}",
 						"translation_text": "anc_profile.step5.covid_vaccine_status.options.partial1.text",
-						"openmrs_entity_parent": "covid_vaccine_status",
-						"openmrs_entity": "concept",
-						"openmrs_entity_id": "covid_partial1"
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "",
+						"openmrs_entity_id": ""
 					},
 					{
 						"key": "partial2",
 						"text": "{{anc_profile.step5.covid_vaccine_status.options.partial2.text}}",
 						"translation_text": "anc_profile.step5.covid_vaccine_status.options.partial2.text",
 						"openmrs_entity_parent": "covid_vaccine_status",
-						"openmrs_entity": "concept",
-						"openmrs_entity_id": "covid_partial2"
+						"openmrs_entity": "",
+						"openmrs_entity_id": ""
 					},
 					{
 						"key": "booster1",
 						"text": "{{anc_profile.step5.covid_vaccine_status.options.booster1.text}}",
 						"translation_text": "anc_profile.step5.covid_vaccine_status.options.none.text",
-						"openmrs_entity_parent": "covid_vaccine_status",
-						"openmrs_entity": "concept",
-						"openmrs_entity_id": "covid_none"
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "",
+						"openmrs_entity_id": ""
 					},
 					{
 						"key": "booster2",
 						"text": "{{anc_profile.step5.covid_vaccine_status.options.booster2.text}}",
 						"translation_text": "anc_profile.step5.covid_vaccine_status.options.none.text",
-						"openmrs_entity_parent": "covid_vaccine_status",
-						"openmrs_entity": "concept",
-						"openmrs_entity_id": "covid_none"
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "",
+						"openmrs_entity_id": ""
 					},
 					{
 						"key": "none",
 						"text": "{{anc_profile.step5.covid_vaccine_status.options.none.text}}",
 						"translation_text": "anc_profile.step5.covid_vaccine_status.options.none.text",
-						"openmrs_entity_parent": "covid_vaccine_status",
-						"openmrs_entity": "concept",
-						"openmrs_entity_id": "covid_none"
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "",
+						"openmrs_entity_id": ""
 					}
 				],
 				"v_required": {
@@ -2792,7 +2772,6 @@
 						"key": "none",
 						"text": "{{anc_profile.step6.medications.options.none.text}}",
 						"translation_text": "anc_profile.step6.medications.options.none.text",
-						"value": false,
 						"openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": "",
 						"openmrs_entity": "concept"
@@ -2801,7 +2780,6 @@
 						"key": "dont_know",
 						"text": "{{anc_profile.step6.medications.options.dont_know.text}}",
 						"translation_text": "anc_profile.step6.medications.options.dont_know.text",
-						"value": false,
 						"openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": "",
 						"openmrs_entity": "concept"
@@ -2810,7 +2788,6 @@
 						"key": "folic_acid",
 						"text": "{{anc_profile.step6.medications.options.folic_acid.text}}",
 						"translation_text": "anc_profile.step6.medications.options.folic_acid.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "76613AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -2819,7 +2796,6 @@
 						"key": "calcium",
 						"text": "{{anc_profile.step6.medications.options.calcium.text}}",
 						"translation_text": "anc_profile.step6.medications.options.calcium.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "72650AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -2828,7 +2804,6 @@
 						"key": "magnesium",
 						"text": "{{anc_profile.step6.medications.options.magnesium.text}}",
 						"translation_text": "anc_profile.step6.medications.options.magnesium.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "79224AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -2837,7 +2812,6 @@
 						"key": "vitamina",
 						"text": "{{anc_profile.step6.medications.options.vitamina.text}}",
 						"translation_text": "anc_profile.step6.medications.options.vitamina.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "86339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -2846,7 +2820,6 @@
 						"key": "niacin",
 						"text": "{{anc_profile.step6.medications.options.niacin.text}}",
 						"translation_text": "anc_profile.step6.medications.options.niacin.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "niacin",
 						"openmrs_entity_parent": ""
@@ -2855,7 +2828,6 @@
 						"key": "vitaminb12",
 						"text": "{{anc_profile.step6.medications.options.vitaminb12.text}}",
 						"translation_text": "anc_profile.step6.medications.options.vitaminb12.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "vitaminb12",
 						"openmrs_entity_parent": ""
@@ -2864,7 +2836,6 @@
 						"key": "iron",
 						"text": "{{anc_profile.step6.medications.options.iron.text}}",
 						"translation_text": "anc_profile.step6.medications.options.iron.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "78218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -2873,7 +2844,6 @@
 						"key": "multivitamin",
 						"text": "{{anc_profile.step6.medications.options.multivitamin.text}}",
 						"translation_text": "anc_profile.step6.medications.options.multivitamin.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "461AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -2882,7 +2852,6 @@
 						"key": "analgesic",
 						"text": "{{anc_profile.step6.medications.options.analgesic.text}}",
 						"translation_text": "anc_profile.step6.medications.options.analgesic.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "165231AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -2891,7 +2860,6 @@
 						"key": "antacids",
 						"text": "{{anc_profile.step6.medications.options.antacids.text}}",
 						"translation_text": "anc_profile.step6.medications.options.antacids.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "944AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -2900,7 +2868,6 @@
 						"key": "anti_malarials",
 						"text": "{{anc_profile.step6.medications.options.anti_malarials.text}}",
 						"translation_text": "anc_profile.step6.medications.options.anti_malarials.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "5839AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -2909,7 +2876,6 @@
 						"key": "antibiotics",
 						"text": "{{anc_profile.step6.medications.options.antibiotics.text}}",
 						"translation_text": "anc_profile.step6.medications.options.antibiotics.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "1195AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -2918,7 +2884,6 @@
 						"key": "anti_diabetic",
 						"text": "{{anc_profile.step6.medications.options.anti_diabetic.text}}",
 						"translation_text": "anc_profile.step6.medications.options.anti_diabetic.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "159460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -2927,7 +2892,6 @@
 						"key": "anthelmintic",
 						"text": "{{anc_profile.step6.medications.options.anthelmintic.text}}",
 						"translation_text": "anc_profile.step6.medications.options.anthelmintic.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "165238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -2936,7 +2900,6 @@
 						"key": "anti_hypertensive",
 						"text": "{{anc_profile.step6.medications.options.anti_hypertensive.text}}",
 						"translation_text": "anc_profile.step6.medications.options.anti_hypertensive.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "165237AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -2945,7 +2908,6 @@
 						"key": "anti_convulsive",
 						"text": "{{anc_profile.step6.medications.options.anti_convulsive.text}}",
 						"translation_text": "anc_profile.step6.medications.options.anti_convulsive.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "165230AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -2954,7 +2916,6 @@
 						"key": "arvs",
 						"text": "{{anc_profile.step6.medications.options.arvs.text}}",
 						"translation_text": "anc_profile.step6.medications.options.arvs.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "1085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -2963,7 +2924,6 @@
 						"key": "antitussive",
 						"text": "{{anc_profile.step6.medications.options.antitussive.text}}",
 						"translation_text": "anc_profile.step6.medications.options.antitussive.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "165235AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -2972,7 +2932,6 @@
 						"key": "antivirals",
 						"text": "{{anc_profile.step6.medications.options.antivirals.text}}",
 						"translation_text": "anc_profile.step6.medications.options.antivirals.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "165236AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -2981,7 +2940,6 @@
 						"key": "aspirin",
 						"text": "{{anc_profile.step6.medications.options.aspirin.text}}",
 						"translation_text": "anc_profile.step6.medications.options.aspirin.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "71617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -2990,7 +2948,6 @@
 						"key": "doxylamine",
 						"text": "{{anc_profile.step6.medications.options.doxylamine.text}}",
 						"translation_text": "anc_profile.step6.medications.options.doxylamine.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "75229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -2999,7 +2956,6 @@
 						"key": "cotrimoxazole",
 						"text": "{{anc_profile.step6.medications.options.cotrimoxazole.text}}",
 						"translation_text": "anc_profile.step6.medications.options.cotrimoxazole.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "105281AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -3008,7 +2964,6 @@
 						"key": "metoclopramide",
 						"text": "{{anc_profile.step6.medications.options.metoclopramide.text}}",
 						"translation_text": "anc_profile.step6.medications.options.metoclopramide.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "79755AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -3017,7 +2972,6 @@
 						"key": "hemorrhoidal",
 						"text": "{{anc_profile.step6.medications.options.hemorrhoidal.text}}",
 						"translation_text": "anc_profile.step6.medications.options.hemorrhoidal.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "165255AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -3026,7 +2980,6 @@
 						"key": "asthma",
 						"text": "{{anc_profile.step6.medications.options.asthma.text}}",
 						"translation_text": "anc_profile.step6.medications.options.asthma.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "165234AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -3035,7 +2988,6 @@
 						"key": "thyroid",
 						"text": "{{anc_profile.step6.medications.options.thyroid.text}}",
 						"translation_text": "anc_profile.step6.medications.options.thyroid.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "165232AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -3044,7 +2996,6 @@
 						"key": "prep_hiv",
 						"text": "{{anc_profile.step6.medications.options.prep_hiv.text}}",
 						"translation_text": "anc_profile.step6.medications.options.prep_hiv.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "",
 						"openmrs_entity_parent": ""
@@ -3053,7 +3004,6 @@
 						"key": "other",
 						"text": "{{anc_profile.step6.medications.options.other.text}}",
 						"translation_text": "anc_profile.step6.medications.options.other.text",
-						"value": false,
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity_parent": ""
@@ -3097,9 +3047,8 @@
 			{
 				"key": "caffeine_intake",
 				"openmrs_entity_parent": "",
-				"openmrs_entity": "concept",
-				"openmrs_entity_id": "165243AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-				"openmrs_data_type": "select multiple",
+				"openmrs_entity": "",
+				"openmrs_entity_id": "",
 				"type": "check_box",
 				"label": "{{anc_profile.step7.caffeine_intake.label}}",
 				"label_text_style": "bold",
@@ -3111,29 +3060,26 @@
 				"options": [
 					{
 						"openmrs_entity_parent": "",
-						"openmrs_entity": "concept",
-						"openmrs_entity_id": "165239AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						"openmrs_entity": "",
+						"openmrs_entity_id": "",
 						"key": "commercially_brewed_coffee",
-						"value": false,
 						"text": "{{anc_profile.step7.caffeine_intake.options.commercially_brewed_coffee.text}}",
 						"translation_text": "anc_profile.step7.caffeine_intake.options.commercially_brewed_coffee.text"
 					},
 					{
 						"openmrs_entity_parent": "",
-						"openmrs_entity": "concept",
+						"openmrs_entity": "",
 						"openmrs_entity_id": "",
 						"key": "tea",
-						"value": false,
 						"text": "{{anc_profile.step7.caffeine_intake.options.tea.text}}",
 						"translation_text": "anc_profile.step7.caffeine_intake.options.tea.text"
 					},
 					{
 						"openmrs_entity_parent": "",
-						"openmrs_entity": "concept",
-						"openmrs_entity_id": "165242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						"openmrs_entity": "",
+						"openmrs_entity_id": "",
 						"key": "more_than_48_pieces_squares_of_chocolate",
 						"text": "{{anc_profile.step7.caffeine_intake.options.more_than_48_pieces_squares_of_chocolate.text}}",
-						"value": false,
 						"translation_text": "anc_profile.step7.caffeine_intake.options.more_than_48_pieces_squares_of_chocolate.text"
 					},
 					{
@@ -3142,17 +3088,15 @@
 						"openmrs_entity_id": "",
 						"key": "soda",
 						"text": "{{anc_profile.step7.caffeine_intake.options.soda.text}}",
-						"translation_text": "anc_profile.step7.caffeine_intake.options.soda.text",
-						"value": false
+						"translation_text": "anc_profile.step7.caffeine_intake.options.soda.text"
 					},
 					{
 						"openmrs_entity_parent": "",
-						"openmrs_entity": "concept",
-						"openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						"openmrs_entity": "",
+						"openmrs_entity_id": "",
 						"key": "none",
 						"text": "{{anc_profile.step7.caffeine_intake.options.none.text}}",
-						"translation_text": "anc_profile.step7.caffeine_intake.options.none.text",
-						"value": false
+						"translation_text": "anc_profile.step7.caffeine_intakeoptions.none.text"
 					}
 				],
 				"v_required": {
@@ -3402,7 +3346,6 @@
 						"translation_text": "anc_profile.step7.alcohol_substance_use.options.none.text",
 						"openmrs_entity_parent": "",
 						"openmrs_entity": "concept",
-						"value": false,
 						"openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 					},
 					{
@@ -3411,7 +3354,6 @@
 						"translation_text": "anc_profile.step7.alcohol_substance_use.options.alcohol.text",
 						"openmrs_entity_parent": "",
 						"openmrs_entity": "concept",
-						"value": false,
 						"openmrs_entity_id": "143098AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 					},
 					{
@@ -3420,7 +3362,6 @@
 						"translation_text": "anc_profile.step7.alcohol_substance_use.options.marijuana.text",
 						"openmrs_entity_parent": "",
 						"openmrs_entity": "concept",
-						"value": false,
 						"openmrs_entity_id": "165221AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 					},
 					{
@@ -3429,7 +3370,6 @@
 						"translation_text": "anc_profile.step7.alcohol_substance_use.options.cocaine.text",
 						"openmrs_entity_parent": "",
 						"openmrs_entity": "concept",
-						"value": false,
 						"openmrs_entity_id": "155793AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 					},
 					{
@@ -3438,7 +3378,6 @@
 						"translation_text": "anc_profile.step7.alcohol_substance_use.options.injectable_drugs.text",
 						"openmrs_entity_parent": "",
 						"openmrs_entity": "concept",
-						"value": false,
 						"openmrs_entity_id": "157351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 					},
 					{
@@ -3447,7 +3386,6 @@
 						"translation_text": "anc_profile.step7.alcohol_substance_use.options.other.text",
 						"openmrs_entity_parent": "",
 						"openmrs_entity": "concept",
-						"value": false,
 						"openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 					}
 				],
