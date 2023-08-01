@@ -5,12 +5,17 @@ import org.smartregister.SyncFilter;
 import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.activity.LoginActivity;
 import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.domain.jsonmapping.util.LocationTree;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.sync.intent.BaseSyncIntentService;
 import org.smartregister.view.activity.BaseLoginActivity;
 
+import java.util.LinkedHashSet;
 import java.util.List;
+
+import timber.log.Timber;
 
 /**
  * Created by samuelgithengi on 10/19/18.
@@ -64,12 +69,33 @@ public class AncSyncConfiguration extends SyncConfiguration {
                 AncLibrary.getInstance().getContext().userService().getAllSharedPreferences();
 
         if(BuildConfig.SYNC_TYPE.equals(SyncFilter.LOCATION_ID.value()))
-            return sharedPreferences.fetchDefaultLocalityId(sharedPreferences.fetchRegisteredANM());
+            return getLocationsString(sharedPreferences.fetchDefaultLocalityId(sharedPreferences.fetchRegisteredANM()));
         else if(BuildConfig.SYNC_TYPE.equals(SyncFilter.TEAM_ID.value()))
             return sharedPreferences.fetchDefaultTeamId(sharedPreferences.fetchRegisteredANM());
         else
             return sharedPreferences.fetchRegisteredANM();
 
+    }
+
+    protected String getLocationsString(String parentLocationId) {
+        StringBuilder syncLocations = new StringBuilder(parentLocationId);
+        try {
+            String anmLocation = AncLibrary.getInstance().getContext().allSettings().fetchANMLocation();
+            if (anmLocation != null) {
+                LocationTree locationTree = ANCJsonFormUtils.gson.fromJson(anmLocation, LocationTree.class);
+                if (locationTree != null) {
+                    LinkedHashSet<String> children = locationTree.getChildParent().get(parentLocationId);
+                    if (children != null) {
+                        for (String child : children) {
+                            syncLocations.append(",").append(child);
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return syncLocations.toString();
     }
 
     @Override
