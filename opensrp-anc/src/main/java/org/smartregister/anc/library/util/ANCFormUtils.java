@@ -888,8 +888,11 @@ public class ANCFormUtils extends FormUtils {
         HashMap<String, String> map = new HashMap<>();
         map.put("(?i)Hiv", " HIV");
         map.put("(?i)dmpa-im", " DMPA-IM");
+        map.put("(?i)dmpa-sc", " DMPA-SC");
         map.put("(?i)sma", " SMA");
         map.put("(?i)smp", " SMP");
+        map.put("(?i)pns", " PNS");
+        map.put("(?i)arv", " ARV");
         return map;
 
     }
