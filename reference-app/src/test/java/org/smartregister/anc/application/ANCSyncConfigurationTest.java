@@ -15,6 +15,7 @@ import org.smartregister.anc.BaseUnitTest;
 import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.util.Utils;
+import org.smartregister.repository.AllSettings;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.service.UserService;
 
@@ -76,5 +77,18 @@ public class ANCSyncConfigurationTest extends BaseUnitTest {
             Assert.assertEquals(syncValue,anm);
 
 
+    }
+
+    @Test
+    public void getLocationsStringShouldAddChildLocations() {
+        String hierarchyTree = "{\"locationsHierarchy\":{\"map\":{\"ac7ba751-35e8-4b46-9e53-3cbaad193697\":{\"children\":{\"a899256d-2751-4dfb-b3c2-44b15c2081b2\":{\"children\":{\"b5572cee-399b-4329-8980-28b6d1ecd352\":{\"children\":{\"952953bb-efc6-4bde-9ce3-fbefa536b590\":{\"children\":{\"2089367a-2254-4586-b990-580f14d09479\":{\"id\":\"2089367a-2254-4586-b990-580f14d09479\",\"label\":\"Desa Mawar 2\",\"node\":{\"attributes\":{\"geographicLevel\":4.0},\"locationId\":\"2089367a-2254-4586-b990-580f14d09479\",\"name\":\"Desa Mawar 2\",\"parentLocation\":{\"locationId\":\"952953bb-efc6-4bde-9ce3-fbefa536b590\",\"serverVersion\":0,\"voided\":false,\"type\":\"Location\"},\"tags\":[\"Desa\"],\"serverVersion\":0,\"voided\":false,\"type\":\"Location\"},\"parent\":\"952953bb-efc6-4bde-9ce3-fbefa536b590\"},\"51baf329-6180-48bf-946a-e2712d1cb45e\":{\"id\":\"51baf329-6180-48bf-946a-e2712d1cb45e\",\"label\":\"Desa Melati 2\",\"node\":{\"attributes\":{\"geographicLevel\":4.0},\"locationId\":\"51baf329-6180-48bf-946a-e2712d1cb45e\",\"name\":\"Desa Melati 2\",\"parentLocation\":{\"locationId\":\"952953bb-efc6-4bde-9ce3-fbefa536b590\",\"serverVersion\":0,\"voided\":false,\"type\":\"Location\"},\"tags\":[\"Desa\"],\"serverVersion\":0,\"voided\":false,\"type\":\"Location\"},\"parent\":\"952953bb-efc6-4bde-9ce3-fbefa536b590\"}},\"id\":\"952953bb-efc6-4bde-9ce3-fbefa536b590\",\"label\":\"Puskesmas Bunga 2\",\"node\":{\"attributes\":{\"geographicLevel\":3.0},\"locationId\":\"952953bb-efc6-4bde-9ce3-fbefa536b590\",\"name\":\"Puskesmas Bunga 2\",\"parentLocation\":{\"locationId\":\"b5572cee-399b-4329-8980-28b6d1ecd352\",\"serverVersion\":0,\"voided\":false,\"type\":\"Location\"},\"tags\":[\"Health Facility\"],\"serverVersion\":0,\"voided\":false,\"type\":\"Location\"},\"parent\":\"b5572cee-399b-4329-8980-28b6d1ecd352\"}},\"id\":\"b5572cee-399b-4329-8980-28b6d1ecd352\",\"label\":\"Lombok Barat\",\"node\":{\"attributes\":{\"geographicLevel\":2.0},\"locationId\":\"b5572cee-399b-4329-8980-28b6d1ecd352\",\"name\":\"Lombok Barat\",\"parentLocation\":{\"locationId\":\"a899256d-2751-4dfb-b3c2-44b15c2081b2\",\"serverVersion\":0,\"voided\":false,\"type\":\"Location\"},\"tags\":[\"Kabupaten\",\"Facility\"],\"serverVersion\":0,\"voided\":false,\"type\":\"Location\"},\"parent\":\"a899256d-2751-4dfb-b3c2-44b15c2081b2\"}},\"id\":\"a899256d-2751-4dfb-b3c2-44b15c2081b2\",\"label\":\"NTB\",\"node\":{\"attributes\":{\"geographicLevel\":1.0},\"locationId\":\"a899256d-2751-4dfb-b3c2-44b15c2081b2\",\"name\":\"NTB\",\"parentLocation\":{\"locationId\":\"ac7ba751-35e8-4b46-9e53-3cbaad193697\",\"serverVersion\":0,\"voided\":false,\"type\":\"Location\"},\"tags\":[\"Provinsi\"],\"serverVersion\":0,\"voided\":false,\"type\":\"Location\"},\"parent\":\"ac7ba751-35e8-4b46-9e53-3cbaad193697\"}},\"id\":\"ac7ba751-35e8-4b46-9e53-3cbaad193697\",\"label\":\"Indonesia\",\"node\":{\"attributes\":{\"geographicLevel\":0.0},\"locationId\":\"ac7ba751-35e8-4b46-9e53-3cbaad193697\",\"name\":\"Indonesia\",\"tags\":[\"Negara\"],\"serverVersion\":0,\"voided\":false,\"type\":\"Location\"}}},\"parentChildren\":{\"952953bb-efc6-4bde-9ce3-fbefa536b590\":[\"2089367a-2254-4586-b990-580f14d09479\",\"51baf329-6180-48bf-946a-e2712d1cb45e\"],\"b5572cee-399b-4329-8980-28b6d1ecd352\":[\"952953bb-efc6-4bde-9ce3-fbefa536b590\"],\"a899256d-2751-4dfb-b3c2-44b15c2081b2\":[\"b5572cee-399b-4329-8980-28b6d1ecd352\"],\"ac7ba751-35e8-4b46-9e53-3cbaad193697\":[\"a899256d-2751-4dfb-b3c2-44b15c2081b2\"]}}}";
+
+        AllSettings allSettings = PowerMockito.mock(AllSettings.class);
+        PowerMockito.when(allSettings.fetchANMLocation()).thenReturn(hierarchyTree);
+        PowerMockito.when(context.allSettings()).thenReturn(allSettings);
+
+        String locations = configuration.getLocationsString("952953bb-efc6-4bde-9ce3-fbefa536b590");
+
+        Assert.assertEquals("952953bb-efc6-4bde-9ce3-fbefa536b590,2089367a-2254-4586-b990-580f14d09479,51baf329-6180-48bf-946a-e2712d1cb45e", locations);
     }
 }
