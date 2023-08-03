@@ -114,7 +114,7 @@ actions:
 name: step2_caffeine_counsel
 description: Caffeine reduction counseling
 priority: 1
-condition: "(global_behaviour_persist != null && global_behaviour_persist.contains('caffeine_intake')) || (!global_caffeine_intake.isEmpty() && !global_caffeine_intake.contains('none'))"
+condition: "(!global_behaviour_persist.isEmpty() && global_behaviour_persist.contains('caffeine_intake')) || (!global_caffeine_intake.isEmpty() && !global_caffeine_intake.contains('none'))"
 actions:
   - "isRelevant = true"
 ---
