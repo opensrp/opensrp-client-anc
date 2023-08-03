@@ -247,17 +247,9 @@
 				"openmrs_entity_id": "additional_id_type",
 				"type": "edit_text",
 				"hint": "{{anc_register.step1.additional_id_type.hint}}",
-				"v_numeric": {
-					"value": "true",
-					"err": "{{anc_register.step1.uid.v_numeric.err}}"
-				},
 				"v_required": {
 					"value": "true",
 					"err": "{{anc_register.step1.additional_id_type.v_required.err}}"
-				},
-				"v_regex": {
-					"value": "[0-9]{10}",
-					"err": "{{anc_register.step1.additional_id_type.v_length.err}}"
 				},
 				"v_max_length": {
 					"value": "10",
