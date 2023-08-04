@@ -288,14 +288,19 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         return previousContact != null ? extractValue(previousContact.getValue()) : null;
     }
 
+    /*
+     *  Extract json from an array
+     */
     private String extractValue(String value) {
-        try {
-            if (value.startsWith("[") && value.endsWith("]")) {
-                JSONArray jsonArray = new JSONArray(value);
-                return jsonArray.get(0).toString();
+        if (StringUtils.isNotEmpty(value)) {
+            try {
+                if (value.startsWith("[") && value.endsWith("]")) {
+                    JSONArray jsonArray = new JSONArray(value);
+                    return jsonArray.get(0).toString();
+                }
+            } catch (Exception e) {
+                Timber.e(e);
             }
-        } catch (Exception e) {
-            Timber.e(e);
         }
         return value;
     }
