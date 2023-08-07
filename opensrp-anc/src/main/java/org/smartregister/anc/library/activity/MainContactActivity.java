@@ -285,24 +285,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
         }
 
         PreviousContact previousContact = AncLibrary.getInstance().getPreviousContactRepository().getPreviousContact(request);
-        return previousContact != null ? extractValue(previousContact.getValue()) : null;
-    }
-
-    /*
-     *  Extract json from an array
-     */
-    private String extractValue(String value) {
-        if (StringUtils.isNotEmpty(value)) {
-            try {
-                if (value.startsWith("[") && value.endsWith("]")) {
-                    JSONArray jsonArray = new JSONArray(value);
-                    return jsonArray.get(0).toString();
-                }
-            } catch (Exception e) {
-                Timber.e(e);
-            }
-        }
-        return value;
+        return previousContact != null ? previousContact.getValue() : null;
     }
 
     public List<PartialContact> getPartialContacts() {
@@ -800,7 +783,7 @@ public class MainContactActivity extends BaseContactActivity implements ContactC
                 String some = map.get(contactGlobal);
 
                 if (some == null || !some.equals(formGlobalValues.get(contactGlobal))) {
-                    map.put(contactGlobal, extractValue(formGlobalValues.get(contactGlobal)));
+                    map.put(contactGlobal, formGlobalValues.get(contactGlobal));
                 }
 
             } else {
