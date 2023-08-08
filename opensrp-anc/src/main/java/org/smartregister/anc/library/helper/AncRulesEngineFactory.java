@@ -49,7 +49,10 @@ public class AncRulesEngineFactory extends RulesEngineFactory {
                     JSONArray valuesArray = new JSONArray(value.toString());
                     ArrayList<String> updatedArray = new ArrayList<>();
                     for (int i= 0; i < valuesArray.length(); i++) {
-                        updatedArray.add(new JSONObject(valuesArray.getString(i)).getString("value"));
+                        String keyVal = valuesArray.optString(i);
+                        if (keyVal.startsWith("{") && keyVal.endsWith("}")) {
+                            updatedArray.add(new JSONObject(keyVal).getString("value"));
+                        }
                     }
                     facts.put(key, updatedArray);
                 }
