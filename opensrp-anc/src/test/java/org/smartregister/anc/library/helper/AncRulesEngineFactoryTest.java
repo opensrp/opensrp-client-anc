@@ -13,6 +13,7 @@ import org.powermock.reflect.Whitebox;
 import org.robolectric.RuntimeEnvironment;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,7 +33,8 @@ public class AncRulesEngineFactoryTest extends BaseUnitTest {
     @Before
     public void setUp() {
         try {
-            globalValues.put("pallor", "yes");
+            globalValues.put("pallor", "{\"value\":\"yes\",\"text\":\"anc_profile.step2.lmp_known.options.yes.text\"}");
+            globalValues.put("symptoms", "[{\"value\":\"nausea\",\"text\":\"anc_profile.step2.nausea.text\"},{\"value\":\"headache\",\"text\":\"anc_profile.step2.headache.text\"}]");
             globalValues.put("select-rule", "step2_accordion_hiv");
             MockitoAnnotations.initMocks(this);
             ancRulesEngineFactory = new AncRulesEngineFactory(RuntimeEnvironment.application, globalValues, new JSONObject(DUMMY_JSON_OBJECT));
@@ -57,8 +59,12 @@ public class AncRulesEngineFactoryTest extends BaseUnitTest {
     public void testInitializeFacts() {
         Whitebox.setInternalState(ancRulesEngineFactory, "selectedRuleName", "Test");
         Facts facts = ancRulesEngineFactory.initializeFacts(new Facts());
-        Assert.assertEquals(3, facts.asMap().size());
+        Assert.assertEquals(4, facts.asMap().size());
         Assert.assertTrue(facts.asMap().containsKey("global_pallor"));
+        Assert.assertTrue(facts.asMap().containsKey("global_symptoms"));
         Assert.assertEquals("yes", facts.asMap().get("global_pallor"));
+        Assert.assertTrue(facts.asMap().get("global_symptoms") instanceof ArrayList);
+        Assert.assertTrue(((ArrayList<?>) facts.asMap().get("global_symptoms")).contains("nausea"));
+        Assert.assertTrue(((ArrayList<?>) facts.asMap().get("global_symptoms")).contains("headache"));
     }
 }
