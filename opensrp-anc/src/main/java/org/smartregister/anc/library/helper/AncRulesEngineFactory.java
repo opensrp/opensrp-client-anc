@@ -44,14 +44,18 @@ public class AncRulesEngineFactory extends RulesEngineFactory {
                 if (value instanceof String) {
                     if (((String) value).startsWith("{") && ((String) value).endsWith("}")) {
                         facts.put(key, new JSONObject(((String) value)).getString("value"));
+                    } else {
+                        facts.put(key, value);
                     }
                 } else if (value instanceof List) {
                     JSONArray valuesArray = new JSONArray(value.toString());
                     ArrayList<String> updatedArray = new ArrayList<>();
-                    for (int i= 0; i < valuesArray.length(); i++) {
+                    for (int i = 0; i < valuesArray.length(); i++) {
                         String keyVal = valuesArray.optString(i);
                         if (keyVal.startsWith("{") && keyVal.endsWith("}")) {
                             updatedArray.add(new JSONObject(keyVal).getString("value"));
+                        } else {
+                            updatedArray.add(keyVal);
                         }
                     }
                     facts.put(key, updatedArray);
