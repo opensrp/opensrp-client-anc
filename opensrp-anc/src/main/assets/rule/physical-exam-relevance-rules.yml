@@ -113,7 +113,7 @@ actions:
 name: step3_bp_systolic_repeat_label
 description: BP measurement
 priority: 1
-condition: "(step3_bp_systolic >= 140 || step3_bp_diastolic >= 90)
+condition: "(step3_bp_systolic >= 140 || step3_bp_diastolic >= 90 || step3_bp_systolic_manual >= 140 || step3_bp_diastolic_manual >= 90)
         && (step3_bp_measurement_method.contains('optibp') || step3_bp_measurement_method.contains('manually'))"
 actions:
   - "isRelevant = true"
@@ -121,7 +121,7 @@ actions:
 name: step3_bp_systolic_repeat
 description: BP measurement
 priority: 1
-condition: "(step3_bp_systolic >= 140 || step3_bp_diastolic >= 90)
+condition: "(step3_bp_systolic >= 140 || step3_bp_diastolic >= 90 || step3_bp_systolic_manual >= 140 || step3_bp_diastolic_manual >= 90)
         && (step3_bp_measurement_method.contains('optibp') || step3_bp_measurement_method.contains('manually'))"
 actions:
   - "isRelevant = true"
@@ -129,7 +129,7 @@ actions:
 name: step3_bp_diastolic_repeat_label
 description: BP measurement
 priority: 1
-condition: "(step3_bp_systolic >= 140 || step3_bp_diastolic >= 90)
+condition: "(step3_bp_systolic >= 140 || step3_bp_diastolic >= 90 || step3_bp_systolic_manual >= 140 || step3_bp_diastolic_manual >= 90)
         && (step3_bp_measurement_method.contains('optibp') || step3_bp_measurement_method.contains('manually'))"
 actions:
   - "isRelevant = true"
@@ -137,7 +137,7 @@ actions:
 name: step3_bp_diastolic_repeat
 description: BP measurement
 priority: 1
-condition: "(step3_bp_systolic >= 140 || step3_bp_diastolic >= 90)
+condition: "(step3_bp_systolic >= 140 || step3_bp_diastolic >= 90 || step3_bp_systolic_manual >= 140 || step3_bp_diastolic_manual >= 90)
         && (step3_bp_measurement_method.contains('optibp') || step3_bp_measurement_method.contains('manually'))"
 actions:
   - "isRelevant = true"

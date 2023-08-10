@@ -250,10 +250,6 @@
 				"v_required": {
 					"value": "true",
 					"err": "{{anc_register.step1.additional_id_type.v_required.err}}"
-				},
-				"v_max_length": {
-					"value": "10",
-					"err": "{{anc_register.step1.additional_id_type.v_length.err}}"
 				}
 			},
 

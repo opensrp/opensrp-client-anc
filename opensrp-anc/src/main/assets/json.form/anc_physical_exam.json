@@ -588,7 +588,7 @@
 						"key": "manually",
 						"text": "{{anc_physical_exam.step3.bp_measurement_method.options.manually.text}}",
 						"translation_text": "anc_physical_exam.step3.bp_measurement_method.options.manually.text",
-						"value": true,
+						"value": false,
 						"openmrs_entity": "",
 						"openmrs_entity_id": "",
 						"openmrs_entity_parent": ""
