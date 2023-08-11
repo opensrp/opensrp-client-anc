@@ -19,6 +19,7 @@ import org.smartregister.anc.library.contract.RegisterFragmentContract;
 import org.smartregister.anc.library.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.library.event.SyncEvent;
 import org.smartregister.anc.library.helper.DBQueryHelper;
+import org.smartregister.anc.library.job.AncSyncSettingsServiceJob;
 import org.smartregister.anc.library.presenter.RegisterFragmentPresenter;
 import org.smartregister.anc.library.provider.RegisterProvider;
 import org.smartregister.anc.library.task.AttentionFlagsTask;
@@ -32,7 +33,6 @@ import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.job.DocumentConfigurationServiceJob;
-import org.smartregister.job.SyncSettingsServiceJob;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
@@ -40,8 +40,6 @@ import org.smartregister.view.fragment.SecuredNativeSmartRegisterFragment;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import timber.log.Timber;
@@ -122,7 +120,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
         syncButton = view.findViewById(R.id.sync_refresh);
         if (syncButton != null) {
             syncButton.setOnClickListener(view1 -> {
-                SyncSettingsServiceJob.scheduleJobImmediately(SyncSettingsServiceJob.TAG);
+                AncSyncSettingsServiceJob.scheduleJobImmediately(AncSyncSettingsServiceJob.TAG);
                 DocumentConfigurationServiceJob.scheduleJobImmediately(DocumentConfigurationServiceJob.TAG);
             });
         }

@@ -31,6 +31,7 @@ import org.smartregister.anc.library.contract.AdvancedSearchContract;
 import org.smartregister.anc.library.contract.RegisterFragmentContract;
 import org.smartregister.anc.library.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.library.helper.DBQueryHelper;
+import org.smartregister.anc.library.job.AncSyncSettingsServiceJob;
 import org.smartregister.anc.library.listener.DatePickerListener;
 import org.smartregister.anc.library.presenter.AdvancedSearchPresenter;
 import org.smartregister.anc.library.provider.AdvancedSearchProvider;
@@ -41,7 +42,6 @@ import org.smartregister.cursoradapter.RecyclerViewFragment;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.job.SyncServiceJob;
-import org.smartregister.job.SyncSettingsServiceJob;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.activity.SecuredNativeSmartRegisterActivity;
 
@@ -130,7 +130,7 @@ public class AdvancedSearchFragment extends HomeRegisterFragment
                     (HashMap<String, String>) ((CommonPersonObjectClient) view.getTag()).getColumnmaps());
         } else if (view.getId() == R.id.sync) {
             SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
-            SyncSettingsServiceJob.scheduleJobImmediately(SyncSettingsServiceJob.TAG);
+            AncSyncSettingsServiceJob.scheduleJobImmediately(AncSyncSettingsServiceJob.TAG);
             //Todo add the move to catchment area
         }
     }

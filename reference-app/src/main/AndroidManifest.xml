@@ -146,10 +146,10 @@
         </provider>
 
         <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService" android:exported="true" />
-        <service android:name="org.smartregister.sync.intent.SyncIntentService" android:exported="true"/>
+        <service android:name=".library.service.AncSyncIntentService" android:exported="true"/>
         <service android:name="org.smartregister.sync.intent.ValidateIntentService" android:exported="true" />
         <service android:name="org.smartregister.sync.intent.ExtendedSyncIntentService"  android:exported="true"/>
-        <service android:name="org.smartregister.sync.intent.SettingsSyncIntentService"  android:exported="true"/>
+        <service android:name=".library.service.AncSettingsSyncIntentService"  android:exported="true"/>
         <service android:name="org.smartregister.sync.intent.DocumentConfigurationIntentService" android:exported="true" />
         <service android:name="org.smartregister.sync.intent.SyncAllLocationsIntentService" android:exported="true" />
 

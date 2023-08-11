@@ -2,6 +2,7 @@ package org.smartregister.anc.interactor;
 
 import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.anc.library.job.AncSyncSettingsServiceJob;
 import org.smartregister.domain.LoginResponse;
 import org.smartregister.job.DocumentConfigurationServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
@@ -33,14 +34,13 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
         ImageUploadServiceJob
                 .scheduleJob(ImageUploadServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.IMAGE_UPLOAD_MINUTES),
                         getFlexValue(BuildConfig.IMAGE_UPLOAD_MINUTES));
-        SyncSettingsServiceJob
-                .scheduleJob(SyncSettingsServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.CLIENT_SETTINGS_SYNC_MINUTES),
-                        getFlexValue(BuildConfig.CLIENT_SETTINGS_SYNC_MINUTES));
+        AncSyncSettingsServiceJob.scheduleJob(AncSyncSettingsServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.CLIENT_SETTINGS_SYNC_MINUTES),
+                getFlexValue(BuildConfig.CLIENT_SETTINGS_SYNC_MINUTES));
         DocumentConfigurationServiceJob
                 .scheduleJob(DocumentConfigurationServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.CLIENT_SETTINGS_SYNC_MINUTES),
                         getFlexValue(BuildConfig.CLIENT_SETTINGS_SYNC_MINUTES));
         P2pServiceJob.scheduleJob(P2pServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.CLIENT_SETTINGS_SYNC_MINUTES),
-                        getFlexValue(BuildConfig.CLIENT_SETTINGS_SYNC_MINUTES));
+                getFlexValue(BuildConfig.CLIENT_SETTINGS_SYNC_MINUTES));
     }
 
     @Override
