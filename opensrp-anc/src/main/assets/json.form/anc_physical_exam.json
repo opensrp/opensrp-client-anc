@@ -575,15 +575,6 @@
 				"text_color": "#000000",
 				"options": [
 					{
-						"key": "optibp",
-						"text": "{{anc_physical_exam.step3.bp_measurement_method.options.optibp.text}}",
-						"translation_text": "anc_physical_exam.step3.bp_measurement_method.options.optibp.text",
-						"value": false,
-						"openmrs_entity": "",
-						"openmrs_entity_id": "",
-						"openmrs_entity_parent": ""
-					},
-					{
 
 						"key": "manually",
 						"text": "{{anc_physical_exam.step3.bp_measurement_method.options.manually.text}}",

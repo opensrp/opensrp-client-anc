@@ -30,7 +30,7 @@ fields:
     relevance: "no_of_fetuses != ''"
     isRedFont: "no_of_fetuses > 1"
 
-  - template: "{{profile_overview.overview_of_pregnancy.current_pregnancy.fetal_presentation}}: {fetal_presentation}"
+  - template: "{{profile_overview.overview_of_pregnancy.current_pregnancy.fetal_presentation}}: {fetal_presentation_value}"
     relevance: "fetal_presentation != ''"
 
   - template: "{{profile_overview.overview_of_pregnancy.current_pregnancy.amniotic_fluid}}: {amniotic_fluid_value}"
