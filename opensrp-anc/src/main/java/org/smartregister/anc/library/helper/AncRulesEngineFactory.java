@@ -3,6 +3,7 @@ package org.smartregister.anc.library.helper;
 import android.content.Context;
 
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.rules.RulesEngineFactory;
 
 import org.jeasy.rules.api.Facts;
@@ -43,7 +44,8 @@ public class AncRulesEngineFactory extends RulesEngineFactory {
                 Object value = facts.get(key);
                 if (value instanceof String) {
                     if (((String) value).startsWith("{") && ((String) value).endsWith("}")) {
-                        facts.put(key, new JSONObject(((String) value)).getString("value"));
+                        String extractedValue = new JSONObject(((String) value)).getString(JsonFormConstants.VALUE);
+                        facts.put(key, extractedValue);
                     } else {
                         facts.put(key, value);
                     }
@@ -53,7 +55,8 @@ public class AncRulesEngineFactory extends RulesEngineFactory {
                     for (int i = 0; i < valuesArray.length(); i++) {
                         String keyVal = valuesArray.optString(i);
                         if (keyVal.startsWith("{") && keyVal.endsWith("}")) {
-                            updatedArray.add(new JSONObject(keyVal).getString("value"));
+                            String extractedValue = new JSONObject(keyVal).getString(JsonFormConstants.VALUE);
+                            updatedArray.add(extractedValue);
                         } else {
                             updatedArray.add(keyVal);
                         }
