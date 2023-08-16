@@ -932,7 +932,7 @@ public class Utils extends org.smartregister.util.Utils {
     @SuppressLint({"NewApi"})
     public static String returnTranslatedStringJoinedValue(String value) {
         try {
-            if (StringUtils.isNotBlank(value) && value.charAt(0) == '[') {
+            if (StringUtils.isNotBlank(value) && value.startsWith("[")) {
                 if (Utils.checkJsonArrayString(value)) {
                     JSONArray jsonArray = new JSONArray(value);
                     List<String> translatedList = new ArrayList<>();
@@ -947,7 +947,7 @@ public class Utils extends org.smartregister.util.Utils {
                     return value.substring(1, value.length() - 1);
                 }
             }
-            if (StringUtils.isNotBlank(value) && value.charAt(0) == '{') {
+            if (StringUtils.isNotBlank(value) && value.startsWith("{")) {
                 JSONObject attentionFlagObject = new JSONObject(value);
                 String text = attentionFlagObject.optString(JsonFormConstants.TEXT).trim();
                 String translated_text = StringUtils.isNotBlank(text) ? NativeFormLangUtils.translateDatabaseString(text, AncLibrary.getInstance().getApplicationContext()) : "";

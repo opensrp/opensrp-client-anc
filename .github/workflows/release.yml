@@ -1,0 +1,80 @@
+# This workflow will build a Java project with Gradle
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
+
+name: APK Release
+
+on:
+  push:
+    tags:
+      - v[0-9]+.[0-9]+.[0-9]+
+      - v[0-9]+.[0-9]+.[0-9]+-[0-9a-zA-Z]+
+      - v[0-9]+.[0-9]+.[0-9]+-[0-9a-zA-Z]+-[0-9a-zA-Z]+
+env:
+  CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel previous workflow runs
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+
+      - name: Decode Keystore file
+        run: echo $ENCODED_KEYSTORE | base64 -di > "${HOME}"/anckey.keystore.jks
+        env:
+          ENCODED_KEYSTORE: ${{ secrets.KEYSTORE_FILE }}
+
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Decode & Generate local.properties file
+        run: echo $LOCAL_PROPERTIES | base64 -di > local.properties
+        env:
+          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
+
+      - name: Decode & Generate keystore.properties file
+        run: echo $KEYSTORE_PROPERTIES | base64 -di > keystore.properties
+        env:
+          KEYSTORE_PROPERTIES: ${{ secrets.KEYSTORE_PROPERTIES }}
+
+      - name: Decode google-services.json
+        env:
+          FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
+        run: echo $FIREBASE_CONFIG > reference-app/google-services.json
+
+      - name: Generate AAB (Android App Bundle) file
+        run: ./gradlew :reference-app:bundleRelease -x :reference-app:testDebugUnitTest --stacktrace
+
+      - name: Upload AAB file to tag assets
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: reference-app/build/outputs/bundle/release/reference-app-release.aab
+          asset_name: "reference-app-$tag.aab"
+          tag: ${{ github.ref }}
+          overwrite: true
+
+      - name: Generate APK (Android App PacKage) file
+        run: ./gradlew :reference-app:assembleRelease -x :reference-app:testDebugUnitTest --stacktrace
+
+      - name: Upload APK file to tag assets
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: reference-app/build/outputs/apk/release/reference-app-release.apk
+          asset_name: "reference-app-$tag.apk"
+          tag: ${{ github.ref }}
+          prerelease: ${{ contains(github.ref, '-alpha') || contains(github.ref, '-beta') }}
+          overwrite: true
