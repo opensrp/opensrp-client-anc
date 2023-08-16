@@ -329,10 +329,9 @@ task javadoc(type: Javadoc) {
     classpath += configurations.compile
 }
 
-def jacocoReportPath,sourceDirs
-
+def jacocoReportPath, sourceDirs
 task coveralls {
-    jacocoReportPath = "${buildDir}/reports/jacoco/jacocoTestReport/merged.xml"
+    jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/merged.xml"
     sourceDirs = ["$project.projectDir/src/main/java"]
 }
 

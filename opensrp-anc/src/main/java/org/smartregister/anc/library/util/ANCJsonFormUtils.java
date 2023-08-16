@@ -1024,4 +1024,22 @@ public class ANCJsonFormUtils extends org.smartregister.util.JsonFormUtils {
         public String title = "";
         public String detail = "";
     }
+
+    public static JSONObject populateSecondaryValues(String secondaryValue , JSONObject optionsObject)
+    {
+        JSONObject secondaryValueObject = new JSONObject();
+        JSONArray  secondaryValueArray = new JSONArray();
+        try {
+            secondaryValueArray.put(secondaryValue);
+            secondaryValueObject.put(JsonFormConstants.KEY, optionsObject.getString(JsonFormConstants.KEY));
+            secondaryValueObject.put(JsonFormConstants.VALUES, secondaryValueArray);
+            secondaryValueObject.put(JsonFormConstants.TYPE, optionsObject.getString(JsonFormConstants.CONTENT_WIDGET));
+        }
+        catch (JSONException e)
+        {
+            Timber.e(e);
+        }
+        return secondaryValueObject;
+
+    }
 }

@@ -134,8 +134,12 @@ public class ANCSpinnerFactory extends SpinnerFactory {
         try {
             JSONObject parentField = JsonFormUtils.getFieldJSONObject(getFormStep().getJSONArray(FIELDS),
                     parents.get(jsonObject.getString(KEY)));
-            String parentId = parentField.getString(VALUE);
-
+            String parentId = "";
+            if (!StringUtils.isNotBlank(parentField.optString(VALUE)) && parentField.optString(VALUE).charAt(0) == '{') {
+                parentId = new JSONObject(parentField.optString(VALUE)).optString(VALUE);
+            } else {
+                parentId = parentField.getString(VALUE);
+            }
             populateLocationSpinner(jsonObject, parentId, jsonObject.getString(KEY), descendants.get(jsonObject.getString(KEY)));
         } catch (JSONException e) {
             Timber.e(e);
