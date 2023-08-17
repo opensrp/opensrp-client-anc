@@ -167,7 +167,7 @@ fields:
 group: medications
 fields:
 
-  - template: "{{contact_summary.medications.current_medications}}: {medications_value_value}"
+  - template: "{{contact_summary.medications.current_medications}}: {medications}"
     relevance: "!medications_value.isEmpty()"
 
   - template: "{{contact_summary.medications.medications_prescribed}}: {vita}, {alben_meben}, {mag_calc}, {nausea_pharma}, {antacid}, {penicillin}, {antibiotic}, {prep}, {sp}, {ifa}, {ifa_medication}, {aspirin}, {calcium}"
@@ -432,7 +432,7 @@ fields:
   - template: "{{contact_summary.maternal_exam.respiratory_exam}}: {respiratory_exam_value}"
     relevance: "respiratory_exam != ''"
 
-  - template: "{{contact_summary.maternal_exam.abnormal_specify}}: {respiratory_exam_abnormal_value}"
+  - template: "{{contact_summary.maternal_exam.abnormal_specify}}: {respiratory_exam_abnormal_value_value}"
     relevance: "!respiratory_exam_abnormal.contains('none') && !respiratory_exam_abnormal.isEmpty()"
 
   - template: "{{contact_summary.maternal_exam.oximetry}}: {oximetry}%"
@@ -453,13 +453,13 @@ fields:
   - template: "{{contact_summary.maternal_exam.abdominal_exam}}: {abdominal_exam_value}"
     relevance: "abdominal_exam != ''"
 
-  - template: "{{contact_summary.maternal_exam.abnormal_specify}}: {abdominal_exam_abnormal_value}"
+  - template: "{{contact_summary.maternal_exam.abnormal_specify}}: {abdominal_exam_abnormal_value_value}"
     relevance: "!abdominal_exam_abnormal.isEmpty()"
 
   - template: "{{contact_summary.maternal_exam.pelvic_exam}}: {pelvic_exam_value}"
     relevance: "pelvic_exam != ''"
 
-  - template: "{{contact_summary.maternal_exam.abnormal_specify}}: {pelvic_exam_abnormal_value}"
+  - template: "{{contact_summary.maternal_exam.abnormal_specify}}: {pelvic_exam_abnormal_value_value}"
     relevance: "!pelvic_exam_abnormal.isEmpty()"
 
   - template: "{{contact_summary.maternal_exam.cervical_exam}}: {cervical_exam_value}"
@@ -468,7 +468,7 @@ fields:
   - template: "{{contact_summary.maternal_exam.cervix_dilated}}: {dilation_cm_value} cm"
     relevance: "dilation_cm != ''"
 
-  - template: "{{contact_summary.maternal_exam.oedema_present}}: {oedema_value}"
+  - template: "{{contact_summary.maternal_exam.oedema_present}}: {oedema_value_value}"
     relevance: "oedema != ''"
 
   - template: "{{contact_summary.maternal_exam.oedema_type}}: {oedema_type_value_value}"
@@ -519,7 +519,7 @@ fields:
   - template: "{{contact_summary.blood_type_test.blood_type}}: {blood_type_value}"
     relevance: "blood_type != ''"
 
-  - template: "{{contact_summary.blood_type_test.rh_factor}}: {rh_factor_value}"
+  - template: "{{contact_summary.blood_type_test.rh_factor}}: {rh_factor_value_value}"
     relevance: "rh_factor != ''"
 
   - template: "{{contact_summary.blood_type_test.rh_factor_negative_counseling_done}}"
@@ -540,7 +540,7 @@ fields:
   - template: "{{contact_summary.hiv_tests.hiv_test_date}}: {hiv_test_date}"
     relevance: "hiv_test_date != ''"
 
-  - template: "{{contact_summary.hiv_tests.hiv_test_result}}: {hiv_test_result_value}"
+  - template: "{{contact_summary.hiv_tests.hiv_test_result}}: {hiv_test_result_value_value}"
     relevance: "hiv_test_result != ''"
 
   - template: "{{contact_summary.hiv_tests.hiv_positive_counseling_done}}"
@@ -573,7 +573,7 @@ fields:
   - template: "{{contact_summary.hepatitis_b_test.hepatitis_b_test_ordered}}"
     relevance: "hepb_test_status == 'ordered'"
 
-  - template: "{{contact_summary.hepatitis_b_test.hepatitis_b_test_not_done}}: {hepb_test_notdone_value}"
+  - template: "{{contact_summary.hepatitis_b_test.hepatitis_b_test_not_done}}: {hepb_test_notdone_value_value}"
     relevance: "hepb_test_status == 'not_done'"
 
   - template: "{{contact_summary.hepatitis_b_test.hepatitis_b_test_date}}: {hepb_test_date}"
@@ -606,13 +606,13 @@ fields:
   - template: "{{contact_summary.hepatitis_c_test.hepatitis_c_test_date}}: {hepc_test_date}"
     relevance: "hepc_test_date != ''"
 
-  - template: "{{contact_summary.hepatitis_c_test.anti_hcv_laboratory_based_immunoassay_result}}: {hcv_lab_ima}"
+  - template: "{{contact_summary.hepatitis_c_test.anti_hcv_laboratory_based_immunoassay_result}}: {hcv_lab_ima_value_value}"
     relevance: "hcv_lab_ima != ''"
 
-  - template: "{{contact_summary.hepatitis_c_test.anti_hcv_rapid_diagnostic_test_rdt_result}}: {hcv_rdt}"
+  - template: "{{contact_summary.hepatitis_c_test.anti_hcv_rapid_diagnostic_test_rdt_result}}: {hcv_rdt_value_value}"
     relevance: "hcv_rdt != ''"
 
-  - template: "{{contact_summary.hepatitis_c_test.dried_blood_spot_dbs_anti_hcv_test_result}}: {hcv_dbs}"
+  - template: "{{contact_summary.hepatitis_c_test.dried_blood_spot_dbs_anti_hcv_test_result}}: {hcv_dbs_value_value}"
     relevance: "hcv_dbs != ''"
 
   - template: "{{contact_summary.hepatitis_c_test.hepatitis_C_positive_counseling_done}}"
@@ -660,22 +660,22 @@ fields:
   - template: "{{contact_summary.urine_tests.urine_test_ordered}}"
     relevance: "urine_test_status == 'ordered'"
 
-  - template: "{{contact_summary.urine_tests.urine_test_noe_done}}: {urine_test_notdone_value}"
+  - template: "{{contact_summary.urine_tests.urine_test_noe_done}}: {urine_test_notdone_value_value}"
     relevance: "urine_test_status == 'not_done'"
 
   - template: "{{contact_summary.urine_tests.urine_test_date}}: {urine_test_date}"
     relevance: "urine_test_date != ''"
 
-  - template: "{{contact_summary.urine_tests.midstream_urine_culture_result}}: {urine_culture_value}"
+  - template: "{{contact_summary.urine_tests.midstream_urine_culture_result}}: {urine_culture_value_value}"
     relevance: "urine_culture != ''"
 
-  - template: "{{contact_summary.urine_tests.midstream_urine_gram_staining_result}}: {urine_gram_stain_value}"
+  - template: "{{contact_summary.urine_tests.midstream_urine_gram_staining_result}}: {urine_gram_stain_value_value}"
     relevance: "urine_gram_stain != ''"
 
   - template: "{{contact_summary.urine_tests.urine_nitrites}}: {urine_nitrites_value}"
     relevance: "urine_nitrites != ''"
 
-  - template: "{{contact_summary.urine_tests.urine_leukocytes}}: {urine_leukocytes_value}"
+  - template: "{{contact_summary.urine_tests.urine_leukocytes}}: {urine_leukocytes_value_value}"
     relevance: "urine_leukocytes != ''"
 
   - template: "{{contact_summary.urine_tests.urine_protein}}: {urine_protein_value}"
@@ -735,7 +735,7 @@ fields:
   - template: "{{contact_summary.blood_haemoglobin_test.blood_haemoglobin_test_ordered}}"
     relevance: "hb_test_status == 'ordered'"
 
-  - template: "{{contact_summary.blood_haemoglobin_test.blood_haemoglobin_test_not_done}}: {hb_test_notdone_value}"
+  - template: "{{contact_summary.blood_haemoglobin_test.blood_haemoglobin_test_not_done}}: {hb_test_notdone_value_value}"
     relevance: "hb_test_status == 'not_done'"
 
   - template: "{{contact_summary.blood_haemoglobin_test.blood_haemoglobin_test_date}}: {hb_test_date}"
@@ -762,7 +762,7 @@ fields:
   - template: "{{contact_summary.blood_haemoglobin_test.daily_dose_folic_acid_given}}"
     relevance: "ifa_anaemia == 'done'"
 
-  - template: "{{contact_summary.blood_haemoglobin_test.daily_dose_folic_acid_not_given}}: {ifa_anaemia_notdone_value}"
+  - template: "{{contact_summary.blood_haemoglobin_test.daily_dose_folic_acid_not_given}}: {ifa_anaemia_notdone_value_value}"
     relevance: "ifa_anaemia == 'not_done'"
 ---
 group: tb_screening
@@ -939,7 +939,7 @@ fields:
   - template: "{{contact_summary.deworming_and_malaria_prophylaxis.iptp_sp_dose_3_given}}"
     relevance: "iptp_sp3 == 'done'"
 
-  - template: "{{contact_summary.deworming_and_malaria_prophylaxis.iptp_sp_dose_3_given}}: {iptp_sp_notdone_value}"
+  - template: "{{contact_summary.deworminj8f6(sebutkantidak tersediafg_and_malaria_prophylaxis.iptp_sp_dose_3_given}}: {iptp_sp_notdone_value}"
     relevance: "iptp_sp3 == 'not_done'"
 
   - template: "{{contact_summary.deworming_and_malaria_prophylaxis.malaria_prevention_counseling_done}}"

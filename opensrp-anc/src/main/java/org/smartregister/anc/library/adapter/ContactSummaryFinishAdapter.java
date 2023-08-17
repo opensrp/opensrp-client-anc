@@ -62,7 +62,7 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
         }
 
         String output = "";
-        if(mData.get(position).getGroup().equals("birth_plan_counseling"))
+        if(mData.get(position).getGroup().equals("birth_plan_counseling") || outputBuilder.toString().contains("plasma"))
             output = outputBuilder.toString();
         else
             output = ANCFormUtils.replaceCapitalizedAbbreviation(outputBuilder);

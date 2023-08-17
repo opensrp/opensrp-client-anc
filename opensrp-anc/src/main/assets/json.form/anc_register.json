@@ -601,21 +601,21 @@
 				"type": "edit_text",
 				"edit_type":"password",
 				"hint": "{{anc_register.step1.phone_number.hint}}",
-				"v_equals": {
-					"value": "step1:phone_number",
-					"err": "{{anc_register.step1.uid_repeat_field_dont_match.text}}"
-				},
 				"v_numeric": {
 					"value": "true",
 					"err": "{{anc_register.step1.phone_number.v_numeric.err}}"
 				},
-				"v_required": {
-					"value": "true",
+				"v_regex": {
+					"value": "^$|[0-9]{1,12}",
 					"err": "{{anc_register.step1.phone_number.v_required.err}}"
 				},
 				"v_max_length": {
 					"value": "12",
 					"err": "{{anc_register.step1.phone_number.v_max_length.err}}"
+				},
+				"v_equals": {
+					"value": "step1:phone_number",
+					"err": "{{anc_register.step1.uid_repeat_field_dont_match.text}}"
 				},
 				"relevance": {
 					"rules-engine": {
@@ -625,6 +625,7 @@
 					}
 				}
 			},
+
 			{
 				"key": "phone_number_unknown",
 				"openmrs_entity_parent": "",

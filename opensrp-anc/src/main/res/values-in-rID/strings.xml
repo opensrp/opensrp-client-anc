@@ -31,7 +31,7 @@
     <!-- Authentication -->
     <!-- ============== -->
 
-    <string name="login_text">Login</string>
+    <string name="login_text">Masuk</string>
     <string name="logout_text">Keluar</string>
     <string name="loggin_in_dialog_title">Login</string>
     <string name="loggin_in_dialog_message">Harap Tunggu</string>
@@ -51,7 +51,7 @@
     <string name="show_password_text">Tampilkan Password</string>
     <string name="remote_login_generic_error">Terjadi error saat login terhadap server. Silakan coba lagi.</string>
     <string name="remote_login_base_url_missing_error">Silakan konfigurasi OpenSRP Base URL terlebih dahulu.</string>
-    <string name="log_out_text">Logout</string>
+    <string name="log_out_text">Keluar</string>
     <string name="unauthorized_group">Grup pengguna Anda tidak diizinkan untuk mengakses perangkat ini.</string>
     <string name="no_internet_connectivity">Tidak ada koneksi internet. Harap pastikan konektivitas data berjalan.</string>
     <string name="unknown_response">Login gagal. Coba lagi lain kali.</string>
@@ -334,7 +334,7 @@
     <!-- Authentication -->
     <!-- ============== -->
 
-    <string name="username">Nama belakang</string>
+    <string name="username">Username</string>
     <string name="password">Kata sandi</string>
 
 

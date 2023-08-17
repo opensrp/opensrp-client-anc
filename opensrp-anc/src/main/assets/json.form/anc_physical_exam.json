@@ -583,6 +583,16 @@
 						"openmrs_entity": "",
 						"openmrs_entity_id": "",
 						"openmrs_entity_parent": ""
+					},
+					{
+
+						"key": "optibp",
+						"text": "{{anc_physical_exam.step3.bp_measurement_method.options.optibp.text}}",
+						"translation_text": "anc_physical_exam.step3.bp_measurement_method.options.optipb.text",
+						"value": false,
+						"openmrs_entity": "",
+						"openmrs_entity_id": "",
+						"openmrs_entity_parent": ""
 					}
 				],
 				"v_required": {
