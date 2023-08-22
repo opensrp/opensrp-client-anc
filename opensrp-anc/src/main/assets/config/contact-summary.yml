@@ -501,7 +501,7 @@ fields:
   - template: "{{contact_summary.ultrasound_tests.ultrasound_test}}"
     relevance: "ultrasound == 'ordered'"
 
-  - template: "{{contact_summary.ultrasound_tests.ultrasound_not_done}}: {ultrasound_notdone_value}"
+  - template: "{{contact_summary.ultrasound_tests.ultrasound_not_done}}: {ultrasound_notdone_value_value}"
     relevance: "ultrasound == 'not_done'"
 ---
 group: blood_type_test
@@ -534,7 +534,7 @@ fields:
   - template: "{{contact_summary.hiv_tests.hiv_test_ordered}}"
     relevance: "hiv_test_status == 'ordered'"
 
-  - template: "{{contact_summary.hiv_tests.hiv_test_not_done}}: {hiv_test_notdone_value}"
+  - template: "{{contact_summary.hiv_tests.hiv_test_not_done}}: {hiv_test_notdone_value_value}"
     relevance: "hiv_test_status == 'not_done'"
 
   - template: "{{contact_summary.hiv_tests.hiv_test_date}}: {hiv_test_date}"
@@ -600,7 +600,7 @@ fields:
   - template: "{{contact_summary.hepatitis_c_test.hepatitis_c_test_ordered}}"
     relevance: "hepc_test_status == 'ordered'"
 
-  - template: "{{contact_summary.hepatitis_c_test.hepatitis_c_test_not_done}}: {hepc_test_notdone_value}"
+  - template: "{{contact_summary.hepatitis_c_test.hepatitis_c_test_not_done}}: {hepc_test_notdone_value_value}"
     relevance: "hepc_test_status == 'not_done'"
 
   - template: "{{contact_summary.hepatitis_c_test.hepatitis_c_test_date}}: {hepc_test_date}"
@@ -627,7 +627,7 @@ fields:
   - template: "{{contact_summary.syphilis_test.syphilis_test_ordered}}"
     relevance: "syph_test_status == 'ordered'"
 
-  - template: "{{contact_summary.syphilis_test.syphilis_test_not_done}}: {syph_test_notdone_value}"
+  - template: "{{contact_summary.syphilis_test.syphilis_test_not_done}}: {syph_test_notdone_value_value}"
     relevance: "syph_test_status == 'not_done'"
 
   - template: "{{contact_summary.syphilis_test.syphilis_test_date}}: {syphilis_test_date}"
@@ -771,7 +771,7 @@ fields:
   - template: "{{contact_summary.tb_screening_test.tb_screening_ordered}}"
     relevance: "tb_screening_status == 'ordered'"
 
-  - template: "{{contact_summary.tb_screening_test.tb_screening_not_done}}: {tb_screening_notdone_value}"
+  - template: "{{contact_summary.tb_screening_test.tb_screening_not_done}}: {tb_screening_notdone_value_value}"
     relevance: "tb_screening_status == 'not_done'"
 
   - template: "{{contact_summary.tb_screening_test.tb_screening_date}}: {tb_screening_date}"
@@ -804,7 +804,7 @@ fields:
   - template: "{{contact_summary.pre_eclampsia_risk.asprin_till_deliver_prescribed}}"
     relevance: "pe_risk_aspirin == 'done'"
 
-  - template: "{{contact_summary.pre_eclampsia_risk.asprin_till_deliver_not_prescribed}}: {pe_risk_aspirin_notdone_value}"
+  - template: "{{contact_summary.pre_eclampsia_risk.asprin_till_deliver_not_prescribed}}: {pe_risk_aspirin_notdone_value_value}"
     relevance: "pe_risk_aspirin == 'not_done'"
 
   - template: "{{contact_summary.pre_eclampsia_risk.asprin_plus_calcium_till_deliver_prescribed}}"
@@ -900,19 +900,19 @@ fields:
   - template: "{{contact_summary.anaemia_prevention.daily_folic_acid_prescribed}}"
     relevance: "ifa_high_prev == 'done'"
 
-  - template: "{{contact_summary.anaemia_prevention.daily_folic_acid_not_prescribed}}: {ifa_high_prev_notdone_value}"
+  - template: "{{contact_summary.anaemia_prevention.daily_folic_acid_not_prescribed}}: {ifa_high_prev_notdone_value_value}"
     relevance: "ifa_high_prev == 'not_done'"
 
   - template: "{{contact_summary.anaemia_prevention.daily_30_60_folic_acid_prescribed}}"
     relevance: "ifa_low_prev == 'done'"
 
-  - template: "{{contact_summary.anaemia_prevention.daily_30_60_folic_acid_not_prescribed}}: {ifa_low_prev_notdone_value}"
+  - template: "{{contact_summary.anaemia_prevention.daily_30_60_folic_acid_not_prescribed}}: {ifa_low_prev_notdone_value_value}"
     relevance: "ifa_low_prev == 'not_done'"
 
   - template: "{{contact_summary.anaemia_prevention.changed_prescription_folic_acid}}"
     relevance: "ifa_weekly == 'done'"
 
-  - template: "{{contact_summary.anaemia_prevention.dont_changed_prescription_folic_acid}}: {ifa_weekly_notdone_value}"
+  - template: "{{contact_summary.anaemia_prevention.dont_changed_prescription_folic_acid}}: {ifa_weekly_notdone_value_value}"
     relevance: "ifa_weekly == 'not_done'"
 ---
 group: deworming_and_malaria_prophylaxis
@@ -939,7 +939,7 @@ fields:
   - template: "{{contact_summary.deworming_and_malaria_prophylaxis.iptp_sp_dose_3_given}}"
     relevance: "iptp_sp3 == 'done'"
 
-  - template: "{{contact_summary.deworminj8f6(sebutkantidak tersediafg_and_malaria_prophylaxis.iptp_sp_dose_3_given}}: {iptp_sp_notdone_value}"
+  - template: "{{contact_summary.deworming_and_malaria_prophylaxis.iptp_sp_dose_3_given}}: {iptp_sp_notdone_value}"
     relevance: "iptp_sp3 == 'not_done'"
 
   - template: "{{contact_summary.deworming_and_malaria_prophylaxis.malaria_prevention_counseling_done}}"

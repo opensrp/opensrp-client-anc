@@ -453,8 +453,9 @@ public class ANCFormUtils extends FormUtils {
                 int startPos = StringUtils.indexOf(parentsValue.toLowerCase(), ConstantsUtils.OTHER);
                 int endPos = StringUtils.indexOf(parentsValue.toLowerCase(), ",", startPos);
 
-                String newValue = parentsValue.replace(StringUtils.substring(parentsValue,
-                        startPos, endPos != -1 ? endPos : parentsValue.length()), expansionPanelItem.getSelectedValues());
+//                String newValue = parentsValue.replace(StringUtils.substring(parentsValue,
+//                        startPos, endPos != -1 ? endPos : parentsValue.length()), expansionPanelItem.getSelectedValues());
+                String newValue   = parentsValue +" "+ expansionPanelItem.getSelectedValues();
                 facts.put(parentKey, newValue);
             }
         }
