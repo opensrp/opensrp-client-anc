@@ -253,9 +253,9 @@ public class ContactVisit {
     private void processTasks(JSONObject formObject) {
         try {
             String encounterType = formObject.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE);
-            if (formObject.has(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE) && StringUtils.isNotBlank(encounterType) && ConstantsUtils.JsonFormUtils.ANC_TEST_ENCOUNTER_TYPE.equals(encounterType)) {
+            if (formObject.has(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE) && StringUtils.isNotBlank(encounterType) && ConstantsUtils.JsonFormUtils.ANC_TEST.equals(encounterType)) {
                 JSONObject dueStep = formObject.optJSONObject(JsonFormConstants.STEP1);
-                if (dueStep != null && dueStep.has(JsonFormConstants.STEP_TITLE) && ConstantsUtils.DUE.equals(dueStep.getString(JsonFormConstants.STEP_TITLE))) {
+                if (dueStep != null && dueStep.has(JsonFormConstants.STEP_TITLE) && (ConstantsUtils.DUE.equals(dueStep.getString(JsonFormConstants.STEP_TITLE)) || ConstantsUtils.DUE_IN.equals(dueStep.getString(JsonFormConstants.STEP_TITLE)))) {
                     JSONArray stepFields = dueStep.optJSONArray(JsonFormConstants.FIELDS);
                     if (stepFields != null && stepFields.length() > 0) {
                         saveOrDeleteTasks(stepFields);

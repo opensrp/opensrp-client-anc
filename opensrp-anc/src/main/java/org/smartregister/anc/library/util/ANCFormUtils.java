@@ -868,7 +868,10 @@ public class ANCFormUtils extends FormUtils {
     @NonNull
     public static String replaceCapitalizedAbbreviation(StringBuilder outputBuilder) {
         String output = outputBuilder.toString();
-
+        if(output.contains("Sma"))
+        {
+            output = output.replace("Sma","SMA");
+        }
         String regexString = null;
         String replacementString = null;
         HashMap<String, String> replacementsMap = getReplacementsMap();
