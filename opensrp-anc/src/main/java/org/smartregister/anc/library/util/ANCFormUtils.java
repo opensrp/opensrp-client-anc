@@ -872,6 +872,14 @@ public class ANCFormUtils extends FormUtils {
         {
             output = output.replace("Sma","SMA");
         }
+        else if (output.contains("TT immune dose") || output.contains("Dosis imunisasi TT"))
+        {
+            output = output.replace("Tt","TT");
+        }
+        else if (output.contains(","))
+        {
+           output = output.replace(",",", ");
+        }
         String regexString = null;
         String replacementString = null;
         HashMap<String, String> replacementsMap = getReplacementsMap();

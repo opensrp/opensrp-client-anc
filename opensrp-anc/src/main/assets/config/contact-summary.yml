@@ -131,8 +131,14 @@ fields:
   - template: "{{contact_summary.medical_history.surgeries}}: {surgeries}"
     relevance: "!surgeries_value.isEmpty()"
 
-  - template: "{{contact_summary.medical_history.chronic_health_conditions}}: {health_conditions_value}"
+  - template: "{{contact_summary.medical_history.chronic_health_conditions}}: {health_conditions_value},{health_conditions_other_value}"
     relevance: "!health_conditions_value.isEmpty()"
+
+  - template: "{{contact_summary.medical_history.current_health_conditions}}: {current_health_conditions_value}, {current_health_conditions_other_value}"
+    relevance: "!current_health_conditions_value.isEmpty()"
+
+  - template: "{{contact_summary.medical_history.family_member_health_history}}: {family_member_health_history}, {family_member_health_history_other_value}"
+    relevance: "!family_member_health_history_value.isEmpty()"
 
   - template: "{{contact_summary.medical_history.hiv_diagnosis_date}}: {hiv_diagnosis_date}"
     relevance: "hiv_diagnosis_date_value != ''"
@@ -145,6 +151,9 @@ fields:
 
   - template: "{{contact_summary.immunisation_status.tt_immunisation_status}}: {tt_immun_status_value_value}"
     relevance: "tt_immun_status_value != ''"
+
+  - template: "{{contact_summary.immunisation_status.tt_type}} : {tt_immun_type_value}"
+    relevance: "tt_immun_type_value != ''"
 
   - template: "{{contact_summary.immunisation_status.tt_dose_1}}: {tt1_date_done_date_today_hidden} {tt1_date_done}"
     relevance: "tt1_date_value == 'done_today' || tt1_date_value == 'done_earlier'"
@@ -429,6 +438,24 @@ fields:
   - template: "{{contact_summary.maternal_exam.pallor_present}}: {pallor_value}"
     relevance: "pallor != ''"
 
+  - template: "{{contact_summary.maternal_exam.conjungtiva}}: {conjungtiva_value}"
+    relevance: "conjungtiva != ''"
+
+  - template: "{{contact_summary.maternal_exam.sclera}}: {Sclera_value}"
+    relevance: "Sclera != ''"
+
+  - template: "{{contact_summary.maternal_exam.skin}}: {skin_value}"
+    relevance: "skin != ''"
+
+  - template: "{{contact_summary.maternal_exam.neck}}: {neck_value}"
+    relevance: "neck != ''"
+
+  - template: "{{contact_summary.maternal_exam.tooth_mouth}}: {tooth_mouth_value}"
+    relevance: "tooth_mouth != ''"
+
+  - template: "{{contact_summary.maternal_exam.ear_nose_throat}}: {ear_nose_throat_value}"
+    relevance: "ear_nose_throat != ''"
+
   - template: "{{contact_summary.maternal_exam.respiratory_exam}}: {respiratory_exam_value}"
     relevance: "respiratory_exam != ''"
 
@@ -458,6 +485,9 @@ fields:
 
   - template: "{{contact_summary.maternal_exam.pelvic_exam}}: {pelvic_exam_value}"
     relevance: "pelvic_exam != ''"
+
+  - template: "{{contact_summary.maternal_exam.limbs}}: {limbs_value}"
+    relevance: "limbs != ''"
 
   - template: "{{contact_summary.maternal_exam.abnormal_specify}}: {pelvic_exam_abnormal_value_value}"
     relevance: "!pelvic_exam_abnormal.isEmpty()"
@@ -495,6 +525,29 @@ fields:
   - template: "{{contact_summary.maternal_exam.second_fetal_heart_rate}}: {fetal_heart_rate_repeat} kpm"
     relevance: "fetal_heart_rate_repeat != ''"
 ---
+
+group: special_examination
+fields:
+
+  - template: "{{contact_summary.special_examination.vulva}}: {vulva_value}"
+    relevance: "vulva != ''"
+
+  - template: "{{contact_summary.special_examination.urethra}}: {urethra_value}"
+    relevance: "urethra != ''"
+
+  - template: "{{contact_summary.special_examination.vagina}}: {vagina_value}"
+    relevance: "vagina != ''"
+
+  - template: "{{contact_summary.special_examination.fluxes}}: {fluxes_value}"
+    relevance: "fluxes != ''"
+
+  - template: "{{contact_summary.special_examination.flour}}: {flour_value}"
+    relevance: "flour != ''"
+
+  - template: "{{contact_summary.special_examination.porsio}}: {porsio_value}"
+    relevance: "porsio != ''"
+---
+
 group: ultrasound_test
 fields:
 
@@ -503,6 +556,52 @@ fields:
 
   - template: "{{contact_summary.ultrasound_tests.ultrasound_not_done}}: {ultrasound_notdone_value_value}"
     relevance: "ultrasound == 'not_done'"
+
+  - template: "{{contact_summary.ultrasound_tests.trimester}}: {Trimester_value}"
+    relevance: "Trimester != ''"
+
+  - template: "{{contact_summary.ultrasound_tests.gestational_sac}}: {gestational_sac}"
+    relevance: "gestational_sac != ''"
+
+  - template: "{{contact_summary.ultrasound_tests.crown_rump_length}}: {crown_rump_length}"
+    relevance: "crown_rump_length != ''"
+
+  - template: "{{contact_summary.ultrasound_tests.fetal_heart_rate}}: {fetal_heart_rate}"
+    relevance: "fetal_heart_rate != ''"
+
+  - template: "{{contact_summary.ultrasound_tests.gestational_sac_location}}: {gestational_sac_location_value}"
+    relevance: "gestational_sac_location != ''"
+
+  - template: "{{contact_summary.ultrasound_tests.expected_delivery_date}}: {expected_delivery_date}"
+    relevance: "expected_delivery_date != ''"
+
+  - template: "{{contact_summary.ultrasound_tests.fetus}}: {fetus_value}"
+    relevance: "fetus != ''"
+
+  - template: "{{contact_summary.ultrasound_tests.fetal_location}}: {fetal_location}"
+    relevance: "fetal_location != ''"
+
+  - template: "{{contact_summary.ultrasound_tests.fetal_weight}}: {fetal_weight}"
+    relevance: "fetal_weight != ''"
+
+  - template: "{{contact_summary.ultrasound_tests.bpd}}: {bpd}"
+    relevance: "bpd != ''"
+
+  - template: "{{contact_summary.ultrasound_tests.hc}}: {hc}"
+    relevance: "hc != ''"
+
+  - template: "{{contact_summary.ultrasound_tests.ac}}: {ac}"
+    relevance: "ac != ''"
+
+  - template: "{{contact_summary.ultrasound_tests.fl}}: {fl}"
+    relevance: "fl != ''"
+
+  - template: "{{contact_summary.ultrasound_tests.spd}}: {spd}"
+    relevance: "spd != ''"
+
+  - template: "{{contact_summary.ultrasound_tests.gestational_age}}: {gestational_age}"
+    relevance: "gestational_age != ''"
+
 ---
 group: blood_type_test
 fields:
@@ -692,6 +791,9 @@ fields:
 
   - template: "{{contact_summary.urine_tests.intrapartum_antibiotic_counseling_done}}"
     relevance: "gbs_agent_counsel == 'done'"
+
+  - template: "{{contact_summary.urine_tests.reducing_substance_test}}: {reducing_substances_test}"
+    relevance: "reducing_substances_test != ''"
 
   - template: "{{contact_summary.urine_tests.intrapartum_antibiotic_counseling_not_done}}"
     relevance: "gbs_agent_counsel == 'not_done'"

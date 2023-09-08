@@ -1,7 +1,7 @@
 {
 	"validate_on_submit": true,
 	"display_scroll_bars": true,
-	"count": "5",
+	"count": "6",
 	"encounter_type": "anc_physical_exam",
 	"entity_id": "",
 	"relational_id": "",
@@ -1811,6 +1811,177 @@
 					}
 				]
 			},
+
+			{
+				"key": "conjungtiva",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "concept",
+				"openmrs_entity_id": "5245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				"type": "native_radio",
+				"label": "{{anc_physical_exam.step4.conjungtiva.label}}",
+				"label_text_style": "bold",
+				"text_color": "#000000",
+				"options": [
+					{
+						"key": "normal",
+						"text": "{{anc_physical_exam.step4.conjungtiva.options.normal.text}}",
+						"translation_text": "anc_physical_exam.step4.conjungtiva.options.normal.text",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					},
+					{
+						"key": "abnormal",
+						"text": "{{anc_physical_exam.step4.conjungtiva.options.abnormal.text}}",
+						"translation_text": "anc_physical_exam.step4.conjungtiva.options.abnormal.text",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					}
+				]
+			},
+			{
+				"key": "Sclera",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "concept",
+				"openmrs_entity_id": "5245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				"type": "native_radio",
+				"label": "{{anc_physical_exam.step4.sclera.label}}",
+				"label_text_style": "bold",
+				"text_color": "#000000",
+				"options": [
+					{
+						"key": "normal",
+						"text": "{{anc_physical_exam.step4.sclera.options.normal.text}}",
+						"translation_text": "anc_physical_exam.step4.sclera.options.normal.text",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					},
+					{
+						"key": "abnormal",
+						"text": "{{anc_physical_exam.step4.sclera.options.abnormal.text}}",
+						"translation_text": "anc_physical_exam.step4.sclera.options.abnormal.text",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					}
+				]
+			},
+			{
+				"key": "skin",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "concept",
+				"openmrs_entity_id": "5245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				"type": "native_radio",
+				"label": "{{anc_physical_exam.step4.skin.label}}",
+				"label_text_style": "bold",
+				"text_color": "#000000",
+				"options": [
+					{
+						"key": "normal",
+						"text": "{{anc_physical_exam.step4.skin.options.normal.text}}",
+						"translation_text": "anc_physical_exam.step4.skin.options.normal.text",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					},
+					{
+						"key": "abnormal",
+						"text": "{{anc_physical_exam.step4.skin.options.abnormal.text}}",
+						"translation_text": "anc_physical_exam.step4.skin.options.abnormal.text",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					}
+				]
+			},
+			{
+				"key": "neck",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "concept",
+				"openmrs_entity_id": "5245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				"type": "native_radio",
+				"label": "{{anc_physical_exam.step4.neck.label}}",
+				"label_text_style": "bold",
+				"text_color": "#000000",
+				"options": [
+					{
+						"key": "normal",
+						"text": "{{anc_physical_exam.step4.neck.options.normal.text}}",
+						"translation_text": "anc_physical_exam.step4.neck.options.normal.text",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					},
+					{
+						"key": "abnormal",
+						"text": "{{anc_physical_exam.step4.neck.options.abnormal.text}}",
+						"translation_text": "anc_physical_exam.step4.neck.options.abnormal.text",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					}
+				]
+			},
+			{
+				"key": "tooth_mouth",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "concept",
+				"openmrs_entity_id": "5245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				"type": "native_radio",
+				"label": "{{anc_physical_exam.step4.tooth_mouth.label}}",
+				"label_text_style": "bold",
+				"text_color": "#000000",
+				"options": [
+					{
+						"key": "normal",
+						"text": "{{anc_physical_exam.step4.tooth_mouth.options.normal.text}}",
+						"translation_text": "anc_physical_exam.step4.tooth_mouth.options.normal.text",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					},
+					{
+						"key": "abnormal",
+						"text": "{{anc_physical_exam.step4.tooth_mouth.options.abnormal.text}}",
+						"translation_text": "anc_physical_exam.step4.tooth_mouth.options.abnormal.text",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					}
+				]
+			},
+			{
+				"key": "ear_nose_throat",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "concept",
+				"openmrs_entity_id": "5245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				"type": "native_radio",
+				"label": "{{anc_physical_exam.step4.ear_nose_throat.label}}",
+				"label_text_style": "bold",
+				"text_color": "#000000",
+				"options": [
+					{
+						"key": "normal",
+						"text": "{{anc_physical_exam.step4.ear_nose_throat.options.normal.text}}",
+						"translation_text": "anc_physical_exam.step4.ear_nose_throat.options.normal.text",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					},
+					{
+						"key": "abnormal",
+						"text": "{{anc_physical_exam.step4.ear_nose_throat.options.abnormal.text}}",
+						"translation_text": "anc_physical_exam.step4.ear_nose_throat.options.abnormal.text",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					}
+				]
+			},
+
+
 			{
 				"key": "anaemic",
 				"openmrs_entity_parent": "",
@@ -2254,6 +2425,34 @@
 						"openmrs_entity_parent": "165373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "1116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					}
+				]
+			},
+			{
+				"key": "limbs",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "concept",
+				"openmrs_entity_id": "5245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				"type": "native_radio",
+				"label": "{{anc_physical_exam.step4.limbs.label}}",
+				"label_text_style": "bold",
+				"text_color": "#000000",
+				"options": [
+					{
+						"key": "normal",
+						"text": "{{anc_physical_exam.step4.limbs.options.normal.text}}",
+						"translation_text": "anc_physical_exam.step4.limbs.options.normal.text",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					},
+					{
+						"key": "abnormal",
+						"text": "{{anc_physical_exam.step4.limbs.options.abnormal.text}}",
+						"translation_text": "anc_physical_exam.step4.limbs.options.abnormal.text",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 					}
 				]
 			},
@@ -2806,6 +3005,7 @@
 	},
 	"step5": {
 		"title": "{{anc_physical_exam.step5.title}}",
+		"next": "step6",
 		"fields": [
 			{
 				"key": "sfh_measurement",
@@ -3326,6 +3526,191 @@
 						}
 					}
 				}
+			}
+		]
+	},
+	"step6": {
+		"title": "Special Examination Inspection",
+		"fields": [
+			{
+				"key": "vulva",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "concept",
+				"openmrs_entity_id": "",
+				"type": "native_radio",
+				"label": "{{anc_physical_exam.step6.vulva.label}}",
+				"label_text_style": "bold",
+				"text_color": "#000000",
+				"options": [
+					{
+						"key": "normal",
+						"text": "{{anc_physical_exam.step6.vulva.options.normal.text}}",
+						"translation_text": "anc_physical_exam.step6.vulva.options.normal.text",
+						"value": false,
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "sfh_measurement_done",
+						"openmrs_entity_parent": "sfh_measurement"
+					},
+					{
+						"key": "abnormal",
+						"text": "{{anc_physical_exam.step6.vulva.options.abnormal.text}}",
+						"translation_text": "anc_physical_exam.step6.vulva.options.abnormal.text",
+						"value": false,
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "sfh_measurement_not_done",
+						"openmrs_entity_parent": "sfh_measurement"
+					}
+				]
+			},
+			{
+				"key": "urethra",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "concept",
+				"openmrs_entity_id": "sfh_measurement",
+				"type": "native_radio",
+				"label": "{{anc_physical_exam.step6.urethra.label}}",
+				"label_text_style": "bold",
+				"text_color": "#000000",
+				"options": [
+					{
+						"key": "normal",
+						"text": "{{anc_physical_exam.step6.urethra.options.normal.text}}",
+						"translation_text": "anc_physical_exam.step6.urethra.options.normal.text",
+						"value": false,
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "sfh_measurement_done",
+						"openmrs_entity_parent": "sfh_measurement"
+					},
+					{
+						"key": "abnormal",
+						"text": "{{anc_physical_exam.step6.urethra.options.abnormal.text}}",
+						"translation_text": "anc_physical_exam.step6.urethra.options.abnormal.text",
+						"value": false,
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "sfh_measurement_not_done",
+						"openmrs_entity_parent": "sfh_measurement"
+					}
+				]
+			},
+			{
+				"key": "vagina",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "concept",
+				"openmrs_entity_id": "sfh_measurement",
+				"type": "native_radio",
+				"label": "{{anc_physical_exam.step6.vagina.label}}",
+				"label_text_style": "bold",
+				"text_color": "#000000",
+				"options": [
+					{
+						"key": "normal",
+						"text": "{{anc_physical_exam.step6.vagina.options.normal.text}}",
+						"translation_text": "anc_physical_exam.step6.vagina.options.normal.text",
+						"value": false,
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "sfh_measurement_done",
+						"openmrs_entity_parent": "sfh_measurement"
+					},
+					{
+						"key": "abnormal",
+						"text": "{{anc_physical_exam.step6.vagina.options.abnormal.text}}",
+						"translation_text": "anc_physical_exam.step6.vagina.options.abnormal.text",
+						"value": false,
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "sfh_measurement_not_done",
+						"openmrs_entity_parent": "sfh_measurement"
+					}
+				]
+			},
+			{
+				"key": "fluxes",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "concept",
+				"openmrs_entity_id": "sfh_measurement",
+				"type": "native_radio",
+				"label": "{{anc_physical_exam.step6.fluxes.label}}",
+				"label_text_style": "bold",
+				"text_color": "#000000",
+				"options": [
+					{
+						"key": "positive",
+						"text": "{{anc_physical_exam.step6.fluxes.options.positive.text}}",
+						"translation_text": "anc_physical_exam.step6.fluxes.options.positive.text",
+						"value": false,
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "sfh_measurement_done",
+						"openmrs_entity_parent": "sfh_measurement"
+					},
+					{
+						"key": "negative",
+						"text": "{{anc_physical_exam.step6.fluxes.options.negative.text}}",
+						"translation_text": "anc_physical_exam.step6.fluxes.options.negative.text",
+						"value": false,
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "sfh_measurement_not_done",
+						"openmrs_entity_parent": "sfh_measurement"
+					}
+				]
+			},
+			{
+				"key": "flour",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "concept",
+				"openmrs_entity_id": "sfh_measurement",
+				"type": "native_radio",
+				"label": "{{anc_physical_exam.step6.flour.label}}",
+				"label_text_style": "bold",
+				"text_color": "#000000",
+				"options": [
+					{
+						"key": "positive",
+						"text": "{{anc_physical_exam.step6.flour.options.positive.text}}",
+						"translation_text": "anc_physical_exam.step6.flour.options.positive.text",
+						"value": false,
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "sfh_measurement_done",
+						"openmrs_entity_parent": "sfh_measurement"
+					},
+					{
+						"key": "negative",
+						"text": "{{anc_physical_exam.step6.flour.options.negative.text}}",
+						"translation_text": "anc_physical_exam.step6.flour.options.negative.text",
+						"value": false,
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "sfh_measurement_not_done",
+						"openmrs_entity_parent": "sfh_measurement"
+					}
+				]
+			},
+			{
+				"key": "porsio",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "concept",
+				"openmrs_entity_id": "sfh_measurement",
+				"type": "native_radio",
+				"label": "{{anc_physical_exam.step6.porsio.label}}",
+				"label_text_style": "bold",
+				"text_color": "#000000",
+				"options": [
+					{
+						"key": "normal",
+						"text": "{{anc_physical_exam.step6.porsio.options.normal.text}}",
+						"translation_text": "anc_physical_exam.step6.porsio.options.normal.text",
+						"value": false,
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "sfh_measurement_done",
+						"openmrs_entity_parent": "sfh_measurement"
+					},
+					{
+						"key": "abnormal",
+						"text": "{{anc_physical_exam.step6.porsio.options.abnormal.text}}",
+						"translation_text": "anc_physical_exam.step6.porsio.options.abnormal.text",
+						"value": false,
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "sfh_measurement_not_done",
+						"openmrs_entity_parent": "sfh_measurement"
+					}
+				]
 			}
 		]
 	},

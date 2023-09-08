@@ -6,6 +6,34 @@ condition: "global_danger_signs && !global_danger_signs.isEmpty() && !global_dan
 actions:
   - "isRelevant = true"
 ---
+name: step1_current_medical_history_toaster
+description: Current medical history toaster
+priority: 1
+condition: "!global_current_health_conditions.isEmpty() && global_current_health_conditions != '' && !global_current_health_conditions.contains('none')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_family_medical_history_toaster
+description: Danger sign problem toaster
+priority: 1
+condition: "!global_family_member_health_history.isEmpty() && global_family_member_health_history != '' && !global_family_member_health_history.contains('none')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_risky_behaviour_toaster
+description: Risky behaviour toaster
+priority: 1
+condition: "!global_history_risky_behaviour.isEmpty() && global_history_risky_behaviour != ''"
+actions:
+  - "isRelevant = true"
+---
+name: step1_pelvic_exam_toaster
+description: Pelvic Exam Toaster
+priority: 1
+condition: "global_vulva.contains('abnormal') || global_urethra.contains('abnormal') || global_vagina.contains('abnormal') || porsio.contains('abnormal')"
+actions:
+  - "isRelevant = true"
+---
 name: step1_severe_hypertension_toaster
 description: Severe hypertension toaster
 priority: 1
@@ -107,7 +135,7 @@ actions:
 name: step1_referred_hosp
 description: Referred to hospital
 priority: 1
-condition: "(global_danger_signs && global_severe_hypertension != '' && global_severe_hypertension == 1) || (!global_danger_signs.isEmpty() && !global_danger_signs.contains('danger_none') && global_danger_signs_value != 'None') || (global_hypertension != '' && global_hypertension == 1 && !global_symp_sev_preeclampsia.isEmpty() && !global_symp_sev_preeclampsia.contains('none')) || (global_preeclampsia != '' && global_preeclampsia == 1) || (global_severe_preeclampsia != ''  && global_severe_preeclampsia == 1) || (global_body_temp_repeat != '' && global_body_temp_repeat >= 38) || global_pulse_rate_repeat != '' && (global_pulse_rate_repeat < 60 || global_pulse_rate_repeat > 100) || global_respiratory_exam == 3 || global_cardiac_exam == 3 || global_breast_exam == 3 || global_abdominal_exam == 3 || global_pelvic_exam == 3 || (global_fetal_heartbeat == 'no' && global_gest_age_openmrs > 20) || global_fetal_heart_rate_repeat != '' && (global_fetal_heart_rate_repeat < 110 || global_fetal_heart_rate_repeat > 160)"
+condition: "(global_danger_signs && global_severe_hypertension != '' && global_severe_hypertension == 1) || (!global_danger_signs.isEmpty() && !global_danger_signs.contains('danger_none') && global_danger_signs_value != 'None') || (global_hypertension != '' && global_hypertension == 1 && !global_symp_sev_preeclampsia.isEmpty() && !global_symp_sev_preeclampsia.contains('none')) || (global_preeclampsia != '' && global_preeclampsia == 1) || (global_severe_preeclampsia != ''  && global_severe_preeclampsia == 1) || (global_body_temp_repeat != '' && global_body_temp_repeat >= 38) || global_pulse_rate_repeat != '' && (global_pulse_rate_repeat < 60 || global_pulse_rate_repeat > 100) || global_respiratory_exam == 3 || global_cardiac_exam == 3 || global_breast_exam == 3 || global_abdominal_exam == 3 || global_pelvic_exam == 3 || (global_fetal_heartbeat == 'no' && global_gest_age_openmrs > 20) || global_fetal_heart_rate_repeat != '' && (global_fetal_heart_rate_repeat < 110 || global_fetal_heart_rate_repeat > 160) || (!global_current_health_conditions_value.isEmpty() && global_current_health_conditions_value != '' && !global_current_health_conditions.contains('none')) || (!global_family_member_health_history.isEmpty() && global_family_member_health_history != '' && !global_family_member_health_history.contains('none')) || (!global_history_risky_behaviour.isEmpty() && global_history_risky_behaviour != '') || (global_vulva.contains('abnormal') || global_urethra.contains('abnormal') || global_vagina.contains('abnormal') || porsio.contains('abnormal'))"
 actions:
   - "isRelevant = true"
 ---

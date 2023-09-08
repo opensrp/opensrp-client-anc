@@ -573,6 +573,13 @@ condition: "(step1_urine_test_status == 'done_today' || step1_urine_test_status 
 actions:
   - "isRelevant = true"
 ---
+name: step1_reducing_substances_test
+description: reducing_substances_test
+priority: 1
+condition: "(step1_urine_test_status == 'done_today' || step1_urine_test_status == 'done_earlier') && step1_urine_test_type.contains('reducing_substances')"
+actions:
+  - "isRelevant = true"
+---
 name: step2_urine_nitrites
 description: Urine dipstick result - nitrites
 priority: 1

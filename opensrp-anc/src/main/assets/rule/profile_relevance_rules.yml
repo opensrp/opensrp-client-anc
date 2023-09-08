@@ -97,6 +97,48 @@ condition: "(step3_live_births > 0)"
 actions:
   - "isRelevant = true"
 ---
+name: step3_previous_pregnancy_data
+description: year
+priority: 1
+condition: "step3_previous_pregnancies > 0 "
+actions:
+  - "isRelevant = true"
+---
+name: step3_birth_weight
+description: year
+priority: 1
+condition: "step3_previous_pregnancies > 0 "
+actions:
+  - "isRelevant = true"
+---
+name: step3_delivery_method
+description: year
+priority: 1
+condition: "step3_previous_pregnancies > 0 "
+actions:
+  - "isRelevant = true"
+---
+name: step3_birth_attendant
+description: year
+priority: 1
+condition: "step3_previous_pregnancies > 0 "
+actions:
+  - "isRelevant = true"
+---
+name: step3_year
+description: year
+priority: 1
+condition: "step3_previous_pregnancies > 0 "
+actions:
+  - "isRelevant = true"
+---
+name: step3_pregnancy_complication
+description: year
+priority: 1
+condition: "step3_previous_pregnancies > 0 "
+actions:
+  - "isRelevant = true"
+---
 name: step3_stillbirths_label
 description: Still births label
 priority: 1

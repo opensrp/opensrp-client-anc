@@ -297,6 +297,241 @@
 			}
 		},
 		{
+			"key": "Trimester",
+			"openmrs_entity_parent": "159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"openmrs_entity": "concept",
+			"openmrs_entity_id": "165182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"type": "native_radio",
+			"label": "{{tests_ultrasound_sub_form.step1.trimester.label}}",
+			"label_text_style": "bold",
+			"options": [
+				{
+					"key": "trimester1",
+					"text": "{{tests_ultrasound_sub_form.step1.trimester.option.trimester1.text}}",
+					"translation_text": "tests_ultrasound_sub_form.step1.trimester.option.trimester1.text",
+					"openmrs_entity_parent": "",
+					"openmrs_entity": "concept",
+					"openmrs_entity_id": "165295AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+				},
+				{
+					"key": "trimester3",
+					"text": "{{tests_ultrasound_sub_form.step1.trimester.option.trimester2.text}}",
+					"translation_text": "tests_ultrasound_sub_form.step1.trimester.option.trimester2.text",
+					"openmrs_entity_parent": "",
+					"openmrs_entity": "concept",
+					"openmrs_entity_id": "165386AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+				}
+			],
+			"v_required": {
+				"value": true,
+				"err": "{{tests_ultrasound_sub_form.step1.ultrasound_notdone.v_required.err}}"
+			}
+		},
+
+		{
+			"key": "gestational_sac",
+			"openmrs_entity_parent": "159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"openmrs_entity": "concept",
+			"openmrs_entity_id": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"type": "edit_text",
+			"hint": "{{tests_ultrasound_sub_form.step1.gestational_sac.hint}}",
+			"edit_type": "edit_text",
+			"relevance": {
+				"rules-engine": {
+					"ex-rules": {
+						"rules-file": "ultrasound_sub_form_relevance_rules.yml"
+					}
+				}
+			},
+			"v_required": {
+				"value": false,
+				"err": "{{tests_ultrasound_sub_form.step1.ultrasound_notdone_other.v_required.err}}"
+			}
+		},
+
+		{
+			"key": "crown_rump_length",
+			"openmrs_entity_parent": "159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"openmrs_entity": "concept",
+			"openmrs_entity_id": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"type": "edit_text",
+			"hint": "{{tests_ultrasound_sub_form.step1.crown_rump_length.hint}}",
+			"edit_type": "edit_text",
+			"relevance": {
+				"rules-engine": {
+					"ex-rules": {
+						"rules-file": "ultrasound_sub_form_relevance_rules.yml"
+					}
+				}
+			},
+			"v_required": {
+				"value": false,
+				"err": "{{tests_ultrasound_sub_form.step1.ultrasound_notdone_other.v_required.err}}"
+			}
+		},
+		{
+			"key": "fetal_heart_rate",
+			"openmrs_entity_parent": "159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"openmrs_entity": "concept",
+			"openmrs_entity_id": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"type": "edit_text",
+			"hint": "{{tests_ultrasound_sub_form.step1.fetal_heart_rate.hint}}",
+			"edit_type": "edit_text",
+			"relevance": {
+				"rules-engine": {
+					"ex-rules": {
+						"rules-file": "ultrasound_sub_form_relevance_rules.yml"
+					}
+				}
+			},
+			"v_required": {
+				"value": false,
+				"err": "{{tests_ultrasound_sub_form.step1.ultrasound_notdone_other.v_required.err}}"
+			}
+		},
+
+		{
+			"key": "gestational_sac_location",
+			"openmrs_entity_parent": "159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"openmrs_entity": "concept",
+			"openmrs_entity_id": "165182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"type": "native_radio",
+			"label": "{{tests_ultrasound_sub_form.step1.gestational_sac_location.label}}",
+			"label_text_style": "bold",
+			"options": [
+				{
+					"key": "intrauterine",
+					"text": "{{tests_ultrasound_sub_form.step1.gestational_sac_location.option.intrauterine.text}}",
+					"translation_text": "tests_ultrasound_sub_form.step1.gestational_sac_location.option.intrauterine.text",
+					"openmrs_entity_parent": "",
+					"openmrs_entity": "concept",
+					"openmrs_entity_id": "165295AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+				},
+				{
+					"key": "extra_uterine",
+					"text": "{{tests_ultrasound_sub_form.step1.gestational_sac_location.option.extra_uterine.text}}",
+					"translation_text": "tests_ultrasound_sub_form.step1.gestational_sac_location.option.extra_uterine.text",
+					"openmrs_entity_parent": "",
+					"openmrs_entity": "concept",
+					"openmrs_entity_id": "165386AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+				}
+			],
+			"relevance": {
+				"rules-engine": {
+					"ex-rules": {
+						"rules-file": "ultrasound_sub_form_relevance_rules.yml"
+					}
+				}
+			},
+			"v_required": {
+				"value": true,
+				"err": "{{tests_ultrasound_sub_form.step1.ultrasound_notdone.v_required.err}}"
+			}
+		},
+
+		{
+			"key": "expected_delivery_date",
+			"openmrs_entity_parent": "",
+			"openmrs_entity": "concept",
+			"openmrs_entity_id": "visit_date",
+			"type": "date_picker",
+			"hint": "{{tests_ultrasound_sub_form.step1.expected_delivery_date.hint}}",
+			"expanded": false,
+			"min_date": "today-1m",
+			"v_required": {
+				"value": "true",
+				"err": "expected date is required"
+			},
+			"relevance": {
+				"rules-engine": {
+					"ex-rules": {
+						"rules-file": "ultrasound_sub_form_relevance_rules.yml"
+					}
+				}
+			}
+		},
+
+
+		{
+			"key": "fetus",
+			"openmrs_entity_parent": "159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"openmrs_entity": "concept",
+			"openmrs_entity_id": "165182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"type": "native_radio",
+			"label": "{{tests_ultrasound_sub_form.step1.fetus.label}}",
+			"label_text_style": "bold",
+			"options": [
+				{
+					"key": "alive",
+					"text": "{{tests_ultrasound_sub_form.step1.fetus.option.alive.text}}",
+					"translation_text": "tests_ultrasound_sub_form.step1.fetus.option.alive.text",
+					"openmrs_entity_parent": "",
+					"openmrs_entity": "concept",
+					"openmrs_entity_id": "165295AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+				},
+				{
+					"key": "dead",
+					"text": "{{tests_ultrasound_sub_form.step1.fetus.option.dead.text}}",
+					"translation_text": "tests_ultrasound_sub_form.step1.fetus.option.dead.text",
+					"openmrs_entity_parent": "",
+					"openmrs_entity": "concept",
+					"openmrs_entity_id": "165386AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+				}
+			],
+			"v_required": {
+				"value": true,
+				"err": "{{tests_ultrasound_sub_form.step1.ultrasound_notdone.v_required.err}}"
+			},
+			"relevance": {
+				"rules-engine": {
+					"ex-rules": {
+						"rules-file": "ultrasound_sub_form_relevance_rules.yml"
+					}
+				}
+			}
+		},
+
+		{
+			"key": "fetal_location",
+			"openmrs_entity_parent": "159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"openmrs_entity": "concept",
+			"openmrs_entity_id": "165182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"type": "native_radio",
+			"label": "{{tests_ultrasound_sub_form.step1.fetal_location.label}}",
+			"label_text_style": "bold",
+			"options": [
+				{
+					"key": "intrauterine",
+					"text": "{{tests_ultrasound_sub_form.step1.fetal_location.option.intrauterine.text}}",
+					"translation_text": "tests_ultrasound_sub_form.step1.fetal_location.option.intrauterine.text",
+					"openmrs_entity_parent": "",
+					"openmrs_entity": "concept",
+					"openmrs_entity_id": "165295AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+				},
+				{
+					"key": "extra_uterine",
+					"text": "{{tests_ultrasound_sub_form.step1.fetal_location.option.extra_uterine.text}}",
+					"translation_text": "tests_ultrasound_sub_form.step1.fetal_location.option.extra_uterine.text",
+					"openmrs_entity_parent": "",
+					"openmrs_entity": "concept",
+					"openmrs_entity_id": "165386AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+				}
+			],
+			"v_required": {
+				"value": true,
+				"err": "{{tests_ultrasound_sub_form.step1.ultrasound_notdone.v_required.err}}"
+			},
+			"relevance": {
+				"rules-engine": {
+					"ex-rules": {
+						"rules-file": "ultrasound_sub_form_relevance_rules.yml"
+					}
+				}
+			}
+		},
+
+
+		{
 			"key": "spacer",
 			"openmrs_entity_parent": "",
 			"openmrs_entity": "",
@@ -387,6 +622,27 @@
 						"rules-file": "ultrasound_sub_form_calculation_rules.yml"
 					}
 				}
+			}
+		},
+
+		{
+			"key": "fetal_weight",
+			"openmrs_entity_parent": "159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"openmrs_entity": "concept",
+			"openmrs_entity_id": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"type": "edit_text",
+			"hint": "{{tests_ultrasound_sub_form.step1.fetal_weight.hint}}",
+			"edit_type": "edit_text",
+			"relevance": {
+				"rules-engine": {
+					"ex-rules": {
+						"rules-file": "ultrasound_sub_form_relevance_rules.yml"
+					}
+				}
+			},
+			"v_required": {
+				"value": false,
+				"err": "{{tests_ultrasound_sub_form.step1.ultrasound_notdone_other.v_required.err}}"
 			}
 		},
 		{
@@ -503,6 +759,126 @@
 						"rules-file": "ultrasound_sub_form_relevance_rules.yml"
 					}
 				}
+			}
+		},
+		{
+			"key": "bpd",
+			"openmrs_entity_parent": "159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"openmrs_entity": "concept",
+			"openmrs_entity_id": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"type": "edit_text",
+			"hint": "{{tests_ultrasound_sub_form.step1.bpd.hint}}",
+			"edit_type": "edit_text",
+			"relevance": {
+				"rules-engine": {
+					"ex-rules": {
+						"rules-file": "ultrasound_sub_form_relevance_rules.yml"
+					}
+				}
+			},
+			"v_required": {
+				"value": false,
+				"err": "{{tests_ultrasound_sub_form.step1.ultrasound_notdone_other.v_required.err}}"
+			}
+		},
+		{
+			"key": "hc",
+			"openmrs_entity_parent": "159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"openmrs_entity": "concept",
+			"openmrs_entity_id": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"type": "edit_text",
+			"hint": "{{tests_ultrasound_sub_form.step1.hc.hint}}",
+			"edit_type": "edit_text",
+			"relevance": {
+				"rules-engine": {
+					"ex-rules": {
+						"rules-file": "ultrasound_sub_form_relevance_rules.yml"
+					}
+				}
+			},
+			"v_required": {
+				"value": false,
+				"err": "{{tests_ultrasound_sub_form.step1.ultrasound_notdone_other.v_required.err}}"
+			}
+		},
+		{
+			"key": "ac",
+			"openmrs_entity_parent": "159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"openmrs_entity": "concept",
+			"openmrs_entity_id": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"type": "edit_text",
+			"hint": "{{tests_ultrasound_sub_form.step1.ac.hint}}",
+			"edit_type": "edit_text",
+			"relevance": {
+				"rules-engine": {
+					"ex-rules": {
+						"rules-file": "ultrasound_sub_form_relevance_rules.yml"
+					}
+				}
+			},
+			"v_required": {
+				"value": false,
+				"err": "{{tests_ultrasound_sub_form.step1.ultrasound_notdone_other.v_required.err}}"
+			}
+		},
+		{
+			"key": "fl",
+			"openmrs_entity_parent": "159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"openmrs_entity": "concept",
+			"openmrs_entity_id": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"type": "edit_text",
+			"hint": "{{tests_ultrasound_sub_form.step1.fl.hint}}",
+			"edit_type": "edit_text",
+			"relevance": {
+				"rules-engine": {
+					"ex-rules": {
+						"rules-file": "ultrasound_sub_form_relevance_rules.yml"
+					}
+				}
+			},
+			"v_required": {
+				"value": false,
+				"err": "{{tests_ultrasound_sub_form.step1.ultrasound_notdone_other.v_required.err}}"
+			}
+		},
+		{
+			"key": "spd",
+			"openmrs_entity_parent": "159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"openmrs_entity": "concept",
+			"openmrs_entity_id": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"type": "edit_text",
+			"hint": "{{tests_ultrasound_sub_form.step1.spd.hint}}",
+			"edit_type": "edit_text",
+			"relevance": {
+				"rules-engine": {
+					"ex-rules": {
+						"rules-file": "ultrasound_sub_form_relevance_rules.yml"
+					}
+				}
+			},
+			"v_required": {
+				"value": false,
+				"err": "{{tests_ultrasound_sub_form.step1.ultrasound_notdone_other.v_required.err}}"
+			}
+		},
+		{
+			"key": "gestational_age",
+			"openmrs_entity_parent": "159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"openmrs_entity": "concept",
+			"openmrs_entity_id": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"type": "edit_text",
+			"hint": "{{tests_ultrasound_sub_form.step1.gestational_age.hint}}",
+			"edit_type": "edit_text",
+			"relevance": {
+				"rules-engine": {
+					"ex-rules": {
+						"rules-file": "ultrasound_sub_form_relevance_rules.yml"
+					}
+				}
+			},
+			"v_required": {
+				"value": false,
+				"err": "{{tests_ultrasound_sub_form.step1.ultrasound_notdone_other.v_required.err}}"
 			}
 		}
 	],

@@ -107,6 +107,106 @@
 				}
 			},
 			{
+				"key": "current_medical_history_toaster",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "",
+				"openmrs_entity_id": "",
+				"type": "toaster_notes",
+				"text": "{{anc_counselling_treatment.step1.current_medical_history_toaster.text}}",
+				"translation_text": "anc_counselling_treatment.step1.current_medical_history_toaster.text",
+				"toaster_info_text": "{{anc_counselling_treatment.step1.current_medical_history_toaster.toaster_info_text}}",
+				"toaster_type": "problem",
+				"relevance": {
+					"rules-engine": {
+						"ex-rules": {
+							"rules-file": "ct_relevance_rules.yml"
+						}
+					}
+				},
+				"calculation": {
+					"rules-engine": {
+						"ex-rules": {
+							"rules-file": "ct_calculation_rules.yml"
+						}
+					}
+				}
+			},
+			{
+				"key": "family_medical_history_toaster",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "",
+				"openmrs_entity_id": "",
+				"type": "toaster_notes",
+				"text": "{{anc_counselling_treatment.step1.family_medical_history_toaster.text}}",
+				"translation_text": "anc_counselling_treatment.step1.family_medical_history_toaster.text",
+				"toaster_info_text": "{{anc_counselling_treatment.step1.family_medical_history_toaster.toaster_info_text}}",
+				"toaster_type": "problem",
+				"relevance": {
+					"rules-engine": {
+						"ex-rules": {
+							"rules-file": "ct_relevance_rules.yml"
+						}
+					}
+				},
+				"calculation": {
+					"rules-engine": {
+						"ex-rules": {
+							"rules-file": "ct_calculation_rules.yml"
+						}
+					}
+				}
+			},
+			{
+				"key": "pelvic_exam_toaster",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "",
+				"openmrs_entity_id": "",
+				"type": "toaster_notes",
+				"text": "{{anc_counselling_treatment.step1.pelvic_exam_toaster.text}}",
+				"translation_text": "anc_counselling_treatment.step1.pelvic_exam_toaster.text",
+				"toaster_info_text": "{{anc_counselling_treatment.step1.pelvic_exam_toaster.toaster_info_text}}",
+				"toaster_type": "problem",
+				"relevance": {
+					"rules-engine": {
+						"ex-rules": {
+							"rules-file": "ct_relevance_rules.yml"
+						}
+					}
+				},
+				"calculation": {
+					"rules-engine": {
+						"ex-rules": {
+							"rules-file": "ct_calculation_rules.yml"
+						}
+					}
+				}
+			},
+			{
+				"key": "risky_behaviour_toaster",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "",
+				"openmrs_entity_id": "",
+				"type": "toaster_notes",
+				"text": "{{anc_counselling_treatment.step1.risky_behaviour_toaster.text}}",
+				"translation_text": "anc_counselling_treatment.step1.risky_behaviour_toaster.text",
+				"toaster_info_text": "{{anc_counselling_treatment.step1.risky_behaviour_toaster.toaster_info_text}}",
+				"toaster_type": "problem",
+				"relevance": {
+					"rules-engine": {
+						"ex-rules": {
+							"rules-file": "ct_relevance_rules.yml"
+						}
+					}
+				},
+				"calculation": {
+					"rules-engine": {
+						"ex-rules": {
+							"rules-file": "ct_calculation_rules.yml"
+						}
+					}
+				}
+			},
+			{
 				"key": "severe_hypertension_toaster",
 				"openmrs_entity_parent": "",
 				"openmrs_entity": "",
@@ -3570,6 +3670,42 @@
 						"openmrs_entity_parent": "",
 						"openmrs_entity": "",
 						"openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					}
+				]
+			},
+			{
+				"key": "expected_delivery_method",
+				"openmrs_entity_parent": "",
+				"openmrs_entity": "concept",
+				"openmrs_entity_id": "5245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				"type": "native_radio",
+				"label": "{{anc_counselling_treatment.step7.expected_delivery_method.label}}",
+				"label_text_style": "bold",
+				"text_color": "#000000",
+				"options": [
+					{
+						"key": "vaginal_delivery_method",
+						"text": "{{anc_counselling_treatment.step7.expected_delivery_method.options.vaginal_delivery_method.text}}",
+						"translation_text": "anc_counselling_treatment.step7.expected_delivery_method.options.vaginal_delivery_method.text",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					},
+					{
+						"key": "assisted_vaginal_delivery",
+						"text": "{{anc_counselling_treatment.step7.expected_delivery_method.options.assisted_vaginal_delivery.text}}",
+						"translation_text": "anc_counselling_treatment.step7.expected_delivery_method.options.assisted_vaginal_delivery.text",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+					},
+					{
+						"key": "cesarean",
+						"text": "{{anc_counselling_treatment.step7.expected_delivery_method.options.cesarean.text}}",
+						"translation_text": "anc_counselling_treatment.step7.expected_delivery_method.options.cesarean.text",
+						"openmrs_entity_parent": "",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 					}
 				]
 			},
