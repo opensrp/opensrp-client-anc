@@ -389,6 +389,44 @@
 				"err": "{{tests_ultrasound_sub_form.step1.ultrasound_notdone_other.v_required.err}}"
 			}
 		},
+		{
+			"key": "same_gest_age",
+			"openmrs_entity_parent": "159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"openmrs_entity": "concept",
+			"openmrs_entity_id": "165182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"type": "native_radio",
+			"label": "{{tests_ultrasound_sub_form.step1.same_gest_age.label}}",
+			"label_text_style": "bold",
+			"options": [
+				{
+					"key": "yes",
+					"text": "{{tests_ultrasound_sub_form.step1.same_gest_age.option.yes.text}}",
+					"translation_text": "tests_ultrasound_sub_form.step1.same_gest_age.option.yes.text",
+					"openmrs_entity_parent": "",
+					"openmrs_entity": "concept",
+					"openmrs_entity_id": "165295AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+				},
+				{
+					"key": "no",
+					"text": "{{tests_ultrasound_sub_form.step1.same_gest_age.option.no.text}}",
+					"translation_text": "tests_ultrasound_sub_form.step1.same_gest_age.option.no.text",
+					"openmrs_entity_parent": "",
+					"openmrs_entity": "concept",
+					"openmrs_entity_id": "165386AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+				}
+			],
+			"v_required": {
+				"value": true,
+				"err": "{{tests_ultrasound_sub_form.step1.ultrasound_notdone.v_required.err}}"
+			},
+			"relevance": {
+				"rules-engine": {
+					"ex-rules": {
+						"rules-file": "ultrasound_sub_form_relevance_rules.yml"
+					}
+				}
+			}
+		},
 
 		{
 			"key": "gestational_sac_location",
@@ -473,6 +511,44 @@
 					"key": "dead",
 					"text": "{{tests_ultrasound_sub_form.step1.fetus.option.dead.text}}",
 					"translation_text": "tests_ultrasound_sub_form.step1.fetus.option.dead.text",
+					"openmrs_entity_parent": "",
+					"openmrs_entity": "concept",
+					"openmrs_entity_id": "165386AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+				}
+			],
+			"v_required": {
+				"value": true,
+				"err": "{{tests_ultrasound_sub_form.step1.ultrasound_notdone.v_required.err}}"
+			},
+			"relevance": {
+				"rules-engine": {
+					"ex-rules": {
+						"rules-file": "ultrasound_sub_form_relevance_rules.yml"
+					}
+				}
+			}
+		},
+		{
+			"key": "no_of_fetus",
+			"openmrs_entity_parent": "159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"openmrs_entity": "concept",
+			"openmrs_entity_id": "165182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"type": "native_radio",
+			"label": "{{tests_ultrasound_sub_form.step1.no_of_fetus.label}}",
+			"label_text_style": "bold",
+			"options": [
+				{
+					"key": "single",
+					"text": "{{tests_ultrasound_sub_form.step1.no_of_fetus.option.single.text}}",
+					"translation_text": "tests_ultrasound_sub_form.step1.no_of_fetus.option.single.text",
+					"openmrs_entity_parent": "",
+					"openmrs_entity": "concept",
+					"openmrs_entity_id": "165295AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+				},
+				{
+					"key": "dead",
+					"text": "{{tests_ultrasound_sub_form.step1.no_of_fetus.option.double.text}}",
+					"translation_text": "tests_ultrasound_sub_form.step1.no_of_fetus.option.double.text",
 					"openmrs_entity_parent": "",
 					"openmrs_entity": "concept",
 					"openmrs_entity_id": "165386AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -624,6 +700,26 @@
 				}
 			}
 		},
+		{
+			"key": "fetal_presentation_other",
+			"openmrs_entity_parent": "159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"openmrs_entity": "concept",
+			"openmrs_entity_id": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"type": "edit_text",
+			"hint": "{{tests_ultrasound_sub_form.step1.ultrasound_notdone_other.hint}}",
+			"edit_type": "edit_text",
+			"relevance": {
+				"rules-engine": {
+					"ex-rules": {
+						"rules-file": "ultrasound_sub_form_relevance_rules.yml"
+					}
+				}
+			},
+			"v_required": {
+				"value": false,
+				"err": "{{tests_ultrasound_sub_form.step1.ultrasound_notdone_other.v_required.err}}"
+			}
+		},
 
 		{
 			"key": "fetal_weight",
@@ -643,6 +739,44 @@
 			"v_required": {
 				"value": false,
 				"err": "{{tests_ultrasound_sub_form.step1.ultrasound_notdone_other.v_required.err}}"
+			}
+		},
+		{
+			"key": "placenta",
+			"openmrs_entity_parent": "159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"openmrs_entity": "concept",
+			"openmrs_entity_id": "165182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"type": "native_radio",
+			"label": "{{tests_ultrasound_sub_form.step1.placenta.label}}",
+			"label_text_style": "bold",
+			"options": [
+				{
+					"key": "normal",
+					"text": "{{tests_ultrasound_sub_form.step1.placenta.option.normal.text}}",
+					"translation_text": "tests_ultrasound_sub_form.step1.placenta.option.normal.text",
+					"openmrs_entity_parent": "",
+					"openmrs_entity": "concept",
+					"openmrs_entity_id": "165295AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+				},
+				{
+					"key": "abnormal",
+					"text": "{{tests_ultrasound_sub_form.step1.placenta.option.abnormal.text}}",
+					"translation_text": "tests_ultrasound_sub_form.step1.placenta.option.abnormal.text",
+					"openmrs_entity_parent": "",
+					"openmrs_entity": "concept",
+					"openmrs_entity_id": "165386AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+				}
+			],
+			"v_required": {
+				"value": true,
+				"err": "{{tests_ultrasound_sub_form.step1.ultrasound_notdone.v_required.err}}"
+			},
+			"relevance": {
+				"rules-engine": {
+					"ex-rules": {
+						"rules-file": "ultrasound_sub_form_relevance_rules.yml"
+					}
+				}
 			}
 		},
 		{

@@ -168,6 +168,20 @@ condition: "(step1_Trimester == 'trimester3')"
 actions:
   - "isRelevant = true"
 ---
+name: step1_no_of_fetus
+description: No. of fetuses
+priority: 1
+condition: "(step1_Trimester == 'trimester3')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_same_gest_age
+description: same_gest_age
+priority: 1
+condition: "(step1_Trimester == 'trimester1')"
+actions:
+  - "isRelevant = true"
+---
 name: step1_fetal_location
 description: No. of fetuses
 priority: 1
@@ -250,14 +264,14 @@ actions:
 name: step1_fetal_presentation
 description: Fetal presentation
 priority: 1
-condition: "(step1_ultrasound == 'done_today' || step1_ultrasound == 'done_earlier')"
+condition: "(step1_Trimester == 'trimester3')"
 actions:
   - "isRelevant = true"
 ---
 name: step2_fetal_presentation
 description: Fetal presentation
 priority: 1
-condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier')"
+condition: "(step1_Trimester == 'trimester3')"
 actions:
   - "isRelevant = true"
 ---
@@ -282,7 +296,7 @@ condition: "(step1_Trimester == 'trimester3')"
 actions:
   - "isRelevant = true"
 ---
-name: step2_placenta_location
+name: step1_placenta
 description: Placenta location
 priority: 1
 condition: "(step1_Trimester == 'trimester3')"
@@ -384,5 +398,12 @@ name: step1_lmp_gest_age_selection
 description: lmp_gest_age_selection
 priority: 1
 condition: "(step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier') && (global_lmp_known == 'yes' && global_ultrasound_done == 'no')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_fetal_presentation_other
+description: Fetal presentation reason
+priority: 1
+condition: "step1_fetal_presentation == 'other'"
 actions:
   - "isRelevant = true"

@@ -1861,6 +1861,10 @@
 							"value": "true",
 							"err": "number need to be entered"
 						},
+						"v_max_length": {
+							"value": "4",
+							"err": " "
+						},
 						"v_required": {
 							"value": true,
 							"err": "this value is required"
@@ -1877,6 +1881,10 @@
 						"v_numeric": {
 							"value": "true",
 							"err": "number need to be entered}"
+						},
+						"v_max_length": {
+							"value": "2",
+							"err": " "
 						},
 						"v_required": {
 							"value": true,
@@ -1986,6 +1994,26 @@
 						}
 					},
 					{
+						"key": "other_birth_attendant",
+						"openmrs_entity_parent": "165222AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						"openmrs_entity": "concept",
+						"openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+						"type": "edit_text",
+						"hint": "{{anc_profile.step7.other_substance_use.hint}}",
+						"edit_type": "edit_text",
+						"v_required": {
+							"value": true,
+							"err": "{{anc_profile.step7.other_substance_use.v_required.err}}"
+						},
+						"relevance": {
+							"step3:birth_attendant": {
+								"type": "string",
+								"ex": "equalTo(., \"other\")"
+							}
+						}
+
+					},
+					{
 						"key": "pregnancy_complication",
 						"openmrs_entity_parent": "",
 						"openmrs_entity": "",
@@ -1996,8 +2024,8 @@
 						"options": [
 							{
 								"key": "none",
-								"text": "{{anc_profile.step3.birth_attendant.options.none.text}}",
-								"translation_text": "anc_profile.step3.birth_attendant.options.none.text",
+								"text": "{{anc_profile.step3.pregnancy_complication.options.none.text}}",
+								"translation_text": "anc_profile.step3.pregnancy_complication.options.none.text",
 								"openmrs_entity_parent": "",
 								"openmrs_entity": "",
 								"openmrs_entity_id": ""
@@ -2046,6 +2074,14 @@
 								"key": "eclampsia",
 								"text": "{{anc_profile.step3.birth_attendant.option.eclampsia.text}}",
 								"translation_text": "anc_profile.step3.birth_attendant.option.eclampsia.text",
+								"openmrs_entity_parent": "",
+								"openmrs_entity": "",
+								"openmrs_entity_id": ""
+							},
+							{
+								"key": "dystocia",
+								"text": "{{anc_profile.step3.pregnancy_complication.options.distocia.text}}",
+								"translation_text": "anc_profile.step3.pregnancy_complication.options.distocia.text",
 								"openmrs_entity_parent": "",
 								"openmrs_entity": "",
 								"openmrs_entity_id": ""
@@ -3256,40 +3292,40 @@
 				"options": [
 					{
 						"key": "tt1",
-						"text": "TT 1",
-						"translation_text": "TT 1",
+						"text": "{{anc_profile.step5.tt_immun_type.options.tt1.text}}",
+						"translation_text": "anc_profile.step5.tt_immun_type.options.tt1.text",
 						"openmrs_entity_parent": "",
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "164134AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 					},
 					{
 						"key": "tt2",
-						"text": "TT 2",
-						"translation_text": "TT 2",
+						"text": "{{anc_profile.step5.tt_immun_type.options.tt2.text}}",
+						"translation_text": "anc_profile.step5.tt_immun_type.options.tt2.text",
 						"openmrs_entity_parent": "",
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "165226AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 					},
 					{
 						"key": "tt3",
-						"text": "TT 3",
-						"translation_text": "TT 3",
+						"text": "{{anc_profile.step5.tt_immun_type.options.tt3.text}}",
+						"translation_text": "anc_profile.step5.tt_immun_type.options.tt3.text",
 						"openmrs_entity_parent": "",
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "165227AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 					},
 					{
 						"key": "tt4",
-						"text": "TT 4",
-						"translation_text": "TT 4",
+						"text": "{{anc_profile.step5.tt_immun_type.options.tt4.text}}",
+						"translation_text": "anc_profile.step5.tt_immun_type.options.tt4.text",
 						"openmrs_entity_parent": "",
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 					},
 					{
 						"key": "tt5",
-						"text": "TT 5",
-						"translation_text": "TT 5",
+						"text": "{{anc_profile.step5.tt_immun_type.options.tt5.text}}",
+						"translation_text": "anc_profile.step5.tt_immun_type.options.tt5.text",
 						"openmrs_entity_parent": "",
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
