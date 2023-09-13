@@ -3530,7 +3530,7 @@
 		]
 	},
 	"step6": {
-		"title": "Special Examination Inspection",
+		"title": "{{anc_physical_exam.step6.title}}",
 		"fields": [
 			{
 				"key": "vulva",
