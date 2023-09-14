@@ -26,7 +26,6 @@ import org.smartregister.anc.library.util.FilePathUtils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.util.JsonFormUtils;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -114,6 +113,7 @@ public class ContactVisit {
     }
 
     /**
+     * StringUtils.isNotBlank(previousContactValue)
      * Returns a {@link Map} of the tasks keys and task id.  These are used to delete the tasks in case a test with the same key is completed doing the current contact.
      *
      * @param baseEntityId {@link String} Client's base entity id.
@@ -178,7 +178,7 @@ public class ContactVisit {
         return womanDetail;
     }
 
-    private void processAttentionFlags(WomanDetail patientDetail, Facts facts) throws IOException {
+    private void processAttentionFlags(WomanDetail patientDetail, Facts facts) {
         Iterable<Object> ruleObjects = AncLibrary.getInstance().readYaml(FilePathUtils.FileUtils.ATTENTION_FLAGS);
         int redCount = 0;
         int yellowCount = 0;
@@ -253,9 +253,9 @@ public class ContactVisit {
     private void processTasks(JSONObject formObject) {
         try {
             String encounterType = formObject.getString(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE);
-            if (formObject.has(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE) && StringUtils.isNotBlank(encounterType) && ConstantsUtils.JsonFormUtils.ANC_TEST_ENCOUNTER_TYPE.equals(encounterType)) {
+            if (formObject.has(ConstantsUtils.JsonFormKeyUtils.ENCOUNTER_TYPE) && StringUtils.isNotBlank(encounterType) && ConstantsUtils.JsonFormUtils.ANC_TEST.equals(encounterType)) {
                 JSONObject dueStep = formObject.optJSONObject(JsonFormConstants.STEP1);
-                if (dueStep != null && dueStep.has(JsonFormConstants.STEP_TITLE) && ConstantsUtils.DUE.equals(dueStep.getString(JsonFormConstants.STEP_TITLE))) {
+                if (dueStep != null && dueStep.has(JsonFormConstants.STEP_TITLE) && (ConstantsUtils.DUE.equals(dueStep.getString(JsonFormConstants.STEP_TITLE)) || ConstantsUtils.DUE_IN.equals(dueStep.getString(JsonFormConstants.STEP_TITLE)))) {
                     JSONArray stepFields = dueStep.optJSONArray(JsonFormConstants.FIELDS);
                     if (stepFields != null && stepFields.length() > 0) {
                         saveOrDeleteTasks(stepFields);

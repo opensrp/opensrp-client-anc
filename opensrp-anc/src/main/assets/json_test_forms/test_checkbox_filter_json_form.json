@@ -1550,7 +1550,7 @@
         "key": "pulse_rate_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Pulse rate (bpm)",
+        "text": "Pulse rate (kpm)",
         "text_color": "#000000",
         "v_required": {
           "value": true
@@ -1614,7 +1614,7 @@
         "key": "pulse_rate_repeat_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Second pulse rate (bpm)",
+        "text": "Second pulse rate (kpm)",
         "label_info_text": "Retake the woman's pulse rate if the first reading was lower than 60 or higher than 100.",
         "text_color": "#000000",
         "v_required": {
@@ -2503,7 +2503,7 @@
         "key": "fetal_heart_rate_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Fetal heart rate (bpm)",
+        "text": "Fetal heart rate (kpm)",
         "text_color": "#000000",
         "v_required": {
           "value": "true",
@@ -2593,7 +2593,7 @@
         "key": "fetal_heart_rate_repeat_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "Second fetal heart rate (bpm)",
+        "text": "Second fetal heart rate (kpm)",
         "text_color": "#000000",
         "v_required": {
           "value": true

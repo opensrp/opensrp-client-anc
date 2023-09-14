@@ -18,14 +18,10 @@ public class ContactRule {
     public Set<Integer> set;
 
     public ContactRule(int wks, boolean isFirst, String baseEntityId) {
-
         this.baseEntityId = baseEntityId;
-
         this.initialVisit = wks;
         this.currentVisit = wks;
-
         this.isFirst = isFirst;
-
         this.set = new HashSet<>();
     }
 

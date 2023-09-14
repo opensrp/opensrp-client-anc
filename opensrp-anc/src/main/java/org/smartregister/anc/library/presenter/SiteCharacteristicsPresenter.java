@@ -16,4 +16,14 @@ public class SiteCharacteristicsPresenter extends BaseCharacteristicsPresenter {
     public BaseCharacteristicsContract.Interactor getInteractor() {
         return new SiteCharacteristicsInteractor(this);
     }
+
+    @Override
+    public void setLocale(String locale) {
+
+    }
+
+    @Override
+    public String getLocale() {
+        return null;
+    }
 }

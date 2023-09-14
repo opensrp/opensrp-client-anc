@@ -18,6 +18,7 @@ import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.activity.AncP2pModeSelectActivity;
 import org.smartregister.anc.library.activity.PopulationCharacteristicsActivity;
 import org.smartregister.anc.library.activity.SiteCharacteristicsActivity;
+import org.smartregister.anc.library.constants.Constants;
 import org.smartregister.anc.library.presenter.MePresenter;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.util.LangUtils;
@@ -173,9 +174,7 @@ public class MeFragment extends org.smartregister.view.fragment.MeFragment imple
 
     private void addLanguages() {
         locales.put(getString(R.string.english_language), Locale.ENGLISH);
-        locales.put(getString(R.string.french_language), Locale.FRENCH);
-        locales.put(getString(R.string.portuguese_brazil_language), new Locale("pt"));
-        locales.put(getString(R.string.bahasa_indonesia_language), new Locale("ind"));
+        locales.put(getString(R.string.bahasa_indonesia_language),   Constants.Locales.INDONESIAN_ID);
     }
 
 }

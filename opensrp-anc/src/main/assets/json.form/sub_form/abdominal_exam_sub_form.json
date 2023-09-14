@@ -13,6 +13,7 @@
         {
           "key": "mass_tumour",
           "text": "{{abdominal_exam_sub_form.step1.abdominal_exam_abnormal.options.mass_tumour.text}}",
+          "translation_text": "abdominal_exam_sub_form.step1.abdominal_exam_abnormal.options.mass_tumour.text",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "5103AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -21,6 +22,7 @@
         {
           "key": "superficial_palpation_pain",
           "text": "{{abdominal_exam_sub_form.step1.abdominal_exam_abnormal.options.superficial_palpation_pain.text}}",
+          "translation_text": "abdominal_exam_sub_form.step1.abdominal_exam_abnormal.options.superficial_palpation_pain.text",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165283AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -29,6 +31,7 @@
         {
           "key": "deep_palpation_pain",
           "text": "{{abdominal_exam_sub_form.step1.abdominal_exam_abnormal.options.deep_palpation_pain.text}}",
+          "translation_text": "abdominal_exam_sub_form.step1.abdominal_exam_abnormal.options.deep_palpation_pain.text",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165284AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -37,6 +40,7 @@
         {
           "key": "painful_decompression",
           "text": "{{abdominal_exam_sub_form.step1.abdominal_exam_abnormal.options.painful_decompression.text}}",
+          "translation_text": "abdominal_exam_sub_form.step1.abdominal_exam_abnormal.options.painful_decompression.text",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "127866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -45,6 +49,7 @@
         {
           "key": "other",
           "text": "{{abdominal_exam_sub_form.step1.abdominal_exam_abnormal.options.other.text}}",
+          "translation_text": "abdominal_exam_sub_form.step1.abdominal_exam_abnormal.options.other.text",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

@@ -175,7 +175,7 @@ public class AncLibrary {
             }
 
             if(!eventHandlerSetup)
-            eventBusBuilder.installDefaultEventBus();
+                eventBusBuilder.installDefaultEventBus();
             eventHandlerSetup = true;
         } catch (Exception e) {
             Timber.e(e, " --> setUpEventHandling");
@@ -348,6 +348,16 @@ public class AncLibrary {
         this.registerQueryProvider = registerQueryProvider;
     }
 
+    public AppProperties getProperties() {
+        return CoreLibrary.getInstance().context().getAppProperties();
+    }
+
+    public void notifyAppContextChange() {
+        if (getApplicationContext() != null) {
+            Locale current = getApplicationContext().getResources().getConfiguration().locale;
+            Utils.saveLanguage(current.getLanguage());
+        }
+    }
 
     public AncMetadata getAncMetadata() {
         return ancMetadata;
@@ -358,16 +368,5 @@ public class AncLibrary {
             appExecutors = new AppExecutors();
         }
         return appExecutors;
-    }
-
-    public AppProperties getProperties() {
-        return CoreLibrary.getInstance().context().getAppProperties();
-    }
-
-    public void notifyAppContextChange() {
-        if (getApplicationContext() != null) {
-            Locale current = getApplicationContext().getResources().getConfiguration().locale;
-            Utils.saveLanguage(current.getLanguage());
-        }
     }
 }

@@ -2,7 +2,6 @@ package org.smartregister.anc.library.model;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.robolectric.RuntimeEnvironment;
@@ -10,9 +9,8 @@ import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.anc.library.activity.BaseUnitTest;
 import org.smartregister.login.model.BaseLoginModel;
+import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.contract.BaseLoginContract;
-
-import java.nio.charset.StandardCharsets;
 
 /**
  * Created by ndegwamartin on 28/06/2018.
@@ -29,6 +27,8 @@ public class LoginModelTest extends BaseUnitTest {
         Context context = Mockito.spy(Context.getInstance());
         android.content.Context androidContext = RuntimeEnvironment.application;
         context.updateApplicationContext(androidContext);
+        DrishtiApplication mocDrishtiApplicaton = Mockito.mock(DrishtiApplication.class);
+        Mockito.when(mocDrishtiApplicaton.getUsername()).thenReturn("demo");
         CoreLibrary.init(context);
     }
 
@@ -37,13 +37,14 @@ public class LoginModelTest extends BaseUnitTest {
     // It was transferred from the app module to the lib module
     // The fix might to add an actual OpenSRP application but again UserService testing should be in the
     // opensrp-client-core library which provides this data
-    @Ignore
+
+    //This test is already covered in Login Interactor
+
     @Test
     public void testIsUserLoggedOutShouldReturnTrue() {
         Assert.assertTrue(model.isUserLoggedOut());
     }
 
-    @Ignore
     @Test
     public void testGetOpenSRPContextShouldReturnValidValue() {
         Assert.assertNotNull(model.getOpenSRPContext());

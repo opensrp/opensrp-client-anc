@@ -15,6 +15,7 @@ import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.interactor.ContactInteractor;
 import org.smartregister.anc.library.model.ContactModel;
 
+import java.io.FileNotFoundException;
 import java.lang.ref.WeakReference;
 import java.util.Map;
 
@@ -136,7 +137,7 @@ public class ContactPresenter implements ContactContract.Presenter, ContactContr
                     form.put(JsonFormConstants.JSON_FORM_KEY.GLOBAL, defaultGlobals);
                     getView().startFormActivity(form, contact);
                 }
-            } catch (JSONException e) {
+            } catch (JSONException | FileNotFoundException e) {
                 Timber.e(e);
             }
         } catch (Exception e) {

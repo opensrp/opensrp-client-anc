@@ -72,6 +72,9 @@ public class AncRepository extends Repository {
                 case 3:
                     upgradeToVersion3(db);
                     break;
+                case 4:
+                    upgradeToVersion4(db);
+                    break;
                 default:
                     break;
             }
@@ -144,6 +147,21 @@ public class AncRepository extends Repository {
             db.execSQL("ALTER TABLE " + DBConstantsUtils.WOMAN_DETAILS_TABLE_NAME + " ADD COLUMN " + ConstantsUtils.SpinnerKeyConstants.VILLAGE + " VARCHAR");
         } catch (Exception e) {
             Timber.e("upgradeToVersion3 %s", e.getMessage());
+        }
+    }
+
+    private void upgradeToVersion4(SQLiteDatabase db) {
+        try {
+            db.execSQL("ALTER TABLE " + DBConstantsUtils.WOMAN_DETAILS_TABLE_NAME + " ADD COLUMN " + DBConstantsUtils.KeyUtils.UID + " VARCHAR");
+            db.execSQL("ALTER TABLE " + DBConstantsUtils.WOMAN_DETAILS_TABLE_NAME + " ADD COLUMN " + DBConstantsUtils.KeyUtils.UID_REPEAT + " VARCHAR");
+            db.execSQL("ALTER TABLE " + DBConstantsUtils.WOMAN_DETAILS_TABLE_NAME + " ADD COLUMN " + DBConstantsUtils.KeyUtils.SSN_REPEAT + " VARCHAR");
+            db.execSQL("ALTER TABLE " + DBConstantsUtils.WOMAN_DETAILS_TABLE_NAME + " ADD COLUMN " + DBConstantsUtils.KeyUtils.ADDITIONAL_ID_TYPE + " VARCHAR");
+            db.execSQL("ALTER TABLE " + DBConstantsUtils.WOMAN_DETAILS_TABLE_NAME + " ADD COLUMN " + DBConstantsUtils.KeyUtils.ADDITIONAL_ID_NUMBER + " VARCHAR");
+            db.execSQL("ALTER TABLE " + DBConstantsUtils.WOMAN_DETAILS_TABLE_NAME + " ADD COLUMN " + DBConstantsUtils.KeyUtils.ADDITIONAL_ID_NUMBER_REPEAT + " VARCHAR");
+            db.execSQL("ALTER TABLE " + DBConstantsUtils.WOMAN_DETAILS_TABLE_NAME + " ADD COLUMN " + DBConstantsUtils.KeyUtils.PHONE_NUMBER + " VARCHAR");
+            db.execSQL("ALTER TABLE " + DBConstantsUtils.WOMAN_DETAILS_TABLE_NAME + " ADD COLUMN " + DBConstantsUtils.KeyUtils.PHONE_NUMBER_REPEAT + " VARCHAR");
+        } catch (Exception e) {
+            Timber.e("upgradeToVersion4 %s", e.getMessage());
         }
     }
 

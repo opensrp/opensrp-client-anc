@@ -13,7 +13,7 @@
     },
     {
       "description": "Is an ultrasound machine available and functional at your facility and a trained health worker available to use it?",
-      "label": "Ultrasound available",
+      "label": "Ultrasound is available",
       "key": "site_ultrasound"
     },
     {

@@ -14,6 +14,7 @@ public class CreateRemoteLocalCursorUtils {
     private String edd;
     private String nextContact;
     private String nextContactDate;
+    private String lastContactRecordDate;
 
     public CreateRemoteLocalCursorUtils(Cursor cursor, boolean isRemote) {
         if (isRemote) {
@@ -31,6 +32,8 @@ public class CreateRemoteLocalCursorUtils {
         altName = cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.ALT_NAME));
         nextContact = cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.NEXT_CONTACT));
         nextContactDate = cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE));
+        if(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE) != -1)
+        lastContactRecordDate = cursor.getString(cursor.getColumnIndex(DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE));
     }
 
     public String getId() {
@@ -73,5 +76,9 @@ public class CreateRemoteLocalCursorUtils {
 
     public String getNextContactDate () {
         return  nextContactDate;
+    }
+
+    public String getLastContactRecordDate() {
+        return lastContactRecordDate;
     }
 }

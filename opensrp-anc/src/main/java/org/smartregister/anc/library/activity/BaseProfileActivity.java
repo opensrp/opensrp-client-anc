@@ -16,6 +16,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.anc.library.AppConfig;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.contract.ProfileContract;
 import org.smartregister.anc.library.event.ClientDetailsFetchedEvent;
@@ -25,6 +26,7 @@ import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.util.LangUtils;
 import org.smartregister.view.activity.SecuredActivity;
 
 import timber.log.Timber;

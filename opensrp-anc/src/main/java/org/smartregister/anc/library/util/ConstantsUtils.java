@@ -65,6 +65,7 @@ public abstract class ConstantsUtils {
     public static final String OTHER = "other";
     public static final String CONTINUE = "Continue";
     public static final String DUE = "Due";
+    public static final String DUE_IN = "Jatuh Tempo";
     public static final String OPEN_TEST_TASKS = "open_test_tasks";
     public static final String ANDROID_SWITCHER = "android:switcher:";
     public static final String IS_FIRST_CONTACT = "is_first_contact";
@@ -131,7 +132,7 @@ public abstract class ConstantsUtils {
         public static final String ANC_SITE_CHARACTERISTICS = "anc_site_characteristics";
         public static final String ANC_QUICK_CHECK = "anc_quick_check";
         public static final String ANC_TEST_TASKS = "anc_test_tasks";
-        public static final String ANC_TEST_TASKS_ENCOUNTER_TYPE = "Contact Tasks";
+        public static final String ANC_TEST_TASKS_ENCOUNTER_TYPE = "anc_test_tasks";
     }
 
     public static class JsonFormKeyUtils {

@@ -6,6 +6,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
+
 import com.google.common.collect.ImmutableMap;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.ExpansionPanelItemModel;
@@ -20,6 +22,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.domain.Contact;
 import org.smartregister.anc.library.model.PartialContact;
 import org.smartregister.anc.library.model.PreviousContact;
@@ -32,10 +35,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import timber.log.Timber;
 
 public class ANCFormUtils extends FormUtils {
+    static Pattern pattern = Pattern.compile("\\b([0-9]|[1-9][0-9]|100)\\b weeks \\b([0-9]|[1-9][0-9]|100)\\b days");
 
     public static String obtainValue(String key, JSONArray value) throws JSONException {
         String result = "";
@@ -128,9 +134,14 @@ public class ANCFormUtils extends FormUtils {
         for (int i = 0; i < jsonArray.length(); i++) {
 
             JSONObject jsonObject = jsonArray.getJSONObject(i);
+            String widgetValue = null;
+            if(widget.has(JsonFormConstants.VALUE))
+                widgetValue = widget.getString(JsonFormConstants.VALUE);
+            if(StringUtils.isNotBlank(widgetValue) && widgetValue.startsWith("{"))
+                widgetValue =  new JSONObject(widgetValue).getString(JsonFormConstants.VALUE);
 
-            if (widget.has(JsonFormConstants.VALUE) && !TextUtils.isEmpty(widget.getString(JsonFormConstants.VALUE)) &&
-                    jsonObject.getString(JsonFormConstants.KEY).equals(widget.getString(JsonFormConstants.VALUE))) {
+            if (StringUtils.isNotBlank(widgetValue) && !TextUtils.isEmpty(widgetValue) &&
+                    jsonObject.getString(JsonFormConstants.KEY).equals(widgetValue)) {
 
                 if (jsonObject.has(JsonFormConstants.SECONDARY_VALUE) &&
                         !TextUtils.isEmpty(jsonObject.getString(JsonFormConstants.SECONDARY_VALUE))) {
@@ -442,8 +453,9 @@ public class ANCFormUtils extends FormUtils {
                 int startPos = StringUtils.indexOf(parentsValue.toLowerCase(), ConstantsUtils.OTHER);
                 int endPos = StringUtils.indexOf(parentsValue.toLowerCase(), ",", startPos);
 
-                String newValue = parentsValue.replace(StringUtils.substring(parentsValue,
-                        startPos, endPos != -1 ? endPos : parentsValue.length()), expansionPanelItem.getSelectedValues());
+//                String newValue = parentsValue.replace(StringUtils.substring(parentsValue,
+//                        startPos, endPos != -1 ? endPos : parentsValue.length()), expansionPanelItem.getSelectedValues());
+                String newValue   = parentsValue +" "+ expansionPanelItem.getSelectedValues();
                 facts.put(parentKey, newValue);
             }
         }
@@ -510,6 +522,7 @@ public class ANCFormUtils extends FormUtils {
      */
     @SuppressLint("NewApi")
     public static String getListValuesAsString(List<String> list) {
+        //week_days
         List<String> returnList = new ArrayList<>();
         if (list.size() != 0) {
             for (int i = 0; i < list.size(); i++) {
@@ -554,7 +567,7 @@ public class ANCFormUtils extends FormUtils {
         String returnValue = "";
         try {
             if (value.trim().length() > 0 && value.trim().charAt(0) == '[') {
-                if (Utils.checkJsonArrayString(value)) {
+                if (Utils.checkIsJsonArrayString(value)) {
                     JSONArray jsonArray = new JSONArray(value);
                     List<String> list = new ArrayList<>();
                     for (int i = 0; i < jsonArray.length(); i++) {
@@ -571,6 +584,11 @@ public class ANCFormUtils extends FormUtils {
                 }
             } else {
                 returnValue = value;
+            }
+            if(pattern.matcher(returnValue).matches())
+            {
+                Context context = AncLibrary.getInstance().getApplicationContext();
+               returnValue =  returnValue.replace("weeks",context.getString(R.string.weeks)).replace("days",context.getString(R.string.days));
             }
             return returnValue;
         } catch (Exception e) {
@@ -845,5 +863,48 @@ public class ANCFormUtils extends FormUtils {
             Timber.e(e, " --> getTranslatedFormTitle");
         }
         return "";
+    }
+
+    @NonNull
+    public static String replaceCapitalizedAbbreviation(StringBuilder outputBuilder) {
+        String output = outputBuilder.toString();
+        if(output.contains("Sma"))
+        {
+            output = output.replace("Sma","SMA");
+        }
+        else if (output.contains("TT immune dose") || output.contains("Dosis imunisasi TT"))
+        {
+            output = output.replace("Tt","TT");
+        }
+        else if (output.contains(","))
+        {
+           output = output.replace(",",", ");
+        }
+        String regexString = null;
+        String replacementString = null;
+        HashMap<String, String> replacementsMap = getReplacementsMap();
+        for (String rgx:replacementsMap.keySet()
+             ) {
+            Pattern regex = Pattern.compile(rgx);
+            Matcher matcher = regex.matcher(output);
+            if(matcher.find()){
+                output = output.replaceAll(rgx, replacementsMap.get(rgx));
+            }
+        }
+
+        return output;
+    }
+
+    public static HashMap<String, String> getReplacementsMap(){
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put("(?i)Hiv", " HIV");
+        map.put("(?i)dmpa-im", " DMPA-IM");
+        map.put("(?i)dmpa-sc", " DMPA-SC");
+        map.put("(?i)smp", " SMP");
+        map.put("(?i)pns", " PNS");
+        map.put("(?i)arv", " ARV");
+        return map;
+
     }
 }

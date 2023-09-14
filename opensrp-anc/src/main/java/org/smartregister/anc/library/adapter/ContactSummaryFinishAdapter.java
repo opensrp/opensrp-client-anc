@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.jeasy.rules.api.Facts;
@@ -13,9 +14,12 @@ import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.domain.YamlConfig;
 import org.smartregister.anc.library.domain.YamlConfigItem;
+import org.smartregister.anc.library.util.ANCFormUtils;
 import org.smartregister.anc.library.util.Utils;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by ndegwamartin on 04/12/2018.
@@ -25,12 +29,14 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
     private List<YamlConfig> mData;
     private LayoutInflater mInflater;
     private Facts facts;
+    private Context context;
 
     // data is passed into the constructor
     public ContactSummaryFinishAdapter(Context context, List<YamlConfig> data, Facts facts) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.facts = facts;
+        this.context = context;
     }
 
     // inflates the row layout from xml when needed
@@ -43,7 +49,7 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.sectionHeader.setText(processUnderscores(mData.get(position).getGroup()));
+        holder.sectionHeader.setText(getString(mData.get(position).getGroup()));
         List<YamlConfigItem> fields = mData.get(position).getFields();
         StringBuilder outputBuilder = new StringBuilder();
         for (YamlConfigItem yamlConfigItem : fields) {
@@ -54,7 +60,12 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
                 outputBuilder.append(Utils.fillTemplate(yamlConfigItem.getTemplate(), this.facts)).append("\n\n");
             }
         }
-        String output = outputBuilder.toString();
+
+        String output = "";
+        if(mData.get(position).getGroup().equals("birth_plan_counseling") || outputBuilder.toString().contains("plasma"))
+            output = outputBuilder.toString();
+        else
+            output = ANCFormUtils.replaceCapitalizedAbbreviation(outputBuilder);
 
         holder.sectionDetails.setText(output);
 
@@ -68,6 +79,12 @@ public class ContactSummaryFinishAdapter extends RecyclerView.Adapter<ContactSum
         }
 
 
+    }
+
+
+    private String getString(String key) {
+        int identifier = context.getResources().getIdentifier(key, "string", context.getPackageName());
+            return context.getString(identifier);
     }
 
     // total number of rows

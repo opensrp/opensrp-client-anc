@@ -19,6 +19,7 @@ import org.smartregister.anc.library.contract.RegisterFragmentContract;
 import org.smartregister.anc.library.cursor.AdvancedMatrixCursor;
 import org.smartregister.anc.library.event.SyncEvent;
 import org.smartregister.anc.library.helper.DBQueryHelper;
+import org.smartregister.anc.library.job.AncSyncSettingsServiceJob;
 import org.smartregister.anc.library.presenter.RegisterFragmentPresenter;
 import org.smartregister.anc.library.provider.RegisterProvider;
 import org.smartregister.anc.library.task.AttentionFlagsTask;
@@ -32,7 +33,6 @@ import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.job.DocumentConfigurationServiceJob;
-import org.smartregister.job.SyncSettingsServiceJob;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
@@ -40,7 +40,6 @@ import org.smartregister.view.fragment.SecuredNativeSmartRegisterFragment;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 import timber.log.Timber;
@@ -109,7 +108,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
         }
 
         //Risk view
-        View attentionFlag = view.findViewById(R.id.risk);
+        View attentionFlag = view.findViewById(R.id.red_flag);
         if (attentionFlag != null) {
             attentionFlag.setOnClickListener(registerActionHandler);
         }
@@ -121,7 +120,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
         syncButton = view.findViewById(R.id.sync_refresh);
         if (syncButton != null) {
             syncButton.setOnClickListener(view1 -> {
-                SyncSettingsServiceJob.scheduleJobImmediately(SyncSettingsServiceJob.TAG);
+                AncSyncSettingsServiceJob.scheduleJobImmediately(AncSyncSettingsServiceJob.TAG);
                 DocumentConfigurationServiceJob.scheduleJobImmediately(DocumentConfigurationServiceJob.TAG);
             });
         }
@@ -154,7 +153,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
         if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
             Utils.navigateToProfile(getActivity(), (HashMap<String, String>) pc.getColumnmaps());
         } else if (view.getTag() != null && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_ALERT_STATUS) {
-            if (Integer.valueOf(view.getTag(R.id.GESTATION_AGE).toString()) >= ConstantsUtils.DELIVERY_DATE_WEEKS) {
+            if (Integer.parseInt(view.getTag(R.id.GESTATION_AGE).toString()) >= ConstantsUtils.DELIVERY_DATE_WEEKS) {
                 baseHomeRegisterActivity.showRecordBirthPopUp((CommonPersonObjectClient) view.getTag());
             } else {
                 String baseEntityId = Utils.getValue(pc.getColumnmaps(), DBConstantsUtils.KeyUtils.BASE_ENTITY_ID, false);
@@ -179,7 +178,7 @@ public class HomeRegisterFragment extends BaseRegisterFragment implements Regist
     @Override
     public void showNotFoundPopup(String whoAncId) {
         NoMatchDialogFragment
-                .launchDialog((BaseRegisterActivity) Objects.requireNonNull(getActivity()), SecuredNativeSmartRegisterFragment.DIALOG_TAG, whoAncId);
+                .launchDialog((BaseRegisterActivity) requireActivity(), SecuredNativeSmartRegisterFragment.DIALOG_TAG, whoAncId);
     }
 
     @Override

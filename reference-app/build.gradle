@@ -7,7 +7,8 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.3'
+//        classpath 'com.android.tools.build:gradle:4.1.3'
+        classpath 'com.android.tools.build:gradle:7.0.4'
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.3'
         classpath 'com.google.gms:google-services:4.3.9'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.7.1'
@@ -29,7 +30,7 @@ jacoco {
 // This variables are used by the version code & name generators
 ext.versionMajor = 1
 ext.versionMinor = 6
-ext.versionPatch = 15
+ext.versionPatch = 58
 ext.versionClassifier = null
 ext.isSnapshot = false
 ext.minimumSdkVersion = androidMinSdkVersion
@@ -68,12 +69,13 @@ android {
         targetSdkVersion androidTargetSdkVersion
         versionCode generateVersionCode()
         versionName generateVersionName()
+        resConfigs "in-rID", "en"
         buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
         buildConfigField "boolean", "TIME_CHECK", "false"
-        buildConfigField "String", "SYNC_TYPE", '"teamId"'
+        buildConfigField "String", "SYNC_TYPE", '"locationId"'
         buildConfigField "int", "MAX_SYNC_RETRIES", '3'
         buildConfigField "long", "BUILD_TIMESTAMP", System.currentTimeMillis() + "L"
-        buildConfigField "boolean", "IS_SYNC_SETTINGS", "true"
+        buildConfigField "boolean", "IS_SYNC_SETTINGS", "false"
         buildConfigField "long", "EVENT_VERSION", System.currentTimeMillis() + "L"
         buildConfigField "boolean", "RESOLVE_SETTINGS", "true"
         buildConfigField "boolean", "HAS_EXTRA_SETTINGS_SYNC_FILTER", "true"
@@ -139,11 +141,10 @@ android {
             zipAlignEnabled true
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rule.pro'
-            resValue "string", 'opensrp_url', '"https://anc.labs.smartregister.org/opensrp/"'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
-            buildConfigField "int", "DATABASE_VERSION", '3'
+            buildConfigField "int", "DATABASE_VERSION", '4'
             buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
             buildConfigField "boolean", "TIME_CHECK", "false"
             buildConfigField "int", "DATA_SYNC_DURATION_MINUTES", '15'
@@ -152,14 +153,26 @@ android {
             buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '180'
             buildConfigField "int", "VIEW_SYNC_CONFIGURATIONS_MINUTES", '15'
             buildConfigField "int", "CLIENT_SETTINGS_SYNC_MINUTES", '15'
+
+            if (project.rootProject.file("local.properties").exists()) {
+                Properties properties = new Properties()
+                properties.load(project.rootProject.file("local.properties").newDataInputStream())
+                if (properties != null && properties.containsKey("oauth.client.id")) {
+                    buildConfigField "String", "OAUTH_CLIENT_ID", properties["oauth.client.id"]
+                    resValue "string", 'opensrp_url', properties["opensrp_url"]
+                } else {
+                    resValue "string", 'opensrp_url', '"https://anc.labs.smartregister.org/opensrp/"'
+                }
+            } else {
+                resValue "string", 'opensrp_url', '"https://anc.labs.smartregister.org/opensrp/"'
+            }
         }
 
         debug {
-            resValue "string", 'opensrp_url', '"https://anc.labs.smartregister.org/opensrp/"'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
-            buildConfigField "int", "DATABASE_VERSION", '3'
+            buildConfigField "int", "DATABASE_VERSION", '4'
             buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
             buildConfigField "boolean", "TIME_CHECK", "false"
             buildConfigField "int", "DATA_SYNC_DURATION_MINUTES", '15'
@@ -170,6 +183,19 @@ android {
             buildConfigField "int", "CLIENT_SETTINGS_SYNC_MINUTES", '15'
             testCoverageEnabled true
             signingConfig signingConfigs.debug
+
+            if (project.rootProject.file("local.properties").exists()) {
+                Properties properties = new Properties()
+                properties.load(project.rootProject.file("local.properties").newDataInputStream())
+                if (properties != null && properties.containsKey("oauth.client.id")) {
+                    buildConfigField "String", "OAUTH_CLIENT_ID", properties["oauth.client.id"]
+                    resValue "string", 'opensrp_url', properties["opensrp_url"]
+                } else {
+                    resValue "string", 'opensrp_url', '"https://anc.labs.smartregister.org/opensrp/"'
+                }
+            } else {
+                resValue "string", 'opensrp_url', '"https://anc.labs.smartregister.org/opensrp/"'
+            }
         }
     }
 
@@ -227,7 +253,7 @@ dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
     def powerMockVersion = '2.0.7'
     implementation project(":opensrp-anc")
-    implementation('org.smartregister:opensrp-client-native-form:3.1.1-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:3.1.4-DEV-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -239,7 +265,7 @@ dependencies {
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
 
-    implementation('org.smartregister:opensrp-client-core:6.0.0-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:6.1.4-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'
@@ -255,7 +281,7 @@ dependencies {
         exclude group: 'org.smartregister', module: 'android-p2p-sync'
     }
 
-    api("org.smartregister:android-p2p-sync:0.4.0-DEV-SNAPSHOT") {
+    api("org.smartregister:android-p2p-sync:0.4.3-DEV-SNAPSHOT") {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'com.android.support', module: 'appcompat-v7'

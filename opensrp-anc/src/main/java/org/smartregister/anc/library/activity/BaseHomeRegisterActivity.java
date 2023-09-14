@@ -3,6 +3,8 @@ package org.smartregister.anc.library.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -17,6 +19,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
+import com.google.android.material.navigation.NavigationBarView;
 import com.vijay.jsonwizard.activities.FormConfigurationJsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
@@ -27,7 +30,9 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
 import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.anc.library.AppConfig;
 import org.smartregister.anc.library.R;
+import org.smartregister.anc.library.constants.Constants;
 import org.smartregister.anc.library.contract.RegisterContract;
 import org.smartregister.anc.library.domain.AttentionFlag;
 import org.smartregister.anc.library.domain.Contact;
@@ -51,6 +56,8 @@ import org.smartregister.configurableviews.model.Field;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.listener.BottomNavigationListener;
+import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.util.LangUtils;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
@@ -58,6 +65,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import timber.log.Timber;
@@ -77,11 +85,20 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
     private String advancedSearchQrText = "";
     private HashMap<String, String> advancedSearchFormData = new HashMap<>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(null);
         recordBirthAlertDialog = createAlertDialog();
         createAttentionFlagsAlertDialog();
+    }
+
+    public void setLocale(Locale locale) {
+        if (locale != null) {
+            LangUtils.saveLanguage(getApplication(), locale.getLanguage());
+            Utils.saveLanguage(locale.getLanguage());
+            recreate();
+        }
     }
 
     @Override
@@ -98,7 +115,7 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
                                         getResources()));
             }
 
-            bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
+            bottomNavigationView.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_LABELED);
 
             if (!isLibraryItemEnabled()) {
                 bottomNavigationView.getMenu().removeItem(R.id.action_library);
@@ -278,6 +295,21 @@ public class BaseHomeRegisterActivity extends BaseRegisterActivity implements Re
             switchToFragment(BaseRegisterActivity.LIBRARY_POSITION);
             setSelectedBottomBarMenuItem(org.smartregister.R.id.action_library);
         }
+        checkLanguage();
+    }
+
+    private void checkLanguage()
+    {
+        AllSharedPreferences allSharedPreferences = new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
+        String current = allSharedPreferences.fetchLanguagePreference();
+        Locale currenLocale = getApplicationContext().getResources().getConfiguration().locale;
+        if(!currenLocale.getLanguage().equals(current))
+        {
+            LangUtils.setAppLocale(getApplicationContext(),current);
+            AncLibrary.getInstance().notifyAppContextChange();
+            recreate();
+        }
+
     }
 
     @Override

@@ -2,6 +2,7 @@ package org.smartregister.anc.library.model;
 
 import static org.smartregister.anc.library.util.ConstantsUtils.GLOBAL_IDENTIFIER;
 
+import android.content.Context;
 import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
@@ -38,8 +39,8 @@ import java.util.Set;
 public class RegisterFragmentModel implements RegisterFragmentContract.Model {
 
     @Override
-    public RegisterConfiguration defaultRegisterConfiguration() {
-        return ConfigHelperUtils.defaultRegisterConfiguration(AncLibrary.getInstance().getApplicationContext());
+    public RegisterConfiguration defaultRegisterConfiguration(Context context) {
+        return ConfigHelperUtils.defaultRegisterConfiguration(context);
     }
 
     @Override
@@ -64,15 +65,25 @@ public class RegisterFragmentModel implements RegisterFragmentContract.Model {
     @Override
     public String mainSelect(String tableName, String mainCondition) {
         SmartRegisterQueryBuilder queryBuilder = new SmartRegisterQueryBuilder();
-        String[] columns = new String[]{tableName + "." + DBConstantsUtils.KeyUtils.RELATIONAL_ID, tableName + "." + DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH,
-                tableName + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID, tableName + "." + DBConstantsUtils.KeyUtils.FIRST_NAME,
-                tableName + "." + DBConstantsUtils.KeyUtils.LAST_NAME, tableName + "." + DBConstantsUtils.KeyUtils.ANC_ID,
-                tableName + "." + DBConstantsUtils.KeyUtils.DOB, getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.PHONE_NUMBER,getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.ALT_PHONE_NUMBER,
-                getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.ALT_NAME, tableName + "." + DBConstantsUtils.KeyUtils.DATE_REMOVED,
-                getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.EDD, getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.RED_FLAG_COUNT,
-                getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT, getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.CONTACT_STATUS,
-                getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.NEXT_CONTACT, getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE,
-                getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE};
+        String[] columns = new String[]{
+            tableName + "." + DBConstantsUtils.KeyUtils.RELATIONAL_ID,
+            tableName + "." + DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH,
+            tableName + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID,
+            tableName + "." + DBConstantsUtils.KeyUtils.DATE_REMOVED,
+            tableName + "." + DBConstantsUtils.KeyUtils.FIRST_NAME,
+            tableName + "." + DBConstantsUtils.KeyUtils.LAST_NAME, tableName + "." + DBConstantsUtils.KeyUtils.ANC_ID,
+            tableName + "." + DBConstantsUtils.KeyUtils.DOB,
+            getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.PHONE_NUMBER,
+            getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.ALT_PHONE_NUMBER,
+            getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.ALT_NAME,
+            getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.EDD,
+            getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.RED_FLAG_COUNT,
+            getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT,
+            getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.CONTACT_STATUS,
+            getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.NEXT_CONTACT,
+            getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE,
+            getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE
+        };
         queryBuilder.selectInitiateMainTable(tableName, columns);
         queryBuilder.customJoin(" join " + getRegisterQueryProvider().getDetailsTable()
                 + " on " + getRegisterQueryProvider().getDemographicTable() + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID + "= " + getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID);

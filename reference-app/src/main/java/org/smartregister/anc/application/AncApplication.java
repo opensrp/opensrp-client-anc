@@ -4,6 +4,7 @@ import static org.smartregister.util.Log.logError;
 import static org.smartregister.util.Log.logInfo;
 
 import android.content.Intent;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -13,12 +14,14 @@ import com.flurry.android.FlurryAgent;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.vijay.jsonwizard.NativeFormLibrary;
 
+import org.smartregister.AllConstants;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.P2POptions;
 import org.smartregister.anc.ANCEventBusIndex;
 import org.smartregister.anc.BuildConfig;
 import org.smartregister.anc.activity.LoginActivity;
+import org.smartregister.anc.library.AppConfig;
 import org.smartregister.anc.job.AncJobCreator;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.auth.AncCoreAuthorizationService;
@@ -31,9 +34,11 @@ import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.DrishtiSyncScheduler;
+import org.smartregister.util.LangUtils;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
@@ -89,7 +94,6 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     @Override
     public void onCreate() {
         super.onCreate();
-
         mInstance = this;
         context = Context.getInstance();
         context.updateApplicationContext(getApplicationContext());
@@ -108,10 +112,14 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         TimeChangedBroadcastReceiver.init(this);
         TimeChangedBroadcastReceiver.getInstance().addOnTimeChangedListener(this);
         LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.DEFAULT_LOCATION_LEVEL);
-        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(!BuildConfig.DEBUG);
+        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true);
+
 
         //init Job Manager
         JobManager.create(this).addJobCreator(new AncJobCreator());
+
+        // Set default language
+        setDefaultLanguage();
 
         //Only integrate Flurry Analytics for  production. Remove negation to test in debug
         if (!BuildConfig.DEBUG) {
@@ -130,7 +138,15 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
 
     private void setDefaultLanguage() {
         try {
-            Utils.saveLanguage("en");
+            AllSharedPreferences allSharedPreferences = new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
+            String current = allSharedPreferences.getPreferences().getString(AllConstants.LANGUAGE_PREFERENCE_KEY,null);
+            if(current==null) {
+                Utils.saveLanguage(AppConfig.DefaultLocale.getLanguage());
+                current = AppConfig.DefaultLocale.getLanguage();
+            }
+            else Utils.saveLanguage(current);
+            LangUtils.setAppLocale(this,current);
+            AncLibrary.getInstance().notifyAppContextChange();
         } catch (Exception e) {
             Timber.e(e, " --> saveLanguage");
         }
@@ -195,14 +211,14 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
     @Override
     public void onTimeChanged() {
         Utils.showToast(this, this.getString(org.smartregister.anc.library.R.string.device_time_changed));
-        context.userService().getAllSharedPreferences().saveForceRemoteLogin(true, context.allSharedPreferences().fetchRegisteredANM());
+        context.userService().getAllSharedPreferences().saveForceRemoteLogin(false, context.allSharedPreferences().fetchRegisteredANM());
         logoutCurrentUser();
     }
 
     @Override
     public void onTimeZoneChanged() {
         Utils.showToast(this, this.getString(org.smartregister.anc.library.R.string.device_timezone_changed));
-        context.userService().getAllSharedPreferences().saveForceRemoteLogin(true, context.allSharedPreferences().fetchRegisteredANM());
+        context.userService().getAllSharedPreferences().saveForceRemoteLogin(false, context.allSharedPreferences().fetchRegisteredANM());
         logoutCurrentUser();
     }
 }

@@ -169,6 +169,7 @@ public class PatientRepositoryTest {
         Assert.assertNull(result.get(DBConstantsUtils.KeyUtils.VISIT_START_DATE));
     }
 
+
     @After
     public void tearDown() {
         ReflectionHelpers.setStaticField(AncLibrary.class, "instance", null);

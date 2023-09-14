@@ -1,0 +1,591 @@
+{
+  "project_info": {
+    "project_number": "660700053041",
+    "firebase_url": "https://opensrp-production.firebaseio.com",
+    "project_id": "opensrp-production",
+    "storage_bucket": "opensrp-production.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660700053041:android:97e438dcfbb4acd2335f10",
+        "android_client_info": {
+          "package_name": "com.vijay.jsonwizard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbfvDM4FK-vYBQHX_vJV7PzKNH9hcloGA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660700053041:android:724674edc53115c9335f10",
+        "android_client_info": {
+          "package_name": "org.smartregister.anc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbfvDM4FK-vYBQHX_vJV7PzKNH9hcloGA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660700053041:android:10765ec82bfa2bca335f10",
+        "android_client_info": {
+          "package_name": "org.smartregister.chw"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbfvDM4FK-vYBQHX_vJV7PzKNH9hcloGA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660700053041:android:061090ac05eaac00335f10",
+        "android_client_info": {
+          "package_name": "org.smartregister.chw.ba"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbfvDM4FK-vYBQHX_vJV7PzKNH9hcloGA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660700053041:android:21c6800c1c7ceaf6335f10",
+        "android_client_info": {
+          "package_name": "org.smartregister.chw.chad"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbfvDM4FK-vYBQHX_vJV7PzKNH9hcloGA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660700053041:android:ab83358f3ed187ee335f10",
+        "android_client_info": {
+          "package_name": "org.smartregister.chw.drc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbfvDM4FK-vYBQHX_vJV7PzKNH9hcloGA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660700053041:android:99a5768b17d332e9335f10",
+        "android_client_info": {
+          "package_name": "org.smartregister.chw.guinea"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbfvDM4FK-vYBQHX_vJV7PzKNH9hcloGA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660700053041:android:9510a3c9bf2de0d6335f10",
+        "android_client_info": {
+          "package_name": "org.smartregister.chw.hf"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbfvDM4FK-vYBQHX_vJV7PzKNH9hcloGA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660700053041:android:719b69abb1fe5ca2335f10",
+        "android_client_info": {
+          "package_name": "org.smartregister.chw.lmh"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbfvDM4FK-vYBQHX_vJV7PzKNH9hcloGA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660700053041:android:92db3a929633cfc4335f10",
+        "android_client_info": {
+          "package_name": "org.smartregister.chw.miecd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbfvDM4FK-vYBQHX_vJV7PzKNH9hcloGA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660700053041:android:9f0b81b71a73eef0335f10",
+        "android_client_info": {
+          "package_name": "org.smartregister.chw.togo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbfvDM4FK-vYBQHX_vJV7PzKNH9hcloGA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660700053041:android:56e5416450458bd7335f10",
+        "android_client_info": {
+          "package_name": "org.smartregister.eusm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbfvDM4FK-vYBQHX_vJV7PzKNH9hcloGA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660700053041:android:3ca8b0c59e657a7f335f10",
+        "android_client_info": {
+          "package_name": "org.smartregister.giz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbfvDM4FK-vYBQHX_vJV7PzKNH9hcloGA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660700053041:android:9466bbb628ffcd1d335f10",
+        "android_client_info": {
+          "package_name": "org.smartregister.goldsmith"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbfvDM4FK-vYBQHX_vJV7PzKNH9hcloGA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660700053041:android:ecf24af9d9bc830f335f10",
+        "android_client_info": {
+          "package_name": "org.smartregister.kip"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbfvDM4FK-vYBQHX_vJV7PzKNH9hcloGA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660700053041:android:0c2277c216b7bf3d335f10",
+        "android_client_info": {
+          "package_name": "org.smartregister.nativeform"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbfvDM4FK-vYBQHX_vJV7PzKNH9hcloGA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660700053041:android:90cb7e892b4fd2c7335f10",
+        "android_client_info": {
+          "package_name": "org.smartregister.path"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbfvDM4FK-vYBQHX_vJV7PzKNH9hcloGA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660700053041:android:3e4ab33eba6c035d335f10",
+        "android_client_info": {
+          "package_name": "org.smartregister.reveal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbfvDM4FK-vYBQHX_vJV7PzKNH9hcloGA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660700053041:android:6190224faaf9083e335f10",
+        "android_client_info": {
+          "package_name": "org.smartregister.sample.fp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbfvDM4FK-vYBQHX_vJV7PzKNH9hcloGA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660700053041:android:069a3b159a5afcac",
+        "android_client_info": {
+          "package_name": "org.smartregister.wellnesspass"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbfvDM4FK-vYBQHX_vJV7PzKNH9hcloGA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660700053041-2jjgtgu5kpbv9gui1en1058vqapjt84u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -8,6 +8,8 @@ import org.smartregister.anc.library.util.DBConstantsUtils;
 
 import java.util.Map;
 
+import timber.log.Timber;
+
 public abstract class BaseContactModel {
     protected String extractPatientName(Map<String, String> womanDetails) {
         String firstName = extractValue(womanDetails, DBConstantsUtils.KeyUtils.FIRST_NAME);
@@ -34,10 +36,17 @@ public abstract class BaseContactModel {
     }
 
     protected JSONObject getFormAsJson(String formName, String entityId, String currentLocationId) throws Exception {
-        JSONObject form = new com.vijay.jsonwizard.utils.FormUtils().getFormJsonFromRepositoryOrAssets(AncLibrary.getInstance().getApplicationContext(), formName);
-        if (form == null) {
-            return null;
+        try {
+            JSONObject form = new com.vijay.jsonwizard.utils.FormUtils().getFormJsonFromRepositoryOrAssets(AncLibrary.getInstance().getApplicationContext(), formName);
+            if (form == null) {
+                return null;
+            }
+            return ANCJsonFormUtils.getFormAsJson(form, formName, entityId, currentLocationId);
         }
-        return ANCJsonFormUtils.getFormAsJson(form, formName, entityId, currentLocationId);
+        catch (Exception e)
+        {
+            Timber.e(e);
+            return  null;
+        }
     }
 }

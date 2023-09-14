@@ -1,6 +1,6 @@
 ---
 name: step1_hiv_risk_counseling_toaster
-description: Hiv Risk counselling
+description: HIV Risk counselling
 priority: 1
 condition: "(step1_hiv_risk == 1)"
 actions:
@@ -23,7 +23,7 @@ actions:
 name: step2_sfh_gest_age
 description: sfh_gest_age
 priority: 1
-condition: "(step2_lmp_known == 'no' && step2_ultrasound_done == 'no') || (step2_lmp_known == 'no' && step2_ultrasound_gest_age_wks >= 24)"
+condition: "(step2_lmp_known == 'no' && step2_ultrasound_done == 'no')"
 actions:
   - "isRelevant = true"
 ---
@@ -44,7 +44,7 @@ actions:
 name: step2_sfh_gest_age_selection
 description: sfh_gest_age_selection
 priority: 1
-condition: "step2_lmp_known == '' || step2_ultrasound_done == '' || (step2_lmp_known == 'no' && step2_ultrasound_done == 'no')"
+condition: "(step2_lmp_known == 'no' && step2_ultrasound_done == 'no')"
 actions:
   - "isRelevant = true"
 ---
@@ -94,6 +94,48 @@ name: step3_last_live_birth_preterm
 description: Live last live birth preterm
 priority: 1
 condition: "(step3_live_births > 0)"
+actions:
+  - "isRelevant = true"
+---
+name: step3_previous_pregnancy_data
+description: year
+priority: 1
+condition: "step3_previous_pregnancies > 0 "
+actions:
+  - "isRelevant = true"
+---
+name: step3_birth_weight
+description: year
+priority: 1
+condition: "step3_previous_pregnancies > 0 "
+actions:
+  - "isRelevant = true"
+---
+name: step3_delivery_method
+description: year
+priority: 1
+condition: "step3_previous_pregnancies > 0 "
+actions:
+  - "isRelevant = true"
+---
+name: step3_birth_attendant
+description: year
+priority: 1
+condition: "step3_previous_pregnancies > 0 "
+actions:
+  - "isRelevant = true"
+---
+name: step3_year
+description: year
+priority: 1
+condition: "step3_previous_pregnancies > 0 "
+actions:
+  - "isRelevant = true"
+---
+name: step3_pregnancy_complication
+description: year
+priority: 1
+condition: "step3_previous_pregnancies > 0 "
 actions:
   - "isRelevant = true"
 ---
@@ -161,21 +203,21 @@ actions:
   - "isRelevant = true"
 ---
 name: step7_hiv_counselling_toaster
-description: Hiv Risk counselling
+description: HIV Risk counselling
 priority: 1
 condition: "(step7_hiv_risk == 1)"
 actions:
   - "isRelevant = true"
 ---
 name: step8_hiv_risk_counselling_toaster
-description: Hiv Risk counselling
+description: HIV Risk counselling
 priority: 1
 condition: "(step8_hiv_risk == 1)"
 actions:
   - "isRelevant = true"
 ---
 name: step1_headss_toaster
-description: HEADSS info
+description: Headss Toaster
 priority: 1
 condition: "(global_age < 19)"
 actions:

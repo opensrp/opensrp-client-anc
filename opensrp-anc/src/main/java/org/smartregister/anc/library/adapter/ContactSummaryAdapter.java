@@ -11,8 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.smartregister.anc.library.R;
 import org.smartregister.anc.library.model.ContactSummaryModel;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+
+import timber.log.Timber;
 
 public class ContactSummaryAdapter extends RecyclerView.Adapter<ContactSummaryAdapter.ViewHolder> {
     private List<ContactSummaryModel> contactDates;
@@ -35,9 +41,19 @@ public class ContactSummaryAdapter extends RecyclerView.Adapter<ContactSummaryAd
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        ContactSummaryModel model = contactDates.get(position);
-        holder.contactDate.setText(model.getContactDate());
-        holder.contactName.setText(model.getContactName());
+        try {
+            ContactSummaryModel model = contactDates.get(position);
+           SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+            Date date = model.getLocalDate();
+            String parsedDate = dateFormat.format(date);
+            assert parsedDate != null;
+            holder.contactDate.setText(parsedDate);
+            holder.contactName.setText(model.getContactName());
+        }
+        catch (Exception e)
+        {
+            Timber.e(e);
+        }
 
     }
 
