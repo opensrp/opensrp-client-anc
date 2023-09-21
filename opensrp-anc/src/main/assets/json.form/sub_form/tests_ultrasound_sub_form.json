@@ -338,7 +338,7 @@
 			"edit_type": "edit_text",
 			"v_max_length": {
 				"value": "2",
-				"err": "Must be a maximum of two digits"
+				"err": "{{tests_ultrasound_sub_form.step1.gestational_sac.v_max_length.err}}"
 			},
 			"relevance": {
 				"rules-engine": {
@@ -363,7 +363,7 @@
 			"edit_type": "edit_text",
 			"v_max_length": {
 				"value": "2",
-				"err": "Must be a maximum of two digits"
+				"err": "{{tests_ultrasound_sub_form.step1.crown_rump_length.v_max_length.err}}"
 			},
 			"relevance": {
 				"rules-engine": {
@@ -387,7 +387,7 @@
 			"edit_type": "edit_text",
 			"v_max_length": {
 				"value": "2",
-				"err": "Must be a maximum of two digits"
+				"err": "{{tests_ultrasound_sub_form.step1.fetal_heart_rate.v_max_length.err}}"
 			},
 			"relevance": {
 				"rules-engine": {
@@ -921,7 +921,7 @@
 			"edit_type": "edit_text",
 			"v_max_length": {
 				"value": "2",
-				"err": "Must be a maximum of two digits"
+				"err": "{{tests_ultrasound_sub_form.step1.bpd.v_max_length.err}}"
 			},
 			"relevance": {
 				"rules-engine": {
@@ -945,7 +945,7 @@
 			"edit_type": "edit_text",
 			"v_max_length": {
 				"value": "2",
-				"err": "Must be a maximum of two digits"
+				"err": "{{tests_ultrasound_sub_form.step1.hc.v_max_length.err}}"
 			},
 			"relevance": {
 				"rules-engine": {
@@ -969,7 +969,7 @@
 			"edit_type": "edit_text",
 			"v_max_length": {
 				"value": "2",
-				"err": "Must be a maximum of two digits"
+				"err": "{{tests_ultrasound_sub_form.step1.ac.v_max_length.err}}"
 			},
 			"relevance": {
 				"rules-engine": {
@@ -993,7 +993,7 @@
 			"edit_type": "edit_text",
 			"v_max_length": {
 				"value": "2",
-				"err": "Must be a maximum of two digits"
+				"err": "{{tests_ultrasound_sub_form.step1.fl.v_max_length.err}}"
 			},
 			"relevance": {
 				"rules-engine": {
@@ -1017,7 +1017,7 @@
 			"edit_type": "edit_text",
 			"v_max_length": {
 				"value": "2",
-				"err": "Must be a maximum of two digits"
+				"err": "{{tests_ultrasound_sub_form.step1.spd.v_max_length.err}}"
 			},
 			"relevance": {
 				"rules-engine": {
@@ -1039,6 +1039,10 @@
 			"type": "edit_text",
 			"hint": "{{tests_ultrasound_sub_form.step1.gestational_age.hint}}",
 			"edit_type": "edit_text",
+			"v_max_length": {
+				"value": "2",
+				"err": "{{tests_ultrasound_sub_form.step1.gestational_age.v_max_length.err}}"
+			},
 			"relevance": {
 				"rules-engine": {
 					"ex-rules": {
