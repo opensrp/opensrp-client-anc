@@ -336,6 +336,10 @@
 			"type": "edit_text",
 			"hint": "{{tests_ultrasound_sub_form.step1.gestational_sac.hint}}",
 			"edit_type": "edit_text",
+			"v_max_length": {
+				"value": "2",
+				"err": "Must be a maximum of two digits"
+			},
 			"relevance": {
 				"rules-engine": {
 					"ex-rules": {
@@ -357,6 +361,10 @@
 			"type": "edit_text",
 			"hint": "{{tests_ultrasound_sub_form.step1.crown_rump_length.hint}}",
 			"edit_type": "edit_text",
+			"v_max_length": {
+				"value": "2",
+				"err": "Must be a maximum of two digits"
+			},
 			"relevance": {
 				"rules-engine": {
 					"ex-rules": {
@@ -377,6 +385,10 @@
 			"type": "edit_text",
 			"hint": "{{tests_ultrasound_sub_form.step1.fetal_heart_rate.hint}}",
 			"edit_type": "edit_text",
+			"v_max_length": {
+				"value": "2",
+				"err": "Must be a maximum of two digits"
+			},
 			"relevance": {
 				"rules-engine": {
 					"ex-rules": {
@@ -729,6 +741,10 @@
 			"type": "edit_text",
 			"hint": "{{tests_ultrasound_sub_form.step1.fetal_weight.hint}}",
 			"edit_type": "edit_text",
+			"v_regex": {
+				"value": "[0-9].[0-9]{3}",
+				"err": "Enter valid weight e.g 2.901"
+			},
 			"relevance": {
 				"rules-engine": {
 					"ex-rules": {
@@ -903,6 +919,10 @@
 			"type": "edit_text",
 			"hint": "{{tests_ultrasound_sub_form.step1.bpd.hint}}",
 			"edit_type": "edit_text",
+			"v_max_length": {
+				"value": "2",
+				"err": "Must be a maximum of two digits"
+			},
 			"relevance": {
 				"rules-engine": {
 					"ex-rules": {
@@ -923,6 +943,10 @@
 			"type": "edit_text",
 			"hint": "{{tests_ultrasound_sub_form.step1.hc.hint}}",
 			"edit_type": "edit_text",
+			"v_max_length": {
+				"value": "2",
+				"err": "Must be a maximum of two digits"
+			},
 			"relevance": {
 				"rules-engine": {
 					"ex-rules": {
@@ -943,6 +967,10 @@
 			"type": "edit_text",
 			"hint": "{{tests_ultrasound_sub_form.step1.ac.hint}}",
 			"edit_type": "edit_text",
+			"v_max_length": {
+				"value": "2",
+				"err": "Must be a maximum of two digits"
+			},
 			"relevance": {
 				"rules-engine": {
 					"ex-rules": {
@@ -963,6 +991,10 @@
 			"type": "edit_text",
 			"hint": "{{tests_ultrasound_sub_form.step1.fl.hint}}",
 			"edit_type": "edit_text",
+			"v_max_length": {
+				"value": "2",
+				"err": "Must be a maximum of two digits"
+			},
 			"relevance": {
 				"rules-engine": {
 					"ex-rules": {
@@ -983,6 +1015,10 @@
 			"type": "edit_text",
 			"hint": "{{tests_ultrasound_sub_form.step1.spd.hint}}",
 			"edit_type": "edit_text",
+			"v_max_length": {
+				"value": "2",
+				"err": "Must be a maximum of two digits"
+			},
 			"relevance": {
 				"rules-engine": {
 					"ex-rules": {
