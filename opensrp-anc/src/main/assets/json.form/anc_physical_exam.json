@@ -1526,6 +1526,10 @@
 				"type": "normal_edit_text",
 				"edit_text_style": "bordered",
 				"edit_type": "number",
+				"v_regex": {
+					"value": "[0-9]{3}.[0-9]}",
+					"err": "Enter valid weight e.g 36.5"
+				},
 				"v_required": {
 					"value": "true",
 					"err": "{{anc_physical_exam.step4.body_temp.v_required.err}}"
