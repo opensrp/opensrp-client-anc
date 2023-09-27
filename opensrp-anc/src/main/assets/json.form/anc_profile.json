@@ -1999,11 +1999,11 @@
 						"openmrs_entity": "concept",
 						"openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 						"type": "edit_text",
-						"hint": "{{anc_profile.step7.other_substance_use.hint}}",
+						"hint": "{{anc_profile.step3.other_birth_attendant.hint}}",
 						"edit_type": "edit_text",
 						"v_required": {
 							"value": true,
-							"err": "{{anc_profile.step7.other_substance_use.v_required.err}}"
+							"err": "{{anc_profile.step3.other_birth_attendant.v_required.err}}"
 						},
 						"relevance": {
 							"step3:birth_attendant": {

@@ -198,99 +198,99 @@ group: risks_and_diagnoses
 fields:
   - template: "{{profile_overview.high_caffine}}: {caffeine_intake_value}"
     relevance: "caffeine_intake != '' && caffeine_intake != 'none'"
-    isRedFont: "true"
+    isRedFont: "caffeine_intake != '' && caffeine_intake != 'none' ? true : false"
 
   - template: "{{profile_overview.tobacco_user_quit}}: {tobacco_user}"
     relevance: "tobacco_user != '' && tobacco_user != 'no'"
-    isRedFont: "true"
+    isRedFont: "obacco_user != '' && tobacco_user != 'no' ? true : false"
 
   - template: "{{profile_overview.second_hand_smoke}}: {shs_exposure}"
     relevance: "shs_exposure == 'yes'"
-    isRedFont: "true"
+    isRedFont: "shs_exposure == 'yes' ? true : false"
 
   - template: "{{profile_overview.condoms_not_used}}: {condom_use}"
     relevance: "condom_use == 'no'"
-    isRedFont: "true"
+    isRedFont: "condom_use == 'no' ? true : false"
 
   - template: "{{profile_overview.alcohol_substances}}: {alcohol_substance_use_value}, {other_substance_use_value}"
     relevance: "!alcohol_substance_use.isEmpty() && !alcohol_substance_use.contains('none')"
-    isRedFont: "true"
+    isRedFont: "!alcohol_substance_use.isEmpty() && !alcohol_substance_use.contains('none') ? true : false"
 
   - template: "{{profile_overview.reduced_fetal_movement}}: {mat_percept_fetal_move}"
     relevance: "mat_percept_fetal_move != '' && mat_percept_fetal_move != 'normal_fetal_move'"
-    isRedFont: "true"
+    isRedFont: "mat_percept_fetal_move != '' && mat_percept_fetal_move != 'normal_fetal_move' ? true : false"
 
   - template: "{{profile_overview.pre_eclampsia_risk}}: {preeclampsia_risk}"
     relevance: "preeclampsia_risk == 1"
-    isRedFont: "true"
+    isRedFont: "preeclampsia_risk == 1 ? true : false"
 
   - template: "{{profile_overview.pre_hiv_risk}}"
     relevance: "hiv_risk == 1"
-    isRedFont: "true"
+    isRedFont: "hiv_risk == 1 ? true : false"
 
   - template: "{{profile_overview.diabetes_risk}} "
     relevance: "gdm_risk == 1"
-    isRedFont: "true"
+    isRedFont: "gdm_risk == 1 ? true : false"
 
   - template: "{{profile_overview.hypertension}}"
     relevance: "hypertension == 1"
-    isRedFont: "true"
+    isRedFont: "hypertension == 1 ? true : false"
 
   - template: "{{profile_overview.severe_hypertension}}"
     relevance: "severe_hypertension == 1"
-    isRedFont: "true"
+    isRedFont: "severe_hypertension == 1 ? true : false"
 
   - template: "{{profile_overview.pre_eclampsia}}"
     relevance: "preeclampsia == 1"
-    isRedFont: "true"
+    isRedFont: "preeclampsia == 1"
 
   - template: "{{profile_overview.severe_pre_eclampsia}}"
     relevance: "severe_preeclampsia == 1"
-    isRedFont: "true"
+    isRedFont: "severe_preeclampsia == 1 ? true : false"
 
   - template: "{{profile_overview.rh_factor_negative}}: {rh_factor_value}"
     relevance: "rh_factor == 'negative'"
-    isRedFont: "true"
+    isRedFont: "rh_factor == 'negative' ? true : false"
 
   - template: "{{profile_overview.hiv_positive}}: {hiv_diagnosis_date}"
     relevance: "hiv_positive == 1"
-    isRedFont: "true"
+    isRedFont: "hiv_positive == 1 ? true : false"
 
   - template: "{{profile_overview.hepatitis_b_positive}}: {hepb_test_date}"
     relevance: "hepb_positive == 1"
-    isRedFont: "true"
+    isRedFont: "hepb_positive == 1 ? true : false"
 
   - template: "{{profile_overview.hepatitis_c_positive}}: {hepc_test_date}"
     relevance: "hepc_positive == 1"
-    isRedFont: "true"
+    isRedFont: "hepc_positive == 1 ? true : false"
 
   - template: "{{profile_overview.syphilis_positive}}: {syphilis_test_date}"
     relevance: "syphilis_positive == 1"
-    isRedFont: "true"
+    isRedFont: "syphilis_positive == 1 ? true : false"
 
   - template: "{{profile_overview.asb}}: {date}"
     relevance: "asb_positive == 1"
-    isRedFont: "true"
+    isRedFont: "asb_positive == 1 ? true : false"
 
   - template: "{{profile_overview.gbs}}: {urine_test_date}"
     relevance: "urine_culture == 'positive - group b streptococcus (gbs)'"
-    isRedFont: "true"
+    isRedFont: "urine_culture == 'positive - group b streptococcus (gbs)' ? true : false"
 
   - template: "{{profile_overview.gdm}}: {date}"
     relevance: "gdm = 1"
-    isRedFont: "true"
+    isRedFont: "gdm = 1 ? true : false"
 
   - template: "{{profile_overview.dm}}: {date}"
     relevance: "dm_in_preg = 1"
-    isRedFont: "true"
+    isRedFont: "dm_in_preg = 1 ? true : false"
 
   - template: "{{profile_overview.anaemia_diagnosis}}: {date}"
     relevance: "anaemic = 1"
-    isRedFont: "true"
+    isRedFont: "anaemic = 1 ? true : false"
 
   - template: "{{profile_overview.tb_positive}}: {date}"
     relevance: "tb_screening_result == 'positive'"
-    isRedFont: "true"
+    isRedFont: "tb_screening_result == 'positive' ? true : false"
 
 
 ---
