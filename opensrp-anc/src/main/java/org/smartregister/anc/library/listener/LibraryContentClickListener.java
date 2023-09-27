@@ -22,6 +22,8 @@ public class LibraryContentClickListener implements View.OnClickListener {
             CustomFontTextView header = view.findViewById(R.id.library_text_header);
             String headerText = header.getText().toString();
 
+            activity = (Activity) view.getContext();
+
             if (activity != null) {
                 ((BaseHomeRegisterActivity) activity).setLibrary(true);
 
