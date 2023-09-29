@@ -147,6 +147,7 @@ fields:
 
   - template: "{{profile_overview.hospital_referral_reasons.danger_signs}}: {danger_signs}"
     relevance: "!danger_signs.contains('danger_none') && !danger_signs.isEmpty()"
+    isRedFont: "true"
 
   - template: "{{profile_overview.hospital_referral_reasons.severe_hypertension}}: {bp_systolic_repeat}/{bp_diastolic_repeat} mmHg"
     relevance: "severe_hypertension == 1 && global_contact_no == 1"
@@ -202,7 +203,7 @@ fields:
 
   - template: "{{profile_overview.tobacco_user_quit}}: {tobacco_user}"
     relevance: "tobacco_user != '' && tobacco_user != 'no'"
-    isRedFont: "obacco_user != '' && tobacco_user != 'no' ? true : false"
+    isRedFont: "tobacco_user != '' && tobacco_user != 'no' ? true : false"
 
   - template: "{{profile_overview.second_hand_smoke}}: {shs_exposure}"
     relevance: "shs_exposure == 'yes'"
@@ -214,7 +215,7 @@ fields:
 
   - template: "{{profile_overview.alcohol_substances}}: {alcohol_substance_use_value}, {other_substance_use_value}"
     relevance: "!alcohol_substance_use.isEmpty() && !alcohol_substance_use.contains('none')"
-    isRedFont: "!alcohol_substance_use.isEmpty() && !alcohol_substance_use.contains('none') ? true : false"
+    isRedFont: "!alcohol_substance_use.isEmpty() && !alcohol_substance_use.contains('None') ? true : false"
 
   - template: "{{profile_overview.reduced_fetal_movement}}: {mat_percept_fetal_move}"
     relevance: "mat_percept_fetal_move != '' && mat_percept_fetal_move != 'normal_fetal_move'"

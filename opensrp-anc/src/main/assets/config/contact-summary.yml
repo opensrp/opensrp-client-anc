@@ -116,7 +116,7 @@ fields:
   - template: "{{contact_summary.obstetric_history.no_of_c_sections}}: {c_sections}"
     relevance: "c_sections_value > 0"
 
-  - template: "{{contact_summary.obstetric_history.past_pregnancy_problems}}: {prev_preg_comps_value}"
+  - template: "{prev_preg_comps_value}"
     relevance: "(!prev_preg_comps_value.contains('dont_know') || !prev_preg_comps_value.contains('none'))"
 
   - template: "{{contact_summary.obstetric_history.past_substances_used}}: {substances_used_value}"

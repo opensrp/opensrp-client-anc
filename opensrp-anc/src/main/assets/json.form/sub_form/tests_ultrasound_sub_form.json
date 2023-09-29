@@ -333,7 +333,7 @@
 			"openmrs_entity_parent": "159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 			"openmrs_entity": "concept",
 			"openmrs_entity_id": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-			"type": "edit_text",
+			"type": "number",
 			"hint": "{{tests_ultrasound_sub_form.step1.gestational_sac.hint}}",
 			"edit_type": "edit_text",
 			"v_max_length": {
@@ -360,7 +360,7 @@
 			"openmrs_entity_id": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 			"type": "edit_text",
 			"hint": "{{tests_ultrasound_sub_form.step1.crown_rump_length.hint}}",
-			"edit_type": "edit_text",
+			"edit_type": "number",
 			"v_max_length": {
 				"value": "2",
 				"err": "{{tests_ultrasound_sub_form.step1.crown_rump_length.v_max_length.err}}"
@@ -384,9 +384,9 @@
 			"openmrs_entity_id": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 			"type": "edit_text",
 			"hint": "{{tests_ultrasound_sub_form.step1.fetal_heart_rate.hint}}",
-			"edit_type": "edit_text",
+			"edit_type": "number",
 			"v_max_length": {
-				"value": "2",
+				"value": "4",
 				"err": "{{tests_ultrasound_sub_form.step1.fetal_heart_rate.v_max_length.err}}"
 			},
 			"relevance": {
@@ -740,10 +740,10 @@
 			"openmrs_entity_id": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 			"type": "edit_text",
 			"hint": "{{tests_ultrasound_sub_form.step1.fetal_weight.hint}}",
-			"edit_type": "edit_text",
-			"v_regex": {
-				"value": "[0-9].[0-9]{3}",
-				"err": "Enter valid weight e.g 2.901"
+			"edit_type": "number",
+			"v_max_length": {
+				"value": "4",
+				"err": "{{tests_ultrasound_sub_form.step1.fetal_weight.v_max_length.err}}"
 			},
 			"relevance": {
 				"rules-engine": {
@@ -918,7 +918,7 @@
 			"openmrs_entity_id": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 			"type": "edit_text",
 			"hint": "{{tests_ultrasound_sub_form.step1.bpd.hint}}",
-			"edit_type": "edit_text",
+			"edit_type": "number",
 			"v_max_length": {
 				"value": "2",
 				"err": "{{tests_ultrasound_sub_form.step1.bpd.v_max_length.err}}"
@@ -942,7 +942,7 @@
 			"openmrs_entity_id": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 			"type": "edit_text",
 			"hint": "{{tests_ultrasound_sub_form.step1.hc.hint}}",
-			"edit_type": "edit_text",
+			"edit_type": "number",
 			"v_max_length": {
 				"value": "2",
 				"err": "{{tests_ultrasound_sub_form.step1.hc.v_max_length.err}}"
@@ -964,7 +964,7 @@
 			"openmrs_entity_parent": "159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 			"openmrs_entity": "concept",
 			"openmrs_entity_id": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-			"type": "edit_text",
+			"type": "number",
 			"hint": "{{tests_ultrasound_sub_form.step1.ac.hint}}",
 			"edit_type": "edit_text",
 			"v_max_length": {
@@ -988,7 +988,7 @@
 			"openmrs_entity_parent": "159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 			"openmrs_entity": "concept",
 			"openmrs_entity_id": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-			"type": "edit_text",
+			"type": "number",
 			"hint": "{{tests_ultrasound_sub_form.step1.fl.hint}}",
 			"edit_type": "edit_text",
 			"v_max_length": {
@@ -1012,7 +1012,7 @@
 			"openmrs_entity_parent": "159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 			"openmrs_entity": "concept",
 			"openmrs_entity_id": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-			"type": "edit_text",
+			"type": "number",
 			"hint": "{{tests_ultrasound_sub_form.step1.spd.hint}}",
 			"edit_type": "edit_text",
 			"v_max_length": {
@@ -1038,7 +1038,7 @@
 			"openmrs_entity_id": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 			"type": "edit_text",
 			"hint": "{{tests_ultrasound_sub_form.step1.gestational_age.hint}}",
-			"edit_type": "edit_text",
+			"edit_type": "number",
 			"v_max_length": {
 				"value": "2",
 				"err": "{{tests_ultrasound_sub_form.step1.gestational_age.v_max_length.err}}"
