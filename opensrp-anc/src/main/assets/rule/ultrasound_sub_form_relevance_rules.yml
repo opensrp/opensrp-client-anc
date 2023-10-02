@@ -128,7 +128,14 @@ actions:
 name: step1_gestational_sac
 description: No. of fetuses
 priority: 1
-condition: "(step1_Trimester == 'trimester1')"
+condition: "(step1_Trimester == 'trimester1') || (step2_Trimester == 'trimester1')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_gestational_sac
+description: No. of fetuses
+priority: 1
+condition: "(step2_Trimester == 'trimester1') || (step2_Trimester == 'trimester1')"
 actions:
   - "isRelevant = true"
 ---
@@ -139,10 +146,24 @@ condition: "(step1_Trimester == 'trimester1')"
 actions:
   - "isRelevant = true"
 ---
+name: step2_crown_rump_length
+description: No. of fetuses
+priority: 1
+condition: "(step2_Trimester == 'trimester1')"
+actions:
+  - "isRelevant = true"
+---
 name: step1_fetal_heart_rate
 description: No. of fetuses
 priority: 1
 condition: "(step1_Trimester == 'trimester1')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_fetal_heart_rate
+description: No. of fetuses
+priority: 1
+condition: "(step2_Trimester == 'trimester1')"
 actions:
   - "isRelevant = true"
 ---
@@ -153,10 +174,24 @@ condition: "(step1_Trimester == 'trimester1')"
 actions:
   - "isRelevant = true"
 ---
+name: step2_gestational_sac_location
+description: No. of fetuses
+priority: 1
+condition: "(step2_Trimester == 'trimester1')"
+actions:
+  - "isRelevant = true"
+---
 name: step1_expected_delivery_date
 description: No. of fetuses
 priority: 1
 condition: "(step1_Trimester == 'trimester1')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_expected_delivery_date
+description: No. of fetuses
+priority: 1
+condition: "(step2_Trimester == 'trimester1')"
 actions:
   - "isRelevant = true"
 ---
@@ -168,6 +203,13 @@ condition: "(step1_Trimester == 'trimester3')"
 actions:
   - "isRelevant = true"
 ---
+name: step2_fetus
+description: No. of fetuses
+priority: 1
+condition: "(step2_Trimester == 'trimester3')"
+actions:
+  - "isRelevant = true"
+---
 name: step1_no_of_fetus
 description: No. of fetuses
 priority: 1
@@ -175,10 +217,25 @@ condition: "(step1_Trimester == 'trimester3')"
 actions:
   - "isRelevant = true"
 ---
+name: step2_no_of_fetus
+description: No. of fetuses
+priority: 1
+condition: "(step2_Trimester == 'trimester3')"
+actions:
+  - "isRelevant = true"
+---
+
 name: step1_same_gest_age
 description: same_gest_age
 priority: 1
 condition: "(step1_Trimester == 'trimester1')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_same_gest_age
+description: same_gest_age
+priority: 1
+condition: "(step2_Trimester == 'trimester1')"
 actions:
   - "isRelevant = true"
 ---
@@ -189,11 +246,25 @@ condition: "(step1_Trimester == 'trimester3')"
 actions:
   - "isRelevant = true"
 ---
-
+name: step2_fetal_location
+description: No. of fetuses
+priority: 1
+condition: "(step2_Trimester == 'trimester3')"
+actions:
+  - "isRelevant = true"
+---
 name: step1_fetal_weight
 description: No. of fetuses
 priority: 1
 condition: "(step1_Trimester == 'trimester3')"
+actions:
+  - "isRelevant = true"
+---
+
+name: step2_fetal_weight
+description: No. of fetuses
+priority: 1
+condition: "(step2_Trimester == 'trimester3')"
 actions:
   - "isRelevant = true"
 ---
@@ -206,10 +277,26 @@ actions:
   - "isRelevant = true"
 ---
 
+name: step2_bpd
+description: No. of fetuses
+priority: 1
+condition: "(step2_Trimester == 'trimester3')"
+actions:
+  - "isRelevant = true"
+---
+
 name: step1_hc
 description: No. of fetuses
 priority: 1
 condition: "(step1_Trimester == 'trimester3')"
+actions:
+  - "isRelevant = true"
+---
+
+name: step2_hc
+description: No. of fetuses
+priority: 1
+condition: "(step2_Trimester == 'trimester3')"
 actions:
   - "isRelevant = true"
 ---
@@ -222,10 +309,25 @@ actions:
   - "isRelevant = true"
 ---
 
+name: step2_ac
+description: No. of fetuses
+priority: 1
+condition: "(step2_Trimester == 'trimester3')"
+actions:
+  - "isRelevant = true"
+---
+
 name: step1_fl
 description: No. of fetuses
 priority: 1
 condition: "(step1_Trimester == 'trimester3')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_fl
+description: No. of fetuses
+priority: 1
+condition: "(step2_Trimester == 'trimester3')"
 actions:
   - "isRelevant = true"
 ---
@@ -238,6 +340,14 @@ actions:
   - "isRelevant = true"
 ---
 
+name: step2_spd
+description: No. of fetuses
+priority: 1
+condition: "(step2_Trimester == 'trimester3')"
+actions:
+  - "isRelevant = true"
+---
+
 name: step1_gestational_age
 description: No. of fetuses
 priority: 1
@@ -245,6 +355,15 @@ condition: "(step1_Trimester == 'trimester3')"
 actions:
   - "isRelevant = true"
 ---
+
+name: step2_gestational_age
+description: No. of fetuses
+priority: 1
+condition: "(step2_Trimester == 'trimester3')"
+actions:
+  - "isRelevant = true"
+---
+
 
 
 name: step1_pre_eclampsia_toaster
@@ -271,7 +390,7 @@ actions:
 name: step2_fetal_presentation
 description: Fetal presentation
 priority: 1
-condition: "(step1_Trimester == 'trimester3')"
+condition: "(step2_Trimester == 'trimester3')"
 actions:
   - "isRelevant = true"
 ---
@@ -285,7 +404,7 @@ actions:
 name: step2_amniotic_fluid
 description: Amniotic fluid
 priority: 1
-condition: "(step1_Trimester == 'trimester3')"
+condition: "(step2_Trimester == 'trimester3')"
 actions:
   - "isRelevant = true"
 ---
@@ -296,10 +415,24 @@ condition: "(step1_Trimester == 'trimester3')"
 actions:
   - "isRelevant = true"
 ---
+name: step2_placenta_location
+description: Placenta location
+priority: 1
+condition: "(step2_Trimester == 'trimester3')"
+actions:
+  - "isRelevant = true"
+---
 name: step1_placenta
 description: Placenta location
 priority: 1
 condition: "(step1_Trimester == 'trimester3')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_placenta
+description: Placenta location
+priority: 1
+condition: "(step2_Trimester == 'trimester3')"
 actions:
   - "isRelevant = true"
 ---
