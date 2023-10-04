@@ -344,6 +344,11 @@ public class Utils extends org.smartregister.util.Utils {
         while (stringValueResult.contains("{")) {
             String key = stringValueResult.substring(stringValueResult.indexOf("{") + 1, stringValueResult.indexOf("}"));
             String value = processValue(key, facts);
+            if(value.equals("Hasil usg trimester i"))
+                value = value.replace("Hasil usg trimester i", "Hasil USG trimester I");
+            if(value.equals("Hasil usg trimester iii"))
+                value = value.replace("Hasil usg trimester iii", "Hasil USG trimester III");
+
             stringValueResult = stringValueResult.replace("{" + key + "}", value).replaceAll(", $", "").trim();
         }
         //Remove unnecessary commas by cleaning the returned string
