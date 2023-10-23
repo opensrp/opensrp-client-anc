@@ -53,7 +53,7 @@ public class ContactSummaryFinishAdapterTest extends BaseUnitTest {
         config.setSubGroup("urine_tests_subgroup");
         List<YamlConfigItem> yamlConfigItems = new ArrayList<>();
         YamlConfigItem configItem = new YamlConfigItem();
-        configItem.setIsRedFont("contact_summary.reason_for_visit.health_complaint");
+        configItem.set("contact_summary.reason_for_visit.health_complaint");
         configItem.setRelevance("true");
         configItem.setIsMultiWidget(true);
         configItem.setTemplate(template);

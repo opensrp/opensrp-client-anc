@@ -5,7 +5,7 @@ sub_group: demographic_info
 fields:
   - template: "{{profile_overview.overview_of_pregnancy.demographic_info.occupation}}: {occupation_value}"
     relevance: "occupation.contains('informal_employment_sex_worker')"
-    isRedFont: "true"
+    
 ---
 sub_group: visit_details
 fields:
@@ -18,7 +18,7 @@ sub_group: current_pregnancy
 fields:
   - template: "{{profile_overview.overview_of_pregnancy.current_pregnancy.ga}}: {gest_age}"
     relevance: "gest_age != ''"
-    isRedFont: "gest_age > 40"
+    
 
   - template: "{{profile_overview.overview_of_pregnancy.current_pregnancy.edd}}: {edd}"
     relevance: "edd != ''"
@@ -28,7 +28,7 @@ fields:
 
   - template: "{{profile_overview.overview_of_pregnancy.current_pregnancy.no_of_fetuses}}: {no_of_fetuses}"
     relevance: "no_of_fetuses != ''"
-    isRedFont: "no_of_fetuses > 1"
+    
 
   - template: "{{profile_overview.overview_of_pregnancy.current_pregnancy.fetal_presentation}}: {fetal_presentation_value}"
     relevance: "fetal_presentation != ''"
@@ -38,37 +38,37 @@ fields:
 
   - template: "{{profile_overview.overview_of_pregnancy.current_pregnancy.placenta_location}}: {placenta_location_value}"
     relevance: "placenta_location != ''"
-    isRedFont: "placenta_location.contains('Previa')"
+    
 ---
 sub_group: obstetric_history
 fields:
   - template: "{{profile_overview.overview_of_pregnancy.obstetric_history.gravida}}: {gravida}"
     relevance: "gravida != ''"
-    isRedFont: "gravida >= 5"
+    
 
   - template: "{{profile_overview.overview_of_pregnancy.obstetric_history.parity}}: {parity}"
     relevance: "parity != ''"
-    isRedFont: "parity >= 5"
+    
 
   - template: "{{profile_overview.overview_of_pregnancy.obstetric_history.no_of_pregnancies_lost_ended}}: {miscarriages_abortions}"
     relevance: "miscarriages_abortions != ''"
-    isRedFont: "miscarriages_abortions > 1"
+    
 
   - template: "{{profile_overview.overview_of_pregnancy.obstetric_history.no_of_stillbirths}}: {stillbirths}"
     relevance: "stillbirths != ''"
-    isRedFont: "stillbirths > 0"
+    
 
   - template: "{{profile_overview.overview_of_pregnancy.obstetric_history.no_of_c_sections}}: {c_sections}"
     relevance: "c_sections != ''"
-    isRedFont: "stillbirths > 0"
+    
 
   - template: "{{profile_overview.overview_of_pregnancy.obstetric_history.past_pregnancy_problems}}: {prev_preg_comps_value}, {prev_preg_comps_other}"
     relevance: "!prev_preg_comps.isEmpty() && (!prev_preg_comps.contains('dont_know') || !prev_preg_comps.contains('none'))"
-    isRedFont: "true"
+    
 
   - template: "{{profile_overview.overview_of_pregnancy.obstetric_history.past_substances_used}}: {substances_used_value},{substances_used_other}"
     relevance: "(!substances_used.contains('none') && !substances_used.isEmpty())"
-    isRedFont: "true"
+    
 
 ---
 sub_group: medical_history
@@ -87,18 +87,18 @@ fields:
 
   - template: "{{profile_overview.overview_of_pregnancy.medical_history.past_hiv_diagnosis_date}}: {hiv_diagnosis_date}"
     relevance: "hiv_diagnosis_date != ''"
-    isRedFont: "true"
+    
 
 ---
 sub_group: weight
 fields:
   - template: "{{profile_overview.overview_of_pregnancy.weight.bmi}}: {bmi}"
     relevance: "bmi != ''"
-    isRedFont: "bmi < 18.5 || bmi >= 25"
+    
 
   - template: "{{profile_overview.overview_of_pregnancy.weight.weight_category}}: {weight_cat}"
     relevance: "weight_cat !=''"
-    isRedFont: "weight_cat.contains('Underweight') || weight_cat.contains('Overweight') || weight_cat.contains('Obese')"
+    
 
   - template: "{{profile_overview.overview_of_pregnancy.weight.expected_weight_gain_during_the_pregnancy}}: {exp_weight_gain} kg"
     relevance: "exp_weight_gain != ''"
@@ -143,11 +143,11 @@ fields:
 
   - template: "{{profile_overview.hospital_referral_reasons.woman_not_referred_to_hospital}}: {referred_hosp_notdone}"
     relevance: "referred_hosp == 'No'"
-    isRedFont: "true"
+    
 
   - template: "{{profile_overview.hospital_referral_reasons.danger_signs}}: {danger_signs}"
     relevance: "!danger_signs.contains('danger_none') && !danger_signs.isEmpty()"
-    isRedFont: "true"
+    
 
   - template: "{{profile_overview.hospital_referral_reasons.severe_hypertension}}: {bp_systolic_repeat}/{bp_diastolic_repeat} mmHg"
     relevance: "severe_hypertension == 1 && global_contact_no == 1"
@@ -163,7 +163,7 @@ fields:
 
   - template: "{{profile_overview.hospital_referral_reasons.fever}}: {body_temp_repeat}ºC"
     relevance: "body_temp_repeat >= 38"
-    isRedFont: "true"
+    
 
   - template: "{{profile_overview.hospital_referral_reasons.abnormal_pulse_rate}}: {pulse_rate_repeat} kpm"
     relevance: "pulse_rate_repeat < 60 || pulse_rate_repeat > 100"
@@ -173,7 +173,7 @@ fields:
 
   - template: "{{profile_overview.hospital_referral_reasons.low_oximetry}}: {oximetry}%"
     relevance: "oximetry < 92"
-    isRedFont: "true"
+    
 
   - template: "{{profile_overview.hospital_referral_reasons.abnormal_cardiac_exam}}: {cardiac_exam_abnormal_value}"
     relevance: "!cardiac_exam_abnormal.contains('none')"
@@ -189,7 +189,7 @@ fields:
 
   - template: "{{profile_overview.hospital_referral_reasons.no_fetal_heartbeat_observed}}"
     relevance: "fetal_heartbeat == 'No'"
-    isRedFont: "true"
+    
 
   - template: "{{profile_overview.hospital_referral_reasons.abnormal_fetal_heart_rate}}: {fetal_heart_rate_repeat} kpm"
     relevance: "fetal_heart_rate_repeat < 100 || fetal_heart_rate_repeat > 180"
@@ -199,99 +199,99 @@ group: risks_and_diagnoses
 fields:
   - template: "{{profile_overview.high_caffine}}: {caffeine_intake_value}"
     relevance: "caffeine_intake != '' && caffeine_intake != 'none'"
-    isRedFont: "caffeine_intake != '' && caffeine_intake != 'none' ? true : false"
+    
 
   - template: "{{profile_overview.tobacco_user_quit}}: {tobacco_user}"
     relevance: "tobacco_user != '' && tobacco_user != 'no'"
-    isRedFont: "tobacco_user != '' && tobacco_user != 'no' ? true : false"
+    
 
   - template: "{{profile_overview.second_hand_smoke}}: {shs_exposure}"
     relevance: "shs_exposure == 'yes'"
-    isRedFont: "shs_exposure == 'yes' ? true : false"
+    
 
   - template: "{{profile_overview.condoms_not_used}}: {condom_use}"
     relevance: "condom_use == 'no'"
-    isRedFont: "condom_use == 'no' ? true : false"
+    
 
   - template: "{{profile_overview.alcohol_substances}}: {alcohol_substance_use_value}, {other_substance_use_value}"
     relevance: "!alcohol_substance_use.isEmpty() && !alcohol_substance_use.contains('none')"
-    isRedFont: "!alcohol_substance_use.isEmpty() && !alcohol_substance_use.contains('None') ? true : false"
+    
 
   - template: "{{profile_overview.reduced_fetal_movement}}: {mat_percept_fetal_move}"
     relevance: "mat_percept_fetal_move != '' && mat_percept_fetal_move != 'normal_fetal_move'"
-    isRedFont: "mat_percept_fetal_move != '' && mat_percept_fetal_move != 'normal_fetal_move' ? true : false"
+    
 
   - template: "{{profile_overview.pre_eclampsia_risk}}: {preeclampsia_risk}"
     relevance: "preeclampsia_risk == 1"
-    isRedFont: "preeclampsia_risk == 1 ? true : false"
+    
 
   - template: "{{profile_overview.pre_hiv_risk}}"
     relevance: "hiv_risk == 1"
-    isRedFont: "hiv_risk == 1 ? true : false"
+    
 
   - template: "{{profile_overview.diabetes_risk}} "
     relevance: "gdm_risk == 1"
-    isRedFont: "gdm_risk == 1 ? true : false"
+    
 
   - template: "{{profile_overview.hypertension}}"
     relevance: "hypertension == 1"
-    isRedFont: "hypertension == 1 ? true : false"
+    
 
   - template: "{{profile_overview.severe_hypertension}}"
     relevance: "severe_hypertension == 1"
-    isRedFont: "severe_hypertension == 1 ? true : false"
+    
 
   - template: "{{profile_overview.pre_eclampsia}}"
     relevance: "preeclampsia == 1"
-    isRedFont: "preeclampsia == 1"
+    
 
   - template: "{{profile_overview.severe_pre_eclampsia}}"
     relevance: "severe_preeclampsia == 1"
-    isRedFont: "severe_preeclampsia == 1 ? true : false"
+    
 
   - template: "{{profile_overview.rh_factor_negative}}: {rh_factor_value}"
     relevance: "rh_factor == 'negative'"
-    isRedFont: "rh_factor == 'negative' ? true : false"
+    
 
   - template: "{{profile_overview.hiv_positive}}: {hiv_diagnosis_date}"
     relevance: "hiv_positive == 1"
-    isRedFont: "hiv_positive == 1 ? true : false"
+    
 
   - template: "{{profile_overview.hepatitis_b_positive}}: {hepb_test_date}"
     relevance: "hepb_positive == 1"
-    isRedFont: "hepb_positive == 1 ? true : false"
+    
 
   - template: "{{profile_overview.hepatitis_c_positive}}: {hepc_test_date}"
     relevance: "hepc_positive == 1"
-    isRedFont: "hepc_positive == 1 ? true : false"
+    
 
   - template: "{{profile_overview.syphilis_positive}}: {syphilis_test_date}"
     relevance: "syphilis_positive == 1"
-    isRedFont: "syphilis_positive == 1 ? true : false"
+    
 
   - template: "{{profile_overview.asb}}: {date}"
     relevance: "asb_positive == 1"
-    isRedFont: "asb_positive == 1 ? true : false"
+    
 
   - template: "{{profile_overview.gbs}}: {urine_test_date}"
     relevance: "urine_culture == 'positive - group b streptococcus (gbs)'"
-    isRedFont: "urine_culture == 'positive - group b streptococcus (gbs)' ? true : false"
+    
 
   - template: "{{profile_overview.gdm}}: {date}"
     relevance: "gdm = 1"
-    isRedFont: "gdm = 1 ? true : false"
+    
 
   - template: "{{profile_overview.dm}}: {date}"
     relevance: "dm_in_preg = 1"
-    isRedFont: "dm_in_preg = 1 ? true : false"
+    
 
   - template: "{{profile_overview.anaemia_diagnosis}}: {date}"
     relevance: "anaemic = 1"
-    isRedFont: "anaemic = 1 ? true : false"
+    
 
   - template: "{{profile_overview.tb_positive}}: {date}"
     relevance: "tb_screening_result == 'positive'"
-    isRedFont: "tb_screening_result == 'positive' ? true : false"
+    
 
 
 ---
@@ -301,7 +301,7 @@ fields:
     relevance: "phys_symptoms != ''"
   - template: "Persisting physiological symptoms: {phys_symptoms_persist_value}"
     relevance: "phys_symptoms_persist != ''"
-    isRedFont: "true"
+    
 
 ---
 group: birth_plan_counseling
@@ -329,7 +329,7 @@ group: immunisation_status
 fields:
   - template: "{{profile_overview.immunisation_status.tt_immunisation_status}}: {tt_immun_status}"
     relevance: "tt_immun_status != ''"
-    isRedFont: "tt_immun_status == 'ttcv_not_received' || tt_immun_status == 'unknown'"
+    
 
   - template: "{{profile_overview.immunisation_status.tt_dose_1}}: {tt1_date_value}"
     relevance: "tt1_date == 'done_today' || tt1_date == 'done_earlier'"
@@ -339,7 +339,7 @@ fields:
 
   - template: "{{profile_overview.immunisation_status.flu_immunisation_status}}: {flu_immun_status}"
     relevance: "flu_immun_status != ''"
-    isRedFont: "flu_immun_status == 'seasonal_flu_dose_missing' || flu_immun_status == 'unknown'"
+    
 
   - template: "{{profile_overview.immunisation_status.flu_dose}}: {flu_date_value}"
     relevance: "flu_date == 'done_today' || flu_date == 'done_earlier'"

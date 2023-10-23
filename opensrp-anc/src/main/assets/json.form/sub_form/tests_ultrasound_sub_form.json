@@ -321,11 +321,7 @@
 					"openmrs_entity": "concept",
 					"openmrs_entity_id": "165386AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 				}
-			],
-			"v_required": {
-				"value": true,
-				"err": "{{tests_ultrasound_sub_form.step1.ultrasound_notdone.v_required.err}}"
-			}
+			]
 		},
 
 		{
