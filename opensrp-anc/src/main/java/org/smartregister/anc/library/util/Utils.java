@@ -345,9 +345,9 @@ public class Utils extends org.smartregister.util.Utils {
             String key = stringValueResult.substring(stringValueResult.indexOf("{") + 1, stringValueResult.indexOf("}"));
             String value = processValue(key, facts);
             if(value.equals("Hasil usg trimester i"))
-                value = value.replace("Hasil usg trimester i", "Hasil USG trimester I");
+                value = value.replace("Hasil usg trimester i", "Hasil USG Trimester I");
             if(value.equals("Hasil usg trimester iii"))
-                value = value.replace("Hasil usg trimester iii", "Hasil USG trimester III");
+                value = value.replace("Hasil usg trimester iii", "Hasil USG Trimester III");
 
             stringValueResult = stringValueResult.replace("{" + key + "}", value).replaceAll(", $", "").trim();
         }

@@ -233,7 +233,7 @@
             android:paddingTop="2dp"
             android:paddingEnd="10dp"
             android:paddingBottom="1dp"
-            android:text="Warm spot for the birth with a clean surface or a clean cloth."
+            android:text="@string/warm_spot_for_the_birth_with_a_clean_surface_or_a_clean_cloth"
             android:textColor="@color/black" />
     </LinearLayout>
 
