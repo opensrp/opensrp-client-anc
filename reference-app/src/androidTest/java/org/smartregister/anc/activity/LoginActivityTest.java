@@ -64,6 +64,7 @@ public class LoginActivityTest {
         onView(withId(R.id.login_password_edit_text)).perform(typeText(correctPassword), closeSoftKeyboard());
         onView(withId(R.id.login_login_btn)).perform(click());
         Thread.sleep(30000);
+        //fix error caused by the id edt_search
         onView(withId(R.id.edt_search)).check(matches(isDisplayed()));
 
    }
