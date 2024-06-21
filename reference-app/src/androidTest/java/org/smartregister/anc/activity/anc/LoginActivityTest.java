@@ -1,4 +1,4 @@
-package org.smartregister.anc.activity;
+package org.smartregister.anc.activity.anc;
 
 
 import static androidx.test.espresso.Espresso.onView;
@@ -37,6 +37,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.smartregister.anc.R;
+import org.smartregister.anc.activity.utils.Constants;
+import org.smartregister.anc.activity.utils.Utils;
 
 @LargeTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -46,7 +48,6 @@ public class LoginActivityTest {
     @Rule
     public ActivityScenarioRule<LoginActivity> mActivityScenario = new ActivityScenarioRule<>(LoginActivity.class);
     public String correctPassword = "Amani123";
-
 
 
 
