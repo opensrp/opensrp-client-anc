@@ -69,9 +69,8 @@ public class HomePageActivityTest {
     @Test
     public void D_AdvancedSearch() throws InterruptedException {
         onView(withId(R.id.action_search)).perform(click());
-        Thread.sleep(2000);
-//        onView(withId(R.id.anc_id)).check(matches(isDisplayed()));
-//        Thread.sleep(2000);
+        onView(withId(R.id.qrCodeButton)).check(matches(isDisplayed()));
+        Thread.sleep(1000);
         onView(withId(R.id.action_clients)).perform(click());
 
 
@@ -80,10 +79,8 @@ public class HomePageActivityTest {
     @Test
     public void E_OpenLibrary() throws InterruptedException {
         onView(withId(R.id.action_library)).perform(click());
-        Thread.sleep(2000);
-        //  onView(withId(R.id.library_item_layout)).atPosition(1).perform(click());
-        Thread.sleep(2000);
         onView(withId(R.id.library_toolbar_title)).check(matches(isDisplayed()));
+         Thread.sleep(1000);
         onView(withId(R.id.action_clients)).perform(click());
 
 
