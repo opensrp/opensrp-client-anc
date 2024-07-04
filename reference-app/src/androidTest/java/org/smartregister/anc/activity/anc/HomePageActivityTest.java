@@ -3,15 +3,25 @@ package org.smartregister.anc.activity.anc;
 import static androidx.test.espresso.Espresso.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
+import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.isClickable;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withSubstring;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+
+//import static org.smartregister.anc.activity.utils.Utils.withRecyclerViewId;
+
+import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.CoreMatchers.is;
 
 import androidx.test.espresso.action.ViewActions;
+import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
@@ -96,6 +106,36 @@ public class HomePageActivityTest {
         onView(withContentDescription("Me")).perform(click());
         Thread.sleep(1500);
         onView(withId(R.id.locationImageView)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void userCanClickOnAPatient() throws InterruptedException {
+        onView(allOf(withId(R.id.recycler_view), isDisplayed()))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        Thread.sleep(2000);
+        onView(withId(R.id.btn_profile_registration_info)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void userCanClickOnNextButtonOnRegister() throws InterruptedException {
+        Thread.sleep(2000);
+        onView(allOf(withId(R.id.recycler_view), isDisplayed()))
+                .perform(RecyclerViewActions.scrollToPosition(20));
+        Thread.sleep(2000);
+        onView(withId(R.id.btn_next_page)).perform(click());
+        onView(withId(R.id.btn_previous_page)).check(matches(isDisplayed()));
+    }
+    @Test
+    public void userCanClickOnThePreviousBtnOnRegister() throws InterruptedException {
+        Thread.sleep(2000);
+        onView(allOf(withId(R.id.recycler_view), isDisplayed()))
+                .perform(RecyclerViewActions.scrollToPosition(20));
+        Thread.sleep(2000);
+        onView(withId(R.id.btn_next_page)).perform(click());
+        Thread.sleep(2000);
+        onView(withId(R.id.btn_previous_page)).perform(scrollTo()).perform(click());
+        Thread.sleep(2000);
+        onView(withText("Page 1 of 9")).perform(scrollTo()).check(matches(isDisplayed()));
     }
 }
 
