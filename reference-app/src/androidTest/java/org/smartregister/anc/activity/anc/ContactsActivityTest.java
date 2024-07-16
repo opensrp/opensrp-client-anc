@@ -10,6 +10,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
+import androidx.test.espresso.NoMatchingViewException;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -51,5 +52,14 @@ public class ContactsActivityTest {
         onView(withId(R.id.due_button_wrapper)).perform(click());
         Thread.sleep(2000);
 
+        try {
+            onView(withText("Form Update")).check(matches(isDisplayed()));
+            onView(withText("OK")).perform(click());
+            Thread.sleep(2000);
+        } catch (NoMatchingViewException e) {
+        }
+        onView(withId(R.id.contact_title)).check(matches(isDisplayed()));
     }
+
 }
+
