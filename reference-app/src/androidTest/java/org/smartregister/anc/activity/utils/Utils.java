@@ -4,18 +4,22 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 
-import android.view.View;
-import android.view.ViewGroup;
 
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
+import android.app.Activity;
+
+import androidx.test.espresso.core.internal.deps.guava.collect.Iterables;
+import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
+import androidx.test.runner.lifecycle.Stage;
+
+import com.vijay.jsonwizard.activities.JsonFormActivity;
+
+import org.apache.commons.lang3.RandomStringUtils;
 import org.smartregister.anc.R;
+
 
 public class Utils {
 
@@ -27,18 +31,28 @@ public class Utils {
         Thread.sleep(30000);
     }
 
-//    public static Matcher<View> withRecyclerViewId(final int recyclerViewId) {
-//        return new TypeSafeMatcher<View>() {
-//            @Override
-//            public void describeTo(Description description) {
-//                description.appendText("RecyclerView with ID: " + recyclerViewId);
-//            }
-//            @Override
-//            public boolean matchesSafely(View view) {
-//                return view.getId() == recyclerViewId;
-//            }
-//        };
-//    }
+
+
+    public Activity getCurrentActivity() throws Throwable {
+        getInstrumentation().waitForIdleSync();
+        final Activity[] activity = new Activity[1];
+        runOnUiThread(() -> {
+            java.util.Collection<Activity> activities = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED);
+            activity[0] = (Activity) Iterables.getOnlyElement(activities);
+        });
+        return activity[0];
+    }
+
+    public static int getViewId(JsonFormActivity jsonFormActivity, String key)
+    {
+        return jsonFormActivity.getFormDataView(key).getId();
+
+
+    }
+
+
+
+
 
 }
 
