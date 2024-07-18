@@ -76,7 +76,7 @@ public class RegisterFamilyMemberPageTests {
 
  }
 
-
+//Always run below test after the test above
 @Test
  public void c_RemoveFamilyMemberAdded() throws Throwable {
 
@@ -92,6 +92,25 @@ public class RegisterFamilyMemberPageTests {
 
 
  }
+
+ @Test
+    public void d_AddMemberWithMissingMandatoryFields() throws Throwable {
+     onView(withId(R.id.action_register)).perform(click());
+     Activity activity = utils.getCurrentActivity();
+     onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:first_name"))).perform(typeText("espresso"), closeSoftKeyboard());
+     onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:last_name"))).perform(typeText("Tester "), closeSoftKeyboard());
+     onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:dob_unknown"))).perform(click());
+     onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:age_entered"))).perform(typeText("28"), closeSoftKeyboard());
+     onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:home_address"))).perform(typeText("28th street Ng"), closeSoftKeyboard());
+     onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:phone_number"))).perform(typeText("+254701000000"), closeSoftKeyboard());
+     onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:reminders"))).perform(click());
+     onView(withId(R.id.action_save)).perform(click());
+     onView(withSubstring("Found 1 error(s) in the form. Please correct them to submit.")).check(matches(isDisplayed()));
+     Thread.sleep(500);
+
+ }
+
+
 
 
 
