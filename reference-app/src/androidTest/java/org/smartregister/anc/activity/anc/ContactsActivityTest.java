@@ -9,6 +9,7 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withSubstring;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import android.app.Activity;
@@ -50,7 +51,7 @@ public class ContactsActivityTest {
     @Test
     public void B_StartContactVisit() throws Throwable {
 
-        Thread.sleep(2000);
+//        Thread.sleep(2000);
 
         onView(withId(R.id.edt_search)).perform(typeText(Configs.TestDataConfigs.clientName), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.patient_name)).check(matches(isDisplayed()));
@@ -67,7 +68,10 @@ public class ContactsActivityTest {
         onView(withId(R.id.contact_title)).check(matches(isDisplayed()));
         onView(withContentDescription("First contact"));
         Activity activity = utils.getCurrentActivity();
-//        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:first_contact"))).perform(click());
+        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:contact_reason"))).perform(click());
+        onView(withSubstring("First contact")).perform(click());;
+        Thread.sleep(4000);
+        onView(withSubstring("None")).perform(click());
         Thread.sleep(2000);
 
     }
