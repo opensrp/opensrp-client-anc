@@ -7,14 +7,20 @@ import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+
+import android.app.Activity;
 
 import androidx.test.espresso.NoMatchingViewException;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
+
+import com.vijay.jsonwizard.activities.JsonFormActivity;
+
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
@@ -42,7 +48,7 @@ public class ContactsActivityTest {
     }
 
     @Test
-    public void B_StartContactVisit() throws InterruptedException {
+    public void B_StartContactVisit() throws Throwable {
 
         Thread.sleep(2000);
 
@@ -59,6 +65,11 @@ public class ContactsActivityTest {
         } catch (NoMatchingViewException e) {
         }
         onView(withId(R.id.contact_title)).check(matches(isDisplayed()));
+        onView(withContentDescription("First contact"));
+        Activity activity = utils.getCurrentActivity();
+//        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:first_contact"))).perform(click());
+        Thread.sleep(2000);
+
     }
 
 }
