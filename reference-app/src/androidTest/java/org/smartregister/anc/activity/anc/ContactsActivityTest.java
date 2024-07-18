@@ -69,12 +69,12 @@ public class ContactsActivityTest {
         onView(withContentDescription("First contact"));
         Activity activity = utils.getCurrentActivity();
         onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:contact_reason"))).perform(click());
-        onView(withSubstring("First contact")).perform(click());;
+        onView(withSubstring("First contact")).perform(click());
         Thread.sleep(4000);
         onView(withSubstring("None")).perform(click());
         Thread.sleep(2000);
-
+        onView(withSubstring("PROCEED TO NORMAL CONTACT")).perform(click());;
+        Thread.sleep(2000);
     }
-
 }
 

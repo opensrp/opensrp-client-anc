@@ -3,8 +3,8 @@ public class Configs {
 
 
  public static class TestDataConfigs{
-     public static final String clientName = "Beth Kasin";
-     public static final String clientID = "7187941";
+     public static final String clientName = "Natsya Masha";
+     public static final String clientID = "7180953";
 
  }
 }
