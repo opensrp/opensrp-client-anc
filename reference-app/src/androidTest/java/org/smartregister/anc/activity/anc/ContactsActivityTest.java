@@ -44,14 +44,13 @@ public class ContactsActivityTest {
     private Utils utils = new Utils();
 
     @Test
-    public void A_setUp() throws InterruptedException {
+    public void setUp() throws InterruptedException {
         utils.logIn(Constants.ancConstants.ancUsername, Constants.ancConstants.ancPassword);
+        onView(withId(R.id.search_bar_layout)).check(matches(isDisplayed()));
     }
 
     @Test
-    public void B_StartContactVisit() throws Throwable {
-
-//        Thread.sleep(2000);
+    public void startContactVisit() throws Throwable {
 
         onView(withId(R.id.edt_search)).perform(typeText(Configs.TestDataConfigs.clientName), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.patient_name)).check(matches(isDisplayed()));
@@ -75,6 +74,7 @@ public class ContactsActivityTest {
         Thread.sleep(2000);
         onView(withSubstring("PROCEED TO NORMAL CONTACT")).perform(click());;
         Thread.sleep(2000);
+
     }
 }
 
