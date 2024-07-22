@@ -27,31 +27,34 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.smartregister.anc.R;
+import org.smartregister.anc.activity.utils.Constants;
+import org.smartregister.anc.activity.utils.Utils;
 
 
 @LargeTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(AndroidJUnit4.class)
 public class LoginActivityTest {
+    Utils utils = new Utils();
 
     @Rule
     public ActivityScenarioRule<LoginActivity> mActivityScenario = new ActivityScenarioRule<>(LoginActivity.class);
-    public String correctPassword = "Amani123";
+
 
 
 
     @Test
     public void eTestShowPassword(){
-        onView(withId(R.id.login_password_edit_text)).perform(typeText(correctPassword),closeSoftKeyboard());
+        onView(withId(R.id.login_password_edit_text)).perform(typeText(Constants.ancConstants.ancPassword),closeSoftKeyboard());
         onView(withId(R.id.login_show_password_checkbox)).perform(click(),closeSoftKeyboard());
-        onView(withId(R.id.login_password_edit_text)).check(matches(withText(correctPassword)));
+        onView(withId(R.id.login_password_edit_text)).check(matches(withText(Constants.ancConstants.ancPassword)));
 
     }
 
     @Test
     public void fTestSuccessfulLogin() throws InterruptedException {
-        onView(withId(R.id.login_user_name_edit_text)).perform(typeText("demo"), closeSoftKeyboard());
-        onView(withId(R.id.login_password_edit_text)).perform(typeText(correctPassword), closeSoftKeyboard());
+        onView(withId(R.id.login_user_name_edit_text)).perform(typeText(Constants.ancConstants.ancUsername), closeSoftKeyboard());
+        onView(withId(R.id.login_password_edit_text)).perform(typeText(Constants.ancConstants.ancPassword), closeSoftKeyboard());
         onView(withId(R.id.login_login_btn)).perform(click());
         Thread.sleep(30000);
         //fix error caused by the id edt_search
@@ -62,7 +65,7 @@ public class LoginActivityTest {
     @Test
     public void cTestIncorrectUsername() throws InterruptedException {
         onView(withId(R.id.login_user_name_edit_text)).perform(typeText("Beba"),closeSoftKeyboard());
-        onView(withId(R.id.login_password_edit_text)).perform(typeText(correctPassword),closeSoftKeyboard());
+        onView(withId(R.id.login_password_edit_text)).perform(typeText(Constants.ancConstants.ancPassword),closeSoftKeyboard());
         onView(withId(R.id.login_login_btn)).perform(click());
         Thread.sleep(20000);
         onView(withText("Please check the credentials")).check(matches(isDisplayed()));
@@ -74,8 +77,8 @@ public class LoginActivityTest {
 
     @Test
     public void dTestIncorrectPassword() throws InterruptedException {
-        onView(withId(R.id.login_user_name_edit_text)).perform(typeText("demo"),closeSoftKeyboard());
-        onView(withId(R.id.login_password_edit_text)).perform(typeText("mani"),closeSoftKeyboard());
+        onView(withId(R.id.login_user_name_edit_text)).perform(typeText(Constants.ancConstants.ancUsername),closeSoftKeyboard());
+        onView(withId(R.id.login_password_edit_text)).perform(typeText("koko"),closeSoftKeyboard());
         onView(withId(R.id.login_login_btn)).perform(click());
         Thread.sleep(20000);
         onView(withText("Please check the credentials")).check(matches(isDisplayed()));
@@ -86,7 +89,7 @@ public class LoginActivityTest {
     @Test
     public void aTestEmptyUsername() throws InterruptedException {
         onView(withId(R.id.login_user_name_edit_text)).perform(typeText(" "),closeSoftKeyboard());
-        onView(withId(R.id.login_password_edit_text)).perform(typeText(correctPassword),closeSoftKeyboard());
+        onView(withId(R.id.login_password_edit_text)).perform(typeText(Constants.ancConstants.ancPassword),closeSoftKeyboard());
         onView(withId(R.id.login_login_btn)).perform(click());
         Thread.sleep(20000);
         onView(withText("Please check the credentials")).check(matches(isDisplayed()));
@@ -96,7 +99,7 @@ public class LoginActivityTest {
 
     @Test
     public void bTestEmptyPassword() throws InterruptedException {
-        onView(withId(R.id.login_user_name_edit_text)).perform(typeText("Beba"),closeSoftKeyboard());
+        onView(withId(R.id.login_user_name_edit_text)).perform(typeText(Constants.ancConstants.ancPassword),closeSoftKeyboard());
         onView(withId(R.id.login_password_edit_text)).perform(typeText(" "),closeSoftKeyboard());
         onView(withId(R.id.login_login_btn)).perform(click());
         Thread.sleep(20000);

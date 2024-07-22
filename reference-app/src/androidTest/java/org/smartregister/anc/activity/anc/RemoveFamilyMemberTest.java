@@ -138,7 +138,7 @@ public class RemoveFamilyMemberTest {
         onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:delivery_place"))).perform(click());
         onView(withSubstring("Health facility")).perform(click());
         onView(withId(R.id.action_save)).perform(click());
-      //  Thread.sleep(1000);
+
 
 
     }
@@ -163,22 +163,7 @@ public class RemoveFamilyMemberTest {
 
     }
 
-//    @Test
-//    public void hRemoveByOther() throws Throwable {
-//        utils.addAFamilyMember();
-//        onView(withText(Configs.TestDataConfigs.firstAndLastName)).perform(click());
-//        Thread.sleep(500);
-//        onView(withId(R.id.overflow_menu_item)).perform(click());
-//        onView(withText("Close ANC Record")).perform(click());
-//        Thread.sleep(500);
-//        Activity activity = utils.getCurrentActivity();
-//        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:anc_close_reason"))).perform(click());
-//        onView(withSubstring("Other")).perform(click());
-//        onView(withId(R.id.action_save)).perform(click());
-//
-//
-//
-//    }
+
 
     @Test
     public void iRemoveByLiveBirth() throws Throwable {
