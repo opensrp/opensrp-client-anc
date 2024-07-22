@@ -4,7 +4,12 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withInputType;
+import static androidx.test.espresso.matcher.ViewMatchers.withSubstring;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 
@@ -49,6 +54,26 @@ public class Utils {
 
 
     }
+
+    public void addAFamilyMember() throws Throwable {
+        onView(withId(R.id.action_register)).perform(click());
+        //get Activity
+        Activity activity = getCurrentActivity();
+        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:first_name"))).perform(typeText(Configs.TestDataConfigs.firstName), closeSoftKeyboard());
+        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:last_name"))).perform(typeText(Configs.TestDataConfigs.lastName), closeSoftKeyboard());
+        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:dob_unknown"))).perform(click());
+        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:age_entered"))).perform(typeText(Configs.TestDataConfigs.clientAge),closeSoftKeyboard());
+        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:home_address"))).perform(typeText(Configs.TestDataConfigs.clientAddress), closeSoftKeyboard());
+        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:phone_number"))).perform(typeText(Configs.TestDataConfigs.phoneNumber), closeSoftKeyboard());
+        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:reminders"))).perform(click());
+        onView(withSubstring("Yes")).perform(click());
+        onView(withId(R.id.action_save)).perform(click());
+        Thread.sleep(3000);
+        onView(withText(Configs.TestDataConfigs.firstAndLastName)).check(matches(isDisplayed()));
+
+    }
+
+
 
 
 

@@ -6,36 +6,29 @@ import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
-import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
-import static androidx.test.espresso.matcher.ViewMatchers.withHint;
+
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withSubstring;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
-import static org.hamcrest.CoreMatchers.allOf;
-import static org.hamcrest.Matchers.is;
+
 
 import android.app.Activity;
 
-import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 
-import org.json.JSONObject;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 import org.junit.runners.MethodSorters;
-import org.smartregister.Context;
 import org.smartregister.anc.R;
 import org.smartregister.anc.activity.LoginActivity;
+import org.smartregister.anc.activity.utils.Configs;
 import org.smartregister.anc.activity.utils.Constants;
 import org.smartregister.anc.activity.utils.Utils;
 @LargeTest
@@ -49,38 +42,27 @@ public class RegisterFamilyMemberPageTests {
     public ActivityScenarioRule<LoginActivity> mActivityScenario = new ActivityScenarioRule<>(LoginActivity.class);
 
  Utils utils = new Utils();
- //JsonFormActivity jsonFormActivity = new JsonFormActivity();
 
+
+
+@Test
+public void aSetUp() throws InterruptedException {
+ utils.logIn(Constants.ancConstants.ancUsername, Constants.ancConstants.ancPassword);
+}
 
  @Test
- public void a_SetUp() throws InterruptedException {
-     utils.logIn(Constants.ancConstants.ancUsername, Constants.ancConstants.ancPassword);
- }
-
- @Test
- public void b_AddAFamilyMember() throws Throwable {
-     onView(withId(R.id.action_register)).perform(click());
-     //get Activity
-     Activity activity = utils.getCurrentActivity();
-     onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:first_name"))).perform(typeText("espresso"), closeSoftKeyboard());
-     onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:last_name"))).perform(typeText("Tester "), closeSoftKeyboard());
-     onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:dob_unknown"))).perform(click());
-     onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:age_entered"))).perform(typeText("28"), closeSoftKeyboard());
-     onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:home_address"))).perform(typeText("28th street Ng"), closeSoftKeyboard());
-     onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:phone_number"))).perform(typeText("+254701000000"), closeSoftKeyboard());
-     onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:reminders"))).perform(click());
-     onView(withSubstring("Yes")).perform(click());
-     onView(withId(R.id.action_save)).perform(click());
+ public void bAddAFamilyMember() throws Throwable {
+    utils.addAFamilyMember();
      Thread.sleep(3000);
-     onView(withText("espresso Tester")).check(matches(isDisplayed()));
+     onView(withText(Configs.TestDataConfigs.firstAndLastName)).check(matches(isDisplayed()));
 
  }
 
 //Always run below test after the test above
 @Test
- public void c_RemoveFamilyMemberAdded() throws Throwable {
+ public void cRemoveFamilyMemberAdded() throws Throwable {
 
-     onView(withText("Espresso Tester")).perform(click());
+     onView(withText(Configs.TestDataConfigs.firstAndLastName)).perform(click());
      Thread.sleep(2000);
      onView(withId(R.id.overflow_menu_item)).perform(click());
      onView(withText("Close ANC Record")).perform(click());
@@ -94,15 +76,15 @@ public class RegisterFamilyMemberPageTests {
  }
 
  @Test
-    public void d_AddMemberWithMissingMandatoryFields() throws Throwable {
+    public void dAddMemberWithMissingMandatoryFields() throws Throwable {
      onView(withId(R.id.action_register)).perform(click());
      Activity activity = utils.getCurrentActivity();
-     onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:first_name"))).perform(typeText("espresso"), closeSoftKeyboard());
-     onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:last_name"))).perform(typeText("Tester "), closeSoftKeyboard());
+     onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:first_name"))).perform(typeText(Configs.TestDataConfigs.firstName), closeSoftKeyboard());
+     onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:last_name"))).perform(typeText(Configs.TestDataConfigs.lastName), closeSoftKeyboard());
      onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:dob_unknown"))).perform(click());
-     onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:age_entered"))).perform(typeText("28"), closeSoftKeyboard());
-     onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:home_address"))).perform(typeText("28th street Ng"), closeSoftKeyboard());
-     onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:phone_number"))).perform(typeText("+254701000000"), closeSoftKeyboard());
+     onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:age_entered"))).perform(typeText(Configs.TestDataConfigs.clientAge),closeSoftKeyboard());
+     onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:home_address"))).perform(typeText(Configs.TestDataConfigs.clientAddress), closeSoftKeyboard());
+     onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:phone_number"))).perform(typeText(Configs.TestDataConfigs.phoneNumber), closeSoftKeyboard());
      onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:reminders"))).perform(click());
      onView(withId(R.id.action_save)).perform(click());
      onView(withSubstring("Found 1 error(s) in the form. Please correct them to submit.")).check(matches(isDisplayed()));
@@ -113,9 +95,6 @@ public class RegisterFamilyMemberPageTests {
 
 
 
-
-     //    JSONObject  jsonObject = jsonFormActivity.getmJSONObject();
-//    jsonObject.getString("first_name");
 
 
 
