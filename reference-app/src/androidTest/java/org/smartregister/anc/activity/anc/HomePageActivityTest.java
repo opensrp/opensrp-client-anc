@@ -82,8 +82,6 @@ public class HomePageActivityTest {
         onView(withId(R.id.qrCodeButton)).check(matches(isDisplayed()));
         Thread.sleep(1000);
         onView(withId(R.id.action_clients)).perform(click());
-
-
     }
 
     @Test
