@@ -22,6 +22,7 @@ import androidx.test.filters.LargeTest;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 
+import org.junit.AfterClass;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
@@ -75,6 +76,14 @@ public class ContactsActivityTest {
         onView(withSubstring("PROCEED TO NORMAL CONTACT")).perform(click());;
         Thread.sleep(2000);
 
+    }
+    @AfterClass
+    public static void tearDown() throws InterruptedException {
+        // Perform logout
+        onView(withContentDescription("Me")).perform(click());
+        onView(withId(R.id.logout_text)).perform(click());
+        Thread.sleep(1500);
+        onView(withId(R.id.login_login_btn)).check(matches(isDisplayed()));
     }
 }
 
