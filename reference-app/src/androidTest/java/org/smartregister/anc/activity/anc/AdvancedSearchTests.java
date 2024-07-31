@@ -55,7 +55,7 @@ public class AdvancedSearchTests {
     @Rule
     public ActivityScenarioRule<LoginActivity> mActivityScenario = new ActivityScenarioRule<>(LoginActivity.class);
 
-    private Utils utils = new Utils();
+    private final Utils utils = new Utils();
 
     @Test
     public void A_setUp() throws InterruptedException {
@@ -150,7 +150,6 @@ public class AdvancedSearchTests {
         Thread.sleep(5000);
         Matcher<View> parentMatcher = withId(R.id.list_view_layout);
         onView(allOf(withId(R.id.recycler_view), withParent(parentMatcher))).perform(RecyclerViewActions.scrollTo(ViewMatchers.hasDescendant(withText(Configs.TestDataConfigs.clientName2)))).check(matches(isDisplayed()));
-
     }
     @Test
     public void userCanSearchOutsideAndInsideMyHealthFacilityByScanningAQRCOde() throws InterruptedException{
@@ -159,4 +158,12 @@ public class AdvancedSearchTests {
         onView(withId(R.id.qrCodeButton)).perform(click());
         onView(withText("Scan QR Code")).check(matches(isDisplayed()));
     }
+    @Test
+    public void userCanSearchInMyHealthFacilityByFirstName () {
+        onView(withId(R.id.action_search)).perform(click());
+        onView(withId(R.id.my_catchment)).perform(click());
+        onView(withId(R.id.first_name)).perform(typeText(Configs.TestDataConfigs.firstName),ViewActions.closeSoftKeyboard());
+        onView(withId(R.id.search)).perform(click());
+    }
+
 }
