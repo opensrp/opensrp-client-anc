@@ -22,6 +22,7 @@ import androidx.test.filters.LargeTest;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 
+import org.junit.AfterClass;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
@@ -65,6 +66,31 @@ public class ProfileContainerTest {
         onView(withText("Married or living together")).perform(scrollTo(), click());
         onView(withText("Formal employment")).perform(scrollTo(), click());
         onView(withText("NEXT")).perform(scrollTo(), click());
+
+        onView(withText("Current Pregnancy")).check(matches(isDisplayed()));
+        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:lmp_known")));
+        onView(withSubstring("Yes")).perform(click());
+        onView(withText("08-03-2024")).perform(click());
+
+        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step2:ultrasound_done")));
+        onView(withSubstring("Yes")).perform(scrollTo(), click());
+        onView(withText("22-04-2024")).perform(click());
+
+        onView(withSubstring("GA from ultrasound-weeks")).perform(scrollTo(), typeText("6"), ViewActions.closeSoftKeyboard());
+        onView(withSubstring("GA from ultrasound-days")).perform(scrollTo(), typeText("3"), ViewActions.closeSoftKeyboard());
+
+        onView(withText("Select preferred gestational age")).check(matches(isDisplayed()));
+        onView(withSubstring("Using LMP")).perform(scrollTo(), click());
+
+        onView(withText("NEXT")).perform(scrollTo(), click());
         Thread.sleep(2000);
+    }
+    @AfterClass
+    public static void tearDown() throws InterruptedException {
+        // Perform logout
+        onView(withContentDescription("Me")).perform(click());
+        onView(withId(R.id.logout_text)).perform(click());
+        Thread.sleep(1500);
+        onView(withId(R.id.login_login_btn)).check(matches(isDisplayed()));
     }
 }
