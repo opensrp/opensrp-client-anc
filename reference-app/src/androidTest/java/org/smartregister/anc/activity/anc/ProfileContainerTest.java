@@ -67,23 +67,56 @@ public class ProfileContainerTest {
         onView(withText("Formal employment")).perform(scrollTo(), click());
         onView(withText("NEXT")).perform(scrollTo(), click());
 
+//        onView(withText("Current Pregnancy")).check(matches(isDisplayed()));
+//        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:lmp_known")));
+//        onView(withSubstring("Yes")).perform(click());
+//        onView(withText("08-03-2024")).perform(click());
+//
+//        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step2:ultrasound_done")));
+//        onView(withSubstring("Yes")).perform(scrollTo(), click());
+//        onView(withText("22-04-2024")).perform(click());
+//
+//        onView(withSubstring("GA from ultrasound-weeks")).perform(scrollTo(), typeText("6"), ViewActions.closeSoftKeyboard());
+//        onView(withSubstring("GA from ultrasound-days")).perform(scrollTo(), typeText("3"), ViewActions.closeSoftKeyboard());
+//
+//        onView(withText("Select preferred gestational age")).check(matches(isDisplayed()));
+//        onView(withSubstring("Using LMP")).perform(scrollTo(), click());
+
+        // Skip Current Pregnancy page and navigate to Obstetric History
         onView(withText("Current Pregnancy")).check(matches(isDisplayed()));
-        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:lmp_known")));
-        onView(withSubstring("Yes")).perform(click());
-        onView(withText("08-03-2024")).perform(click());
+        onView(withId(R.id.next_icon)).perform(click());
+        Thread.sleep(2000);
+        onView(withText("Obstetric History")).check(matches(isDisplayed()));
+        onView(withText("1")).perform(scrollTo(), click());
+        onView(withText("NEXT")).perform(scrollTo(), click());
+        Thread.sleep(2000);
 
-        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step2:ultrasound_done")));
-        onView(withSubstring("Yes")).perform(scrollTo(), click());
-        onView(withText("22-04-2024")).perform(click());
-
-        onView(withSubstring("GA from ultrasound-weeks")).perform(scrollTo(), typeText("6"), ViewActions.closeSoftKeyboard());
-        onView(withSubstring("GA from ultrasound-days")).perform(scrollTo(), typeText("3"), ViewActions.closeSoftKeyboard());
-
-        onView(withText("Select preferred gestational age")).check(matches(isDisplayed()));
-        onView(withSubstring("Using LMP")).perform(scrollTo(), click());
+        onView(withText("Medical History")).check(matches(isDisplayed()));
+        onView(withText("Any allergies?")).check(matches(isDisplayed()));
+        onView(withText("Penicillin")).perform(scrollTo(), click());
+        onView(withText("Any surgeries?")).check(matches(isDisplayed()));
+        onView(withText("Removal of ovarian cysts")).perform(scrollTo(), click());
+        onView(withId(R.id.scroll_view)).perform(ViewActions.swipeUp());
+        onView(withText("Any chronic or past health conditions?")).check(matches(isDisplayed()));
+        onView(withText("Hypertension")).perform(scrollTo(), click());
 
         onView(withText("NEXT")).perform(scrollTo(), click());
         Thread.sleep(2000);
+
+//        onView(withText("Immunisation Status")).check(matches(isDisplayed()));
+//        onView(withText("Fully immunized")).perform(scrollTo(), click());
+//        onView(withText("No doses")).perform(scrollTo(), click());
+//        onView(withText("NEXT")).perform(scrollTo(), click());
+//        Thread.sleep(2000);
+//
+//        onView(withText("Medications")).check(matches(isDisplayed()));
+//        onView(withText("Antacids")).perform(scrollTo(), click());
+//        onView(withText("Aspirin")).perform(scrollTo(), click());
+//        onView(withId(R.id.scroll_view)).perform(ViewActions.swipeUp());
+//        onView(withText("Other antibiotics")).perform(scrollTo(), click());
+//        onView(withText("Hematinc")).perform(scrollTo(), click());
+//
+//        onView(withText("NEXT")).perform(scrollTo(), click());
     }
     @AfterClass
     public static void tearDown() throws InterruptedException {
