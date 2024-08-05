@@ -107,12 +107,4 @@ public class LoginActivityTest {
 
 
     }
-
-
-
-
-
-
-
-
 }

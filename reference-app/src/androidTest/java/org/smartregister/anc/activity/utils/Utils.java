@@ -13,6 +13,19 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 
+import static org.apache.commons.lang3.Validate.isAssignableFrom;
+
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.core.widget.NestedScrollView;
+import androidx.test.espresso.UiController;
+import androidx.test.espresso.ViewAction;
+import androidx.test.espresso.matcher.BoundedMatcher;
+
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
 
 import android.app.Activity;
 
@@ -35,6 +48,7 @@ public class Utils {
         onView(withId(R.id.login_login_btn)).perform(click());
         Thread.sleep(30000);
     }
+
 
 
 
@@ -73,11 +87,10 @@ public class Utils {
 
     }
 
-
-
-
-
-
-
 }
+
+
+
+
+
 
