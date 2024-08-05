@@ -10,5 +10,12 @@ public class Configs {
      public static final String clientName2 = "Lily Woods";
      public static final String phoneNumber = "584555";
      public static final String alternateContactName = "Lu";
+     public static final String firstName = "Test";
+     public static final String lastName = "Client";
+     public static final String clientAge = "29";
+     public static final String clientAddress = "28th strt Nrb";
+     public static final String phoneNumber = "+254700100200";
+     public static final String firstAndLastName = "Test Client";
+
  }
 }

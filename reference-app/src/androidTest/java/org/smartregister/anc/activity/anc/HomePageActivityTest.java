@@ -1,25 +1,18 @@
 package org.smartregister.anc.activity.anc;
 
-import static androidx.test.espresso.Espresso.closeSoftKeyboard;
+
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
-import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
-import static androidx.test.espresso.matcher.ViewMatchers.isClickable;
+
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withSubstring;
+
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-
-//import static org.smartregister.anc.activity.utils.Utils.withRecyclerViewId;
-
 import static org.hamcrest.CoreMatchers.allOf;
-import static org.hamcrest.CoreMatchers.is;
-
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
@@ -48,18 +41,18 @@ public class HomePageActivityTest {
     private Utils utils = new Utils();
 
     @Test
-    public void A_setUp() throws InterruptedException {
+    public void asetUp() throws InterruptedException {
         utils.logIn(Constants.ancConstants.ancUsername, Constants.ancConstants.ancPassword);
     }
 
     @Test
-    public void B_SearchBarPresent() {
+    public void bSearchBarPresent() {
         onView(withId(R.id.search_bar_layout)).check(matches(isDisplayed()));
 
     }
 
     @Test
-    public void C_SearchPatientByName() throws InterruptedException {
+    public void cSearchPatientByName() throws InterruptedException {
 
         onView(withId(R.id.edt_search)).perform(typeText(Configs.TestDataConfigs.clientName), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.patient_name)).check(matches(isDisplayed()));
@@ -68,7 +61,7 @@ public class HomePageActivityTest {
     }
 
     @Test
-    public void C_SearchPatientByID() throws InterruptedException {
+    public void dSearchPatientByID() throws InterruptedException {
 
         onView(withId(R.id.edt_search)).perform(typeText(Configs.TestDataConfigs.clientID), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.patient_name)).check(matches(isDisplayed()));
@@ -77,7 +70,7 @@ public class HomePageActivityTest {
     }
 
     @Test
-    public void D_AdvancedSearch() throws InterruptedException {
+    public void eAdvancedSearch() throws InterruptedException {
         onView(withId(R.id.action_search)).perform(click());
         onView(withId(R.id.qrCodeButton)).check(matches(isDisplayed()));
         Thread.sleep(1000);
@@ -85,7 +78,7 @@ public class HomePageActivityTest {
     }
 
     @Test
-    public void E_OpenLibrary() throws InterruptedException {
+    public void fOpenLibrary() throws InterruptedException {
         onView(withId(R.id.action_library)).perform(click());
         onView(withId(R.id.library_toolbar_title)).check(matches(isDisplayed()));
          Thread.sleep(1000);
@@ -94,20 +87,20 @@ public class HomePageActivityTest {
 
     }
     @Test
-    public void userCanAccessANCRegistrationForm() throws InterruptedException {
+    public void guserCanAccessANCRegistrationForm() throws InterruptedException {
         onView(withContentDescription("Register")).perform(click());
         Thread.sleep(1500);
         onView(withId(R.id.scan_button)).check(matches(isDisplayed()));
     }
     @Test
-    public void userCanAccessProfile() throws InterruptedException {
+    public void huserCanAccessProfile() throws InterruptedException {
         onView(withContentDescription("Me")).perform(click());
         Thread.sleep(1500);
         onView(withId(R.id.locationImageView)).check(matches(isDisplayed()));
     }
 
     @Test
-    public void userCanClickOnAPatient() throws InterruptedException {
+    public void iuserCanClickOnAPatient() throws InterruptedException {
         onView(allOf(withId(R.id.recycler_view), isDisplayed()))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
         Thread.sleep(2000);
@@ -115,7 +108,7 @@ public class HomePageActivityTest {
     }
 
     @Test
-    public void userCanClickOnNextButtonOnRegister() throws InterruptedException {
+    public void juserCanClickOnNextButtonOnRegister() throws InterruptedException {
         Thread.sleep(2000);
         onView(allOf(withId(R.id.recycler_view), isDisplayed()))
                 .perform(RecyclerViewActions.scrollToPosition(20));
@@ -124,7 +117,7 @@ public class HomePageActivityTest {
         onView(withId(R.id.btn_previous_page)).check(matches(isDisplayed()));
     }
     @Test
-    public void userCanClickOnThePreviousBtnOnRegister() throws InterruptedException {
+    public void kuserCanClickOnThePreviousBtnOnRegister() throws InterruptedException {
         Thread.sleep(2000);
         onView(allOf(withId(R.id.recycler_view), isDisplayed()))
                 .perform(RecyclerViewActions.scrollToPosition(20));
