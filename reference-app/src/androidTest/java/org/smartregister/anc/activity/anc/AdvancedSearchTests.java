@@ -66,7 +66,7 @@ public class AdvancedSearchTests {
     public void userCanSearchOutsideAndInsideMyHealthFacilityByFirstName() throws InterruptedException {
         onView(withId(R.id.action_search)).perform(click());
         Thread.sleep(2000);
-        onView(withId(R.id.first_name)).perform(typeText(Configs.TestDataConfigs.firstName),ViewActions.closeSoftKeyboard());
+        onView(withId(R.id.first_name)).perform(typeText(Configs.TestDataConfigs.firstNameA),ViewActions.closeSoftKeyboard());
         onView(withId(R.id.search)).perform(click());
         Thread.sleep(5000);
         Matcher<View> parentMatcher = withId(R.id.list_view_layout);
@@ -77,7 +77,7 @@ public class AdvancedSearchTests {
     public void userCanSearchOutsideAndInsideMyHealthFacilityByLastName() throws InterruptedException {
         onView(withId(R.id.action_search)).perform(click());
         Thread.sleep(2000);
-        onView(withId(R.id.last_name)).perform(typeText(Configs.TestDataConfigs.lastName),ViewActions.closeSoftKeyboard());
+        onView(withId(R.id.last_name)).perform(typeText(Configs.TestDataConfigs.lastNameA),ViewActions.closeSoftKeyboard());
         onView(withId(R.id.search)).perform(click());
         Matcher<View> parentMatcher = withId(R.id.list_view_layout);
         Thread.sleep(5000);
@@ -130,7 +130,7 @@ public class AdvancedSearchTests {
         Thread.sleep(2000);
         onView(withHint("Expected date of delivery")).perform(swipeUp());
         onView(withId(R.id.dob)).perform(swipeUp());
-        onView(withId(R.id.phone_number)).perform(typeText(Configs.TestDataConfigs.phoneNumber));
+        onView(withId(R.id.phone_number)).perform(typeText(Configs.TestDataConfigs.phoneNumberA));
         onView(withId(R.id.search)).perform(click());
         Thread.sleep(5000);
         Matcher<View> parentMatcher = withId(R.id.list_view_layout);
@@ -162,7 +162,7 @@ public class AdvancedSearchTests {
     public void userCanSearchInMyHealthFacilityByFirstName () {
         onView(withId(R.id.action_search)).perform(click());
         onView(withId(R.id.my_catchment)).perform(click());
-        onView(withId(R.id.first_name)).perform(typeText(Configs.TestDataConfigs.firstName),ViewActions.closeSoftKeyboard());
+        onView(withId(R.id.first_name)).perform(typeText(Configs.TestDataConfigs.firstNameA),ViewActions.closeSoftKeyboard());
         onView(withId(R.id.search)).perform(click());
     }
 
