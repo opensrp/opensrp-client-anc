@@ -9,6 +9,7 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static androidx.test.espresso.matcher.ViewMatchers.withSubstring;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
@@ -16,6 +17,7 @@ import android.app.Activity;
 
 import androidx.test.espresso.NoMatchingViewException;
 import androidx.test.espresso.action.ViewActions;
+import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
@@ -23,6 +25,7 @@ import androidx.test.filters.LargeTest;
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
@@ -44,9 +47,10 @@ public class ProfileContainerTest {
 
     private Utils utils = new Utils();
 
-    @Test
+    @Before
     public void A_setUp() throws InterruptedException {
         utils.logIn(Constants.ancConstants.ancUsername, Constants.ancConstants.ancPassword);
+        Thread.sleep(1000);
     }
 
     @Test
@@ -55,9 +59,8 @@ public class ProfileContainerTest {
         onView(withId(R.id.edt_search)).perform(typeText(Configs.TestDataConfigs.clientName), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.patient_name)).check(matches(isDisplayed()));
         onView(withId(R.id.due_button_wrapper)).perform(click());
-        Thread.sleep(4000);
+        Thread.sleep(2000);
 
-        Activity activity = utils.getCurrentActivity();
         onView(withSubstring("Profile")).perform(click());
         Thread.sleep(2000);
 
@@ -67,25 +70,40 @@ public class ProfileContainerTest {
         onView(withText("Formal employment")).perform(scrollTo(), click());
         onView(withText("NEXT")).perform(scrollTo(), click());
 
-//        onView(withText("Current Pregnancy")).check(matches(isDisplayed()));
-//        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:lmp_known")));
-//        onView(withSubstring("Yes")).perform(click());
-//        onView(withText("08-03-2024")).perform(click());
-//
-//        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step2:ultrasound_done")));
-//        onView(withSubstring("Yes")).perform(scrollTo(), click());
-//        onView(withText("22-04-2024")).perform(click());
-//
-//        onView(withSubstring("GA from ultrasound-weeks")).perform(scrollTo(), typeText("6"), ViewActions.closeSoftKeyboard());
-//        onView(withSubstring("GA from ultrasound-days")).perform(scrollTo(), typeText("3"), ViewActions.closeSoftKeyboard());
-//
-//        onView(withText("Select preferred gestational age")).check(matches(isDisplayed()));
-//        onView(withSubstring("Using LMP")).perform(scrollTo(), click());
-
-        // Skip Current Pregnancy page and navigate to Obstetric History
         onView(withText("Current Pregnancy")).check(matches(isDisplayed()));
-        onView(withId(R.id.next_icon)).perform(click());
-        Thread.sleep(2000);
+        onView(withSubstring("specify date")).perform(click());
+        onView(withId(R.id.date_picker)).perform(PickerActions.setDate(2024, 02,07));
+        Thread.sleep(1000);
+        onView(withText("DONE")).perform(click());
+        Thread.sleep(1000);
+
+
+        Activity activity = utils.getCurrentActivity();
+        onView(withSubstring("ultrasound date")).perform(scrollTo(), click());
+        onView(withId(R.id.date_picker)).perform(PickerActions.setDate(2024, 04,24));
+        Thread.sleep(1000);
+        onView(withText("DONE")).perform(click());
+        Thread.sleep(1000);
+
+
+        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step2:ultrasound_gest_age_wks"))).perform(scrollTo(), typeText("6"), ViewActions.closeSoftKeyboard());
+        Thread.sleep(1000);
+        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step2:ultrasound_gest_age_days"))).perform(scrollTo(), typeText("3"), ViewActions.closeSoftKeyboard());
+//        onView(withSubstring("GA from ultrasound-days")).perform(scrollTo(), typeText("3"), ViewActions.closeSoftKeyboard());
+        Thread.sleep(1000);
+
+//        onView(withText("Select preferred gestational age")).check(matches(isDisplayed()));
+        //onView(withSubstring("Using LMP")).perform(scrollTo(), click());
+        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step2:ultrasound_gest_age_selection"))).check(matches(isDisplayed()));
+        Thread.sleep(3000);
+        onView(withText("NEXT")).perform(scrollTo(), click());
+        Thread.sleep(1000);
+
+//        // Skip Current Pregnancy page and navigate to Obstetric History
+//        onView(withText("Current Pregnancy")).check(matches(isDisplayed()));
+//        onView(withId(R.id.next_icon)).perform(click());
+//        Thread.sleep(2000);
+
         onView(withText("Obstetric History")).check(matches(isDisplayed()));
         onView(withText("1")).perform(scrollTo(), click());
         onView(withText("NEXT")).perform(scrollTo(), click());
@@ -103,20 +121,22 @@ public class ProfileContainerTest {
         onView(withText("NEXT")).perform(scrollTo(), click());
         Thread.sleep(2000);
 
-//        onView(withText("Immunisation Status")).check(matches(isDisplayed()));
-//        onView(withText("Fully immunized")).perform(scrollTo(), click());
-//        onView(withText("No doses")).perform(scrollTo(), click());
-//        onView(withText("NEXT")).perform(scrollTo(), click());
-//        Thread.sleep(2000);
-//
-//        onView(withText("Medications")).check(matches(isDisplayed()));
-//        onView(withText("Antacids")).perform(scrollTo(), click());
-//        onView(withText("Aspirin")).perform(scrollTo(), click());
-//        onView(withId(R.id.scroll_view)).perform(ViewActions.swipeUp());
-//        onView(withText("Other antibiotics")).perform(scrollTo(), click());
-//        onView(withText("Hematinc")).perform(scrollTo(), click());
-//
-//        onView(withText("NEXT")).perform(scrollTo(), click());
+        onView(withText("Immunisation Status")).check(matches(isDisplayed()));
+        onView(withText("TTCV immunisation status")).check(matches(isDisplayed()));
+        onView(withText("Fully immunized")).perform(scrollTo(), click());
+        onView(withText("Flu immunisation status")).check(matches(isDisplayed()));
+        onView(withText("No doses")).perform(scrollTo(), click());
+        onView(withText("NEXT")).perform(scrollTo(), click());
+        Thread.sleep(2000);
+
+        onView(withText("Medications")).check(matches(isDisplayed()));
+        onView(withText("Antacids")).perform(scrollTo(), click());
+        onView(withText("Aspirin")).perform(scrollTo(), click());
+        onView(withId(R.id.scroll_view)).perform(ViewActions.swipeUp());
+        onView(withText("Other antibiotics")).perform(scrollTo(), click());
+        onView(withText("Asthma")).perform(scrollTo(), click());
+
+        onView(withText("NEXT")).perform(scrollTo(), click());
     }
     @AfterClass
     public static void tearDown() throws InterruptedException {
