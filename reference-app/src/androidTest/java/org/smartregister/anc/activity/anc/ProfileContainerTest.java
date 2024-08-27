@@ -3,6 +3,8 @@ package org.smartregister.anc.activity.anc;
 import static androidx.test.espresso.Espresso.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.doubleClick;
+import static androidx.test.espresso.action.ViewActions.longClick;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
@@ -86,23 +88,16 @@ public class ProfileContainerTest {
         Thread.sleep(1000);
 
 
-        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step2:ultrasound_gest_age_wks"))).perform(scrollTo(), typeText("6"), ViewActions.closeSoftKeyboard());
+        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step2:ultrasound_gest_age_wks"))).perform(scrollTo(),
+                typeText("6"), ViewActions.closeSoftKeyboard());
         Thread.sleep(1000);
-        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step2:ultrasound_gest_age_days"))).perform(scrollTo(), typeText("3"), ViewActions.closeSoftKeyboard());
-//        onView(withSubstring("GA from ultrasound-days")).perform(scrollTo(), typeText("3"), ViewActions.closeSoftKeyboard());
+        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step2:ultrasound_gest_age_days"))).perform(scrollTo(),
+                typeText("3"), ViewActions.closeSoftKeyboard());
         Thread.sleep(1000);
-
-//        onView(withText("Select preferred gestational age")).check(matches(isDisplayed()));
-        //onView(withSubstring("Using LMP")).perform(scrollTo(), click());
-        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step2:ultrasound_gest_age_selection"))).check(matches(isDisplayed()));
+        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step2:ultrasound_gest_age_selection"))).perform(click());
         Thread.sleep(3000);
         onView(withText("NEXT")).perform(scrollTo(), click());
         Thread.sleep(1000);
-
-//        // Skip Current Pregnancy page and navigate to Obstetric History
-//        onView(withText("Current Pregnancy")).check(matches(isDisplayed()));
-//        onView(withId(R.id.next_icon)).perform(click());
-//        Thread.sleep(2000);
 
         onView(withText("Obstetric History")).check(matches(isDisplayed()));
         onView(withText("1")).perform(scrollTo(), click());
