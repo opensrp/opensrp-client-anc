@@ -72,32 +72,37 @@ public class ProfileContainerTest {
         onView(withText("Formal employment")).perform(scrollTo(), click());
         onView(withText("NEXT")).perform(scrollTo(), click());
 
+//      Skip Current Pregnancy page and navigate to Obstetric History
         onView(withText("Current Pregnancy")).check(matches(isDisplayed()));
-        onView(withSubstring("specify date")).perform(click());
-        onView(withId(R.id.date_picker)).perform(PickerActions.setDate(2024, 02,07));
-        Thread.sleep(1000);
-        onView(withText("DONE")).perform(click());
-        Thread.sleep(1000);
+        onView(withId(R.id.next_icon)).perform(click());
+        Thread.sleep(2000);
 
-
-        Activity activity = utils.getCurrentActivity();
-        onView(withSubstring("ultrasound date")).perform(scrollTo(), click());
-        onView(withId(R.id.date_picker)).perform(PickerActions.setDate(2024, 04,24));
-        Thread.sleep(1000);
-        onView(withText("DONE")).perform(click());
-        Thread.sleep(1000);
-
-
-        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step2:ultrasound_gest_age_wks"))).perform(scrollTo(),
-                typeText("6"), ViewActions.closeSoftKeyboard());
-        Thread.sleep(1000);
-        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step2:ultrasound_gest_age_days"))).perform(scrollTo(),
-                typeText("3"), ViewActions.closeSoftKeyboard());
-        Thread.sleep(1000);
-        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step2:ultrasound_gest_age_selection"))).perform(click());
-        Thread.sleep(3000);
-        onView(withText("NEXT")).perform(scrollTo(), click());
-        Thread.sleep(1000);
+//        onView(withText("Current Pregnancy")).check(matches(isDisplayed()));
+//        onView(withSubstring("specify date")).perform(click());
+//        onView(withId(R.id.date_picker)).perform(PickerActions.setDate(2024, 02,07));
+//        Thread.sleep(1000);
+//        onView(withText("DONE")).perform(click());
+//        Thread.sleep(1000);
+//
+//
+//        Activity activity = utils.getCurrentActivity();
+//        onView(withSubstring("ultrasound date")).perform(scrollTo(), click());
+//        onView(withId(R.id.date_picker)).perform(PickerActions.setDate(2024, 04,24));
+//        Thread.sleep(1000);
+//        onView(withText("DONE")).perform(click());
+//        Thread.sleep(1000);
+//
+//
+//        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step2:ultrasound_gest_age_wks"))).perform(scrollTo(),
+//                typeText("6"), ViewActions.closeSoftKeyboard());
+//        Thread.sleep(1000);
+//        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step2:ultrasound_gest_age_days"))).perform(scrollTo(),
+//                typeText("3"), ViewActions.closeSoftKeyboard());
+//        Thread.sleep(1000);
+//        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step2:ultrasound_gest_age_selection"))).perform(click());
+//        Thread.sleep(3000);
+//        onView(withText("NEXT")).perform(scrollTo(), click());
+//        Thread.sleep(1000);
 
         onView(withText("Obstetric History")).check(matches(isDisplayed()));
         onView(withText("1")).perform(scrollTo(), click());
@@ -106,11 +111,13 @@ public class ProfileContainerTest {
 
         onView(withText("Medical History")).check(matches(isDisplayed()));
         onView(withText("Any allergies?")).check(matches(isDisplayed()));
-        onView(withText("Penicillin")).perform(scrollTo(), click());
+        onView(withText("Calcium")).perform(scrollTo(), click());
         onView(withText("Any surgeries?")).check(matches(isDisplayed()));
+        onView(withId(R.id.scroll_view)).perform(ViewActions.swipeUp());
         onView(withText("Removal of ovarian cysts")).perform(scrollTo(), click());
         onView(withId(R.id.scroll_view)).perform(ViewActions.swipeUp());
         onView(withText("Any chronic or past health conditions?")).check(matches(isDisplayed()));
+        onView(withId(R.id.scroll_view)).perform(ViewActions.swipeUp());
         onView(withText("Hypertension")).perform(scrollTo(), click());
 
         onView(withText("NEXT")).perform(scrollTo(), click());
@@ -132,10 +139,33 @@ public class ProfileContainerTest {
         onView(withText("Asthma")).perform(scrollTo(), click());
 
         onView(withText("NEXT")).perform(scrollTo(), click());
+        Thread.sleep(2000);
+
+        onView(withText("Woman's Behaviour")).check(matches(isDisplayed()));
+        onView(withText("Daily caffeine intake")).check(matches(isDisplayed()));
+        onView(withText("More than 2 cups of coffee (brewed, filtered, instant or espresso)")).perform(scrollTo(), click());
+        onView(withText("Uses tobacco products?")).check(matches(isDisplayed()));
+        onView(withText("Yes")).perform(scrollTo(), click());
+        onView(withText("Anyone in the household smokes tobacco products?")).check(matches(isDisplayed()));
+        onView(withText("Yes")).perform(scrollTo(), click());
+        onView(withText("Uses (male or female) condoms during sex?")).check(matches(isDisplayed()));
+        onView(withText("Yes")).perform(scrollTo(), click());
+        onView(withText("Clinical enquiry for alcohol and other substance use done?")).check(matches(isDisplayed()));
+        onView(withText("Yes")).perform(scrollTo(), click());
+        onView(withText("Uses alcohol and/or other substances?")).check(matches(isDisplayed()));
+        onView(withText("None")).perform(scrollTo(), click());
+
+        onView(withText("NEXT")).perform(scrollTo(), click());
+        Thread.sleep(2000);
+
+        onView(withText("Partner's HIV Status")).check(matches(isDisplayed()));
+        onView(withText("Negative")).perform(scrollTo(), click());
+        onView(withText("SUBMIT")).perform(scrollTo(), click());
+        Thread.sleep(2000);
+
     }
     @AfterClass
     public static void tearDown() throws InterruptedException {
-        // Perform logout
         onView(withContentDescription("Me")).perform(click());
         onView(withId(R.id.logout_text)).perform(click());
         Thread.sleep(1500);
