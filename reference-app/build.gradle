@@ -240,6 +240,7 @@ dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
     def powerMockVersion = '2.0.7'
     implementation project(":opensrp-anc")
+    implementation files('../libs/circleprogressbar-1.0.7.aar')
     implementation('org.smartregister:opensrp-client-native-form:3.1.1-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'recyclerview-v7'
@@ -250,6 +251,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
         exclude group: 'org.yaml', module: 'snakeyaml'
         exclude group: 'io.ona.rdt-capture', module: 'lib'
+        exclude group: 'io.ona.CircleProgressbar', module: 'lib'
     }
 
     implementation('org.smartregister:opensrp-client-core:6.0.0-SNAPSHOT@aar') {
@@ -312,8 +314,6 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'org.jeasy:easy-rules-core:3.3.0'
     implementation 'org.jeasy:easy-rules-mvel:3.3.0'
-    implementation 'com.flurry.android:analytics:11.6.0@aar'
-    implementation 'com.flurry.android:analytics:11.6.0@aar'
     implementation 'androidx.multidex:multidex:2.0.1'
 // Import the BoM for the Firebase platform
     implementation platform('com.google.firebase:firebase-bom:28.3.1')

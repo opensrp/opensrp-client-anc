@@ -9,7 +9,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.evernote.android.job.JobManager;
-import com.flurry.android.FlurryAgent;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.vijay.jsonwizard.NativeFormLibrary;
 
@@ -113,15 +112,7 @@ public class AncApplication extends DrishtiApplication implements TimeChangedBro
         //init Job Manager
         JobManager.create(this).addJobCreator(new AncJobCreator());
 
-        //Only integrate Flurry Analytics for  production. Remove negation to test in debug
-        if (!BuildConfig.DEBUG) {
-            new FlurryAgent.Builder()
-                    .withLogEnabled(true)
-                    .withCaptureUncaughtExceptions(true)
-                    .withContinueSessionMillis(10000)
-                    .withLogLevel(Log.VERBOSE)
-                    .build(this, BuildConfig.FLURRY_API_KEY);
-        }
+
         NativeFormLibrary
                 .getInstance()
                 .setClientFormDao(CoreLibrary.getInstance().context().getClientFormRepository());
