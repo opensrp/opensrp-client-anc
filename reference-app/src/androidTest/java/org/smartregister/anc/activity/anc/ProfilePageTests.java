@@ -1,0 +1,167 @@
+package org.smartregister.anc.activity.anc;
+
+
+
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
+
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
+
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+
+import static androidx.test.espresso.matcher.ViewMatchers.withSubstring;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+
+import static org.hamcrest.CoreMatchers.allOf;
+
+import android.app.Activity;
+
+import androidx.test.espresso.contrib.RecyclerViewActions;
+
+import androidx.test.ext.junit.rules.ActivityScenarioRule;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
+
+import com.vijay.jsonwizard.activities.JsonFormActivity;
+
+import org.junit.FixMethodOrder;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
+import org.smartregister.anc.R;
+import org.smartregister.anc.activity.LoginActivity;
+import org.smartregister.anc.activity.utils.Constants;
+import org.smartregister.anc.activity.utils.Utils;
+
+@LargeTest
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@RunWith(AndroidJUnit4.class)
+
+public class ProfilePageTests {
+
+@Rule
+    public ActivityScenarioRule<LoginActivity> mActivityScenario =  new ActivityScenarioRule<>(LoginActivity.class);
+
+Utils utils = new Utils();
+
+    @Test
+    public void aSetUp() throws InterruptedException {
+        utils.logIn(Constants.ancConstants.ancUsername, Constants.ancConstants.ancPassword);
+    }
+
+    @Test
+    public void bUserLocationIsDisplayed() throws InterruptedException {
+        onView(withContentDescription("Me")).perform(click());
+        onView(withId(R.id.facility_selection)).perform(click());
+        onView(withId(R.id.locations_lv)).check(matches(isDisplayed()));
+        onView(withId(R.id.locations_lv)).perform(click());
+        Thread.sleep(1000);
+    }
+
+
+
+    @Test
+    public void cChangeLanguageToBahasa() throws InterruptedException {
+        onView(withContentDescription("Me")).perform(click());
+        onView(withId(R.id.language_switcher_text)).perform(click());
+        onView(withText("Bahasa (Indonesia)")).perform(click());
+        Thread.sleep(3000);
+        onView(withId(R.id.opensrp_logo_image_view)).check(matches(isDisplayed()));
+        Thread.sleep(1000);
+    }
+
+
+    @Test
+    public void eChangeLanguageToFrench() throws InterruptedException {
+        onView(withContentDescription("Me")).perform(click());
+        onView(withId(R.id.language_switcher_text)).perform(click());
+        onView(withText("French")).perform(click());
+        Thread.sleep(3000);
+        onView(withId(R.id.opensrp_logo_image_view)).check(matches(isDisplayed()));
+        Thread.sleep(1000);
+    }
+
+    @Test
+    public void fChangeLanguageToPortuguese() throws InterruptedException {
+        onView(withContentDescription("Moi")).perform(click());
+        onView(withId(R.id.language_switcher_text)).perform(click());
+        onView(withText("Portuguese (Brazil)")).perform(click());
+        Thread.sleep(3000);
+        onView(withId(R.id.opensrp_logo_image_view)).check(matches(isDisplayed()));
+        Thread.sleep(1000);
+    }
+
+    @Test
+    public void gChangeLanguageToEnglish() throws InterruptedException {
+        onView(withContentDescription("Eu")).perform(click());
+        onView(withId(R.id.language_switcher_text)).perform(click());
+        onView(withText("English")).perform(click());
+        Thread.sleep(2000);
+        onView(withId(R.id.opensrp_logo_image_view)).check(matches(isDisplayed()));
+        Thread.sleep(1000);
+    }
+        @Test
+    public void hLoadPopulationXstics() throws InterruptedException {
+        onView(withContentDescription("Me")).perform(click());
+        onView(withId(R.id.pop_characteristics_text)).perform(click());
+        onView(withId(R.id.characteristics_toolbar_title)).check(matches(isDisplayed()));
+        Thread.sleep(1500);
+
+    }
+
+        @Test
+    public void iPopulationXsticScrollDown()  {
+        onView(withContentDescription("Me")).perform(click());
+        onView(withId(R.id.pop_characteristics_text)).perform(click());
+      onView(withId(R.id.population_characteristics)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Syphilis prevalence 5% or higher")))).check(matches(isDisplayed()));
+
+
+    }
+
+
+
+
+
+    @Test
+    public void jLoadSiteXstics()  {
+        onView(withContentDescription("Me")).perform(click());
+        onView(withId(R.id.site_characteristics_text)).perform(click());
+        onView(withId(R.id.characteristics_toolbar_title)).check(matches(isDisplayed()));
+
+
+    }
+//    @Test
+//    public void kEditSiteXstics() throws Throwable {
+//        onView(withContentDescription("Me")).perform(click());
+//        onView(withId(R.id.site_characteristics_text)).perform(click());
+//        onView(withId(R.id.characteristics_toolbar_edit)).perform(click());
+//        Thread.sleep(1500);
+//        Activity activity = utils.getCurrentActivity();
+//       onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:site_ultrasound"))).perform(click());
+//       //fix the ambiguous error
+//     //  onView(withSubstring("Yes")).perform(click());
+//       onView(withId(R.id.action_save)).perform(click());
+//        onView(withId(R.id.opensrp_logo_image_view)).check(matches(isDisplayed()));
+
+   // }
+  //  Device to device sync tests skipped because module is not implemented
+
+    @Test
+    public void lLogOut() throws InterruptedException {
+        onView(withContentDescription("Me")).perform(click());
+        onView(withId(R.id.logout_text)).perform(click());
+                Thread.sleep(1500);
+        onView(withId(R.id.login_login_btn)).check(matches(isDisplayed()));
+
+    }
+
+
+
+
+
+}
