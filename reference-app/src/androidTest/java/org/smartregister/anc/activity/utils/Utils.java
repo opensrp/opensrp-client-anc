@@ -6,6 +6,7 @@ import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withInputType;
 import static androidx.test.espresso.matcher.ViewMatchers.withSubstring;
@@ -23,6 +24,7 @@ import androidx.test.runner.lifecycle.Stage;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 
+import org.junit.Test;
 import org.smartregister.anc.R;
 
 
@@ -71,6 +73,14 @@ public class Utils {
         onView(withId(R.id.action_save)).perform(click());
         Thread.sleep(3000);
         onView(withText(Configs.TestDataConfigs.firstAndLastName)).check(matches(isDisplayed()));
+
+    }
+
+    public void logOut() throws InterruptedException {
+        onView(withContentDescription("Me")).perform(click());
+        onView(withId(R.id.logout_text)).perform(click());
+        Thread.sleep(1500);
+        onView(withId(R.id.login_login_btn)).check(matches(isDisplayed()));
 
     }
 

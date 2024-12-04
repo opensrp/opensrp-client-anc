@@ -44,7 +44,6 @@ public class RegisterFamilyMemberPageTests {
     Utils utils = new Utils();
 
 
-
     @Test
     public void aSetUp() throws InterruptedException {
         utils.logIn(Constants.ancConstants.ancUsername, Constants.ancConstants.ancPassword);
@@ -82,7 +81,7 @@ public class RegisterFamilyMemberPageTests {
         onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:first_name"))).perform(typeText(Configs.TestDataConfigs.firstName), closeSoftKeyboard());
         onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:last_name"))).perform(typeText(Configs.TestDataConfigs.lastName), closeSoftKeyboard());
         onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:dob_unknown"))).perform(click());
-        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:age_entered"))).perform(typeText(Configs.TestDataConfigs.clientAge),closeSoftKeyboard());
+        onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:age_entered"))).perform(typeText(Configs.TestDataConfigs.clientAge), closeSoftKeyboard());
         onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:home_address"))).perform(typeText(Configs.TestDataConfigs.clientAddress), closeSoftKeyboard());
         onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:phone_number"))).perform(typeText(Configs.TestDataConfigs.phoneNumber), closeSoftKeyboard());
         onView(withId(Utils.getViewId((JsonFormActivity) activity, "step1:reminders"))).perform(click());
@@ -92,17 +91,10 @@ public class RegisterFamilyMemberPageTests {
 
     }
 
+    @Test
+    public void eLogOut() throws InterruptedException {
+        utils.logOut();
 
 
-
-
-
-
-
-
-
-
-
-
-
+    }
 }
