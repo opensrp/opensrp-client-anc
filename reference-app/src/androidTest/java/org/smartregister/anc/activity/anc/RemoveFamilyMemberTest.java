@@ -246,9 +246,11 @@ public class RemoveFamilyMemberTest {
 
     }
 
+    @Test
+    public void mLogOut() throws InterruptedException {
+        utils.logOut();
 
 
-
-
+    }
 
 }

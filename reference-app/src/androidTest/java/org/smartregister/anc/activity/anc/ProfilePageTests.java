@@ -51,12 +51,12 @@ public class ProfilePageTests {
 Utils utils = new Utils();
 
     @Test
-    public void A_SetUp() throws InterruptedException {
+    public void aSetUp() throws InterruptedException {
         utils.logIn(Constants.ancConstants.ancUsername, Constants.ancConstants.ancPassword);
     }
 
     @Test
-    public void B_UserLocationIsDisplayed() {
+    public void bUserLocationIsDisplayed() {
         onView(withContentDescription("Me")).perform(click());
         onView(withId(R.id.facility_selection)).perform(click());
         onView(withId(R.id.locations_lv)).check(matches(isDisplayed()));
@@ -66,7 +66,7 @@ Utils utils = new Utils();
 
 
     @Test
-    public void C_ChangeLanguageToBahasa() throws InterruptedException {
+    public void cChangeLanguageToBahasa() throws InterruptedException {
         onView(withContentDescription("Me")).perform(click());
         onView(withId(R.id.language_switcher_text)).perform(click());
         onView(withText("Bahasa (Indonesia)")).perform(click());
@@ -77,7 +77,7 @@ Utils utils = new Utils();
 
 
     @Test
-    public void E_ChangeLanguageToFrench() throws InterruptedException {
+    public void eChangeLanguageToFrench() throws InterruptedException {
         onView(withContentDescription("Me")).perform(click());
         onView(withId(R.id.language_switcher_text)).perform(click());
         onView(withText("French")).perform(click());
@@ -87,7 +87,7 @@ Utils utils = new Utils();
     }
 
     @Test
-    public void F_ChangeLanguageToPortuguese() throws InterruptedException {
+    public void fChangeLanguageToPortuguese() throws InterruptedException {
         onView(withContentDescription("Moi")).perform(click());
         onView(withId(R.id.language_switcher_text)).perform(click());
         onView(withText("Portuguese (Brazil)")).perform(click());
@@ -97,7 +97,7 @@ Utils utils = new Utils();
     }
 
     @Test
-    public void G_ChangeLanguageToEnglish() throws InterruptedException {
+    public void gChangeLanguageToEnglish() throws InterruptedException {
         onView(withContentDescription("Eu")).perform(click());
         onView(withId(R.id.language_switcher_text)).perform(click());
         onView(withText("English")).perform(click());
@@ -106,7 +106,7 @@ Utils utils = new Utils();
         Thread.sleep(1000);
     }
         @Test
-    public void H_LoadPopulationXstics() throws InterruptedException {
+    public void hLoadPopulationXstics() throws InterruptedException {
         onView(withContentDescription("Me")).perform(click());
         onView(withId(R.id.pop_characteristics_text)).perform(click());
         onView(withId(R.id.characteristics_toolbar_title)).check(matches(isDisplayed()));
@@ -115,7 +115,7 @@ Utils utils = new Utils();
     }
 
         @Test
-    public void I_PopulationXsticScrollDown()  {
+    public void iPopulationXsticScrollDown()  {
         onView(withContentDescription("Me")).perform(click());
         onView(withId(R.id.pop_characteristics_text)).perform(click());
       onView(withId(R.id.population_characteristics)).perform(RecyclerViewActions.scrollTo(hasDescendant(withText("Syphilis prevalence 5% or higher")))).check(matches(isDisplayed()));
@@ -128,7 +128,7 @@ Utils utils = new Utils();
 
 
     @Test
-    public void J_LoadSiteXstics()  {
+    public void jLoadSiteXstics()  {
         onView(withContentDescription("Me")).perform(click());
         onView(withId(R.id.site_characteristics_text)).perform(click());
         onView(withId(R.id.characteristics_toolbar_title)).check(matches(isDisplayed()));
@@ -136,7 +136,7 @@ Utils utils = new Utils();
 
     }
     @Test
-    public void K_EditSiteXstics() throws InterruptedException {
+    public void kEditSiteXstics() throws InterruptedException {
         onView(withContentDescription("Me")).perform(click());
         onView(withId(R.id.site_characteristics_text)).perform(click());
         onView(withId(R.id.characteristics_toolbar_edit)).perform(click());
@@ -150,7 +150,7 @@ Utils utils = new Utils();
     //Device to device sync tests skipped because module is not implemented
 
     @Test
-    public void L_LogOut() throws InterruptedException {
+    public void lLogOut() throws InterruptedException {
         onView(withContentDescription("Me")).perform(click());
         onView(withId(R.id.logout_text)).perform(click());
                 Thread.sleep(1500);

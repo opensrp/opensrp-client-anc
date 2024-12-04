@@ -49,14 +49,14 @@ public class ProfileContainerTest {
 
     private Utils utils = new Utils();
 
-    @Before
-    public void A_setUp() throws InterruptedException {
+    @Test
+    public void aSetUp() throws InterruptedException {
         utils.logIn(Constants.ancConstants.ancUsername, Constants.ancConstants.ancPassword);
         Thread.sleep(1000);
     }
 
     @Test
-    public void B_StartContactVisitAndNavigateToProfile() throws Throwable {
+    public void bStartContactVisitAndNavigateToProfile() throws Throwable {
 
         onView(withId(R.id.edt_search)).perform(typeText(Configs.TestDataConfigs.clientName), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.patient_name)).check(matches(isDisplayed()));
@@ -164,11 +164,17 @@ public class ProfileContainerTest {
         Thread.sleep(2000);
 
     }
-    @AfterClass
-    public static void tearDown() throws InterruptedException {
-        onView(withContentDescription("Me")).perform(click());
-        onView(withId(R.id.logout_text)).perform(click());
-        Thread.sleep(1500);
-        onView(withId(R.id.login_login_btn)).check(matches(isDisplayed()));
-    }
+//    @AfterClass
+//    public static void tearDown() throws InterruptedException {
+//        onView(withContentDescription("Me")).perform(click());
+//        onView(withId(R.id.logout_text)).perform(click());
+//        Thread.sleep(1500);
+//        onView(withId(R.id.login_login_btn)).check(matches(isDisplayed()));
+//    }
+@Test
+public void mLogOut() throws InterruptedException {
+    utils.logOut();
+}
+
+
 }

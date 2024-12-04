@@ -55,15 +55,17 @@ public class AdvancedSearchTests {
     @Rule
     public ActivityScenarioRule<LoginActivity> mActivityScenario = new ActivityScenarioRule<>(LoginActivity.class);
 
-    private final Utils utils = new Utils();
+    Utils utils = new Utils();
+
+//    private final Utils utils = new Utils();
 
     @Test
-    public void A_setUp() throws InterruptedException {
+    public void aSetUp() throws InterruptedException {
         utils.logIn(Constants.ancConstants.ancUsername, Constants.ancConstants.ancPassword);
     }
 
     @Test
-    public void userCanSearchOutsideAndInsideMyHealthFacilityByFirstName() throws InterruptedException {
+    public void bUserCanSearchOutsideAndInsideMyHealthFacilityByFirstName() throws InterruptedException {
         onView(withId(R.id.action_search)).perform(click());
         Thread.sleep(2000);
         onView(withId(R.id.first_name)).perform(typeText(Configs.TestDataConfigs.firstNameA),ViewActions.closeSoftKeyboard());
@@ -74,7 +76,7 @@ public class AdvancedSearchTests {
 
     }
     @Test
-    public void userCanSearchOutsideAndInsideMyHealthFacilityByLastName() throws InterruptedException {
+    public void cUserCanSearchOutsideAndInsideMyHealthFacilityByLastName() throws InterruptedException {
         onView(withId(R.id.action_search)).perform(click());
         Thread.sleep(2000);
         onView(withId(R.id.last_name)).perform(typeText(Configs.TestDataConfigs.lastNameA),ViewActions.closeSoftKeyboard());
@@ -86,7 +88,7 @@ public class AdvancedSearchTests {
     }
 
     @Test
-    public void userCanSearchOutsideAndInsideMyHealthFacilityByANCID() throws InterruptedException {
+    public void eUserCanSearchOutsideAndInsideMyHealthFacilityByANCID() throws InterruptedException {
         onView(withId(R.id.action_search)).perform(click());
         Thread.sleep(2000);
         onView(allOf(withId(R.id.anc_id),isDescendantOfA(withId(R.id.nested_scroll_view)), withHint("ANC ID"))).perform(typeText(Configs.TestDataConfigs.clientID),ViewActions.closeSoftKeyboard());
@@ -98,7 +100,7 @@ public class AdvancedSearchTests {
     }
 
     @Test
-    public void userCanSearchOutsideAndInsideMyHealthFacilityByExpectedDateOfDelivery() throws InterruptedException {
+    public void fUserCanSearchOutsideAndInsideMyHealthFacilityByExpectedDateOfDelivery() throws InterruptedException {
         onView(withId(R.id.action_search)).perform(click());
         Thread.sleep(2000);
         onView(withHint("Expected date of delivery")).perform(click());
@@ -111,7 +113,7 @@ public class AdvancedSearchTests {
 
     }
     @Test
-    public void userCanSearchOutsideAndInsideMyHealthFacilityByDateOfBirth() throws InterruptedException{
+    public void gUserCanSearchOutsideAndInsideMyHealthFacilityByDateOfBirth() throws InterruptedException{
         onView(withId(R.id.action_search)).perform(click());
         Thread.sleep(2000);
         onView(withHint("Expected date of delivery")).perform(swipeUp());
@@ -125,7 +127,7 @@ public class AdvancedSearchTests {
 
     }
     @Test
-    public void userCanSearchOutsideAndInsideMyHealthFacilityByPhoneNumber() throws InterruptedException{
+    public void hUserCanSearchOutsideAndInsideMyHealthFacilityByPhoneNumber() throws InterruptedException{
         onView(withId(R.id.action_search)).perform(click());
         Thread.sleep(2000);
         onView(withHint("Expected date of delivery")).perform(swipeUp());
@@ -138,7 +140,7 @@ public class AdvancedSearchTests {
 
     }
     @Test
-    public void userCanSearchOutsideAndInsideMyHealthFacilityByAlternateName()throws InterruptedException {
+    public void iUserCanSearchOutsideAndInsideMyHealthFacilityByAlternateName()throws InterruptedException {
         onView(withId(R.id.action_search)).perform(click());
         Thread.sleep(2000);
         onView(withHint("Expected date of delivery")).perform(swipeUp());
@@ -152,18 +154,23 @@ public class AdvancedSearchTests {
         onView(allOf(withId(R.id.recycler_view), withParent(parentMatcher))).perform(RecyclerViewActions.scrollTo(ViewMatchers.hasDescendant(withText(Configs.TestDataConfigs.clientName2)))).check(matches(isDisplayed()));
     }
     @Test
-    public void userCanSearchOutsideAndInsideMyHealthFacilityByScanningAQRCOde() throws InterruptedException{
+    public void jUserCanSearchOutsideAndInsideMyHealthFacilityByScanningAQRCOde() throws InterruptedException{
         onView(withId(R.id.action_search)).perform(click());
         Thread.sleep(2000);
         onView(withId(R.id.qrCodeButton)).perform(click());
         onView(withText("Scan QR Code")).check(matches(isDisplayed()));
     }
     @Test
-    public void userCanSearchInMyHealthFacilityByFirstName () {
+    public void kUserCanSearchInMyHealthFacilityByFirstName () {
         onView(withId(R.id.action_search)).perform(click());
         onView(withId(R.id.my_catchment)).perform(click());
         onView(withId(R.id.first_name)).perform(typeText(Configs.TestDataConfigs.firstNameA),ViewActions.closeSoftKeyboard());
         onView(withId(R.id.search)).perform(click());
     }
 
+    @Test
+    public void lLogOut() throws InterruptedException {
+        utils.logOut();
+
+    }
 }

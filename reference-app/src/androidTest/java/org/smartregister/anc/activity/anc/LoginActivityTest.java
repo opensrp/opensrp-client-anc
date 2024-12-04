@@ -48,10 +48,13 @@ public class LoginActivityTest {
     public ActivityScenarioRule<LoginActivity> mActivityScenario = new ActivityScenarioRule<>(LoginActivity.class);
     public String correctPassword = "Amani123";
 
+    Utils utils = new Utils();
+
+
 
 
     @Test
-    public void E_testShowPassword(){
+    public void eTestShowPassword(){
         onView(withId(R.id.login_password_edit_text)).perform(typeText(correctPassword),closeSoftKeyboard());
         onView(withId(R.id.login_show_password_checkbox)).perform(click(),closeSoftKeyboard());
         onView(withId(R.id.login_password_edit_text)).check(matches(withText(correctPassword)));
@@ -59,7 +62,7 @@ public class LoginActivityTest {
     }
 
     @Test
-    public void F_testSuccessfulLogin() throws InterruptedException {
+    public void fTestSuccessfulLogin() throws InterruptedException {
         onView(withId(R.id.login_user_name_edit_text)).perform(typeText("demo"), closeSoftKeyboard());
         onView(withId(R.id.login_password_edit_text)).perform(typeText(correctPassword), closeSoftKeyboard());
         onView(withId(R.id.login_login_btn)).perform(click());
@@ -70,7 +73,7 @@ public class LoginActivityTest {
    }
 
     @Test
-    public void C_testIncorrectUsername() throws InterruptedException {
+    public void cTestIncorrectUsername() throws InterruptedException {
         onView(withId(R.id.login_user_name_edit_text)).perform(typeText("Beba"),closeSoftKeyboard());
         onView(withId(R.id.login_password_edit_text)).perform(typeText(correctPassword),closeSoftKeyboard());
         onView(withId(R.id.login_login_btn)).perform(click());
@@ -83,7 +86,7 @@ public class LoginActivityTest {
 
 
     @Test
-    public void D_testIncorrectPassword() throws InterruptedException {
+    public void dTestIncorrectPassword() throws InterruptedException {
         onView(withId(R.id.login_user_name_edit_text)).perform(typeText("demo"),closeSoftKeyboard());
         onView(withId(R.id.login_password_edit_text)).perform(typeText("mani"),closeSoftKeyboard());
         onView(withId(R.id.login_login_btn)).perform(click());
@@ -94,7 +97,7 @@ public class LoginActivityTest {
     }
 
     @Test
-    public void A_testEmptyUsername() throws InterruptedException {
+    public void aTestEmptyUsername() throws InterruptedException {
         onView(withId(R.id.login_user_name_edit_text)).perform(typeText(" "),closeSoftKeyboard());
         onView(withId(R.id.login_password_edit_text)).perform(typeText(correctPassword),closeSoftKeyboard());
         onView(withId(R.id.login_login_btn)).perform(click());
@@ -105,7 +108,7 @@ public class LoginActivityTest {
     }
 
     @Test
-    public void B_testEmptyPassword() throws InterruptedException {
+    public void bTestEmptyPassword() throws InterruptedException {
         onView(withId(R.id.login_user_name_edit_text)).perform(typeText("Beba"),closeSoftKeyboard());
         onView(withId(R.id.login_password_edit_text)).perform(typeText(" "),closeSoftKeyboard());
         onView(withId(R.id.login_login_btn)).perform(click());
@@ -113,5 +116,10 @@ public class LoginActivityTest {
         onView(withText("Please check the credentials")).check(matches(isDisplayed()));
 
 
+    }
+
+   @Test
+    public void gLogOut() throws InterruptedException {
+        utils.logOut();
     }
 }
